@@ -100,7 +100,7 @@ _La idea detras de esta implementacion de CKAN, es que **SOLO** te encargues de 
 ### Instalacion Avanzada de CKAN
 #### Instalacion de CKAN con contenedores de Docker ya buildeados
 	
-	_Para esta clase de instalacion, no es necesario clonar el repo, dado que usaremos contenedores alojados en [DockerHub](https://hub.docker.com/) y el proceso de instalacion se divide en tres pasos.
+_Para esta clase de instalacion, no es necesario clonar el repo, dado que usaremos contenedores alojados en [DockerHub](https://hub.docker.com/) y el proceso de instalacion se divide en tres pasos.
 
 + Paso 1: Descargar contenedores:
 
@@ -115,13 +115,7 @@ _La idea detras de esta implementacion de CKAN, es que **SOLO** te encargues de 
 
 + Paso 3:
 
-	docker run -d \
-		-p 80:80 \
-		-p 8800:8800 \
-		--link solr:solr \
-		--link pg-ckan:db \
-		--name ckan-distribuilble:latest \
-		datosgobar/ckan-distribuilble:latest 
+	docker run -d -p 80:80 -p 8800:8800 --link solr:solr --link pg-ckan:db --name ckan-distribuilble:latest datosgobar/ckan-distribuilble:latest 
 
 _Nota: el paso 1 y 2 es redundante, bien podriamos solo hacer docker run ..., dado que si docker no cuenta con la imagen localmente, la descarga dentro de un <code>docker run <args> image_owner/image_name:tag</code>_
 
