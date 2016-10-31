@@ -1,0 +1,23 @@
+version: '2'
+services:
+    ckan:
+        build: ./ckan-img
+        container_name: ckan-distribuilble
+	image: jsalgadowk/ckan-distribuilble:latest
+        ports:
+          - 80:80
+          - 8800:8800
+        depends_on:
+           - pg-ckan
+           - solr
+        external_links:
+           - pg-ckan:db
+           - solr:solr
+    pg-ckan:
+        build: ./postgresql-img
+        image: jsalgadowk/pg-ckan:latest
+        container_name: pg-ckan
+    solr:
+        build: ./solr-img
+        image: jsalgadowk/solr:latest
+        container_name: solr
