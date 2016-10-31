@@ -156,20 +156,24 @@ _Es recomendable clonar el repo dentro de /tmp (o C:\temp en **Windows X**), dad
 			-c /etc/ckan/default/production.ini
 
 + Instalacion de CKAN con **docker-compose**
-	+ Pre-Requisitos:
-		+ Instalar docker-compose:
-				pip install docker-compose # Facil no? :D
-				# ...no tenes pip?.. no importa!	
-				# Instalar pip
-				# sudo su -c "apt-get update && apt-get install python-pip" 
-	+ Instalacion:
 
-		+ Paso 1, Clonar repositorio:
-					git clone https://github.com/datosgobar/ckan_in_a_box.git /tmp/ckan_in_a_box
++ Pre-Requisitos: Instalar docker-compose:
 
-		+ Paso 2, Lanzar:
-					docker-compose up -d
+            pip install docker-compose # Facil no? :D
+	    	# ...no tenes pip?.. no importa!	
+	    	# Instalar pip
+		    # sudo su -c "apt-get update && apt-get install python-pip" 
 
-		+ Paso 3, Final:
-					Tomarse un cafe, te lo ganaste, tenes un portal hermoso :heart_eyes:
++ Instalacion:
+	+ Paso 1, Clonar repositorio:
+
+            git clone https://github.com/datosgobar/ckan_in_a_box.git /tmp/ckan_in_a_box
+
+	+ Paso 2, Lanzar:
+	
+			docker-compose up -d
+
+	+ Paso 3, Final:
+
+			Tomarse un cafe, te lo ganaste, tenes un portal hermoso :coffee::heart_eyes:
 --- 
