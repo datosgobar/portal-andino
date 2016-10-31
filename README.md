@@ -183,5 +183,6 @@ _Es recomendable clonar el repo dentro de /tmp (o C:\temp en **Windows X**), dad
 			$ docker exec -it ckan-distribuilble /bin/bash -c '$CKAN_HOME/bin/paster --plugin=ckan config-tool /etc/ckan/default/production.ini -e "ckan.site_url = http://tu_dominio.com.ar" "ckan.datapusher.url = http://tu_dominio.com.ar:8800"'
 
 
-_ahora... a tomarse un cafe!, te lo ganaste, tenes un portal hermoso :coffee::heart_eyes:_
+...ahora... a tomarse un cafe!, te lo ganaste, tenes un portal hermoso :coffee::heart_eyes:
+
 --- 
