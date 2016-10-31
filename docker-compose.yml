@@ -3,7 +3,7 @@ services:
     ckan:
         build: ./ckan-img
         container_name: ckan-distribuilble
-	      image: datosgobar/ckan-distribuilble:latest
+        image: datosgobar/ckan-distribuilble:latest
         ports:
           - 80:80
           - 8800:8800
