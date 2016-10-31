@@ -175,5 +175,5 @@ _Es recomendable clonar el repo dentro de /tmp (o C:\temp en **Windows X**), dad
 
 	+ Paso 3, Final:
 
-			Tomarse un cafe, te lo ganaste, tenes un portal hermoso :coffee::heart_eyes:
+			Tomarse un cafe, te lo ganaste, tenes un portal hermoso :coffee: :heart_eyes:
 --- 
