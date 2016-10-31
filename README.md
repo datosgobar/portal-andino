@@ -104,18 +104,18 @@ _Para esta clase de instalacion, no es necesario clonar el repo, dado que usarem
 
 + Paso 1: Descargar contenedores:
 
-	$ docker pull datosgobar/pg-ckan:latest
-	$ docker pull datosgobar/solr:latest
-	$ docker pull datosgobar/ckan-distribuilble:latest
+		$ docker pull datosgobar/pg-ckan:latest
+		$ docker pull datosgobar/solr:latest
+		$ docker pull datosgobar/ckan-distribuilble:latest
 
 + Paso 2: Lanzamiento de Solr y PG
 
-	$ docker run -d --name solr datosgobar/solr:latest
-	$ docker run -d --name pg-ckan datosgobar/pg-ckan:latest 
+		$ docker run -d --name solr datosgobar/solr:latest
+		$ docker run -d --name pg-ckan datosgobar/pg-ckan:latest 
 
 + Paso 3:
 
-	docker run -d -p 80:80 -p 8800:8800 --link solr:solr --link pg-ckan:db --name ckan-distribuilble:latest datosgobar/ckan-distribuilble:latest 
+		$ docker run -d -p 80:80 -p 8800:8800 --link solr:solr --link pg-ckan:db --name ckan-distribuilble:latest datosgobar/ckan-distribuilble:latest 
 
 _Nota: el paso 1 y 2 es redundante, bien podriamos solo hacer docker run ..., dado que si docker no cuenta con la imagen localmente, la descarga dentro de un <code>docker run <args> image_owner/image_name:tag</code>_
 
