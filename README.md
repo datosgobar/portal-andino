@@ -115,7 +115,15 @@ _Para esta clase de instalacion, no es necesario clonar el repo, dado que usarem
 
 + Paso 3:
 
-		$ docker run -d -p 80:80 -p 8800:8800 --link solr:solr --link pg-ckan:db --name ckan-distribuilble:latest datosgobar/ckan-distribuilble:latest 
+		$ docker run -d -p 80:80 -p 8800:8800 --link solr:solr --link pg-ckan:db --name ckan-distribuilble datosgobar/ckan-distribuilble:latest 
+
++ Paso 4, Usuario Admin y Bind:
+
+		# Add USER ADMIN
+		$ docker exec -it ckan-distribuilble /bin/bash -c "$CKAN_HOME/bin/paster --plugin=ckan sysadmin add ckan_admin -c /etc/ckan/default/production.ini"
+		# BIND CKAN
+		$ docker exec -it ckan-distribuilble /bin/bash -c '$CKAN_HOME/bin/paster --plugin=ckan config-tool /etc/ckan/default/production.ini -e "ckan.site_url = http://tu_dominio.com.ar" "ckan.datapusher.url = http://tu_dominio.com.ar:8800"'
+
 
 _Nota: el paso 1 y 2 es redundante, bien podriamos solo hacer docker run ..., dado que si docker no cuenta con la imagen localmente, la descarga dentro de un <code>docker run <args> image_owner/image_name:tag</code>_
 
