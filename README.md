@@ -15,6 +15,7 @@ _El mismo **CKAN** de siempre pero.. bellamente dockerizado...:heart_eyes:_
     + [Instalacion Avanzada de CKAN](#instalacion-avanzada-de-ckan)
     	+ [Sin builder contenedores](#instalacion-de-ckan-con-contenedores-de-docker-ya-buildeados)
     	+ [Buildeando contenedores](#instalacion-de-ckan-con-contenedores-de-docker-ya-buildeados)
+    	+ [Usando docker-compose](#instalacion-de-ckan-con-docker-compose)
 
 ---
 
@@ -40,8 +41,6 @@ Features:
 + [FileStore](http://docs.ckan.org/en/latest/maintaining/filestore.html)
 + [Datapusher](https://github.com/ckan/datapusher)
 + [Hierarchy](https://github.com/datagovuk/ckanext-hierarchy)
-+ [DCAT](https://github.com/ckan/ckanext-dcat)
-+ [Harvest](https://github.com/ckan/ckanext-harvest)
 + [GobAr-theme](https://github.com/gobabiertoAR/datos.gob.ar/blob/master/docs/03_instalacion_tema_visual.md) | [Demo](http://http://datos.gob.ar/) 
 + [Apache2 & NginX](http://docs.ckan.org/en/ckan-2.5.2/maintaining/installing/deployment.html#install-apache-modwsgi-modrpaf)
 
@@ -89,19 +88,42 @@ _La idea detras de esta implementacion de CKAN, es que **SOLO** te encargues de 
 
 + Ubuntu|Debian:
 
-		sudo su -c "cd /tmp && git clone https://github.com/JoseSalgado1024/ckan_in_docker.git && cd /tmp/ckan_in_docker/auto-deploy/ && ./ubuntu-debian_auto-deploy.sh; rm -f -r /tmp/ckan_in_docker"
+		sudo su -c "cd /tmp && git clone https://github.com/datosgobar/ckan_in_a_box.git && cd /tmp/ckan_in_docker/auto-deploy/ && ./ubuntu-debian_auto-deploy.sh; rm -f -r /tmp/ckan_in_docker"
 
 
 + RHEL|CentOS:
 
-		sudo su -c "cd /tmp && git clone https://github.com/JoseSalgado1024/ckan_in_docker.git && cd /tmp/ckan_in_docker/auto-deploy/ && ./rhel-centos_auto-deploy.sh; rm -f -r /tmp/ckan_in_docker"
+		sudo su -c "cd /tmp && git clone https://github.com/datosgobar/ckan_in_a_box.git && cd /tmp/ckan_in_docker/auto-deploy/ && ./rhel-centos_auto-deploy.sh; rm -f -r /tmp/ckan_in_docker"
 
 ---
 
 ### Instalacion Avanzada de CKAN
 #### Instalacion de CKAN con contenedores de Docker ya buildeados
 	
-	_Para esta clase de instalacion, no es necesario clonar el repo, dado que usaremos contenedores alojados en [DockerHub](https://hub.docker.com/) y el proceso de instalacion se divide en seis pasos.
+	_Para esta clase de instalacion, no es necesario clonar el repo, dado que usaremos contenedores alojados en [DockerHub](https://hub.docker.com/) y el proceso de instalacion se divide en tres pasos.
+
++ Paso 1: Descargar contenedores:
+
+	$ docker pull datosgobar/pg-ckan:latest
+	$ docker pull datosgobar/solr:latest
+	$ docker pull datosgobar/ckan-distribuilble:latest
+
++ Paso 2: Lanzamiento de Solr y PG
+
+	$ docker run -d --name solr datosgobar/solr:latest
+	$ docker run -d --name pg-ckan datosgobar/pg-ckan:latest 
+
++ Paso 3:
+
+	docker run -d \
+		-p 80:80 \
+		-p 8800:8800 \
+		--link solr:solr \
+		--link pg-ckan:db \
+		--name ckan-distribuilble:latest \
+		datosgobar/ckan-distribuilble:latest 
+
+_Nota: el paso 1 y 2 es redundante, bien podriamos solo hacer docker run ..., dado que si docker no cuenta con la imagen localmente, la descarga dentro de un <code>docker run <args> image_owner/image_name:tag</code>_
 
 + Instalacion de CKAN usando Dockerfiles
 
@@ -111,26 +133,23 @@ _Para instalar y ejecutar CKAN-Docker, debemos seguir los siguientes pasos:_
 _Es recomendable clonar el repo dentro de /tmp (o C:\temp en **Windows X**), dado que al finalizar la instalacion, no usaremos mas el repositorio_.
 		
 		$ cd /tmp # en Linux, en Windows, usar cd C:\temp
-		$ git clone https://github.com/JoseSalgado1024/ckan_in_docker.git
+		$ git clone https://github.com/datosgobar/ckan_in_a_box.git
 
 + Paso 2: _construir y lanzar el contenedor de **PostgreSQL** usando el Dockerfile hubicado en **postgresql-img/**._ 
 
 		$ cd /tmp/ckan_in_docker/postgresql-img/
-		$ docker build -t jsalgadowk/postgresql:latest .
-		$ docker run -d  --name pg-ckan \
-			jsalgadowk/pg-ckan:latest
+		$ docker build -t datosgobar/postgresql:latest . && docker run -d --name pg-ckan datosgobar/pg-ckan:latest
 
 
 + Paso 3: _construir y lanzar el contenedor de **Solr** usando el Dockerfile hubicado en **solr-img/**._
 
 		$ cd /tmp/ckan_in_docker/solr-img/ 
-		$ docker build -t jsalgadowk/solr:latest .
-		$ docker run -d  --name solr jsalgadowk/solr:latest
+		$ docker build -t datosgobar/solr:latest . && docker run -d  --name solr datosgobar/solr:latest
 
 + Paso 4: _construir el contenedor de **ckan** usando el Dockerfile hubicado en ckan-img/._
 
-		$ cd /tmp/ckan_in_docker/ckan-img
-		$ docker build -t jsalgadowk/ckan:latest .
+		$ cd /tmp/ckan_in_a_box/ckan-img
+		$ docker build -t datosgobar/ckan-distribuilble:latest .
 
 + Paso 5: _Correr contenedor  de **CKAN**_
 		
@@ -139,8 +158,8 @@ _Es recomendable clonar el repo dentro de /tmp (o C:\temp en **Windows X**), dad
 			--link solr:solr \
 			-p 80:80 \
 			-p 8800:8800 \
-			--name ckan \
-			jsalgadowk/ckan:latest
+			--name ckan-distribuilble \
+			datosgobar/ckan-distribuilble:latest
 
 + Paso 6(Opcional): _Crear usuario administrador **ckan_admin**_
 		
@@ -148,4 +167,9 @@ _Es recomendable clonar el repo dentro de /tmp (o C:\temp en **Windows X**), dad
 			/usr/lib/ckan/default/bin/paster --plugin=ckan sysadmin add ckan_admin \
 			-c /etc/ckan/default/production.ini
 
++ Instalacion de CKAN con **docker-compose**
+	+ Pre-Requisitos:
+		+ Instalar docker-compose:
+			pip install docker-compose # Facil no? :D
+	+ Iinstalacion:
 --- 

@@ -3,7 +3,7 @@ services:
     ckan:
         build: ./ckan-img
         container_name: ckan-distribuilble
-	image: jsalgadowk/ckan-distribuilble:latest
+	      image: datosgobar/ckan-distribuilble:latest
         ports:
           - 80:80
           - 8800:8800
@@ -15,9 +15,9 @@ services:
            - solr:solr
     pg-ckan:
         build: ./postgresql-img
-        image: jsalgadowk/pg-ckan:latest
+        image: datosgobar/pg-ckan:latest
         container_name: pg-ckan
     solr:
         build: ./solr-img
-        image: jsalgadowk/solr:latest
+        image: datosgobar/solr:latest
         container_name: solr
