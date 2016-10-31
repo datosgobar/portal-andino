@@ -165,11 +165,11 @@ _Es recomendable clonar el repo dentro de /tmp (o C:\temp en **Windows X**), dad
 	+ Instalacion:
 
 		+ Paso 1, Clonar repositorio:
-				git clone https://github.com/datosgobar/ckan_in_a_box.git /tmp/ckan_in_a_box
+					git clone https://github.com/datosgobar/ckan_in_a_box.git /tmp/ckan_in_a_box
 
 		+ Paso 2, Lanzar:
-				docker-compose up -d
+					docker-compose up -d
 
-		+ Paso 3, Final
-				Tomarse un cafe, te lo ganaste, tenes un portal hermoso :heart_eyes:
+		+ Paso 3, Final:
+					Tomarse un cafe, te lo ganaste, tenes un portal hermoso :heart_eyes:
 --- 
