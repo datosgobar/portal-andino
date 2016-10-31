@@ -151,11 +151,13 @@ _Es recomendable clonar el repo dentro de /tmp (o C:\temp en **Windows X**), dad
 
 + Paso 6(Opcional): _Crear usuario administrador **ckan_admin**_
 		
-		$ docker exec -it ckan \
-			/usr/lib/ckan/default/bin/paster --plugin=ckan sysadmin add ckan_admin \
-			-c /etc/ckan/default/production.ini
+			# Add USER ADMIN
+			$ docker exec -it ckan-distribuilble /bin/bash -c "$CKAN_HOME/bin/paster --plugin=ckan sysadmin add ckan_admin -c /etc/ckan/default/production.ini"
+			# ---
+			# BIND CKAN
+			$ docker exec -it ckan-distribuilble /bin/bash -c "$CKAN_HOME/bin/paster --plugin=ckan config-tool /etc/ckan/default/production.ini -e 'ckan.site_url = http://tu_dominio.com.ar' 'ckan.datapusher.url = http://tu_dominio.com.ar:8800'"
 
-+ Instalacion de CKAN con **docker-compose**
++ Instalacion de CKAN con **docker-compose.yml**
 
 + Pre-Requisitos: Instalar docker-compose:
 
@@ -175,5 +177,11 @@ _Es recomendable clonar el repo dentro de /tmp (o C:\temp en **Windows X**), dad
 
 	+ Paso 3, Final:
 
-			Tomarse un cafe, te lo ganaste, tenes un portal hermoso :coffee::heart_eyes:
+			# Add USER ADMIN
+			$ docker exec -it ckan-distribuilble /bin/bash -c "$CKAN_HOME/bin/paster --plugin=ckan sysadmin add ckan_admin -c /etc/ckan/default/production.ini"
+			# BIND CKAN
+			$ docker exec -it ckan-distribuilble /bin/bash -c '$CKAN_HOME/bin/paster --plugin=ckan config-tool /etc/ckan/default/production.ini -e "ckan.site_url = http://tu_dominio.com.ar" "ckan.datapusher.url = http://tu_dominio.com.ar:8800"'
+
+
+_ahora... a tomarse un cafe!, te lo ganaste, tenes un portal hermoso :coffee::heart_eyes:_
 --- 
