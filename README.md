@@ -143,17 +143,17 @@ _Es recomendable clonar el repo dentro de /tmp (o C:\temp en **Windows X**), dad
 
 + Paso 3: _construir y lanzar el contenedor de **Solr** usando el Dockerfile hubicado en **solr-img/**._
 
-	$ cd /tmp/ckan_in_docker/solr-img/ 
-	$ docker build -t datosgobar/solr:latest . && docker run -d  --name solr datosgobar/solr:latest
+		$ cd /tmp/ckan_in_docker/solr-img/ 
+		$ docker build -t datosgobar/solr:latest . && docker run -d  --name solr datosgobar/solr:latest
 
 + Paso 4: _construir el contenedor de **ckan** usando el Dockerfile hubicado en ckan-img/._
 
-	$ cd /tmp/ckan_in_a_box/ckan-img
-	$ docker build -t datosgobar/ckan-distribuilble:latest .
+		$ cd /tmp/ckan_in_a_box/ckan-img
+		$ docker build -t datosgobar/ckan-distribuilble:latest .
 
 + Paso 5: _Correr contenedor  de **CKAN**_
 		
-	$ docker run -d --link pg-ckan:db --link solr:solr -p 80:80 -p 8800:8800 --name ckan-distribuilble datosgobar/ckan-distribuilble:latest
+		$ docker run -d --link pg-ckan:db --link solr:solr -p 80:80 -p 8800:8800 --name ckan-distribuilble datosgobar/ckan-distribuilble:latest
 
 + Paso 6(Opcional): _Crear usuario administrador **ckan_admin**_
 		
