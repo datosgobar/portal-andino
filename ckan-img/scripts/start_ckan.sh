@@ -1,10 +1,13 @@
 #!/bin/bash
 
 # ----------------------------------------------------- # 
-#  Finalizado el Build del contenedor en "run-mode"
-#  debemos hacer algunas cosas para que todo funcione
-#  correctamente. 
+#  Finalizado el Build del contenedor en "run-mode"     #
+#  debemos hacer algunas cosas para que todo funcione   #
+#  correctamente.                                       #
 # ----------------------------------------------------- #
+
+echo "Esperando contenedores..."
+#sleep 200
 
 APACHE2_WSGI=$CKAN_CONFIG/apache.wsgi
 
@@ -19,6 +22,9 @@ idb=$?
 # Inicializamos la Base de datos e incluso, Solr.
 /bin/bash $CKAN_INIT/start_servers.sh
 
+# Autoload de conf de usuario.
+/bin/bash $CKAN_INIT/theme_f_update.sh
+
 exit_code=$(($mconf + $idb))
 
 # Ambos commandos anteriores, fueron exitosos?
@@ -30,8 +36,10 @@ if [ "$exit_code" -eq "0" ] ; then
 	# Considerando que CKAN/data va a ser un volumen externo, corrijo permisos
 	chown www-data:www-data $CKAN_DATA
 	chmod u+rwx $CKAN_DATA
+	
 	service apache2 reload;
 	service nginx reload;
+	
 	# Conectamos los logs de ckan con la salida de "docker logs"
 	tail  -f /var/log/apache/ckan_default.error.log
 	# Si por alguna razon fallan los logs detenemos CKAN-APACHE, el contenedor seguira vivo y funcional

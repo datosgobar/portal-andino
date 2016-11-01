@@ -50,6 +50,7 @@ RUN   apt-get -y install \
             redis-server \
             rabbitmq-server \
             supervisor \
+            inotify-tools \
             git-core
 
 # Bajamos el .deb de ckan
@@ -63,8 +64,6 @@ RUN mkdir -p $CKAN_HOME $CKAN_CONFIG $CKAN_DATA
 RUN virtualenv $CKAN_HOME
 RUN ln -s $CKAN_HOME/src/ckan/ckan/config/who.ini $CKAN_CONFIG/who.ini
 RUN touch /tmp/ckan_service.log
-RUN chown www-data:www-data $CKAN_DATA /tmp/ckan_service.log 
-RUN chmod u+rwx $CKAN_DATA /tmp/ckan_service.log
 
 # Instalamos CKAN
 RUN dpkg -i /tmp/python-ckan_2.5-trusty_amd64.deb
@@ -80,13 +79,12 @@ RUN $CKAN_HOME/bin/pip install -e "git+https://github.com/ckan/ckanext-harvest.g
 RUN $CKAN_HOME/bin/pip install -r $CKAN_HOME/src/ckanext-harvest/pip-requirements.txt
 
 RUN mkdir -p $CKAN_DIST_MEDIA $CKAN_DIST_CONFIG 
-RUN chown www-data:www-data $CKAN_DIST_MEDIA $CKAN_DIST_CONFIG
-RUN chmod u+rwx $CKAN_DIST_CONFIG $CKAN_DIST_MEDIA
+RUN chown www-data:www-data $CKAN_DIST_MEDIA $CKAN_DIST_CONFIG $CKAN_DATA /tmp/ckan_service.log 
+RUN chmod u+rwx -R $CKAN_DIST_CONFIG $CKAN_DIST_MEDIA $CKAN_DATA /tmp/ckan_service.log
 ADD ./config/ckan_default.conf /etc/apache2/sites-enabled/ckan_default.conf  
 ADD ./scripts $CKAN_INIT
 ADD ./config/apache.wsgi $CKAN_CONFIG/apache.wsgi
 ADD ./config/datapusher.wsgi /etc/ckan/datapusher.wsgi
-ADD ./config/main_info.html $CKAN_HOME/src/ckanext-gobar-theme/ckanext/gobar_theme/templates/package/snippets/main_info.html
 
 RUN touch $CKAN_DIST_CONFIG/settings.json
 RUN chmod 666  $CKAN_DIST_CONFIG/settings.json
