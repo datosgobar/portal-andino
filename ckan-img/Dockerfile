@@ -18,6 +18,7 @@ ENV CKAN_CONFIG /etc/ckan/default
 ENV CKAN_DATA /var/lib/ckan
 ENV CKAN_INIT /etc/ckan_init.d
 ENV DATAPUSHER_HOME /usr/lib/ckan/datapusher
+ENV CKAN_HARVEST_GCF /var/log/ckan/std
 
 
 
@@ -78,9 +79,12 @@ RUN $CKAN_HOME/bin/pip install -e "git+https://github.com/datagovuk/ckanext-hier
 RUN $CKAN_HOME/bin/pip install -e "git+https://github.com/ckan/ckanext-harvest.git#egg=ckanext-harvest"
 RUN $CKAN_HOME/bin/pip install -r $CKAN_HOME/src/ckanext-harvest/pip-requirements.txt
 
-RUN mkdir -p $CKAN_DIST_MEDIA $CKAN_DIST_CONFIG 
+RUN mkdir -p $CKAN_DIST_MEDIA $CKAN_DIST_CONFIG $CKAN_HARVEST_GCF
+RUN touch $CKAN_HARVEST_GCF/fetch_consumer.log
+RUN touch $CKAN_HARVEST_GCF/gather_consumer.log
 RUN chown www-data:www-data $CKAN_DIST_MEDIA $CKAN_DIST_CONFIG $CKAN_DATA /tmp/ckan_service.log 
 RUN chmod u+rwx -R $CKAN_DIST_CONFIG $CKAN_DIST_MEDIA $CKAN_DATA /tmp/ckan_service.log
+ADD ./config/supervisor.conf /etc/supervisor/conf.d/ckan_harvesting.conf
 ADD ./config/ckan_default.conf /etc/apache2/sites-enabled/ckan_default.conf  
 ADD ./scripts $CKAN_INIT
 ADD ./config/apache.wsgi $CKAN_CONFIG/apache.wsgi

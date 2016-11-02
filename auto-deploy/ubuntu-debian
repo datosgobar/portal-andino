@@ -1,6 +1,6 @@
 #!/bin/bash
-DHUB_USER="jsalgadowk"
-CKAN_DI="ckan"
+DHUB_USER="datosgobar"
+CKAN_DI="ckan-distribuible"
 PG_DI="pg-ckan"
 SOLR_DI="solr"
 
@@ -22,7 +22,6 @@ printf "\n
 ╔═════════════════════════════════════════════════════════╗
 ║                                                         ║
 ║     BIENVENIDO A LA INSTALACION AUTOMATICA DE CKAN      ║
-║                EN DOCKER UBUNTU|DEBIAN.                 ║
 ║                                                         ║
 ╚═════════════════════════════════════════════════════════╝
 \n"
@@ -34,8 +33,7 @@ then
 	curl -sSL https://get.docker.com/ | sh
 fi
 # Instalemos CKAN! :D
-echo "$CKAN_DI $PG_DI $SOLR_DI" | xargs -n 1 | while read img; do docker rm -f $img; done
-echo "$CKAN_DI $PG_DI $SOLR_DI" | xargs -n 1 | while read img; do docker pull $DHUB_USER/$img:latest; done
+echo "$CKAN_DI $PG_DI $SOLR_DI" | xargs -n 1 | while read img; do docker rm -f $img; docker pull $DHUB_USER/$img:latest; done
 mkdir -p $HOME/ckan/volumenes/data $HOME/ckan/volumenes/config $HOME/ckan/volumenes/pgdata
 
 echo "$PG_DI $SOLR_DI" | xargs -n 1 | while read img; do docker run -d  --name $img $DHUB_USER/$img; done
@@ -47,8 +45,4 @@ docker exec -it ckan /usr/lib/ckan/default/bin/paster --plugin=ckan config-tool 
 echo "Creando usuario \"ckan_admin\"..."
 echo "Tenes que presionar \"y\" cuando el instalador te pregunte si deseas crear el usuarios y luego, cuando el instalar lo pida, ingresa la contraseña."
 docker exec -it ckan /bin/bash -c "/usr/lib/ckan/default/bin/paster --plugin=ckan sysadmin add jose -c /etc/ckan/default/production.ini"
-
-echo "Esperando reinicio del contenedor..."
-sleep 15
-docker start ckan
 echo "Todo listo!, ya podes contarle a todo el mundo que tenes un CKAN hermoso"
