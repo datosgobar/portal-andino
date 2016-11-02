@@ -8,10 +8,9 @@ SOLR_DI="solr"
 CKAN_APACHE2_PORT="80"
 CKAN_DATAPUSHER_PORT="8800"
 
-
-: ${CKAN_USER:=}
 : ${CKAN_URL:=}
 : ${CKAN_IP:=}
+
 USER_DATA=" "
 
 exec 3>&1
@@ -24,7 +23,6 @@ VALUES=$(dialog --ok-label " Instalar " \
 11 60 0 \
 "URL de CKAN: http://" 1 1	"$ckan_url"		1 21 45 0 \
 "IP de CKAN: http://"  2 1	"$server_ip"	2 21 45 0 \
-"Usuario Admin:" 	   3 1	"$ckan_admin" 	3 21 45 0 \
 2>&1 1>&3)
 
 # close fd
@@ -40,7 +38,6 @@ else
 	USER_DATA=($VALUES)
 	CKAN_URL=${USER_DATA[0]}
 	CKAN_IP=${USER_DATA[1]}
-	CKAN_USER=${USER_DATA[2]}
 	# Esta docker insalado?	
 	printf "> Checkeando instalacion de Docker Engine ..."
 	if [ $(dpkg-query -W -f='${Status}' docker-engine 2>/dev/null | grep -c "ok installed") -eq 0 ];
@@ -61,7 +58,10 @@ else
 	sleep 20
 	echo "+ Configurando ckan-distribuible..."
 	echo "++ Configurando $CKAN_URL..."
+	docker exec -it $CKAN_DI /bin/bash -c "service apache2 stop"
+	docker exec -it $CKAN_DI /bin/bash -c "service nginx stop"
 	docker exec -it $CKAN_DI /bin/bash -c "/usr/lib/ckan/default/bin/paster --plugin=ckan config-tool /etc/ckan/default/production.ini -e 'ckan.site_url = http://$CKAN_URL' 'ckan.datapusher.url = http://$CKAN_IP:8800'"
-	docker exec -it $CKAN_DI /bin/bash -c "service apache2 restart && service nginx reload"
+	dialog --infobox "Bien! todo listo! bla.. bla.. bla.." 30 50 ; sleep 20; clear
+	docker exec -it $CKAN_DI /bin/bash -c "/etc/ckan_init.d/start_ckan.sh"
 fi
 

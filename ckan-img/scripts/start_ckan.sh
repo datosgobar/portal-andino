@@ -6,9 +6,6 @@
 #  correctamente.                                       #
 # ----------------------------------------------------- #
 
-echo "Esperando contenedores..."
-#sleep 200
-
 APACHE2_WSGI=$CKAN_CONFIG/apache.wsgi
 
 # Creamos contexto para CKAN
