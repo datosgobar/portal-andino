@@ -180,7 +180,7 @@ _Es recomendable clonar el repo dentro de /tmp (o C:\temp en **Windows X**), dad
             git clone https://github.com/datosgobar/ckan_in_a_box.git /tmp/ckan_in_a_box
 
 	+ Paso 2, Lanzar:
-	
+			cd /tmp/ckan_in_a_box
 			docker-compose up -d
 
 	+ Paso 3, Final:
