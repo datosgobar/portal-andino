@@ -30,12 +30,11 @@ exit_code=$(($mconf + $idb + $tfu + $sss))
 if [ "$exit_code" -eq "0" ] ; then
 
 	# Considerando que CKAN/data va a ser un volumen externo, corrijo permisos
-	chown www-data:www-data $CKAN_DATA
-	chmod u+rwx $CKAN_DATA
+	chown www-data:www-data $CKAN_DATA $CKAN_DIST_MEDIA $CKAN_DIST_CONFIG
+	chmod u+rwx $CKAN_DATA $CKAN_DIST_MEDIA $CKAN_DIST_CONFIG
 	
-	service apache2 reload;
-	service nginx reload;
-	
+	service apache2 restart
+	service nginx reload
 	# Conectamos los logs de ckan con la salida de "docker logs"
 	tail  -f /var/log/apache/ckan_default.error.log
 	

@@ -22,22 +22,14 @@ abort () {
 
 write_config () {
   CKAN_IP=$(/sbin/ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}')
-  "$CKAN_HOME"/bin/paster make-config ckan "$CONFIG"
 
   "$CKAN_HOME"/bin/paster --plugin=ckan config-tool "$CONFIG" -e \
       "sqlalchemy.url = ${DATABASE_URL}" \
       "solr_url = ${SOLR_URL}" \
       "ckan.storage_path = ${CKAN_DATA}" \
-      "ckan.plugins = harvest ckan_harvester stats text_view image_view recline_view hierarchy_display hierarchy_form gobar_theme datastore datapusher"  \
-      "ckan.auth.create_user_via_api = false" \
-      "ckan.auth.create_user_via_web = false" \
-      "ckan.locale_default = es" \
-      "email_to = disabled@example.com" \
       "ckan.datapusher.url = http://${CKAN_IP}:8800" \
-      "ckan.datapusher.formats = csv xls xlsx tsv application/csv application/vnd.ms-excel application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" \
       "ckan.datastore.write_url = $(link_rw_datastore)" \
       "ckan.datastore.read_url = $(link_ro_datastore)" \
-      "ckan.max_resource_size = 300" \
       "error_email_from = ckan@$(hostname -f)" \
       "ckan.site_url = http://${CKAN_IP}"
 
