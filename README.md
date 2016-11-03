@@ -41,6 +41,8 @@ Features:
 + [FileStore](http://docs.ckan.org/en/latest/maintaining/filestore.html)
 + [Datapusher](https://github.com/ckan/datapusher)
 + [Hierarchy](https://github.com/datagovuk/ckanext-hierarchy)
++ [Harvest](https://github.com/ckan/ckanext-harvest)
++ [dataJSON](github.com/GSA/ckanext-datajson)
 + [GobAr-theme](https://github.com/gobabiertoAR/datos.gob.ar/blob/master/docs/03_instalacion_tema_visual.md) | [Demo](http://http://datos.gob.ar/) 
 + [Apache2 & NginX](http://docs.ckan.org/en/ckan-2.5.2/maintaining/installing/deployment.html#install-apache-modwsgi-modrpaf)
 
@@ -180,7 +182,7 @@ _Es recomendable clonar el repo dentro de /tmp (o C:\temp en **Windows X**), dad
             git clone https://github.com/datosgobar/ckan_in_a_box.git /tmp/ckan_in_a_box
 
 	+ Paso 2, Lanzar:
-	
+
 			cd /tmp/ckan_in_a_box
 			docker-compose up -d
 
