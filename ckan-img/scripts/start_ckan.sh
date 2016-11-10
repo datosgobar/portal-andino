@@ -7,6 +7,11 @@
 # ----------------------------------------------------- #
 
 APACHE2_WSGI=$CKAN_CONFIG/apache.wsgi
+nginx &
+service apache2 restart;
+service redis-server restart;
+service rabbitmq-server restart;
+service postfix restart;
 
 # Creamos contexto para CKAN
 /bin/bash $CKAN_INIT/.make_conf.sh
@@ -16,15 +21,8 @@ mconf=$?
 /bin/bash $CKAN_INIT/.init_db.sh
 idb=$?
 
-# Inicializamos la Base de datos e incluso, Solr.
-/bin/bash $CKAN_INIT/start_servers.sh
-sss=$?
 
-# Autoload de conf de usuario.
-/bin/bash $CKAN_INIT/theme_f_update.sh &
-tfu=$?
-
-exit_code=$(($mconf + $idb + $tfu + $sss))
+exit_code=$(($mconf + $idb))
 
 # Ambos commandos anteriores, fueron exitosos?
 if [ "$exit_code" -eq "0" ] ; then
@@ -33,8 +31,8 @@ if [ "$exit_code" -eq "0" ] ; then
 	chown www-data:www-data $CKAN_DATA $CKAN_DIST_MEDIA $CKAN_DIST_CONFIG
 	chmod u+rwx $CKAN_DATA $CKAN_DIST_MEDIA $CKAN_DIST_CONFIG
 	
-	service apache2 restart
-	service nginx reload
+	service apache2 restart;
+	service nginx reload;
 	# Conectamos los logs de ckan con la salida de "docker logs"
 	tail  -f /var/log/apache/ckan_default.error.log
 	

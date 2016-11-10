@@ -6,7 +6,9 @@
 #                    del Usuario GOBAR-THEME                      #
 #                                                                 #
 ###################################################################
-
+service apache2 reload;
+service nginx stop;
+nginx &
 while true;
 do
 	while inotifywait -q -e modify /var/lib/ckan/theme_config/settings.json >/dev/null; do

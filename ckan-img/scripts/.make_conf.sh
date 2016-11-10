@@ -11,9 +11,7 @@
 : ${DATASTORE_URL_RO:=}
 : ${DATASTORE_URL_RW:=}
 
-set -eu
-
-CONFIG="${CKAN_CONFIG}/${CKAN_CONFIG_FILE}"
+CONFIG="/etc/ckan/default/production.ini"
 
 abort () {
   echo "$@" >&2
@@ -21,6 +19,7 @@ abort () {
 }
 
 write_config () {
+  echo "Configurando DB, Solr, Datastore y Datapusher..."
   CKAN_IP=$(/sbin/ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}')
 
   "$CKAN_HOME"/bin/paster --plugin=ckan config-tool "$CONFIG" -e \
@@ -75,17 +74,14 @@ link_solr_url () {
 
 
 
-# If we don't already have a config file, bootstrap
-if [ ! -e "$CONFIG" ]; then
-  if [ -z "$DATABASE_URL" ]; then
-    if ! DATABASE_URL=$(link_postgres_url); then
-      abort "Imposible conectar DATABASE_URL ..."
-    fi
+if [ -z "$DATABASE_URL" ]; then
+  if ! DATABASE_URL=$(link_postgres_url); then
+    abort "Imposible conectar DATABASE_URL ..."
   fi
-  if [ -z "$SOLR_URL" ]; then
-    if ! SOLR_URL=$(link_solr_url); then
-      abort "Imposible conectar SOLR_URL ..."
-    fi
-  fi
-  write_config
 fi
+if [ -z "$SOLR_URL" ]; then
+  if ! SOLR_URL=$(link_solr_url); then
+    abort "Imposible conectar SOLR_URL ..."
+  fi
+fi
+write_config

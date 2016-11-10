@@ -81,24 +81,26 @@ RUN $CKAN_HOME/bin/pip install -r $CKAN_HOME/src/ckanext-harvest/pip-requirement
 RUN $CKAN_HOME/bin/pip install pyyaml lepl  jsonschema  rfc3987
 RUN $CKAN_HOME/bin/pip install -e git+https://github.com/GSA/ckanext-datajson.git#egg=ckanext-datajson
 
-RUN mkdir -p $CKAN_DIST_MEDIA $CKAN_DIST_CONFIG $CKAN_HARVEST_GCF /etc/service
+RUN mkdir -p $CKAN_DIST_MEDIA $CKAN_DIST_CONFIG $CKAN_HARVEST_GCF /etc/service /var/log/supervisor /var/log/apache/
 RUN touch $CKAN_HARVEST_GCF/fetch_consumer.log $CKAN_HARVEST_GCF/gather_consumer.log
 RUN touch /var/log/ckan/theme.changes.log
 RUN chown www-data:www-data $CKAN_DIST_MEDIA $CKAN_DIST_CONFIG $CKAN_DATA /tmp/ckan_service.log 
 RUN chmod u+rwx -R $CKAN_DIST_CONFIG $CKAN_DIST_MEDIA $CKAN_DATA /tmp/ckan_service.log
-ADD ./config/supervisor.conf /etc/supervisor/conf.d/ckan_harvesting.conf
+ADD ./config/ckan_harvesting.conf /etc/supervisor/conf.d/
+COPY ./config/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 ADD ./config/ckan_default.conf /etc/apache2/sites-enabled/ckan_default.conf  
-ADD ./config/production.ini $CKAN_CONFIG/production.ini
+COPY ./config/production.ini $CKAN_CONFIG/production.ini
 ADD ./scripts $CKAN_INIT
 ADD ./config/apache.wsgi $CKAN_CONFIG/apache.wsgi
 ADD ./config/datapusher.wsgi /etc/ckan/datapusher.wsgi
 ADD ./config/autoload/ /etc/service
 
-RUN touch $CKAN_DIST_CONFIG/settings.json
+RUN touch $CKAN_DIST_CONFIG/settings.json /var/log/apache/ckan_default.error.log
 RUN chmod 666  $CKAN_DIST_CONFIG/settings.json
 RUN chmod +x -R $CKAN_INIT/
 RUN chmod 777 -R $CKAN_CONFIG
 
+CMD ["/usr/bin/supervisord"]
 CMD ["/etc/ckan_init.d/start_ckan.sh"]
 
 # Creo volumenes DATA, userMedia y Configs del front.
