@@ -164,34 +164,3 @@ _Es recomendable clonar el repo dentro de /tmp (o C:\temp en **Windows X**), dad
 			# ---
 			# BIND CKAN
 			$ docker exec -it ckan-distribuilble /bin/bash -c "$CKAN_HOME/bin/paster --plugin=ckan config-tool /etc/ckan/default/production.ini -e 'ckan.site_url = http://tu_dominio.com.ar' 'ckan.datapusher.url = http://tu_dominio.com.ar:8800'"
-
-+ Instalacion de CKAN con **docker-compose.yml**
-
-+ Pre-Requisitos: Instalar docker-compose:
-
-            pip install docker-compose # Facil no? :D
-	    	# ...no tenes pip?.. no importa!	
-	    	# Instalar pip
-		    # sudo su -c "apt-get update && apt-get install python-pip" 
-
-+ Instalacion:
-	+ Paso 1, Clonar repositorio:
-
-            git clone https://github.com/datosgobar/ckan_in_a_box.git /tmp/ckan_in_a_box
-
-	+ Paso 2, Lanzar:
-	
-			cd /tmp/ckan_in_a_box
-			docker-compose up -d
-
-	+ Paso 3, Final:
-
-			# Add USER ADMIN
-			$ docker exec -it ckan-distribuilble /bin/bash -c "$CKAN_HOME/bin/paster --plugin=ckan sysadmin add ckan_admin -c /etc/ckan/default/production.ini"
-			# BIND CKAN
-			$ docker exec -it ckan-distribuilble /bin/bash -c '$CKAN_HOME/bin/paster --plugin=ckan config-tool /etc/ckan/default/production.ini -e "ckan.site_url = http://tu_dominio.com.ar" "ckan.datapusher.url = http://tu_dominio.com.ar:8800"'
-
-
-...ahora... a tomarse un cafe!, te lo ganaste, tenes un portal hermoso :coffee::heart_eyes:
-
---- 
