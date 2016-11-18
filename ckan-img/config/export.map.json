@@ -1,0 +1,169 @@
+{
+  "validation_enabled": false,
+  "catalog_headers": {
+    "superThemeTaxonomy": "http://datos.gob.ar/superThemeTaxonomy.json"
+  },
+  "dataset_fields_map": {
+    "title": {
+      "field": "title"
+    },
+    "description": {
+      "field": "notes"
+    },
+    "modified": {
+      "field": "metadata_modified"
+    },
+    "accessLevel": {
+      "extra": true,
+      "field": "Access Level",
+      "default": "public"
+    },
+    "identifier": {
+      "field": "id"
+    },
+    "dataQuality": {
+      "extra": true,
+      "field": "Data Quality"
+    },
+    "conformsTo": {
+      "extra": true,
+      "field": "Conforms To"
+    },
+    "describedBy": {
+      "extra": true,
+      "field": "Described by"
+    },
+    "describedByType": {
+      "extra": true,
+      "field": "Described by Type"
+    },
+    "issued": {
+      "field": "metadata_created"
+    },
+    "landingPage": {
+      "field": "url"
+    },
+    "license": {
+      "field": "license_title"
+    },
+    "primaryITInvestmentUII": {
+      "extra": true,
+      "field": "Primary It Investment Uii"
+    },
+    "rights": {
+      "extra": true,
+      "field": "rights"
+    },
+    "systemOfRecords": {
+      "extra": true,
+      "field": "System Of Records"
+    },
+    "spatial": {
+      "extra": true,
+      "field": "Spatial"
+    },
+    "publisher": {
+      "field": "author"
+    },
+
+    "contactPoint": {
+      "wrapper": "build_contact_point",
+      "map": {
+        "fn": {
+          "extra": true,
+          "field": "Responsible Party"
+        },
+        "hasEmail": {
+          "extra": true,
+          "field": "Contact Email"
+        }
+      }
+    },
+    "distribution": {
+      "wrapper": "generate_distribution",
+      "map": {
+        "accessURL": {
+          "field": "url"
+        },
+        "mediaType": {
+          "field": "mimetype"
+        },
+        "format": {
+          "field": "format"
+        },
+        "title": {
+          "field": "name"
+        },
+        "description": {
+          "field": "description"
+        },
+        "conformsTo": {
+          "field": "conformsTo"
+        },
+        "describedBy": {
+          "field": "describedBy"
+        },
+        "describedByType": {
+          "field": "describedByType"
+        },
+        "byteSize": {
+          "field": "size"
+        },
+        "issued": {
+          "field": "created"
+        },
+        "modified": {
+          "field": "last_modified"
+        },
+        "field": {
+          "extra": true,
+          "field": "attributesDescription"
+        }
+      }
+    },
+    "keyword": {
+      "field": "tags"
+    },
+    "bureauCode": {
+      "type": "array",
+      "extra": true,
+      "field": "Bureau Code",
+      "split": ",",
+      "wrapper": "bureau_code"
+    },
+    "programCode": {
+      "type": "array",
+      "extra": true,
+      "field": "Program Code",
+      "split": ","
+    },
+    "superTheme": {
+      "extra": true,
+      "field": "globalGroups",
+      "type": "array",
+      "split": ","
+    },
+    "temporal": {
+      "extra": true,
+      "field": "dateRange"
+    },
+    "accrualPeriodicity": {
+      "extra": true,
+      "field": "updateFrequency"
+    },
+    "language": {
+      "extra": true,
+      "field": "Language",
+      "split": ","
+    },
+    "references": {
+      "type": "array",
+      "extra": true,
+      "field": "references",
+      "split": ","
+    },
+    "theme": {
+      "field": "groups"
+    }
+  }
+}

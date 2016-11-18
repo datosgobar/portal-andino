@@ -19,6 +19,7 @@ ENV CKAN_DATA /var/lib/ckan
 ENV CKAN_INIT /etc/ckan_init.d
 ENV DATAPUSHER_HOME /usr/lib/ckan/datapusher
 ENV CKAN_HARVEST_GCF /var/log/ckan/std
+ENV GOBAR_CONFIG {"about":{"description":"Cont\u00e1 qu\u00e9 son los datasets de tu portal. Aprovech\u00e1 y explic\u00e1 qu\u00e9 son los datos abiertos, e invit\u00e1 a tus usuarios a que los usen, los modifiquen y los compartan. Por favor, hacelo en no m\u00e1s de tres l\u00edneas.","show-about": false, "title": "Acerca de este portal"}, "dataset": {"description": "Cont\u00e1 qu\u00e9 son los datasets de tu portal. Aprovech\u00e1 y explic\u00e1 qu\u00e9 son los datos abiertos, e invit\u00e1 a tus usuarios a que los usen, los modifiquen y los compartan. Por favor, hacelo en no m\u00e1s de tres l\u00edneas."}, "organization": {"description": "Mencion\u00e1 una breve descripci\u00f3n de las organizaciones responsables de los datasets. Por favor, hacelo en no m\u00e1s de tres l\u00edneas.", "show-organizations": false},"title": {"background-image": null,"site-description": "Describ\u00ed el portal. Explic\u00e1 de qu\u00e9 se trata tu cat\u00e1logo de datos. Por favor, hacelo en no m\u00e1s de tres l\u00edneas.","site-title": "T\u00edtulo del portal"}}
 
 
 
@@ -79,7 +80,7 @@ RUN $CKAN_HOME/bin/pip install -e "git+https://github.com/datagovuk/ckanext-hier
 RUN $CKAN_HOME/bin/pip install -e "git+https://github.com/ckan/ckanext-harvest.git#egg=ckanext-harvest"
 RUN $CKAN_HOME/bin/pip install -r $CKAN_HOME/src/ckanext-harvest/pip-requirements.txt
 RUN $CKAN_HOME/bin/pip install pyyaml lepl  jsonschema  rfc3987
-RUN $CKAN_HOME/bin/pip install -e git+https://github.com/GSA/ckanext-datajson.git#egg=ckanext-datajson
+RUN $CKAN_HOME/bin/pip install -e "git+https://github.com/datosgobar/ckanext-datajsonAR.git#egg=ckanext-datajson"
 
 RUN mkdir -p $CKAN_DIST_MEDIA $CKAN_DIST_CONFIG $CKAN_HARVEST_GCF /etc/service /var/log/supervisor /var/log/apache/
 RUN touch $CKAN_HARVEST_GCF/fetch_consumer.log $CKAN_HARVEST_GCF/gather_consumer.log
@@ -94,12 +95,15 @@ ADD ./scripts $CKAN_INIT
 ADD ./config/apache.wsgi $CKAN_CONFIG/apache.wsgi
 ADD ./config/datapusher.wsgi /etc/ckan/datapusher.wsgi
 ADD ./config/autoload/ /etc/service
+ADD ./config/export.map.json $CKAN_HOME/src/ckanext-datajson/ckanext/datajson/export_map/export.map.json 
 
-RUN touch $CKAN_DIST_CONFIG/settings.json /var/log/apache/ckan_default.error.log
+RUN touch /var/log/apache/ckan_default.error.log
+ADD ./config/default.json $CKAN_DIST_CONFIG/settings.json 
 RUN chmod 666  $CKAN_DIST_CONFIG/settings.json
 RUN chmod +x -R $CKAN_INIT/
 RUN chmod 777 -R $CKAN_CONFIG
 
+# Comandos que van a ejecutarse al hacer $ docker run ...
 CMD ["/usr/bin/supervisord"]
 CMD ["/etc/ckan_init.d/start_ckan.sh"]
 

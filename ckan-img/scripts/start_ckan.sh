@@ -30,6 +30,7 @@ if [ "$exit_code" -eq "0" ] ; then
 	# Considerando que CKAN/data va a ser un volumen externo, corrijo permisos
 	chown www-data:www-data $CKAN_DATA $CKAN_DIST_MEDIA $CKAN_DIST_CONFIG
 	chmod u+rwx $CKAN_DATA $CKAN_DIST_MEDIA $CKAN_DIST_CONFIG
+	export GOBAR_CONFIG=$(cat /var/lib/ckan/theme_config/settings.json)
 	
 	service apache2 restart;
 	service nginx reload;
