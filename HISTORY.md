@@ -1,7 +1,7 @@
-Name: Andino
-Version: 1.0
-Desciption: Version de CKAN distribuible en docker. 
-Features:
+### Name: Andino
+### Version: 1.0
+### Desciption: Version de CKAN distribuible en docker. 
+### Features:
 + CKAN
 	+ version: 2.5.2
 	+ github: https://github.com/ckan/ckan
@@ -47,7 +47,7 @@ Features:
 	+ version: 1.11.6
 	+ documentation: https://nginx.org/en/docs/
 
-Dependences:
+### Dependences:
 + Docker 
 	+ version 1.12.3
 	+ build 6b644ec
