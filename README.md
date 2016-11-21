@@ -12,7 +12,6 @@ Indice:
 ------
 + [Que es CKAN?](#que-es-ckan)
 + [Que es Andino?](que-es-andino)
-
 + [Que contiene Andino](#features)
 + [Prerequisitos](#prerequisitos)
     + [DOCKER](#docker)
