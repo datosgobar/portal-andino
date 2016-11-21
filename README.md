@@ -42,6 +42,7 @@ Instalación
 	_...Deseas saber mas sobre docker? Genial! Docker posee una documentacion excelente y podes verla [aqui](https://docs.docker.com/)_
 
 	**Instalacion**:
+	-------------
 
 	+ Docker para Debian | Ubuntu | RHEL | CentOS
 
