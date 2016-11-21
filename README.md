@@ -36,6 +36,7 @@ Instalación
 #### Prerequisitos:
 
 + DOCKER:
+
 	**Que es DOCKER**?
 	es un proyecto de código abierto que automatiza el despliegue de aplicaciones dentro de contenedores de software, proporcionando una capa adicional de abstracción y automatización de Virtualización a nivel de sistema operativo en Linux. _Fuente: [wikipedia](https://es.wikipedia.org/wiki/Docker_(software))_
 
