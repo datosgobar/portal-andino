@@ -52,7 +52,7 @@ _Esta clase de instalacion no requiere que clones el repositorio, dado que usare
 
 #### Instalacion Avanzada, building `Andino`:
 
-_Para instalar y ejecutar CKAN-Docker, debemos seguir los siguientes pasos:_
+_Para instalar y ejecutar Andino, debemos seguir los siguientes pasos:_
 
 + Paso 1: Clonar Repositorio. 
 _Es recomendable clonar el repo dentro de /tmp (o C:\temp en **Windows X**), dado que al finalizar la instalacion, no usaremos mas el repositorio_.
@@ -76,7 +76,7 @@ _Es recomendable clonar el repo dentro de /tmp (o C:\temp en **Windows X**), dad
 		$ cd /tmp/ckan_in_a_box/ckan-img
 		$ docker build -t datosgobar/app-ckan:latest .
 
-+ Paso 5: _Correr contenedor  de **CKAN**_
++ Paso 5: _Correr contenedor  de **Andino**_
 		
 		$ docker run -d --link pg-ckan:db --link solr-ckan:solr -p 80:80 -p 8800:8800 --name app-ckan datosgobar/ckan-distribuilble:latest
 
