@@ -127,7 +127,7 @@ _Es recomendable clonar el repo dentro de /tmp (o C:\temp en **Windows X**), dad
 		
 		$ docker run -d --link pg-ckan:db --link solr-ckan:solr -p 80:80 -p 8800:8800 --name app-ckan datosgobar/ckan-distribuilble:latest
 
-USAGE:
+Usage:
 -----
 Una vez finalizada la instalacion, cualquiera fuere el metodo utilizado, deberiamos realizar las siguientes tareas:
 
@@ -158,7 +158,7 @@ $CKAN_HOME/bin/paster --plugin=ckan \
 	'ckan.datapusher.url = http://ip-del-server.com.ar:8800'"
 ```
 
-CREDITS | COPYING
+Credits | Copying
 ---
 Este trabajo esta inspirado en el desarrollo realizado por:
 
