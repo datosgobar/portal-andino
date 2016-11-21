@@ -107,13 +107,13 @@ _Es recomendable clonar el repo dentro de /tmp (o C:\temp en **Windows X**), dad
 		$ cd /tmp # en Linux, en Windows, usar cd C:\temp
 		$ git clone https://github.com/datosgobar/portal-andino.git
 
-+ Paso 2: _construir y lanzar el contenedor de **PostgreSQL** usando el Dockerfile hubicado en `postgresql-img/`._ 
++ Paso 2: _construir y lanzar el contenedor de **pg-ckan** usando el Dockerfile hubicado en `postgresql-img/`._ 
 
 		$ cd /tmp/ckan_in_docker/postgresql-img/
 		$ docker build -t datosgobar/pg-ckan:latest . && docker run -d --name pg-ckan datosgobar/pg-ckan:latest
 
 
-+ Paso 3: _construir y lanzar el contenedor de **Solr** usando el Dockerfile hubicado en `solr-img/`._
++ Paso 3: _construir y lanzar el contenedor de **solr-ckan** usando el Dockerfile hubicado en `solr-img/`._
 
 		$ cd /tmp/ckan_in_docker/solr-img/ 
 		$ docker build -t datosgobar/solr-ckan:latest . && docker run -d  --name solr-ckan datosgobar/solr-ckan:latest
@@ -129,23 +129,46 @@ _Es recomendable clonar el repo dentro de /tmp (o C:\temp en **Windows X**), dad
 
 USAGE:
 -----
-+ Paso 6(Opcional): _Crear usuario administrador **ckan_admin**_
-	```bash		
-	# Add USER ADMIN
-	$ docker exec -it ckan-distribuilble /bin/bash -c "$CKAN_HOME/bin/paster --plugin=ckan sysadmin add ckan_admin -c /etc/ckan/default/production.ini"
-	# ---
-	# BIND CKAN
-	$ docker exec -it ckan-distribuilble /bin/bash -c "$CKAN_HOME/bin/paster --plugin=ckan config-tool /etc/ckan/default/production.ini -e 'ckan.site_url = http://tu_dominio.com.ar' 'ckan.datapusher.url = http://tu_dominio.com.ar:8800'"
-	```
+Una vez finalizada la instalacion, cualquiera fuere el metodo utilizado, deberiamos realizar las siguientes tareas:
+
+#### Crear usuario administrador para Andino:
+	
+```bash		
+#
+# Asumo que el contenedor de ckan es llamado al ser lanzado "app-ckan"
+# Entrar al contenedor de Andino
+$ docker exec -it app-ckan /bin/bash
+#
+# Crear usuario ckan_admin:
+$ $CKAN_HOME/bin/paster --plugin=ckan sysadmin add ckan_admin -c /etc/ckan/default/production.ini
+```
+
+#### Configurar url de Andino:
+```bash
+#
+# Asumo que el contenedor de ckan es llamado al ser lanzado "app-ckan"
+# Entrar al contenedor de Andino:
+$ docker exec -it app-ckan /bin/bash
+#
+# 
+# Cambiar "tu-domino" y "ip-del-server" por los valores que corresponda.
+$CKAN_HOME/bin/paster --plugin=ckan \
+	config-tool /etc/ckan/default/production.ini -e \
+	'ckan.site_url = http://tu-dominio.com.ar' \
+	'ckan.datapusher.url = http://ip-del-server.com.ar:8800'"
+```
 
 CREDITS | COPYING
 ---
-Este trabajo esta inspirado en el desarrollo realizado por [CKAN.org](https://github.com/ckan/ckan/)
+Este trabajo esta inspirado en el desarrollo realizado por:
 
-CONTACTO:
++ [CKAN.org](https://github.com/ckan/ckan/)
++ [Eccenca](https://github.com/eccenca/ckan-docker)
+
+Contacto:
 ---
 Este proyecto es en desarrollo, si viste algun `bug`, por favor, [creanos un issue](https://github.com/datosgobar/portal-andino/issues/new?title=Encontre un bug en Adino).
 
-COMENTARIOS?, PREGUNTAS?
+Tenes comentarios o preguntas?
 ---
 Escribinos a [datos@modernizacion.gob.ar](mailto:datos@modernizacion.gob.ar)
