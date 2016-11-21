@@ -75,7 +75,7 @@ RUN $CKAN_HOME/bin/pip install --upgrade pip
 RUN $CKAN_HOME/bin/pip install requests[security]
 
 # Instalamos las extensiones de CKAN: GobAR-Theme & Hierarchy 
-RUN $CKAN_HOME/bin/pip install -e "git+https://github.com/datosgobar/distribuible.datos.gob.ar.git#egg=ckanext-gobar_theme"
+RUN $CKAN_HOME/bin/pip install -e "git+https://github.com/datosgobar/portal-andino-theme.git#egg=ckanext-gobar_theme"
 RUN $CKAN_HOME/bin/pip install -e "git+https://github.com/datagovuk/ckanext-hierarchy.git#egg=ckanext-hierarchy"
 RUN $CKAN_HOME/bin/pip install -e "git+https://github.com/ckan/ckanext-harvest.git#egg=ckanext-harvest"
 RUN $CKAN_HOME/bin/pip install -r $CKAN_HOME/src/ckanext-harvest/pip-requirements.txt
