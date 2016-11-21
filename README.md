@@ -41,8 +41,7 @@ Instalación
 
 	_...Deseas saber mas sobre docker? Genial! Docker posee una documentacion excelente y podes verla [aqui](https://docs.docker.com/)_
 
-	**Instalacion**:
-	-------------
+	#### Instalacion:
 
 	+ Docker para Debian | Ubuntu | RHEL | CentOS
 
@@ -55,9 +54,8 @@ Instalación
 + GIT-CORE TOOLS
 	GitHub es una forja (plataforma de desarrollo colaborativo) para alojar proyectos utilizando el sistema de control de versiones Git. Utiliza el framework Ruby on Rails por GitHub, Inc. (anteriormente conocida como Logical Awesome). Desde enero de 2010, GitHub opera bajo el nombre de GitHub, Inc. El código se almacena de forma pública, aunque también se puede hacer de forma privada, creando una cuenta de pago._Fuente: [wikipedia](https://es.wikipedia.org/wiki/GitHub)_
 
+	#### Instalacion:
 
-	**Instalacion**:
-	----------------
 	+ Windows:(_Descargar e Instalar desde_)
 	
 			https://github.com/git-for-windows/git/releases/tag/v2.10.0.windows.1
