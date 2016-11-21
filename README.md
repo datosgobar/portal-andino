@@ -10,8 +10,8 @@ Indice:
     + [DOCKER](#docker)
     + [GIT TOOLs](#git-tools)
 + [Instalacion y Ejecucion de Andino](#instalación)
-	+ [Pre requisitos para la instalacion de Andino](#prerequisitos)
-    + [Instalacion Simplificada de Andino](#instalacion-simplificada-de-ckan)
+	+ [Dependencias de la instalación de Andino](#dependencias)
+    + [Instalacion Simplificada de Andino](#instalacion-simplificada-de-andino)
     + [Instalacion Avanzada de Andino](#instalacion-avanzada-de-ckan)
 + [Usage](#usage)
 + [Credits | Copying](#credits--copying)
@@ -50,7 +50,7 @@ _Esta clase de instalacion no requiere que clones el repositorio, dado que usare
 	```
 ---
 
-#### Instalacion Avanzada de CKAN, build `Andino`:
+#### Instalacion Avanzada, building `Andino`:
 
 _Para instalar y ejecutar CKAN-Docker, debemos seguir los siguientes pasos:_
 
