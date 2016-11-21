@@ -20,11 +20,9 @@ Indice:
 	+ [Pre requisitos para la instalacion de Andino](#prerequisitos)
     + [Instalacion Simplificada de Andino](#instalacion-simplificada-de-ckan)
     + [Instalacion Avanzada de Andino](#instalacion-avanzada-de-ckan)
-    	+ [Sin builder contenedores](#instalacion-de-ckan-con-contenedores-de-docker-ya-buildeados)
-    	+ [Buildeando contenedores](#instalacion-de-ckan-con-contenedores-de-docker-ya-buildeados)
 + [Usage](#usage)
 + [Credits | Copying](#credits--copying)
-+ [Contacto](#contacto)
++ [Contacto](#contacto)	
 + [Consultas o dudas?](#comentarios-preguntas)
 
 
@@ -38,6 +36,12 @@ Instalación
 #### Prerequisitos:
 
 + DOCKER:
+	**Que es DOCKER**?
+	es un proyecto de código abierto que automatiza el despliegue de aplicaciones dentro de contenedores de software, proporcionando una capa adicional de abstracción y automatización de Virtualización a nivel de sistema operativo en Linux. _Fuente: [wikipedia](https://es.wikipedia.org/wiki/Docker_(software))_
+
+	_...Deseas saber mas sobre docker? Genial! Docker posee una documentacion excelente y podes verla [aqui](https://docs.docker.com/)_
+
+
 	+ Docker para Debian | Ubuntu | RHEL | CentOS
 
 			sudo curl -sSL http://get.docker.com | sh
