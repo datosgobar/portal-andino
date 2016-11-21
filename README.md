@@ -1,24 +1,18 @@
 Portal Andino
 ------------
-## Que es Andino?
-
-TODO
-
 ## Que es CKAN?
 Comprehensive Knowledge Archive Network (CKAN) es una aplicación web de código abierto para el almacenamiento y la distribución de los datos, tales como hojas de cálculo y los contenidos de las bases de datos. Está inspirado en las capacidades de gestión de paquetes comunes para abrir sistemas operativos, como Linux, y está destinado a ser el "apt-get de Debian para los datos". _Fuente: [wikipedia](https://es.wikipedia.org/wiki/CKAN)_
 
 _...Mas informacion sobre CKAN?... Obvio! [Documentacion Oficial de CKAN](http://docs.ckan.org/en/latest/)_
 
-## Que es DOCKER?
-es un proyecto de código abierto que automatiza el despliegue de aplicaciones dentro de contenedores de software, proporcionando una capa adicional de abstracción y automatización de Virtualización a nivel de sistema operativo en Linux. _Fuente: [wikipedia](https://es.wikipedia.org/wiki/Docker_(software))_
-
-_...Deseas saber mas sobre docker? Genial! Docker posee una documentacion excelente y podes verla [aqui](https://docs.docker.com/)_
+## Que es Andino?
+Descripcion de Andino....
 
 Indice:
 ------
 + [Que es CKAN?](#que-es-ckan)
 + [Que es DOCKER?](#que-es-docker)
-+ [Porque CKAN en Docker?](#porque-ckan-en-docker)
+
 + [Features](#features)
 + [Prerequisitos](#prerequisitos)
     + [DOCKER](#docker)
@@ -28,7 +22,11 @@ Indice:
     + [Instalacion Avanzada de CKAN](#instalacion-avanzada-de-ckan)
     	+ [Sin builder contenedores](#instalacion-de-ckan-con-contenedores-de-docker-ya-buildeados)
     	+ [Buildeando contenedores](#instalacion-de-ckan-con-contenedores-de-docker-ya-buildeados)
-    	+ [Usando docker-compose](#instalacion-de-ckan-con-docker-compose)
++ [Usage](#usage)
++ [Credits | Copying](#usage)
++ [Contacto](#contacto)
++ [Consultas o dudas?](#usage)
+
 
 ---
 
@@ -49,7 +47,7 @@ INSTALACION
 
 
 + GIT-CORE TOOLS
-	+ Windows _Descargar e Instalar desde_:
+	+ Windows:(_Descargar e Instalar desde_)
 	
 			https://github.com/git-for-windows/git/releases/tag/v2.10.0.windows.1
 
@@ -118,7 +116,7 @@ _Es recomendable clonar el repo dentro de /tmp (o C:\temp en **Windows X**), dad
 		
 		$ docker run -d --link pg-ckan:db --link solr-ckan:solr -p 80:80 -p 8800:8800 --name app-ckan datosgobar/ckan-distribuilble:latest
 
-Usage:
+USAGE:
 -----
 + Paso 6(Opcional): _Crear usuario administrador **ckan_admin**_
 	```bash		
@@ -129,14 +127,14 @@ Usage:
 	$ docker exec -it ckan-distribuilble /bin/bash -c "$CKAN_HOME/bin/paster --plugin=ckan config-tool /etc/ckan/default/production.ini -e 'ckan.site_url = http://tu_dominio.com.ar' 'ckan.datapusher.url = http://tu_dominio.com.ar:8800'"
 	```
 
-Credits / Copying
+CREDITS | COPYING
 ---
 Este trabajo esta inspirado en el desarrollo realizado por [CKAN.org](https://github.com/ckan/ckan/)
 
-Contacto:
+CONTACTO:
 ---
 Este proyecto es en desarrollo, si viste algun `bug`, por favor, [creanos un issue](https://github.com/datosgobar/portal-andino/issues/new?title=Encontre un bug en Adino).
 
-Comentarios o preguntas?
+COMENTARIOS?, PREGUNTAS?
 ---
 Escribinos a [datos@modernizacion.gob.ar](mailto:datos@modernizacion.gob.ar)
