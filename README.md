@@ -11,15 +11,16 @@ Descripcion de Andino....
 Indice:
 ------
 + [Que es CKAN?](#que-es-ckan)
-+ [Que es DOCKER?](#que-es-docker)
++ [Que es Andino?](que-es-andino)
 
-+ [Features](#features)
++ [Que contiene Andino](#features)
 + [Prerequisitos](#prerequisitos)
     + [DOCKER](#docker)
     + [GIT TOOLs](#git-tools)
-+ [Instalacion y Ejecucion de CKAN](#instalacion-y-ejecucion-de-ckan)
-    + [Instalacion Simplificada de CKAN](#instalacion-simplificada-de-ckan)
-    + [Instalacion Avanzada de CKAN](#instalacion-avanzada-de-ckan)
++ [Instalacion y Ejecucion de Andino](#instalación)
+	+ [Pre requisitos para la instalacion de Andino](#prerequisitos)
+    + [Instalacion Simplificada de Andino](#instalacion-simplificada-de-ckan)
+    + [Instalacion Avanzada de Andino](#instalacion-avanzada-de-ckan)
     	+ [Sin builder contenedores](#instalacion-de-ckan-con-contenedores-de-docker-ya-buildeados)
     	+ [Buildeando contenedores](#instalacion-de-ckan-con-contenedores-de-docker-ya-buildeados)
 + [Usage](#usage)
