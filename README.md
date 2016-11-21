@@ -35,13 +35,13 @@ Instalación
 -----------
 #### Prerequisitos:
 
-+ DOCKER:
++ ***DOCKER**:
 
-	**Que es DOCKER**?
-	es un proyecto de código abierto que automatiza el despliegue de aplicaciones dentro de contenedores de software, proporcionando una capa adicional de abstracción y automatización de Virtualización a nivel de sistema operativo en Linux. _Fuente: [wikipedia](https://es.wikipedia.org/wiki/Docker_(software))_
+	Docker es un proyecto de código abierto que automatiza el despliegue de aplicaciones dentro de contenedores de software, proporcionando una capa adicional de abstracción y automatización de Virtualización a nivel de sistema operativo en Linux. _Fuente: [wikipedia](https://es.wikipedia.org/wiki/Docker_(software))_
 
 	_...Deseas saber mas sobre docker? Genial! Docker posee una documentacion excelente y podes verla [aqui](https://docs.docker.com/)_
 
+	**Instalacion**:
 
 	+ Docker para Debian | Ubuntu | RHEL | CentOS
 
