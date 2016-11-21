@@ -4,7 +4,6 @@ Portal Andino
 Indice:
 ------
 + [Que es CKAN?](#que-es-ckan)
-+ [Que es Andino?](que-es-andino)
 + [Que contiene Andino](#features)
 + [Prerequisitos](#prerequisitos)
     + [DOCKER](#docker)
@@ -20,6 +19,17 @@ Indice:
 + [Contacto](#contacto)	
 + [Consultas o dudas?](#comentarios-preguntas)
 
+Features:
+---
++ [CKAN 2.5.2](http://docs.ckan.org/en/ckan-2.5.2/)
++ [Datastore](http://docs.ckan.org/en/latest/maintaining/datastore.html)
++ [FileStore](http://docs.ckan.org/en/latest/maintaining/filestore.html)
++ [Datapusher](https://github.com/ckan/datapusher)
++ [Hierarchy](https://github.com/datagovuk/ckanext-hierarchy)
++ [datajsonAR](https://github.com/datosgobar/ckanext-datajsonAR)
++ [Harvest](https://github.com/ckan/ckanext-harvest)
++ [Portal Andino theme](https://github.com/gobabiertoAR/portal-andino-theme/blob/master/docs/03_instalacion_tema_visual.md)
++ [Apache2 & NginX](http://docs.ckan.org/en/ckan-2.5.2/maintaining/installing/deployment.html#install-apache-modwsgi-modrpaf)
 
 Instalación
 -----------
