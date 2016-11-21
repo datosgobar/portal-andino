@@ -40,20 +40,22 @@ INSTALACION
 #### Prerequisitos:
 
 + DOCKER:
+	+ Docker para Debian | Ubuntu | RHEL | CentOS
+
+			sudo curl -sSL http://get.docker.com | sh
+
 	+ Docker para [OSX](https://docs.docker.com/docker-for-mac).
-	+ Docker para [Ubuntu/Debian](https://github.com/JoseSalgado1024/ckan_in_docker/blob/master/aux-docs/docker_Ubuntu-Debian.md).
-	+ Docker para [RHEL/CentOS](https://github.com/JoseSalgado1024/ckan_in_docker/blob/master/aux-docs/docker_rhel-centos.md).
 	+ Docker para [Windows](https://docs.docker.com/engine/installation/windows).
 
 
 + GIT-CORE TOOLS
-	+ Windows:
-
+	+ Windows _Descargar e Instalar desde_:
+	
 			https://github.com/git-for-windows/git/releases/tag/v2.10.0.windows.1
 
 	+ Ubuntu/Debian:
 
-			$ sudo apt-get -y install git-core
+			$ sudo apt-get -y install git-core"
 
 	+ RHEL/CentOS:
 
