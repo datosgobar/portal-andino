@@ -48,22 +48,21 @@ INSTALACION
 
 + GIT-CORE TOOLS
 	+ Windows:
-	_Descargar e Instalar desde:_
 
 			https://github.com/git-for-windows/git/releases/tag/v2.10.0.windows.1
 
 	+ Ubuntu/Debian:
 
-			$ sudo su -c "apt-get -y install git-core"
+			$ sudo apt-get -y install git-core
 
 	+ RHEL/CentOS:
 
-			$ yum update && yum install -y curl-devel expat-devel gettext-devel openssl-devel zlib-devel
 			$ yum install -y git-core
 
 	+ OSX:
 
 		    $ sudo port install git-core +svn +doc +bash_completion +gitweb
+
 
 Instalacion y Ejecucion de CKAN
 -------------------------------
@@ -87,8 +86,7 @@ _Esta clase de instalacion no requiere que clones el repositorio, dado que usare
 	```
 ---
 
-### Instalacion Avanzada de CKAN
-### Build `Andino` usando Dockerfiles
+#### Instalacion Avanzada de CKAN, build `Andino`:
 
 _Para instalar y ejecutar CKAN-Docker, debemos seguir los siguientes pasos:_
 
@@ -117,6 +115,7 @@ _Es recomendable clonar el repo dentro de /tmp (o C:\temp en **Windows X**), dad
 + Paso 5: _Correr contenedor  de **CKAN**_
 		
 		$ docker run -d --link pg-ckan:db --link solr-ckan:solr -p 80:80 -p 8800:8800 --name app-ckan datosgobar/ckan-distribuilble:latest
+
 Usage:
 -----
 + Paso 6(Opcional): _Crear usuario administrador **ckan_admin**_
@@ -134,7 +133,7 @@ Este trabajo esta inspirado en el desarrollo realizado por [CKAN.org](https://gi
 
 Contacto:
 ---
-Este proyecto es en desarrollo, si viste algun `bug`, por favor, [creanos un issue](https://github.com/datosgobar/portal-andino/issues/new?title=Encontre un bug en adino).
+Este proyecto es en desarrollo, si viste algun `bug`, por favor, [creanos un issue](https://github.com/datosgobar/portal-andino/issues/new?title=Encontre un bug en Adino).
 
 Comentarios o preguntas?
 ---
