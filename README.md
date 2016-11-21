@@ -50,7 +50,7 @@ _Esta clase de instalacion no requiere que clones el repositorio, dado que usare
 ---
 
 #### Instalacion Avanzada, building `Andino`:
-
+La Instalacion Avanzada esta pensada para aquellos usuarios que desean quizas, un poco mas como funciona intenamente `Andino`
 _Para instalar y ejecutar Andino, debemos seguir los siguientes pasos:_
 
 + Paso 1: Clonar Repositorio. 
