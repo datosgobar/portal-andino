@@ -19,8 +19,7 @@ ENV CKAN_DATA /var/lib/ckan
 ENV CKAN_INIT /etc/ckan_init.d
 ENV DATAPUSHER_HOME /usr/lib/ckan/datapusher
 ENV CKAN_HARVEST_GCF /var/log/ckan/std
-ENV GOBAR_CONFIG {"about":{"description":"Cont\u00e1 qu\u00e9 son los datasets de tu portal. Aprovech\u00e1 y explic\u00e1 qu\u00e9 son los datos abiertos, e invit\u00e1 a tus usuarios a que los usen, los modifiquen y los compartan. Por favor, hacelo en no m\u00e1s de tres l\u00edneas.","show-about": false, "title": "Acerca de este portal"}, "dataset": {"description": "Cont\u00e1 qu\u00e9 son los datasets de tu portal. Aprovech\u00e1 y explic\u00e1 qu\u00e9 son los datos abiertos, e invit\u00e1 a tus usuarios a que los usen, los modifiquen y los compartan. Por favor, hacelo en no m\u00e1s de tres l\u00edneas."}, "organization": {"description": "Mencion\u00e1 una breve descripci\u00f3n de las organizaciones responsables de los datasets. Por favor, hacelo en no m\u00e1s de tres l\u00edneas.", "show-organizations": false},"title": {"background-image": null,"site-description": "Describ\u00ed el portal. Explic\u00e1 de qu\u00e9 se trata tu cat\u00e1logo de datos. Por favor, hacelo en no m\u00e1s de tres l\u00edneas.","site-title": "T\u00edtulo del portal"}}
-
+ENV GOBAR_CONFIG $(cat ./config/default.json)
 
 
 # Actualizamos las bases de apt-get!
