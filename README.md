@@ -65,8 +65,8 @@ INSTALACION
 
 		    $ sudo port install git-core +svn +doc +bash_completion +gitweb
 
-### Instalacion y Ejecucion de CKAN
-
+Instalacion y Ejecucion de CKAN
+-------------------------------
 _En funcion a la probable dificultad de implementacion e incluso, la cantidad de pasos a realizar para lograr un deploy existoso, existen dos formas de instalar esta distribución de **CKAN**. Si no tenes muchos conocimientos de CKAN, Docker o de administracion de servidores en general, muy posiblemente, deberias utilizar la instalacion **[Simplificada  de CKAN](#instalacion-simplificada-de-ckan)**, la cual, esta pensada para que en la menor cantidad de pasos y de manera sencilla, tengas un Portal de Datos Funciona (Y muy bello :D). Ahora si por ejemplo, ya conoces la plataforma, tenes experiencia con Docker o simplemente, queres entender como es que funciona esta implementacion, te sugiero que revises la **[Instalacion Avanzada de CKAN](#instalacion-avanzada-de-ckan)**_
 
 
@@ -117,7 +117,8 @@ _Es recomendable clonar el repo dentro de /tmp (o C:\temp en **Windows X**), dad
 + Paso 5: _Correr contenedor  de **CKAN**_
 		
 		$ docker run -d --link pg-ckan:db --link solr-ckan:solr -p 80:80 -p 8800:8800 --name app-ckan datosgobar/ckan-distribuilble:latest
-
+Usage:
+-----
 + Paso 6(Opcional): _Crear usuario administrador **ckan_admin**_
 	```bash		
 	# Add USER ADMIN
@@ -126,3 +127,15 @@ _Es recomendable clonar el repo dentro de /tmp (o C:\temp en **Windows X**), dad
 	# BIND CKAN
 	$ docker exec -it ckan-distribuilble /bin/bash -c "$CKAN_HOME/bin/paster --plugin=ckan config-tool /etc/ckan/default/production.ini -e 'ckan.site_url = http://tu_dominio.com.ar' 'ckan.datapusher.url = http://tu_dominio.com.ar:8800'"
 	```
+
+Credits / Copying
+---
+Este trabajo esta inspirado en el desarrollo realizado por [CKAN.org](https://github.com/ckan/ckan/)
+
+Contacto:
+---
+Este proyecto es en desarrollo, si viste algun `bug`, por favor, [creanos un issue](https://github.com/datosgobar/portal-andino/issues/new?title=Encontre un bug en adino).
+
+Comentarios o preguntas?
+---
+Escribinos a [datos@modernizacion.gob.ar](mailto:datos@modernizacion.gob.ar)
