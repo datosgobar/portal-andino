@@ -51,7 +51,8 @@ Instalación
 	+ Docker para [Windows](https://docs.docker.com/engine/installation/windows).
 
 
-+ GIT-CORE TOOLS
++ **GIT-CORE TOOLS**:
+
 	GitHub es una forja (plataforma de desarrollo colaborativo) para alojar proyectos utilizando el sistema de control de versiones Git. Utiliza el framework Ruby on Rails por GitHub, Inc. (anteriormente conocida como Logical Awesome). Desde enero de 2010, GitHub opera bajo el nombre de GitHub, Inc. El código se almacena de forma pública, aunque también se puede hacer de forma privada, creando una cuenta de pago._Fuente: [wikipedia](https://es.wikipedia.org/wiki/GitHub)_
 
 	#### Instalacion:
@@ -73,17 +74,18 @@ Instalación
 		    $ sudo port install git-core +svn +doc +bash_completion +gitweb
 
 
-Instalacion y Ejecucion de CKAN
+Instalacion y Ejecucion de Andino
 -------------------------------
 _En funcion a la probable dificultad de implementacion e incluso, la cantidad de pasos a realizar para lograr un deploy existoso, existen dos formas de instalar esta distribución de **CKAN**. Si no tenes muchos conocimientos de CKAN, Docker o de administracion de servidores en general, muy posiblemente, deberias utilizar la instalacion **[Simplificada  de CKAN](#instalacion-simplificada-de-ckan)**, la cual, esta pensada para que en la menor cantidad de pasos y de manera sencilla, tengas un Portal de Datos Funciona (Y muy bello :D). Ahora si por ejemplo, ya conoces la plataforma, tenes experiencia con Docker o simplemente, queres entender como es que funciona esta implementacion, te sugiero que revises la **[Instalacion Avanzada de CKAN](#instalacion-avanzada-de-ckan)**_
 
 
-#### Instalacion Simplificada de CKAN:
+#### Instalacion Simplificada de `Andino`:
 
 _La idea detras de esta implementacion de CKAN, es que **SOLO** te encargues de tus datos, nada mas, por tanto, si "copias y pegas" el comando de consola, en solo unos momentos, tendras un Andino listo para usar._
 _Esta clase de instalacion no requiere que clones el repositorio, dado que usaremos contenedores alojados en [DockerHub](https://hub.docker.com/r/datosgobar)
 
 + Ubuntu|Debian|RHEL|CentOS:
+
 	```bash
 	# No tenes Docker? no importa:
 	# Instalacion de Docker:
