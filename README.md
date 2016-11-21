@@ -33,7 +33,7 @@ Indice:
 
 
 
-INSTALACION
+Instalación
 -----------
 #### Prerequisitos:
 
