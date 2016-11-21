@@ -23,17 +23,16 @@ Indice:
 
 Instalación
 -----------
-#### Dependencias:
+_En funcion a la probable dificultad de implementacion e incluso, la cantidad de pasos a realizar para lograr un deploy existoso, existen dos formas de instalar esta distribución de **CKAN**. Si no tenes muchos conocimientos de CKAN, Docker o de administracion de servidores en general, muy posiblemente, deberias utilizar la instalacion **[Simplificada  de Andino](#instalacion-simplificada-de-andino)**, la cual, esta pensada para que en la menor cantidad de pasos y de manera sencilla, tengas un Portal de Datos Funciona (Y muy bello :D). Ahora si por ejemplo, ya conoces la plataforma, tenes experiencia con Docker o simplemente, queres entender como es que funciona esta implementacion, te sugiero que revises la **[Instalacion Avanzada de Andino](#instalacion-avanzada-de-andino)**_
+
+Dependencias:
+---
 + DOCKER: [Guia de instalacion](https://docs.docker.com/engine/installation).
 + GIT-CORE:[Guia de instalacion](https://desktop.github.com)
 
-Instalacion y Ejecucion de Andino
----
-_En funcion a la probable dificultad de implementacion e incluso, la cantidad de pasos a realizar para lograr un deploy existoso, existen dos formas de instalar esta distribución de **CKAN**. Si no tenes muchos conocimientos de CKAN, Docker o de administracion de servidores en general, muy posiblemente, deberias utilizar la instalacion **[Simplificada  de Andino](#instalacion-simplificada-de-andino)**, la cual, esta pensada para que en la menor cantidad de pasos y de manera sencilla, tengas un Portal de Datos Funciona (Y muy bello :D). Ahora si por ejemplo, ya conoces la plataforma, tenes experiencia con Docker o simplemente, queres entender como es que funciona esta implementacion, te sugiero que revises la **[Instalacion Avanzada de Andino](#instalacion-avanzada-de-andino)**_
-
 
 Instalacion Simplificada de `Andino`:
-
+---
 _La idea detras de esta implementacion de CKAN, es que **SOLO** te encargues de tus datos, nada mas, por tanto, si "copias y pegas" el comando de consola, en solo unos momentos, tendras un Andino listo para usar._
 _Esta clase de instalacion no requiere que clones el repositorio, dado que usaremos contenedores alojados en [DockerHub](https://hub.docker.com/r/datosgobar)
 
