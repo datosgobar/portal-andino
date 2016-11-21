@@ -23,8 +23,7 @@ Indice:
 
 Instalación
 -----------
-#### Prerequisitos:
-
+#### Dependencias:
 + DOCKER: [Guia de instalacion](https://docs.docker.com/engine/installation).
 + GIT-CORE:[Guia de instalacion](https://desktop.github.com)
 
