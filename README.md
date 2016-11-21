@@ -23,9 +23,9 @@ Indice:
     	+ [Sin builder contenedores](#instalacion-de-ckan-con-contenedores-de-docker-ya-buildeados)
     	+ [Buildeando contenedores](#instalacion-de-ckan-con-contenedores-de-docker-ya-buildeados)
 + [Usage](#usage)
-+ [Credits | Copying](#usage)
++ [Credits | Copying](#credits--copying)
 + [Contacto](#contacto)
-+ [Consultas o dudas?](#usage)
++ [Consultas o dudas?](#comentarios-preguntas)
 
 
 ---
