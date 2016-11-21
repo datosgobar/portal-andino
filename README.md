@@ -154,8 +154,8 @@ $ docker exec -it app-ckan /bin/bash
 # Cambiar "tu-domino" y "ip-del-server" por los valores que corresponda.
 $CKAN_HOME/bin/paster --plugin=ckan \
 	config-tool /etc/ckan/default/production.ini -e \
-	'ckan.site_url = http://tu-dominio.com.ar' \
-	'ckan.datapusher.url = http://ip-del-server.com.ar:8800'"
+	"ckan.site_url = http://tu-dominio.com.ar" \
+	"ckan.datapusher.url = http://ip-del-server.com.ar:8800"
 ```
 
 Credits | Copying
