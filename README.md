@@ -1,6 +1,6 @@
 Portal Andino
 ------------
-El `Portal andino` es una implementacion de CKAN utilizando un conjunto de tecnologias que mejoran considerablemnte la estabilidad y perfomance del mismo.
+El `Portal andino` es una implementacion de CKAN utilizando un conjunto de tecnologias que mejoran considerablemente la estabilidad y perfomance del mismo.
 La implementacion en la presente version utiliza tres contendores padres para conformar la plataforma, siendo los mismo:
 + APP-CKAN:
 	+ Packages | Service:
