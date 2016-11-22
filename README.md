@@ -67,7 +67,7 @@ _Teniendo en cuenta la dificultad de implementacion e incluso la cantidad de pas
 ### Dependencias
 
 + ##### DOCKER: [Guía de instalación](https://docs.docker.com/engine/installation).
-+ ##### GIT-CORE:[Guía de instalación](https://desktop.github.com)
++ ##### GIT-CORE: [Guía de instalación](https://desktop.github.com)
 
 
 #### Instalación simplificada de `Andino`
