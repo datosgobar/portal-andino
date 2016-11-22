@@ -2,7 +2,59 @@
 
 Esta es una implementación de CKAN que usa un conjunto de tecnologías para mejorar la estabilidad y perfomance.
 
-Esta implementación usa contendores padres:
+## Índice
++ [Qué contiene el paquete de Andino](#que-contiene-el-paquete-de-andino)
++ [Instalación](#instalación)
+	+ [Dependencias](#dependencias)
+    + [Instalación simplificada](#instalacion-simplificada)
+    + [Instalación avanzada](#instalacion-avanzada)
++ [Uso](#uso)
+	+ [Crear usuario administrador](#crear-usuario-administrador)
+	+ [Configurar URL de Andino](#configurar-url-de-andino)
++ [Créditos](#créditos)
++ [Contacto](#contacto)	
+
+## Qué contiene el paquete de Andino
+
++ [CKAN 2.5.2](http://docs.ckan.org/en/ckan-2.5.2/)
++ [Datastore](http://docs.ckan.org/en/latest/maintaining/datastore.html)
++ [FileStore](http://docs.ckan.org/en/latest/maintaining/filestore.html)
++ [Datapusher](https://github.com/ckan/datapusher)
++ [Hierarchy](https://github.com/datagovuk/ckanext-hierarchy)
++ [datajsonAR](https://github.com/datosgobar/ckanext-datajsonAR)
++ [Harvest](https://github.com/ckan/ckanext-harvest)
++ [Portal Andino theme](https://github.com/datosgobar/portal-andino-theme)
++ [Apache2 & NginX](http://docs.ckan.org/en/ckan-2.5.2/maintaining/installing/deployment.html#install-apache-modwsgi-modrpaf)
+
+## Instalación
+
+Teniendo en cuenta la dificultad de implementacion e incluso la cantidad de pasos para lograr un deploy existoso, existen dos formas de instalar esta distribución de **CKAN**. 
+
+- Si no tenés muchos conocimientos de CKAN, Docker o de administracion de servidores en general, es recomendable usar la instalación **[simplificada  de Andino](#instalacion-simplificada-de-andino)**. Está pensada para que en la menor cantidad de pasos y de manera sencilla, tengas un portal de datos funcionando. 
+- Si ya conocés la plataforma, tenés experiencia con Docker o simplemente, querés entender cómo funciona esta implementación, te sugiero que revises la **[instalacion avanzada de Andino](#instalacion-avanzada-de-andino)**
+
+### Dependencias
+
++ DOCKER: [Guía de instalación](https://docs.docker.com/engine/installation).
++ GIT: [Guía de instalación](https://desktop.github.com)
+
+#### Instalación simplificada
+
+_La idea detrás de esta implementación de CKAN es **que sólo te encargues de tus datos**, nada más. Por eso, si "copiás y pegás" el comando de consola, en sólo unos momentos, tendrás un Andino listo para usar._
+_Esta clase de instalación no requiere que clones el repositorio, ya que usamos contenedores alojados en [DockerHub](https://hub.docker.com/r/datosgobar)
+
++ Ubuntu|Debian|RHEL|CentOS:
+
+	```bash
+	# ¿No tenes Docker? No importa:
+	# Instalación de Docker:
+	# =====================
+	#
+	# 	sudo su -c "curl -sSL http://get.docker.com | sh"
+	#
+	$ docker run -d --name pg-ckan datosgobar/pg-ckan:latest && docker run -d --name solr-ckan datosgobar/solr-ckan:latest && docker run -d --name  app-ckan -p 80:80 -p 8800:8800 --link pg-ckan:db --link solr-ckan:solr datosgobar/app-ckan:latest
+```
+##### ¿Qué contenedores vas a instalar?
 
 + APP-CKAN:
 	+ Packages | Service:
@@ -30,67 +82,13 @@ Esta implementación usa contendores padres:
 	+ Plugins:
 		+ CKAN_Schema 2.2+(Hierarchy-Mig)
 
-## Índice
-+ [¿Qué es CKAN?](#que-es-ckan)
-+ [¿Qué contiene Andino?](#features)
-+ [Requisitos](#requisitos)
-    + [DOCKER](#docker)
-    + [GIT TOOLs](#git-tools)
-+ [Instalación y ejecucion de Andino](#instalación)
-	+ [Dependencias de la instalación de Andino](#dependencias)
-    + [Instalación simplificada de Andino](#instalacion-simplificada-de-andino)
-    + [Instalación avanzada de Andino](#instalacion-avanzada-building-andino)
-+ [Uso](#uso)
-	+ [Crear usuario Admin para Andino](#crear-usuario-administrador-para-andino)
-	+ [Configurar la URL de Andino](#configurar-url-de-andino)
-+ [Créditos](#créditos)
-+ [Contacto](#contacto)	
-
-Features:
-
-+ [CKAN 2.5.2](http://docs.ckan.org/en/ckan-2.5.2/)
-+ [Datastore](http://docs.ckan.org/en/latest/maintaining/datastore.html)
-+ [FileStore](http://docs.ckan.org/en/latest/maintaining/filestore.html)
-+ [Datapusher](https://github.com/ckan/datapusher)
-+ [Hierarchy](https://github.com/datagovuk/ckanext-hierarchy)
-+ [datajsonAR](https://github.com/datosgobar/ckanext-datajsonAR)
-+ [Harvest](https://github.com/ckan/ckanext-harvest)
-+ [Portal Andino theme](https://github.com/datosgobar/portal-andino-theme)
-+ [Apache2 & NginX](http://docs.ckan.org/en/ckan-2.5.2/maintaining/installing/deployment.html#install-apache-modwsgi-modrpaf)
-
-## Instalación
-
-_Teniendo en cuenta la dificultad de implementacion e incluso la cantidad de pasos para lograr un deploy existoso, existen dos formas de instalar esta distribución de **CKAN**. 
---Si no tenés muchos conocimientos de CKAN, Docker o de administracion de servidores en general, es recomendable usar la instalación **[simplificada  de Andino](#instalacion-simplificada-de-andino)**. Está pensada para que en la menor cantidad de pasos y de manera sencilla, tengas un portal de datos funcionando. 
---Si ya conocés la plataforma, tenés experiencia con Docker o simplemente, querés entender cómo funciona esta implementación, te sugiero que revises la **[instalacion avanzada de Andino](#instalacion-avanzada-de-andino)**_
-
-### Dependencias
-
-+ ##### DOCKER: [Guía de instalación](https://docs.docker.com/engine/installation).
-+ ##### GIT-CORE: [Guía de instalación](https://desktop.github.com)
-
-
-#### Instalación simplificada de `Andino`
-
-_La idea detrás de esta implementación de CKAN es **que sólo te encargues de tus datos**, nada más. Por eso, si "copiás y pegás" el comando de consola, en sólo unos momentos, tendrás un Andino listo para usar._
-_Esta clase de instalación no requiere que clones el repositorio, ya que usamos contenedores alojados en [DockerHub](https://hub.docker.com/r/datosgobar)
-
-+ Ubuntu|Debian|RHEL|CentOS:
-
-	```bash
-	# ¿No tenes Docker? No importa:
-	# Instalación de Docker:
-	# =====================
-	#
-	# 	sudo su -c "curl -sSL http://get.docker.com | sh"
-	#
-	$ docker run -d --name pg-ckan datosgobar/pg-ckan:latest && docker run -d --name solr-ckan datosgobar/solr-ckan:latest && docker run -d --name  app-ckan -p 80:80 -p 8800:8800 --link pg-ckan:db --link solr-ckan:solr datosgobar/app-ckan:latest
-	```
 ---
 
-#### Instalación avanzada, building `Andino`
+#### Instalación avanzada
+
 La instalación avanzada está pensada para usarios que quieren ver cómo funciona internamente `Andino`
-_Para instalar y ejecutar Andino, seguimos estos pasos:_
+
+Para instalar y ejecutar Andino, seguimos estos pasos:
 
 + Paso 1: Clonar repositorio. 
 _Es recomendable clonar el repo dentro de /tmp (o C:\temp en **Windows X**), ya que al finalizar la instalación, no usaremos más el repositorio_.
@@ -118,11 +116,11 @@ _Es recomendable clonar el repo dentro de /tmp (o C:\temp en **Windows X**), ya 
 		
 		$ docker run -d --link pg-ckan:db --link solr-ckan:solr -p 80:80 -p 8800:8800 --name app-ckan datosgobar/ckan-distribuilble:latest
 
-## Uso de portal-andino
+## Uso
 
 Una vez finalizada la instalación, bajo cualquiera de los métodos, deberíamos:
 
-### Crear usuario administrador para Andino
+### Crear usuario administrador
 	
 ```bash		
 #
