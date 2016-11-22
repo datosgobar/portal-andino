@@ -1,6 +1,7 @@
 # Portal Andino
 
 Implementación de CKAN en Docker, desarrollada en el contexto del portal distribuible Andino. 
+
 También podés [ver el repositorio del tema visual](https://github.com/datosgobar/portal-andino-theme).
 
 ## Índice
