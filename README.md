@@ -1,6 +1,7 @@
 # Portal Andino
 
-Esta es una implementación de CKAN que usa un conjunto de tecnologías para mejorar la estabilidad y perfomance.
+Implementación de CKAN en Docker, desarrollada en el contexto del portal distribuible Andino. 
+También podés [ver el repositorio del tema visual](https://github.com/datosgobar/portal-andino-theme).
 
 ## Índice
 + [Qué contiene el paquete de Andino](#qué-contiene-el-paquete-de-andino)
@@ -40,8 +41,8 @@ Teniendo en cuenta la dificultad de implementacion e incluso la cantidad de paso
 
 #### Instalación simplificada
 
-_La idea detrás de esta implementación de CKAN es **que sólo te encargues de tus datos**, nada más. Por eso, si "copiás y pegás" el comando de consola, en sólo unos momentos, tendrás un Andino listo para usar._
-_Esta clase de instalación no requiere que clones el repositorio, ya que usamos contenedores alojados en [DockerHub](https://hub.docker.com/r/datosgobar)
+La idea detrás de esta implementación de CKAN es **que sólo te encargues de tus datos**, nada más. Por eso, si "copiás y pegás" el comando de consola, en sólo unos momentos, tendrás un Andino listo para usar.
+Esta clase de instalación no requiere que clones el repositorio, ya que usamos contenedores alojados en [DockerHub](https://hub.docker.com/r/datosgobar)
 
 + Ubuntu|Debian|RHEL|CentOS:
 
