@@ -1,6 +1,6 @@
 # Portal Andino
-------------
-`Portal andino` es una implementación de CKAN que usa un conjunto de tecnologías que mejoran la estabilidad y perfomance.
+
+Esta es una implementación de CKAN que usa un conjunto de tecnologías para mejorar la estabilidad y perfomance.
 
 Esta implementación usa contendores padres:
 
@@ -59,19 +59,19 @@ Features:
 + [Apache2 & NginX](http://docs.ckan.org/en/ckan-2.5.2/maintaining/installing/deployment.html#install-apache-modwsgi-modrpaf)
 
 ## Instalación
------------
+
 _Teniendo en cuenta la dificultad de implementacion e incluso la cantidad de pasos para lograr un deploy existoso, existen dos formas de instalar esta distribución de **CKAN**. 
 --Si no tenés muchos conocimientos de CKAN, Docker o de administracion de servidores en general, es recomendable usar la instalación **[simplificada  de Andino](#instalacion-simplificada-de-andino)**. Está pensada para que en la menor cantidad de pasos y de manera sencilla, tengas un portal de datos funcionando. 
 --Si ya conocés la plataforma, tenés experiencia con Docker o simplemente, querés entender cómo funciona esta implementación, te sugiero que revises la **[instalacion avanzada de Andino](#instalacion-avanzada-de-andino)**_
 
 ### Dependencias:
----
+
 + ##### DOCKER: [Guía de instalación](https://docs.docker.com/engine/installation).
 + ##### GIT-CORE:[Guía de instalación](https://desktop.github.com)
 
 
 #### Instalación simplificada de `Andino`:
----
+
 _La idea detrás de esta implementación de CKAN es **que sólo te encargues de tus datos**, nada más. Por eso, si "copiás y pegás" el comando de consola, en sólo unos momentos, tendrás un Andino listo para usar._
 _Esta clase de instalación no requiere que clones el repositorio, ya que usamos contenedores alojados en [DockerHub](https://hub.docker.com/r/datosgobar)
 
@@ -119,7 +119,7 @@ _Es recomendable clonar el repo dentro de /tmp (o C:\temp en **Windows X**), ya 
 		$ docker run -d --link pg-ckan:db --link solr-ckan:solr -p 80:80 -p 8800:8800 --name app-ckan datosgobar/ckan-distribuilble:latest
 
 ## Uso de portal-andino:
------
+
 Una vez finalizada la instalación, bajo cualquiera de los métodos, deberíamos:
 
 ### Crear usuario administrador para Andino:
