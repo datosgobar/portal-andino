@@ -29,7 +29,7 @@ Esta implementación usa contendores padres:
 		+ Solr 6.0
 	+ Plugins:
 		+ CKAN_Schema 2.2+(Hierarchy-Mig)
-# Índice
+**Índice**
 
 + [¿Qué es CKAN?](#que-es-ckan)
 + [¿Qué contiene Andino?](#features)
@@ -47,7 +47,7 @@ Esta implementación usa contendores padres:
 + [Contacto](#contacto)	
 
 Features:
----
+
 + [CKAN 2.5.2](http://docs.ckan.org/en/ckan-2.5.2/)
 + [Datastore](http://docs.ckan.org/en/latest/maintaining/datastore.html)
 + [FileStore](http://docs.ckan.org/en/latest/maintaining/filestore.html)
