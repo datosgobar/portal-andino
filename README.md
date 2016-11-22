@@ -1,8 +1,34 @@
 Portal Andino
 ------------
+El `Portal andino` es una implementacion de CKAN utilizando un conjunto de tecnologias que mejoran considerablemnte la estabilidad y perfomance del mismo.
+La implementacion en la presente version utiliza tres contendores padres para conformar la plataforma, siendo los mismo:
++ APP-CKAN:
+	+ Packages | Service:
+		+ Imagen base: ubuntu xenial 16.04
+		+ NGINX
+		+ Apache 2 | WSGI MOD
+		+ CKAN 2.5.2
+		+ Supervisor
+		+ Postfix
+		+ RabbitMQ
+	+ Plugins:
+		+ DataStore
+		+ FileStore
+		+ Datapusher
+		+ DataJSONAR
+		+ Andino Theme
+		+ Harvest
+		+ Hierarchy
++ PG-CKAN:
+	+ Packages | Service:
+		+ PostgreSQL 9.5
++ SOLR-CKAN:
+	+ Package | Service
+		+ Solr 6.0
+	+ Plugins:
+		+ CKAN_Schema 2.2+(Hierarchy-Mig)
+	
 
-Indice:
-------
 + [Que es CKAN?](#que-es-ckan)
 + [Que contiene Andino](#features)
 + [Prerequisitos](#prerequisitos)
@@ -37,8 +63,8 @@ _En funcion a la probable dificultad de implementacion e incluso, la cantidad de
 
 Dependencias:
 ---
-+ DOCKER: [Guia de instalacion](https://docs.docker.com/engine/installation).
-+ GIT-CORE:[Guia de instalacion](https://desktop.github.com)
++ ##### DOCKER: [Guia de instalacion](https://docs.docker.com/engine/installation).
++ ##### GIT-CORE:[Guia de instalacion](https://desktop.github.com)
 
 
 Instalacion Simplificada de `Andino`:
