@@ -3,11 +3,11 @@
 Esta es una implementación de CKAN que usa un conjunto de tecnologías para mejorar la estabilidad y perfomance.
 
 ## Índice
-+ [Qué contiene el paquete de Andino](#que-contiene-el-paquete-de-andino)
++ [Qué contiene el paquete de Andino](#qué-contiene-el-paquete-de-andino)
 + [Instalación](#instalación)
 	+ [Dependencias](#dependencias)
-    + [Instalación simplificada](#instalacion-simplificada)
-    + [Instalación avanzada](#instalacion-avanzada)
+    + [Instalación simplificada](#instalación-simplificada)
+    + [Instalación avanzada](#instalación-avanzada)
 + [Uso](#uso)
 	+ [Crear usuario administrador](#crear-usuario-administrador)
 	+ [Configurar URL de Andino](#configurar-url-de-andino)
