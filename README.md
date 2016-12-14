@@ -116,7 +116,7 @@ _Es recomendable clonar el repo dentro de /tmp (o C:\temp en **Windows X**), ya 
 
 + Paso 5: _Correr contenedor  de **Andino**_
 		
-		$ docker run -d --link pg-ckan:db --link solr-ckan:solr -p 80:80 -p 8800:8800 --name app-ckan datosgobar/ckan-distribuilble:latest
+		$ docker run -d --link pg-ckan:db --link solr-ckan:solr -p 80:80 -p 8800:8800 --name app-ckan datosgobar/app-ckan:latest
 
 ## Uso
 
