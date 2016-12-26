@@ -41,7 +41,7 @@ ridb=$?
 # Sumo los codigos de error para simplificar la evaluacion de los mismos.
 exit_code=$(($ridb + $rids))
 
-if [[ exit_code -eq 0 ]];
+if [ $exit_code -eq 0 ];
 	then 
 	printf "[OK]\nBases de datos funcionales y listas!\n"
 	exit 0
