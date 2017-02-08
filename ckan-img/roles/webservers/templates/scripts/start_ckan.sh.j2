@@ -6,7 +6,7 @@
 #  correctamente.                                       #
 # ----------------------------------------------------- #
 
-APACHE2_WSGI=$CKAN_CONFIG/apache.wsgi
+APACHE2_WSGI={{ CKAN_CONFIG }}/apache.wsgi
 nginx &
 service apache2 restart;
 service redis-server restart;
