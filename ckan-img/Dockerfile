@@ -3,8 +3,7 @@ MAINTAINER Leandro Gomez<lgomez@devartis.com>
 
 WORKDIR /app
 
-ENV CKAN_INIT=/etc/ckan_init.d \
-    CKAN_DIST_MEDIA=/usr/lib/ckan/default/src/ckanext-gobar-theme/ckanext/gobar_theme/public/user_images \
+ENV CKAN_DIST_MEDIA=/usr/lib/ckan/default/src/ckanext-gobar-theme/ckanext/gobar_theme/public/user_images \
     CKAN_DIST_CONFIG=/var/lib/ckan/theme_config \
     DEBIAN_FRONTEND=noninteractive \
     CKAN_APACHE2_PORT=80 \

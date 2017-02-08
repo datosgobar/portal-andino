@@ -14,11 +14,11 @@ service rabbitmq-server restart;
 service postfix restart;
 
 # Creamos contexto para CKAN
-/bin/bash $CKAN_INIT/.make_conf.sh
+/bin/bash {{ CKAN_INIT }}/.make_conf.sh
 mconf=$?
 
 # Inicializamos la Base de datos e incluso, Solr.
-/bin/bash $CKAN_INIT/.init_db.sh
+/bin/bash {{ CKAN_INIT }}/.init_db.sh
 idb=$?
 
 
