@@ -39,36 +39,36 @@ write_config () {
 
 
 link_rw_datastore (){
-  local user=$DB_ENV_POSTGRES_USER
-  local pass=$DB_ENV_POSTGRES_PASS
-  local db=$DB_ENV_POSTGRES_DB
-  local host=$DB_PORT_5432_TCP_ADDR
-  local port=$DB_PORT_5432_TCP_PORT
+  local user="{{ DEFAULT_POSTGRESQL_USER }}"
+  local pass="{{ DEFAULT_POSTGRESQL_PASSWORD }}"
+  local db="{{ DEFAULT_POSTGRESQL_DB }}"
+  local host="{{ DEFAULT_POSTGRESQL_IP }}"
+  local port="{{ DEFAULT_POSTGRESQL_PORT }}"
   echo "postgresql://${user}:${pass}@${host}:${port}/datastore_default"
 }
 
 
 link_ro_datastore (){
-  local user=$DB_ENV_POSTGRES_USER
-  local pass=$DB_ENV_POSTGRES_PASS
-  local db=$DB_ENV_POSTGRES_DB
-  local host=$DB_PORT_5432_TCP_ADDR
-  local port=$DB_PORT_5432_TCP_PORT
+  local user="{{ DEFAULT_POSTGRESQL_USER }}"
+  local pass="{{ DEFAULT_POSTGRESQL_PASSWORD }}"
+  local db="{{ DEFAULT_POSTGRESQL_DB }}"
+  local host="{{ DEFAULT_POSTGRESQL_IP }}"
+  local port="{{ DEFAULT_POSTGRESQL_PORT }}"
   echo "postgresql://datastore_default:pass@${host}:${port}/datastore_default"
 }
 
 link_postgres_url () {
-  local user=$DB_ENV_POSTGRES_USER
-  local pass=$DB_ENV_POSTGRES_PASS
-  local db=$DB_ENV_POSTGRES_DB
-  local host=$DB_PORT_5432_TCP_ADDR
-  local port=$DB_PORT_5432_TCP_PORT
+  local user="{{ DEFAULT_POSTGRESQL_USER }}"
+  local pass="{{ DEFAULT_POSTGRESQL_PASSWORD }}"
+  local db="{{ DEFAULT_POSTGRESQL_DB }}"
+  local host="{{ DEFAULT_POSTGRESQL_IP }}"
+  local port="{{ DEFAULT_POSTGRESQL_PORT }}"
   echo "postgresql://${user}:${pass}@${host}:${port}/${db}"
 }
 
 link_solr_url () {
-  local host=$SOLR_PORT_8983_TCP_ADDR
-  local port=$SOLR_PORT_8983_TCP_PORT
+  local host="{{ DEFAULT_SOLR_IP }}"
+  local port="{{ DEFAULT_SOLR_PORT }}"
   echo "http://${host}:${port}/solr/ckan"
 }
 
