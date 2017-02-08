@@ -1,23 +1,25 @@
 version: '2'
 services:
-    ckan:
+    andino:
         build: ./ckan-img
-        container_name: ckan-distribuilble
-        image: datosgobar/ckan-distribuilble:latest
+        container_name: andino
         ports:
           - 80:80
           - 8800:8800
         depends_on:
-           - pg-ckan
+           - db
            - solr
-        external_links:
-           - pg-ckan:db
-           - solr:solr
-    pg-ckan:
+        networks:
+          - andino-network
+    db:
         build: ./postgresql-img
-        image: datosgobar/pg-ckan:latest
-        container_name: pg-ckan
+        networks:
+          - andino-network
     solr:
-        build: ./solr -img
-        image: datosgobar/solr:latest
-        container_name: solr
+        build: ./solr-img
+        networks:
+          - andino-network
+
+
+networks:
+  andino-network:
