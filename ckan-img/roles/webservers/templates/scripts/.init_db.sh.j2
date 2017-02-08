@@ -7,7 +7,7 @@ print_config_file (){
 
 # Inicializa TODAS las bases de ckan
 init_db(){
-	${CKAN_HOME}/bin/paster --plugin=ckan db init -c $(print_config_file)
+	{{ CKAN_HOME }}/bin/paster --plugin=ckan db init -c $(print_config_file)
 }
 
 # Inicializa bases para el datastore de ckan
@@ -24,7 +24,7 @@ init_datastore(){
 	psql -c "CREATE DATABASE datastore_default OWNER $PGUSER;"
 	
 	# Set permisos
-	$CKAN_HOME/bin/paster --plugin=ckan datastore set-permissions -c $(print_config_file) | psql --set ON_ERROR_STOP=1
+	{{ CKAN_HOME }}/bin/paster --plugin=ckan datastore set-permissions -c $(print_config_file) | psql --set ON_ERROR_STOP=1
 }
 
 
