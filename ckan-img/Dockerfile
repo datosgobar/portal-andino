@@ -11,7 +11,6 @@ ENV CKAN_DIST_MEDIA=/usr/lib/ckan/default/src/ckanext-gobar-theme/ckanext/gobar_
     CKAN_NGINX_PORT=8080 \
     HOME=/root \
     CKAN_VERSION=2.5.1 \
-    CKAN_HOME=/usr/lib/ckan/default \
     CKAN_DATA=/var/lib/ckan \
     CKAN_INIT=/etc/ckan_init.d \
     DATAPUSHER_HOME=/usr/lib/ckan/datapusher \
