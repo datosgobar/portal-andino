@@ -1,0 +1,54 @@
+---
+
+- name: Install software-properties-common
+  apt: name=software-properties-common state=present update_cache=yes
+  tags:
+    - dependencies
+
+- name: Install dependencies
+  apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+  tags:
+    - dependencies
+  with_items:
+    - libevent-dev
+    - libpq-dev
+    - nginx
+    - apache2
+    - libapache2-mod-rpaf
+    - postfix
+    - build-essential
+    - libxslt1-dev
+    - libxml2-dev
+    - python-dev
+    - libffi-dev
+    - libssl-dev
+    - python-minimal
+    - python-virtualenv
+    - python-pip
+    - libapache2-mod-wsgi
+    - wget
+    - nano
+    - ca-certificates
+    - redis-server
+    - rabbitmq-server
+    - supervisor
+    - inotify-tools
+    - git-core
+
+- name: Add pgAdmin key
+  apt_key:
+    url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
+    state: present
+  tags:
+    - dependencies
+
+- name: Install pgAdmin
+  apt:
+    name: pgadmin3
+    state: present
+    update_cache: yes
+  tags:
+    - dependencies

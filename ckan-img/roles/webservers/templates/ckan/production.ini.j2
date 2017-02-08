@@ -50,10 +50,10 @@ who.log_file = %(cache_dir)s/who_log.ini
 # who.timeout = 86400
 
 ## Database Settings
-sqlalchemy.url = postgresql://ckan:ckan@172.17.0.3:5432/ckan
+sqlalchemy.url = postgresql://ckan:ckan@{{ DEFAULT_POSTGRESQL_IP }}:5432/ckan
 
-ckan.datastore.write_url = postgresql://ckan:ckan@172.17.0.3:5432/datastore_default
-ckan.datastore.read_url = postgresql://datastore_default:pass@172.17.0.3:5432/datastore_default
+ckan.datastore.write_url = postgresql://ckan:ckan@{{ DEFAULT_POSTGRESQL_IP }}:5432/datastore_default
+ckan.datastore.read_url = postgresql://datastore_default:pass@{{ DEFAULT_POSTGRESQL_IP }}:5432/datastore_default
 
 # PostgreSQL' full-text search parameters
 ckan.datastore.default_fts_lang = english
@@ -61,7 +61,7 @@ ckan.datastore.default_fts_index_method = gist
 
 ## Site Settings
 
-ckan.site_url = http://172.17.0.4
+ckan.site_url = http://{{ DEFAULT_SERVER_IP }}
 #ckan.use_pylons_response_cleanup_middleware = true
 
 ## Authorization Settings
@@ -81,7 +81,7 @@ ckan.auth.roles_that_cascade_to_sub_groups = admin
 ## Search Settings
 
 ckan.site_id = default
-solr_url = http://172.17.0.2:8983/solr/ckan
+solr_url = http://{{ DEFAULT_SOLR_IP }}:8983/solr/ckan
 
 #ckan.simple_search = 1
 
@@ -152,7 +152,7 @@ ckan.max_resource_size = 300
 # Make sure you have set up the DataStore
 
 ckan.datapusher.formats = csv xls xlsx tsv application/csv application/vnd.ms-excel application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
-ckan.datapusher.url = http://172.17.0.4:8800
+ckan.datapusher.url = http://{{ DEFAULT_SERVER_IP }}:8800
 
 # Resource Proxy settings
 # Preview size limit, default: 1MB

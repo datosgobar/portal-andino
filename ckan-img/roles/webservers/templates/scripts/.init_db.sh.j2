@@ -13,15 +13,15 @@ init_db(){
 # Inicializa bases para el datastore de ckan
 init_datastore(){
 	# Exportamos 
-	export PGUSER=$DB_ENV_POSTGRES_USER;
-	export PGPASSWORD=$DB_ENV_POSTGRES_PASS;
-	export PGHOST=$DB_PORT_5432_TCP_ADDR;
-	export PGDATABASE=$DB_ENV_POSTGRES_DB;
-	export PGPORT=$DB_PORT_5432_TCP_PORT;
+	export PGUSER="{{ DEFAULT_POSTGRESQL_USER }}"
+	export PGPASSWORD="{{ DEFAULT_POSTGRESQL_PASSWORD }}"
+	export PGHOST="{{ DEFAULT_POSTGRESQL_IP }}"
+	export PGDATABASE="{{ DEFAULT_POSTGRESQL_DB }}"
+	export PGPORT="{{ DEFAULT_POSTGRESQL_PORT }}"
 	
 	# Creamos Role y Database para datastore
 	psql -c "CREATE ROLE datastore_default WITH PASSWORD 'pass';"
-	psql -c "CREATE DATABASE datastore_default OWNER $DB_ENV_POSTGRES_USER;"
+	psql -c "CREATE DATABASE datastore_default OWNER $PGUSER;"
 	
 	# Set permisos
 	$CKAN_HOME/bin/paster --plugin=ckan datastore set-permissions -c $(print_config_file) | psql --set ON_ERROR_STOP=1
