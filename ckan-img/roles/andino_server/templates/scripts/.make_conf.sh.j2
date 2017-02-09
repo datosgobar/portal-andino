@@ -44,7 +44,7 @@ link_rw_datastore (){
   local db="{{ DEFAULT_POSTGRESQL_DB }}"
   local host="{{ DEFAULT_POSTGRESQL_IP }}"
   local port="{{ DEFAULT_POSTGRESQL_PORT }}"
-  echo "postgresql://${user}:${pass}@${host}:${port}/datastore_default"
+  echo "postgresql://${user}:${pass}@${host}:${port}/{{ DEFAULT_DATASTORE_DB }}"
 }
 
 
@@ -54,7 +54,7 @@ link_ro_datastore (){
   local db="{{ DEFAULT_POSTGRESQL_DB }}"
   local host="{{ DEFAULT_POSTGRESQL_IP }}"
   local port="{{ DEFAULT_POSTGRESQL_PORT }}"
-  echo "postgresql://datastore_default:pass@${host}:${port}/datastore_default"
+  echo "postgresql://{{ DEFAULT_DATASTORE_USER }}:{{ DEFAULT_DATASTORE_PASSWORD }}@${host}:${port}/{{ DEFAULT_DATASTORE_DB }}"
 }
 
 link_postgres_url () {

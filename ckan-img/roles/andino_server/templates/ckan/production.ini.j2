@@ -50,10 +50,10 @@ who.log_file = %(cache_dir)s/who_log.ini
 # who.timeout = 86400
 
 ## Database Settings
-sqlalchemy.url = postgresql://{{ DEFAULT_POSTGRESQL_USER }}:{{ DEFAULT_POSTGRESQL_PASSWORD }}@{{ DEFAULT_POSTGRESQL_IP }}:5432/ckan
+sqlalchemy.url = postgresql://{{ DEFAULT_POSTGRESQL_USER }}:{{ DEFAULT_POSTGRESQL_PASSWORD }}@{{ DEFAULT_POSTGRESQL_IP }}:{{ DEFAULT_POSTGRESQL_PORT }}/{{ DEFAULT_POSTGRESQL_DB }}
 
-ckan.datastore.write_url = postgresql://{{ DEFAULT_POSTGRESQL_USER }}:{{ DEFAULT_POSTGRESQL_PASSWORD }}@{{ DEFAULT_POSTGRESQL_IP }}:5432/datastore_default
-ckan.datastore.read_url = postgresql://datastore_default:pass@{{ DEFAULT_POSTGRESQL_IP }}:5432/datastore_default
+ckan.datastore.write_url = postgresql://{{ DEFAULT_POSTGRESQL_USER }}:{{ DEFAULT_POSTGRESQL_PASSWORD }}@{{ DEFAULT_POSTGRESQL_IP }}:{{ DEFAULT_POSTGRESQL_PORT }}/{{ DEFAULT_DATASTORE_DB }}
+ckan.datastore.read_url = postgresql://{{ DEFAULT_DATASTORE_USER }}:{{ DEFAULT_DATASTORE_PASSWORD }}@{{ DEFAULT_POSTGRESQL_IP }}:{{ DEFAULT_POSTGRESQL_PORT }}/{{ DEFAULT_DATASTORE_DB }}
 
 # PostgreSQL' full-text search parameters
 ckan.datastore.default_fts_lang = english
