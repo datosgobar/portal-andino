@@ -18,7 +18,7 @@
 - name: Configure CKAN
   template:
     src: ckan/production.ini.j2
-    dest: "{{ CKAN_CONFIG }}/production.ini"
+    dest: "{{ CKAN_CONFIG }}/{{ CKAN_CONFIG_FILE }}"
 
 - name: Add scripts
   copy:
