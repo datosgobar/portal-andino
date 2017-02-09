@@ -12,8 +12,6 @@ ENV DEBIAN_FRONTEND=noninteractive \
     CKAN_DATA=/var/lib/ckan \
     CKAN_DIST_CONFIG=/var/lib/ckan/theme_config
 
-ENV GOBAR_CONFIG $(cat ./config/default.json)
-
 RUN apt-get -y update && \
       apt-get install -y software-properties-common && \
       add-apt-repository ppa:ansible/ansible && \
