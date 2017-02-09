@@ -1,5 +1,5 @@
 import os
-activate_this = os.path.join('/usr/lib/ckan/default/bin/activate_this.py')
+activate_this = os.path.join('{{ CKAN_HOME }}/bin/activate_this.py')
 execfile(activate_this, dict(__file__=activate_this))
 
 from paste.deploy import loadapp
