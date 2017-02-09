@@ -41,3 +41,4 @@ Para acceder a la aplicación, hacer modificaciones en `runtime`, basta con corr
 
 La imagen para la aplicación andino instala y configura [ckan](https://ckan.org/) con algunos plugins y modificaciones.
 Para provisionar la imagen con estas dependencias, se usa [ansible](https://www.ansible.com/).
+

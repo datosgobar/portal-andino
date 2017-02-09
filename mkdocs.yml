@@ -1,4 +1,4 @@
 pages:
-  - Home: 'README.md'
+  - Home: 'docs/README.md'
   - Desarrollo:
     - 'Docker & ansible': 'development/docker_ansible.md'
