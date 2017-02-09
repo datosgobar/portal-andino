@@ -8,6 +8,7 @@ ENV DEBIAN_FRONTEND=noninteractive \
     CKAN_DATAPUSHER_PORT=8800 \
     CKAN_NGINX_PORT=8080 \
     CKAN_VERSION=2.5.1 \
+    CKAN_HOME=/usr/lib/ckan/default \
     CKAN_DIST_MEDIA=/usr/lib/ckan/default/src/ckanext-gobar-theme/ckanext/gobar_theme/public/user_images \
     CKAN_DATA=/var/lib/ckan \
     CKAN_DIST_CONFIG=/var/lib/ckan/theme_config
