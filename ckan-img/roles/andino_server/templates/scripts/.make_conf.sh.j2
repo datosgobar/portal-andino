@@ -11,7 +11,7 @@
 : ${DATASTORE_URL_RO:=}
 : ${DATASTORE_URL_RW:=}
 
-CONFIG="/etc/ckan/default/production.ini"
+CONFIG="{{ CKAN_CONFIG }}/production.ini"
 
 abort () {
   echo "$@" >&2
