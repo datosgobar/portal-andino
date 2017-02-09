@@ -1,9 +1,10 @@
 ---
 
 - name: Download ckan deb
-  get_url:
-    url: http://packaging.ckan.org/python-ckan_2.5-trusty_amd64.deb
-    dest: /tmp
+  shell: wget -O /tmp/python-ckan_2.5-trusty_amd64.deb http://packaging.ckan.org/python-ckan_2.5-trusty_amd64.deb
+#  get_url:
+#    url: http://packaging.ckan.org/python-ckan_2.5-trusty_amd64.deb
+#    dest: /tmp
 
 - name: Setup dirs
   file:
@@ -12,7 +13,7 @@
   with_items:
     - "{{ CKAN_HOME }}"
     - "{{ CKAN_CONFIG }}"
-    - "{{ CKAN_DATA }}"
+    - "{{ DEFAULT_CKAN_DATA }}"
 
 - name: Create virtualenv
   pip:
@@ -82,9 +83,9 @@
     state: directory
     dest: "{{ item }}"
   with_items:
-    - $CKAN_DIST_MEDIA
-    - $CKAN_DIST_CONFIG
-    - $CKAN_HARVEST_GCF
+    - "{{ CKAN_DIST_MEDIA }}"
+    - "{{ CKAN_DIST_CONFIG }}"
+    - "{{ CKAN_HARVEST_GCF }}"
     - /etc/service
     - /var/log/supervisor
     - /var/log/apache/
@@ -94,8 +95,8 @@
     state: touch
     path: "{{ item }}"
   with_items:
-    - $CKAN_HARVEST_GCF/fetch_consumer.log
-    - $CKAN_HARVEST_GCF/gather_consumer.log
+    - "{{ CKAN_HARVEST_GCF }}/fetch_consumer.log"
+    - "{{ CKAN_HARVEST_GCF }}/gather_consumer.log"
     - /var/log/ckan/theme.changes.log
 
 - name: Change owners
@@ -106,7 +107,7 @@
   with_items:
     - "{{ CKAN_DIST_MEDIA }}"
     - "{{ CKAN_DIST_CONFIG }}"
-    - "{{ CKAN_DATA }}"
+    - "{{ DEFAULT_CKAN_DATA }}"
     - /tmp/ckan_service.log
 
 - name: Change chmode
@@ -117,7 +118,7 @@
   with_items:
     - "{{ CKAN_DIST_CONFIG }}"
     - "{{ CKAN_DIST_MEDIA }}"
-    - "{{ CKAN_DATA }}"
+    - "{{ DEFAULT_CKAN_DATA }}"
 
 - name: Change chmode
   file:
