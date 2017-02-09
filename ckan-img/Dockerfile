@@ -21,8 +21,7 @@ RUN apt-get -y update && \
 COPY ./site.yml /app/
 COPY ./roles /app/roles
 COPY ./group_vars /app/group_vars
-RUN  ansible-playbook -i "localhost," -c local site.yml --tags "dependencies" -vv
-RUN  ansible-playbook -i "localhost," -c local site.yml --skip-tags "dependencies" -vv
+RUN  ansible-playbook -i "localhost," -c local site.yml -vv
 
 CMD ["/usr/bin/supervisord"]
 CMD ["/etc/ckan_init.d/start_ckan.sh"]
