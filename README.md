@@ -96,22 +96,22 @@ Para instalar y ejecutar Andino, seguimos estos pasos:
 _Es recomendable clonar el repo dentro de /tmp (o C:\temp en **Windows X**), ya que al finalizar la instalación, no usaremos más el repositorio_.
 		
 		$ cd /tmp # en Linux, en Windows, usar cd C:\temp
-		$ git clone https://github.com/datosgobar/portal-andino.git
+		$ git clone https://github.com/datosgobar/portal-andino.git andino
 
 + Paso 2: _construir y lanzar el contenedor de **pg-ckan** usando el Dockerfile ubicado en `postgresql-img/`._ 
 
-		$ cd /tmp/ckan_in_docker/postgresql-img/
+		$ cd /tmp/andino/postgresql-img/
 		$ docker build -t datosgobar/pg-ckan:latest . && docker run -d --name pg-ckan datosgobar/pg-ckan:latest
 
 
 + Paso 3: _construir y lanzar el contenedor de **solr-ckan** usando el Dockerfile ubicado en `solr-img/`._
 
-		$ cd /tmp/ckan_in_docker/solr-img/ 
+		$ cd /tmp/andino/solr-img/ 
 		$ docker build -t datosgobar/solr-ckan:latest . && docker run -d  --name solr-ckan datosgobar/solr-ckan:latest
 
 + Paso 4: _construir el contenedor de **app-ckan** usando el Dockerfile ubicado en `ckan-img/`._
 
-		$ cd /tmp/ckan_in_a_box/ckan-img
+		$ cd /tmp/andino/ckan-img
 		$ docker build -t datosgobar/app-ckan:latest .
 
 + Paso 5: _Correr contenedor  de **Andino**_
