@@ -25,7 +25,7 @@ write_config () {
   {{ CKAN_HOME }}/bin/paster --plugin=ckan config-tool "$CONFIG" -e \
       "sqlalchemy.url = ${DATABASE_URL}" \
       "solr_url = ${SOLR_URL}" \
-      "ckan.storage_path = ${CKAN_DATA}" \
+      "ckan.storage_path = {{ DEFAULT_CKAN_DATA }}" \
       "ckan.datapusher.url = http://${CKAN_IP}:8800" \
       "ckan.datastore.write_url = $(link_rw_datastore)" \
       "ckan.datastore.read_url = $(link_ro_datastore)" \
