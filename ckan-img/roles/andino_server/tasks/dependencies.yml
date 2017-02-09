@@ -2,16 +2,12 @@
 
 - name: Install software-properties-common
   apt: name=software-properties-common state=present update_cache=yes
-  tags:
-    - dependencies
 
 - name: Install dependencies
   apt:
     name: "{{ item }}"
     state: present
     update_cache: yes
-  tags:
-    - dependencies
   with_items:
     - libevent-dev
     - libpq-dev
@@ -42,13 +38,9 @@
   apt_key:
     url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
     state: present
-  tags:
-    - dependencies
 
 - name: Install pgAdmin
   apt:
     name: pgadmin3
     state: present
     update_cache: yes
-  tags:
-    - dependencies
