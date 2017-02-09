@@ -1,0 +1,5 @@
+site_name: Portal Andino
+pages:
+  - Home: 'index.md'
+  - Desarrollo:
+    - 'Docker & ansible': 'development/docker_ansible.md'

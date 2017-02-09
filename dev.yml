@@ -11,14 +11,17 @@ services:
            - solr
         networks:
           - andino-network
+        volumes:
+          - $PWD:/dev-app
     db:
         build: ./postgresql-img
+        container_name: db
         networks:
           - andino-network
     solr:
         build: ./solr-img
+        container_name: solr
         networks:
           - andino-network
-
 networks:
   andino-network:
