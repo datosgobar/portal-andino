@@ -24,7 +24,7 @@
   file:
     state: link
     force: yes
-    src: "{{ CKAN_HOME }}/src/ckan/config/who.ini"
+    src: "{{ CKAN_HOME }}/src/ckan/who.ini"
     dest: "{{ CKAN_CONFIG }}/who.ini"
 
 
