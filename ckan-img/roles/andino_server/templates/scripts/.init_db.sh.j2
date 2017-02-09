@@ -20,8 +20,8 @@ init_datastore(){
 	export PGPORT="{{ DEFAULT_POSTGRESQL_PORT }}"
 	
 	# Creamos Role y Database para datastore
-	psql -c "CREATE ROLE datastore_default WITH PASSWORD 'pass';"
-	psql -c "CREATE DATABASE datastore_default OWNER $PGUSER;"
+	psql -c "CREATE ROLE {{ DEFAULT_DATASTORE_USER }} WITH PASSWORD '{{ DEFAULT_DATASTORE_PASSWORD }}';"
+	psql -c "CREATE DATABASE {{ DEFAULT_DATASTORE_DB }} OWNER $PGUSER;"
 	
 	# Set permisos
 	{{ CKAN_HOME }}/bin/paster --plugin=ckan datastore set-permissions -c $(print_config_file) | psql --set ON_ERROR_STOP=1
