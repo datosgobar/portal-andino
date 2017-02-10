@@ -148,8 +148,8 @@ $CKAN_HOME/bin/paster --plugin=ckan \
 	"ckan.site_url = http://tu-dominio.com.ar" \
 	"ckan.datapusher.url = http://ip-del-server.com.ar:8800"
 # Para que los cambios que acabamos de agregar impacten en nuestra plataforma
-# debemos reiniciar los servicios NGINX y APACHE2
-service nginx restart && service apache2 restart
+# debemos reiniciar el servicio APACHE2
+service apache2 restart
 ```
 
 ## Créditos
