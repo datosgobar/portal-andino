@@ -1,10 +1,18 @@
 version: '2'
 services:
+    nginx:
+        build: ./nginx
+        container_name: nginx
+        ports:
+          - 80:80
+        depends_on:
+          - andino
+        networks:
+          - andino-network
     andino:
         build: ./ckan-img
         container_name: andino
         ports:
-          - 80:80
           - 8800:8800
         depends_on:
            - db
