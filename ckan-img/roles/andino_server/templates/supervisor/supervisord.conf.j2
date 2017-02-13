@@ -5,6 +5,3 @@ nodaemon=true
 command=/bin/bash -c "source /etc/apache2/envvars && exec /usr/sbin/apache2 -DFOREGROUND"
 numprocs=1
 
-[program:redis]
-command=/bin/bash -c "exec /usr/bin/redis-server"
-numprocs=1

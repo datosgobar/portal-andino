@@ -8,24 +8,18 @@ abort () {
   echo "$@" >&2
   exit 1
 }
-#Lanzo servidor de Redis
-service redis-server start 
-if [ $? -eq 0  ] then
-	service rabbitmq-server start
-	if [ $? -eq 0 ] then
-		service supervisor restart
-			if [ $? -eq 0 ] then
-				supervisorctl reread
-				supervisorctl add ckan_gather_consumer
-				supervisorctl add ckan_fetch_consumer
-				supervisorctl start ckan_gather_consumer
-				supervisorctl start ckan_fetch_consumer
-			else
-				abort "Fallo inicio de Supervisor..."
-			fi
-	else
-		abort "Fallo inicio de Rabbitmq-Server..."
-	fi
+service rabbitmq-server start
+    if [ $? -eq 0 ] then
+        service supervisor restart
+		if [ $? -eq 0 ] then
+			supervisorctl reread
+			supervisorctl add ckan_gather_consumer
+			supervisorctl add ckan_fetch_consumer
+			supervisorctl start ckan_gather_consumer
+			supervisorctl start ckan_fetch_consumer
+		else
+			abort "Fallo inicio de Supervisor..."
+		fi
 else
-   abort "Fallo inicio de Redis-Server..."
+	abort "Fallo inicio de Rabbitmq-Server..."
 fi

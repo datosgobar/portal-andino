@@ -179,6 +179,8 @@ error_email_from = ckan@2f8ad111c3f3
 #smtp.password = your_password
 #smtp.mail_from =
 
+## Redis
+ckan.redis.url = redis://{{ DEFAULT_REDIS_HOST }}:{{ DEFAULT_REDIS_PORT }}/{{ DEFAULT_REDIS_DB }}
 
 ## Logging configuration
 [loggers]
