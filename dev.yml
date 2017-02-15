@@ -23,6 +23,32 @@ services:
           - andino-network
         volumes:
           - $PWD:/dev-app
+    fetch_consumer:
+        build: ./ckan-img
+        container_name: fetch_consumer
+        command: /etc/ckan_init.d/run_fetch_consumer.sh
+        depends_on:
+           - db
+           - solr
+           - redis
+           - postfix
+        networks:
+          - andino-network
+        volumes:
+          - $PWD:/dev-app
+    gather_consumer:
+        build: ./ckan-img
+        container_name: gather_consumer
+        command: /etc/ckan_init.d/run_gather_consumer.sh
+        depends_on:
+           - db
+           - solr
+           - redis
+           - postfix
+        networks:
+          - andino-network
+        volumes:
+          - $PWD:/dev-app
     db:
         build: ./postgresql-img
         container_name: db
