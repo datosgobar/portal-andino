@@ -18,6 +18,7 @@ services:
            - db
            - solr
            - redis
+           - postfix
         networks:
           - andino-network
         volumes:
@@ -35,6 +36,14 @@ services:
     solr:
         build: ./solr-img
         container_name: solr
+        networks:
+          - andino-network
+    postfix:
+        image: catatnight/postfix
+        container_name: postfix
+        ports:
+          - "25:25"
+          - "587:587"
         networks:
           - andino-network
 networks:
