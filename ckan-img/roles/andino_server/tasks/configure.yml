@@ -48,7 +48,6 @@
     dest: /etc/service/
   with_items:
     - ckan
-    - postfix
 
 - name: Apache ckan error log
   file:

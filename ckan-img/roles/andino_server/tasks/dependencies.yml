@@ -13,7 +13,6 @@
     - libpq-dev
     - apache2
     - libapache2-mod-rpaf
-    - postfix
     - build-essential
     - libxslt1-dev
     - libxml2-dev
