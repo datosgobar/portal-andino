@@ -26,7 +26,6 @@
     - wget
     - nano
     - ca-certificates
-    - rabbitmq-server
     - supervisor
     - inotify-tools
     - git-core

@@ -8,7 +8,6 @@
 
 APACHE2_WSGI={{ CKAN_CONFIG }}/apache.wsgi
 service apache2 restart;
-service rabbitmq-server restart;
 
 # Creamos contexto para CKAN
 /bin/bash {{ CKAN_INIT }}/.make_conf.sh

@@ -103,6 +103,12 @@ solr_url = http://{{ DEFAULT_SOLR_IP }}:8983/solr/ckan
 #		same origin policy
 ckan.plugins = datajson_harvest datajson harvest ckan_harvester stats text_view image_view recline_view hierarchy_display hierarchy_form gobar_theme datastore datapusher
 
+# harvest configuration
+#ckan.harvest.mq.user_id
+#ckan.harvest.mq.password (guest)
+ckan.harvest.mq.hostname = {{ DEFAULT_RABBIT_MQ_HOST }}
+#ckan.harvest.mq.port
+
 # Define which views should be created by default
 # (plugins must be loaded in ckan.plugins)
 ckan.views.default_views = image_view text_view recline_view
