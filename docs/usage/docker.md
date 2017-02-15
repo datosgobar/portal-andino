@@ -9,9 +9,22 @@ Esta clase de instalación no requiere que clones el repositorio, ya que usamos 
 + Requerimientos:
     - Docker: `sudo su -c "curl -sSL http://get.docker.com | sh"`
 
-+ Instalación
++ Instalación:
+  * Pull de imágenes
 
-      $ docker run -d --name andino-psql datosgobar/portal-andino:development-psql && \
+    ```
+    $ docker pull datosgobar/andino-psql && \
+        docker pull datosgobar/portal-andino:development-solr && \
+        docker pull redis:3.2.7-alpine && \
+        docker pull rabbitmq:3.6.6-alpine && \
+        docker pull catatnight/postfix && \
+        docker pull datosgobar/portal-andino:development-andino && \
+        docker pull datosgobar/portal-andino:development-nginx
+    ```
+  * Crear containers:
+
+    ```
+    $ docker run -d --name andino-psql datosgobar/portal-andino:development-psql && \
         docker run -d --name andino-solr datosgobar/portal-andino:development-solr && \
         docker run -d --name andino-redis redis:3.2.7-alpine && \
         docker run -d --name andino-rabbitmq -h rabbitmq rabbitmq:3.6.6-alpine && \
@@ -22,3 +35,4 @@ Esta clase de instalación no requiere que clones el repositorio, ya que usamos 
             --link andino-postfix:postfix \
             datosgobar/portal-andino:development-andino && \
         docker run -d --name andino-nginx -p 80:80 --link andino:andino datosgobar/portal-andino:development-nginx
+    ```
