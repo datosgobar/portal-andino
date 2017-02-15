@@ -33,6 +33,11 @@ services:
         container_name: redis
         networks:
           - andino-network
+    rabbitmq:
+        image: rabbitmq:3.6.6-alpine
+        container_name: rabbitmq
+        networks:
+          - andino-network
     solr:
         build: ./solr-img
         container_name: solr
