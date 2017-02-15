@@ -26,7 +26,6 @@
     - wget
     - nano
     - ca-certificates
-    - supervisor
     - inotify-tools
     - git-core
 

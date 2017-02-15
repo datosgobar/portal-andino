@@ -1,0 +1,4 @@
+#!/bin/sh
+set -e
+
+exec /usr/lib/ckan/default/bin/paster --plugin=ckanext-harvest harvester gather_consumer --config={{ CKAN_CONFIG }}/{{ CKAN_CONFIG_FILE }}

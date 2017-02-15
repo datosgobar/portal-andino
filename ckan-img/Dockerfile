@@ -23,7 +23,6 @@ COPY ./roles /app/roles
 COPY ./group_vars /app/group_vars
 RUN  ansible-playbook -i "localhost," -c local site.yml -vv
 
-CMD ["/usr/bin/supervisord"]
 CMD ["/etc/ckan_init.d/start_ckan.sh"]
 
 VOLUME $CKAN_DATA $CKAN_DIST_MEDIA $CKAN_DIST_CONFIG

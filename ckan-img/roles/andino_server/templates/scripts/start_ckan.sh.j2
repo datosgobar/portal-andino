@@ -1,41 +1,19 @@
 #!/bin/bash
-
-# ----------------------------------------------------- # 
-#  Finalizado el Build del contenedor en "run-mode"     #
-#  debemos hacer algunas cosas para que todo funcione   #
-#  correctamente.                                       #
-# ----------------------------------------------------- #
+set -e;
 
 APACHE2_WSGI={{ CKAN_CONFIG }}/apache.wsgi
-service apache2 restart;
 
-# Creamos contexto para CKAN
 /bin/bash {{ CKAN_INIT }}/.make_conf.sh
-mconf=$?
 
 # Inicializamos la Base de datos e incluso, Solr.
 /bin/bash {{ CKAN_INIT }}/.init_db.sh
-idb=$?
 
-
-exit_code=$(($mconf + $idb))
-
-# Ambos commandos anteriores, fueron exitosos?
-if [ "$exit_code" -eq "0" ] ; then
-
-	# Considerando que CKAN/data va a ser un volumen externo, corrijo permisos
-	chown www-data:www-data {{ DEFAULT_CKAN_DATA }} {{ CKAN_DIST_MEDIA }} {{ CKAN_DIST_CONFIG }}
-	chmod u+rwx {{ DEFAULT_CKAN_DATA }} {{ CKAN_DIST_MEDIA }} {{ CKAN_DIST_CONFIG }}
-	export GOBAR_CONFIG=$(cat /var/lib/ckan/theme_config/settings.json)
+# Considerando que CKAN/data va a ser un volumen externo, corrijo permisos
+chown www-data:www-data {{ DEFAULT_CKAN_DATA }} {{ CKAN_DIST_MEDIA }} {{ CKAN_DIST_CONFIG }}
+chmod u+rwx {{ DEFAULT_CKAN_DATA }} {{ CKAN_DIST_MEDIA }} {{ CKAN_DIST_CONFIG }}
+export GOBAR_CONFIG=$(cat /var/lib/ckan/theme_config/settings.json)
 	
-	service apache2 restart;
-	# Conectamos los logs de ckan con la salida de "docker logs"
-	tail  -f /var/log/apache/ckan_default.error.log
-	
-
-else
-	# Ok.. el mundo ya no es un lugar amigable!
-	echo "-------------------------------------------"
-	echo "  Ooops! hubo un problema.. :( " 
-	echo "-------------------------------------------"
-fi
+service apache2 restart;
+# Conectamos los logs de ckan con la salida de "docker logs"
+service apache2 stop
+exec {{ CKAN_INIT }}/run_andino.sh
