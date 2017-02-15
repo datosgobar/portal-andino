@@ -11,13 +11,6 @@
     src: ckan/production.ini.j2
     dest: "{{ CKAN_CONFIG }}/{{ CKAN_CONFIG_FILE }}"
 
-- name: Add scripts
-  copy:
-    src: "scripts/{{ item }}"
-    dest: "{{ CKAN_INIT }}/"
-  with_items:
-    - theme_f_update.sh
-
 - name: Copy configuration files
   template:
     src: "{{ item.src }}"
