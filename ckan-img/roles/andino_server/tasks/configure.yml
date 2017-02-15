@@ -26,7 +26,7 @@
     - {src: apache/apache.wsgi.j2, dest: "{{ CKAN_CONFIG }}/apache.wsgi"}
     - {src: ckan/datapusher.wsgi.j2, dest: /etc/ckan/datapusher.wsgi}
     - {src: ckan/export.map.json.j2, dest: "{{ CKAN_HOME }}/src/ckanext-datajson/ckanext/datajson/export_map/export.map.json"}
-    - {src: scripts/.init_db.sh.j2, dest: "{{ CKAN_INIT }}/.init_db.sh"}
+    - {src: scripts/init_db.sh.j2, dest: "{{ CKAN_INIT }}/init_db.sh"}
     - {src: scripts/.make_conf.sh.j2, dest: "{{ CKAN_INIT }}/.make_conf.sh"}
     - {src: scripts/start_ckan.sh.j2, dest: "{{ CKAN_INIT }}/start_ckan.sh"}
     - {src: scripts/run_andino.sh, dest: "{{ CKAN_INIT }}/run_andino.sh"}

@@ -1,12 +1,7 @@
 #!/bin/bash
 set -e;
 
-APACHE2_WSGI={{ CKAN_CONFIG }}/apache.wsgi
-
 /bin/bash {{ CKAN_INIT }}/.make_conf.sh
-
-# Inicializamos la Base de datos e incluso, Solr.
-/bin/bash {{ CKAN_INIT }}/.init_db.sh
 
 # Considerando que CKAN/data va a ser un volumen externo, corrijo permisos
 chown www-data:www-data {{ DEFAULT_CKAN_DATA }} {{ CKAN_DIST_MEDIA }} {{ CKAN_DIST_CONFIG }}
