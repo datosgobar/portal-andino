@@ -4,35 +4,33 @@
 
 Esta clase de instalación no requiere que clones el repositorio, ya que usamos contenedores alojados en [DockerHub](https://hub.docker.com/r/datosgobar)
 
-### Ubuntu
+### Ubuntu 14.04
 
 + Requerimientos:
     - Docker: `sudo su -c "curl -sSL http://get.docker.com | sh"`
 
 + Instalación:
-  * Pull de imágenes
 
-    ```
-    $ docker pull datosgobar/andino-psql && \
-        docker pull datosgobar/portal-andino:development-solr && \
-        docker pull redis:3.2.7-alpine && \
-        docker pull rabbitmq:3.6.6-alpine && \
-        docker pull catatnight/postfix && \
-        docker pull datosgobar/portal-andino:development-andino && \
-        docker pull datosgobar/portal-andino:development-nginx
-    ```
-  * Crear containers:
+  Install script:
 
-    ```
-    $ docker run -d --name andino-psql datosgobar/portal-andino:development-psql && \
-        docker run -d --name andino-solr datosgobar/portal-andino:development-solr && \
-        docker run -d --name andino-redis redis:3.2.7-alpine && \
-        docker run -d --name andino-rabbitmq -h rabbitmq rabbitmq:3.6.6-alpine && \
-        docker run -d --name andino-postfix -p 25:25 -p 587:587 catatnight/postfix && \
-        docker run -d --name andino -p 8800:8800 \
-            --link andino-psql:db --link andino-solr:solr \
-            --link andino-redis:redis --link andino-rabbitmq:rabbitmq \
-            --link andino-postfix:postfix \
-            datosgobar/portal-andino:development-andino && \
-        docker run -d --name andino-nginx -p 80:80 --link andino:andino datosgobar/portal-andino:development-nginx
-    ```
+      sudo su -c "curl -sSL https://raw.github.com/datosgobar/portal-andino/development/deploy/install.sh | sh"
+  
++ Inicialización:
+
+        docker exec andino /etc/ckan_init.d/init_db.sh
+  
+        docker exec andino /etc/ckan_init.d/make_conf.sh
+  
++ Customización
+
+    - Crear un usuario administrador (Cambiar `ckan_admin` por otro usuario si se desea):
+    
+            docker exec -it andino /etc/ckan_init.d/add_admin.sh ckan_admin
+
+    - Cambiar la url del sitio (Cambiar `dev.example.com` por el correspondiente dominio):
+    
+            docker exec -it andino /etc/ckan_init.d/change_site_url.sh dev.example.com
+            
+    - Cambiar la url por por la correcta (TBD: cual es la correcta?)
+    
+            docker exec -it andino /etc/ckan_init.d/change_datapusher_url.sh harvest.example.com
