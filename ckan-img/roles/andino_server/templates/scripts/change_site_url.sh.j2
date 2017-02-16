@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+if [ -z "$1" ]; then
+    echo "You must pass the new site url as a parameter."
+    exit 1;
+fi
+
+new_url="$1";
+
+{{ CKAN_HOME }}/bin/paster --plugin=ckan config-tool /etc/ckan/default/production.ini -e "ckan.site_url = $new_url";
