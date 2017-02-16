@@ -1,8 +1,6 @@
 #!/bin/bash
 set -e;
 
-/bin/bash {{ CKAN_INIT }}/.make_conf.sh
-
 # Considerando que CKAN/data va a ser un volumen externo, corrijo permisos
 chown www-data:www-data {{ DEFAULT_CKAN_DATA }} {{ CKAN_DIST_MEDIA }} {{ CKAN_DIST_CONFIG }}
 chmod u+rwx {{ DEFAULT_CKAN_DATA }} {{ CKAN_DIST_MEDIA }} {{ CKAN_DIST_CONFIG }}

@@ -14,6 +14,7 @@
     - "{{ CKAN_HOME }}"
     - "{{ CKAN_CONFIG }}"
     - "{{ DEFAULT_CKAN_DATA }}"
+    - "{{ CKAN_INIT }}"
 
 - name: Create virtualenv
   pip:
