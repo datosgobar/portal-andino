@@ -29,15 +29,9 @@
     dest: "{{ CKAN_CONFIG }}/who.ini"
 
 
-- name: Create ckan service log
-  file:
-    state: touch
-    path: /tmp/ckan_service.log
-
 - name: Install ckan
   apt:
     deb: /tmp/python-ckan_2.5-trusty_amd64.deb
-
 
 - name: Upgrade pip
   pip:
@@ -45,34 +39,21 @@
     state: latest
     virtualenv: "{{ CKAN_HOME }}"
 
-- name: Install python requets
-  pip:
-    name: requests[security]
-    virtualenv: "{{ CKAN_HOME }}"
 
-- name: Install custom packages
+- name: Add ckan-requirements
+  copy:
+    src: ckan-requirements.txt
+    dest: "{{ CKAN_HOME }}/ckan-requirements.txt"
+
+- name: Install python requirements
   pip:
-    name: "{{ item }}"
+    requirements:  "{{ CKAN_HOME }}/ckan-requirements.txt"
     virtualenv: "{{ CKAN_HOME }}"
-  with_items:
-    - git+https://github.com/datosgobar/portal-andino-theme.git#egg=ckanext-gobar_theme
-    - git+https://github.com/datagovuk/ckanext-hierarchy.git#egg=ckanext-hierarchy
-    - git+https://github.com/ckan/ckanext-harvest.git#egg=ckanext-harvest
 
 - name: install Harvest requirements
   pip:
     requirements: "{{ CKAN_HOME }}/src/ckanext-harvest/pip-requirements.txt"
     virtualenv: "{{ CKAN_HOME }}"
-
-- name: Install some requirements
-  pip:
-    name: "{{ item }}"
-    virtualenv: "{{ CKAN_HOME }}"
-  with_items:
-    - pyyaml
-    - lepl
-    - jsonschema
-    - rfc3987
 
 - name: Install datajson AR
   pip:
@@ -90,15 +71,6 @@
     - /etc/service
     - /var/log/apache/
 
-- name: Create log file
-  file:
-    state: touch
-    path: "{{ item }}"
-  with_items:
-    - "{{ CKAN_HARVEST_GCF }}/fetch_consumer.log"
-    - "{{ CKAN_HARVEST_GCF }}/gather_consumer.log"
-    - /var/log/ckan/theme.changes.log
-
 - name: Change owners
   file:
     owner: www-data
@@ -108,7 +80,6 @@
     - "{{ CKAN_DIST_MEDIA }}"
     - "{{ CKAN_DIST_CONFIG }}"
     - "{{ DEFAULT_CKAN_DATA }}"
-    - /tmp/ckan_service.log
 
 - name: Change chmode
   file:
@@ -119,9 +90,3 @@
     - "{{ CKAN_DIST_CONFIG }}"
     - "{{ CKAN_DIST_MEDIA }}"
     - "{{ DEFAULT_CKAN_DATA }}"
-
-- name: Change chmode
-  file:
-    mode: u+rwx
-    path: /tmp/ckan_service.log
-

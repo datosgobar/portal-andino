@@ -3,11 +3,15 @@
 - name: Install software-properties-common
   apt: name=software-properties-common state=present update_cache=yes
 
+- name: Add pgAdmin key
+  apt_key:
+    url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
+    state: present
+
 - name: Install dependencies
   apt:
     name: "{{ item }}"
     state: present
-    update_cache: yes
   with_items:
     - libevent-dev
     - libpq-dev
@@ -28,14 +32,4 @@
     - ca-certificates
     - inotify-tools
     - git-core
-
-- name: Add pgAdmin key
-  apt_key:
-    url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
-    state: present
-
-- name: Install pgAdmin
-  apt:
-    name: pgadmin3
-    state: present
-    update_cache: yes
+    - pgadmin3
