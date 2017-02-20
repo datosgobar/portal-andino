@@ -31,7 +31,7 @@
 
 - name: Apache ckan error log
   file:
-    path: /var/log/apache/ckan_default.error.log
+    path: /var/log/apache2/ckan_default.error.log
     state: touch
 
 - name: Copy default ckan config
