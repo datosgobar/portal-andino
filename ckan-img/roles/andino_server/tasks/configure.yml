@@ -29,11 +29,6 @@
     - {src: scripts/run_gather_consumer.sh.j2, dest: "{{ CKAN_INIT }}/run_gather_consumer.sh"}
     - {src: scripts/run_fetch_consumer.sh.j2, dest: "{{ CKAN_INIT }}/run_fetch_consumer.sh"}
 
-- name: Apache ckan error log
-  file:
-    path: /var/log/apache2/ckan_default.error.log
-    state: touch
-
 - name: Copy default ckan config
   template:
     src: ckan/default.json.j2

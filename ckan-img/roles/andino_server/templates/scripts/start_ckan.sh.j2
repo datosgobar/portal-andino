@@ -6,6 +6,5 @@ chown www-data:www-data {{ DEFAULT_CKAN_DATA }} {{ CKAN_DIST_MEDIA }} {{ CKAN_DI
 chmod u+rwx {{ DEFAULT_CKAN_DATA }} {{ CKAN_DIST_MEDIA }} {{ CKAN_DIST_CONFIG }}
 export GOBAR_CONFIG=$(cat /var/lib/ckan/theme_config/settings.json)
 	
-# Conectamos los logs de ckan con la salida de "docker logs"
 service apache2 stop
 exec {{ CKAN_INIT }}/run_andino.sh
