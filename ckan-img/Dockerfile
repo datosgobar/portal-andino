@@ -1,4 +1,4 @@
-FROM ubuntu:14.04.1
+FROM ubuntu:14.04
 MAINTAINER Leandro Gomez<lgomez@devartis.com>
 
 WORKDIR /app
