@@ -1,4 +1,5 @@
 #!/bin/sh
+set -e;
 
 ${CKAN_HOME}/bin/pip install -r ${CKAN_HOME}/src/ckan/dev-requirements.txt
 
