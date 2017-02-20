@@ -1,0 +1,17 @@
+sudo: required
+
+services:
+  - docker
+
+before_install:
+  - docker build -t datosgobar/pg-ckan:latest postgresql-img
+  - docker build -t datosgobar/solr-ckan:latest solr-img
+  - docker build -t datosgobar/app-ckan:latest ckan-img
+  - docker run -d --name solr-ckan datosgobar/solr-ckan:latest
+  - docker run -d --name pg-ckan datosgobar/pg-ckan:latest
+  - docker run -d --link pg-ckan:db --link solr-ckan:solr -p 80:80 -p 8800:8800 --name app-ckan datosgobar/app-ckan:latest
+  - docker exec app-ckan cp /usr/lib/ckan/default/src/ckan/test-core.ini /etc/ckan/default
+  - docker exec app-ckan bash /etc/ckan_init.d/.make_test_conf.sh
+
+script:
+  - docker exec app-ckan bash /etc/ckan_init.d/run_tests.sh
