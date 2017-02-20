@@ -69,7 +69,7 @@
     - "{{ CKAN_DIST_CONFIG }}"
     - "{{ CKAN_HARVEST_GCF }}"
     - /etc/service
-    - /var/log/apache/
+    - /var/log/apache2/
 
 - name: Change owners
   file:
