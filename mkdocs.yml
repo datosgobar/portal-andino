@@ -3,5 +3,6 @@ pages:
   - Home: 'index.md'
   - Desarrollo:
     - 'Docker & ansible': 'development/docker_ansible.md'
+    - Tests: 'development/tests.md'
   - Uso:
     - Docker: 'usage/docker.md'
