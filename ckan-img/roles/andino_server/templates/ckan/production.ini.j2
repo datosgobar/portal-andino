@@ -81,7 +81,7 @@ ckan.auth.roles_that_cascade_to_sub_groups = admin
 ## Search Settings
 
 ckan.site_id = default
-solr_url = http://{{ DEFAULT_SOLR_IP }}:8983/solr/ckan
+solr_url = http://{{ DEFAULT_SOLR_IP }}:{{ DEFAULT_SOLR_PORT }}/solr/ckan
 
 #ckan.simple_search = 1
 
@@ -102,12 +102,6 @@ solr_url = http://{{ DEFAULT_SOLR_IP }}:8983/solr/ckan
 #		Add ``resource_proxy`` to enable resorce proxying and get around the
 #		same origin policy
 ckan.plugins = datajson_harvest datajson harvest ckan_harvester stats text_view image_view recline_view hierarchy_display hierarchy_form gobar_theme datastore datapusher
-
-# harvest configuration
-#ckan.harvest.mq.user_id
-#ckan.harvest.mq.password (guest)
-ckan.harvest.mq.hostname = {{ DEFAULT_RABBIT_MQ_HOST }}
-#ckan.harvest.mq.port
 
 # Define which views should be created by default
 # (plugins must be loaded in ckan.plugins)
