@@ -1,5 +1,12 @@
 ---
 
+- name: Gen locale
+  locale_gen:
+    name: en_US.UTF-8
+
+- name: Update locale
+  shell: update-locale LANG=en_US.UTF-8 LANGUAGE=en_US:en LC_ALL=en_US.UTF-8
+
 - name: Install software-properties-common
   apt: name=software-properties-common state=present update_cache=yes
 
