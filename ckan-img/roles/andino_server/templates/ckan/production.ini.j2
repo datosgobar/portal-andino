@@ -188,6 +188,10 @@ smtp.server = {{ DEFAULT_EMAIL_HOST }}
 
 ## Redis
 ckan.redis.url = redis://{{ DEFAULT_REDIS_HOST }}:{{ DEFAULT_REDIS_PORT }}/{{ DEFAULT_REDIS_DB }}
+ckan.harvest.mq.type = redis
+ckan.harvest.mq.hostname = {{ DEFAULT_RESIT_HOST }}
+ckan.harvest.mq.port = {{ DEFAULT_REDIS_PORT }}
+ckan.harvest.mq.redis_db = {{ DEFAULT_REDIS_DB }}
 
 ## Logging configuration
 [loggers]
