@@ -1,0 +1,25 @@
+#!/bin/sh
+set -e;
+{{ CKAN_HOME }}/bin/pip install -r ${CKAN_HOME}/src/ckan/dev-requirements.txt
+
+export PGUSER="{{ DEFAULT_POSTGRESQL_USER }}"
+export PGPASSWORD="{{ DEFAULT_POSTGRESQL_PASSWORD }}"
+export PGHOST="{{ DEFAULT_POSTGRESQL_IP }}"
+export PGDATABASE="{{ DEFAULT_POSTGRESQL_DB }}"
+export PGPORT="{{ DEFAULT_POSTGRESQL_PORT }}"
+
+init_db(){
+	psql -c "CREATE DATABASE ckan_test OWNER $PGUSER;"
+	psql -c "CREATE DATABASE ckan_datastore_test OWNER $PGUSER;"
+}
+
+drop_db() {
+	psql -c "DROP DATABASE ckan_test;"
+	psql -c "DROP DATABASE ckan_datastore_test;"
+}
+printf "Inicializando bases de datos... "
+init_db
+
+printf "[OK]\nBases de datos funcionales y listas!\n"
+{{ CKAN_HOME }}/bin/nosetests --ckan --reset-db --with-pylons="{{ CKAN_CONFIG }}/test-core.ini" ckan
+drop_db

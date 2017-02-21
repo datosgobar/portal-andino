@@ -1,0 +1,40 @@
+#!/bin/sh
+set -e;
+
+CONFIG="{{ CKAN_CONFIG }}/{{ CKAN_TEST_CONFIG_FILE }}"
+
+cp "{{ CKAN_HOME }}/src/ckan/{{ CKAN_TEST_CONFIG_FILE }}" $CONFIG
+
+postgresql_user="{{ DEFAULT_POSTGRESQL_USER }}"
+postgresql_pass="{{ DEFAULT_POSTGRESQL_PASSWORD }}"
+postgresql_db="{{ TEST_POSTGRESQL_DB }}"
+postgresql_host="{{ DEFAULT_POSTGRESQL_IP }}"
+postgresql_port="{{ DEFAULT_POSTGRESQL_PORT }}"
+
+datastore_db="{{ TEST_DATASTORE_DB }}"
+
+
+datastore_user="{{ DEFAULT_DATASTORE_USER }}"
+datastore_pass="{{ DEFAULT_DATASTORE_PASSWORD }}"
+
+solr_host="{{ DEFAULT_SOLR_IP }}"
+solr_port="{{ DEFAULT_SOLR_PORT }}"
+
+DATASTORE_WRITE_URL="postgresql://${postgresql_user}:${postgresql_pass}@${postgresql_host}:${postgresql_port}/${datastore_db}"
+DATASTORE_READ_URL="postgresql://${datastore_user}:${datastore_pass}@${postgresql_host}:${postgresql_port}/${datastore_db}"
+DATABASE_URL="postgresql://${postgresql_user}:${postgresql_pass}@${postgresql_host}:${postgresql_port}/${postgresql_db}"
+SOLR_URL="http://${solr_host}:${solr_port}/solr/ckan"
+
+write_config () {
+  echo "Configurando DB, Solr, Datastore y Datapusher..."
+  CKAN_IP=$(/sbin/ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}')
+
+  {{ CKAN_HOME }}/bin/paster --plugin=ckan config-tool "$CONFIG" -e \
+      "sqlalchemy.url = ${DATABASE_URL}" \
+      "solr_url = ${SOLR_URL}" \
+      "ckan.datapusher.url = http://${CKAN_IP}:8800" \
+      "ckan.datastore.write_url = ${DATASTORE_WRITE_URL}" \
+      "ckan.datastore.read_url = ${DATASTORE_READ_URL}"
+}
+
+write_config

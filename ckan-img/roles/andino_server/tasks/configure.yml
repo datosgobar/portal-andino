@@ -23,6 +23,8 @@
     - {src: scripts/change_datapusher_url.sh.j2, dest: "{{ CKAN_INIT }}/change_datapusher_url.sh"}
     - {src: scripts/change_site_url.sh.j2, dest: "{{ CKAN_INIT }}/change_site_url.sh"}
     - {src: scripts/init_db.sh.j2, dest: "{{ CKAN_INIT }}/init_db.sh"}
+    - {src: scripts/make_test_conf.sh.j2, dest: "{{ CKAN_INIT }}/make_test_conf.sh"}
+    - {src: scripts/run_tests.sh.j2, dest: "{{ CKAN_INIT }}/run_tests.sh"}
     - {src: scripts/make_conf.sh.j2, dest: "{{ CKAN_INIT }}/make_conf.sh"}
     - {src: scripts/start_ckan.sh.j2, dest: "{{ CKAN_INIT }}/start_ckan.sh"}
     - {src: scripts/run_andino.sh, dest: "{{ CKAN_INIT }}/run_andino.sh"}
