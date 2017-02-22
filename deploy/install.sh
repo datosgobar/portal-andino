@@ -25,3 +25,10 @@ docker run -d --name andino-psql datosgobar/portal-andino:development-psql && \
 
 # init database
 docker exec andino /etc/ckan_init.d/init_db.sh
+
+# Run Harvest
+docker run -d --name andino-harvest datosgobar/portal-andino:development-andino \
+        --link andino-psql:db --link andino-solr:solr \
+        --link andino-redis:redis --link andino-rabbitmq:rabbitmq \
+        --link andino-postfix:postfix \
+        datosgobar/portal-andino:development-andino /etc/ckan_init.d/start_cron.sh
