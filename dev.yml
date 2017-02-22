@@ -23,6 +23,17 @@ services:
           - andino-network
         volumes:
           - $PWD:/dev-app
+    start_harvest:
+        build: ./ckan-img
+        container_name: start_harvest
+        command: /etc/ckan_init.d/start_cron.sh
+        depends_on:
+           - fetch_consumer
+           - gather_consumer
+        networks:
+          - andino-network
+        volumes:
+          - $PWD:/dev-app
     gather_consumer:
         build: ./ckan-img
         container_name: gather_consumer

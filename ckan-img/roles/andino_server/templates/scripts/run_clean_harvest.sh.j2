@@ -1,0 +1,7 @@
+#!/bin/bash
+set -e;
+
+CONFIG_FILE="{{ CKAN_CONFIG }}/{{ CKAN_CONFIG_FILE }}"
+
+. {{ CKAN_HOME }}/bin/activate
+exec {{ CKAN_HOME }}/bin/paster --plugin=ckanext-harvest harvester clean_harvest_log --config="$CONFIG_FILE"

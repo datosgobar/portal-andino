@@ -41,6 +41,9 @@
     - {src: scripts/run_andino.sh, dest: "{{ CKAN_INIT }}/run_andino.sh"}
     - {src: scripts/run_gather_consumer.sh.j2, dest: "{{ CKAN_INIT }}/run_gather_consumer.sh"}
     - {src: scripts/run_fetch_consumer.sh.j2, dest: "{{ CKAN_INIT }}/run_fetch_consumer.sh"}
+    - {src: scripts/run_harvest.sh.j2, dest: "{{ CKAN_INIT }}/run_harvest.sh"}
+    - {src: scripts/start_cron.sh.j2, dest: "{{ CKAN_INIT }}/start_cron.sh"}
+    - {src: scripts/run_clean_harvest.sh.j2, dest: "{{ CKAN_INIT }}/run_clean_harvest.sh"}
     - {src: scripts/run_tests.sh.j2, dest: "{{ CKAN_INIT }}/run_tests.sh"}
 
 
