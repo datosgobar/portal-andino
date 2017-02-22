@@ -28,11 +28,4 @@ printf "Inicializando bases de datos... "
 init_datastore
 init_db
 
-if [ $exit_code -eq 0 ];
-	then 
-	printf "[OK]\nBases de datos funcionales y listas!\n"
-	exit 0
-else
-	printf "[FALLO]\nImposible inicializar las bases de datos!\n"
-	exit 1
-fi
+printf "[OK]\nBases de datos funcionales y listas!\n"
