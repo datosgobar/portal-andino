@@ -2,7 +2,7 @@
 set -e;
 
 CONFIG_FILE="{{ CKAN_CONFIG }}/{{ CKAN_CONFIG_FILE }}"
-
+. {{ CKAN_HOME }}/bin/activate
 init_db(){
 	{{ CKAN_HOME }}/bin/paster --plugin=ckan db init -c $CONFIG_FILE
 }
@@ -21,11 +21,15 @@ init_datastore(){
 	
 	# Set permisos
 	{{ CKAN_HOME }}/bin/paster --plugin=ckan datastore set-permissions -c $CONFIG_FILE | psql --set ON_ERROR_STOP=1
+	{{ CKAN_HOME }}/bin/paster --plugin=ckanext-harvest harvester initdb -c $CONFIG_FILE
+}
+init_harvest() {
+	{{ CKAN_HOME }}/bin/paster --plugin=ckanext-harvest harvester initdb -c $CONFIG_FILE
 }
 
-
 printf "Inicializando bases de datos... "
-init_datastore
 init_db
+init_datastore
+init_harvest
 
 printf "[OK]\nBases de datos funcionales y listas!\n"
