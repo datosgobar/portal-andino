@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 set -e;
 {{ CKAN_HOME }}/bin/pip install -r {{ CKAN_HOME }}/src/ckan/dev-requirements.txt
 
@@ -19,11 +19,11 @@ drop_db() {
 	psql -c "DROP DATABASE ckan_test;"
 	psql -c "DROP DATABASE ckan_datastore_test;"
 }
-printf "- Creating databases... "
+printf "Creating databases... "
 init_db
 printf "[OK]"
-source {{ CKAN_HOME }}/bin/activate
+. {{ CKAN_HOME }}/bin/activate
 {{ CKAN_HOME }}/bin/nosetests --ckan --reset-db --with-pylons="{{ CKAN_CONFIG }}/test-core.ini" ckan
-printf "- Dropping databases... "
+printf "Dropping databases... "
 drop_db
 printf "[OK]"
