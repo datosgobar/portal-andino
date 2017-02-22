@@ -23,10 +23,21 @@ services:
           - andino-network
         volumes:
           - $PWD:/dev-app
-    fetch_consumer:
+    start_harvest:
         build: ./ckan-img
-        container_name: fetch_consumer
-        command: /etc/ckan_init.d/run_fetch_consumer.sh
+        container_name: start_harvest
+        command: /etc/ckan_init.d/start_cron.sh
+        depends_on:
+           - fetch_consumer
+           - gather_consumer
+        networks:
+          - andino-network
+        volumes:
+          - $PWD:/dev-app
+    gather_consumer:
+        build: ./ckan-img
+        container_name: gather_consumer
+        command: /etc/ckan_init.d/run_gather_consumer.sh
         depends_on:
            - db
            - solr
@@ -36,10 +47,10 @@ services:
           - andino-network
         volumes:
           - $PWD:/dev-app
-    gather_consumer:
+    fetch_consumer:
         build: ./ckan-img
-        container_name: gather_consumer
-        command: /etc/ckan_init.d/run_gather_consumer.sh
+        container_name: fetch_consumer
+        command: /etc/ckan_init.d/run_fetch_consumer.sh
         depends_on:
            - db
            - solr

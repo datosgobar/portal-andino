@@ -1,4 +1,6 @@
 #!/bin/sh
 set -e
 
-exec /usr/lib/ckan/default/bin/paster --plugin=ckanext-harvest harvester fetch_consumer --config={{ CKAN_CONFIG }}/{{ CKAN_CONFIG_FILE }}
+CONFIG_FILE="{{ CKAN_CONFIG }}/{{ CKAN_CONFIG_FILE }}"
+. {{ CKAN_HOME }}/bin/activate
+exec {{ CKAN_HOME }}/bin/paster --plugin=ckanext-harvest harvester fetch_consumer --config="$CONFIG_FILE"
