@@ -21,15 +21,16 @@ init_datastore(){
 	
 	# Set permisos
 	{{ CKAN_HOME }}/bin/paster --plugin=ckan datastore set-permissions -c $CONFIG_FILE | psql --set ON_ERROR_STOP=1
-	{{ CKAN_HOME }}/bin/paster --plugin=ckanext-harvest harvester initdb -c $CONFIG_FILE
 }
 init_harvest() {
 	{{ CKAN_HOME }}/bin/paster --plugin=ckanext-harvest harvester initdb -c $CONFIG_FILE
 }
 
-printf "Inicializando bases de datos... "
-init_db
+printf "Setting up databases... \n"
+printf "Setting up datastore... \n"
 init_datastore
+printf "setting up main database... \n"
+init_db
+printf "Setting up harvest... \n"
 init_harvest
-
-printf "[OK]\nBases de datos funcionales y listas!\n"
+printf "[OK]\nAll databases are ready!\n"
