@@ -9,6 +9,7 @@ services:
       networks:
         - andino-network
     andino:
+      container_name: andino
       image: datosgobar/portal-andino:development-andino
       ports:
         - 8800:8800
