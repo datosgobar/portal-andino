@@ -1,6 +1,13 @@
 #!/bin/sh
 set -e;
 
+# Setup variables for psql command
+export PGUSER="{{ DEFAULT_POSTGRESQL_USER }}"
+export PGPASSWORD="{{ DEFAULT_POSTGRESQL_PASSWORD }}"
+export PGHOST="{{ DEFAULT_POSTGRESQL_IP }}"
+export PGDATABASE="{{ DEFAULT_POSTGRESQL_DB }}"
+export PGPORT="{{ DEFAULT_POSTGRESQL_PORT }}"
+
 CONFIG_FILE="{{ CKAN_CONFIG }}/{{ CKAN_CONFIG_FILE }}"
 . {{ CKAN_HOME }}/bin/activate
 init_db(){
@@ -8,17 +15,9 @@ init_db(){
 }
 
 init_datastore(){
-	# Exportamos 
-	export PGUSER="{{ DEFAULT_POSTGRESQL_USER }}"
-	export PGPASSWORD="{{ DEFAULT_POSTGRESQL_PASSWORD }}"
-	export PGHOST="{{ DEFAULT_POSTGRESQL_IP }}"
-	export PGDATABASE="{{ DEFAULT_POSTGRESQL_DB }}"
-	export PGPORT="{{ DEFAULT_POSTGRESQL_PORT }}"
-	
-	# Creamos Role y Database para datastore
+    # Create datastore role and database
 	psql -c "CREATE ROLE {{ DEFAULT_DATASTORE_USER }} WITH PASSWORD '{{ DEFAULT_DATASTORE_PASSWORD }}';"
 	psql -c "CREATE DATABASE {{ DEFAULT_DATASTORE_DB }} OWNER $PGUSER;"
-	
 	# Set permisos
 	{{ CKAN_HOME }}/bin/paster --plugin=ckan datastore set-permissions -c $CONFIG_FILE | psql --set ON_ERROR_STOP=1
 }
@@ -26,11 +25,12 @@ init_harvest() {
 	{{ CKAN_HOME }}/bin/paster --plugin=ckanext-harvest harvester initdb -c $CONFIG_FILE
 }
 
-printf "Setting up databases... \n"
-printf "Setting up datastore... \n"
+echo "Setting up databases..."
+echo "Setting up datastore..."
 init_datastore
-printf "setting up main database... \n"
+echo "setting up main database..."
 init_db
-printf "Setting up harvest... \n"
+echo "Setting up harvest..."
 init_harvest
-printf "[OK]\nAll databases are ready!\n"
+echo "[OK]"
+echo "All databases are ready!"
