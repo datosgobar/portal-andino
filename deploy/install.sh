@@ -3,7 +3,7 @@ set -e;
 
 sudo mkdir -p /etc/andino/
 
-sudo su -c "curl -sSL https://raw.github.com/datosgobar/portal-andino/lasted.yml | sh"
+curl -O https://raw.githubusercontent.com/datosgobar/portal-andino/development/lasted.yml
 docker-compose -f lasted.yml up -d nginx
 
 # init database
