@@ -61,7 +61,11 @@ services:
         volumes:
           - $PWD:/dev-app
     db:
-        build: ./postgresql-img
+        image: postgres:9.5
+        environment:
+          - POSTGRES_USER=ckan
+          - POSTGRES_PASSWORD=ckan
+          - POSTGRES_DB=ckan
         container_name: db
         networks:
           - andino-network
