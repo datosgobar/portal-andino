@@ -17,8 +17,6 @@ Esta clase de instalación no requiere que clones el repositorio, ya que usamos 
   
 + Inicialización:
 
-        docker exec andino /etc/ckan_init.d/init_db.sh
-  
         docker exec andino /etc/ckan_init.d/make_conf.sh
   
 + Customización
