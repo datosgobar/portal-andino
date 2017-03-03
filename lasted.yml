@@ -1,7 +1,7 @@
 version: '2'
 services:
     nginx:
-      image: datosgobar/portal-andino:development-nginx
+      image: datosgobar/portal-andino-nginx:development
       ports:
         - 80:80
       depends_on:
@@ -10,7 +10,7 @@ services:
         - andino-network
     andino:
       container_name: andino
-      image: datosgobar/portal-andino:development-andino
+      image: datosgobar/portal-andino:development
       ports:
         - 8800:8800
       depends_on:
@@ -21,7 +21,7 @@ services:
       networks:
         - andino-network
     start_harvest:
-      image: datosgobar/portal-andino:development-andino
+      image: datosgobar/portal-andino:development
       command: /etc/ckan_init.d/start_cron.sh
       depends_on:
          - fetch_consumer
@@ -29,7 +29,7 @@ services:
       networks:
         - andino-network
     gather_consumer:
-      image: datosgobar/portal-andino:development-andino
+      image: datosgobar/portal-andino:development
       command: /etc/ckan_init.d/run_gather_consumer.sh
       depends_on:
          - db
@@ -39,7 +39,7 @@ services:
       networks:
         - andino-network
     fetch_consumer:
-      image: datosgobar/portal-andino:development-andino
+      image: datosgobar/portal-andino:development
       command: /etc/ckan_init.d/run_fetch_consumer.sh
       depends_on:
          - db
@@ -65,7 +65,7 @@ services:
       networks:
         - andino-network
     solr:
-      image: datosgobar/portal-andino:development-solr
+      image: datosgobar/portal-andino-solr:development
       networks:
         - andino-network
     postfix:
