@@ -1,10 +1,15 @@
 ---
 
-- name: Download ckan deb
-  shell: wget -O /tmp/python-ckan_2.5-trusty_amd64.deb http://packaging.ckan.org/python-ckan_2.5-trusty_amd64.deb
+# Ckan 2.5.4 is not compatible with harvestjson plugin
+#- name: Download ckan deb
 #  get_url:
 #    url: http://packaging.ckan.org/python-ckan_2.5-trusty_amd64.deb
 #    dest: /tmp
+
+- name: Copy ckan 2.5.4 deb
+  copy:
+    src: ckan_2.5.4-trusty_amd64.deb
+    dest: /tmp/python-ckan_2.5-trusty_amd64.deb
 
 - name: Setup dirs
   file:
@@ -40,20 +45,34 @@
     virtualenv: "{{ CKAN_HOME }}"
 
 
-- name: Add ckan-requirements
-  copy:
-    src: ckan-requirements.txt
-    dest: "{{ CKAN_HOME }}/ckan-requirements.txt"
-
-- name: Install python requirements
+- name: Install python requets
   pip:
-    requirements:  "{{ CKAN_HOME }}/ckan-requirements.txt"
+    name: requests[security]
     virtualenv: "{{ CKAN_HOME }}"
+
+- name: Install custom packages
+  pip:
+    name: "{{ item }}"
+    virtualenv: "{{ CKAN_HOME }}"
+  with_items:
+    - git+https://github.com/datosgobar/portal-andino-theme.git#egg=ckanext-gobar_theme
+    - git+https://github.com/datagovuk/ckanext-hierarchy.git#egg=ckanext-hierarchy
+    - git+https://github.com/ckan/ckanext-harvest.git#egg=ckanext-harvest
 
 - name: install Harvest requirements
   pip:
     requirements: "{{ CKAN_HOME }}/src/ckanext-harvest/pip-requirements.txt"
     virtualenv: "{{ CKAN_HOME }}"
+
+- name: Install some requirements
+  pip:
+    name: "{{ item }}"
+    virtualenv: "{{ CKAN_HOME }}"
+  with_items:
+    - pyyaml
+    - lepl
+    - jsonschema
+    - rfc3987
 
 - name: Install datajson AR
   pip:
