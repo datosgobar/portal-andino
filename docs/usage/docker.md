@@ -8,6 +8,7 @@ Esta clase de instalación no requiere que clones el repositorio, ya que usamos 
 
 + Requerimientos:
     - Docker: `sudo su -c "curl -sSL http://get.docker.com | sh"`
+    - Docker compose: `https://docs.docker.com/compose/install/`
 
 + Instalación:
 
@@ -27,8 +28,8 @@ Esta clase de instalación no requiere que clones el repositorio, ya que usamos 
 
     - Cambiar la url del sitio (Cambiar `dev.example.com` por el correspondiente dominio):
     
-            docker exec -it andino /etc/ckan_init.d/change_site_url.sh dev.example.com
+            docker exec -it andino /etc/ckan_init.d/change_site_url.sh http://dev.example.com
             
     - Cambiar la url por por la correcta (TBD: cual es la correcta?)
     
-            docker exec -it andino /etc/ckan_init.d/change_datapusher_url.sh harvest.example.com
+            docker exec -it andino /etc/ckan_init.d/change_datapusher_url.sh http://harvest.example.com:8800
