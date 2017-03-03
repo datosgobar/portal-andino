@@ -10,4 +10,4 @@ docker-compose -f lasted.yml up -d nginx
 docker exec andino /etc/ckan_init.d/init_db.sh
 
 # Run Harvest
-docker-compose -f lasted.tml up -d start_harvest
+docker-compose -f lasted.yml up -d start_harvest
