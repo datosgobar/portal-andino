@@ -12,7 +12,7 @@
 #    dest: /tmp/python-ckan_2.5-trusty_amd64.deb
 - name: Download ckan deb from github
   get_url:
-    url: https://github.com/datosgobar/portal-andino/blob/development/vendor/ckan_2.5.4-trusty_amd64.deb?raw=true
+    url: https://github.com/datosgobar/portal-andino/blob/development/vendor/ckan_2.5.3-trusty_amd64.deb?raw=true
     dest: /tmp/python-ckan_2.5-trusty_amd64.deb
 
 - name: Setup dirs
