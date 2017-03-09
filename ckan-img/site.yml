@@ -2,4 +2,4 @@
 
 - hosts: all
   roles:
-    - andino_server
+    - portal
