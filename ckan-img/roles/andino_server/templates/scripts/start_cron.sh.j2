@@ -4,7 +4,7 @@ set -e;
 touch crontab.tmp
 
 echo '*/15 * * * * {{ CKAN_INIT }}/run_harvest.sh' > crontab.tmp
-echo '0 5 * * * {{ CKAN_INIT }}/run_clean_harvest.sh' > crontab.tmp
+echo '0 5 * * * {{ CKAN_INIT }}/run_clean_harvest.sh' >> crontab.tmp
 crontab crontab.tmp
 rm -rf crontab.tmp
 touch .cron_init
