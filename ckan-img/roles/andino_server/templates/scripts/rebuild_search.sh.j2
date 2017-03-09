@@ -1,0 +1,6 @@
+#!/bin/sh
+set -e
+
+CONFIG_FILE="{{ CKAN_CONFIG }}/{{ CKAN_CONFIG_FILE }}"
+. {{ CKAN_HOME }}/bin/activate
+{{ CKAN_HOME }}/bin/paster --plugin=ckan search-index rebuild -r -c $CONFIG_FILE/production.ini
