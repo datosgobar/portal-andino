@@ -1,8 +1,0 @@
-requests[security]
--e git+https://github.com/datosgobar/portal-andino-theme.git#egg=ckanext-gobar_theme
--e git+https://github.com/datagovuk/ckanext-hierarchy.git#egg=ckanext-hierarchy
--e git+https://github.com/ckan/ckanext-harvest.git#egg=ckanext-harvest
-pyyaml
-lepl
-jsonschema
-rfc3987

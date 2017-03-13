@@ -1,9 +1,0 @@
-#!/bin/sh
-if [ -z "$1" ]; then
-    echo "You must pass the new admin's username as a parameter."
-    exit 1;
-fi
-
-new_admin="$1";
-
-{{ CKAN_HOME }}/bin/paster --plugin=ckan sysadmin add $new_admin -c /etc/ckan/default/production.ini
