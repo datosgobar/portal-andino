@@ -1,16 +1,15 @@
 version: '2'
 services:
     nginx:
-        build: ./nginx
-        container_name: nginx
-        ports:
-          - 80:80
-        depends_on:
-          - andino
-        networks:
-          - andino-network
+      image: datosgobar/portal-andino-nginx:development
+      ports:
+        - 80:80
+      depends_on:
+        - andino
+      environment:
+        - CKAN_HOST=andino
     andino:
-        build: ./ckan-img
+        build: .
         container_name: andino
         ports:
           - 8800:8800
@@ -19,78 +18,50 @@ services:
            - solr
            - redis
            - postfix
-        networks:
-          - andino-network
         volumes:
           - $PWD:/dev-app
     start_harvest:
-        build: ./ckan-img
-        container_name: start_harvest
+        build: .
         command: /etc/ckan_init.d/start_cron.sh
         depends_on:
            - fetch_consumer
            - gather_consumer
-        networks:
-          - andino-network
         volumes:
           - $PWD:/dev-app
     gather_consumer:
-        build: ./ckan-img
-        container_name: gather_consumer
+        build: .
         command: /etc/ckan_init.d/run_gather_consumer.sh
         depends_on:
            - db
            - solr
            - redis
            - postfix
-        networks:
-          - andino-network
         volumes:
           - $PWD:/dev-app
     fetch_consumer:
-        build: ./ckan-img
-        container_name: fetch_consumer
+        build: .
         command: /etc/ckan_init.d/run_fetch_consumer.sh
         depends_on:
            - db
            - solr
            - redis
            - postfix
-        networks:
-          - andino-network
         volumes:
           - $PWD:/dev-app
     db:
-        image: postgres:9.5
-        environment:
-          - POSTGRES_USER=ckan
-          - POSTGRES_PASSWORD=ckan
-          - POSTGRES_DB=ckan
-        container_name: db
-        networks:
-          - andino-network
+      image: postgres:9.5
+      environment:
+        - POSTGRES_USER=ckan
+        - POSTGRES_PASSWORD=ckan
+        - POSTGRES_DB=ckan
     redis:
-        image: redis:3.2.7-alpine
-        container_name: redis
-        networks:
-          - andino-network
+      image: redis:3.2.7-alpine
     rabbitmq:
-        image: rabbitmq:3.6.6-alpine
-        container_name: rabbitmq
-        networks:
-          - andino-network
+      image: rabbitmq:3.6.6-alpine
     solr:
-        build: ./solr-img
-        container_name: solr
-        networks:
-          - andino-network
+      image: datosgobar/portal-andino-solr:development
     postfix:
-        image: catatnight/postfix
-        container_name: postfix
-        ports:
-          - "25:25"
-          - "587:587"
-        networks:
-          - andino-network
-networks:
-  andino-network:
+      image: catatnight/postfix
+      ports:
+        - "25:25"
+        - "587:587"
