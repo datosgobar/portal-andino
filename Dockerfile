@@ -1,4 +1,4 @@
-FROM datosgobar/portal-base:development
+FROM datosgobar/portal-base:latest
 MAINTAINER Leandro Gomez<lgomez@devartis.com>
 
 ENV CKAN_HOME /usr/lib/ckan/default
