@@ -33,7 +33,8 @@ subprocess.check_call([
 
 print("Downloading required files...")
 
-directory = tempfile.mkdtemp()  # Maybe should not be a tmp directory
+directory = path.dirname(path.realpath(__file__))
+
 compose_file = "lasted.yml"
 env_file = ".env"
 compose_file_path = path.join(directory, compose_file)
