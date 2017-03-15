@@ -23,11 +23,11 @@ services:
         - andino-network
     db:
       container_name: andino-db
-        image: postgres:9.5
-        environment:
-          - POSTGRES_DB=ckan
-        networks:
-          - andino-network
+      image: postgres:9.5
+      environment:
+        - POSTGRES_DB=ckan
+      networks:
+        - andino-network
     redis:
       container_name: andino-redis
       image: redis:3.2.7-alpine
