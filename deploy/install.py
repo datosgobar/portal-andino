@@ -17,7 +17,7 @@ parser.add_argument('--branch', default='development')
 
 args = parser.parse_args()
 
-COMPOSE_FILE_URL = "https://raw.githubusercontent.com/datosgobar/%s/%s/lasted.yml" % (args.repo, args.branch)
+COMPOSE_FILE_URL = "https://raw.githubusercontent.com/datosgobar/%s/%s/latest.yml" % (args.repo, args.branch)
 
 print("Checking docker is available...")
 
