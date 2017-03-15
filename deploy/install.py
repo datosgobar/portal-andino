@@ -33,9 +33,11 @@ subprocess.check_call([
 
 print("Downloading required files...")
 
-directory = tempfile.mkdtemp()
+directory = tempfile.mkdtemp()  # Maybe should not be a tmp directory
 compose_file = "lasted.yml"
+env_file = ".env"
 compose_file_path = path.join(directory, compose_file)
+env_file_path = path.join(directory, env_file)
 
 subprocess.check_call([
     "curl",
@@ -43,6 +45,14 @@ subprocess.check_call([
     "--output",
     compose_file_path
 ])
+
+print("Writing environment file...")
+
+with open(env_file_path, "w") as env_f:
+    env_f.write("POSTGRES_USER=%s\n" % args.database_user)
+    env_f.write("POSTGRES_PASSWORD=%s\n" % args.database_password)
+    env_f.write("CKAN_HOST=andino\n")
+
 
 print("Starting up site")
 subprocess.check_call([
