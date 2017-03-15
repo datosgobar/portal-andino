@@ -6,7 +6,6 @@ from os import path
 
 parser = argparse.ArgumentParser(description='Instalar andino con docker.')
 
-parser.add_argument('--datapusherhost', required=True)
 parser.add_argument('--error_email', required=True)
 parser.add_argument('--site_host', required=True)
 parser.add_argument('--database_user', required=True)
@@ -76,7 +75,6 @@ subprocess.check_call([
     "exec",
     "andino",
     "/etc/ckan_init.d/init.sh",
-    "-u", args.datapusherhost,
     "-e", args.error_email,
     "-h", args.site_host,
     "-p", args.database_user,
