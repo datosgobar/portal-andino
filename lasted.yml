@@ -15,10 +15,10 @@ services:
       ports:
         - 8800:8800
       depends_on:
-         - db
-         - solr
-         - redis
-         - postfix
+        - db
+        - solr
+        - redis
+        - postfix
       networks:
         - andino-network
     db:
