@@ -2,13 +2,11 @@ version: '2'
 services:
     nginx:
       container_name: andino-nginx
-      image: datosgobar/portal-andino-nginx:development
+      image: datosgobar/portal-base-nginx:latest
       ports:
         - 80:80
       depends_on:
         - andino
-      environment:
-        - CKAN_HOST=andino
       networks:
         - andino-network
     andino:
@@ -37,7 +35,7 @@ services:
         - andino-network
     solr:
       container_name: andino-solr
-      image: datosgobar/portal-andino-solr:development
+      image: datosgobar/portal-base-solr:latest
       networks:
         - andino-network
     postfix:
