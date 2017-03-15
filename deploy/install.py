@@ -1,6 +1,7 @@
 #!/usr/bin/env python
-import argparse, tempfile, subprocess, time
-
+import argparse
+import subprocess
+import time
 from os import path
 
 parser = argparse.ArgumentParser(description='Instalar andino con docker.')
@@ -12,10 +13,11 @@ parser.add_argument('--database_user', required=True)
 parser.add_argument('--database_password', required=True)
 parser.add_argument('--datastore_user', required=True)
 parser.add_argument('--datastore_password', required=True)
+parser.add_argument('--repo', choices=['portal-andino', 'datos.gob.ar_docker'], default='portal-andino')
 
 args = parser.parse_args()
 
-COMPOSE_FILE_URL = "https://raw.githubusercontent.com/datosgobar/portal-andino/development/lasted.yml"
+COMPOSE_FILE_URL = "https://raw.githubusercontent.com/datosgobar/%s/development/lasted.yml" % args.repo
 
 print("Checking docker is available...")
 
@@ -53,7 +55,6 @@ with open(env_file_path, "w") as env_f:
     env_f.write("POSTGRES_USER=%s\n" % args.database_user)
     env_f.write("POSTGRES_PASSWORD=%s\n" % args.database_password)
     env_f.write("CKAN_HOST=andino\n")
-
 
 print("Starting up site")
 subprocess.check_call([
