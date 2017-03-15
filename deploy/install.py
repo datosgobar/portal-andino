@@ -14,10 +14,11 @@ parser.add_argument('--database_password', required=True)
 parser.add_argument('--datastore_user', required=True)
 parser.add_argument('--datastore_password', required=True)
 parser.add_argument('--repo', choices=['portal-andino', 'datos.gob.ar_docker'], default='portal-andino')
+parser.add_argument('--branch', default='development')
 
 args = parser.parse_args()
 
-COMPOSE_FILE_URL = "https://raw.githubusercontent.com/datosgobar/%s/development/lasted.yml" % args.repo
+COMPOSE_FILE_URL = "https://raw.githubusercontent.com/datosgobar/%s/%s/lasted.yml" % (args.repo, args.branch)
 
 print("Checking docker is available...")
 
