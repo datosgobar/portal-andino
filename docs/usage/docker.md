@@ -14,7 +14,8 @@ Esta clase de instalación no requiere que clones el repositorio, ya que usamos 
 
   Install script:
 
-      sudo su -c "curl -sSL https://raw.github.com/datosgobar/portal-andino/development/deploy/install.py | python"
+        wget https://raw.github.com/datosgobar/portal-andino/development/deploy/install.py
+        python ./install.py
   
 + Inicialización:
     Ingrese los parametros requeridos por el script.
