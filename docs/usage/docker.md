@@ -14,13 +14,14 @@ Esta clase de instalación no requiere que clones el repositorio, ya que usamos 
 
   Install script:
 
-      sudo su -c "curl -sSL https://raw.github.com/datosgobar/portal-andino/development/deploy/install.sh | sh"
+      sudo su -c "curl -sSL https://raw.github.com/datosgobar/portal-andino/development/deploy/install.py | python"
   
 + Inicialización:
-
-        docker exec andino /etc/ckan_init.d/make_conf.sh
+    Ingrese los parametros requeridos por el script.
   
 + Customización
+
+    - Vea la documentacion del [portal-base](https://github.com/datosgobar/portal-base/blob/master/docs/imagenes/base_portal.md)
 
     - Crear un usuario administrador (Cambiar `ckan_admin` por otro usuario si se desea):
     

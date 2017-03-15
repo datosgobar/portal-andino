@@ -29,7 +29,7 @@ Una vez terminado, esto dejarar en el puerto localhost:80 la aplicacion corriend
 
 Para desarrollo, pueden correrse los `servicios` por separado:
 
-    $ docker-compose -f dev.yml up --build --abort-on-container-exit db sol redis postfix rabbitmq
+    $ docker-compose -f dev.yml up --build --abort-on-container-exit db sol redis postfix
 
 Luego la aplicación andino/ckan disponibles que estara en el puerto `8800` para el `Datapusher`:
     
