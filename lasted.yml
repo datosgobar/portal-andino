@@ -1,11 +1,14 @@
 version: '2'
 services:
     nginx:
+      container_name: andino-nginx
       image: datosgobar/portal-andino-nginx:development
       ports:
         - 80:80
       depends_on:
         - andino
+      environment:
+        - CKAN_HOST=andino
       networks:
         - andino-network
     andino:
@@ -20,55 +23,25 @@ services:
          - postfix
       networks:
         - andino-network
-    start_harvest:
-      image: datosgobar/portal-andino:development
-      command: /etc/ckan_init.d/start_cron.sh
-      depends_on:
-         - fetch_consumer
-         - gather_consumer
-      networks:
-        - andino-network
-    gather_consumer:
-      image: datosgobar/portal-andino:development
-      command: /etc/ckan_init.d/run_gather_consumer.sh
-      depends_on:
-         - db
-         - solr
-         - redis
-         - postfix
-      networks:
-        - andino-network
-    fetch_consumer:
-      image: datosgobar/portal-andino:development
-      command: /etc/ckan_init.d/run_fetch_consumer.sh
-      depends_on:
-         - db
-         - solr
-         - redis
-         - postfix
-      networks:
-        - andino-network
     db:
+      container_name: andino-db
         image: postgres:9.5
         environment:
-          - POSTGRES_USER=ckan
-          - POSTGRES_PASSWORD=ckan
           - POSTGRES_DB=ckan
         networks:
           - andino-network
     redis:
+      container_name: andino-redis
       image: redis:3.2.7-alpine
       networks:
         - andino-network
-    rabbitmq:
-      image: rabbitmq:3.6.6-alpine
-      networks:
-        - andino-network
     solr:
+      container_name: andino-solr
       image: datosgobar/portal-andino-solr:development
       networks:
         - andino-network
     postfix:
+      container_name: andino-postfix
       image: catatnight/postfix
       ports:
         - "25:25"
