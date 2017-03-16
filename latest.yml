@@ -27,9 +27,9 @@ services:
       container_name: andino-db
       image: postgres:9.5
       environment:
-        - postgres_db=ckan
-        - postgres_user
-        - postgres_password
+        - POSTGRES_DB=ckan
+        - POSTGRES_USER
+        - POSTGRES_PASSWORD
       networks:
         - andino-network
     redis:
