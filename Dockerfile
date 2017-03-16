@@ -8,3 +8,4 @@ RUN $CKAN_HOME/bin/pip install -e git+https://github.com/datosgobar/portal-andin
 RUN mkdir -p $CKAN_DIST_MEDIA
 RUN chown -R www-data:www-data $CKAN_DIST_MEDIA
 RUN chmod u+rwx $CKAN_DIST_MEDIA
+VOLUME $CKAN_DIST_MEDIA
