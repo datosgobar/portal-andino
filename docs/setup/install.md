@@ -30,12 +30,13 @@ Esta clase de instalación no requiere que clones el repositorio, ya que usamos 
 + Instalación:
 
 Para esta instalación ciertos parametros deben ser pasados a la aplicacion:
-    + Email donde se mandarán los errores. `EMAIL=admin@example.com`
-    + Dominio o IP de la aplicación: `HOST=datos.gob.ar`
-    + Usuario de la base de datos: `DB_USER=<my db user>`
-    + Password de la base de datos: `DB_PASS=<my db pass>`
-    + Usuario del datastore: `STORE_USER=<my datastore user>`
-    + Password del datastore: `STORE_PASS=<my datastore password>`
+
++ Email donde se mandarán los errores. `EMAIL=admin@example.com`
++ Dominio o IP de la aplicación: `HOST=datos.gob.ar`
++ Usuario de la base de datos: `DB_USER=<my db user>`
++ Password de la base de datos: `DB_PASS=<my db pass>`
++ Usuario del datastore: `STORE_USER=<my datastore user>`
++ Password del datastore: `STORE_PASS=<my datastore password>`
 
 ```bash
 wget https://raw.github.com/datosgobar/portal-andino/development/deploy/install.py
