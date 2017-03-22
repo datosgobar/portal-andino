@@ -23,6 +23,8 @@ services:
         - postfix
       networks:
         - andino-network
+      volumes:
+        - production_ini:/etc/ckan/default/
     db:
       container_name: andino-db
       image: postgres:9.5
@@ -53,3 +55,6 @@ services:
 
 networks:
   andino-network:
+
+volumes:
+  production_ini: {}
