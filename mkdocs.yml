@@ -1,6 +1,7 @@
 site_name: Portal Andino
 pages:
   - Home: 'index.md'
+  - Instalacion: 'setup/install.md'
   - Desarrollo:
     - Docker: 'development/docker.md'
     - Tests: 'development/tests.md'
