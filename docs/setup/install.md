@@ -28,6 +28,7 @@ Esta clase de instalación no requiere que clones el repositorio, ya que usamos 
 + Ubuntu|Debian|RHEL|CentOS:
 
 + Instalación:
+
 Para esta instalación ciertos parametros deben ser pasados a la aplicacion:
     + Email donde se mandarán los errores. `EMAIL=admin@example.com`
     + Dominio o IP de la aplicación: `HOST=datos.gob.ar`
