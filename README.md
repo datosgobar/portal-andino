@@ -82,11 +82,11 @@ También podés [ver el repositorio del tema visual](https://github.com/datosgob
 
 ## Instalación
 
-Ver documentación de [instalación](docs/index.md)
+Ver documentación de [instalación](docs/setup/install.md)
 
 ## Uso
 
-Ver la documentacion [uso](docs/usage.md)
+Ver la documentacion [uso](docs/setup/install.md)
 
 
 ## Créditos
