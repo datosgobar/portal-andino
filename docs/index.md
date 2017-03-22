@@ -60,6 +60,7 @@ Para esta instalación ciertos parametros deben ser pasados a la aplicacion:
     + Usuario del datastore: `STORE_USER=<my datastore user>`
     + Password del datastore: `STORE_PASS=<my datastore password>`
 
+
     ```bash
     wget https://raw.github.com/datosgobar/portal-andino/development/deploy/install.py
     python ./install.py --error_email "$EMAIL" --site_host="$HOST" \
