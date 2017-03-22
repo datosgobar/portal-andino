@@ -36,16 +36,16 @@ Para esta instalación ciertos parametros deben ser pasados a la aplicacion:
     + Usuario del datastore: `STORE_USER=<my datastore user>`
     + Password del datastore: `STORE_PASS=<my datastore password>`
 
-        ```bash
+```bash
 
-        wget https://raw.github.com/datosgobar/portal-andino/development/deploy/install.py
-        python ./install.py --error_email "$EMAIL" --site_host="$HOST" \
-            --database_user="$DB_USER" --database_password="$DB_PASS" \
-            --datastore_user="$STORE_USER" --datastore_password="$STORE_PASS"
-        # Agregar un administrador a la aplicación
-        #ADMIN_USER=<my_admin>
-        docker exec -it andino /etc/ckan_init.d/add_admin.sh "$ADMIN_USER"
-        ```
+wget https://raw.github.com/datosgobar/portal-andino/development/deploy/install.py
+python ./install.py --error_email "$EMAIL" --site_host="$HOST" \
+    --database_user="$DB_USER" --database_password="$DB_PASS" \
+    --datastore_user="$STORE_USER" --datastore_password="$STORE_PASS"
+# Agregar un administrador a la aplicación
+#ADMIN_USER=<my_admin>
+docker exec -it andino /etc/ckan_init.d/add_admin.sh "$ADMIN_USER"
+```
 
 ### Instalación avanzada
 
