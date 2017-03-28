@@ -6,5 +6,7 @@
 
 [Github](https://github.com/datosgobar/portal-andino)
 
-- [Guía de instalación](setup/install.md)
-- [Guía & Tips para desarrollo](development/docker.md)
+* [Instalación](setup/install.md)
+* [Guía de uso](setup/usage.md)
+* [Documentación para desarrolladores](development/docker.md)
+* [Tests](development/tests.md)
