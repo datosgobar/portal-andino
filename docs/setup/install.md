@@ -1,13 +1,5 @@
 # Portal Andino
 
-[![Build Status](https://travis-ci.org/datosgobar/portal-andino.svg?branch=master)](https://travis-ci.org/datosgobar/portal-andino)
-
-[![Docs Status](https://readthedocs.org/projects/portal-andino/badge/?version=master)](http://portal-andino.readthedocs.io/es/master/)
-
-Implementación de CKAN en Docker, desarrollada en el contexto del portal distribuible Andino.
-
-También podés [ver el repositorio del tema visual](https://github.com/datosgobar/portal-andino-theme).
-
 ## Instalación
 
 Teniendo en cuenta la dificultad de implementacion e incluso la cantidad de pasos para lograr un deploy existoso, existen dos formas de instalar esta distribución de **CKAN**. 
