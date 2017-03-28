@@ -86,26 +86,3 @@ docker exec andino /etc/ckan_init.d/init.sh -e "$EMAIL" -h "$HOST" \
 
 		$ docker-compose -f latest.yml up -d nginx
 
-## Uso
-
-Una vez finalizada la instalación, bajo cualquiera de los métodos, deberíamos:
-
-### Crear usuario administrador
-	
-```bash		
-# Agregar un admin
-# Asumo que el contenedor de ckan es llamado "andino"
-ADMIN_USER=<my_admin>        
-docker exec -it andino /etc/ckan_init.d/add_admin.sh "$ADMIN_USER"
-```
-
-### Configurar url de Andino
-```bash
-# Asumo que el contenedor de ckan es llamado "andino"
-URL_NUEVA=<my url>
-DATAPUSHER_URL=<my datapusher url>
-docker exec -it andino /etc/ckan_init.d/change_site_url.sh "$URL_NUEVA"
-docker exec -it andino /etc/ckan_init.d/change_datapusher_url.sh "$DATAPUHSER_URL"
-docker restart andino
-```
-

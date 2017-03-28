@@ -5,7 +5,6 @@ Para generar las imágenes levantar la aplicación y levantarla, es necesario in
 * Instalar [Docker](https://docs.docker.com/engine/installation/linux/ubuntu/)
 * Instalar [docker-compose](https://docs.docker.com/compose/install/)
 
-### Docker
 Actualmente el repositorio contiene 1 arhivo `Dockerfile` y 2 archivos `docker-compose`
 
 * `Dockerfile`: Se usa para generar la imagen de la aplicación
