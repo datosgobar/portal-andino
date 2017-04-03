@@ -6,6 +6,7 @@ services:
 before_install:
   - docker-compose -f dev.yml up -d --build andino
   - docker exec andino bash /etc/ckan_init.d/tests/install_solr4.sh
+  - docker exec andino bash /etc/ckan_init.d/tests/install_nodejs.sh
 
 script:
-  - docker exec andino bash -c 'su -c "bash /etc/ckan_init.d/tests/init_tests.sh; bash /etc/ckan_init.d/tests/run_tests.sh" -l $USER'
+  - docker exec andino bash -c 'su -c "bash /etc/ckan_init.d/tests/run_all_tests.sh" -l $USER'
