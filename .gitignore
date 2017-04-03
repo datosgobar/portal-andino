@@ -77,6 +77,10 @@ celerybeat-schedule
 
 # dotenv
 .env
+.gems/
+.ruby-version
+.rbenv-gemsets
+
 
 # virtualenv
 venv/
