@@ -12,7 +12,7 @@ parser.add_argument('--database_user', required=True)
 parser.add_argument('--database_password', required=True)
 parser.add_argument('--datastore_user', required=True)
 parser.add_argument('--datastore_password', required=True)
-parser.add_argument('--repo', choices=['portal-andino', 'portal_datos.gob.ar'], default='portal-andino')
+parser.add_argument('--repo', choices=['andino', 'datos.gob.ar'], default='andino')
 parser.add_argument('--branch', default='development')
 
 args = parser.parse_args()
@@ -54,7 +54,6 @@ print("Writing environment file...")
 with open(env_file_path, "w") as env_f:
     env_f.write("POSTGRES_USER=%s\n" % args.database_user)
     env_f.write("POSTGRES_PASSWORD=%s\n" % args.database_password)
-    env_f.write("CKAN_HOST=andino\n")
 
 print("Starting up site")
 subprocess.check_call([
@@ -73,7 +72,7 @@ time.sleep(10)
 subprocess.check_call([
     "docker",
     "exec",
-    "andino",
+    "portal",
     "/etc/ckan_init.d/init.sh",
     "-e", args.error_email,
     "-h", args.site_host,

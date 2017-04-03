@@ -5,12 +5,10 @@ services:
       ports:
         - 80:80
       depends_on:
-        - andino
-      environment:
-        - CKAN_HOST=andino
-    andino:
+        - portal
+    portal:
         build: .
-        container_name: andino
+        container_name: portal
         ports:
           - 8800:8800
         depends_on:
