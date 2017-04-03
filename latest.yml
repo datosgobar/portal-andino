@@ -9,8 +9,6 @@ services:
         - andino
       networks:
         - andino-network
-      environment:
-        - CKAN_HOST
     andino:
       container_name: andino
       image: datosgobar/portal-andino:development
