@@ -6,10 +6,10 @@ services:
       ports:
         - 80:80
       depends_on:
-        - andino
+        - portal
       networks:
-        - andino-network
-    andino:
+        - portal-network
+    portal:
       container_name: andino
       image: datosgobar/portal-andino:development
       ports:
@@ -20,9 +20,7 @@ services:
         - redis
         - postfix
       networks:
-        - andino-network
-      volumes:
-        - production_ini:/etc/ckan/default/
+        - portal-network
     db:
       container_name: andino-db
       image: postgres:9.5
@@ -31,17 +29,17 @@ services:
         - POSTGRES_USER
         - POSTGRES_PASSWORD
       networks:
-        - andino-network
+        - portal-network
     redis:
       container_name: andino-redis
       image: redis:3.2.7-alpine
       networks:
-        - andino-network
+        - portal-network
     solr:
       container_name: andino-solr
       image: datosgobar/portal-base-solr:latest
       networks:
-        - andino-network
+        - portal-network
     postfix:
       container_name: andino-postfix
       image: catatnight/postfix
@@ -49,10 +47,10 @@ services:
         - "25:25"
         - "587:587"
       networks:
-        - andino-network
+        - portal-network
 
 networks:
-  andino-network:
+  portal-network:
 
 volumes:
   production_ini: {}
