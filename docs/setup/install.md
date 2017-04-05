@@ -47,15 +47,15 @@ Para instalar y ejecutar Andino, seguimos estos pasos:
 
 		$ sudo mkdir /etc/andino
 		$ cd /etc/andino
-		$ git clone https://github.com/datosgobar/portal-andino.git andino
+		$ sudo git clone https://github.com/datosgobar/portal-andino.git andino
 		$ cd andino
 		
 + Paso 2: Setear las variables de entorno para el contenedor de postgresql
 
         $ DB_USER=<my user>
         $ DB_PASSWORD=<my pass>
-        $ echo "POSTGRES_USER=$DB_USER" > .env
-        $ echo "POSTGRES_PASWORD=$DB_PASS" >> .env
+        $ sudo su -c "echo POSTGRES_USER=$DB_USER > .env"
+        $ sudo su -c "echo POSTGRES_PASWORD=$DB_PASS >> .env"
         
 
 + Paso 3: _construir y lanzar los contenedor de servicios usando el archivo **latest.yml**_
@@ -76,7 +76,7 @@ DB_USER=<my db user>
 DB_PASS=<my db pass>
 STORE_USER=<my datastore user>
 STORE_PASS=<my datastore password>
-docker exec portal /etc/ckan_init.d/init.sh -e "$EMAIL" -h "$HOST" \
+docker-compose -f latest.yml exec portal /etc/ckan_init.d/init.sh -e "$EMAIL" -h "$HOST" \
         -p "$DB_USER" -P "$DB_PASS" \
         -d "$STORE_USER" -D "$STORE_PASS"
 
