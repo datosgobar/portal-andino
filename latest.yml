@@ -2,7 +2,7 @@ version: '2'
 services:
     nginx:
       container_name: andino-nginx
-      image: datosgobar/portal-base-nginx:latest
+      image: datosgobar/portal-base-nginx:release-0.1
       ports:
         - 80:80
       depends_on:
@@ -37,7 +37,7 @@ services:
         - portal-network
     solr:
       container_name: andino-solr
-      image: datosgobar/portal-base-solr:latest
+      image: datosgobar/portal-base-solr:release-0.1
       networks:
         - portal-network
     postfix:
@@ -51,6 +51,3 @@ services:
 
 networks:
   portal-network:
-
-volumes:
-  production_ini: {}

@@ -1,7 +1,7 @@
 version: '2'
 services:
     nginx:
-      image: datosgobar/portal-base-nginx:latest
+      image: datosgobar/portal-base-nginx:release-0.1
       ports:
         - 80:80
       depends_on:
@@ -18,7 +18,6 @@ services:
            - postfix
         volumes:
           - $PWD:/dev-app
-          - production_ini:/etc/ckan/default/
     db:
       image: postgres:9.5
       environment:
@@ -28,12 +27,9 @@ services:
     redis:
       image: redis:3.2.7-alpine
     solr:
-      image: datosgobar/portal-base-solr:latest
+      image: datosgobar/portal-base-solr:release-0.1
     postfix:
       image: catatnight/postfix
       ports:
         - "25:25"
         - "587:587"
-
-volumes:
-  production_ini: {}
