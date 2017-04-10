@@ -3,6 +3,7 @@ services:
     nginx:
       container_name: andino-nginx
       image: datosgobar/portal-base-nginx:release-0.1
+      restart: always
       ports:
         - 80:80
       depends_on:
@@ -12,6 +13,7 @@ services:
     portal:
       container_name: andino
       image: datosgobar/portal-andino:development
+      restart: always
       ports:
         - 8800:8800
       depends_on:
@@ -24,6 +26,7 @@ services:
     db:
       container_name: andino-db
       image: postgres:9.5
+      restart: always
       environment:
         - POSTGRES_DB=ckan
         - POSTGRES_USER
@@ -33,16 +36,19 @@ services:
     redis:
       container_name: andino-redis
       image: redis:3.2.7-alpine
+      restart: always
       networks:
         - portal-network
     solr:
       container_name: andino-solr
       image: datosgobar/portal-base-solr:release-0.1
+      restart: always
       networks:
         - portal-network
     postfix:
       container_name: andino-postfix
       image: catatnight/postfix
+      restart: always
       ports:
         - "25:25"
         - "587:587"
