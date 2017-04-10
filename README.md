@@ -170,10 +170,3 @@ Como la comunidad de datos es grande, **por ahora no podemos dar soporte técnic
 Te invitamos a [crearnos un issue](https://github.com/datosgobar/portal-andino-theme/issues/new?title=Encontre%20un%20bug%20en%20nombre-del-repo) en caso de que encuentres algún bug o tengas feedback de alguna parte de `portal-andino-theme`.
 
 Para todo lo demás, podés mandarnos tu comentario o consulta a [datos@modernizacion.gob.ar](mailto:datos@modernizacion.gob.ar).
-
-
-## Contacto
-
-Te invitamos a [crearnos un issue](https://github.com/datosgobar/portal-andino/issues/new?title=Encontre un bug en Portal Andino) en caso de que encuentres algún bug o tengas feedback de alguna parte de `portal-andino`.
-
-Para todo lo demás, podés mandarnos tu comentario o consulta a [datos@modernizacion.gob.ar](mailto:datos@modernizacion.gob.ar).
