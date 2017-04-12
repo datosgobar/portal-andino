@@ -2,7 +2,7 @@ version: '2'
 services:
     nginx:
       container_name: andino-nginx
-      image: datosgobar/portal-base-nginx:release-0.2
+      image: datosgobar/portal-base-nginx:release-0.1
       restart: always
       ports:
         - 80:80
@@ -12,7 +12,7 @@ services:
         - portal-network
     portal:
       container_name: andino
-      image: datosgobar/portal-andino:release-0.2
+      image: datosgobar/portal-andino:development
       restart: always
       ports:
         - 8800:8800
@@ -41,7 +41,7 @@ services:
         - portal-network
     solr:
       container_name: andino-solr
-      image: datosgobar/portal-base-solr:release-0.2
+      image: datosgobar/portal-base-solr:release-0.1
       restart: always
       networks:
         - portal-network
