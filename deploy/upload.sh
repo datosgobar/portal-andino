@@ -3,11 +3,15 @@
 set -ev
 
 container_image=$(docker ps --format '{{ .Image }}' --filter 'name=portal_development')
+branch="$TRAVIS_BRANCH"
+pattern="^[0-9.]+"
 
-if [ "$TRAVIS_BRANCH" == "master" ]; then
+if [ "$branch" == "master" ]; then
     tag="latest"
+elif [[ "$branch" =~ $pattern ]]; then
+    tag="release-$branch"
 else
-    tag="release-$TRAVIS_BRANCH"
+    tag="$branch"
 fi
 
 image_full_name="datosgobar/portal-andino:$tag"

@@ -14,4 +14,7 @@ script:
 deploy:
   provider: script
   skip_cleanup: true
-  script: "deploy/update_testing.sh"
+  script: "deploy/upload.sh"
+  on:
+    tags: true
+    all_branches: true
