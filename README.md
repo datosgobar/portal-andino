@@ -1,6 +1,10 @@
 # Portal Andino
 
-Implementación de CKAN en Docker, desarrollada en el contexto del portal distribuible Andino. 
+[![Build Status](https://travis-ci.org/datosgobar/portal-andino.svg?branch=master)](https://travis-ci.org/datosgobar/portal-andino)
+
+[![Docs Status](https://readthedocs.org/projects/portal-andino/badge/?version=master)](http://portal-andino.readthedocs.io/es/master/)
+
+Implementación de CKAN en Docker, desarrollada en el contexto del portal distribuible Andino.
 
 También podés [ver el repositorio del tema visual](https://github.com/datosgobar/portal-andino-theme).
 
@@ -28,45 +32,19 @@ También podés [ver el repositorio del tema visual](https://github.com/datosgob
 + [Portal Andino theme](https://github.com/datosgobar/portal-andino-theme)
 + [Apache2 & NginX](http://docs.ckan.org/en/ckan-2.5.2/maintaining/installing/deployment.html#install-apache-modwsgi-modrpaf)
 
-## Instalación
-
-Teniendo en cuenta la dificultad de implementacion e incluso la cantidad de pasos para lograr un deploy existoso, existen dos formas de instalar esta distribución de **CKAN**. 
-
-- Si no tenés muchos conocimientos de CKAN, Docker o de administracion de servidores en general, es recomendable usar la instalación **[simplificada  de Andino](#instalacion-simplificada-de-andino)**. Está pensada para que en la menor cantidad de pasos y de manera sencilla, tengas un portal de datos funcionando. 
-- Si ya conocés la plataforma, tenés experiencia con Docker o simplemente, querés entender cómo funciona esta implementación, te sugiero que revises la **[instalacion avanzada de Andino](#instalacion-avanzada-de-andino)**
 
 ### Dependencias
 
 + DOCKER: [Guía de instalación](https://docs.docker.com/engine/installation).
-+ GIT: [Guía de instalación](https://desktop.github.com)
++ Docker Compose: [Guía de instalación](https://docs.docker.com/compose/install/)
 
-#### Instalación simplificada
+### ¿Qué contenedores vas a instalar?
 
-La idea detrás de esta implementación de CKAN es **que sólo te encargues de tus datos**, nada más. Por eso, si "copiás y pegás" el comando de consola, en sólo unos momentos, tendrás un Andino listo para usar.
-Esta clase de instalación no requiere que clones el repositorio, ya que usamos contenedores alojados en [DockerHub](https://hub.docker.com/r/datosgobar)
-
-+ Ubuntu|Debian|RHEL|CentOS:
-
-	```bash
-	# ¿No tenes Docker? No importa:
-	# Instalación de Docker:
-	# =====================
-	#
-	# 	sudo su -c "curl -sSL http://get.docker.com | sh"
-	#
-	$ docker run -d --name pg-ckan datosgobar/pg-ckan:latest && docker run -d --name solr-ckan datosgobar/solr-ckan:latest && docker run -d --name  app-ckan -p 80:80 -p 8800:8800 --link pg-ckan:db --link solr-ckan:solr datosgobar/app-ckan:latest
-```
-##### ¿Qué contenedores vas a instalar?
-
-+ APP-CKAN:
++ Andino:
 	+ Packages | Service:
-		+ Imagen base: ubuntu xenial 16.04
-		+ NGINX
+		+ Imagen base: ubuntu xenial 14.04
 		+ Apache 2 | WSGI MOD
-		+ CKAN 2.5.2
-		+ Supervisor
-		+ Postfix
-		+ RabbitMQ
+		+ CKAN 2.5.3
 	+ Plugins:
 		+ DataStore
 		+ FileStore
@@ -75,82 +53,41 @@ Esta clase de instalación no requiere que clones el repositorio, ya que usamos 
 		+ Andino Theme
 		+ Harvest
 		+ Hierarchy
-+ PG-CKAN:
++ Nginx:
+	+ Package | Service:
+	    + Imagen base: `nginx:1.11.9`
+	    + Nginx 1.11
+	+ Modificaciones:
+	    + Configuración para caché de CKAN
++ Postfix:
+    + Package | Service:
+        + Imagen base: `ubuntu:trusty`
+        + Postfix
++ Redis:
+    + Package | Service:
+        + Imagen base: `alpine:3.5`
+        + Redis: 2.3.7
++ PostgreSQL:
 	+ Packages | Service:
+	    + Imagen base: `debian:jessie`
 		+ PostgreSQL 9.5
-+ SOLR-CKAN:
++ Solr:
 	+ Package | Service
+	    + Imagen base: `solr:6.0`
 		+ Solr 6.0
 	+ Plugins:
 		+ CKAN_Schema 2.2+(Hierarchy-Mig)
 
 ---
 
-#### Instalación avanzada
+## Instalación
 
-La instalación avanzada está pensada para usarios que quieren ver cómo funciona internamente `Andino`
-
-Para instalar y ejecutar Andino, seguimos estos pasos:
-
-+ Paso 1: Clonar repositorio. 
-_Es recomendable clonar el repo dentro de /tmp (o C:\temp en **Windows X**), ya que al finalizar la instalación, no usaremos más el repositorio_.
-		
-		$ cd /tmp # en Linux, en Windows, usar cd C:\temp
-		$ git clone https://github.com/datosgobar/portal-andino.git
-
-+ Paso 2: _construir y lanzar el contenedor de **pg-ckan** usando el Dockerfile ubicado en `postgresql-img/`._ 
-
-		$ cd /tmp/ckan_in_docker/postgresql-img/
-		$ docker build -t datosgobar/pg-ckan:latest . && docker run -d --name pg-ckan datosgobar/pg-ckan:latest
-
-
-+ Paso 3: _construir y lanzar el contenedor de **solr-ckan** usando el Dockerfile ubicado en `solr-img/`._
-
-		$ cd /tmp/ckan_in_docker/solr-img/ 
-		$ docker build -t datosgobar/solr-ckan:latest . && docker run -d  --name solr-ckan datosgobar/solr-ckan:latest
-
-+ Paso 4: _construir el contenedor de **app-ckan** usando el Dockerfile ubicado en `ckan-img/`._
-
-		$ cd /tmp/ckan_in_a_box/ckan-img
-		$ docker build -t datosgobar/app-ckan:latest .
-
-+ Paso 5: _Correr contenedor  de **Andino**_
-		
-		$ docker run -d --link pg-ckan:db --link solr-ckan:solr -p 80:80 -p 8800:8800 --name app-ckan datosgobar/app-ckan:latest
+Ver documentación de [instalación](http://portal-andino.readthedocs.io/es/master/setup/install/)
 
 ## Uso
 
-Una vez finalizada la instalación, bajo cualquiera de los métodos, deberíamos:
+Ver la documentacion [uso](http://portal-andino.readthedocs.io/es/master/setup/usage/)
 
-### Crear usuario administrador
-	
-```bash		
-#
-# Asumo que el contenedor de ckan es llamado al ser lanzado "app-ckan"
-# Entrar al contenedor de Andino
-$ docker exec -it app-ckan /bin/bash
-#
-# Crear usuario ckan_admin:
-$ $CKAN_HOME/bin/paster --plugin=ckan sysadmin add ckan_admin -c /etc/ckan/default/production.ini
-```
-
-### Configurar url de Andino
-```bash
-#
-# Asumo que el contenedor de ckan es llamado al ser lanzado "app-ckan"
-# Entrar al contenedor de Andino:
-$ docker exec -it app-ckan /bin/bash
-#
-# 
-# Cambiar "tu-domino" y "ip-del-server" por los valores que corresponda.
-$CKAN_HOME/bin/paster --plugin=ckan \
-	config-tool /etc/ckan/default/production.ini -e \
-	"ckan.site_url = http://tu-dominio.com.ar" \
-	"ckan.datapusher.url = http://ip-del-server.com.ar:8800"
-# Para que los cambios que acabamos de agregar impacten en nuestra plataforma
-# debemos reiniciar los servicios NGINX y APACHE2
-service nginx restart && service apache2 restart
-```
 
 ## Créditos
 
@@ -170,3 +107,4 @@ Como la comunidad de datos es grande, **por ahora no podemos dar soporte técnic
 Te invitamos a [crearnos un issue](https://github.com/datosgobar/portal-andino-theme/issues/new?title=Encontre%20un%20bug%20en%20nombre-del-repo) en caso de que encuentres algún bug o tengas feedback de alguna parte de `portal-andino-theme`.
 
 Para todo lo demás, podés mandarnos tu comentario o consulta a [datos@modernizacion.gob.ar](mailto:datos@modernizacion.gob.ar).
+

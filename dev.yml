@@ -1,0 +1,35 @@
+version: '2'
+services:
+    nginx:
+      image: datosgobar/portal-base-nginx:release-0.2
+      ports:
+        - 80:80
+      depends_on:
+        - portal
+    portal:
+        build: .
+        container_name: portal_development
+        ports:
+          - 8800:8800
+        depends_on:
+           - db
+           - solr
+           - redis
+           - postfix
+        volumes:
+          - $PWD:/dev-app
+    db:
+      image: postgres:9.5
+      environment:
+        - POSTGRES_USER=ckan
+        - POSTGRES_PASSWORD=ckan
+        - POSTGRES_DB=ckan
+    redis:
+      image: redis:3.2.7-alpine
+    solr:
+      image: datosgobar/portal-base-solr:release-0.2
+    postfix:
+      image: catatnight/postfix
+      ports:
+        - "25:25"
+        - "587:587"
