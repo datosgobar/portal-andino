@@ -1,7 +1,7 @@
 version: '2'
 services:
     nginx:
-      image: datosgobar/portal-base-nginx:release-0.2
+      image: datosgobar/portal-base-nginx:release-0.4
       ports:
         - 80:80
       depends_on:
@@ -27,7 +27,7 @@ services:
     redis:
       image: redis:3.2.7-alpine
     solr:
-      image: datosgobar/portal-base-solr:release-0.2
+      image: datosgobar/portal-base-solr:release-0.4
     postfix:
       image: catatnight/postfix
       ports:
