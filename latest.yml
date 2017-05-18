@@ -12,7 +12,7 @@ services:
         - portal-network
     portal:
       container_name: andino
-      image: datosgobar/portal-andino:latest
+      image: datosgobar/portal-andino:release-0.2
       restart: always
       ports:
         - 8800:8800
