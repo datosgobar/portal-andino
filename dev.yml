@@ -7,7 +7,10 @@ services:
       depends_on:
         - portal
     portal:
-        build: .
+        build: 
+          context: .
+          args:
+            - PORTAL_VERSION
         container_name: portal_development
         ports:
           - 8800:8800
