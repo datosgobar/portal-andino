@@ -4,7 +4,7 @@ services:
   - docker
 
 before_install:
-  - docker-compose -f dev.yml up -d --build portal
+  - env PORTAL_VERSION=$TRAVIS_BRANCH docker-compose -f dev.yml up -d --build portal
   - docker-compose -f dev.yml exec portal bash /etc/ckan_init.d/tests/install_solr4.sh
   - docker-compose -f dev.yml exec portal bash /etc/ckan_init.d/tests/install_nodejs.sh
 
