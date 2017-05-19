@@ -8,5 +8,6 @@
 
 * [Instalación](setup/install.md)
 * [Guía de uso](setup/usage.md)
+* [Recomendaciones para Sysadmins](setup/recommendations.md)
 * [Documentación para desarrolladores](development/docker.md)
 * [Tests](development/tests.md)
