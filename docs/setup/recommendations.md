@@ -11,7 +11,8 @@ Las siguientes recomendaciones puden ser implementadas fácilmente en un sistema
 
 HTTPS permite que la coneccion entre el _browser_ y el servidor sea encriptada y de esta manera segura.
 Es altamente recomendable usar HTTPS, para mantener la privacidad de los usuarios.
-Google provee buena informacion sobre esto: https://developers.google.com/web/fundamentals/security/encrypt-in-transit/why-https
+El portal de documentación para desarrolladores de Google provee buena informacion sobre esto:
+https://developers.google.com/web/fundamentals/security/encrypt-in-transit/why-https
 
 
 ## Sistema y librerías
