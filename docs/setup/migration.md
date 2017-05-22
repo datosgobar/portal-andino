@@ -181,4 +181,9 @@ Luego debemos volver a configurar los usuarios y passwords de la base de datos: 
 # Script de migración
 
 El script en el directorio `deploy/migrate.sh` en el repositorio debería proveer esta funcionalidad.
-El mismo espera ciertas variables de entorno.
+El mismo espera ciertas variables de entorno, espera tener instalado `docker` y `docker-compose` y debe ser ejecutado con `sudo`.
+
+Ejemplo:
+
+
+    sudo env EMAIL=admin@example.com HOST=111.222.333.444 DB_USER=foo DB_PASS=bar STORE_USER=baz STORE_PASS=foo ./migrate.sh
