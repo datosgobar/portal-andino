@@ -71,13 +71,15 @@ Es necesario hacer un backup de los archivos de la aplicacion: configuracion y a
 
 Este script dejara un archivo backup.tar.gz en el directorio actual. El mismo, una vez descomprimido, contendra la siguiente estructura (por ejemplo):
 
-- application/
-    ├── 61ee6cc7dc974476fe3300cc4325d913ed2f949494419b11a5c7c897fa919106
-    │   ├── backup_2017-05-19.10:56:09.tar.gz
-    │   └── destination.txt
-    └── b1bf820976c3220e54136e4db229a67a9d9292896ad8d91623030e3b7171f210
-        ├── backup_2017-05-19.10:56:09.tar.gz
-        └── destination.txt
+
+    - application/
+        ├── 61ee6cc7dc974476fe3300cc4325d913ed2f949494419b11a5c7c897fa919106
+        │   ├── backup_2017-05-19.10:56:09.tar.gz
+        │   └── destination.txt
+        └── b1bf820976c3220e54136e4db229a67a9d9292896ad8d91623030e3b7171f210
+            ├── backup_2017-05-19.10:56:09.tar.gz
+            └── destination.txt
+
 Cada sub-directorio contiene el ID del volumen en docker usado, los numero varian de volumen en volumen. Dentro de cada sub-directorio se encuentra un archivo *.tar.gz junto con un archivo destination.txt. El archivo destination.txt indica donde corresponde la informacion dentro del container, el archivo *.tar.gz contiene una carpeta _data con los archivos.
 
 ## 2) Detener la aplicacion
