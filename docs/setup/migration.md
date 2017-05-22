@@ -6,15 +6,15 @@ Pre requisitos
 
 Se asume que en el servidor hay 3 containers de docker corriendo:
 
-app-ckan
-pg-ckan
-solr-ckan
+- app-ckan
+- pg-ckan
+- solr-ckan
 
 Ademas se debe conocer los usuarios y passwords de la base de datos (tanto de la usada por ckan como por el datastore).
 
-1) Backups
+## 1) Backups
 
-1.1) Base de datos
+### 1.1) Base de datos
 
 Es necesario hacer un backup de la base de datos antes de empezar con la migracion. La misma puede llevarse a cabo con el siguiente script:
 
@@ -34,7 +34,7 @@ Es necesario hacer un backup de la base de datos antes de empezar con la migraci
 
 Este script dejara un archivo backup.gz en el directorio actual.
 
-1.2) Archivos de la aplicacion
+### 1.2) Archivos de la aplicacion
 
 Es necesario hacer un backup de los archivos de la aplicacion: configuracion y archivos subidos El mismo puede llevarse a cabo con el siguiente script:
 **Nota:** Requiere [jq](https://stedolan.github.io/jq/) >= 1.5
@@ -80,23 +80,23 @@ Este script dejara un archivo backup.tar.gz en el directorio actual. El mismo, u
         └── destination.txt
 Cada sub-directorio contiene el ID del volumen en docker usado, los numero varian de volumen en volumen. Dentro de cada sub-directorio se encuentra un archivo *.tar.gz junto con un archivo destination.txt. El archivo destination.txt indica donde corresponde la informacion dentro del container, el archivo *.tar.gz contiene una carpeta _data con los archivos.
 
-2) Detener la aplicacion
+## 2) Detener la aplicacion
 
 Debemos detener la aplicacion para lograr que se liberen los puertos usados, por ejemplo el puerto 80.
 
 docker stop solr-ckan pg-ckan app-ckan
 
-3) Instalar la aplicación:
+## 3) Instalar la aplicación:
 
 Ver la documentación [Aquí](http://portal-andino.readthedocs.io/es/master/setup/install/)
 
 **Nota:** Actualizar la version de docker y docker-compose de ser necesario.
 
-4) Restores
+## 4) Restores
 
 Ahora es necesario restaurar tanto la base de datos como los archivos de la aplicacion.
 
-4.1) Restaurar los archivos:
+### 4.1) Restaurar los archivos:
 
 Descomprimir el archivo `backup.tar.gz`. En cada subdirectorio encontraremos el archivo destination.txt, el contenido de este archivo nos ayudara a saber donde debemos copiar los archivos. Con el siguiete comando podremos saber que volumenes hay montados en el nuevo esquema y donde debemos copiar los archivos dentro del `backup_*.tar.gz`
 
@@ -104,33 +104,33 @@ Correr `docker inspect andino -f '{{ json .Mounts }}' | jq`:
 
 El comando mostrará lo siquiente, por ejemplo:
 
-[
-  {
-    "Type": "volume",
-    "Name": "a1d87160a04e270302582849c9ce5c6dbb44719a94b702158aeaf23835f7862f",
-    "Source": "/var/lib/docker/volumes/a1d87160a04e270302582849c9ce5c6dbb44719a94b702158aeaf23835f7862f/_data",
-    "Destination": "/etc/ckan/default",
-    "Driver": "local",
-    "Mode": "",
-    "RW": true,
-    "Propagation": ""
-  },
-  {
-    "Type": "volume",
-    "Name": "7ab721966628bf692a3d451567c9a01b419ba5189b88ef05484de315c73f6275",
-    "Source": "/var/lib/docker/volumes/7ab721966628bf692a3d451567c9a01b419ba5189b88ef05484de315c73f6275/_data",
-    "Destination": "/usr/lib/ckan/default/src/ckanext-gobar-theme/ckanext/gobar_theme/public/user_images",
-    "Driver": "local",
-    "Mode": "",
-    "RW": true,
-    "Propagation": ""
-  },
+    [
+    {
+        "Type": "volume",
+        "Name": "a1d87160a04e270302582849c9ce5c6dbb44719a94b702158aeaf23835f7862f",
+        "Source": "/var/lib/docker/volumes/a1d87160a04e270302582849c9ce5c6dbb44719a94b702158aeaf23835f7862f/_data",
+        "Destination": "/etc/ckan/default",
+        "Driver": "local",
+        "Mode": "",
+        "RW": true,
+        "Propagation": ""
+    },
+    {
+        "Type": "volume",
+        "Name": "7ab721966628bf692a3d451567c9a01b419ba5189b88ef05484de315c73f6275",
+        "Source": "/var/lib/docker/volumes/7ab721966628bf692a3d451567c9a01b419ba5189b88ef05484de315c73f6275/_data",
+        "Destination": "/usr/lib/ckan/default/src/ckanext-gobar-theme/ckanext/gobar_theme/public/user_images",
+        "Driver": "local",
+        "Mode": "",
+        "RW": true,
+        "Propagation": ""
+    },
 
-...
+    ...
 
 Como podemos ver, hay una entrada "Destination" que coincidira con el contenido del archivo destination.txt en cada directorio. Debemos asegurarnos de no copiar el archivo production.ini, ya que el mismo cambio bastante de version en version.
 
-4.2) Restaurar la base de datos
+### 4.2) Restaurar la base de datos
 
 Para restaurar la base de datos se puede usar el siguiente script contra el archivo previamente generado (backup.gz):
 
@@ -171,6 +171,6 @@ Luego debemos volver a configurar los usuarios y passwords de la base de datos: 
     docker exec andino-db psql -U postgres -c "ALTER USER $DATASTORE_USER WITH PASSWORD '$DATASTORE_PASS';"
 
 
-5) Regenerar los indices de busqueda:
+## 5) Regenerar los indices de busqueda:
 
-docker-compose -f /etc/portal/latest.yml exec portal /etc/ckan_init.d/run_rebuild_search.sh
+    docker exec andino /etc/ckan_init.d/run_rebuild_search.sh
