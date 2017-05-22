@@ -176,3 +176,9 @@ Luego debemos volver a configurar los usuarios y passwords de la base de datos: 
 ## 5) Regenerar los indices de busqueda:
 
     docker exec andino /etc/ckan_init.d/run_rebuild_search.sh
+
+
+# Script de migración
+
+El script en el directorio `deploy/migrate.sh` en el repositorio debería proveer esta funcionalidad.
+El mismo espera ciertas variables de entorno.
