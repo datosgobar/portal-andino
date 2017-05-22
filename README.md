@@ -12,6 +12,7 @@ También podés [ver el repositorio del tema visual](https://github.com/datosgob
 
 + [Qué contiene el paquete de Andino](#qué-contiene-el-paquete-de-andino)
 + [Instalación](#instalación)
++ [Migración](#migración)
 + [Uso](#uso)
 + [Créditos](#créditos)
 + [Contacto](#contacto)
@@ -79,6 +80,10 @@ También podés [ver el repositorio del tema visual](https://github.com/datosgob
 ## Instalación
 
 Ver documentación de [instalación](http://portal-andino.readthedocs.io/es/master/setup/install/)
+
+## Migración
+
+Ver documentación de [instalación](http://portal-andino.readthedocs.io/es/master/setup/migration/)
 
 ## Uso
 
