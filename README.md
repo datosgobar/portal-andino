@@ -83,7 +83,7 @@ Ver documentación de [instalación](http://portal-andino.readthedocs.io/es/mast
 
 ## Migración
 
-Ver documentación de [instalación](http://portal-andino.readthedocs.io/es/master/setup/migration/)
+Ver documentación de [migración](http://portal-andino.readthedocs.io/es/master/setup/migration/)
 
 ## Uso
 
