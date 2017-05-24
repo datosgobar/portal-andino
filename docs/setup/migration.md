@@ -230,14 +230,12 @@ docker restart $containers
 Luego debemos volver a configurar los usuarios y passwords de la base de datos: NOTA: Las credenciasles deben ser las mismas que se usanron con ansible en el paso 3
 
 
-´´´bash
-DB_USER=<usuario>
-DB_PASS=<password>
-DATASTORE_USER=<usuario del datasotre>
-DATASTORE_PASS=<pass del datastore>
-docker exec andino-db psql -U postgres -c "ALTER USER $DB_USER WITH PASSWORD '$DB_PASS';"
-docker exec andino-db psql -U postgres -c "ALTER USER $DATASTORE_USER WITH PASSWORD '$DATASTORE_PASS';"
-´´´
+    DB_USER=<usuario>
+    DB_PASS=<password>
+    DATASTORE_USER=<usuario del datasotre>
+    DATASTORE_PASS=<pass del datastore>
+    docker exec andino-db psql -U postgres -c "ALTER USER $DB_USER WITH PASSWORD '$DB_PASS';"
+    docker exec andino-db psql -U postgres -c "ALTER USER $DATASTORE_USER WITH PASSWORD '$DATASTORE_PASS';"
 
 
 ### 3.3) Regenerar el índice de búsquedas
