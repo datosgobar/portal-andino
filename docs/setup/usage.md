@@ -228,7 +228,7 @@ Otra alternativa es configuar otro `logging driver` de docker para que use `jour
 
 ## Eliminar objetos definitamente
 
-_Es bien sabido que dentro de `CKAN` dada vez que borranmos algun elemento, en verdad no se borra, sino que pasa a estar `ìnactivo`, por tanto, tener alguna forma de eliminar elementos de manera definitiva, resulta altamente necesario._
+_Es bien sabido que dentro de `CKAN` cada vez que borranmos algun elemento, en verdad no se borra, sino que pasa a estar `ìnactivo`, por tanto, tener alguna forma de eliminar elementos de manera definitiva, resulta altamente necesario._
 
 ## Purgar Organizaciones Borradas
 
