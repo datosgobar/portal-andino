@@ -1,73 +1,109 @@
 # Migracion de version 1.0 de andino a 2.0
 
+## Índice
+
 En el presente documento se pretende explicar como llevar a cabo una migracion de la version 1.0 de andino a la version 2.0 de andino.
 
-Pre requisitos
+- [Requisitos](#requisitos)
+- [Script](#script)
+- [Backups](#1-backups)
+  - [Base de datos](#11-base-de-datos)
+  - [Archivos de la aplicación](#12-archivos-de-la-aplicacion)
+- [Instalación](#2-instalación)
+  - [Detener andino 1](#21-detener-la-aplicación)
+  - [Instalar andino 2](#22-instalar-la-aplicación)
+- [Restores](#3-restores)
+  - [Restaurar archivos](#31-restaurar-los-archivos)
+  - [Restaurar la base de datos](#32-restaurar-la-base-de-datos)
+  - [Regenerar el índice de búsquedas](#33-regenerar-el-índice-de-búsquedas)
+
+## Requisitos
+
+Se requiere tener instalado:
+
+- [jq](https://stedolan.github.io/jq/) >= 1.5
+- docker
+- docker-compose
+
 
 Se asume que en el servidor hay 3 containers de docker corriendo:
 
-- app-ckan
-- pg-ckan
-- solr-ckan
+- `app-ckan`
+- `pg-ckan`
+- `solr-ckan`
 
-Ademas se debe conocer los usuarios y passwords de la base de datos (tanto de la usada por ckan como por el datastore).
+Ademas se debe conocer los `usuarios` y `passwords` de la base de datos (tanto de la usada por `ckan` como por el `datastore`).
+
+## Script
+
+El script lo pueden encontrar en `deploy/migrate.sh` en el repositorio.
+El mismo espera ciertas variables de entorno, espera tener instalado `docker` y `docker-compose` y debe ser ejecutado con `sudo`.
+
+Ejemplo:
+
+    sudo env EMAIL=admin@example.com HOST=111.222.333.444 DB_USER=foo DB_PASS=bar STORE_USER=baz STORE_PASS=foo ./migrate.sh
+
 
 ## 1) Backups
 
 ### 1.1) Base de datos
 
-Es necesario hacer un backup de la base de datos antes de empezar con la migracion. La misma puede llevarse a cabo con el siguiente script:
+Es necesario hacer un backup de la base de datos antes de empezar con la migración. La misma puede llevarse a cabo con el siguiente script:
 
-    #!/usr/bin/env bash
-    set -e;
+```bash
+#!/usr/bin/env bash
+set -e;
 
-    today=`date +%Y-%m-%d.%H:%M:%S`
-    container="pg-ckan" # Si el container de la base de datos tiene otro nombre, reemplazarlo
+# Defino algunas variables
+container="pg-ckan"
+backupdir=$(mktemp -d)
+backupfile="$backupdir/backup.gz"
 
-    backupdir=$(mktemp -d)
+# Genero el backup
+docker exec $container pg_dumpall -c -U postgres | gzip > "$backupfile"
+# Lo copiando al directorio actual
+cp "$backupfile" $PWD
+```
 
-    backupfile="$backupdir/backup.gz"
-
-    echo "Directorio temporal: $backupdir"
-    docker exec $container pg_dumpall -c -U postgres | gzip > "$backupfile"
-    cp "$backupfile" .
-
-Este script dejara un archivo backup.gz en el directorio actual.
+Este script dejara un archivo `backup.gz` en el directorio actual.
 
 ### 1.2) Archivos de la aplicacion
 
-Es necesario hacer un backup de los archivos de la aplicacion: configuracion y archivos subidos El mismo puede llevarse a cabo con el siguiente script:
+Es necesario hacer un backup de los archivos de la aplicacion: configuracion y archivos subidos. El mismo puede llevarse a cabo con el siguiente script:
+
 **Nota:** Requiere [jq](https://stedolan.github.io/jq/) >= 1.5
 
-    #!/usr/bin/env bash
-    set -e;
+```bash
+#!/usr/bin/env bash
+set -e;
+# Defino algunas variables
+container="app-ckan" # Si el container de la aplicacion ckan tiene otro nombre, reemplazarlo
+backupdir=$(mktemp -d)
+today=`date +%Y-%m-%d.%H:%M:%S`
+appbackupdir="$backupdir/application/"
+mkdir $appbackupdir
 
-    container="app-ckan" # Si el container de la aplicacion ckan tiene otro nombre, reemplazarlo
+# Por cada volumen, genero un archivo backup_*.tar.gz con la fecha en el nombre.
+docker inspect --format '{{json .Mounts}}' $container  | jq -r '.[]|[.Name, .Source, .Destination] | @tsv' |
+while IFS=$'\t' read -r name source destination; do
 
-    backupdir=$(mktemp -d)
-    echo "Directorio temporal: $backupdir"
-    today=`date +%Y-%m-%d.%H:%M:%S`
-    appbackupdir="$backupdir/application/"
-    mkdir $appbackupdir
+    if ls $source/* 1> /dev/null 2>&1; then
+        echo "Backing up $name."
+        echo "Source: $source"
+        echo "Destination: $destination"
+        dest="$appbackupdir$name"
+        mkdir -p $dest
+        echo "$destination" > "$dest/destination.txt"
 
-    docker inspect --format '{{json .Mounts}}' $container  | jq -r '.[]|[.Name, .Source, .Destination] | @tsv' |
-    while IFS=$'\t' read -r name source destination; do
+        tar -C "$source" -zcvf "$dest/backup_$today.tar.gz" $(ls $source)
+    else
+        echo "No file at $source"
+    fi
+done
 
-        if ls $source/* 1> /dev/null 2>&1; then
-            echo "Backing up $name."
-            echo "Source: $source"
-            echo "Destination: $destination"
-            dest="$appbackupdir$name"
-            mkdir -p $dest
-            echo "$destination" > "$dest/destination.txt"
-
-            tar -C "$source" -zcvf "$dest/backup_$today.tar.gz" $(ls $source)
-        else
-            echo "No file at $source"
-        fi
-    done
-
-    tar -C "$appbackupdir../" -zcvf backup.tar.gz "application/"
+#Junto todos los archivos en uno solo backup.tar.gz
+tar -C "$appbackupdir../" -zcvf backup.tar.gz "application/"
+```
 
 Este script dejara un archivo backup.tar.gz en el directorio actual. El mismo, una vez descomprimido, contendra la siguiente estructura (por ejemplo):
 
@@ -82,23 +118,25 @@ Este script dejara un archivo backup.tar.gz en el directorio actual. El mismo, u
 
 Cada sub-directorio contiene el ID del volumen en docker usado, los numero varian de volumen en volumen. Dentro de cada sub-directorio se encuentra un archivo *.tar.gz junto con un archivo destination.txt. El archivo destination.txt indica donde corresponde la informacion dentro del container, el archivo *.tar.gz contiene una carpeta _data con los archivos.
 
-## 2) Detener la aplicacion
+## 2) Instalación
+
+### 2.1) Detener la aplicación
 
 Debemos detener la aplicacion para lograr que se liberen los puertos usados, por ejemplo el puerto 80.
 
 docker stop solr-ckan pg-ckan app-ckan
 
-## 3) Instalar la aplicación:
+### 2.2) Instalar la aplicación
 
 Ver la documentación [Aquí](http://portal-andino.readthedocs.io/es/master/setup/install/)
 
 **Nota:** Actualizar la version de docker y docker-compose de ser necesario.
 
-## 4) Restores
+## 3) Restores
 
 Ahora es necesario restaurar tanto la base de datos como los archivos de la aplicacion.
 
-### 4.1) Restaurar los archivos:
+### 3.1) Restaurar los archivos
 
 Descomprimir el archivo `backup.tar.gz`. En cada subdirectorio encontraremos el archivo destination.txt, el contenido de este archivo nos ayudara a saber donde debemos copiar los archivos. Con el siguiete comando podremos saber que volumenes hay montados en el nuevo esquema y donde debemos copiar los archivos dentro del `backup_*.tar.gz`
 
@@ -132,58 +170,76 @@ El comando mostrará lo siquiente, por ejemplo:
 
 Como podemos ver, hay una entrada "Destination" que coincidira con el contenido del archivo destination.txt en cada directorio. Debemos asegurarnos de no copiar el archivo production.ini, ya que el mismo cambio bastante de version en version.
 
-### 4.2) Restaurar la base de datos
+El restore puede ser llevado a cabo con el siguiente script:
+
+```bash
+# Defino algunas variables
+container="andino"
+containers=$(docker ps -q)
+docker stop $containers
+
+restoredir=$(mktemp -d)
+
+tar zxvf backup.tar.gz -C $restoredir
+# Por cada volumen, busco su correspondiente backup
+docker inspect --format '{{json .Mounts}}' $container  | jq -r '.[]|[.Name, .Source, .Destination] | @tsv' |
+while IFS=$'\t' read -r name source destination; do
+    for directory in $restoredir/application/*; do
+        dest=$(cat "$directory/destination.txt")
+        if [ "$dest" == "$destination" ]; then
+            info "Recuperando archivos para $destination"
+            tar zxvf "$directory/$(ls "$directory" | grep backup)" -C "$source"
+        fi
+    done
+done
+
+# Reinicio los servicios."
+docker restart $containers
+```
+
+
+### 3.2) Restaurar la base de datos
 
 Para restaurar la base de datos se puede usar el siguiente script contra el archivo previamente generado (backup.gz):
 
-    #!/usr/bin/env bash
-    set -e;
+```bash
+#!/usr/bin/env bash
+set -e;
 
-    export PGDATABASE="ckan"
-    container="andino-db"
-    containers=$(docker ps -q)
-    docker stop $containers
-    docker restart $container
+#Defino algunas variables
+export PGDATABASE="ckan"
+container="andino-db"
+containers=$(docker ps -q)
+docker stop $containers
+docker restart $container
 
-    restoredir=$(mktemp -d)
-    echo "Directorio temporal: $restoredir"
+restoredir=$(mktemp -d)
 
-    restorefile="$restoredir/dump.sql"
+restorefile="$restoredir/dump.sql"
+#Descomprimo el dump de la base de datos
+gzip -dkc < backup.gz > "$restorefile"
+# Borro la base de datos actual
+docker exec -i $container psql -U postgres -c "DROP DATABASE IF EXISTS $PGDATABASE;"
+docker exec -i $container psql -U postgres -c "DROP DATABASE IF EXISTS datastore_default;"
+# Restaura la base de datos
+cat "$restorefile" | docker exec -i $container psql -U postgres
 
-    gzip -dkc < $1 > "$restorefile"
-    echo "Borrando base de datos actual."
-    docker exec -i $container psql -U postgres -c "DROP DATABASE IF EXISTS $PGDATABASE;"
-    docker exec -i $container psql -U postgres -c "DROP DATABASE IF EXISTS datastore_default;"
-    echo "Restaurando la base de datos: $restorefile"
-    cat "$restorefile" | docker exec -i $container psql -U postgres
-
-    docker restart $containers
-
-Y ejecutarlo con el path al archivo backup.gz:
-
-    bash restore_database.sh ~/backup.gz
+docker restart $containers
+```
 
 Luego debemos volver a configurar los usuarios y passwords de la base de datos: NOTA: Las credenciasles deben ser las mismas que se usanron con ansible en el paso 3
 
-    DB_USER=<usuario>
-    DB_PASS=<password>
-    DATASTORE_USER=<usuario del datasotre>
-    DATASTORE_PASS=<pass del datastore>
-    docker exec andino-db psql -U postgres -c "ALTER USER $DB_USER WITH PASSWORD '$DB_PASS';"
-    docker exec andino-db psql -U postgres -c "ALTER USER $DATASTORE_USER WITH PASSWORD '$DATASTORE_PASS';"
+
+´´´bash
+DB_USER=<usuario>
+DB_PASS=<password>
+DATASTORE_USER=<usuario del datasotre>
+DATASTORE_PASS=<pass del datastore>
+docker exec andino-db psql -U postgres -c "ALTER USER $DB_USER WITH PASSWORD '$DB_PASS';"
+docker exec andino-db psql -U postgres -c "ALTER USER $DATASTORE_USER WITH PASSWORD '$DATASTORE_PASS';"
+´´´
 
 
-## 5) Regenerar los indices de busqueda:
+### 3.3) Regenerar el índice de búsquedas
 
     docker exec andino /etc/ckan_init.d/run_rebuild_search.sh
-
-
-# Script de migración
-
-El script en el directorio `deploy/migrate.sh` en el repositorio debería proveer esta funcionalidad.
-El mismo espera ciertas variables de entorno, espera tener instalado `docker` y `docker-compose` y debe ser ejecutado con `sudo`.
-
-Ejemplo:
-
-
-    sudo env EMAIL=admin@example.com HOST=111.222.333.444 DB_USER=foo DB_PASS=bar STORE_USER=baz STORE_PASS=foo ./migrate.sh
