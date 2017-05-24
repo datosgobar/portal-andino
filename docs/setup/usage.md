@@ -65,6 +65,8 @@ Esta secuencia de comandos va a ELIMINAR TODOS LOS CONTENEDORES, IMAGENES y VOLU
 app_dir="/etc/portal/"
 cd $app_dir
 docker-compose -f latest.yml down -v
+cd ~/
+sudo rm /etc/portal -r
 ```
 
 ## Que esta corriendo docker?
@@ -194,7 +196,7 @@ tar -C "$(dirname "$CKAN_FS_STORAGE")" -zcvf /ruta/para/guardar/mis/bkps/mi_andi
 export ANDINO_CONFIG=$(docker inspect --format '{{ range .Mounts }}{{ if eq .Destination "/etc/ckan/default" }}{{ .Source }}{{ end }}{{ end }}' andino)
 
 # Creo un tar.gz con la info.
-tar -C "$(dirname "$ANDINO")" -zcvf /ruta/para/guardar/mis/bkps/mi_andino.config-data_$(date +%F).tar.gz "$(basename "$ANDINO")"
+tar -C "$(dirname "$ANDINO_CONFIG")" -zcvf /ruta/para/guardar/mis/bkps/mi_andino.config-data_$(date +%F).tar.gz "$(basename "$ANDINO_CONFIG")"
 ```
 
 ## Actualizaciones
@@ -213,7 +215,7 @@ Las actualizaciones se llevan a cabo mediante un script de update. El mismo se p
 
 ### Eliminar `logs` antiguos de `Docker`
 
-_Dentro del nomal funcionamiento de la plataforma, se generan gran catidad de logs, los cuales, ante un incidencia, son sumamente utiles, pero luego de un tiempo, y sabiendo que los mismo se almacenan internamente en Andino, podria ser necesario eliminarlos._
+Dentro del nomal funcionamiento de la plataforma, se generan gran catidad de logs, los cuales, ante un incidencia, son sumamente utiles, pero luego de un tiempo, y sabiendo que los mismo se almacenan internamente en Andino, podria ser necesario eliminarlos.
 
     sudo su -c "ls  /var/lib/docker/containers/ | xargs -n1 | while read docker_id; do truncate -s 0 /var/lib/docker/containers/${docker_id%/*}/${docker_id%/*}-json.log; done"
 
@@ -228,7 +230,7 @@ Otra alternativa es configuar otro `logging driver` de docker para que use `jour
 
 ## Eliminar objetos definitamente
 
-_Es bien sabido que dentro de `CKAN` cada vez que borranmos algun elemento, en verdad no se borra, sino que pasa a estar `ìnactivo`, por tanto, tener alguna forma de eliminar elementos de manera definitiva, resulta altamente necesario._
+Es bien sabido que dentro de `CKAN` cada vez que borranmos algun elemento, en verdad no se borra, sino que pasa a estar `ìnactivo`, por tanto, tener alguna forma de eliminar elementos de manera definitiva, resulta altamente necesario.
 
 ## Purgar Organizaciones Borradas
 
