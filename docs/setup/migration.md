@@ -37,7 +37,7 @@ Ademas se debe conocer los `usuarios` y `passwords` de la base de datos (tanto d
 ## Script
 
 El script lo pueden encontrar en `deploy/migrate.sh` en el repositorio.
-El mismo espera ciertas variables de entorno, espera tener instalado `docker` y `docker-compose` y debe ser ejecutado con `sudo`.
+El mismo espera ciertas variables de entorno y tener instalado `docker` y `docker-compose`. Debe ser ejecutado con `sudo`.
 
 Ejemplo:
 
