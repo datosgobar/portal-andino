@@ -227,7 +227,9 @@ cat "$restorefile" | docker exec -i $container psql -U postgres
 docker restart $containers
 ```
 
-Luego debemos volver a configurar los usuarios y passwords de la base de datos: NOTA: Las credenciasles deben ser las mismas que se usanron con ansible en el paso 3
+Luego debemos volver a configurar los usuarios y passwords de la base de datos:
+
+**NOTA:** Las credenciasles deben ser las mismas que se usanron con ansible en el paso 3
 
 
     DB_USER=<usuario>
