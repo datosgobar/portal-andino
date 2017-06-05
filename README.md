@@ -9,16 +9,13 @@ Implementación de CKAN en Docker, desarrollada en el contexto del portal distri
 También podés [ver el repositorio del tema visual](https://github.com/datosgobar/portal-andino-theme).
 
 ## Índice
+
 + [Qué contiene el paquete de Andino](#qué-contiene-el-paquete-de-andino)
 + [Instalación](#instalación)
-	+ [Dependencias](#dependencias)
-    + [Instalación simplificada](#instalación-simplificada)
-    + [Instalación avanzada](#instalación-avanzada)
++ [Migración](#migración)
 + [Uso](#uso)
-	+ [Crear usuario administrador](#crear-usuario-administrador)
-	+ [Configurar URL de Andino](#configurar-url-de-andino)
 + [Créditos](#créditos)
-+ [Contacto](#contacto)	
++ [Contacto](#contacto)
 
 ## Qué contiene el paquete de Andino
 
@@ -41,48 +38,52 @@ También podés [ver el repositorio del tema visual](https://github.com/datosgob
 ### ¿Qué contenedores vas a instalar?
 
 + Andino:
-	+ Packages | Service:
-		+ Imagen base: ubuntu xenial 14.04
-		+ Apache 2 | WSGI MOD
-		+ CKAN 2.5.3
-	+ Plugins:
-		+ DataStore
-		+ FileStore
-		+ Datapusher
-		+ DataJSONAR
-		+ Andino Theme
-		+ Harvest
-		+ Hierarchy
+  + Packages | Service:
+    + Imagen base: ubuntu xenial 14.04
+    + Apache 2 | WSGI MOD
+    + CKAN 2.5.3
+  + Plugins:
+    + DataStore
+    + FileStore
+    + Datapusher
+    + DataJSONAR
+    + Andino Theme
+    + Harvest
+    + Hierarchy
 + Nginx:
-	+ Package | Service:
-	    + Imagen base: `nginx:1.11.9`
-	    + Nginx 1.11
-	+ Modificaciones:
-	    + Configuración para caché de CKAN
+  + Package | Service:
+    + Imagen base: `nginx:1.11.9`
+    + Nginx 1.11
+  + Modificaciones:
+    + Configuración para caché de CKAN
 + Postfix:
-    + Package | Service:
-        + Imagen base: `ubuntu:trusty`
-        + Postfix
+  + Package | Service:
+    + Imagen base: `ubuntu:trusty`
+    + Postfix
 + Redis:
-    + Package | Service:
-        + Imagen base: `alpine:3.5`
-        + Redis: 2.3.7
+  + Package | Service:
+    + Imagen base: `alpine:3.5`
+    + Redis: 2.3.7
 + PostgreSQL:
-	+ Packages | Service:
-	    + Imagen base: `debian:jessie`
-		+ PostgreSQL 9.5
+  + Packages | Service:
+    + Imagen base: `debian:jessie`
+    + PostgreSQL 9.5
 + Solr:
-	+ Package | Service
-	    + Imagen base: `solr:6.0`
-		+ Solr 6.0
-	+ Plugins:
-		+ CKAN_Schema 2.2+(Hierarchy-Mig)
+  + Package | Service
+    + Imagen base: `solr:6.0`
+    + Solr 6.0
+  + Plugins:
+    + CKAN_Schema 2.2+(Hierarchy-Mig)
 
 ---
 
 ## Instalación
 
 Ver documentación de [instalación](http://portal-andino.readthedocs.io/es/master/setup/install/)
+
+## Migración
+
+Ver documentación de [migración](http://portal-andino.readthedocs.io/es/master/setup/migration/)
 
 ## Uso
 
