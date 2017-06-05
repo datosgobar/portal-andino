@@ -1,6 +1,6 @@
 # Recomendaciones
 
-Mantener segura un servidor web puede ser una tarea ardua, pero sobre todo es _constante_, ya que _constantemente_ se detectan nuevas vulnerabilidades en los distintos softwares.
+Mantener seguro un servidor web puede ser una tarea ardua, pero sobre todo es _constante_, ya que _constantemente_ se detectan nuevas vulnerabilidades en los distintos softwares.
 Y un servidor web no es la excepcion!
 En este (muy) breve documento, se darán pequeñas recomendaciones para mantener seguro el servidor, no solo antes posibles atacantes, sino tambien ante posibles fallos del sistema y como efectuar mitigaciones.
 
