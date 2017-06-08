@@ -5,7 +5,7 @@ services:
       image: datosgobar/portal-base-nginx:release-0.6
       restart: always
       ports:
-        - 80:80
+        - "${NGINX_HOST_PORT}:80"
       depends_on:
         - portal
       networks:
@@ -15,7 +15,7 @@ services:
       image: datosgobar/portal-andino:release-0.2
       restart: always
       ports:
-        - 8800:8800
+        - "${DATASTORE_HOST_PORT}:8800"
       depends_on:
         - db
         - solr
