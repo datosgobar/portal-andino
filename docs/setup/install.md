@@ -45,27 +45,29 @@ Para instalar y ejecutar Andino, seguimos estos pasos:
 
 + Paso 1: Clonar repositorio.
 
-		$ sudo mkdir /etc/andino
-		$ cd /etc/andino
-		$ sudo git clone https://github.com/datosgobar/portal-andino.git andino
-		$ cd andino
-		
+                $ sudo mkdir /etc/andino
+                $ cd /etc/andino
+                $ sudo git clone https://github.com/datosgobar/portal-andino.git andino
+                $ cd andino
+
 + Paso 2: Setear las variables de entorno para el contenedor de postgresql
 
         $ DB_USER=<my user>
         $ DB_PASSWORD=<my pass>
         $ sudo su -c "echo POSTGRES_USER=$DB_USER > .env"
         $ sudo su -c "echo POSTGRES_PASWORD=$DB_PASS >> .env"
-        
+        $ sudo su -c "echo NGINX_HOST_PORT=80 >> .env"
+        $ sudo su -c "echo DATASTORE_HOST_PORT=8800 >> .env"
+
 
 + Paso 3: _construir y lanzar los contenedor de servicios usando el archivo **latest.yml**_
 
-        $ docker-compose -f latest.yml up -d db postfix redis solr        
+        $ docker-compose -f latest.yml up -d db postfix redis solr
 
 + Paso 4: _construir y lanzar el contenedor de **andino** usando el archivo **latest.yml**_
 
 		$ docker-compose -f latest.yml up -d portal
-		
+
 + Paso 5: Inicializar la base de datos y la configuración de la aplicación:
 
 
