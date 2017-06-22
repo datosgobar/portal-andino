@@ -49,9 +49,11 @@ services:
       container_name: andino-postfix
       image: catatnight/postfix
       restart: always
-      expose:
-        - 25
-        - 587
+      environment:
+        - smtp_user=portal:portal
+        - maildomain
+      ports:
+        - "25:25"
       networks:
         - portal-network
 
