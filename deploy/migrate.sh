@@ -60,7 +60,7 @@ function backup_app {
             tar -C "$source" -zcvf "$dest/backup_$today.tar.gz" $(ls $source)
             info "List backup de $destination"
         else
-            info "Ningun archivo para $destination";
+            info "Ningún archivo para $destination";
         fi
     done
     info "Generando backup en $app_backup"
@@ -136,7 +136,7 @@ function rebuild_search {
     info "Listo."
 }
 
-info "Creando directior de instalación: $install_dir"
+info "Creando directorio de instalación: $install_dir"
 mkdir -p $install_dir
 
 cd $install_dir
