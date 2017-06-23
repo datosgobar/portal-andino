@@ -1,6 +1,6 @@
 # Tests 
 
-Para correr los test de la aplicación se deben levantar todos los servicios y luego inicializar la configuración de test.
+Para correr los test de la aplicación, se deben levantar todos los servicios y luego inicializar la configuración de test.
 
 ### Tests de Ckan
     $ docker-compose -f dev.yml up --build -d portal
