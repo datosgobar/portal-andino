@@ -14,6 +14,7 @@ services:
         container_name: portal_development
         ports:
           - 8800:8800
+          - 8080:8080
         depends_on:
            - db
            - solr
