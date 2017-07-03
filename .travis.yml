@@ -33,3 +33,7 @@ deploy:
   script: "deploy/upload.sh"
   on:
     all_branches: true
+
+git:
+  depth:
+    1
