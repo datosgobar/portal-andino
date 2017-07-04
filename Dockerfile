@@ -1,4 +1,4 @@
-FROM datosgobar/portal-base:release-0.5
+FROM datosgobar/portal-base:release-0.7.2
 MAINTAINER Leandro Gomez<lgomez@devartis.com>
 
 ENV CKAN_HOME /usr/lib/ckan/default
