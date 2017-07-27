@@ -36,5 +36,5 @@ services:
       environment:
         - maildomain=localhost
         - smtp_user=portal:portal
-      ports:
-        - "25:25"
+      expose:
+        - "25"
