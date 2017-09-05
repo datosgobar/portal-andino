@@ -80,62 +80,62 @@ Para obtener una lista de lo que esta corriendo actualmente Docker, podemos usar
 
 ## Ingresar al contendor pricipal de andino
 
-    docker-compose -f /etc/portal/latest.yml exec portal /bin/bash
+    docker-compose -f /etc/portal/latest.yml exec andino /bin/bash
 
 
 ## Listar todas las `Propiedades` de cada contenedor
 
-    docker-compose -f /etc/portal/latest.yml ps -q portal solr db | xargs -n 1 | while read container; do docker inspect $container; done
+    docker-compose -f /etc/portal/latest.yml ps -q andino solr db | xargs -n 1 | while read container; do docker inspect $container; done
 
 ## Usuarios
 
 ### `Crear` un usuario `ADMIN` dentro de `Andino`
 
-    docker-compose -f /etc/portal/latest.yml exec portal /etc/ckan_init.d/add_admin.sh mi_nuevo_usuario_admin
+    docker-compose -f /etc/portal/latest.yml exec andino /etc/ckan_init.d/add_admin.sh mi_nuevo_usuario_admin
 
 
 ### Listar mis usuarios dentro de `Andino`
 
-    docker-compose -f /etc/portal/latest.yml exec portal /etc/ckan_init.d/paster.sh --plugin=ckan user list
+    docker-compose -f /etc/portal/latest.yml exec andino /etc/ckan_init.d/paster.sh --plugin=ckan user list
 
 ### Ver los datos de un usuario dentro de `Andino`
 
-    docker-compose -f /etc/portal/latest.yml exec portal /etc/ckan_init.d/paster.sh --plugin=ckan user nombre-de-usuario
+    docker-compose -f /etc/portal/latest.yml exec andino /etc/ckan_init.d/paster.sh --plugin=ckan user nombre-de-usuario
 
 
 ### Crear un nuevo usuario de `Andino`
 
-    docker-compose -f /etc/portal/latest.yml exec portal /etc/ckan_init.d/paster.sh --plugin=ckan user add nombre-de-usuario
+    docker-compose -f /etc/portal/latest.yml exec andino /etc/ckan_init.d/paster.sh --plugin=ckan user add nombre-de-usuario
 
 
 ### Crear un nuevo usuario(EXTENDIDO) de `Andino`
 
-    docker-compose -f /etc/portal/latest.yml exec portal /etc/ckan_init.d/paster.sh --plugin=ckan user add nomber [email=mi-usuario@host.com password=mi-contraseña-rara apikey=unsecretomisticonoleible]
+    docker-compose -f /etc/portal/latest.yml exec andino /etc/ckan_init.d/paster.sh --plugin=ckan user add nomber [email=mi-usuario@host.com password=mi-contraseña-rara apikey=unsecretomisticonoleible]
 
 
 ### Eliminar un usuario de `Andino`
 
-    docker-compose -f /etc/portal/latest.yml exec portal /etc/ckan_init.d/paster.sh --plugin=ckan user remove nombre-de-usuario
+    docker-compose -f /etc/portal/latest.yml exec andino /etc/ckan_init.d/paster.sh --plugin=ckan user remove nombre-de-usuario
 
 
 ### Cambiar password de un usuario de `Andino`
 
-    docker-compose -f /etc/portal/latest.yml exec portal /etc/ckan_init.d/paster.sh --plugin=ckan user setpass nombre-de-usuario
+    docker-compose -f /etc/portal/latest.yml exec andino /etc/ckan_init.d/paster.sh --plugin=ckan user setpass nombre-de-usuario
 
 ## Acceso a la data de Andino
 
 ### Encontrar los `volumenes` de mi andino dentro de mi `FS`
 
-    docker-compose -f /etc/portal/latest.yml ps -q portal solr db | xargs -n 1 | while read container; do docker inspect -f ' {{.Name}}: {{range .Mounts}}{{.Source}}: {{.Destination}}  {{end}} ' $container; done
+    docker-compose -f /etc/portal/latest.yml ps -q andino solr db | xargs -n 1 | while read container; do docker inspect -f ' {{.Name}}: {{range .Mounts}}{{.Source}}: {{.Destination}}  {{end}} ' $container; done
 
 
 ### Ver los `IPs` de mis contenedores
 
-    docker-compose -f /etc/portal/latest.yml ps -q portal solr db | xargs -n 1 | while read container; do docker inspect -f '{{.Name}}: {{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $container; done
+    docker-compose -f /etc/portal/latest.yml ps -q andino solr db | xargs -n 1 | while read container; do docker inspect -f '{{.Name}}: {{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $container; done
 
 ### Ver las `variables de entorno` que tienen mis contenedores
 
-    docker-compose -f /etc/portal/latest.yml ps -q portal solr db | xargs -n 1 | while read container; do docker inspect -f '{{range $index, $value := .Config.Env}}export {{$value}}{{println}}{{end}}' $container; done
+    docker-compose -f /etc/portal/latest.yml ps -q andino solr db | xargs -n 1 | while read container; do docker inspect -f '{{range $index, $value := .Config.Env}}export {{$value}}{{println}}{{end}}' $container; done
 
 ### Acceder con `psql` a las `DB de andino`
 
