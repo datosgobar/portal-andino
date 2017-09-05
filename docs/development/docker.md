@@ -18,7 +18,7 @@ Para levantar toda la aplicacion, se puede correr:
 Si es la primera vez que se corre este comando, puede llegar a tardar bastante en descargar las imágenes.
 Una vez terminado, dejar en el puerto `localhost:80` la aplicacion ejecutándose, pero antes se debe correr un comando para inicializar el desarrollo:
 
-    $ docker exec -it portal /etc/ckan_init.d/init_dev.sh
+    $ docker exec -it andino /etc/ckan_init.d/init_dev.sh
 
 
 También se pueden levantar los servicios por separado de la aplicación:
