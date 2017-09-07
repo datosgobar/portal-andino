@@ -87,7 +87,7 @@ Ver documentación de [migración](http://portal-andino.readthedocs.io/es/master
 
 ## Uso
 
-Ver la documentacion [uso](http://portal-andino.readthedocs.io/es/master/setup/usage/)
+Ver la documentacion de [uso](http://portal-andino.readthedocs.io/es/master/setup/usage/)
 
 
 ## Créditos
