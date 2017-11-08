@@ -120,6 +120,8 @@ sub_paster(){
     sub_command /etc/ckan_init.d/paster.sh $@;
 }
 
+### Usuarios
+
 sub_add_admin() {
     sub_command /etc/ckan_init.d/add_admin.sh $@;
 }
