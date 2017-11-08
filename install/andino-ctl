@@ -146,6 +146,23 @@ sub_list_users() {
     sub_paster --plugin=ckan user list;
 }
 
+### Datos & entorno
+
+sub_find_volumes(){
+    sub_ps -q andino solr db | xargs -n 1 | while read container; do docker inspect -f ' {{.Name}}: {{range .Mounts}}{{.Source}}: {{.Destination}}  {{end}} ' $container; done
+}
+
+sub_show_ips(){
+    sub_ps -q andino solr db | xargs -n 1 | while read container; do docker inspect -f '{{.Name}}: {{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $container; done
+}
+
+sub_show_envs(){
+    sub_ps -q andino solr db | xargs -n 1 | while read container; do docker inspect -f '{{range $index, $value := .Config.Env}}export {{$value}}{{println}}{{end}}' $container; done
+}
+
+sub_exec_db(){
+    sub_command exec "$db_name" psql -U postgres
+}
 
 subcommand=$1
 case $subcommand in
