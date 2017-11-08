@@ -1,0 +1,165 @@
+#!/usr/bin/env bash
+
+ProgName=$(basename $0);
+app_name="portal";
+db_name="db";
+APP_DIR=/etc/andino
+COMPOSE_FILE="$APP_DIR/docker-compose.yml"
+
+info() {
+    echo -e "\e[38;5;75m\e[1m[ INFO ]\e[0m $1";
+}
+
+success() {
+    echo -e "\e[38;5;76m\e[1m[ SUCCESS ]\e[0m $1";   
+}
+
+error() {
+    echo -e "\e[1m\e[31m[ ERROR ]\e[0m $1";
+}
+
+sub_help(){
+    echo "Uso: $ProgName <subcomando>"
+    echo "Subcomandos:"
+    echo "  Generales:"
+    echo "    up [servicios]            Levantar la aplicacion (Regenerar si es necesario)"
+    echo "    ps [-aq]                  Tabla de ejecucion actual"
+    echo "    exec [comandos]           Ejecutar un comando en la aplicacion de andino"
+    echo "    restart [servicios]       Reiniciar los servicios"
+    echo "    stop [servicios]          Detener los servicios"
+    echo "    down                      Borrar los datos de la aplicación"
+    echo "    explode                   Borrar la aplicación"
+    echo "    post_update               Correr comando necesarios después de una actualización"
+
+    echo "  Ckan:"
+    echo "    paster                    Correr comando con paster en la aplicación"
+
+    echo "  Usuarios:"
+    echo "    add_admin [username]      Crear un usuario Admin dentro de andino"
+    echo "    add_user  [username]      Crear un usuario dentro de andino"
+    echo "    delete_user [username]    Borrar un usuario dentro de andino"
+    echo "    view_user [username]      Ver un usuario dentro de andino"
+    echo "    chpass    [username]      Cambiar la contraseña de un usuario dentro de andino"
+    echo "    list_users                Listar usuarios dentro de andino"
+
+    echo "  Datos y entorno:"
+    echo "    find_volumes              Encontrar los volumentes de docker"
+    echo "    show_ips                  Ver las IPs de los contenedores"
+    echo "    show_envs                 Ver las variables de entorno de los contenedores"
+    echo "    exec_db                   Accesder a psql dentro de la base de datos"
+
+    echo ""
+    echo "Variables de entorno:"
+    echo "    Algunas variables modifican el comportamiento de los comandos"
+    echo "    NO_CONFIRM: Pasa el parametro '-T' a docker-compose exec."
+    echo "      Útil para correr comandos sin una terminal."
+    echo ""
+}
+
+check_permissions() {
+    if [[ $(/usr/bin/id -u) -ne 0 ]]; then
+      error "Se necesitan permisos de root (sudo)";
+      exit 1;
+    fi
+}
+
+sub_command() {
+    # cd'ing is required because docker-compose.yml requires that the .env file is in the _working directory_
+    local _command="docker-compose -f $COMPOSE_FILE $@;"
+    bash -c "cd $APP_DIR && $_command";
+}
+
+## General
+
+sub_up(){
+    sub_command up -d $@;
+}
+
+sub_ps() {
+    sub_command ps $@;
+}
+
+sub_exec() {
+    # NO_CONFIRM variable is used for avoiding user interaction
+    local _command="sub_command exec ";
+    if [ -n "$NO_CONFIRM" ]; then
+        info "Desactivando uso de pseudo-tty"
+        _command="$_command -T"
+    fi
+    $_command $app_name $@;
+}
+
+sub_restart() {
+    sub_command restart $@;
+}
+
+sub_stop(){
+    sub_command stop $@;
+}
+
+sub_down(){
+    sub_command down -v;
+}
+
+sub_explode() {
+    check_permissions;
+    sub_down;
+    rm "$APP_DIR" -rf;
+    rm /usr/local/bin/andino-ctl -rf;
+}
+
+sub_post_update() {
+    # This commands must be idempotent
+    # Noop
+    info "Ok"
+}
+
+### Ckan
+
+sub_paster(){
+    sub_command /etc/ckan_init.d/paster.sh $@;
+}
+
+sub_add_admin() {
+    sub_command /etc/ckan_init.d/add_admin.sh $@;
+}
+
+sub_add_user() {
+    sub_paster --plugin=ckan user add $@;
+}
+
+sub_delete_user() {
+    sub_paster --plugin=ckan user remove $@;
+}
+
+sub_view_user() {
+    sub_paster --plugin=ckan user $@;
+}
+
+sub_chpass() {
+    sub_paster --plugin=ckan user setpass $@;
+}
+
+sub_list_users() {
+    sub_paster --plugin=ckan user list;
+}
+
+
+subcommand=$1
+case $subcommand in
+    "" | "-h" | "--help")
+        sub_help
+        ;;
+    *)
+        shift
+        sub_${subcommand} $@
+        rc=$?
+        if [ $rc = 127 ]; then
+            echo "Error: '$subcommand' no es un subcomando conocido." >&2
+            echo "       Corre '$ProgName --help' para listar los comandos." >&2
+            exit 1;
+        fi
+        if [ $rc != 0 ]; then
+            exit $rc;
+        fi
+esac
