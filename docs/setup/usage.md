@@ -39,88 +39,83 @@
 
 ## Instalacion de `Andino`:
 
-- De esta manera, vamos a lograr tener toda la plataforma corriendo y con autoinicio luego de un reboot o shutdown de la VM contenedora. La recomendación es instalarla en un directorio protegido (`/etc/portal/` por ejemplo). 
+- De esta manera, vamos a lograr tener toda la plataforma corriendo y con autoinicio luego de un reboot o shutdown de la VM contenedora. La recomendación es instalarla en un directorio protegido (`/etc/portal/` por default).
 
 ```bash
-
-app_dir="/etc/portal/"
-sudo mkdir $app_dir
-cd $app_dir
 
 # Descarga el script de instalación
 wget https://raw.github.com/datosgobar/portal-base/master/deploy/install.py
 
 # El script requiere ciertas credenciales que serán unicas de cada instalación
+# Además requerirá permisos de root (sudo) para el directorio default de instalación
 # Reemplazar $EMAIL, $HOST, $DB_USER, $DB_PASS, $STORE_USER, $STORE_PASS con las correspondientes.
-python ./install.py --error_email $EMAIL --site_host=$HOST \
+sudo python ./install.py --error_email $EMAIL --site_host=$HOST \
     --database_user=$DB_USER --database_password=$DB_PASS \
     --datastore_user=$STORE_USER --datastore_password=$STORE_PASS
 ```
+
+Luego de la instalación, el comando `andino-ctl` debería estar disponible.
 
 ## Desinstalar `Andino`:
 
 Esta secuencia de comandos va a ELIMINAR TODOS LOS CONTENEDORES, IMAGENES y VOLUMENES de la aplicación de la vm donde esta instalada la plataforma.
 
 ```bash
-app_dir="/etc/portal/"
-cd $app_dir
-docker-compose -f latest.yml down -v
-cd ~/
-sudo rm /etc/portal -r
+sudo andino-ctl explode
 ```
 
 ## Que esta corriendo docker?
 
 Para obtener una lista de lo que esta corriendo actualmente Docker, podemos usar el siguiente comando:
 
-    docker ps # Tabla de ejecucion actual
-    docker ps -q # Listado de IDs de cada contenedor
-    docker ps -aq # Listado de IDs de todos los contenedores disponibles.
+    andino-ctl ps # Tabla de ejecucion actual
+    andino-ctl ps -q # Listado de IDs de cada contenedor
+    andino-ctl ps -aq # Listado de IDs de todos los contenedores disponibles.
 
 
 ## Ingresar al contendor pricipal de andino
 
-    docker-compose -f /etc/portal/latest.yml exec portal /bin/bash
+    andino-ctl exec /bin/bash
 
 
 ## Listar todas las `Propiedades` de cada contenedor
 
-    docker-compose -f /etc/portal/latest.yml ps -q portal solr db | xargs -n 1 | while read container; do docker inspect $container; done
+    andino-ctl ps -q portal solr db | xargs -n 1 | while read container; do docker inspect $container; done
 
 ## Usuarios
 
 ### `Crear` un usuario `ADMIN` dentro de `Andino`
 
-    docker-compose -f /etc/portal/latest.yml exec portal /etc/ckan_init.d/add_admin.sh mi_nuevo_usuario_admin
+    andino-ctl add_admin mi_nuevo_usuario_admin
 
 
 ### Listar mis usuarios dentro de `Andino`
 
-    docker-compose -f /etc/portal/latest.yml exec portal /etc/ckan_init.d/paster.sh --plugin=ckan user list
+    andino-ctl list_users
 
 ### Ver los datos de un usuario dentro de `Andino`
 
-    docker-compose -f /etc/portal/latest.yml exec portal /etc/ckan_init.d/paster.sh --plugin=ckan user nombre-de-usuario
+    andino-ctl view_user nombre-de-usuario
 
 
 ### Crear un nuevo usuario de `Andino`
 
-    docker-compose -f /etc/portal/latest.yml exec portal /etc/ckan_init.d/paster.sh --plugin=ckan user add nombre-de-usuario
+    andino-ctl add_user nombre-de-usuario
 
 
 ### Crear un nuevo usuario(EXTENDIDO) de `Andino`
 
-    docker-compose -f /etc/portal/latest.yml exec portal /etc/ckan_init.d/paster.sh --plugin=ckan user add nomber [email=mi-usuario@host.com password=mi-contraseña-rara apikey=unsecretomisticonoleible]
+    andino-ctl add_user nomber [email=mi-usuario@host.com password=mi-contraseña-rara apikey=unsecretomisticonoleible]
 
 
 ### Eliminar un usuario de `Andino`
 
-    docker-compose -f /etc/portal/latest.yml exec portal /etc/ckan_init.d/paster.sh --plugin=ckan user remove nombre-de-usuario
+    andino-ctl delete_user nombre-de-usuario
 
 
 ### Cambiar password de un usuario de `Andino`
 
-    docker-compose -f /etc/portal/latest.yml exec portal /etc/ckan_init.d/paster.sh --plugin=ckan user setpass nombre-de-usuario
+    andino-ctl chpass nombre-de-usuario
 
 ## Acceso a la data de Andino
 
