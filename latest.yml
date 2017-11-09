@@ -52,8 +52,8 @@ services:
       environment:
         - smtp_user=portal:portal
         - maildomain
-      ports:
-        - "25:25"
+      expose:
+        - "25"
       networks:
         - portal-network
 
