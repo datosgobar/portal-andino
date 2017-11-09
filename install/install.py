@@ -39,6 +39,7 @@ def check_permissions():
 def check_installdir(base_path):
     if path.isdir(base_path):
         print("[ ERROR ] Se encontró instalción previa en %s, aborando." % base_path)
+        exit(1)
     else:
         makedirs(base_path)
 
