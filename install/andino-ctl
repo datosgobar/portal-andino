@@ -53,7 +53,10 @@ sub_help(){
     echo "  Backups:"
     echo "    backup_db                 Crear un backup de la base de datos. "
     echo "    backup_fs                 Crear un backup de los archivos de andino. "
-    echo "    backup_conf                 Crear un backup de los archivos de configuracion. "
+    echo "    backup_conf               Crear un backup de los archivos de configuracion. "
+
+    echo "  Mantenimiento:"
+    echo "    clear_logs                Borrar lo logs de todos los contenedores del file system. "
 
     echo ""
     echo "Variables de entorno:"
@@ -247,6 +250,20 @@ sub_backup_all_files() {
     sub_backup_fs;
     sub_backup_conf;
 }
+
+
+### Mantenimiento
+
+sub_clear_logs(){
+
+    sub_ps -q | xargs -n 1 | while read container; do
+        info "Limpiando logs de contenedor $container"
+        echo "" > $(docker inspect --format='{{.LogPath}}' "$container");
+    done
+    success "OK"
+}
+
+
 
 subcommand=$1
 case $subcommand in

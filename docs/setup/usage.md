@@ -187,7 +187,7 @@ Las actualizaciones se llevan a cabo mediante un script de update. El mismo se p
 
 Dentro del nomal funcionamiento de la plataforma, se generan gran catidad de logs, los cuales, ante un incidencia, son sumamente utiles, pero luego de un tiempo, y sabiendo que los mismo se almacenan internamente en Andino, podria ser necesario eliminarlos.
 
-    sudo su -c "ls  /var/lib/docker/containers/ | xargs -n1 | while read docker_id; do truncate -s 0 /var/lib/docker/containers/${docker_id%/*}/${docker_id%/*}-json.log; done"
+    andino-ctl clear_logs
 
 ### Configurar otro `logging driver`
 
