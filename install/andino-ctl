@@ -56,7 +56,8 @@ sub_help(){
     echo "    backup_conf               Crear un backup de los archivos de configuracion. "
 
     echo "  Mantenimiento:"
-    echo "    clear_logs                Borrar lo logs de todos los contenedores del file system. "
+    echo "    clear_logs                Borrar lo logs de todos los contenedores del file system."
+    echo "    clear_portal_logs         Borrar los logs dentro del contenedor del portal. "
 
     echo ""
     echo "Variables de entorno:"

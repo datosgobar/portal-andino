@@ -195,7 +195,7 @@ Otra alternativa es configuar otro `logging driver` de docker para que use `jour
 
 ### Eliminar logs dentro de Andino
 
-    docker-compose -f /etc/portal/latest.yml exec portal truncate -s 0 /var/log/apache2/*.log
+    andino-ctl clear_portal_logs
 
 
 ## Eliminar objetos definitivamente
