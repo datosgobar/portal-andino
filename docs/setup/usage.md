@@ -135,35 +135,23 @@ Para obtener una lista de lo que esta corriendo actualmente en la aplicación co
 
 ### Hacer `backup` de las `DBs de Andino`
 
+Creará un backup de la base de datos en /etc/andino/backups
 
-```bash
-# Algunas variables que usaremos
-today=`date +%Y-%m-%d.%H:%M:%S`
-filename="backup-$today.gz"
-container="andino-db"
+    andino-ctl backup_db
+    ls /etc/andino/backups/
 
-# Creo un directorio temporal y defino dónde generaré el backup
-backupdir=$(mktemp -d)
-backupfile="$backupdir/$filename"
+#### Opcional
 
-# Exporto la base de datos
-docker exec $container pg_dumpall -c -U postgres | gzip > "$backupfile"
+Idea!
 
-# Copio el archivo al directorio actual y borro el original
-# Podría reemplazar $PWD con mi directorio de backups, como /etc/portal/backups
-mv "$backupfile" $PWD
+Luego de haber realizado los backups podriamos utilizar `scp` o algun gestor parecido para enviar nuestros backups a algún tipo de storage.
 
-# Opcional
-
-# Idea!
-# ====
-# luego de haber realizado los backups podriamos utilizar `scp` o algun gestor parecido para enviar nuestros backups a algún tipo de storage.
-
-# scp /etc/portal/backups/backup-*.gz mi-usuario:pass@mi-host-de-almacenamiento:xxx/ruta/al/directorio/de/bkps
+```
+scp /etc/portal/backups/andino-backup-*.gz mi-usuario:pass@mi-host-de-almacenamiento:xxx/ruta/al/directorio/de/bkps
 
 # No olidemos eliminar todos los archivos generados:
-#
-# rm -f /etc/portal/backups/backup-*.gz
+
+rm -f /etc/portal/backups/andino-backup-*.gz
 
 ```
 

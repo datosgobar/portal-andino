@@ -48,6 +48,10 @@ sub_help(){
     echo "    show_envs                 Ver las variables de entorno de los contenedores"
     echo "    exec_db                   Accesder a psql dentro de la base de datos"
 
+    echo "  Backups:"
+    echo "    backup_db (dest)          Crear un backup de la base de datos. "
+    echo "                              Si puede especificar el destino. "
+
     echo ""
     echo "Variables de entorno:"
     echo "    Algunas variables modifican el comportamiento de los comandos"
@@ -162,6 +166,30 @@ sub_show_envs(){
 
 sub_exec_db(){
     sub_command exec "$db_name" psql -U postgres
+}
+
+### Backups
+
+sub_backup_db() {
+    check_permissions
+    dest="$APP_DIR/backups"
+    mkdir -p "$dest"
+    info "Creando backup en $dest"
+
+    local today=`date +%Y-%m-%d.%H:%M:%S`
+    local filename="andino-backup-$today.gz"
+    local container="$db_name"
+
+    # Creo un directorio temporal y defino dónde generaré el backup
+    local backupdir=$(mktemp -d)
+    local backupfile="$backupdir/$filename"
+
+    # Exporto la base de datos
+    docker exec "$container" pg_dumpall -c -U postgres | gzip > "$backupfile"
+
+    # Copio el archivo al directorio actual y borro el original
+    # Podría reemplazar $PWD con mi directorio de backups, como /etc/portal/backups
+    mv "$backupfile" "$dest"
 }
 
 subcommand=$1
