@@ -255,7 +255,6 @@ sub_backup_all_files() {
 ### Mantenimiento
 
 sub_clear_logs(){
-
     sub_ps -q | xargs -n 1 | while read container; do
         info "Limpiando logs de contenedor $container"
         echo "" > $(docker inspect --format='{{.LogPath}}' "$container");
@@ -263,6 +262,17 @@ sub_clear_logs(){
     success "OK"
 }
 
+sub_clear_portal_logs() {
+    local logs=$(andino-ctl exec ls /var/log/apache2/)
+    export NO_CONFIRM=1
+    echo $logs | xargs -n1 | while read log_file; do
+        info "Truncando logs $log_file"
+        sub_exec "truncate -s 0 /var/log/apache2/$log_file"
+    done;
+    unset NO_CONFIRM;
+    sub_exec find /var/log/apache2/ -name "*log?*" -delete
+    success "Ok"
+}
 
 
 subcommand=$1
