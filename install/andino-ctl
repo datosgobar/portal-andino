@@ -52,7 +52,8 @@ sub_help(){
 
     echo "  Backups:"
     echo "    backup_db                 Crear un backup de la base de datos. "
-    echo "    backup_all_files          Crear un backup de los archivos de configuracion. "
+    echo "    backup_fs                 Crear un backup de los archivos de andino. "
+    echo "    backup_conf                 Crear un backup de los archivos de configuracion. "
 
     echo ""
     echo "Variables de entorno:"
@@ -206,28 +207,45 @@ sub_backup_db() {
     # Copio el archivo al directorio actual y borro el original
     # Podría reemplazar $PWD con mi directorio de backups, como /etc/portal/backups
     mv "$backupfile" "$dest"
+    success "Backup terminado. "
 }
 
-sub_backup_all_files() {
+sub_backup_fs() {
     check_permissions
     local dest="$BACKUPS_DIR/files"
     mkdir -p "$dest"
     local app_container="$(sub_ps -q $app_name)"
 
     local today=`date +%Y-%m-%d.%H:%M:%S`
-    # Exporto el path al almacenamiento del volumen
+    # Obtengo el path al almacenamiento del volumen
     local andino_fs="$(docker inspect --format '{{ range .Mounts }}{{ if eq .Destination "/var/lib/ckan" }}{{ .Source }}{{ end }}{{ end }}' $app_container)"
-
+    local backup_file="$dest/andino-fs-data-$today.tar.gz"
     # Creo un tar.gz con la info.
-    tar -C "$(dirname "$andino_fs")" -zcvf "$dest/andino-fs-data-$today.tar.gz" "$(basename "$andino_fs")"
+    info "Iniciando backup de los archivos. Destino: $backup_file"
+    tar -C "$(dirname "$andino_fs")" -zcvf "$backup_file" "$(basename "$andino_fs")"
+    success "Backup terminado. "
+}
 
-    ### Realizar un `backup` de la configuración de `Andino`
+sub_backup_conf() {
+    check_permissions
+    local dest="$BACKUPS_DIR/files"
+    mkdir -p "$dest"
+    local app_container="$(sub_ps -q $app_name)"
+    local today=`date +%Y-%m-%d.%H:%M:%S`
 
-    # Exporto el path al almacenamiento del volumen
+    # Obtengo el path al almacenamiento del volumen
     local andino_conf="$(docker inspect --format '{{ range .Mounts }}{{ if eq .Destination "/etc/ckan/default" }}{{ .Source }}{{ end }}{{ end }}' $app_container)"
-
+    local backup_file="$dest/andino-config-data-$today.tar.gz"
     # Creo un tar.gz con la info.
-    tar -C "$(dirname "$andino_conf")" -zcvf "$dest/andino-config-data-$today.tar.gz" "$(basename "$andino_conf")"
+    info "Iniciando backup de los archivos. Destino: $backup_file"
+    tar -C "$(dirname "$andino_conf")" -zcvf "$backup_file" "$(basename "$andino_conf")"
+    success "Backup terminado. "
+}
+
+sub_backup_all_files() {
+    sub_backup_db;
+    sub_backup_fs;
+    sub_backup_conf;
 }
 
 subcommand=$1

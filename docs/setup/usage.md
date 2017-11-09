@@ -135,10 +135,10 @@ Para obtener una lista de lo que esta corriendo actualmente en la aplicación co
 
 ### Hacer `backup` de las `DBs de Andino`
 
-Creará un backup de la base de datos en /etc/andino/backups
+Creará un backup de la base de datos en /etc/andino/backups/database
 
     andino-ctl backup_db
-    ls /etc/andino/backups/
+    ls /etc/andino/backups/database
 
 #### Opcional
 
@@ -147,32 +147,26 @@ Idea!
 Luego de haber realizado los backups podriamos utilizar `scp` o algun gestor parecido para enviar nuestros backups a algún tipo de storage.
 
 ```
-scp /etc/portal/backups/andino-backup-*.gz mi-usuario:pass@mi-host-de-almacenamiento:xxx/ruta/al/directorio/de/bkps
+scp /etc/portal/backups/database/andino-backup-*.gz mi-usuario:pass@mi-host-de-almacenamiento:xxx/ruta/al/directorio/de/bkps
 
 # No olidemos eliminar todos los archivos generados:
 
-rm -f /etc/portal/backups/andino-backup-*.gz
+rm -f /etc/portal/backups/database/andino-backup-*.gz
 
 ```
 
 ### Realizar un `backup` del file system de `Andino`
 
 ```bash
-# Exporto el path al almacenamiento del volumen
-export CKAN_FS_STORAGE=$(docker inspect --format '{{ range .Mounts }}{{ if eq .Destination "/var/lib/ckan" }}{{ .Source }}{{ end }}{{ end }}' andino)
-
-# Creo un tar.gz con la info.
-tar -C "$(dirname "$CKAN_FS_STORAGE")" -zcvf /ruta/para/guardar/mis/bkps/mi_andino.fs-data_$(date +%F).tar.gz "$(basename "$CKAN_FS_STORAGE")"
+andino-ctl backup_fs
+ls /etc/andino/backups/files
 ```
 
 ### Realizar un `backup` de la configuración de `Andino`
 
 ```bash
-# Exporto el path al almacenamiento del volumen
-export ANDINO_CONFIG=$(docker inspect --format '{{ range .Mounts }}{{ if eq .Destination "/etc/ckan/default" }}{{ .Source }}{{ end }}{{ end }}' andino)
-
-# Creo un tar.gz con la info.
-tar -C "$(dirname "$ANDINO_CONFIG")" -zcvf /ruta/para/guardar/mis/bkps/mi_andino.config-data_$(date +%F).tar.gz "$(basename "$ANDINO_CONFIG")"
+andino-ctl backup_conf
+ls /etc/andino/backups/files
 ```
 
 ## Actualizaciones
