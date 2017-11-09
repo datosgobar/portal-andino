@@ -37,24 +37,17 @@
 <!-- /MarkdownTOC -->
 
 
-## Instalacion de `Andino`:
+## Instalación de `Andino`:
 
-- De esta manera, vamos a lograr tener toda la plataforma corriendo y con autoinicio luego de un reboot o shutdown de la VM contenedora. La recomendación es instalarla en un directorio protegido (`/etc/portal/` por default).
+- De esta manera, vamos a lograr tener toda la plataforma corriendo y con autoinicio luego de un reboot o shutdown de la VM contenedora.
+La recomendación es instalarla en un directorio protegido (`/etc/portal/` por default).
 
-```bash
-
-# Descarga el script de instalación
-wget https://raw.github.com/datosgobar/portal-base/master/deploy/install.py
-
-# El script requiere ciertas credenciales que serán unicas de cada instalación
-# Además requerirá permisos de root (sudo) para el directorio default de instalación
-# Reemplazar $EMAIL, $HOST, $DB_USER, $DB_PASS, $STORE_USER, $STORE_PASS con las correspondientes.
-sudo python ./install.py --error_email $EMAIL --site_host=$HOST \
-    --database_user=$DB_USER --database_password=$DB_PASS \
-    --datastore_user=$STORE_USER --datastore_password=$STORE_PASS
-```
+Para ver los pasos de instalación, dirigirse a [Guía de instalación](setup/install.md) y seguir la instalación simplificada.
 
 Luego de la instalación, el comando `andino-ctl` debería estar disponible.
+Este comando usaremos para manejar la aplicación, aunque siempre podemos usar `docker` y `docker-compose`.
+
+*NOTA:* Muchos de estos comandos podrian usar `sudo` ya que pueden necesitarse permisos de `root` para correr comandos en docker.
 
 ## Desinstalar `Andino`:
 
@@ -66,7 +59,7 @@ sudo andino-ctl explode
 
 ## Que esta corriendo docker?
 
-Para obtener una lista de lo que esta corriendo actualmente Docker, podemos usar el siguiente comando:
+Para obtener una lista de lo que esta corriendo actualmente en la aplicación con Docker, podemos usar el siguiente comando:
 
     andino-ctl ps # Tabla de ejecucion actual
     andino-ctl ps -q # Listado de IDs de cada contenedor
@@ -105,7 +98,7 @@ Para obtener una lista de lo que esta corriendo actualmente Docker, podemos usar
 
 ### Crear un nuevo usuario(EXTENDIDO) de `Andino`
 
-    andino-ctl add_user nomber [email=mi-usuario@host.com password=mi-contraseña-rara apikey=unsecretomisticonoleible]
+    andino-ctl add_user nombre-de-usuario [email=mi-usuario@host.com password=mi-contraseña-rara apikey=unsecretomisticonoleible]
 
 
 ### Eliminar un usuario de `Andino`
@@ -121,20 +114,20 @@ Para obtener una lista de lo que esta corriendo actualmente Docker, podemos usar
 
 ### Encontrar los `volumenes` de mi andino dentro de mi `FS`
 
-    docker-compose -f /etc/portal/latest.yml ps -q andino solr db | xargs -n 1 | while read container; do docker inspect -f ' {{.Name}}: {{range .Mounts}}{{.Source}}: {{.Destination}}  {{end}} ' $container; done
+    andino-ctl find_volumes
 
 
 ### Ver los `IPs` de mis contenedores
 
-    docker-compose -f /etc/portal/latest.yml ps -q andino solr db | xargs -n 1 | while read container; do docker inspect -f '{{.Name}}: {{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $container; done
+    andino-ctl show_ips
 
 ### Ver las `variables de entorno` que tienen mis contenedores
 
-    docker-compose -f /etc/portal/latest.yml ps -q andino solr db | xargs -n 1 | while read container; do docker inspect -f '{{range $index, $value := .Config.Env}}export {{$value}}{{println}}{{end}}' $container; done
+    andino-ctl show_envs
 
 ### Acceder con `psql` a las `DB de andino`
 
-    docker-compose -f dev.yml exec db psql -U postgres
+    andino-ctl exec_db
     # psql \c ckan db default CKAN
     # psql \c datastore_default db datastore CKAN
 
