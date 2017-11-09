@@ -125,9 +125,13 @@ Para obtener una lista de lo que esta corriendo actualmente en la aplicación co
 
     andino-ctl show_envs
 
-### Acceder con `psql` a las `DB de andino`
+### Acceder a la consola de la `DB de andino`
 
     andino-ctl exec_db
+
+### Acceder con `psql` a las `DB de andino`
+
+    andino-ctl exec_psql
     # psql \c ckan db default CKAN
     # psql \c datastore_default db datastore CKAN
 
