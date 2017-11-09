@@ -4,6 +4,7 @@ ProgName=$(basename $0);
 app_name="portal";
 db_name="db";
 APP_DIR=/etc/andino
+BACKUPS_DIR="$APP_DIR/backups"
 COMPOSE_FILE="$APP_DIR/docker-compose.yml"
 
 info() {
@@ -46,11 +47,12 @@ sub_help(){
     echo "    find_volumes              Encontrar los volumentes de docker"
     echo "    show_ips                  Ver las IPs de los contenedores"
     echo "    show_envs                 Ver las variables de entorno de los contenedores"
-    echo "    exec_db                   Accesder a psql dentro de la base de datos"
+    echo "    exec_db [comandos]        Ejecutar comando dentro de la base de datos"
+    echo "    exec_pqsl                 Accesder a psql dentro de la base de datos"
 
     echo "  Backups:"
-    echo "    backup_db (dest)          Crear un backup de la base de datos. "
-    echo "                              Si puede especificar el destino. "
+    echo "    backup_db                 Crear un backup de la base de datos. "
+    echo "    backup_all_files          Crear un backup de los archivos de configuracion. "
 
     echo ""
     echo "Variables de entorno:"
@@ -83,14 +85,19 @@ sub_ps() {
     sub_command ps $@;
 }
 
-sub_exec() {
-    # NO_CONFIRM variable is used for avoiding user interaction
+sub_exec_on() {
+    # La variable NO_CONFIRM es usada para evitar la interaccion del usuario
     local _command="sub_command exec ";
     if [ -n "$NO_CONFIRM" ]; then
-        info "Desactivando uso de pseudo-tty"
+        # Desactivando uso de pseudo-tty
         _command="$_command -T"
     fi
-    $_command $app_name $@;
+    $_command $@;
+
+}
+
+sub_exec() {
+    sub_exec_on "$app_name" $@;
 }
 
 sub_restart() {
@@ -153,43 +160,74 @@ sub_list_users() {
 ### Datos & entorno
 
 sub_find_volumes(){
-    sub_ps -q andino solr db | xargs -n 1 | while read container; do docker inspect -f ' {{.Name}}: {{range .Mounts}}{{.Source}}: {{.Destination}}  {{end}} ' $container; done
+    sub_ps -q portal solr db | xargs -n 1 | while read container; do docker inspect -f ' {{.Name}}: {{range .Mounts}}{{.Source}}: {{.Destination}}  {{end}} ' $container; done
 }
 
 sub_show_ips(){
-    sub_ps -q andino solr db | xargs -n 1 | while read container; do docker inspect -f '{{.Name}}: {{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $container; done
+    sub_ps -q portal solr db | xargs -n 1 | while read container; do docker inspect -f '{{.Name}}: {{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $container; done
 }
 
 sub_show_envs(){
-    sub_ps -q andino solr db | xargs -n 1 | while read container; do docker inspect -f '{{range $index, $value := .Config.Env}}export {{$value}}{{println}}{{end}}' $container; done
+    sub_ps -q portal solr db | xargs -n 1 | while read container; do docker inspect -f '{{range $index, $value := .Config.Env}}export {{$value}}{{println}}{{end}}' $container; done
 }
 
 sub_exec_db(){
-    sub_command exec "$db_name" psql -U postgres
+    sub_exec_on "$db_name" $@;
+}
+
+sub_exec_psql(){
+    sub_exec_db psql -U postgres $@;
 }
 
 ### Backups
 
 sub_backup_db() {
     check_permissions
-    dest="$APP_DIR/backups"
+    local dest="$BACKUPS_DIR/database"
     mkdir -p "$dest"
     info "Creando backup en $dest"
 
     local today=`date +%Y-%m-%d.%H:%M:%S`
     local filename="andino-backup-$today.gz"
-    local container="$db_name"
+    local container="$(sub_ps -q $db_name)"
 
     # Creo un directorio temporal y defino dónde generaré el backup
     local backupdir=$(mktemp -d)
     local backupfile="$backupdir/$filename"
 
     # Exporto la base de datos
-    docker exec "$container" pg_dumpall -c -U postgres | gzip > "$backupfile"
+    info "Iniciando backup de la base de datos en $backupfile"
 
+    # This is required!
+    export NO_CONFIRM=1;
+    sub_exec_db pg_dumpall -c -U postgres | gzip > "$backupfile"
+    unset NO_CONFIRM;
+    info "Finalizando backup de la base de datos. Moviendo a $dest"
     # Copio el archivo al directorio actual y borro el original
     # Podría reemplazar $PWD con mi directorio de backups, como /etc/portal/backups
     mv "$backupfile" "$dest"
+}
+
+sub_backup_all_files() {
+    check_permissions
+    local dest="$BACKUPS_DIR/files"
+    mkdir -p "$dest"
+    local app_container="$(sub_ps -q $app_name)"
+
+    local today=`date +%Y-%m-%d.%H:%M:%S`
+    # Exporto el path al almacenamiento del volumen
+    local andino_fs="$(docker inspect --format '{{ range .Mounts }}{{ if eq .Destination "/var/lib/ckan" }}{{ .Source }}{{ end }}{{ end }}' $app_container)"
+
+    # Creo un tar.gz con la info.
+    tar -C "$(dirname "$andino_fs")" -zcvf "$dest/andino-fs-data-$today.tar.gz" "$(basename "$andino_fs")"
+
+    ### Realizar un `backup` de la configuración de `Andino`
+
+    # Exporto el path al almacenamiento del volumen
+    local andino_conf="$(docker inspect --format '{{ range .Mounts }}{{ if eq .Destination "/etc/ckan/default" }}{{ .Source }}{{ end }}{{ end }}' $app_container)"
+
+    # Creo un tar.gz con la info.
+    tar -C "$(dirname "$andino_conf")" -zcvf "$dest/andino-config-data-$today.tar.gz" "$(basename "$andino_conf")"
 }
 
 subcommand=$1
