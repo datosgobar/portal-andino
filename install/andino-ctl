@@ -24,6 +24,7 @@ sub_help(){
     echo "Subcomandos:"
     echo "  Generales:"
     echo "    up [servicios]            Levantar la aplicacion (Regenerar si es necesario)"
+    echo "    pull                      Descargar imagenes de Docker"
     echo "    ps [-aq]                  Tabla de ejecucion actual"
     echo "    exec [comandos]           Ejecutar un comando en la aplicacion de andino"
     echo "    restart [servicios]       Reiniciar los servicios"
@@ -86,6 +87,10 @@ sub_up(){
     sub_command up -d $@;
 }
 
+sub_pull(){
+    sub_command pull;
+}
+
 sub_ps() {
     sub_command ps $@;
 }
@@ -126,7 +131,13 @@ sub_explode() {
 
 sub_post_update() {
     # This commands must be idempotent
-    # Noop
+    sub_exec bash /etc/ckan_init.d/run_updates.sh
+    local plugins=$(sub_exec grep -E "^ckan.plugins.*" "/etc/ckan/default/production.ini")
+    sub_exec sed -i "s/^ckan\.plugins.*/ckan.plugins = stats/"  "/etc/ckan/default/production.ini"
+    sub_exec bash /etc/ckan_init.d/upgrade_db.sh
+    sub_exec sed -i "s/^ckan\.plugins.*/$plugins/" "/etc/ckan/default/production.ini"
+    sub_exec bash /etc/ckan_init.d/run_rebuild_search.sh
+    sub_restart
     info "Ok"
 }
 
