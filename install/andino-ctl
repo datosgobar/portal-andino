@@ -112,7 +112,7 @@ sub_exec_on() {
         # Desactivando uso de pseudo-tty
         _command="$_command -T"
     fi
-    $_command $@;
+    $_command "$@";
 
 }
 
