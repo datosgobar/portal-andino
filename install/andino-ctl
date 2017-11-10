@@ -35,6 +35,8 @@ sub_help(){
 
     echo "  Ckan:"
     echo "    paster                    Correr comando con paster en la aplicación"
+    echo "    set_site_url [url]        Cambiar la url configurada para el sitio"
+    echo "    set_conf [key] [value]    Cambiar configuracion del sitio"
 
     echo "  Usuarios:"
     echo "    add_admin [username]      Crear un usuario Admin dentro de andino"
@@ -151,6 +153,14 @@ sub_post_update() {
 
 sub_paster(){
     sub_exec /etc/ckan_init.d/paster.sh $@;
+}
+
+sub_set_site_url(){
+    sub_exec /etc/ckan_init.d/change_site_url.sh $@;
+}
+
+sub_set_conf(){
+    sub_exec /etc/ckan_init.d/update_conf.sh $1 $2;
 }
 
 ### Usuarios

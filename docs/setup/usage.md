@@ -52,6 +52,7 @@ Este comando usaremos para manejar la aplicación, aunque siempre podemos usar `
 ## Desinstalar `Andino`:
 
 Esta secuencia de comandos va a ELIMINAR TODOS LOS CONTENEDORES, IMAGENES y VOLUMENES de la aplicación de la vm donde esta instalada la plataforma.
+**Este comando no pide confirmación**
 
 ```bash
 sudo andino-ctl explode
@@ -74,6 +75,20 @@ Para obtener una lista de lo que esta corriendo actualmente en la aplicación co
 ## Listar todas las `Propiedades` de cada contenedor
 
     andino-ctl ps -q portal solr db | xargs -n 1 | while read container; do docker inspect $container; done
+
+### General
+
+### Correr comando son `Paster`
+
+    andino-ctl paster [comando]
+
+### Cambiar la configuracion de la URL del sitio
+
+    andino-ctl set_site_url [url]
+
+### Cambiar una configuracion del sitio
+
+    andino-ctl set_conf [key] [value]
 
 ## Usuarios
 
@@ -222,13 +237,13 @@ Es bien sabido que dentro de `CKAN` cada vez que borranmos algun elemento, en ve
 ## Listar nombres de los datasets contenidos en Andino
 
 ```bash
-docker-compose -f /etc/portal/latest.yml exec portal /etc/ckan_init.d/paster.sh  --plugin=ckan dataset list | grep -v DEBUG | grep -v count  | grep -v Datasets | xargs -n2 | while read id name; do echo $name; done
+andino-ctl paster --plugin=ckan dataset list | grep -v DEBUG | grep -v count  | grep -v Datasets | xargs -n2 | while read id name; do echo $name; done
 
 # Idea!
 # ====
 # Si por alguna razon, por ejemplo, quisiera eliminar todos los datasets contenidos dentro de la plataforma
 # podría armar una función del estilo:
 
-DATASETS=$(docker-compose -f /etc/portal/latest.yml exec portal /etc/ckan_init.d/paster.sh  --plugin=ckan dataset list | grep -v DEBUG | grep -v count  | grep -v Datasets)
-echo $DATASETS | xargs -n2 | while read id name; do docker exec andino /etc/ckan_init.d/paster.sh --plugin=ckan dataset purge $name; done
+DATASETS=$(andino-ctl paster  --plugin=ckan dataset list | grep -v DEBUG | grep -v count  | grep -v Datasets)
+echo $DATASETS | xargs -n2 | while read id name; do andino-ctl paster --plugin=ckan dataset purge $name; done
 ```
