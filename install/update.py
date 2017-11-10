@@ -128,8 +128,8 @@ def fix_env_file(base_path):
             env_f.write("%s=%s\n" % (maildomain_var, real_maildomain))
 
 
-def backup_database(directory):
-    call_subprocess([USR_BIN_CRL, "backup_db"], directory)
+def backup(directory):
+    call_subprocess([USR_BIN_CRL, "backup_all_files"], directory)
 
 
 def reload_application(directory):
@@ -199,8 +199,8 @@ print("[ INFO ] Descargando archivos necesarios...")
 compose_file_path = get_compose_file(directory)
 ctl_script_path = get_ctl_script_file(directory)
 fix_env_file(directory)
-print("[ INFO ] Guardando base de datos...")
-backup_database(directory)
+print("[ INFO ] Creando backups...")
+backup(directory)
 print("[ INFO ] Actualizando la aplicación")
 reload_application(directory)
 print("[ INFO ] Corriendo comandos post-instalación")
