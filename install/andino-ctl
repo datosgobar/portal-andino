@@ -3,7 +3,7 @@
 ProgName=$(basename $0);
 app_name="portal";
 db_name="db";
-APP_DIR=/etc/andino
+APP_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 BACKUPS_DIR="$APP_DIR/backups"
 COMPOSE_FILE="$APP_DIR/docker-compose.yml"
 
@@ -313,8 +313,8 @@ case $subcommand in
         sub_${subcommand} $@
         rc=$?
         if [ $rc = 127 ]; then
-            echo "Error: '$subcommand' no es un subcomando conocido." >&2
-            echo "       Corre '$ProgName --help' para listar los comandos." >&2
+            error "'$subcommand' no es un subcomando conocido." >&2
+            info "       Corre '$ProgName --help' para listar los comandos." >&2
             exit 1;
         fi
         if [ $rc != 0 ]; then
