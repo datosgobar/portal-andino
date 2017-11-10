@@ -1,27 +1,31 @@
 #!/usr/bin/env bash
 
 ProgName=$(basename $0);
-app_name="portal";
-db_name="db";
-APP_DIR="/etc/andino"
-BACKUPS_DIR="$APP_DIR/backups"
-COMPOSE_FILE="$APP_DIR/docker-compose.yml"
-
-if [ -n "$OVERWRITE_APP_DIR" ]; then
-    APP_DIR="$OVERWRITE_APP_DIR"
-fi
 
 info() {
     echo -e "\e[38;5;75m\e[1m[ INFO ]\e[0m $1";
 }
 
 success() {
-    echo -e "\e[38;5;76m\e[1m[ SUCCESS ]\e[0m $1";   
+    echo -e "\e[38;5;76m\e[1m[ SUCCESS ]\e[0m $1";
 }
 
 error() {
     echo -e "\e[1m\e[31m[ ERROR ]\e[0m $1";
 }
+
+app_name="portal";
+db_name="db";
+APP_DIR="/etc/andino"
+
+if [ -n "$OVERWRITE_APP_DIR" ]; then
+    APP_DIR="$OVERWRITE_APP_DIR"
+    info "Usando $APP_DIR como directorio base"
+fi
+
+BACKUPS_DIR="$APP_DIR/backups"
+COMPOSE_FILE="$APP_DIR/docker-compose.yml"
+
 
 sub_help(){
     echo "Uso: $ProgName <subcomando>"
