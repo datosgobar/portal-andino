@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 import argparse
 import subprocess
-from os import path, geteuid, makedirs, remove, symlink, stat, chmod
+from os import path, geteuid, makedirs, remove, symlink, stat, chmod, environ
 from shutil import move
 
 parser = argparse.ArgumentParser(description='Actulizar andino con docker.')
@@ -86,19 +86,25 @@ def get_ctl_script_file(base_path):
     if path.isfile(ctl_script_path):
         remove(ctl_script_path)
 
-    subprocess.check_call([
+    call_subprocess([
         "curl",
         CTL_SCRIPT,
         "--fail",
         "--output",
         ctl_script_path
-    ])
+    ], directory)
     st = stat(ctl_script_path)
     chmod(ctl_script_path, st.st_mode | 0o0111)
     if not path.islink(USR_BIN_CRL):
         symlink(ctl_script_path, USR_BIN_CRL)
 
     return ctl_script_path
+
+
+def call_subprocess(command, directory):
+    my_env = environ.copy()
+    my_env["OVERWRITE_APP_DIR"] = directory
+    subprocess.check_call(command, env=my_env)
 
 
 def fix_env_file(base_path):
@@ -122,20 +128,20 @@ def fix_env_file(base_path):
             env_f.write("%s=%s\n" % (maildomain_var, real_maildomain))
 
 
-def backup_database():
-    subprocess.check_output([CTL_FILE_NAME, "backup_db"])
+def backup_database(directory):
+    call_subprocess([USR_BIN_CRL, "backup_db"], directory)
 
 
-def reload_application():
-    subprocess.check_call([
-        CTL_FILE_NAME,
+def reload_application(directory):
+    call_subprocess([
+        USR_BIN_CRL,
         "pull",
-    ])
-    subprocess.check_call([
-        CTL_FILE_NAME,
+    ], directory)
+    call_subprocess([
+        USR_BIN_CRL,
         "up",
         "nginx",
-    ])
+    ], directory)
 
 
 def check_previous_installation(base_path):
@@ -165,24 +171,22 @@ def check_previous_installation(base_path):
             raise Exception("[ ERROR ] No se encontró una instalación.")
 
 
-def post_update_commands():
+def post_update_commands(directory):
     try:
-        subprocess.check_call(
-            [
-                CTL_FILE_NAME,
-                "post_update",
-            ]
-        )
+        call_subprocess([
+            USR_BIN_CRL,
+            "post_update",
+        ], directory)
     except subprocess.CalledProcessError as e:
         print("[ INFO ] Error al correr el script 'andino-ctl post_update'")
         print(e)
 
 
-def restart_apps():
-    subprocess.check_call([
-        CTL_FILE_NAME,
+def restart_apps(directory):
+    call_subprocess([
+        USR_BIN_CRL,
         "restart",
-    ])
+    ], directory)
 
 
 print("[ INFO ] Comprobando que docker esté instalado...")
@@ -196,11 +200,11 @@ compose_file_path = get_compose_file(directory)
 ctl_script_path = get_ctl_script_file(directory)
 fix_env_file(directory)
 print("[ INFO ] Guardando base de datos...")
-backup_database()
+backup_database(directory)
 print("[ INFO ] Actualizando la aplicación")
-reload_application()
+reload_application(directory)
 print("[ INFO ] Corriendo comandos post-instalación")
-post_update_commands()
+post_update_commands(directory)
 print("[ INFO ] Reiniciando")
-restart_apps()
+restart_apps(directory)
 print("[ INFO ] Listo.")
