@@ -144,7 +144,7 @@ sub_post_update() {
     info "Actualizando aplicacion"
     sub_exec bash /etc/ckan_init.d/run_updates.sh
     info "Desactivando plugins"
-    local plugins=$(sub_exec grep -E "^ckan.plugins.*" "/etc/ckan/default/production.ini")
+    local plugins=$(sub_exec grep -E "^ckan.plugins.*" "/etc/ckan/default/production.ini" | tr -d '\n')
     sub_exec "sed -i \"s/^ckan\.plugins.*/ckan.plugins = stats/\"  \"/etc/ckan/default/production.ini\""
     info "Actualizando la base de datos"
     sub_exec bash /etc/ckan_init.d/upgrade_db.sh
