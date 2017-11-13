@@ -8,7 +8,7 @@ Si instalamos la aplicacion con la ultima version del instalador ([este](https:/
 simplemente basta con correr:
 
 
-    python -c "$(wget -O - https://raw.github.com/datosgobar/portal-andino/master/install/update.py)"
+    sudo python -c "$(wget -O - https://raw.github.com/datosgobar/portal-andino/master/install/update.py)"
 
 
 De esta forma el script asumira que instalamos la aplicacion en `/etc/andino`.
@@ -16,7 +16,7 @@ De esta forma el script asumira que instalamos la aplicacion en `/etc/andino`.
 
 ### Actualización avanzada
 
-Si instalamos la aplicacion en otro directorio distinto de `/etc/andino`, necesitamos correr el scrip de una manera diferente.
+Si instalamos la aplicacion en otro directorio distinto de `/etc/andino`, necesitamos correr el script de una manera diferente.
 Suponiendo que instalamos la aplicacion en `/home/user/app/`, debemos correr los siguientes pasos:
 
 
@@ -24,7 +24,7 @@ Suponiendo que instalamos la aplicacion en `/home/user/app/`, debemos correr los
 
 wget https://raw.github.com/datosgobar/portal-andino/master/install/update.py
 
-python update.py --install_directory="/home/user/app/"
+sudo python update.py --install_directory="/home/user/app/"
 
 ```
 
