@@ -37,3 +37,5 @@ En este caso para poder usar el script `andino-ctl`, debemos usar la variable de
     env OVERWRITE_APP_DIR=/home/user/app andino-ctl
 
 ## Versiones 1.x a 2.x
+
+Ver documento de [migracion](docs/setup/migration.md)
