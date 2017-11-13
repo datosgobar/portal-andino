@@ -133,10 +133,21 @@ sub_down(){
 }
 
 sub_explode() {
-    check_permissions;
-    sub_down;
-    rm "$APP_DIR" -rf;
-    rm /usr/local/bin/andino-ctl -rf;
+    info "Se borraran lo siguientes componentes:"
+    info "- Contenedores de docker"
+    info "- volumenes (datos de la aplicacion) de docker"
+    info "- el directorio $APP_DIR"
+    info "- el archivo /usr/local/bin/andino-ctl"
+    read -p "Desea continuar?(y/n)?" CONT
+    if [ "$CONT" = "y" ]; then
+      check_permissions;
+        sub_down;
+        rm "$APP_DIR" -rf;
+        rm /usr/local/bin/andino-ctl -rf;
+    else
+      info "Abortando"
+    fi
+
 }
 
 sub_post_update() {
