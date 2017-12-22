@@ -199,6 +199,81 @@ export ANDINO_CONFIG=$(docker inspect --format '{{ range .Mounts }}{{ if eq .Des
 tar -C "$(dirname "$ANDINO_CONFIG")" -zcvf /ruta/para/guardar/mis/bkps/mi_andino.config-data_$(date +%F).tar.gz "$(basename "$ANDINO_CONFIG")"
 ```
 
+## Restores
+
+Luego de inicializar la aplicacion desde cero en el servidor nuevo, debemos correr los siguientes comandos:
+
+### Hacer `restore` de las `DBs de Andino`
+
+
+```bash
+
+# Copiar el archivo `backup-<fecha>.gz` al directorio actual (en el servidor nuevo)
+
+filename="backup-*.gz"
+container="andino-db"
+
+# Parar todos los servicio:
+docker-compose -f latest.yml stop
+# Levantar solo la base de datos
+docker-compose -f latest.yml start db
+
+
+# Importar la base de datos
+gunzip -c backup-2017-12-22.15\:50\:00.gz |  docker exec -i $container psql -U postgres
+
+
+# Reiniciar los servicios
+docker-compose -f latest.yml start
+
+```
+
+## Realizar un `restore` del file system de `Andino`
+
+```bash
+# En el servidor nuevo copiar el backup `mi_andino.fs-data*` al directorio actual
+# Exporto el path al almacenamiento del volumen
+export CKAN_FS_STORAGE=$(docker inspect --format '{{ range .Mounts }}{{ if eq .Destination "/var/lib/ckan" }}{{ .Source }}{{ end }}{{ end }}' andino)
+
+# Descomprimir el tar.gz con la info.
+tar zxvf mi_andino.fs-data_*.tar.gz
+
+# Borrar el contenido del directorio CKAN_FS_STORAGE
+rm $CKAN_FS_STORAGE/* -rf
+# Copiar el contenido nuevo
+cp _data $CKAN_FS_STORAGE -r
+
+# Limpiar el directorio
+rm _data -r
+
+```
+
+### Realizar un `restore` de la configuración de `Andino`
+
+```bash
+# En el servidor nuevo, copiar el archico mi_andino.config-data*
+# Exporto el path al almacenamiento del volumen
+export ANDINO_CONFIG=$(docker inspect --format '{{ range .Mounts }}{{ if eq .Destination "/etc/ckan/default" }}{{ .Source }}{{ end }}{{ end }}' andino)
+
+# Descomprimo el tar.gz con la info.
+tar zxvf mi_andino.config-data*.tar.gz
+
+# Borrar el contenido del directorio ANDINO_CONFIG
+rm $ANDINO_CONFIG/* -rf
+# Copiar el contenido nuevo
+cp _data $ANDINO_CONFIG -r
+
+# Limpiar el directorio
+rm _data -r
+```
+
+Luego de todo reinicio los servicios:
+
+```
+docker-compose -f latest.yml restart
+```
+
+
 ## Actualizaciones
 
 
