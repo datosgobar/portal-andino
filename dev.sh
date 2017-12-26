@@ -61,7 +61,7 @@ sub_up(){
     docker run -v "$src:$dest" --name "$dev_container"\
         --link $redis_container:redis --link $db_container:db \
         --link $solr_container:solr --link $postfix_container:postfix \
-        --network portalandino_default -it -p 8080:8080 datosgobar/portal-base /bin/bash
+        --network portalandino_default -it -p 8080:8080 -p 5000:5000 datosgobar/portal-base /bin/bash
 }
 
 subcommand=$1
