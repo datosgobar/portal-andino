@@ -12,7 +12,7 @@ services:
         - portal-network
     portal:
       container_name: andino
-      image: datosgobar/portal-andino:release-2.2.6
+      image: datosgobar/portal-andino:release-2.2.7
       restart: always
       ports:
         - "${DATASTORE_HOST_PORT}:8800"
