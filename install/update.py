@@ -155,8 +155,11 @@ def fix_env_file(base_path):
     nginx_var = "NGINX_HOST_PORT"
     datastore_var = "DATASTORE_HOST_PORT"
     maildomain_var = "maildomain"
-    with open(env_file_path, "r+a") as env_f:
+
+    content = None
+    with open(env_file_path, "r") as env_f:
         content = env_f.read()
+    with open(env_file_path, "a") as env_f:
         if nginx_var not in content:
             env_f.write("%s=%s\n" % (nginx_var, "80"))
         if datastore_var not in content:
