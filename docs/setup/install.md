@@ -58,8 +58,7 @@ Para instalar y ejecutar Andino, seguimos estos pasos:
 
                 $ sudo mkdir /etc/andino
                 $ cd /etc/andino
-                $ sudo git clone https://github.com/datosgobar/portal-andino.git andino
-                $ cd andino
+                $ sudo git clone https://github.com/datosgobar/portal-andino.git .
 
 + Paso 2: Setear las variables de entorno para el contenedor de postgresql
 
