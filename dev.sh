@@ -38,6 +38,7 @@ sub_setup() {
         exit 1;
     fi
     directory="$1"
+    sub_exec /usr/lib/ckan/default/bin/pip install -r "$directory/dev-requirements.txt"
     sub_exec /usr/lib/ckan/default/bin/pip install -e "$directory"
     sub_exec /etc/ckan_init.d/init_dev.sh
     sub_exec /usr/lib/ckan/default/bin/paster serve /etc/ckan/default/production.ini
