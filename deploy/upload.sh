@@ -2,7 +2,8 @@
 
 set -ev
 
-container_image=$(docker ps --format '{{ .Image }}' --filter 'name=portal_development')
+container_id=$(docker-compose -f dev.yml ps -q portal)
+container_image=$(docker ps --format '{{ .Image }}' --filter "id=$container_id")
 branch="$TRAVIS_BRANCH"
 pattern="^[0-9.]+"
 
