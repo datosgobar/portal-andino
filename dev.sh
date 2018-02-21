@@ -37,9 +37,18 @@ sub_exec() {
     sub_compose exec portal $@;
 }
 
+sub_console() {
+    sub_exec /bin/bash;
+}
+
 sub_up(){
     sub_compose up -d;
 }
+
+sub_logs(){
+    sub_compose logs -f portal;
+}
+
 
 sub_create_admin() {
     sub_exec /etc/ckan_init.d/add_admin.sh $@;
