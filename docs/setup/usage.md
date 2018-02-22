@@ -204,12 +204,7 @@ tar -C "$(dirname "$ANDINO_CONFIG")" -zcvf /ruta/para/guardar/mis/bkps/mi_andino
 
 ### Como `actualizo` mi `Andino`?
 
-Las actualizaciones se llevan a cabo mediante un script de update. El mismo se puede encontrar acá: [update.py](https://github.com/datosgobar/portal-base/blob/master/deploy/update.py)
-
-    app_dir=/etc/portal
-    cd $app_dir
-    sudo wget https://raw.github.com/datosgobar/portal-base/master/deploy/update.py
-    sudo python ./update.py
+En la [documentación de actualización](docs/setup/update.md) encontrarás esto detallado
 
 ## Logs
 
