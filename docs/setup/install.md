@@ -31,8 +31,19 @@ Para esta instalación ciertos parametros deben ser pasados a la aplicacion:
 + Password del datastore: `STORE_PASS=<my datastore password>`
 
 ```bash
-wget https://raw.github.com/datosgobar/portal-base/master/deploy/install.py
-python ./install.py --error_email "$EMAIL" --site_host="$HOST" \
+# Primero seleccionamos lo valores necesarios
+EMAIL=admin@example.com
+HOST=http://192.168.35.10/
+DB_USER=my_database_user
+DB_PASS=my_database_pass
+STORE_USER=my_data_user
+STORE_PASS=my_data_pass
+
+# Descargamos el script de instalacion python
+wget https://raw.github.com/datosgobar/portal-andino/master/install/install.py
+
+# Corremos el script de instalacion
+sudo -E python ./install.py --error_email "$EMAIL" --site_host="$HOST" \
     --database_user="$DB_USER" --database_password="$DB_PASS" \
     --datastore_user="$STORE_USER" --datastore_password="$STORE_PASS"
 ```
@@ -47,8 +58,7 @@ Para instalar y ejecutar Andino, seguimos estos pasos:
 
                 $ sudo mkdir /etc/andino
                 $ cd /etc/andino
-                $ sudo git clone https://github.com/datosgobar/portal-andino.git andino
-                $ cd andino
+                $ sudo git clone https://github.com/datosgobar/portal-andino.git .
 
 + Paso 2: Setear las variables de entorno para el contenedor de postgresql
 
@@ -88,3 +98,11 @@ docker-compose -f latest.yml exec portal /etc/ckan_init.d/init.sh -e "$EMAIL" -h
 
 		$ docker-compose -f latest.yml up -d nginx
 
+
+## Uso
+
+Despues de instalar la aplicacion *con el script de instalación*, encontraremos en el directorio `/etc/andino/` los archivo de la aplicación.
+Ademas en el mismo hay un archivo que nos permite controlar la aplicación: `andino-ctl`.
+Podemos ver los comandos de este archivo corriendo: `andino-ctl --help`.
+
+Mas información en la [guía de uso](setup/usage.md).

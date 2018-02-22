@@ -2,6 +2,7 @@ site_name: Portal Andino
 pages:
   - Home: 'index.md'
   - Instalacion: 'setup/install.md'
+  - Actualizacion: 'setup/update.md'
   - Migracion: 'setup/migration.md'
   - Uso: 'setup/usage.md'
   - Desarrollo:

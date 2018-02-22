@@ -1,0 +1,342 @@
+#!/usr/bin/env bash
+
+ProgName=$(basename $0);
+
+info() {
+    echo -e "\e[38;5;75m\e[1m[ INFO ]\e[0m $1";
+}
+
+success() {
+    echo -e "\e[38;5;76m\e[1m[ SUCCESS ]\e[0m $1";
+}
+
+error() {
+    echo -e "\e[1m\e[31m[ ERROR ]\e[0m $1";
+}
+
+app_name="portal";
+db_name="db";
+APP_DIR="/etc/andino"
+
+if [ -n "$OVERWRITE_APP_DIR" ]; then
+    APP_DIR="$OVERWRITE_APP_DIR"
+    info "Usando $APP_DIR como directorio base"
+fi
+
+BACKUPS_DIR="$APP_DIR/backups"
+COMPOSE_FILE="$APP_DIR/docker-compose.yml"
+
+
+sub_help(){
+    echo "Uso: $ProgName <subcomando>"
+    echo "Subcomandos:"
+    echo "  Generales:"
+    echo "    up [servicios]            Levantar la aplicacion (Regenerar si es necesario)"
+    echo "    pull                      Descargar imagenes de Docker"
+    echo "    ps [-aq]                  Tabla de ejecucion actual"
+    echo "    exec [comandos]           Ejecutar un comando en la aplicacion de andino"
+    echo "    restart [servicios]       Reiniciar los servicios"
+    echo "    stop [servicios]          Detener los servicios"
+    echo "    down                      Borrar los datos de la aplicación"
+    echo "    explode                   Borrar la aplicación"
+    echo "    post_update               Correr comando necesarios después de una actualización"
+
+    echo "  Ckan:"
+    echo "    paster                    Correr comando con paster en la aplicación"
+    echo "    set_site_url [url]        Cambiar la url configurada para el sitio"
+    echo "    set_conf [key] [value]    Cambiar configuracion del sitio"
+
+    echo "  Usuarios:"
+    echo "    add_admin [username]      Crear un usuario Admin dentro de andino"
+    echo "    add_user  [username]      Crear un usuario dentro de andino"
+    echo "    delete_user [username]    Borrar un usuario dentro de andino"
+    echo "    view_user [username]      Ver un usuario dentro de andino"
+    echo "    chpass    [username]      Cambiar la contraseña de un usuario dentro de andino"
+    echo "    list_users                Listar usuarios dentro de andino"
+
+    echo "  Datos y entorno:"
+    echo "    find_volumes              Encontrar los volumentes de docker"
+    echo "    show_ips                  Ver las IPs de los contenedores"
+    echo "    show_envs                 Ver las variables de entorno de los contenedores"
+    echo "    exec_db [comandos]        Ejecutar comando dentro de la base de datos"
+    echo "    exec_pqsl                 Accesder a psql dentro de la base de datos"
+
+    echo "  Backups:"
+    echo "    backup_db                 Crear un backup de la base de datos. "
+    echo "    backup_fs                 Crear un backup de los archivos de andino. "
+    echo "    backup_conf               Crear un backup de los archivos de configuracion. "
+
+    echo "  Mantenimiento:"
+    echo "    clear_logs                Borrar lo logs de todos los contenedores del file system."
+    echo "    clear_portal_logs         Borrar los logs dentro del contenedor del portal. "
+
+    echo ""
+    echo "Variables de entorno:"
+    echo "    Algunas variables modifican el comportamiento de los comandos"
+    echo "    NO_CONFIRM: Pasa el parametro '-T' a docker-compose exec."
+    echo "      Útil para correr comandos sin una terminal."
+    echo ""
+}
+
+check_permissions() {
+    if [[ $(/usr/bin/id -u) -ne 0 ]]; then
+      error "Se necesitan permisos de root (sudo)";
+      exit 1;
+    fi
+}
+
+sub_command() {
+    # cd'ing is required because docker-compose.yml requires that the .env file is in the _working directory_
+    local _command="docker-compose -f $COMPOSE_FILE $@;"
+    bash -c "cd $APP_DIR && $_command";
+}
+
+## General
+
+sub_up(){
+    sub_command up -d $@;
+}
+
+sub_pull(){
+    sub_command pull;
+}
+
+sub_ps() {
+    sub_command ps $@;
+}
+
+sub_exec_on() {
+    # La variable NO_CONFIRM es usada para evitar la interaccion del usuario
+    local _command="sub_command exec ";
+    if [ -n "$NO_CONFIRM" ]; then
+        # Desactivando uso de pseudo-tty
+        _command="$_command -T"
+    fi
+    $_command "$@";
+
+}
+
+sub_exec() {
+    sub_exec_on "$app_name" $@;
+}
+
+sub_restart() {
+    sub_command restart $@;
+}
+
+sub_stop(){
+    sub_command stop $@;
+}
+
+sub_down(){
+    sub_command down -v;
+}
+
+sub_explode() {
+    info "Se borraran lo siguientes componentes:"
+    info "- Contenedores de docker"
+    info "- volumenes (datos de la aplicacion) de docker"
+    info "- el directorio $APP_DIR"
+    info "- el archivo /usr/local/bin/andino-ctl"
+    read -p "Desea continuar?(y/n)?" CONT
+    if [ "$CONT" = "y" ]; then
+      check_permissions;
+        sub_down;
+        rm "$APP_DIR" -rf;
+        rm /usr/local/bin/andino-ctl -rf;
+    else
+      info "Abortando"
+    fi
+
+}
+
+sub_post_update() {
+    # This commands must be idempotent
+    info "Actualizando aplicacion"
+    sub_exec bash /etc/ckan_init.d/run_updates.sh
+    info "Desactivando plugins"
+    local plugins=$(sub_exec grep -E "^ckan.plugins.*" "/etc/ckan/default/production.ini" | tr -d '\n')
+    sub_exec "sed -i \"s/^ckan\.plugins.*/ckan.plugins = stats/\"  \"/etc/ckan/default/production.ini\""
+    info "Actualizando la base de datos"
+    sub_exec bash /etc/ckan_init.d/upgrade_db.sh
+    info "Activando plugins"
+    sub_exec "sed -i \"s/^ckan\.plugins.*/$plugins/\" \"/etc/ckan/default/production.ini\""
+    info "Reconstruyendo indices de busqueda"
+    sub_exec bash /etc/ckan_init.d/run_rebuild_search.sh
+    info "Reiniciando"
+    sub_restart
+    info "Ok"
+}
+
+### Ckan
+
+sub_paster(){
+    sub_exec /etc/ckan_init.d/paster.sh $@;
+}
+
+sub_set_site_url(){
+    sub_exec /etc/ckan_init.d/change_site_url.sh $@;
+}
+
+sub_set_conf(){
+    sub_exec /etc/ckan_init.d/update_conf.sh $1 $2;
+}
+
+### Usuarios
+
+sub_add_admin() {
+    sub_exec /etc/ckan_init.d/add_admin.sh $@;
+}
+
+sub_add_user() {
+    sub_paster --plugin=ckan user add $@;
+}
+
+sub_delete_user() {
+    sub_paster --plugin=ckan user remove $@;
+}
+
+sub_view_user() {
+    sub_paster --plugin=ckan user $@;
+}
+
+sub_chpass() {
+    sub_paster --plugin=ckan user setpass $@;
+}
+
+sub_list_users() {
+    sub_paster --plugin=ckan user list;
+}
+
+### Datos & entorno
+
+sub_find_volumes(){
+    sub_ps -q portal solr db | xargs -n 1 | while read container; do docker inspect -f ' {{.Name}}: {{range .Mounts}}{{.Source}}: {{.Destination}}  {{end}} ' $container; done
+}
+
+sub_show_ips(){
+    sub_ps -q portal solr db | xargs -n 1 | while read container; do docker inspect -f '{{.Name}}: {{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $container; done
+}
+
+sub_show_envs(){
+    sub_ps -q portal solr db | xargs -n 1 | while read container; do docker inspect -f '{{range $index, $value := .Config.Env}}export {{$value}}{{println}}{{end}}' $container; done
+}
+
+sub_exec_db(){
+    sub_exec_on "$db_name" $@;
+}
+
+sub_exec_psql(){
+    sub_exec_db psql -U postgres $@;
+}
+
+### Backups
+
+sub_backup_db() {
+    check_permissions
+    local dest="$BACKUPS_DIR/database"
+    mkdir -p "$dest"
+    info "Creando backup en $dest"
+
+    local today=`date +%Y-%m-%d.%H:%M:%S`
+    local filename="andino-backup-$today.gz"
+    local container="$(sub_ps -q $db_name)"
+
+    # Creo un directorio temporal y defino dónde generaré el backup
+    local backupdir=$(mktemp -d)
+    local backupfile="$backupdir/$filename"
+
+    # Exporto la base de datos
+    info "Iniciando backup de la base de datos en $backupfile"
+
+    # This is required!
+    export NO_CONFIRM=1;
+    sub_exec_db pg_dumpall -c -U postgres | gzip > "$backupfile"
+    unset NO_CONFIRM;
+    info "Finalizando backup de la base de datos. Moviendo a $dest"
+    # Copio el archivo al directorio actual y borro el original
+    # Podría reemplazar $PWD con mi directorio de backups, como /etc/portal/backups
+    mv "$backupfile" "$dest"
+    success "Backup terminado. "
+}
+
+sub_backup_fs() {
+    check_permissions
+    local dest="$BACKUPS_DIR/files"
+    mkdir -p "$dest"
+    local app_container="$(sub_ps -q $app_name)"
+
+    local today=`date +%Y-%m-%d.%H:%M:%S`
+    # Obtengo el path al almacenamiento del volumen
+    local andino_fs="$(docker inspect --format '{{ range .Mounts }}{{ if eq .Destination "/var/lib/ckan" }}{{ .Source }}{{ end }}{{ end }}' $app_container)"
+    local backup_file="$dest/andino-fs-data-$today.tar.gz"
+    # Creo un tar.gz con la info.
+    info "Iniciando backup de los archivos. Destino: $backup_file"
+    tar -C "$(dirname "$andino_fs")" -zcvf "$backup_file" "$(basename "$andino_fs")"
+    success "Backup terminado. "
+}
+
+sub_backup_conf() {
+    check_permissions
+    local dest="$BACKUPS_DIR/files"
+    mkdir -p "$dest"
+    local app_container="$(sub_ps -q $app_name)"
+    local today=`date +%Y-%m-%d.%H:%M:%S`
+
+    # Obtengo el path al almacenamiento del volumen
+    local andino_conf="$(docker inspect --format '{{ range .Mounts }}{{ if eq .Destination "/etc/ckan/default" }}{{ .Source }}{{ end }}{{ end }}' $app_container)"
+    local backup_file="$dest/andino-config-data-$today.tar.gz"
+    # Creo un tar.gz con la info.
+    info "Iniciando backup de los archivos. Destino: $backup_file"
+    tar -C "$(dirname "$andino_conf")" -zcvf "$backup_file" "$(basename "$andino_conf")"
+    success "Backup terminado. "
+}
+
+sub_backup_all_files() {
+    sub_backup_db;
+    sub_backup_fs;
+    sub_backup_conf;
+}
+
+
+### Mantenimiento
+
+sub_clear_logs(){
+    sub_ps -q | xargs -n 1 | while read container; do
+        info "Limpiando logs de contenedor $container"
+        echo "" > $(docker inspect --format='{{.LogPath}}' "$container");
+    done
+    success "OK"
+}
+
+sub_clear_portal_logs() {
+    local logs=$(andino-ctl exec ls /var/log/apache2/)
+    export NO_CONFIRM=1
+    echo $logs | xargs -n1 | while read log_file; do
+        info "Truncando logs $log_file"
+        sub_exec "truncate -s 0 /var/log/apache2/$log_file"
+    done;
+    unset NO_CONFIRM;
+    sub_exec find /var/log/apache2/ -name "*log?*" -delete
+    success "Ok"
+}
+
+
+subcommand=$1
+case $subcommand in
+    "" | "-h" | "--help")
+        sub_help
+        ;;
+    *)
+        shift
+        sub_${subcommand} $@
+        rc=$?
+        if [ $rc = 127 ]; then
+            error "'$subcommand' no es un subcomando conocido." >&2
+            info "       Corre '$ProgName --help' para listar los comandos." >&2
+            exit 1;
+        fi
+        if [ $rc != 0 ]; then
+            exit $rc;
+        fi
+esac

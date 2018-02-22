@@ -7,6 +7,7 @@
 [Github](https://github.com/datosgobar/portal-andino)
 
 * [Instalación](setup/install.md)
+* [Actualización](setup/update.md)
 * [Migración](setup/migration.md)
 * [Guía de uso](setup/usage.md)
 * [Recomendaciones para Sysadmins](setup/recommendations.md)
