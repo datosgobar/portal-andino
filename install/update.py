@@ -1,9 +1,17 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import argparse
+import logging
 import subprocess
 import time
 from os import path, geteuid, getcwd, chdir
+
+logger = logging.getLogger(__file__)
+logger.setLevel(logging.INFO)
+ch = logging.StreamHandler()
+formatter = logging.Formatter('[ %(levelname)s ] %(message)s')
+ch.setFormatter(formatter)
+logger.addHandler(ch)
 
 UPGRADE_DB_COMMAND = "/etc/ckan_init.d/upgrade_db.sh"
 REBUILD_SEARCH_COMMAND = "/etc/ckan_init.d/run_rebuild_search.sh"
@@ -31,7 +39,7 @@ def ask(question):
 
 def check_permissions():
     if geteuid() != 0:
-        print("[ ERROR ] Se necesitan permisos de root (sudo).")
+        logging.error("Se necesitan permisos de root (sudo).")
         exit(1)
 
 
@@ -124,8 +132,8 @@ def check_previous_installation(base_path):
     compose_file = "latest.yml"
     compose_file_path = path.join(base_path, compose_file)
     if not path.isfile(compose_file_path):
-        print("[ ERROR ] Por favor corra este comando en el mismo directorio donde instaló la aplicación")
-        print("[ ERROR ] No se encontró el archivo %s en el directorio actual" % compose_file)
+        logging.error("Por favor corra este comando en el mismo directorio donde instaló la aplicación")
+        logging.error("No se encontró el archivo %s en el directorio actual" % compose_file)
         raise Exception("[ ERROR ] No se encontró una instalación.")
 
 
@@ -142,8 +150,8 @@ def post_update_commands(compose_path):
              ]
         )
     except subprocess.CalledProcessError as e:
-        print("[ INFO ] Error al correr el script 'run_updates.sh'")
-        print(e)
+        logging.error("Error al correr el script 'run_updates.sh'")
+        logging.error(e)
     all_plugins = subprocess.check_output(
         ["docker-compose",
          "-f",
@@ -197,28 +205,28 @@ def restart_apps(compose_path):
 
 def update_andino(cfg, compose_file_url):
     directory = cfg.install_directory
-    print("[ INFO ] Comprobando permisos (sudo)")
+    logging.info("Comprobando permisos (sudo)")
     check_permissions()
-    print("[ INFO ] Comprobando que docker esté instalado...")
+    logging.info("Comprobando que docker esté instalado...")
     check_docker()
-    print("[ INFO ] Comprobando que docker-compose este instalado...")
+    logging.info("Comprobando que docker-compose este instalado...")
     check_compose()
-    print("[ INFO ] Comprobando instalación previa...")
+    logging.info("Comprobando instalación previa...")
     check_previous_installation(directory)
-    print("[ INFO ] Descargando archivos necesarios...")
+    logging.info("Descargando archivos necesarios...")
     compose_file_path = get_compose_file(directory, compose_file_url)
     fix_env_file(directory)
-    print("[ INFO ] Guardando base de datos...")
+    logging.info("Guardando base de datos...")
     with ComposeContext(directory):
         backup_database(directory, compose_file_path)
-        print("[ INFO ] Actualizando la aplicación")
+        logging.info("Actualizando la aplicación")
         pull_application(compose_file_path)
         reload_application(compose_file_path)
-        print("[ INFO ] Corriendo comandos post-instalación")
+        logging.info("Corriendo comandos post-instalación")
         post_update_commands(compose_file_path)
-        print("[ INFO ] Reiniciando")
+        logging.info("Reiniciando")
         restart_apps(compose_file_path)
-        print("[ INFO ] Listo.")
+        logging.info("Listo.")
 
 
 if __name__ == "__main__":
