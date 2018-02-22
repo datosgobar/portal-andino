@@ -48,7 +48,7 @@ sudo mkdir $app_dir
 cd $app_dir
 
 # Descarga el script de instalación
-wget https://raw.github.com/datosgobar/portal-base/master/deploy/install.py
+wget https://raw.github.com/datosgobar/portal-andino/master/install/install.py
 
 # El script requiere ciertas credenciales que serán unicas de cada instalación
 # Reemplazar $EMAIL, $HOST, $DB_USER, $DB_PASS, $STORE_USER, $STORE_PASS con las correspondientes.

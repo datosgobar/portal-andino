@@ -70,7 +70,7 @@ function backup_app {
 
 function install_andino {
     info "Descargando script de instalación."
-    wget https://raw.github.com/datosgobar/portal-base/master/deploy/install.py
+    wget https://raw.github.com/datosgobar/portal-andino/master/install/install.py
     info "Iniciando instalación."
     python ./install.py --error_email "$EMAIL" --site_host="$HOST" \
         --database_user="$DB_USER" --database_password="$DB_PASS" \
