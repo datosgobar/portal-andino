@@ -2,14 +2,35 @@
 # -*- coding: utf-8 -*-
 
 import argparse
+import logging
 import subprocess
 import time
-from os import path, geteuid, makedirs, getcwd, chdir, symlink, chmod, stat
+from os import path, geteuid, makedirs, getcwd, chdir
+
+logger = logging.getLogger(__file__)
+logger.setLevel(logging.INFO)
+ch = logging.StreamHandler()
+formatter = logging.Formatter('[ %(levelname)s ] %(message)s')
+ch.setFormatter(formatter)
+logger.addHandler(ch)
+
+
+
+class ComposeContext:
+    def __init__(self, compose_path):
+        self.compose_path = compose_path
+
+    def __enter__(self):
+        self.current_path = getcwd()
+        chdir(self.compose_path)  # Change to docker-compose file's directory
+
+    def __exit__(self, type, value, traceback):
+        chdir(self.current_path)  # Go back
 
 
 def check_permissions():
     if geteuid() != 0:
-        print("[ ERROR ] Se necesitan permisos de root (sudo).")
+        logger.error("Se necesitan permisos de root (sudo).")
         exit(1)
 
 
@@ -22,8 +43,8 @@ def check_docker():
 
 def check_installdir(base_path):
     if path.isdir(base_path):
-        print("[ ERROR ] Se encontró instalación previa en %s, aborando." % base_path)
-        print("[ ERROR ] El directorio no debería existir.")
+        logger.error("Se encontró instalación previa en %s, aborando." % base_path)
+        logger.error("El directorio no debería existir.")
         exit(1)
     else:
         makedirs(base_path)
@@ -60,21 +81,16 @@ def configure_env_file(base_path, cfg):
         env_f.write("maildomain=%s\n" % cfg.site_host)
 
 
-def pull_application(base_path, compose_path):
-    current_path = getcwd()  # Change to docker-compose file's directory
-    chdir(base_path)
+def pull_application(compose_path):
     subprocess.check_call([
         "docker-compose",
         "-f",
         compose_path,
         "pull",
     ])
-    chdir(current_path)  # Go back
 
 
-def init_application(base_path, compose_path):
-    current_path = getcwd()  # Change to docker-compose file's directory
-    chdir(base_path)
+def init_application(compose_path):
     subprocess.check_call([
         "docker-compose",
         "-f",
@@ -83,12 +99,9 @@ def init_application(base_path, compose_path):
         "-d",
         "nginx",
     ])
-    chdir(current_path)  # Go back
 
 
-def configure_application(base_path, compose_path, cfg):
-    current_path = getcwd()
-    chdir(base_path)
+def configure_application(compose_path, cfg):
     subprocess.check_call([
         "docker-compose",
         "-f",
@@ -104,37 +117,36 @@ def configure_application(base_path, compose_path, cfg):
         "-d", cfg.datastore_user,
         "-D", cfg.datastore_password,
     ])
-    chdir(current_path)
 
 
 def install_andino(cfg, compose_file_url):
     # Check
     directory = cfg.install_directory
-    print("[ INFO ] Comprobando permisos (sudo)")
+    logger.info("Comprobando permisos (sudo)")
     check_permissions()
-    print("[ INFO ] Comprobando instalación previa")
+    logger.info("Comprobando instalación previa")
     check_installdir(directory)
-    print("[ INFO ] Comprobando que docker esté instalado...")
+    logger.info("Comprobando que docker esté instalado...")
     check_docker()
-    print("[ INFO ] Comprobando que docker-compose este instalado...")
+    logger.info("Comprobando que docker-compose este instalado...")
     check_compose()
 
     # Download and install
-    print("[ INFO ] Descargando archivos necesarios...")
+    logger.info("Descargando archivos necesarios...")
     compose_file_path = get_compose_file(directory, compose_file_url)
-    print("[ INFO ] Escribiendo archivo de configuración del ambiente (.env) ...")
+    logger.info("Escribiendo archivo de configuración del ambiente (.env) ...")
     configure_env_file(directory, cfg)
-    print("[ INFO ] Obteniendo imagenes de Docker")
-    pull_application(directory, compose_file_path)
-
-    # Configure
-    print("[ INFO ] Iniciando la aplicación")
-    init_application(directory, compose_file_path)
-    print("[ INFO ] Espetando a que la base de datos este disponible...")
-    time.sleep(10)
-    print("[ INFO ] Configurando...")
-    configure_application(directory, compose_file_path, cfg)
-    print("[ INFO ] Listo.")
+    with ComposeContext(directory):
+        logger.info("Obteniendo imagenes de Docker")
+        pull_application(compose_file_path)
+        # Configure
+        logger.info("Iniciando la aplicación")
+        init_application(compose_file_path)
+        logger.info("Espetando a que la base de datos este disponible...")
+        time.sleep(10)
+        logger.info("Configurando...")
+        configure_application(compose_file_path, cfg)
+        logger.info("Listo.")
 
 
 def parse_args():
