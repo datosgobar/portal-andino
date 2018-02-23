@@ -1,4 +1,4 @@
-version: '3.2'
+version: '2'
 
 services:
     nginx:
@@ -13,7 +13,7 @@ services:
         - portal-network
     portal:
       container_name: andino
-      image: datosgobar/portal-andino:${ANDINO_VERSION:-release-2.3.0}
+      image: datosgobar/portal-andino:release-2.3.0
       restart: always
       ports:
         - "${DATASTORE_HOST_PORT}:8800"
