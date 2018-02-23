@@ -242,6 +242,6 @@ Luego debemos volver a configurar los usuarios y passwords de la base de datos:
 
 ### 3.3) Regenerar el índice de búsquedas
 
-Para regenerar las búsqueda, debemos ir al directorio donde se instaló la aplicación y correr el siguiente comando:
+Para regenerar el índice de búsquedas, debemos ir al directorio donde se instaló la aplicación y correr el siguiente comando:
 
     docker-compose -f latest.yml exec portal /etc/ckan_init.d/run_rebuild_search.sh
