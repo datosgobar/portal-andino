@@ -12,29 +12,29 @@ UPDATE_APP = !INSTALL_APP
 COMPOSE_VERSION = "1.12.0"
 
 VERSION_MATRIX = {
-    "min": {
-        "docker.io": {
-            "version": "1.13.1-0ubuntu1~16.04.2",
+    "min" => {
+        "docker.io" => {
+            "version" => "1.13.1-0ubuntu1~16.04.2",
         },
-        "docker-ce": {
-            "version": "17.06.2~ce-0~ubuntu",
+        "docker-ce" => {
+            "version" => "17.06.2~ce-0~ubuntu",
         }
     },
-    "max": {
-        "docker-io": {
-            "version": "1.13.1-0ubuntu1~16.04.2",
+    "max" => {
+        "docker-io" => {
+            "version" => "1.13.1-0ubuntu1~16.04.2",
         },
         "docker-ce": {
-            "version": "17.12.0~ce-0~ubuntu",
+            "version" => "17.12.0~ce-0~ubuntu",
         }
     }
 }
 
-PKG = "docker.io"
-VERSION = "min"
 
-DOCKER_PKG = PKG
-DOCKER_VERSION = MATRIX_VERSION[VERSION][PKG]
+VERSION = "min"
+DOCKER_PKG = "docker.io"
+
+DOCKER_VERSION = VERSION_MATRIX[VERSION][DOCKER_PKG]
 
 IP = "192.168.23.10"
 
