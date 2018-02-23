@@ -9,8 +9,32 @@ INSTALL_DEPENDENCIES = true
 INSTALL_APP = true
 UPDATE_APP = !INSTALL_APP
 
-COMPOSE_VERSION = "1.13.0"
-DOCKER_ENGINE_VERSION =
+COMPOSE_VERSION = "1.12.0"
+
+VERSION_MATRIX = {
+    "min": {
+        "docker.io": {
+            "version": "1.13.1-0ubuntu1~16.04.2",
+        },
+        "docker-ce": {
+            "version": "17.06.2~ce-0~ubuntu",
+        }
+    },
+    "max": {
+        "docker-io": {
+            "version": "1.13.1-0ubuntu1~16.04.2",
+        },
+        "docker-ce": {
+            "version": "17.12.0~ce-0~ubuntu",
+        }
+    }
+}
+
+PKG = "docker.io"
+VERSION = "min"
+
+DOCKER_PKG = PKG
+DOCKER_VERSION = MATRIX_VERSION[VERSION][PKG]
 
 IP = "192.168.23.10"
 
@@ -29,7 +53,7 @@ sudo add-apt-repository \
    stable"
 
 sudo apt-get update
-sudo apt-get install -y docker-ce=17.06.2~ce-0~ubuntu
+sudo apt-get install -y #{DOCKER_PKG}=#{DOCKER_VERSION}
 
 sudo su -c "curl -L https://github.com/docker/compose/releases/download/#{COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose"
 sudo chmod +x /usr/local/bin/docker-compose
