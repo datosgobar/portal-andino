@@ -17,7 +17,6 @@ La idea detrás de esta implementación de CKAN es **que sólo te encargues de t
 Esta clase de instalación no requiere que clones el repositorio, ya que usamos contenedores alojados en [DockerHub](https://hub.docker.com/r/datosgobar)
 
 + Ubuntu|Debian|RHEL|CentOS:
-
 + Instalación:
 
 Para esta instalación ciertos parametros deben ser pasados a la aplicacion:
@@ -30,10 +29,10 @@ Para esta instalación ciertos parametros deben ser pasados a la aplicacion:
 + Password del datastore: `STORE_PASS=<my datastore password>`
 
 ```bash
-# Primero especificámos lo valores necesarios
+# Primero especificamos los valores necesarios
 
 EMAIL=admin@example.com
-HOST=andino.midomicnio.com.ar
+HOST=andino.midominio.com.ar
 DB_USER=my_database_user
 DB_PASS=my_database_pass
 STORE_USER=my_data_user
