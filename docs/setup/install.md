@@ -8,8 +8,9 @@ Teniendo en cuenta la dificultad de implementación e incluso la cantidad de pas
 ### Dependencias
 
 - DOCKER: [Guía de instalación](https://docs.docker.com/engine/installation).
-  - Versión mínima: `17.04.0+`
-- Docker Compose: [Guía de instalación](https://docs.docker.com/compose/install/)
+  - Versión mínima _testeada_: `1.13.1`
+- Docker Compose: [Guía de instalación](https://docs.docker.com/compose/install/).
+  - Versión mínima _testeada_: `1.12.0`
 
 ### Instalación simplificada de andino
 
