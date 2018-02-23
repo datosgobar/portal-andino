@@ -28,6 +28,9 @@ Para esta instalación ciertos parametros deben ser pasados a la aplicacion:
 + Usuario del datastore: `STORE_USER=<my datastore user>`
 + Password del datastore: `STORE_PASS=<my datastore password>`
 
+NOTA: Si usamos una IP en el para la variable `HOST`, el envio de mails no funcionará.
+Postfix require un "fully-qualified domain name (FQDN)". Ver [la documentación de Postfix](http://www.postfix.org/postconf.5.html#myhostname) para mas detalles.
+
 ```bash
 # Primero especificamos los valores necesarios
 
@@ -62,7 +65,11 @@ sudo mkdir /etc/portal
 cd /etc/portal
 sudo git clone https://github.com/datosgobar/portal-andino.git .
 ```
-+ Paso 2: Especificar las variables de entorno para el contenedor de postgresql
++ Paso 2: Especificar las variables de entorno para el contenedor de postgresql.
+
+NOTA: Debemos usar un dominio válido para la variable `DOMINIO`, de otra forma el envio de mails no funcionará.
+Postfix require un "fully-qualified domain name (FQDN)". Ver [la documentación de Postfix](http://www.postfix.org/postconf.5.html#myhostname) para mas detalles.
+
 
 ```bash
 DB_USER=<my user>
