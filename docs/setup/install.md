@@ -41,9 +41,6 @@ El mismo requiere algunos parametros y otros son opcionales:
     [--datastore_port DATASTORE_PORT]
         Puerto del servidor "Host" que se desea que se tome para recibir llamadas HTTP al "datastore".
         Por defecto es el 8800.
-    [--branch BRANCH]
-        Branch del repositorio de donde descargar los archivos.
-        Por defecto es "master"
     [--install_directory INSTALL_DIRECTORY]
         Directorio donde se desea instalar la aplicacion.
         Por defecto es `/etc/portal` (recomendado)
@@ -107,11 +104,13 @@ Postfix require un "fully-qualified domain name (FQDN)". Ver [la documentación 
 DB_USER=<my user>
 DB_PASS=<my pass>
 DOMINIO=andino.midominio.com.ar
+ANDINO_VERSION=<version que deseamos instalar>
 sudo su -c "echo POSTGRES_USER=$DB_USER > .env"
 sudo su -c "echo POSTGRES_PASSWORD=$DB_PASS >> .env"
 sudo su -c "echo NGINX_HOST_PORT=80 >> .env"
 sudo su -c "echo DATASTORE_HOST_PORT=8800 >> .env"
 sudo su -c "echo maildomain=$DOMINIO >> .env"
+sudo su -c "echo ANDINO_TAG=$ANDINO_VERSION >> .env"
 ```
 
 + Paso 3: Construir y lanzar los contenedor de servicios usando el archivo **latest.yml**

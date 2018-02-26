@@ -13,9 +13,6 @@ El mismo no requiere parametros, pero contiene algunos opcionales:
     [--andino_version ANDINO_VERSION]
         Version de andino que se desea instalar. Por defecto instalara la version del archivo
         `stable_version.txt` en el repositorio. Se pueden pasar valores como: `latest`, `release-2.3.0`
-    [--branch BRANCH]
-        Branch del repositorio de donde descargar los archivos.
-        Por defecto es "master"
     [--install_directory INSTALL_DIRECTORY]
         Directorio donde esta instalada la aplicacion.
         Por defecto es `/etc/portal`
