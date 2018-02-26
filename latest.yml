@@ -13,7 +13,7 @@ services:
         - portal-network
     portal:
       container_name: andino
-      image: "datosgobar/portal-andino:${ANSIBLE_TAG}"
+      image: "datosgobar/portal-andino:${ANDINO_TAG}"
       restart: always
       ports:
         - "${DATASTORE_HOST_PORT}:8800"
