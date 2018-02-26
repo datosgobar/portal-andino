@@ -73,8 +73,13 @@ def get_compose_file(base_path, download_url):
 def configure_env_file(base_path, cfg):
     env_file = ".env"
     env_file_path = path.join(base_path, env_file)
+    if cfg.andino_version:
+        andino_version = cfg.andino_version
+    else:
+        raise Exception("La version de andino no fue especificada.")
     with open(env_file_path, "w") as env_f:
         env_f.write("POSTGRES_USER=%s\n" % cfg.database_user)
+        env_f.write("ANDINO_TAG=%s\n" % andino_version)
         env_f.write("POSTGRES_PASSWORD=%s\n" % cfg.database_password)
         env_f.write("NGINX_HOST_PORT=%s\n" % cfg.nginx_port)
         env_f.write("DATASTORE_HOST_PORT=%s\n" % cfg.datastore_port)
@@ -159,6 +164,7 @@ def parse_args():
     parser.add_argument('--datastore_user', required=True)
     parser.add_argument('--datastore_password', required=True)
 
+    parser.add_argument('--andino_version')
     parser.add_argument('--nginx_port', default="80")
     parser.add_argument('--datastore_port', default="8800")
     parser.add_argument('--branch', default='master')
