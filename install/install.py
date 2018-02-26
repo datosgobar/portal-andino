@@ -15,7 +15,6 @@ ch.setFormatter(formatter)
 logger.addHandler(ch)
 
 
-
 class ComposeContext:
     def __init__(self, compose_path):
         self.compose_path = compose_path
@@ -57,17 +56,28 @@ def check_compose():
     ])
 
 
-def get_compose_file(base_path, download_url):
-    compose_file = "latest.yml"
-    compose_file_path = path.join(base_path, compose_file)
+def download_file(file_path, download_url):
     subprocess.check_call([
         "curl",
         download_url,
         "--fail",
         "--output",
-        compose_file_path
+        file_path
     ])
+
+
+def get_compose_file(base_path, download_url):
+    compose_file = "latest.yml"
+    compose_file_path = path.join(base_path, compose_file)
+    download_file(compose_file_path, download_url)
     return compose_file_path
+
+
+def get_stable_version_file(base_path, download_url):
+    compose_file = "stable_version.yml"
+    stable_version_path = path.join(base_path, compose_file)
+    download_file(stable_version_path, download_url)
+    return stable_version_path
 
 
 def configure_env_file(base_path, cfg):
@@ -76,7 +86,12 @@ def configure_env_file(base_path, cfg):
     if cfg.andino_version:
         andino_version = cfg.andino_version
     else:
-        raise Exception("La version de andino no fue especificada.")
+        logger.info("Configurando version estable de andino.")
+        stable_version_path = get_stable_version_file(base_path, stable_version_url)
+        with file(stable_version_path, "r") as f:
+            content = f.read()
+        andino_version = content.strip()
+    logger.info("Usando version '%s' de andino")
     with open(env_file_path, "w") as env_f:
         env_f.write("POSTGRES_USER=%s\n" % cfg.database_user)
         env_f.write("ANDINO_TAG=%s\n" % andino_version)
@@ -124,7 +139,7 @@ def configure_application(compose_path, cfg):
     ])
 
 
-def install_andino(cfg, compose_file_url):
+def install_andino(cfg, compose_file_url, stable_version_url):
     # Check
     directory = cfg.install_directory
     logger.info("Comprobando permisos (sudo)")
@@ -178,6 +193,10 @@ if __name__ == "__main__":
 
     base_url = "https://raw.githubusercontent.com/datosgobar/portal-andino"
     branch = args.branch
-    file_name = "latest.yml"
+    compose_file_name = "latest.yml"
+    stable_version_file_nane = "stable_version.txt"
 
-    install_andino(args, path.join(base_url, branch, file_name))
+    compose_url = path.join(base_url, branch, compose_file_name)
+    stable_version_url = path.join(base_url, branch, "install", stable_version_file_nane)
+
+    install_andino(args, compose_url, stable_version_url)
