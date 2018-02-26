@@ -4,6 +4,7 @@
 VAGRANTFILE_API_VERSION = "2"
 
 BRANCH = ENV['BRANCH'] || 'master'
+ANDINO_VERSION = ENV['ANDINO_VERSION'] || 'latest'
 
 INSTALL_DEPENDENCIES = true
 INSTALL_APP = true
@@ -59,7 +60,8 @@ sudo -E python ./install.py --error_email admin@example.com \
             --database_password db_pass \
             --datastore_user data_db_user \
             --datastore_password data_db_pass \
-            --branch #{BRANCH}
+            --branch #{BRANCH} \
+            --andino_version #{ANDINO_VERSION}
 
 SCRIPT
 
