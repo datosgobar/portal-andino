@@ -7,26 +7,18 @@ BRANCH = ENV['BRANCH'] || 'master'
 
 INSTALL_DEPENDENCIES = true
 INSTALL_APP = true
-UPDATE_APP = !INSTALL_APP
+UPDATE_APP = false
 
 COMPOSE_VERSION = "1.12.0"
 
 VERSION_MATRIX = {
     "min" => {
-        "docker.io" => {
-            "version" => "1.13.1-0ubuntu1~16.04.2",
-        },
-        "docker-ce" => {
-            "version" => "17.06.2~ce-0~ubuntu",
-        }
+        "docker.io" => "1.13.1-0ubuntu1~16.04.2",
+        "docker-ce" => "17.06.2~ce-0~ubuntu",
     },
     "max" => {
-        "docker-io" => {
-            "version" => "1.13.1-0ubuntu1~16.04.2",
-        },
-        "docker-ce": {
-            "version" => "17.12.0~ce-0~ubuntu",
-        }
+        "docker.io" => "1.13.1-0ubuntu1~16.04.2",
+        "docker-ce": "17.12.0~ce-0~ubuntu",
     }
 }
 
