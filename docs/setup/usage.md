@@ -48,7 +48,7 @@ sudo mkdir $app_dir
 cd $app_dir
 
 # Descarga el script de instalación
-wget https://raw.github.com/datosgobar/portal-base/master/deploy/install.py
+wget https://raw.github.com/datosgobar/portal-andino/master/install/install.py
 
 # El script requiere ciertas credenciales que serán unicas de cada instalación
 # Reemplazar $EMAIL, $HOST, $DB_USER, $DB_PASS, $STORE_USER, $STORE_PASS con las correspondientes.
@@ -204,12 +204,7 @@ tar -C "$(dirname "$ANDINO_CONFIG")" -zcvf /ruta/para/guardar/mis/bkps/mi_andino
 
 ### Como `actualizo` mi `Andino`?
 
-Las actualizaciones se llevan a cabo mediante un script de update. El mismo se puede encontrar acá: [update.py](https://github.com/datosgobar/portal-base/blob/master/deploy/update.py)
-
-    app_dir=/etc/portal
-    cd $app_dir
-    sudo wget https://raw.github.com/datosgobar/portal-base/master/deploy/update.py
-    sudo python ./update.py
+En la [documentación de actualización](update.md) encontrarás esto detallado
 
 ## Logs
 

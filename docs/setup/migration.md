@@ -41,7 +41,7 @@ El mismo espera ciertas variables de entorno y tener instalado `docker` y `docke
 
 Ejemplo:
 
-    sudo env EMAIL=admin@example.com HOST=111.222.333.444 DB_USER=foo DB_PASS=bar STORE_USER=baz STORE_PASS=foo ./migrate.sh
+    sudo env EMAIL=admin@example.com HOST=andino.midomionio.com.ar DB_USER=usuario DB_PASS=password STORE_USER=dsuser STORE_PASS=dspass ./migrate.sh
 
 
 ## 1) Backups
@@ -242,4 +242,6 @@ Luego debemos volver a configurar los usuarios y passwords de la base de datos:
 
 ### 3.3) Regenerar el índice de búsquedas
 
-    docker exec andino /etc/ckan_init.d/run_rebuild_search.sh
+Para regenerar el índice de búsquedas, debemos ir al directorio donde se instaló la aplicación y correr el siguiente comando:
+
+    docker-compose -f latest.yml exec portal /etc/ckan_init.d/run_rebuild_search.sh
