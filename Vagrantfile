@@ -8,7 +8,7 @@ ANDINO_VERSION = ENV['ANDINO_VERSION'] || 'latest'
 
 INSTALL_DEPENDENCIES = true
 INSTALL_APP = true
-UPDATE_APP = false
+UPDATE_APP = !INSTALL_APP
 
 COMPOSE_VERSION = "1.12.0"
 
@@ -66,7 +66,7 @@ sudo -E python ./install.py --error_email admin@example.com \
 SCRIPT
 
 $update = <<SCRIPT
-sudo -E python ./update.py --branch #{BRANCH}
+sudo -E python ./update.py --branch #{BRANCH} --andino_version #{ANDINO_VERSION}
 SCRIPT
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
