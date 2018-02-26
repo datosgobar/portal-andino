@@ -20,7 +20,38 @@ Esta clase de instalación no requiere que clones el repositorio, ya que usamos 
 + Ubuntu|Debian|RHEL|CentOS:
 + Instalación:
 
-Para esta instalación ciertos parametros deben ser pasados a la aplicacion:
+Para la instalación usamos un script de python llamado `install.py`.
+El mismo requiere algunos parametros y otros son opcionales:
+
+```bash
+# Parametros de install.py
+    [-h]                    Mostrar la ayuda del script
+    --error_email           Email donde se mandaran los errores del portal de ser necesario
+    --site_host             Dominio o IP del la aplicacion *sin el protocolo*
+    --database_user         Nombre del usuario de la base de datos a crear
+    --database_password     Contraseña de la base de datos a crear
+    --datastore_user        Nombre del usuario de la base de datos del datastore a crear
+    --datastore_password    Contraseña de la base de datos del datastore a crear
+    [--andino_version ANDINO_VERSION]
+        Version de andino que se desea instalar. Por defecto instalara la version del archivo
+        `stable_version.txt` en el repositorio. Se pueden pasar valores como: `latest`, `release-2.3.0`
+    [--nginx_port NGINX_PORT]
+        Puerto del servidor "Host" que se desea que se tome para recibir llamadas HTTP.
+        Por defecto es el 80.
+    [--datastore_port DATASTORE_PORT]
+        Puerto del servidor "Host" que se desea que se tome para recibir llamadas HTTP al "datastore".
+        Por defecto es el 8800.
+    [--branch BRANCH]
+        Branch del repositorio de donde descargar los archivos.
+        Por defecto es "master"
+    [--install_directory INSTALL_DIRECTORY]
+        Directorio donde se desea instalar la aplicacion.
+        Por defecto es `/etc/portal` (recomendado)
+
+```
+
+Para esta instalación de ejemplo usaremos estos parametros para la aplicacion,
+para los demas usaremos los valores por defecto:
 
 + Email donde se mandarán los errores. `EMAIL=admin@example.com`
 + Dominio o IP de la aplicación _sin el protocolo_: `HOST=datos.gob.ar`

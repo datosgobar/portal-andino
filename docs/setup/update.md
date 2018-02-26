@@ -4,9 +4,25 @@
 
 ### Actualización simple
 
-Si instalamos la aplicacion con la ultima version del instalador ([este](https://raw.github.com/datosgobar/portal-andino/master/install/install.py)),
-simplemente basta con correr:
+Si instalamos la aplicacion con la ultima version del instalador ([este](https://raw.github.com/datosgobar/portal-andino/master/install/install.py)).
+El mismo no requiere parametros, pero contiene algunos opcionales:
 
+```bash
+# Parametros de install.py
+    [-h]                    Mostrar la ayuda del script
+    [--andino_version ANDINO_VERSION]
+        Version de andino que se desea instalar. Por defecto instalara la version del archivo
+        `stable_version.txt` en el repositorio. Se pueden pasar valores como: `latest`, `release-2.3.0`
+    [--branch BRANCH]
+        Branch del repositorio de donde descargar los archivos.
+        Por defecto es "master"
+    [--install_directory INSTALL_DIRECTORY]
+        Directorio donde esta instalada la aplicacion.
+        Por defecto es `/etc/portal`
+
+```
+
+Para esta actualización de ejemplo usaremos los valores por defecto:
 
     sudo python -c "$(wget -O - https://raw.github.com/datosgobar/portal-andino/master/install/update.py)"
 
