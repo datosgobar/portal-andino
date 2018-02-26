@@ -91,7 +91,7 @@ def configure_env_file(base_path, cfg):
         with file(stable_version_path, "r") as f:
             content = f.read()
         andino_version = content.strip()
-    logger.info("Usando version '%s' de andino")
+    logger.info("Usando version '%s' de andino" %  andino_version)
     with open(env_file_path, "w") as env_f:
         env_f.write("POSTGRES_USER=%s\n" % cfg.database_user)
         env_f.write("ANDINO_TAG=%s\n" % andino_version)
