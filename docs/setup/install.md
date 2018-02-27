@@ -32,9 +32,6 @@ El mismo requiere algunos parametros y otros son opcionales:
     --database_password     Contraseña de la base de datos a crear
     --datastore_user        Nombre del usuario de la base de datos del datastore a crear
     --datastore_password    Contraseña de la base de datos del datastore a crear
-    [--andino_version ANDINO_VERSION]
-        Version de andino que se desea instalar. Por defecto instalara la version del archivo
-        `stable_version.txt` en el repositorio. Se pueden pasar valores como: `latest`, `release-2.3.0`
     [--nginx_port NGINX_PORT]
         Puerto del servidor "Host" que se desea que se tome para recibir llamadas HTTP.
         Por defecto es el 80.

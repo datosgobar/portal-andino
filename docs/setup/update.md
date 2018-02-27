@@ -10,9 +10,6 @@ El mismo no requiere parametros, pero contiene algunos opcionales:
 ```bash
 # Parametros de install.py
     [-h]                    Mostrar la ayuda del script
-    [--andino_version ANDINO_VERSION]
-        Version de andino que se desea instalar. Por defecto instalara la version del archivo
-        `stable_version.txt` en el repositorio. Se pueden pasar valores como: `latest`, `release-2.3.0`
     [--install_directory INSTALL_DIRECTORY]
         Directorio donde esta instalada la aplicacion.
         Por defecto es `/etc/portal`
