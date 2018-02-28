@@ -204,7 +204,7 @@ tar -C "$(dirname "$ANDINO_CONFIG")" -zcvf /ruta/para/guardar/mis/bkps/mi_andino
 
 ### Como `actualizo` mi `Andino`?
 
-En la [documentación de actualización](update.md) encontrarás esto detallado
+En la [documentación de actualización](/setup/update.md) encontrarás esto detallado
 
 ## Logs
 
