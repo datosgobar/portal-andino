@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 import argparse
 import logging
+import shutil
 import subprocess
 import time
 from os import path, geteuid, getcwd, chdir
@@ -57,16 +58,68 @@ def check_compose():
     ])
 
 
-def get_compose_file(base_path, download_url):
-    compose_file = "latest.yml"
-    compose_file_path = path.join(base_path, compose_file)
+def download_file(file_path, download_url):
     subprocess.check_call([
         "curl",
         download_url,
+        "--fail",
         "--output",
-        compose_file_path
+        file_path
     ])
-    return compose_file_path
+
+
+def download_compose_file(compose_path, download_url):
+    download_file(compose_path, download_url)
+
+
+def get_compose_file_path(base_path):
+    compose_file = "latest.yml"
+    return path.join(base_path, compose_file)
+
+
+def get_stable_version_file(base_path, download_url):
+    compose_file = "stable_version.yml"
+    stable_version_path = path.join(base_path, compose_file)
+    download_file(stable_version_path, download_url)
+    return stable_version_path
+
+
+def get_andino_version(cfg, base_path, stable_version_url):
+    if cfg.andino_version:
+        andino_version = cfg.andino_version
+    else:
+        logger.info("Configurando version estable de andino.")
+        stable_version_path = get_stable_version_file(base_path, stable_version_url)
+        with file(stable_version_path, "r") as f:
+            content = f.read()
+        andino_version = content.strip()
+    logger.info("Usando version '%s' de andino" % andino_version)
+    return andino_version
+
+
+def update_env(base_path, cfg, stable_version_url):
+    env_file = ".env"
+    env_file_path = path.join(base_path, env_file)
+    envconf = {}
+    # Get current variables
+    with open(env_file_path, "r") as env_f:
+        for line in env_f.readlines():
+            try:
+                key, value = line.split("=", 1)
+                envconf[key] = value.strip()
+            except ValueError as e:
+                logger.warn("Ignorando linea '%s'" % line)
+    # Backup current config
+    datetime_var = time.strftime("__%d_%m_%y-%H-%M")
+    backup_env_file = "%s%s" % (env_file, datetime_var)
+    backup_env_file_path = path.join(base_path, backup_env_file)
+    shutil.move(env_file_path, backup_env_file_path)
+
+    # Write new config
+    envconf["ANDINO_TAG"] = get_andino_version(cfg, base_path, stable_version_url)
+    with open(env_file_path, "w") as env_f:
+        for key in envconf.keys():
+            env_f.write("%s=%s\n" % (key, envconf[key]))
 
 
 def fix_env_file(base_path):
@@ -75,14 +128,17 @@ def fix_env_file(base_path):
     nginx_var = "NGINX_HOST_PORT"
     datastore_var = "DATASTORE_HOST_PORT"
     maildomain_var = "maildomain"
-    with open(env_file_path, "r+a") as env_f:
+
+    with open(env_file_path, "r") as env_f:
         content = env_f.read()
+    with open(env_file_path, "a") as env_f:
         if nginx_var not in content:
             env_f.write("%s=%s\n" % (nginx_var, "80"))
         if datastore_var not in content:
             env_f.write("%s=%s\n" % (datastore_var, "8800"))
         if maildomain_var not in content:
-            maildomain = ask("Por favor, ingrese su dominio para envío de emails (e.g.: myportal.com.ar): ")
+            maildomain = ask(
+                "Por favor, ingrese su dominio para envío de emails (e.g.: myportal.com.ar): ")
             real_maildomain = maildomain.strip()
             if not real_maildomain:
                 print("Ningun valor fue ingresado, usando valor por defecto: localhost")
@@ -132,7 +188,8 @@ def check_previous_installation(base_path):
     compose_file = "latest.yml"
     compose_file_path = path.join(base_path, compose_file)
     if not path.isfile(compose_file_path):
-        logging.error("Por favor corra este comando en el mismo directorio donde instaló la aplicación")
+        logging.error(
+            "Por favor corra este comando en el mismo directorio donde instaló la aplicación")
         logging.error("No se encontró el archivo %s en el directorio actual" % compose_file)
         raise Exception("[ ERROR ] No se encontró una instalación.")
 
@@ -144,6 +201,7 @@ def post_update_commands(compose_path):
              "-f",
              compose_path,
              "exec",
+             "-T",
              "portal",
              "bash",
              "/etc/ckan_init.d/run_updates.sh"
@@ -157,6 +215,7 @@ def post_update_commands(compose_path):
          "-f",
          compose_path,
          "exec",
+         "-T",
          "portal",
          "grep", "-E", "^ckan.plugins.*", "/etc/ckan/default/production.ini"]
     ).decode("utf-8").strip()
@@ -165,14 +224,17 @@ def post_update_commands(compose_path):
          "-f",
          compose_path,
          "exec",
+         "-T",
          "portal",
-         "sed", "-i", "s/^ckan\.plugins.*/ckan.plugins = stats/", "/etc/ckan/default/production.ini"]
+         "sed", "-i", "s/^ckan\.plugins.*/ckan.plugins = stats/",
+         "/etc/ckan/default/production.ini"]
     )
     subprocess.check_call([
         "docker-compose",
         "-f",
         compose_path,
         "exec",
+        "-T",
         "portal",
         UPGRADE_DB_COMMAND,
     ])
@@ -181,6 +243,7 @@ def post_update_commands(compose_path):
          "-f",
          compose_path,
          "exec",
+         "-T",
          "portal",
          "sed", "-i", "s/^ckan\.plugins.*/%s/" % all_plugins, "/etc/ckan/default/production.ini"]
     )
@@ -189,6 +252,7 @@ def post_update_commands(compose_path):
         "-f",
         compose_path,
         "exec",
+        "-T",
         "portal",
         REBUILD_SEARCH_COMMAND,
     ])
@@ -203,7 +267,7 @@ def restart_apps(compose_path):
     ])
 
 
-def update_andino(cfg, compose_file_url):
+def update_andino(cfg, compose_file_url, stable_version_url):
     directory = cfg.install_directory
     logging.info("Comprobando permisos (sudo)")
     check_permissions()
@@ -213,13 +277,17 @@ def update_andino(cfg, compose_file_url):
     check_compose()
     logging.info("Comprobando instalación previa...")
     check_previous_installation(directory)
-    logging.info("Descargando archivos necesarios...")
-    compose_file_path = get_compose_file(directory, compose_file_url)
+    compose_file_path = get_compose_file_path(directory)
     fix_env_file(directory)
-    logging.info("Guardando base de datos...")
+
     with ComposeContext(directory):
+        logging.info("Guardando base de datos...")
         backup_database(directory, compose_file_path)
         logging.info("Actualizando la aplicación")
+        logging.info("Descargando archivos necesarios...")
+        download_compose_file(compose_file_path, compose_file_url)
+        update_env(directory, cfg, stable_version_url)
+        logging.info("Descargando nuevas imagenes...")
         pull_application(compose_file_path)
         reload_application(compose_file_path)
         logging.info("Corriendo comandos post-instalación")
@@ -234,10 +302,15 @@ if __name__ == "__main__":
 
     parser.add_argument('--branch', default='master')
     parser.add_argument('--install_directory', default='/etc/portal/')
+    parser.add_argument('--andino_version')
     args = parser.parse_args()
 
     base_url = "https://raw.githubusercontent.com/datosgobar/portal-andino"
     branch = args.branch
     file_name = "latest.yml"
+    stable_version_file_nane = "stable_version.txt"
 
-    update_andino(args, path.join(base_url, branch, file_name))
+    compose_file_download_url = path.join(base_url, branch, file_name)
+    stable_version_url = path.join(base_url, branch, "install", stable_version_file_nane)
+
+    update_andino(args, compose_file_download_url, stable_version_url)

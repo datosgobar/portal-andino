@@ -4,10 +4,11 @@
 VAGRANTFILE_API_VERSION = "2"
 
 BRANCH = ENV['BRANCH'] || 'master'
+ANDINO_VERSION = ENV['ANDINO_VERSION'] || 'latest'
 
 INSTALL_DEPENDENCIES = true
 INSTALL_APP = true
-UPDATE_APP = false
+UPDATE_APP = !INSTALL_APP
 
 COMPOSE_VERSION = "1.12.0"
 
@@ -59,12 +60,13 @@ sudo -E python ./install.py --error_email admin@example.com \
             --database_password db_pass \
             --datastore_user data_db_user \
             --datastore_password data_db_pass \
-            --branch #{BRANCH}
+            --branch #{BRANCH} \
+            --andino_version #{ANDINO_VERSION}
 
 SCRIPT
 
 $update = <<SCRIPT
-sudo -E python ./update.py --branch #{BRANCH}
+sudo -E python ./update.py --branch #{BRANCH} --andino_version #{ANDINO_VERSION}
 SCRIPT
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|

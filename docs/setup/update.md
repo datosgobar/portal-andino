@@ -4,9 +4,19 @@
 
 ### Actualización simple
 
-Si instalamos la aplicacion con la ultima version del instalador ([este](https://raw.github.com/datosgobar/portal-andino/master/install/install.py)),
-simplemente basta con correr:
+Si instalamos la aplicacion con la ultima version del instalador ([este](https://raw.github.com/datosgobar/portal-andino/master/install/install.py)).
+El mismo no requiere parametros, pero contiene algunos opcionales:
 
+```bash
+# Parametros de install.py
+    [-h]                    Mostrar la ayuda del script
+    [--install_directory INSTALL_DIRECTORY]
+        Directorio donde esta instalada la aplicacion.
+        Por defecto es `/etc/portal`
+
+```
+
+Para esta actualización de ejemplo usaremos los valores por defecto:
 
     sudo python -c "$(wget -O - https://raw.github.com/datosgobar/portal-andino/master/install/update.py)"
 

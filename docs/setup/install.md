@@ -20,7 +20,32 @@ Esta clase de instalación no requiere que clones el repositorio, ya que usamos 
 + Ubuntu|Debian|RHEL|CentOS:
 + Instalación:
 
-Para esta instalación ciertos parametros deben ser pasados a la aplicacion:
+Para la instalación usamos un script de python llamado `install.py`.
+El mismo requiere algunos parametros y otros son opcionales:
+
+```bash
+# Parametros de install.py
+    [-h]                    Mostrar la ayuda del script
+    --error_email           Email donde se mandaran los errores del portal de ser necesario
+    --site_host             Dominio o IP del la aplicacion *sin el protocolo*
+    --database_user         Nombre del usuario de la base de datos a crear
+    --database_password     Contraseña de la base de datos a crear
+    --datastore_user        Nombre del usuario de la base de datos del datastore a crear
+    --datastore_password    Contraseña de la base de datos del datastore a crear
+    [--nginx_port NGINX_PORT]
+        Puerto del servidor "Host" que se desea que se tome para recibir llamadas HTTP.
+        Por defecto es el 80.
+    [--datastore_port DATASTORE_PORT]
+        Puerto del servidor "Host" que se desea que se tome para recibir llamadas HTTP al "datastore".
+        Por defecto es el 8800.
+    [--install_directory INSTALL_DIRECTORY]
+        Directorio donde se desea instalar la aplicacion.
+        Por defecto es `/etc/portal` (recomendado)
+
+```
+
+Para esta instalación de ejemplo usaremos estos parametros para la aplicacion,
+para los demas usaremos los valores por defecto:
 
 + Email donde se mandarán los errores. `EMAIL=admin@example.com`
 + Dominio o IP de la aplicación _sin el protocolo_: `HOST=datos.gob.ar`
@@ -76,11 +101,13 @@ Postfix require un "fully-qualified domain name (FQDN)". Ver [la documentación 
 DB_USER=<my user>
 DB_PASS=<my pass>
 DOMINIO=andino.midominio.com.ar
+ANDINO_VERSION=<version que deseamos instalar>
 sudo su -c "echo POSTGRES_USER=$DB_USER > .env"
 sudo su -c "echo POSTGRES_PASSWORD=$DB_PASS >> .env"
 sudo su -c "echo NGINX_HOST_PORT=80 >> .env"
 sudo su -c "echo DATASTORE_HOST_PORT=8800 >> .env"
 sudo su -c "echo maildomain=$DOMINIO >> .env"
+sudo su -c "echo ANDINO_TAG=$ANDINO_VERSION >> .env"
 ```
 
 + Paso 3: Construir y lanzar los contenedor de servicios usando el archivo **latest.yml**
