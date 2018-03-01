@@ -33,9 +33,10 @@ deploy:
     script: "scripts/upload.sh $TRAVIS_TAG"
     on:
       tags: true
+      condition: "$TRAVIS_TAG =~ ^release-.*"
   - provider: script
     skip_cleanup: true
-    script: "scripts/upload.sh master"
+    script: "scripts/upload.sh latest"
     on:
       branch: master
 
