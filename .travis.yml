@@ -28,11 +28,17 @@ script:
   - docker-compose -f dev.yml exec portal bash -c 'su -c "bash /etc/ckan_init.d/tests/run_all_tests.sh" -l $USER'
 
 deploy:
-  provider: script
-  skip_cleanup: true
-  script: "deploy/upload.sh"
-  on:
-    all_branches: true
+  - provider: script
+    skip_cleanup: true
+    script: "scripts/upload.sh $TRAVIS_TAG"
+    on:
+      tags: true
+  - provider: script
+    skip_cleanup: true
+    script: "scripts/upload.sh master"
+    on:
+      branch: master
+
 
 git:
   depth:
