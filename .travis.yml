@@ -36,7 +36,7 @@ deploy:
       condition: "$TRAVIS_TAG =~ ^release-.*"
   - provider: script
     skip_cleanup: true
-    script: "scripts/upload.sh latest"
+    script: "scripts/run_deploy.sh latest testing"
     on:
       branch: master
 
