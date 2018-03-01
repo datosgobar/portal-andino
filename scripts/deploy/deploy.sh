@@ -13,6 +13,6 @@ echo "Ejecutando comando de instalación..."
 
 # Actualizo el script de actualización
 ssh $DEPLOY_TARGET_USERNAME@$DEPLOY_TARGET_IP -p$DEPLOY_TARGET_SSH_PORT "rm -rf ~/update.py"
-scp $DEPLOY_TARGET_USERNAME@$DEPLOY_TARGET_IP -p$DEPLOY_TARGET_SSH_PORT "install/update.py" "~/update.py"
+scp -P $DEPLOY_TARGET_SSH_PORT "install/update.py" "$DEPLOY_TARGET_USERNAME@$DEPLOY_TARGET_IP:~/update.py"
 
 ssh $DEPLOY_TARGET_USERNAME@$DEPLOY_TARGET_IP -p$DEPLOY_TARGET_SSH_PORT "sudo python ~/update.py --andino_version $DEPLOY_TAG"
