@@ -122,6 +122,65 @@ Para obtener una lista de lo que esta corriendo actualmente Docker, podemos usar
 
     docker-compose -f /etc/portal/latest.yml exec portal /etc/ckan_init.d/paster.sh --plugin=ckan user setpass nombre-de-usuario
 
+## Configuraciones
+
+### Cambiar la configuración del SMTP
+
+Por defecto, andino usará un servidor postfix integrado para el envío de emails.
+Para usar un servidor SMTP propio, debemos cambiar la configuración del archivo `production.ini`.
+Para lograrlo, podemos hacerlo de dos formas:
+
+1 ) Ingresando al contenedor.
+
+Debemos buscar y editar en el archivo `production.ini` la configuración
+de email que luce como:
+
+```
+## Email settings
+
+error_email_from=admin@example.com
+smtp.server = postfix
+#smtp.starttls = False
+smtp.user = portal
+smtp.password = portal
+smtp.mail_from = administrador
+```
+
+Para editarlo directamente, ejecutamos los comandos:
+
+```bash
+# Ingresar al contenedor
+
+cd /etc/portal
+docker-compose -f latest.yml exec portal /bin/bash
+
+# Una vez adentro, editamos el archivo production.ini
+# Debemos buscar la configuración debajo del comentario "## Email settings"
+ 
+vim /etc/ckan/default/production.ini
+
+# Editamos y luego de salir del contenedor lo reiniciamos
+
+docker-compose -f latest.yml restart portal nginx
+```    
+
+2 ) Ejecutando comandos paster
+
+Suponiendo que nuestro servidor SMTP esta en smtp.google.com, el usuario es `smtp_user` 
+y la contraseña `mi_pass`, y queremos user "tls" podemos ejecutar los siguientes comandos:
+
+```
+docker-compose -f latest.yml exec portal /usr/lib/ckan/default/bin/paster --plugin=ckan config-tool /etc/ckan/default/production.ini -e "smtp.server=smtp.google.com";
+docker-compose -f latest.yml exec portal /usr/lib/ckan/default/bin/paster --plugin=ckan config-tool /etc/ckan/default/production.ini -e "smtp.user=smtp_user";
+docker-compose -f latest.yml exec portal /usr/lib/ckan/default/bin/paster --plugin=ckan config-tool /etc/ckan/default/production.ini -e "smtp.password=mi_pass";
+docker-compose -f latest.yml exec portal /usr/lib/ckan/default/bin/paster --plugin=ckan config-tool /etc/ckan/default/production.ini -e "smtp.starttls=True";
+
+# Finalmente reiniciamos el contenedor
+docker-compose -f latest.yml restart portal nginx
+```
+
+
+
 ## Acceso a la data de Andino
 
 ### Encontrar los `volumenes` de mi andino dentro de mi `FS`
