@@ -167,13 +167,13 @@ docker-compose -f latest.yml restart portal nginx
 2 ) Ejecutando comandos paster
 
 Suponiendo que nuestro servidor SMTP esta en smtp.google.com, el usuario es `smtp_user` 
-y la contraseña `mi_pass`, y queremos user "tls" podemos ejecutar los siguientes comandos:
+y la contraseña `mi_pass`, y queremos usar "tls" podemos ejecutar los siguientes comandos:
 
 ```
-docker-compose -f latest.yml exec portal /usr/lib/ckan/default/bin/paster --plugin=ckan config-tool /etc/ckan/default/production.ini -e "smtp.server=smtp.google.com";
-docker-compose -f latest.yml exec portal /usr/lib/ckan/default/bin/paster --plugin=ckan config-tool /etc/ckan/default/production.ini -e "smtp.user=smtp_user";
-docker-compose -f latest.yml exec portal /usr/lib/ckan/default/bin/paster --plugin=ckan config-tool /etc/ckan/default/production.ini -e "smtp.password=mi_pass";
-docker-compose -f latest.yml exec portal /usr/lib/ckan/default/bin/paster --plugin=ckan config-tool /etc/ckan/default/production.ini -e "smtp.starttls=True";
+docker-compose -f latest.yml exec portal /etc/ckan_init.d/update_conf.sh "smtp.server=smtp.google.com";
+docker-compose -f latest.yml exec portal /etc/ckan_init.d/update_conf.sh "smtp.user=smtp_user";
+docker-compose -f latest.yml exec portal /etc/ckan_init.d/update_conf.sh "smtp.password=mi_pass";
+docker-compose -f latest.yml exec portal /etc/ckan_init.d/update_conf.sh "smtp.starttls=True";
 
 # Finalmente reiniciamos el contenedor
 docker-compose -f latest.yml restart portal nginx
