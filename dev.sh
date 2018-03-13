@@ -42,7 +42,7 @@ sub_console() {
 }
 
 sub_up(){
-    sub_compose up -d;
+    sub_compose up -d $@;
 }
 
 sub_logs(){
