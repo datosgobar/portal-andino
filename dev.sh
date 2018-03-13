@@ -8,6 +8,7 @@ sub_help(){
     echo "    build             Generar las imágenes necesarias para los servicios"
     echo "    up                Levantar los servicios"
     echo "    stop              Parar los servicios"
+    echo "    down              Borra los contenedores y los volúmenes"
     echo "    rm                Borrar los contenedores de los servicios"
     echo "    exec              Ejecuta comandos en el contenedor"
     echo "    create_admin      Crear un usuario administrador"
@@ -23,6 +24,10 @@ sub_compose() {
 
 sub_stop(){
     sub_compose stop
+}
+
+sub_down(){
+    sub_compose down -v;
 }
 
 sub_build() {
