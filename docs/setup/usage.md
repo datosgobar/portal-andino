@@ -166,19 +166,22 @@ docker-compose -f latest.yml restart portal nginx
 
 2 ) Ejecutando comandos paster
 
-Suponiendo que nuestro servidor SMTP esta en smtp.google.com, el usuario es `smtp_user` 
-y la contraseña `mi_pass`, y queremos usar "tls" podemos ejecutar los siguientes comandos:
+Suponiendo que nuestro servidor SMTP esta en smtp.gmail.com, la dirección de correo del usuario es `smtp_user_mail@gmail.com`, 
+la contraseña de esa dirección de correo `mi_pass` y queremos usar "tls", podemos ejecutar los siguientes comandos:
 
 ```
-docker-compose -f latest.yml exec portal /etc/ckan_init.d/update_conf.sh "smtp.server=smtp.google.com";
-docker-compose -f latest.yml exec portal /etc/ckan_init.d/update_conf.sh "smtp.user=smtp_user";
+docker-compose -f latest.yml exec portal /etc/ckan_init.d/update_conf.sh "smtp.server=smtp.gmail.com:587";
+docker-compose -f latest.yml exec portal /etc/ckan_init.d/update_conf.sh "smtp.user=smtp_user_mail@gmail.com";
 docker-compose -f latest.yml exec portal /etc/ckan_init.d/update_conf.sh "smtp.password=mi_pass";
 docker-compose -f latest.yml exec portal /etc/ckan_init.d/update_conf.sh "smtp.starttls=True";
+docker-compose -f latest.yml exec portal /etc/ckan_init.d/update_conf.sh "smtp.mail_from=smtp_user_mail@gmail.com";
 
 # Finalmente reiniciamos el contenedor
 docker-compose -f latest.yml restart portal nginx
 ```
 
+Tener en cuenta que si se utiliza un servidor SMTP, se debe setear la configuración con **un correo electrónico 
+de @gmail.com**, y que **starttls debe estar en True**.
 
 
 ## Acceso a la data de Andino
