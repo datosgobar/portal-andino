@@ -15,6 +15,9 @@
   - [Crear un nuevo usuario\(EXTENDIDO\) de `Andino`](#crear-un-nuevo-usuarioextendido-de-andino)
   - [Eliminar un usuario de `Andino`](#eliminar-un-usuario-de-andino)
   - [Cambiar password de un usuario de `Andino`](#cambiar-password-de-un-usuario-de-andino)
+- [Configuraciones](#configuraciones)
+  - [Cambiar la configuración del SMTP](#cambiar-la-configuracion-del-smtp)
+  - [Cambiar el remitente de los correos electrónicos que envía Andino](#cambiar-el-remitente-de-los-correos-electronicos-que-envia-andino)
 - [Acceso a la data de Andino](#acceso-a-la-data-de-andino)
   - [Encontrar los `volumenes` de mi andino dentro de mi `FS`](#encontrar-los-volumenes-de-mi-andino-dentro-de-mi-fs)
   - [Ver los `IPs` de mis contenedores](#ver-los-ips-de-mis-contenedores)
@@ -183,6 +186,9 @@ docker-compose -f latest.yml restart portal nginx
 Tener en cuenta que si se utiliza un servidor SMTP, se debe setear la configuración con **un correo electrónico 
 de @gmail.com**, y que **starttls debe estar en True**.
 
+### Cambiar el remitente de los correos electrónicos que envía Andino
+
+Para modificar el remitente de los correos electrónicos que el sistema envía (por ejemplo los de creación de usuarios nuevos o los de olvido de contraseña) se deben seguir los pasos de la sección [Cambiar la configuración del SMTP](#cambiar-la-configuracion-del-smtp) pero modificando el atributo de configuración `smtp.mail_from`.
 
 ## Acceso a la data de Andino
 
