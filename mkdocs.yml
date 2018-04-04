@@ -1,9 +1,12 @@
 site_name: Portal Andino
 pages:
   - Home: 'index.md'
-  - Instalacion: 'setup/install.md'
+  - Instalación: 'setup/install.md'
+  - Actualización: 'setup/update.md'
   - Migracion: 'setup/migration.md'
   - Uso: 'setup/usage.md'
+  - Recomendaciones para Sysadmins: 'setup/recommendations.md'
   - Desarrollo:
     - Docker: 'development/docker.md'
     - Tests: 'development/tests.md'
+

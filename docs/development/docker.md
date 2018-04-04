@@ -9,7 +9,7 @@ Actualmente, el repositorio contiene 1 arhivo `Dockerfile` y 2 archivos `docker-
 
 * `Dockerfile`: Se usa para generar la imagen de la aplicación
 * `dev.yml`: Archivo de docker-compose para levantar los servicios necesarios y generar la imagen de la aplicación.
-* `latest.yml`: Archivo de docker-compose para levantar la aplicación a su última version. (ver [instalación](docs/setup/install.md))
+* `latest.yml`: Archivo de docker-compose para levantar la aplicación a su última version. (ver [instalación](../setup/install.md))
 
 Para levantar toda la aplicacion, se puede correr:
 
@@ -40,5 +40,3 @@ Eso levantará la aplicación con el directorio actual (`$PWD`) disponible dentr
 Para acceder a la aplicación, hacer modificaciones en `runtime`, basta con correr el comando:
 
     $ docker-compose -f dev.yml exec andino /bin/bash
-
-

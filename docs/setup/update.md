@@ -41,4 +41,4 @@ sudo python update.py --install_directory="/home/user/app/"
 
 ## Versiones 1.x a 2.x
 
-Ver documento de [migracion](docs/setup/migration.md)
+Ver documento de [migración](migration.md)
