@@ -14,4 +14,7 @@ RUN chown -R www-data:www-data $CKAN_DIST_MEDIA
 RUN chmod u+rwx $CKAN_DIST_MEDIA
 RUN echo "$PORTAL_VERSION" > /portal/version
 
+RUN mkdir -p /var/lib/ckan/theme_config/templates
+RUN cp $CKAN_HOME/src/ckanext-gobar-theme/ckanext/gobar_theme/templates/about_template.html /var/lib/ckan/theme_config/templates/
+
 VOLUME $CKAN_DIST_MEDIA $CKAN_DEFAULT
