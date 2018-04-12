@@ -42,9 +42,6 @@ deploy:
 - provider: script
   skip_cleanup: true
   script: "scripts/run_deploy.sh latest andino-dev"
-  on:
-    branch: 108-Actualizar-CD-de-development-para-ambientes-nuevos
-
 
 git:
   depth:
