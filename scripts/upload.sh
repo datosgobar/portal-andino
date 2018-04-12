@@ -7,7 +7,7 @@ container_image=$(docker ps --format '{{ .Image }}' --filter "id=$container_id")
 tag="$1"
 
 image_full_name="datosgobar/portal-andino:$tag"
-docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASS";
+echo $DOCKER_PASS | docker login -u="$DOCKER_USERNAME" --password-stdin
 docker tag "$container_image" "$image_full_name"
 echo "Deploying image $image_full_name"
 docker push "$image_full_name"
