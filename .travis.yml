@@ -5,6 +5,8 @@ services:
 - docker
 
 before_install:
+- openssl aes-256-cbc -K $encrypted_4c1767ebb72f_key -iv $encrypted_4c1767ebb72f_iv
+  -in files.tar.gz.enc -out files.tar.gz -d
 - docker info
 - sudo apt-get remove docker docker-engine
 - sudo apt-get update
