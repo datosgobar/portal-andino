@@ -12,14 +12,24 @@ export OVPN_PATH="/etc/openvpn/$OVPN_CONFIG.conf"
 # algunos valores de travis. Ver ./prepare.sh para mas info
 
 
-if [ "$ENVIRONMENT" == "testing" ]; then
+if [ "$ENVIRONMENT" == "datosgobar-dev" ]; then
     echo "Ambiente $ENVIRONMENT"
 
-    export USE_VPN="" # Do not use VPN
+    export USE_VPN="1"
 
-    export DEPLOY_TARGET_SSH_PORT="$TESTING_DEPLOY_TARGET_SSH_PORT"
-    export DEPLOY_TARGET_USERNAME="$TESTING_DEPLOY_TARGET_USERNAME"
-    export DEPLOY_TARGET_IP="$TESTING_DEPLOY_TARGET_IP"
+    export DEPLOY_TARGET_SSH_PORT="$DATOSGOBAR_DEV_DEPLOY_TARGET_SSH_PORT"
+    export DEPLOY_TARGET_USERNAME="$DATOSGOBAR_DEV_DEPLOY_TARGET_USERNAME"
+    export DEPLOY_TARGET_IP="$DATOSGOBAR_DEV_DEPLOY_TARGET_IP"
+    export DEPLOY_ENVIRONMENT="$ENVIRONMENT"
+    export DEPLOY_TAG="latest"
+elif [ "$ENVIRONMENT" == "andino-dev" ]; then
+    echo "Ambiente $ENVIRONMENT"
+
+    export USE_VPN="1"
+
+    export DEPLOY_TARGET_SSH_PORT="$ANDINO_DEV_DEPLOY_TARGET_SSH_PORT"
+    export DEPLOY_TARGET_USERNAME="$ANDINO_DEV_DEPLOY_TARGET_USERNAME"
+    export DEPLOY_TARGET_IP="$ANDINO_DEV_DEPLOY_TARGET_IP"
     export DEPLOY_ENVIRONMENT="$ENVIRONMENT"
     export DEPLOY_TAG="latest"
 else

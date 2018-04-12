@@ -4,9 +4,23 @@ set -e;
 
 # Nota: Las variables no definidas aqui deben ser seteadas en ./variables.sh
 # si tenes dudas sobre la sintaxis ${!variable}, mira https://stackoverflow.com/a/1921337/2355756
+# files.tar.gz.enc debe ser un archivo encriptado por el cliente de travis con la siguiente estructura:
+# .
+# ├── andino-dev
+# │   ├── client.ovpn
+# │   └── deployment@travis-ci.org
+# └── datosgobar-dev
+#     ├── client.ovpn
+#     └── deployment@travis-ci.org
+# donde `andino-dev` y `datosgobar-dev` son los distintos ambientes, `client.ovpn` es el túnel de la vpn
+# y `deployment@travis-ci.org` la key privada SSH del usuario de deploy.
+# Este método está ligeramente basado en https://oncletom.io/2016/travis-ssh-deploy/
 
-export files_key_var_name="encrypted_694216c8bb8d_key"
-export files_iv_var_name="encrypted_694216c8bb8d_iv"
+
+export files_key_var_name="encrypted_03d5e265e339_key"
+export files_iv_var_name="encrypted_03d5e265e339_iv"
+
+
 
 deploy_files="scripts/deploy"
 files_tar="$deploy_files/files.tar.gz"
