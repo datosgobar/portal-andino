@@ -1,12 +1,13 @@
 site_name: Portal Andino
 pages:
-  - Home: 'index.md'
-  - Instalación: 'setup/install.md'
-  - Actualización: 'setup/update.md'
-  - Migracion: 'setup/migration.md'
-  - Uso: 'setup/usage.md'
-  - Recomendaciones para Sysadmins: 'setup/recommendations.md'
+  - Inicio: 'index.md'
+  - Comienzo rápido: 'quickstart.md'
+  - Manual de uso: 'usage.md'
   - Desarrollo:
-    - Docker: 'development/docker.md'
-    - Tests: 'development/tests.md'
+    - Instalación: 'developers/install.md'
+    - Actualización: 'developers/update.md'
+    - Migracion: 'developers/migration.md'
+    - Mantenimiento: 'developers/maintenance.md'
+    - Generación de imágenes Docker: 'developers/docker.md'
+    - Tests: 'developers/tests.md'
 
