@@ -1,4 +1,12 @@
-# Tests 
+# Tests
+
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+
+- [Tests de Ckan](#tests-de-ckan)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 Para correr los test de la aplicación, se deben levantar todos los servicios y luego inicializar la configuración de test.
 

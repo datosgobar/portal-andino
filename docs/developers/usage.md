@@ -1,3 +1,47 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+
+- [HandBook](#handbook)
+  - [Instalacion de `Andino`:](#instalacion-de-andino)
+  - [Desinstalar `Andino`:](#desinstalar-andino)
+  - [Que esta corriendo docker?](#que-esta-corriendo-docker)
+  - [Ingresar al contendor pricipal de andino](#ingresar-al-contendor-pricipal-de-andino)
+  - [Listar todas las `Propiedades` de cada contenedor](#listar-todas-las-propiedades-de-cada-contenedor)
+  - [Usuarios](#usuarios)
+    - [`Crear` un usuario `ADMIN` dentro de `Andino`](#crear-un-usuario-admin-dentro-de-andino)
+    - [Listar mis usuarios dentro de `Andino`](#listar-mis-usuarios-dentro-de-andino)
+    - [Ver los datos de un usuario dentro de `Andino`](#ver-los-datos-de-un-usuario-dentro-de-andino)
+    - [Crear un nuevo usuario de `Andino`](#crear-un-nuevo-usuario-de-andino)
+    - [Crear un nuevo usuario(EXTENDIDO) de `Andino`](#crear-un-nuevo-usuarioextendido-de-andino)
+    - [Eliminar un usuario de `Andino`](#eliminar-un-usuario-de-andino)
+    - [Cambiar password de un usuario de `Andino`](#cambiar-password-de-un-usuario-de-andino)
+  - [Configuraciones](#configuraciones)
+    - [Cambiar la configuración del SMTP](#cambiar-la-configuraci%C3%B3n-del-smtp)
+    - [Cambiar el remitente de los correos electrónicos que envía Andino](#cambiar-el-remitente-de-los-correos-electr%C3%B3nicos-que-env%C3%ADa-andino)
+  - [Acceso a la data de Andino](#acceso-a-la-data-de-andino)
+    - [Encontrar los `volumenes` de mi andino dentro de mi `FS`](#encontrar-los-volumenes-de-mi-andino-dentro-de-mi-fs)
+    - [Ver los `IPs` de mis contenedores](#ver-los-ips-de-mis-contenedores)
+    - [Ver las `variables de entorno` que tienen mis contenedores](#ver-las-variables-de-entorno-que-tienen-mis-contenedores)
+    - [Acceder con `psql` a las `DB de andino`](#acceder-con-psql-a-las-db-de-andino)
+  - [Backups](#backups)
+    - [Hacer `backup` de las `DBs de Andino`](#hacer-backup-de-las-dbs-de-andino)
+    - [Realizar un `backup` del file system de `Andino`](#realizar-un-backup-del-file-system-de-andino)
+    - [Realizar un `backup` de la configuración de `Andino`](#realizar-un-backup-de-la-configuraci%C3%B3n-de-andino)
+  - [Actualizaciones](#actualizaciones)
+    - [Como `actualizo` mi `Andino`?](#como-actualizo-mi-andino)
+  - [Logs](#logs)
+    - [Eliminar `logs` antiguos de `Docker`](#eliminar-logs-antiguos-de-docker)
+    - [Configurar otro `logging driver`](#configurar-otro-logging-driver)
+    - [Eliminar logs dentro de Andino](#eliminar-logs-dentro-de-andino)
+  - [Eliminar objetos definitivamente](#eliminar-objetos-definitivamente)
+  - [Purgar Organizaciones Borradas](#purgar-organizaciones-borradas)
+  - [Purgar Grupos Borrados](#purgar-grupos-borrados)
+  - [Purgar Datasets Borrados](#purgar-datasets-borrados)
+  - [Listar nombres de los datasets contenidos en Andino](#listar-nombres-de-los-datasets-contenidos-en-andino)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # HandBook
 
 ---

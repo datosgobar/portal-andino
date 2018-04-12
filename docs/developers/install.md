@@ -1,3 +1,15 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+
+- [Instalación](#instalaci%C3%B3n)
+  - [Dependencias](#dependencias)
+  - [Instalación simplificada de andino](#instalaci%C3%B3n-simplificada-de-andino)
+  - [Instalación avanzada de andino](#instalaci%C3%B3n-avanzada-de-andino)
+  - [Desinstalar andino](#desinstalar-andino)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # Instalación
 
 Teniendo en cuenta la dificultad de implementación e incluso la cantidad de pasos para lograr un deploy existoso, existen dos formas de instalar esta distribución de **CKAN**.
@@ -5,14 +17,14 @@ Teniendo en cuenta la dificultad de implementación e incluso la cantidad de pas
 - Si no tenés muchos conocimientos de CKAN, Docker o de administracion de servidores en general, es recomendable usar la instalación **[simplificada  de Andino](#instalacion-simplificada-de-andino)**. Está pensada para que en la menor cantidad de pasos y de manera sencilla, tengas un portal de datos funcionando. 
 - Si ya conocés la plataforma, tenés experiencia con Docker o simplemente, querés entender cómo funciona esta implementación, te sugiero que revises la **[instalacion avanzada de Andino](#instalacion-avanzada-de-andino)**
 
-### Dependencias
+## Dependencias
 
 - DOCKER: [Guía de instalación](https://docs.docker.com/engine/installation).
   - Versión mínima _testeada_: `1.13.1`
 - Docker Compose: [Guía de instalación](https://docs.docker.com/compose/install/).
   - Versión mínima _testeada_: `1.12.0`
 
-### Instalación simplificada de andino
+## Instalación simplificada de andino
 
 La idea detrás de esta implementación de CKAN es **que sólo te encargues de tus datos**, nada más. Por eso, si "copiás y pegás" el comando de consola, en sólo unos momentos, tendrás un Andino listo para usar.
 Esta clase de instalación no requiere que clones el repositorio, ya que usamos contenedores alojados en [DockerHub](https://hub.docker.com/r/datosgobar)
@@ -78,7 +90,7 @@ sudo python ./install.py \
     --datastore_password="$STORE_PASS"
 ```
 
-### Instalación avanzada de andino
+## Instalación avanzada de andino
 
 La instalación avanzada está pensada para usarios que quieren ver cómo funciona internamente `Andino`
 
@@ -138,3 +150,16 @@ docker-compose -f latest.yml exec portal /etc/ckan_init.d/init.sh -e "$EMAIL" -h
 
 	$ docker-compose -f latest.yml up -d nginx
 
+## Desinstalar andino
+
+Esta secuencia de comandos va a ELIMINAR TODOS LOS CONTENEDORES, IMAGENES y VOLUMENES de la aplicación de la vm donde esta instalada la plataforma.
+
+Esta operación no es reversible. **Perderás todos tus datos si realizas esta operación**.
+
+```bash
+app_dir="/etc/portal/"
+cd $app_dir
+docker-compose -f latest.yml down -v
+cd ~/
+sudo rm $app_dir -r
+```
