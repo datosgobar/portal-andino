@@ -39,6 +39,11 @@ deploy:
     script: "scripts/run_deploy.sh latest testing"
     on:
       branch: master
+  - provider: script
+    skip_cleanup: true
+    script: "echo 'Branch 108'"
+    on:
+      branch: 108-Actualizar-CD-de-development-para-ambientes-nuevos
 
 
 git:
