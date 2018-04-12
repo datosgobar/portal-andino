@@ -6,7 +6,8 @@ ENVIRONMENT="$1"
 # pero usando otros prefijos (en testing es TESTING_* )
 
 export OVPN_CONFIG="client"
-export OVPN_PATH="/etc/openvpn/$OVPN_CONFIG.conf"
+export OVPN_BASE_PATH="/etc/openvpn"
+export OVPN_PATH="$OVPN_BASE_PATH/$OVPN_CONFIG.conf"
 
 # Las siguientes variables definen cuales variables buscar para desencriptar
 # algunos valores de travis. Ver ./prepare.sh para mas info

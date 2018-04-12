@@ -41,6 +41,7 @@ chmod 600 /tmp/deployment@travis-ci.org
 
 if [ -n "$USE_VPN" ]; then
     echo "Conectando a la VPN";
+    sudo mkdir -p "$OVPN_BASE_PATH"
     sudo cp "$environment_files/client.ovpn" "$OVPN_PATH"
     sudo service openvpn restart
     echo "Esperando..."
