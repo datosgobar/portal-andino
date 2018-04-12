@@ -27,8 +27,8 @@ El mismo no requiere parámetros, pero contiene algunos opcionales:
 
 Para esta actualización de ejemplo usaremos los valores por defecto:
 
-    sudo python -c "$(wget -O - https://raw.github.com/datosgobar/portal-andino/master/install/update.py)"
-
+    sudo wget https://raw.github.com/datosgobar/portal-andino/master/install/update.py
+    sudo python update.py
 
 De esta forma el script asumirá que instalamos la aplicacion en `/etc/portal`.
 
