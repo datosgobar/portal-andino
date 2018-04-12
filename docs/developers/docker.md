@@ -1,4 +1,12 @@
-# Docker
+# Generación de imágenes Docker
+
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+
+- [Generación de imágenes Docker](#generaci%C3%B3n-de-im%C3%A1genes-docker)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 Para generar las imágenes, ejecutar la aplicación y levantarla, previamente es necesario instalar `Docker` y `docker-compose`:
 
@@ -9,7 +17,7 @@ Actualmente, el repositorio contiene 1 arhivo `Dockerfile` y 2 archivos `docker-
 
 * `Dockerfile`: Se usa para generar la imagen de la aplicación
 * `dev.yml`: Archivo de docker-compose para levantar los servicios necesarios y generar la imagen de la aplicación.
-* `latest.yml`: Archivo de docker-compose para levantar la aplicación a su última version. (ver [instalación](../setup/install.md))
+* `latest.yml`: Archivo de docker-compose para levantar la aplicación a su última version. (ver [instalación](install.md))
 
 Para levantar toda la aplicacion, se puede correr:
 

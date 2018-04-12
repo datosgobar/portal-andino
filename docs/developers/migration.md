@@ -1,21 +1,25 @@
 # Migracion de version 1.0 de andino a 2.0
 
-## Índice
-
 En el presente documento se pretende explicar como llevar a cabo una migracion de la version 1.0 de andino a la version 2.0 de andino.
+
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
 
 - [Requisitos](#requisitos)
 - [Script](#script)
-- [Backups](#1-backups)
-  - [Base de datos](#11-base-de-datos)
-  - [Archivos de la aplicación](#12-archivos-de-la-aplicacion)
-- [Instalación](#2-instalación)
-  - [Detener andino 1](#21-detener-la-aplicación)
-  - [Instalar andino 2](#22-instalar-la-aplicación)
-- [Restores](#3-restores)
-  - [Restaurar archivos](#31-restaurar-los-archivos)
-  - [Restaurar la base de datos](#32-restaurar-la-base-de-datos)
-  - [Regenerar el índice de búsquedas](#33-regenerar-el-índice-de-búsquedas)
+- [1) Backups](#1-backups)
+  - [1.1) Base de datos](#11-base-de-datos)
+  - [1.2) Archivos de la aplicacion](#12-archivos-de-la-aplicacion)
+- [2) Instalación](#2-instalaci%C3%B3n)
+  - [2.1) Detener la aplicación](#21-detener-la-aplicaci%C3%B3n)
+  - [2.2) Instalar la aplicación](#22-instalar-la-aplicaci%C3%B3n)
+- [3) Restores](#3-restores)
+  - [3.1) Restaurar los archivos](#31-restaurar-los-archivos)
+  - [3.2) Restaurar la base de datos](#32-restaurar-la-base-de-datos)
+  - [3.3) Regenerar el índice de búsquedas](#33-regenerar-el-%C3%ADndice-de-b%C3%BAsquedas)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## Requisitos
 
