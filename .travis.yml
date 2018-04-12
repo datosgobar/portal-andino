@@ -28,7 +28,7 @@ script:
 - docker-compose -f dev.yml exec portal bash -c 'su -c "bash /etc/ckan_init.d/tests/run_all_tests.sh" -l $USER'
 
 deploy:
-  - provider: script
+- provider: script
   skip_cleanup: true
   script: "scripts/upload.sh $TRAVIS_TAG"
   on:
@@ -42,6 +42,8 @@ deploy:
 - provider: script
   skip_cleanup: true
   script: "scripts/run_deploy.sh latest andino-dev"
+  on:
+    branch: 108-Actualizar-CD-de-development-para-ambientes-nuevos
 
 git:
   depth:
