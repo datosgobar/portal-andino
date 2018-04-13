@@ -5,11 +5,12 @@ import logging
 import shutil
 import subprocess
 import time
+import sys
 from os import path, geteuid, getcwd, chdir
 
 logger = logging.getLogger(__file__)
-logger.setLevel(logging.INFO)
-ch = logging.StreamHandler()
+logger.setLevel(logging.DEBUG)
+ch = logging.StreamHandler(stream=sys.stdout)
 formatter = logging.Formatter('[ %(levelname)s ] %(message)s')
 ch.setFormatter(formatter)
 logger.addHandler(ch)
