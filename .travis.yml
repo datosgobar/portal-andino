@@ -25,26 +25,26 @@ before_install:
 - chmod +x docker-compose
 - sudo mv docker-compose /usr/local/bin
 
-before_script:
-- env PORTAL_VERSION="${TRAVIS_TAG:-$TRAVIS_COMMIT}" docker-compose -f dev.yml up -d --build portal
-- docker-compose -f dev.yml exec portal bash /etc/ckan_init.d/tests/install_nodejs.sh
-- docker-compose -f dev.yml exec portal bash /etc/ckan_init.d/tests/install_solr4.sh
+#before_script:
+#- env PORTAL_VERSION="${TRAVIS_TAG:-$TRAVIS_COMMIT}" docker-compose -f dev.yml up -d --build portal
+#- docker-compose -f dev.yml exec portal bash /etc/ckan_init.d/tests/install_nodejs.sh
+#- docker-compose -f dev.yml exec portal bash /etc/ckan_init.d/tests/install_solr4.sh
 
-script:
-- docker-compose -f dev.yml exec portal bash -c 'su -c "bash /etc/ckan_init.d/tests/run_all_tests.sh" -l $USER'
+#script:
+#- docker-compose -f dev.yml exec portal bash -c 'su -c "bash /etc/ckan_init.d/tests/run_all_tests.sh" -l $USER'
 
 deploy:
-- provider: script
-  skip_cleanup: true
-  script: "scripts/upload.sh $TRAVIS_TAG"
-  on:
-    tags: true
-    condition: "$TRAVIS_TAG =~ ^release-.*"
-- provider: script
-  skip_cleanup: true
-  script: "scripts/run_deploy.sh latest testing"
-  on:
-    branch: master
+#- provider: script
+#  skip_cleanup: true
+#  script: "scripts/upload.sh $TRAVIS_TAG"
+#  on:
+#    tags: true
+#    condition: "$TRAVIS_TAG =~ ^release-.*"
+#- provider: script
+#  skip_cleanup: true
+#  script: "scripts/run_deploy.sh latest testing"
+#  on:
+#    branch: master
 - provider: script
   skip_cleanup: true
   script: "scripts/run_deploy.sh latest andino-dev"
