@@ -132,7 +132,7 @@ docker stop solr-ckan pg-ckan app-ckan
 
 ### 2.2) Instalar la aplicación
 
-Ver la documentación [Aquí](http://portal-andino.readthedocs.io/es/master/setup/install/)
+Ver la documentación [Aquí](install.md)
 
 **Nota:** Actualizar la version de docker y docker-compose de ser necesario.
 
