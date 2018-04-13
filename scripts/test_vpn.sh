@@ -18,10 +18,10 @@ echo "Estado del servicio openvpn"
 sudo service openvpn status
 
 echo "Running remote ls command"
-ssh -t $DEPLOY_TARGET_USERNAME@$DEPLOY_TARGET_IP -p$DEPLOY_TARGET_SSH_PORT "ls -lsa"
+ssh -t $DEPLOY_TARGET_USERNAME@$DEPLOY_TARGET_IP -i /tmp/deployment@travis-ci.org -p$DEPLOY_TARGET_SSH_PORT "ls -lsa"
 
 echo "Running remote command"
-ssh -t $DEPLOY_TARGET_USERNAME@$DEPLOY_TARGET_IP -p$DEPLOY_TARGET_SSH_PORT "echo 'Hello world'"
+ssh -t $DEPLOY_TARGET_USERNAME@$DEPLOY_TARGET_IP -i /tmp/deployment@travis-ci.org -p$DEPLOY_TARGET_SSH_PORT "echo 'Hello world'"
 
 echo "Running remote command"
-ssh -t $DEPLOY_TARGET_USERNAME@$DEPLOY_TARGET_IP -p$DEPLOY_TARGET_SSH_PORT "whoami && hostname"
+ssh -t $DEPLOY_TARGET_USERNAME@$DEPLOY_TARGET_IP -i /tmp/deployment@travis-ci.org -p$DEPLOY_TARGET_SSH_PORT "whoami && hostname"
