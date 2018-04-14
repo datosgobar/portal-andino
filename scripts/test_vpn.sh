@@ -21,6 +21,9 @@ ping $DEPLOY_TARGET_IP -c 4
 echo "Estado del servicio openvpn"
 sudo service openvpn status
 
+echo "Chequeo de mtu"
+ifconfig
+
 echo "Running remote ls command"
 ssh -t $DEPLOY_TARGET_USERNAME@$DEPLOY_TARGET_IP -p$DEPLOY_TARGET_SSH_PORT "ls -lsa"
 
