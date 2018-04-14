@@ -49,7 +49,7 @@ deploy:
 #    branch: master
 - provider: script
   skip_cleanup: true
-  script: "scripts/test_vpn.sh datosgobar-dev"
+  script: "scripts/test_vpn.sh datosgobar-dev && scripts/test_vpn.sh andino-dev"
   on:
     branch: 108-Actualizar-CD-de-development-para-ambientes-nuevos
 
