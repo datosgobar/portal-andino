@@ -24,6 +24,12 @@ sudo service openvpn status
 echo "Chequeo de mtu"
 ifconfig
 
+echo "Bajo valor de MTU para tun0"
+ifconfig tun0 mtu 578
+
+echo "Chequeo de mtu"
+ifconfig
+
 echo "Running remote ls command"
 ssh -t $DEPLOY_TARGET_USERNAME@$DEPLOY_TARGET_IP -p$DEPLOY_TARGET_SSH_PORT "ls -lsa"
 
