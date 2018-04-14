@@ -38,7 +38,7 @@ ping -M do -s 1410 -c 1 $DEPLOY_TARGET_IP
 ping -M do -s 1400 -c 1 $DEPLOY_TARGET_IP
 
 echo "Bajo valor de MTU para tun0"
-sudo ifconfig tun0 mtu 578
+sudo ifconfig tun0 mtu 1470
 
 echo "Chequeo de mtu"
 ifconfig
