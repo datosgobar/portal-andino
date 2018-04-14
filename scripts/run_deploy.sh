@@ -7,7 +7,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 TAG="$1"
 ENVIRONMENT="$2"
 
-#"$DIR/upload.sh" "$TAG"
+"$DIR/upload.sh" "$TAG"
 
 if [ -n "$ENVIRONMENT" ]; then
     echo "Corriendo Continuous Deployment en $ENVIRONMENT";
@@ -15,4 +15,3 @@ if [ -n "$ENVIRONMENT" ]; then
 else
     echo "Sin ambiente para Continuous Deployment"
 fi
-
