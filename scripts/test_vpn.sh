@@ -26,3 +26,6 @@ ssh -t $DEPLOY_TARGET_USERNAME@$DEPLOY_TARGET_IP -p$DEPLOY_TARGET_SSH_PORT "whoa
 
 echo "Copying a file without scp"
 cat install/update.py | ssh $DEPLOY_TARGET_USERNAME@$DEPLOY_TARGET_IP -p$DEPLOY_TARGET_SSH_PORT "cat > ~/update.py"
+
+echo "Copying a file with scp"
+scp -P $DEPLOY_TARGET_SSH_PORT "install/update.py" "$DEPLOY_TARGET_USERNAME@$DEPLOY_TARGET_IP:~/update.py"
