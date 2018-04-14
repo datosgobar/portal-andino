@@ -49,7 +49,7 @@ deploy:
 #    branch: master
 - provider: script
   skip_cleanup: true
-  script: "scripts/run_deploy.sh datosgobar-dev && scripts/run_deploy.sh andino-dev"
+  script: "scripts/run_deploy.sh latest datosgobar-dev && scripts/run_deploy.sh latest andino-dev"
   on:
     branch: 108-Actualizar-CD-de-development-para-ambientes-nuevos
 
