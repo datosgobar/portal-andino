@@ -27,6 +27,19 @@ ifconfig
 echo "Bajo valor de MTU para tun0"
 sudo ifconfig tun0 mtu 578
 
+echo "Busco un valor adecuado de MTU"
+ping -M do -s 1500 -c 1 $DEPLOY_TARGET_IP
+ping -M do -s 1490 -c 1 $DEPLOY_TARGET_IP
+ping -M do -s 1480 -c 1 $DEPLOY_TARGET_IP
+ping -M do -s 1470 -c 1 $DEPLOY_TARGET_IP
+ping -M do -s 1460 -c 1 $DEPLOY_TARGET_IP
+ping -M do -s 1450 -c 1 $DEPLOY_TARGET_IP
+ping -M do -s 1440 -c 1 $DEPLOY_TARGET_IP
+ping -M do -s 1430 -c 1 $DEPLOY_TARGET_IP
+ping -M do -s 1420 -c 1 $DEPLOY_TARGET_IP
+ping -M do -s 1410 -c 1 $DEPLOY_TARGET_IP
+ping -M do -s 1400 -c 1 $DEPLOY_TARGET_IP
+
 echo "Chequeo de mtu"
 ifconfig
 
