@@ -50,6 +50,9 @@ if [ -n "$USE_VPN" ]; then
     ifconfig | grep -oh tun0
 fi
 
+echo "Seteo valor de mtu"
+sudo ifconfig tun0 mtu $MTU_VALUE
+
 echo "Inicializando known_hosts"
 # Agrego el host a known_hosts
 ssh-keyscan -p $DEPLOY_TARGET_SSH_PORT -t 'rsa,dsa,ecdsa' -H $DEPLOY_TARGET_IP 2>&1 | tee -a $HOME/.ssh/known_hosts
