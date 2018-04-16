@@ -5,13 +5,16 @@ set -e;
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 TAG="$1"
-ENVIRONMENT="$2"
+ENVIRONMENTS="$2"
 
 "$DIR/upload.sh" "$TAG"
 
-if [ -n "$ENVIRONMENT" ]; then
-    echo "Corriendo Continuous Deployment en $ENVIRONMENT";
-    "$DIR/deploy/run_deploy.sh" "$ENVIRONMENT"
+if [ -n "$ENVIRONMENTS" ]; then
+    IFS=';'
+    for env in  "${ENVIRONMENTS[@]}"; do
+        echo "Corriendo Continuous Deployment en $env";
+        "$DIR/deploy/run_deploy.sh" "$env"
+    done
 else
-    echo "Sin ambiente para Continuous Deployment"
+    echo "Sin ambientes para Continuous Deployment"
 fi
