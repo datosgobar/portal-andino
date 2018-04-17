@@ -45,8 +45,8 @@ set -e;
 # 
 # Este método está ligeramente basado en https://oncletom.io/2016/travis-ssh-deploy/
 
-export files_key_var_name="encrypted_4c1767ebb72f_key"
-export files_iv_var_name="encrypted_4c1767ebb72f_iv"
+export files_key_var_name="encrypted_ae1825d44134_key"
+export files_iv_var_name="encrypted_ae1825d44134_iv"
 
 deploy_files="scripts/deploy"
 files_tar="$deploy_files/files.tar.gz"
