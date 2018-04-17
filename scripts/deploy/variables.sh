@@ -24,7 +24,29 @@ if [ "$ENVIRONMENT" == "datosgobar-dev" ]; then
     export DEPLOY_ENVIRONMENT="$ENVIRONMENT"
     export MTU_VALUE="${DATOSGOBAR_DEV_MTU_VALUE:-$DEFAULT_MTU_VALUE}"
     export DEPLOY_TAG="latest"
+elif [ "$ENVIRONMENT" == "datosgobar-stg" ]; then
+    echo "Ambiente $ENVIRONMENT"
+
+    export USE_VPN="1"
+
+    export DEPLOY_TARGET_SSH_PORT="$DATOSGOBAR_STG_DEPLOY_TARGET_SSH_PORT"
+    export DEPLOY_TARGET_USERNAME="$DATOSGOBAR_STG_DEPLOY_TARGET_USERNAME"
+    export DEPLOY_TARGET_IP="$DATOSGOBAR_STG_DEPLOY_TARGET_IP"
+    export DEPLOY_ENVIRONMENT="$ENVIRONMENT"
+    export MTU_VALUE="${ANDINO_DEV_MTU_VALUE:-$DEFAULT_MTU_VALUE}"
+    export DEPLOY_TAG="latest"
 elif [ "$ENVIRONMENT" == "andino-dev" ]; then
+    echo "Ambiente $ENVIRONMENT"
+
+    export USE_VPN="1"
+
+    export DEPLOY_TARGET_SSH_PORT="$ANDINO_DEV_DEPLOY_TARGET_SSH_PORT"
+    export DEPLOY_TARGET_USERNAME="$ANDINO_DEV_DEPLOY_TARGET_USERNAME"
+    export DEPLOY_TARGET_IP="$ANDINO_DEV_DEPLOY_TARGET_IP"
+    export DEPLOY_ENVIRONMENT="$ENVIRONMENT"
+    export MTU_VALUE="${ANDINO_DEV_MTU_VALUE:-$DEFAULT_MTU_VALUE}"
+    export DEPLOY_TAG="latest"
+elif [ "$ENVIRONMENT" == "andino-stg" ]; then
     echo "Ambiente $ENVIRONMENT"
 
     export USE_VPN="1"
