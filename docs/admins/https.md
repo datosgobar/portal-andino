@@ -1,6 +1,6 @@
 # Configuración HTTPS
 
-La forma más sencilla de configurar HTTPS para nuestro servidor **andino** es instalando nginx en el servidor que sirce de
+La forma más sencilla de configurar HTTPS para nuestro servidor **andino** es instalando nginx en el servidor que sirve de
 *host* para la aplicación.
 Tambien debemos contar ya con los certificados `.key` y `.crt` para nuestra aplicación.
 Cómo obtenerlos esta fuera del "scope" de esta documentación.
@@ -47,14 +47,14 @@ Luego debemos *recrear* el contenedor de nginx:
 
 ## Configuracion de nginx
 
-Ahora que nuestra aplicacón es accesible internamente, debemos instalar y configurar nginx para que apunte a la misma
+Ahora que nuestra aplicacón es accesible internamente, debemos instalar y configurar nginx _en el servidor que funciona como host_ para que apunte a la misma
 *y redireccione* a HTTTPS de ser necesario.
 
 Para eso, primero instalamos `nginx` según nuestro sistema operativo:
 
 - Ubuntu: `sudo apt-get install nginx`
 
-Luego debemos crear nuestra clave **Diffie-Hellman** para más seguridad (ver [este artículo](https://medium.com/@mvuksano/how-to-properly-configure-your-nginx-for-tls-564651438fe0) para mas información).
+Primero creamos una clave **Diffie-Hellman** para más seguridad (ver [este artículo](https://medium.com/@mvuksano/how-to-properly-configure-your-nginx-for-tls-564651438fe0) para mas información).
 
 ```
 sudo mkdir /etc/nginx/ssl/
@@ -62,6 +62,7 @@ sudo openssl dhparam 2048 -out /etc/nginx/ssl/andino_dhparam.pem
 ```
 
 Luego debemos agregar la configuracion de `nginx` para que haga uso de nuestros certificados.
+
 Aquí asumiremos que nuestro sitio es `miandino.gob.ar` y los certificados estan en `/etc/nginx/ssl/andino.crt` y `/etc/nginx/ssl/andino.key`.
 La configuracion la agregaremos en `/etc/nginx/sites-available/001-andino.conf`
 
@@ -139,4 +140,4 @@ sudo systemctl restart nginx
 ```
 
 Finalmente deberiamos poder acceder a nuestro sitio en http://miandino.gob.ar:80 y ser redireccionados a https://miandino.gob.ar:443.
-El explorador *no debería* mostrarnos ninguna advertencia.
+El explorador *no debería* mostrarnos ninguna advertencia si los certificados son correctos.
