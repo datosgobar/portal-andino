@@ -16,6 +16,7 @@
 
 - [Comienzo rápido](quickstart.md)
 - [Manual de uso](usage.md)
+- [Configuracion HTTPS](admins/https.md)
 - Desarrolladores
   - [Instalación](developers/install.md)
   - [Actualización](developers/update.md)
