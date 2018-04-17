@@ -4,7 +4,7 @@ set -e;
 
 # Nota: Las variables no definidas aqui deben ser seteadas en ./variables.sh
 # si tenes dudas sobre la sintaxis ${!variable}, mira https://stackoverflow.com/a/1921337/2355756
-# files.tar.gz.enc debe ser un archivo encriptado por el cliente de travis con la siguiente estructura:
+# `files.tar.gz.enc` debe ser un archivo encriptado por el cliente de travis con la siguiente estructura:
 # .
 # └── files
 #     ├── andino-dev
@@ -22,6 +22,27 @@ set -e;
 # 
 # donde `andino-dev` y `datosgobar-dev` son los distintos ambientes, `client.ovpn` es el túnel de la vpn
 # y `deployment@travis-ci.org` la key privada SSH del usuario de deploy.
+#
+# Comprimir el directorio `files/` usando `tar -zcvf files.tar.gz files/`. *Este archivo no debe ser
+# subido al repositorio de código*!
+#
+# Luego encriptar el archivo usando `travis encrypt-file files.tar.gz --add`
+# y mover el archivo a `scripts/deploy/`.
+#
+# El comando `travis encrypt-file` realizará modificaciones sobre el archivo `.travis.yml`. Estas
+# modificaciones no deben ser commiteadas, pero es importante tomar nota de dos variables que genera 
+# ese script en el mismo. Las mismas tienen la siguente forma:
+#
+# * `encrypted_<hash>_key`
+# * `encrypted_<hash>_iv`
+#
+# Éstas deben ser copiadas al archivo `scripts/deploy/prepare.sh` en las líneas:
+#
+# ```export files_key_var_name="encrypted_4c1767ebb72f_key"
+# export files_iv_var_name="encrypted_4c1767ebb72f_iv"```
+#
+# Luego subir los cambios al archivo `files.tar.gz.enc` y a `prepare.sh`.
+# 
 # Este método está ligeramente basado en https://oncletom.io/2016/travis-ssh-deploy/
 
 export files_key_var_name="encrypted_4c1767ebb72f_key"
