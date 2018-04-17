@@ -8,37 +8,36 @@ addons:
     - net-tools
     - openvpn
 
-#services:
-#- docker
+services:
+- docker
 
-#before_install:
-#- docker info
-#- sudo apt-get remove docker docker-engine
-#- sudo apt-get update
-#- sudo apt-get install linux-image-extra-$(uname -r) linux-image-extra-virtual apt-transport-https ca-certificates curl software-properties-common
-#- curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-#- sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-#- sudo apt-get update
-#- sudo apt-get install docker-ce
-#- docker info
-#- sudo rm /usr/local/bin/docker-compose
-#- curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
-#- chmod +x docker-compose
-#- sudo mv docker-compose /usr/local/bin
+before_install:
+- docker info
+- sudo apt-get remove docker docker-engine
+- sudo apt-get update
+- sudo apt-get install linux-image-extra-$(uname -r) linux-image-extra-virtual apt-transport-https ca-certificates curl software-properties-common
+- curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+- sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+- sudo apt-get update
+- sudo apt-get install docker-ce
+- docker info
+- sudo rm /usr/local/bin/docker-compose
+- curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+- chmod +x docker-compose
+- sudo mv docker-compose /usr/local/bin
 
-#before_script:
-#- env PORTAL_VERSION="${TRAVIS_TAG:-$TRAVIS_COMMIT}" docker-compose -f dev.yml up -d --build portal
-#- docker-compose -f dev.yml exec portal bash /etc/ckan_init.d/tests/install_nodejs.sh
-#- docker-compose -f dev.yml exec portal bash /etc/ckan_init.d/tests/install_solr4.sh
+before_script:
+- env PORTAL_VERSION="${TRAVIS_TAG:-$TRAVIS_COMMIT}" docker-compose -f dev.yml up -d --build portal
+- docker-compose -f dev.yml exec portal bash /etc/ckan_init.d/tests/install_nodejs.sh
+- docker-compose -f dev.yml exec portal bash /etc/ckan_init.d/tests/install_solr4.sh
 
 script:
-#- docker-compose -f dev.yml exec portal bash -c 'su -c "bash /etc/ckan_init.d/tests/run_all_tests.sh" -l $USER'
-- pwd
+- docker-compose -f dev.yml exec portal bash -c 'su -c "bash /etc/ckan_init.d/tests/run_all_tests.sh" -l $USER'
 
 deploy:
 - provider: script
   skip_cleanup: true
-  script: "scripts/upload.sh $TRAVIS_TAG"
+  script: "scripts/run_deploy.sh $TRAVIS_TAG 'datosgobar-stg;andino-stg'"
   on:
     tags: true
     condition: "$TRAVIS_TAG =~ ^release-.*"
@@ -47,11 +46,6 @@ deploy:
   script: "scripts/run_deploy.sh latest 'datosgobar-dev;andino-dev'"
   on:
     branch: master
-- provider: script
-  skip_cleanup: true
-  script: "scripts/run_deploy.sh latest 'datosgobar-dev;andino-dev;datosgobar-stg;andino-stg'"
-  on:
-    branch: cd-en-staging
 
 git:
   depth:

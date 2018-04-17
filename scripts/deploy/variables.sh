@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 ENVIRONMENT="$1"
+TAG="$2"
 
 # NOTA: para agregar un nuevo ambiente, se necesitan todas estas variables,
 # pero usando otros prefijos (en testing es TESTING_* )
@@ -34,7 +35,7 @@ elif [ "$ENVIRONMENT" == "datosgobar-stg" ]; then
     export DEPLOY_TARGET_IP="$DATOSGOBAR_STG_DEPLOY_TARGET_IP"
     export DEPLOY_ENVIRONMENT="$ENVIRONMENT"
     export MTU_VALUE="${ANDINO_DEV_MTU_VALUE:-$DEFAULT_MTU_VALUE}"
-    export DEPLOY_TAG="latest"
+    export DEPLOY_TAG="$TAG"
 elif [ "$ENVIRONMENT" == "andino-dev" ]; then
     echo "Ambiente $ENVIRONMENT"
 
@@ -56,7 +57,7 @@ elif [ "$ENVIRONMENT" == "andino-stg" ]; then
     export DEPLOY_TARGET_IP="$ANDINO_STG_DEPLOY_TARGET_IP"
     export DEPLOY_ENVIRONMENT="$ENVIRONMENT"
     export MTU_VALUE="${ANDINO_DEV_MTU_VALUE:-$DEFAULT_MTU_VALUE}"
-    export DEPLOY_TAG="latest"
+    export DEPLOY_TAG="$TAG"
 else
     echo "Ambiente '$ENVIRONMENT' desconocido";
     exit 1;
