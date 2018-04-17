@@ -37,7 +37,7 @@ script:
 deploy:
 - provider: script
   skip_cleanup: true
-  script: "scripts/upload.sh $TRAVIS_TAG"
+  script: "scripts/run_deploy.sh $TRAVIS_TAG 'datosgobar-stg;andino-stg'"
   on:
     tags: true
     condition: "$TRAVIS_TAG =~ ^release-.*"
