@@ -10,7 +10,13 @@ set -e;
 #     ├── andino-dev
 #     │   ├── client.ovpn
 #     │   └── deployment@travis-ci.org
-#     └── datosgobar-dev
+#     ├── datosgobar-dev
+#     │   ├── client.ovpn
+#     │   └── deployment@travis-ci.org
+#     ├── andino-stg
+#     │   ├── client.ovpn
+#     │   └── deployment@travis-ci.org
+#     └── datosgobar-stg
 #         ├── client.ovpn
 #         └── deployment@travis-ci.org
 # 
