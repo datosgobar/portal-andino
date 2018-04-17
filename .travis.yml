@@ -49,7 +49,7 @@ deploy:
     branch: master
 - provider: script
   skip_cleanup: true
-  script: "scripts/run_deploy.sh latest 'datosgobar-stg;andino-stg'"
+  script: "scripts/run_deploy.sh latest 'datosgobar-dev;andino-dev;datosgobar-stg;andino-stg'"
   on:
     branch: cd-en-staging
 
