@@ -6,6 +6,7 @@ pages:
   - Desarrollo:
     - Instalación: 'developers/install.md'
     - Actualización: 'developers/update.md'
+    - Configuración HTTPS: 'developers/https.md'
     - Migracion: 'developers/migration.md'
     - Mantenimiento: 'developers/maintenance.md'
     - Generación de imágenes Docker: 'developers/docker.md'
