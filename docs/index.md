@@ -21,5 +21,6 @@
     - [Actualización](developers/update.md)
     - [Migración](developers/migration.md)
     - [Mantenimiento](developers/maintenance.md)
-    - [Configuracion HTTPS](developers/https.md)
+    - [Configuracion HTTPS](developers/dns.md)
+    - [Configuracion de DNS](developers/https.md)
     - [Tests](developers/tests.md)
