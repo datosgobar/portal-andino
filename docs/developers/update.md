@@ -3,10 +3,10 @@
 
 
 - [Actualización](#actualizaci%C3%B3n)
-    - [Versiones 2.x](#versiones-2x)
-        - [Actualización simple](#actualizaci%C3%B3n-simple)
-        - [Actualización avanzada](#actualizaci%C3%B3n-avanzada)
-    - [Versiones 1.x a 2.x](#versiones-1x-a-2x)
+  - [Versiones 2.x](#versiones-2x)
+    - [Actualización simple](#actualizaci%C3%B3n-simple)
+    - [Actualización avanzada](#actualizaci%C3%B3n-avanzada)
+  - [Versiones 1.x a 2.x](#versiones-1x-a-2x)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
