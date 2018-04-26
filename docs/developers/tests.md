@@ -5,6 +5,9 @@
 
 
 - [Tests de Ckan](#tests-de-ckan)
+- [Probar la instalación con SSL en Vagrant (Instalando nginx)](#probar-la-instalaci%C3%B3n-con-ssl-en-vagrant-instalando-nginx)
+  - [Instalación de andino](#instalaci%C3%B3n-de-andino)
+  - [Instalar y configurar nginx](#instalar-y-configurar-nginx)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
