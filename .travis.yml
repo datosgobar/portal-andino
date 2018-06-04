@@ -37,13 +37,13 @@ script:
 deploy:
 - provider: script
   skip_cleanup: true
-  script: "scripts/run_deploy.sh $TRAVIS_TAG 'datosgobar-stg;andino-stg'"
+  script: "scripts/run_deploy.sh $TRAVIS_TAG 'andino-stg;datosgobar-stg'"
   on:
     tags: true
     condition: "$TRAVIS_TAG =~ ^release-.*"
 - provider: script
   skip_cleanup: true
-  script: "scripts/run_deploy.sh latest 'datosgobar-dev;andino-dev'"
+  script: "scripts/run_deploy.sh latest 'andino-dev;datosgobar-dev'"
   on:
     branch: master
 
