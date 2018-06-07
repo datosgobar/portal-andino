@@ -32,7 +32,7 @@ Esta clase de instalación no requiere que clones el repositorio, ya que usamos 
 + Ubuntu|Debian|RHEL|CentOS:
 + Instalación:
 
-Para la instalación usamos un script de python llamado `install.py`.
+Para la instalación usamos un script de python llamado [`install.py`](https://github.com/datosgobar/portal-andino/blob/master/install/install.py).
 El mismo requiere algunos parametros y otros son opcionales:
 
 ```bash

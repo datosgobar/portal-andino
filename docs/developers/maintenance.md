@@ -3,31 +3,32 @@
 
 
 - [Mantenimiento](#mantenimiento)
-  - [Exploración de la instancia de andino](#exploraci%C3%B3n-de-la-instancia-de-andino)
-    - [¿Qué está corriendo docker?](#%C2%BFqu%C3%A9-est%C3%A1-corriendo-docker)
-    - [Ingresar al contendor pricipal de andino](#ingresar-al-contendor-pricipal-de-andino)
-    - [Listar todas las `Propiedades` de cada contenedor](#listar-todas-las-propiedades-de-cada-contenedor)
-  - [Administración de usuarios](#administraci%C3%B3n-de-usuarios)
-    - [Crear un usuario ADMIN](#crear-un-usuario-admin)
-    - [Listar mis usuarios](#listar-mis-usuarios)
-    - [Ver los datos de un usuario](#ver-los-datos-de-un-usuario)
-    - [Crear un nuevo usuario](#crear-un-nuevo-usuario)
-    - [Crear un nuevo usuario extendido](#crear-un-nuevo-usuario-extendido)
-    - [Eliminar un usuario](#eliminar-un-usuario)
-    - [Cambiar password de un usuario](#cambiar-password-de-un-usuario)
-  - [Configuraciones de andino](#configuraciones-de-andino)
-    - [Cambiar la configuración del SMTP](#cambiar-la-configuraci%C3%B3n-del-smtp)
-    - [Cambiar el remitente de los correos electrónicos que envía Andino](#cambiar-el-remitente-de-los-correos-electr%C3%B3nicos-que-env%C3%ADa-andino)
-  - [Acceso a los datos de andino](#acceso-a-los-datos-de-andino)
-    - [Encontrar los volúmenes de mi andino dentro del filesystem del host](#encontrar-los-vol%C3%BAmenes-de-mi-andino-dentro-del-filesystem-del-host)
-    - [Ver las direcciones IP de mis contenedores](#ver-las-direcciones-ip-de-mis-contenedores)
-    - [Ver las variables de entorno que tienen mis contenedores](#ver-las-variables-de-entorno-que-tienen-mis-contenedores)
-    - [Acceder con un cliente de PostgreSQL a las bases de datos](#acceder-con-un-cliente-de-postgresql-a-las-bases-de-datos)
-  - [Eliminar objetos definitivamente](#eliminar-objetos-definitivamente)
-    - [Purgar Organizaciones Borradas](#purgar-organizaciones-borradas)
-    - [Purgar Grupos Borrados](#purgar-grupos-borrados)
-    - [Purgar Datasets Borrados](#purgar-datasets-borrados)
-    - [Listar nombres de los datasets contenidos en Andino](#listar-nombres-de-los-datasets-contenidos-en-andino)
+    - [Exploración de la instancia de andino](#exploracion-de-la-instancia-de-andino)
+        - [¿Qué está corriendo docker?](#que-esta-corriendo-docker)
+        - [Ingresar al contendor pricipal de andino](#ingresar-al-contendor-pricipal-de-andino)
+        - [Listar todas las `Propiedades` de cada contenedor](#listar-todas-las-propiedades-de-cada-contenedor)
+    - [Administración de usuarios](#administracion-de-usuarios)
+        - [Crear un usuario ADMIN](#crear-un-usuario-admin)
+        - [Listar mis usuarios](#listar-mis-usuarios)
+        - [Ver los datos de un usuario](#ver-los-datos-de-un-usuario)
+        - [Crear un nuevo usuario](#crear-un-nuevo-usuario)
+        - [Crear un nuevo usuario extendido](#crear-un-nuevo-usuario-extendido)
+        - [Eliminar un usuario](#eliminar-un-usuario)
+        - [Cambiar password de un usuario](#cambiar-password-de-un-usuario)
+    - [Configuraciones de andino](#configuraciones-de-andino)
+        - [Cambiar la configuración del SMTP](#cambiar-la-configuracion-del-smtp)
+        - [Cambiar el remitente de los correos electrónicos que envía Andino](#cambiar-el-remitente-de-los-correos-electronicos-que-envia-andino)
+        - [Deshabilitar la URL `/catalog.xlsx`](#deshabilitar-la-url--catalogxlsx)
+    - [Acceso a los datos de andino](#acceso-a-los-datos-de-andino)
+        - [Encontrar los volúmenes de mi andino dentro del filesystem del host](#encontrar-los-volumenes-de-mi-andino-dentro-del-filesystem-del-host)
+        - [Ver las direcciones IP de mis contenedores](#ver-las-direcciones-ip-de-mis-contenedores)
+        - [Ver las variables de entorno que tienen mis contenedores](#ver-las-variables-de-entorno-que-tienen-mis-contenedores)
+        - [Acceder con un cliente de PostgreSQL a las bases de datos](#acceder-con-un-cliente-de-postgresql-a-las-bases-de-datos)
+    - [Eliminar objetos definitivamente](#eliminar-objetos-definitivamente)
+        - [Purgar Organizaciones Borradas](#purgar-organizaciones-borradas)
+        - [Purgar Grupos Borrados](#purgar-grupos-borrados)
+        - [Purgar Datasets Borrados](#purgar-datasets-borrados)
+        - [Listar nombres de los datasets contenidos en Andino](#listar-nombres-de-los-datasets-contenidos-en-andino)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -155,6 +156,14 @@ de @gmail.com**, y que **starttls debe estar en True**.
 ### Cambiar el remitente de los correos electrónicos que envía Andino
 
 Para modificar el remitente de los correos electrónicos que el sistema envía (por ejemplo los de creación de usuarios nuevos o los de olvido de contraseña) se deben seguir los pasos de la sección [Cambiar la configuración del SMTP](#cambiar-la-configuracion-del-smtp) pero modificando el atributo de configuración `smtp.mail_from`.
+
+### Deshabilitar la URL `/catalog.xlsx`
+
+En caso de desear deshabilitar la URL `/catalog.xlsx` puede ejecutar el siguiente comando:
+
+    docker-compose -f latest.yml exec portal /etc/ckan_init.d/update_conf.sh "andino.disable_catalog_xlsx_url=True";
+
+En caso de querer restaurarlo, debe configurar el atributo `andino.disable_catalog_xlsx_url` al valor `False`.
 
 ## Acceso a los datos de andino
 

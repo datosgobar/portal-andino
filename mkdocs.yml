@@ -8,6 +8,8 @@ pages:
     - Actualización: 'developers/update.md'
     - Migracion: 'developers/migration.md'
     - Mantenimiento: 'developers/maintenance.md'
+    - Configuración HTTPS: 'developers/https.md'
+    - Configuración de DNS: 'developers/dns.md'
     - Generación de imágenes Docker: 'developers/docker.md'
     - Tests: 'developers/tests.md'
 
