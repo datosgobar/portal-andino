@@ -3,9 +3,9 @@
 + Description: Version de CKAN distribuible en docker. 
 + Features:
 	+ CKAN
-		+ version: 2.5.2
+		+ version: 2.7.4
 		+ github: https://github.com/ckan/ckan
-		+ documentation: http://docs.ckan.org/en/ckan-2.5.2
+		+ documentation: http://docs.ckan.org/en/ckan-2.7.4
 
 	+ Datastore
 		+ version: latest

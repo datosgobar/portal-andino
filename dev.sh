@@ -23,7 +23,7 @@ sub_compose() {
 }
 
 sub_stop(){
-    sub_compose stop
+    sub_compose stop $@;
 }
 
 sub_down(){

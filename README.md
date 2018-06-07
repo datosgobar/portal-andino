@@ -19,7 +19,7 @@ También podés [ver el repositorio del tema visual](https://github.com/datosgob
 
 ## Qué contiene el paquete de Andino
 
-+ [CKAN 2.5.2](http://docs.ckan.org/en/ckan-2.5.2/)
++ [CKAN 2.7.4](http://docs.ckan.org/en/ckan-2.7.4/)
 + [Datastore](http://docs.ckan.org/en/latest/maintaining/datastore.html)
 + [FileStore](http://docs.ckan.org/en/latest/maintaining/filestore.html)
 + [Datapusher](https://github.com/ckan/datapusher)
