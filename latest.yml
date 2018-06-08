@@ -42,7 +42,7 @@ services:
         - portal-network
     solr:
       container_name: andino-solr
-      image: datosgobar/portal-base-solr:release-0.6
+      image: datosgobar/portal-base-solr:release-0.8.25
       restart: always
       networks:
         - portal-network
