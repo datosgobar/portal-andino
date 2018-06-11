@@ -45,7 +45,7 @@ Suponiendo que instalamos la aplicacion en `/home/user/app/`, debemos correr los
 
 #### Error de sqlalchemy por package.metadata_created
 
-Al ejecutar la actualización a la versión de andino 2.5, se produce el siguiente error:
+Al ejecutar la actualización a la versión de andino 2.5 estando en andino 2.4 o con CKAN 2.5.8, se produce el siguiente error:
 `sqlalchemy.exc.ProgrammingError: (ProgrammingError) column package.metadata_created does not exist`
 
 Es un problema conocido, para el cual existe un issue en el repositorio de CKAN: https://github.com/ckan/ckan/issues/4168
