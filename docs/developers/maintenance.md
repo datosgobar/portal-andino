@@ -157,6 +157,27 @@ de @gmail.com**, y que **starttls debe estar en True**.
 
 Para modificar el remitente de los correos electrónicos que el sistema envía (por ejemplo los de creación de usuarios nuevos o los de olvido de contraseña) se deben seguir los pasos de la sección [Cambiar la configuración del SMTP](#cambiar-la-configuracion-del-smtp) pero modificando el atributo de configuración `smtp.mail_from`.
 
+### Cambiar el id del container de Google Tag Manager
+
+Vamos a modificar la configuración en el archivo `production.ini`. Para eso, tendremos que ingresar al contenedor y buscar el archivo de una forma parecida al primer método que vimos para cambiar la configuración del SMTP:
+
+```bash
+cd /etc/portal
+docker-compose -f latest.yml exec portal /bin/bash
+vim /etc/ckan/default/production.ini
+
+# Una vez adentro, editamos el archivo production.ini
+# Esta vez, buscaremos la configuración debajo de la sección [app:main] (vas a encontrar campos como "superThemeTaxonomy" y "ckan.site.title")
+# El campo que estamos buscando es "ckan.google_tag_manager.gtm_container_id"
+
+# Una vez editado el archivo, salimos del contenedor lo reiniciamos
+docker-compose -f latest.yml restart portal nginx
+```
+
+En caso de no encontrar el campo mencionado, lo podemos agregar:
+
+`ckan.google_tag_manager.gtm_container_id = { id que necesitás guardar }`
+
 ### Deshabilitar la URL `/catalog.xlsx`
 
 En caso de desear deshabilitar la URL `/catalog.xlsx` puede ejecutar el siguiente comando:
