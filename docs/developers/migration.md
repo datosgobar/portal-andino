@@ -25,7 +25,7 @@ En el presente documento se pretende explicar como llevar a cabo una migracion d
 
 Se requiere tener instalado:
 
-- [jq](https://stedolan.github.io/jq/) >= 1.5
+- [jq](https://stedolan.github.io/jq/download/) >= 1.5
 - docker
 - docker-compose
 
@@ -38,19 +38,23 @@ Se asume que en el servidor hay 3 containers de docker corriendo:
 
 Ademas se debe conocer los `usuarios` y `passwords` de la base de datos (tanto de la usada por `ckan` como por el `datastore`).
 
-## Script
+## Script de migración automático.
 
-El script lo pueden encontrar en `deploy/migrate.sh` en el repositorio.
-El mismo espera ciertas variables de entorno y tener instalado `docker` y `docker-compose`. Debe ser ejecutado con `sudo`.
+El repositorio cuenta con un script para correr la migración automáticamente.
+El mismo se puede encontrar en [`deploy/migrate.sh`](https://github.com/datosgobar/portal-andino/blob/master/deploy/migrate.sh), dentro del repositorio.
+Ciertas variables de entorno y tener instalado `docker` y `docker-compose`.
+Debe ser ejecutado con `sudo` o `root`.
 
 Ejemplo:
 
-    sudo env EMAIL=admin@example.com HOST=andino.midomionio.com.ar DB_USER=usuario DB_PASS=password STORE_USER=dsuser STORE_PASS=dspass ./migrate.sh
+    sudo env EMAIL=admin@example.com HOST=andino.midomionio.com.ar \
+            DB_USER=usuario DB_PASS=password \
+            STORE_USER=dsuser STORE_PASS=dspass ./migrate.sh
 
 
-## 1) Backups
+## Migración manual
 
-### 1.1) Base de datos
+### 1.1) Backup de la Base de datos
 
 Es necesario hacer un backup de la base de datos antes de empezar con la migración. La misma puede llevarse a cabo con el siguiente script:
 
@@ -71,7 +75,7 @@ cp "$backupfile" $PWD
 
 Este script dejara un archivo `backup.gz` en el directorio actual.
 
-### 1.2) Archivos de la aplicacion
+### 1.2) Backup de los archivos de la aplicacion
 
 Es necesario hacer un backup de los archivos de la aplicacion: configuracion y archivos subidos. El mismo puede llevarse a cabo con el siguiente script:
 
@@ -122,8 +126,6 @@ Este script dejara un archivo backup.tar.gz en el directorio actual. El mismo, u
 
 Cada sub-directorio contiene el ID del volumen en docker usado, los numero varian de volumen en volumen. Dentro de cada sub-directorio se encuentra un archivo *.tar.gz junto con un archivo destination.txt. El archivo destination.txt indica donde corresponde la informacion dentro del container, el archivo *.tar.gz contiene una carpeta _data con los archivos.
 
-## 2) Instalación
-
 ### 2.1) Detener la aplicación
 
 Debemos detener la aplicacion para lograr que se liberen los puertos usados, por ejemplo el puerto 80.
@@ -135,8 +137,6 @@ docker stop solr-ckan pg-ckan app-ckan
 Ver la documentación [Aquí](install.md)
 
 **Nota:** Actualizar la version de docker y docker-compose de ser necesario.
-
-## 3) Restores
 
 Ahora es necesario restaurar tanto la base de datos como los archivos de la aplicacion.
 
