@@ -41,7 +41,7 @@ Ademas se debe conocer los `usuarios` y `passwords` de la base de datos (tanto d
 ## Script de migración automático.
 
 El repositorio cuenta con un script para correr la migración automáticamente.
-El mismo se puede encontrar en [`deploy/migrate.sh`](https://github.com/datosgobar/portal-andino/blob/master/deploy/migrate.sh), dentro del repositorio.
+El mismo se puede encontrar en [`install/migrate.sh`](https://github.com/datosgobar/portal-andino/blob/master/install/migrate.sh), dentro del repositorio.
 Ciertas variables de entorno y tener instalado `docker` y `docker-compose`.
 Debe ser ejecutado con `sudo` o `root`.
 
