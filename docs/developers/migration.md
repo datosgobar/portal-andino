@@ -179,8 +179,6 @@ El restore puede ser llevado a cabo con el siguiente script:
 ```bash
 # Defino algunas variables
 container="andino"
-containers=$(docker ps -q)
-docker stop $containers
 
 restoredir=$(mktemp -d)
 
@@ -196,9 +194,9 @@ while IFS=$'\t' read -r name source destination; do
         fi
     done
 done
-
-# Reinicio los servicios."
-docker restart $containers
+cd /etc/portal;
+docker-compose -f latest.yml restart;
+cd -;
 ```
 
 
@@ -211,37 +209,32 @@ Para restaurar la base de datos se puede usar el siguiente script contra el arch
 set -e;
 
 #Defino algunas variables
-export PGDATABASE="ckan"
 container="andino-db"
-containers=$(docker ps -q)
-docker stop $containers
-docker restart $container
+docker restart $container;
+sleep 10;
 
 restoredir=$(mktemp -d)
 
-restorefile="$restoredir/dump.sql"
-#Descomprimo el dump de la base de datos
-gzip -dkc < backup.gz > "$restorefile"
-# Borro la base de datos actual
-docker exec -i $container psql -U postgres -c "DROP DATABASE IF EXISTS $PGDATABASE;"
-docker exec -i $container psql -U postgres -c "DROP DATABASE IF EXISTS datastore_default;"
+restorefile="$restoredir/dump.sql";
+gzip -dkc < $database_backup > "$restorefile";
+
+# Borro la base de datos
+docker exec $container psql -U postgres -c "DROP DATABASE IF EXISTS ckan;"
+docker exec $container psql -U postgres -c "DROP DATABASE IF EXISTS datastore_default;"
 # Restaura la base de datos
+
 cat "$restorefile" | docker exec -i $container psql -U postgres
 
-docker restart $containers
+# Configuramos los usuarios y passwords de la base de datos
+# Las credenciasles deben ser las mismas que se usaron con ansible en el paso 3
+
+docker exec  $container psql -U postgres -c "ALTER USER $DB_USER WITH PASSWORD '$DB_PASS';"
+docker exec  $container psql -U postgres -c "ALTER USER $STORE_USER WITH PASSWORD '$STORE_PASS';"
+
+cd /etc/portal;
+docker-compose -f latest.yml restart;
+cd -;
 ```
-
-Luego debemos volver a configurar los usuarios y passwords de la base de datos:
-
-**NOTA:** Las credenciasles deben ser las mismas que se usanron con ansible en el paso 3
-
-
-    DB_USER=<usuario>
-    DB_PASS=<password>
-    DATASTORE_USER=<usuario del datasotre>
-    DATASTORE_PASS=<pass del datastore>
-    docker exec andino-db psql -U postgres -c "ALTER USER $DB_USER WITH PASSWORD '$DB_PASS';"
-    docker exec andino-db psql -U postgres -c "ALTER USER $DATASTORE_USER WITH PASSWORD '$DATASTORE_PASS';"
 
 
 ### 3.3) Regenerar el índice de búsquedas
