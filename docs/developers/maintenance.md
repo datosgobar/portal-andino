@@ -19,6 +19,7 @@
         - [Cambiar la configuración del SMTP](#cambiar-la-configuracion-del-smtp)
         - [Cambiar el remitente de los correos electrónicos que envía Andino](#cambiar-el-remitente-de-los-correos-electronicos-que-envia-andino)
         - [Deshabilitar la URL `/catalog.xlsx`](#deshabilitar-la-url--catalogxlsx)
+        - [Google Tag Manager](#google-tag-manager)
     - [Acceso a los datos de andino](#acceso-a-los-datos-de-andino)
         - [Encontrar los volúmenes de mi andino dentro del filesystem del host](#encontrar-los-volumenes-de-mi-andino-dentro-del-filesystem-del-host)
         - [Ver las direcciones IP de mis contenedores](#ver-las-direcciones-ip-de-mis-contenedores)
@@ -164,6 +165,16 @@ En caso de desear deshabilitar la URL `/catalog.xlsx` puede ejecutar el siguient
     docker-compose -f latest.yml exec portal /etc/ckan_init.d/update_conf.sh "andino.disable_catalog_xlsx_url=True";
 
 En caso de querer restaurarlo, debe configurar el atributo `andino.disable_catalog_xlsx_url` al valor `False`.
+
+### Google Tag Manager
+
+Para configurar el código se seguimiento de Google Tag Manager ejecutar el siguiente comando:
+
+    docker-compose -f latest.yml exec portal /etc/ckan_init.d/update_conf.sh "ckan.google_tag_manager.gtm_container_id=<tu código de seguimiento GTM>";
+
+    # Finalmente reiniciamos el contenedor
+    docker-compose -f latest.yml restart portal nginx
+
 
 ## Acceso a los datos de andino
 
