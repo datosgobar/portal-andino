@@ -230,24 +230,26 @@ def post_update_commands(compose_path):
          "sed", "-i", "s/^ckan\.plugins.*/ckan.plugins = stats/",
          "/etc/ckan/default/production.ini"]
     )
-    subprocess.check_call([
-        "docker-compose",
-        "-f",
-        compose_path,
-        "exec",
-        "-T",
-        "portal",
-        UPGRADE_DB_COMMAND,
-    ])
-    subprocess.check_call(
-        ["docker-compose",
-         "-f",
-         compose_path,
-         "exec",
-         "-T",
-         "portal",
-         "sed", "-i", "s/^ckan\.plugins.*/%s/" % all_plugins, "/etc/ckan/default/production.ini"]
-    )
+    try:
+        subprocess.check_call([
+            "docker-compose",
+            "-f",
+            compose_path,
+            "exec",
+            "-T",
+            "portal",
+            UPGRADE_DB_COMMAND,
+        ])
+    finally:
+        subprocess.check_call(
+            ["docker-compose",
+             "-f",
+             compose_path,
+             "exec",
+             "-T",
+             "portal",
+             "sed", "-i", "s/^ckan\.plugins.*/%s/" % all_plugins, "/etc/ckan/default/production.ini"]
+        )
     subprocess.check_call([
         "docker-compose",
         "-f",
