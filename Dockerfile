@@ -7,7 +7,7 @@ ENV CKAN_DIST_MEDIA /usr/lib/ckan/default/src/ckanext-gobar-theme/ckanext/gobar_
 ENV CKAN_DEFAULT /etc/ckan/default
 
 WORKDIR /portal
-RUN $CKAN_HOME/bin/pip install -e git+https://github.com/datosgobar/portal-andino-theme.git@750207810a846c71a325f83d8d68e4da4f5caeb4#egg=ckanext-gobar_theme
+RUN $CKAN_HOME/bin/pip install -e git+https://github.com/datosgobar/portal-andino-theme.git@f193f4d21b6de0830ba14aecc2d185ebac3ec1df#egg=ckanext-gobar_theme
 RUN sudo apt-get update
 RUN sudo apt-get install supervisor
 RUN sudo cp /usr/lib/ckan/default/src/ckan/ckan/config/supervisor-ckan-worker.conf /etc/supervisor/conf.d
