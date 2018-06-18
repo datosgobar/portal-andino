@@ -47,12 +47,26 @@ Debe ser ejecutado con `sudo` o `root`.
 
 Ejemplo:
 
-    sudo env EMAIL=admin@example.com HOST=andino.midomionio.com.ar \
-            DB_USER=usuario DB_PASS=password \
-            STORE_USER=dsuser STORE_PASS=dspass ./migrate.sh
+    export EMAIL=admin@example.com
+    export HOST=andino.midomionio.com.ar
+    export DB_USER=usuario
+    export DB_PASS=password
+    export STORE_USER=dsuser
+    export STORE_PASS=dspass
+    sudo -E ./migrate.sh
 
 
 ## Migración manual
+
+Para realizar la migracion manual, debemos conocer las variables con las que se inicializo el portal.
+En este caso, seran las siguientes:
+
+    export EMAIL=admin@example.com
+    export HOST=andino.midomionio.com.ar
+    export DB_USER=usuario
+    export DB_PASS=password
+    export STORE_USER=dsuser
+    export STORE_PASS=dspass
 
 ### 1.1) Backup de la Base de datos
 
@@ -62,15 +76,21 @@ Es necesario hacer un backup de la base de datos antes de empezar con la migraci
 #!/usr/bin/env bash
 set -e;
 
-# Defino algunas variables
-container="pg-ckan"
-backupdir=$(mktemp -d)
-backupfile="$backupdir/backup.gz"
+old_db="pg-ckan"
+database_backup="backup.gz"
 
-# Genero el backup
-docker exec $container pg_dumpall -c -U postgres | gzip > "$backupfile"
-# Lo copiando al directorio actual
+echo "Creando backup de la base de datos."
+
+backupdir=$(mktemp -d)
+
+backupfile="$backupdir/$database_backup"
+echo "Iniciando backup de $old_db"
+echo "Usando directorio temporal: $backupdir"
+docker exec $old_db pg_dumpall -c -U postgres | gzip > "$backupfile"
+echo "Copiando backup a $PWD"
+
 cp "$backupfile" $PWD
+echo "Backup listo."
 ```
 
 Este script dejara un archivo `backup.gz` en el directorio actual.
@@ -84,33 +104,37 @@ Es necesario hacer un backup de los archivos de la aplicacion: configuracion y a
 ```bash
 #!/usr/bin/env bash
 set -e;
-# Defino algunas variables
-container="app-ckan" # Si el container de la aplicacion ckan tiene otro nombre, reemplazarlo
+
+old_andino="app-ckan"
+app_backup="backup.tar.gz"
+
+echo "Creando backup de los archivos de configuración."
 backupdir=$(mktemp -d)
 today=`date +%Y-%m-%d.%H:%M:%S`
 appbackupdir="$backupdir/application/"
 mkdir $appbackupdir
-
-# Por cada volumen, genero un archivo backup_*.tar.gz con la fecha en el nombre.
-docker inspect --format '{{json .Mounts}}' $container  | jq -r '.[]|[.Name, .Source, .Destination] | @tsv' |
+echo "Iniciando backup de los volumenes en $old_andino"
+echo "Usando directorio temporal: $backupdir"
+docker inspect --format '{{json .Mounts}}' $old_andino  | jq -r '.[]|[.Name, .Source, .Destination] | @tsv' |
 while IFS=$'\t' read -r name source destination; do
-
+    echo "Guardando archivos de $destination"
     if ls $source/* 1> /dev/null 2>&1; then
-        echo "Backing up $name."
-        echo "Source: $source"
-        echo "Destination: $destination"
+        echo "Nombre del volumen: $name."
+        echo "Directorio en el Host: $source"
+        echo "Destino: $destination"
         dest="$appbackupdir$name"
         mkdir -p $dest
         echo "$destination" > "$dest/destination.txt"
 
         tar -C "$source" -zcvf "$dest/backup_$today.tar.gz" $(ls $source)
+        echo "List backup de $destination"
     else
-        echo "No file at $source"
+        echo "Ningún archivo para $destination";
     fi
 done
-
-#Junto todos los archivos en uno solo backup.tar.gz
-tar -C "$appbackupdir../" -zcvf backup.tar.gz "application/"
+echo "Generando backup en $app_backup"
+tar -C "$appbackupdir../" -zcvf $app_backup "application/"
+echo "Backup listo."
 ```
 
 Este script dejara un archivo backup.tar.gz en el directorio actual. El mismo, una vez descomprimido, contendra la siguiente estructura (por ejemplo):
@@ -177,24 +201,38 @@ Como podemos ver, hay una entrada "Destination" que coincidira con el contenido 
 El restore puede ser llevado a cabo con el siguiente script:
 
 ```bash
-# Defino algunas variables
+#!/usr/bin/env bash
+set -e;
+
+echo "Iniciando recuperación de Archivos."
+install_dir="/etc/portal";
 container="andino"
+app_backup="backup.tar.gz"
+
+containers=$(docker ps -q)
+if [ -z "$containers" ]; then
+    echo "No se encontró ningun contenedor corriendo."
+else
+    docker stop $containers
+fi
 
 restoredir=$(mktemp -d)
+echo "Usando directorio temporal $restoredir"
+tar zxvf $app_backup -C $restoredir
 
-tar zxvf backup.tar.gz -C $restoredir
-# Por cada volumen, busco su correspondiente backup
 docker inspect --format '{{json .Mounts}}' $container  | jq -r '.[]|[.Name, .Source, .Destination] | @tsv' |
 while IFS=$'\t' read -r name source destination; do
     for directory in $restoredir/application/*; do
         dest=$(cat "$directory/destination.txt")
         if [ "$dest" == "$destination" ]; then
-            info "Recuperando archivos para $destination"
+            echo "Recuperando archivos para $destination"
             tar zxvf "$directory/$(ls "$directory" | grep backup)" -C "$source"
         fi
     done
 done
-cd /etc/portal;
+echo "Restauración lista."
+echo "Reiniciando servicios."
+cd $install_dir;
 docker-compose -f latest.yml restart;
 cd -;
 ```
@@ -208,30 +246,39 @@ Para restaurar la base de datos se puede usar el siguiente script contra el arch
 #!/usr/bin/env bash
 set -e;
 
-#Defino algunas variables
+install_dir="/etc/portal";
+database_backup="backup.gz"
 container="andino-db"
-docker restart $container;
+
+echo "Iniciando restauración de la base de datos."
+containers=$(docker ps -q)
+
+if [ -z "$containers" ]; then
+    echo "No se encontró ningun contenedor corriendo."
+else
+    docker stop $containers
+fi
+docker restart $container
 sleep 10;
 
-restoredir=$(mktemp -d)
+restoredir=$(mktemp -d);
+echo "Usando directorio temporal $restoredir"
 
 restorefile="$restoredir/dump.sql";
-gzip -dkc < $database_backup > "$restorefile";
 
-# Borro la base de datos
+gzip -dkc < $database_backup > "$restorefile";
+echo "Borrando base de datos actual."
 docker exec $container psql -U postgres -c "DROP DATABASE IF EXISTS ckan;"
 docker exec $container psql -U postgres -c "DROP DATABASE IF EXISTS datastore_default;"
-# Restaura la base de datos
-
+echo "Restaurando la base de datos desde: $restorefile"
 cat "$restorefile" | docker exec -i $container psql -U postgres
-
-# Configuramos los usuarios y passwords de la base de datos
-# Las credenciasles deben ser las mismas que se usaron con ansible en el paso 3
-
+echo "Recuperando credenciales de los usuarios"
 docker exec  $container psql -U postgres -c "ALTER USER $DB_USER WITH PASSWORD '$DB_PASS';"
 docker exec  $container psql -U postgres -c "ALTER USER $STORE_USER WITH PASSWORD '$STORE_PASS';"
 
-cd /etc/portal;
+echo "Restauración lista."
+echo "Reiniciando servicios."
+cd $install_dir;
 docker-compose -f latest.yml restart;
 cd -;
 ```
