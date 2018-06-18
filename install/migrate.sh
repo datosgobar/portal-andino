@@ -4,7 +4,7 @@ set -e;
 
 old_andino="app-ckan"
 old_db="pg-ckan"
-install_dir="/etc/portal"
+
 database_backup="backup.gz"
 app_backup="backup.tar.gz"
 
@@ -79,9 +79,9 @@ function install_andino {
 
 function restore_files {
     info "Iniciando recuperación de Archivos."
+    install_dir="/etc/portal";
     container="andino"
-    containers=$(docker ps -q)
-    docker stop $containers
+    stop_all_containers;
 
     restoredir=$(mktemp -d)
     info "Usando directorio temporal $restoredir"
@@ -99,14 +99,16 @@ function restore_files {
     done
     info "Restauración lista."
     info "Reiniciando servicios."
-    docker restart $containers
+    cd $install_dir;
+    docker-compose -f latest.yml restart;
+    cd -;
 }
 
 function restore_db {
     info "Iniciando restauración de la base de datos."
+    install_dir="/etc/portal";
     container="andino-db"
-    containers=$(docker ps -q)
-    docker stop $containers
+    stop_all_containers;
     docker restart $container
     sleep 10;
 
@@ -119,7 +121,7 @@ function restore_db {
     info "Borrando base de datos actual."
     docker exec $container psql -U postgres -c "DROP DATABASE IF EXISTS ckan;"
     docker exec $container psql -U postgres -c "DROP DATABASE IF EXISTS datastore_default;"
-    info "Restaurando la base de datos: $restorefile"
+    info "Restaurando la base de datos desde: $restorefile"
     cat "$restorefile" | docker exec -i $container psql -U postgres
     info "Recuperando credenciales de los usuarios"
     docker exec  $container psql -U postgres -c "ALTER USER $DB_USER WITH PASSWORD '$DB_PASS';"
@@ -127,7 +129,9 @@ function restore_db {
 
     info "Restauración lista."
     info "Reiniciando servicios."
-    docker restart $containers
+    cd $install_dir;
+    docker-compose -f latest.yml restart;
+    cd -;
 }
 
 function rebuild_search {
@@ -136,14 +140,21 @@ function rebuild_search {
     info "Listo."
 }
 
-info "Creando directorio de instalación: $install_dir"
-mkdir -p $install_dir
+function stop_all_containers() {
+    containers=$(docker ps -q)
 
-cd $install_dir
+    if [ -z "$containers" ]; then
+        echo "No se encontró ningun contenedor corriendo."
+    else
+        docker stop $containers
+    fi
+}
+
 
 backup_database;
 backup_app;
-docker stop $(docker ps -q)
+
+stop_all_containers;
 
 install_andino;
 
