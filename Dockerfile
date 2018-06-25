@@ -13,6 +13,8 @@ RUN mkdir -p $CKAN_DIST_MEDIA
 RUN chown -R www-data:www-data $CKAN_DIST_MEDIA
 RUN chmod u+rwx $CKAN_DIST_MEDIA
 RUN echo "$PORTAL_VERSION" > /portal/version
+RUN sudo apt-get update
+RUN sudo apt-get install -y supervisor
 
 RUN mkdir -p /var/lib/ckan/theme_config/templates
 RUN cp $CKAN_HOME/src/ckanext-gobar-theme/ckanext/gobar_theme/templates/seccion-acerca.html /var/lib/ckan/theme_config/templates
