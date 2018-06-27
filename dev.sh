@@ -56,7 +56,7 @@ sub_logs(){
 
 
 sub_create_admin() {
-    sub_exec /etc/ckan_init.d/add_admin.sh $@;
+    sub_exec /etc/ckan_init.d/add_admin.sh $@ info@example.com;
 }
 
 sub_setup(){

@@ -62,7 +62,9 @@ El contenedor principal de andino, donde se ejecuta la aplicación CKAN, es deno
 
 ### Crear un usuario ADMIN
 
-    docker-compose -f /etc/portal/latest.yml exec portal /etc/ckan_init.d/add_admin.sh mi_nuevo_usuario_admin
+    docker-compose -f /etc/portal/latest.yml exec portal /etc/ckan_init.d/add_admin.sh mi_nuevo_usuario_admin email_del_usuario_admin
+
+El comando solicitará la contraseña del usuario administrador.
 
 
 ### Listar mis usuarios
