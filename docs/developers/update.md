@@ -6,6 +6,7 @@
   - [Versiones 2.x](#versiones-2x)
     - [Actualización simple](#actualizaci%C3%B3n-simple)
     - [Actualización avanzada](#actualizaci%C3%B3n-avanzada)
+    - [Problemas comunes](#problemas-comunes)
   - [Versiones 1.x a 2.x](#versiones-1x-a-2x)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -39,6 +40,43 @@ Suponiendo que instalamos la aplicacion en `/home/user/app/`, debemos correr los
 
     wget https://raw.github.com/datosgobar/portal-andino/master/install/update.py
     sudo python update.py --install_directory="/home/user/app/"
+
+### Problemas comunes
+
+#### Error de sqlalchemy por package.metadata_created
+
+Al ejecutar la actualización a la versión de andino 2.5 estando en andino 2.4 o con CKAN 2.5.8, se produce el siguiente error:
+`sqlalchemy.exc.ProgrammingError: (ProgrammingError) column package.metadata_created does not exist`
+
+Es un problema conocido, para el cual existe un issue en el repositorio de CKAN: https://github.com/ckan/ckan/issues/4168
+
+Para poder solucionarlo, se debe correr el siguiente script:
+
+```bash
+docker-compose -f latest.yml exec -u postgres db psql -c "
+do \$$
+begin
+ IF NOT EXISTS(SELECT * FROM information_schema.columns WHERE table_name='package' AND column_name='metadata_created') OR
+     NOT EXISTS(SELECT * FROM information_schema.columns WHERE table_name='package_revision' AND column_name='metadata_created') THEN
+
+        IF NOT EXISTS(SELECT * FROM information_schema.columns WHERE table_name='package_revision' AND column_name='metadata_created') THEN
+            ALTER TABLE package_revision ADD COLUMN metadata_created timestamp without time zone;
+        END IF;
+
+        IF NOT EXISTS(SELECT * FROM information_schema.columns WHERE table_name='package' AND column_name='metadata_created') THEN
+            ALTER TABLE package ADD COLUMN metadata_created timestamp without time zone;
+        END IF;
+
+        UPDATE package SET metadata_created=
+            (SELECT revision_timestamp
+             FROM package_revision
+             WHERE id=package.id
+             ORDER BY revision_timestamp ASC
+             LIMIT 1);
+    END IF;
+end \$$
+" ckan
+```
 
 ## Versiones 1.x a 2.x
 
