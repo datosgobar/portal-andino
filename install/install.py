@@ -139,6 +139,18 @@ def configure_application(compose_path, cfg):
     ])
 
 
+def restart_post_configuration_services(compose_path):
+    subprocess.check_call([
+        "docker-compose",
+        "-f",
+        compose_path,
+        "exec",
+        "-T",
+        "portal",
+        "supervisorctl restart all",
+    ])
+
+
 def install_andino(cfg, compose_file_url, stable_version_url):
     # Check
     directory = cfg.install_directory
@@ -157,16 +169,18 @@ def install_andino(cfg, compose_file_url, stable_version_url):
     logger.info("Escribiendo archivo de configuración del ambiente (.env) ...")
     configure_env_file(directory, cfg)
     with ComposeContext(directory):
-        logger.info("Obteniendo imagenes de Docker")
+        logger.info("Obteniendo imágenes de Docker...")
         pull_application(compose_file_path)
         # Configure
-        logger.info("Iniciando la aplicación")
+        logger.info("Iniciando la aplicación...")
         init_application(compose_file_path)
-        logger.info("Espetando a que la base de datos este disponible...")
+        logger.info("Esperando a que la base de datos este disponible...")
         time.sleep(10)
         logger.info("Configurando...")
         configure_application(compose_file_path, cfg)
-        logger.info("Listo.")
+        logger.info("Reiniciando servicios...")
+        restart_post_configuration_services(compose_file_path)
+        logger.info("Instalación finalizada.")
 
 
 def parse_args():
