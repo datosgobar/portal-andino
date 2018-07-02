@@ -124,7 +124,7 @@ siguiente mensajes (podemos salir del contenedor usando `Ctrl+c`):
 Para probar esto directamente en el contenedor de `portl-andino`, debemos
 **generar una nueva imagen del contenedor en base a la imagen del portal base**.
 Para esto, en el archivo `Dockerfile` del portal, cambiamor el `FROM`, utilizando la
-imagen que acabamos de crear:
+imagen temporal que acabamos de crear:
 
 ```
 FROM datosgobar/portal-base:test
@@ -157,7 +157,13 @@ cd portal-andino/
 ./dev.sh console
 
 # Una vez en el contenedor
-supervisord -n
+supervisorctl
 ```
 
-En este momento deberiamos ver como se inicializa supervisor. Para salir, usamos  `Ctrl + C`.
+En este momento deberiamos ver el estdo de supervisor. Para salir, usamos  `Ctrl + C`.
+
+Si comprovamos que el nuevo requerimiento esta instalado y configurado, volvemos el `Dockerfile`
+a su estado anterior (deshaciendo el cambio en el `FROM`).
+Luego debemos sacar una nueva imagen del **portal-base** y finalmente una nueva de **portal-andino**
+que se base en la anterior.
+
