@@ -4,11 +4,13 @@
 
 Si necesitamos instalar y configurar un nuevo requerimiento para andino, lo recomendable es instalarlo
 en la imagen de datosgobar/portal-base. Esto permitira mantener el build de datosgobar/portal-andino
-mas pequeño.
+mas pequeño y rapido.
 
 Para ejemplificar esto, supondremos que queremos levantar los workers de RQ usando supervisor.
 Esta implementación, presente en [ckan 2.7](http://docs.ckan.org/en/2.7/maintaining/background-tasks.html#background-job-queues),
 require levantar [supervisor](http://supervisord.org/) con una [configuración especial](https://github.com/ckan/ckan/blob/2.7/ckan/config/supervisor-ckan-worker.conf) para levantar los workers.
+
+### Instalar nuevo requerimiento
 
 Para instalar `supervisor` en el portal base, podemos hacer uso de la tarea de `ansible` encargada de instalar los
 requerimientos para la aplicación. A la fecha, este código se encuentra en [`dependencies.yml`](https://github.com/datosgobar/portal-base/blob/c2dfe6613af1b56ae07e6e1303245f6c206a7066/base_portal/roles/portal/tasks/dependencies.yml#L18)
@@ -32,6 +34,8 @@ La parte que instala los requerimientos quedaria:
 Al agregar `supervisor`, este sera instalado cuando la generacion de la imagen termine.
 Ahora solo lo siguiente seria agregar la configuracion para levantar las colas de rq, con la configuracion que trae ckan.
 
+### Configuracion
+
 El mejor punto para agrgar esta configuracion es en el archivo [`configure.yml`](https://github.com/datosgobar/portal-base/blob/c2dfe6613af1b56ae07e6e1303245f6c206a7066/base_portal/roles/portal/tasks/configure.yml).
 El mismo es utilizado _despues_ de que ckan es instalado, por lo que el archivo de configuracion ya esta presente en el sistema.
 
@@ -50,14 +54,55 @@ Al final de `configure.yml` agregamos algo como:
 
 ```
 
+### Configuracion propia
+
+Algo que podriamos desear es tener nuestra propia configuracion de supervisor, que se basa en la que nos
+provee ckan. Para esto copiamos el archivo `supervisor-ckan-worker.conf` desde dentro del contenedor y
+lo colocamos al lado de `production.ini.j2`, dentro del directorio `templates/ckan`.
+Luego cambiamos la tarea de ansible para que copie nuestro archivo:
+
+```yaml
+
+# Otras tareas
+
+- name: Copy supervisor configuration
+  copy:
+    src: ckan/supervisor-ckan-worker.conf
+    dest: /etc/supervisor/conf.d/
+
+```
+
+### Inicio automatico
+
+Para lograr que supervisor se inicie automatiamente cada vez que se levante el portal,
+debemos correr `service supervisor restart` mientras esta se levanta, en "runtime". El mejor lugar para esto
+es el script que se corre por defecto: `start_ckan.sh.j2`.
+
+En este script, agregamos los comandos que queremos *antes* de que la aplicacion sea iniciada:
+
+```
+# otros comandos ...
+
+echo "Iniciando Supervisor"
+service supervisor restart
+
+service apache2 stop
+exec {{ CKAN_INIT }}/run_andino.sh
+```
+
+
+Como este archivo
+
+### Generacion del nuevo contenedor
+
 Ahora, para probar estos cambios, generamos una nueva imagen de `datosgobar/portal-base`:
 
 ```
-local_image="datosgobar/portal-base:test"
+base_image="datosgobar/portal-base:test"
 
 cd portal-base/;
 
-docker build base_portal -t "$local_image";
+docker build base_portal -t "$base_image";
 
 ```
 
@@ -76,4 +121,43 @@ siguiente mensajes (podemos salir del contenedor usando `Ctrl+c`):
 2018-06-22 18:55:46,615 INFO RPC interface 'supervisor' initialized
 ```
 
+Para probar esto directamente en el contenedor de `portl-andino`, debemos
+**generar una nueva imagen del contenedor en base a la imagen del portal base**.
+Para esto, en el archivo `Dockerfile` del portal, cambiamor el `FROM`, utilizando la
+imagen que acabamos de crear:
 
+```
+FROM datosgobar/portal-base:test
+
+# ... otros comandos
+```
+
+Ahora generamos la nueva imagen:
+
+```
+cd portal-andino/
+
+docker build -t portal-andino:test .
+```
+
+
+Luego iniciamos la aplicacion en modo desarrollo:
+
+```
+cd portal-andino/
+
+./dev.sh setup;
+```
+
+
+Una vez iniciada la aplicacion, entramos al contenedor y verificamos que supervisor este corriendo:
+
+```
+cd portal-andino/
+./dev.sh console
+
+# Una vez en el contenedor
+supervisord -n
+```
+
+En este momento deberiamos ver como se inicializa supervisor. Para salir, usamos  `Ctrl + C`.
