@@ -198,13 +198,13 @@ Para configurar el código se seguimiento de Google Tag Manager ejecutar el sigu
     # Finalmente reiniciamos el contenedor
     docker-compose -f latest.yml restart portal nginx
     
-### Configuración de limpieza de la caché
+### Configuración del hook para la limpieza de la caché
 
-Para poder realizar una limpieza de la caché ante cada cambio en los metadatos del portal, se puede modificar el archivo 
-de configuración `production.ini`. Se deberá utilizar un campo llamado `andino.cache_clean_hook`, al cual le 
-asignaremos la URL a la cual queremos enviarle requests HTTP que lograrán ese efecto.
+Para poder utilizar el hook que realiza una limpieza de la caché ante cada cambio en los metadatos del portal, se puede 
+modificar el archivo de configuración `production.ini`. Se deberá utilizar un campo llamado `andino.cache_clean_hook`, 
+al cual le asignaremos la URL a la cual queremos enviarle requests HTTP que lograrán ese efecto.
 
-Para lograrlo, se debe entrar al contenedor:  
+Para hacerlo, se debe entrar al contenedor:  
 
 ```bash
 # Ingresar al contenedor
