@@ -204,21 +204,9 @@ Para poder utilizar el hook que realiza una limpieza de la caché ante cada camb
 modificar el archivo de configuración `production.ini`. Se deberá utilizar un campo llamado `andino.cache_clean_hook`, 
 al cual le asignaremos la URL a la cual queremos enviarle requests HTTP que lograrán ese efecto.
 
-Para hacerlo, se debe entrar al contenedor:  
-
+Para hacerlo, se pueden correr los siguientes comandos: 
 ```bash
-# Ingresar al contenedor
-
-cd /etc/portal
-docker-compose -f latest.yml exec portal /bin/bash
-
-# Una vez adentro, editamos el archivo production.ini
-# Debemos buscar el campo "andino.cache_clean_hook" y asignarle la URL deseada
- 
-vim /etc/ckan/default/production.ini
-
-# Editamos y, luego de salir del contenedor, lo reiniciamos
-
+docker-compose -f latest.yml exec portal /etc/ckan_init.d/update_conf.sh "andino.cache_clean_hook=<la url que querés utilizar>";
 docker-compose -f latest.yml restart portal nginx
 ```
 
