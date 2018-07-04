@@ -200,15 +200,23 @@ Para configurar el código se seguimiento de Google Tag Manager ejecutar el sigu
     
 ### Configuración del hook para la limpieza de la caché
 
+*La caché de Andino debe haber sido habilitada para utilizar esta funcionalidad.*
+
 Para poder utilizar el hook que realiza una limpieza de la caché ante cada cambio en los metadatos del portal, se puede 
 modificar el archivo de configuración `production.ini`. Se deberá utilizar un campo llamado `andino.cache_clean_hook`, 
 al cual le asignaremos la URL a la cual queremos enviarle requests HTTP que lograrán ese efecto.
 
-Para hacerlo, se pueden correr los siguientes comandos: 
+En el caso de que se haya implementado una caché custom que no esté dentro de Andino, este hook sirve también para 
+resetear esa caché.
+
+Si se desea emplear el uso del hook, se pueden correr los siguientes comandos: 
 ```bash
 docker-compose -f latest.yml exec portal /etc/ckan_init.d/update_conf.sh "andino.cache_clean_hook=<la url que querés utilizar>";
 docker-compose -f latest.yml restart portal nginx
 ```
+
+_Nota: tener en cuenta que, por default, se emplea el método PURGE para disparar el hook, lo cual 
+se puede cambiar editando el campo `andino.cache_clean_hook_method` dentro del archivo de configuración `production.ini`._ 
 
 ## Acceso a los datos de andino
 
