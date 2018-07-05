@@ -6,9 +6,9 @@ VAGRANTFILE_API_VERSION = "2"
 BRANCH = ENV['BRANCH'] || 'master'
 ANDINO_VERSION = ENV['ANDINO_VERSION'] || 'latest'
 
-INSTALL_DEPENDENCIES = true
+INSTALL_DEPENDENCIES = false
 INSTALL_APP = true
-UPDATE_APP = !INSTALL_APP
+UPDATE_APP = false
 
 COMPOSE_VERSION = "1.12.0"
 
@@ -61,7 +61,8 @@ sudo -E python ./install.py --error_email admin@example.com \
             --datastore_user data_db_user \
             --datastore_password data_db_pass \
             --branch #{BRANCH} \
-            --andino_version #{ANDINO_VERSION}
+            --andino_version #{ANDINO_VERSION} \
+            --nginx-extended-cache
 
 SCRIPT
 
