@@ -1,4 +1,4 @@
-FROM datosgobar/portal-base:release-0.10.0
+FROM datosgobar/portal-base:release-0.10.1
 MAINTAINER Leandro Gomez<lgomez@devartis.com>
 
 ARG PORTAL_VERSION
@@ -7,7 +7,7 @@ ENV CKAN_DIST_MEDIA /usr/lib/ckan/default/src/ckanext-gobar-theme/ckanext/gobar_
 ENV CKAN_DEFAULT /etc/ckan/default
 
 WORKDIR /portal
-RUN $CKAN_HOME/bin/pip install -e git+https://github.com/datosgobar/portal-andino-theme.git@7a74492f90b71cafa87c032c72e4b04c97c5ac1c#egg=ckanext-gobar_theme
+RUN $CKAN_HOME/bin/pip install -e git+https://github.com/datosgobar/portal-andino-theme.git@4d417b73cae48b154d09e7ad812122e74aae269e#egg=ckanext-gobar_theme
 RUN $CKAN_HOME/bin/pip install -r $CKAN_HOME/src/ckanext-gobar-theme/dev-requirements.txt
 RUN /etc/ckan_init.d/build-combined-ckan-mo.sh $CKAN_HOME/src/ckanext-gobar-theme/ckanext/gobar_theme/i18n/es/LC_MESSAGES/ckan.po
 RUN mkdir -p $CKAN_DIST_MEDIA
