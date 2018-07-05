@@ -9,6 +9,8 @@ services:
         - "${NGINX_HOST_PORT}:80"
       depends_on:
         - portal
+      environment:
+        - NGINX_CONFIG_FILE
       networks:
         - portal-network
     portal:
