@@ -201,21 +201,21 @@ Para configurar el código se seguimiento de Google Tag Manager ejecutar el sigu
 ### Configuración de la llamada de invalidación de caché
 
 La aplicación puede ser configurada para hacer una llamada HTTP ante cada cambio en los metadatos del portal.
-Este llamada (A.K.A. "hook") puede configurarse para ser a cualquier URL y usando cualquier método HTTP.
-Se deberá utilizar un campo llamado `andino.cache_clean_hook`,  al cual le asignaremos la URL a la cual
+Esta llamada (A.K.A. "hook") puede configurarse para ser a cualquier URL, y usando cualquier método HTTP.
+Se deberá utilizar un campo llamado `andino.cache_clean_hook`, que tendrá asignada la URL a la cual
 queremos enviarle requests HTTP que lograrán ese efecto.
 
-Ademas el paquete "Andino" provee una configuración de *nginx* que permite recibir esta llamada e invalidar la caché.
+Además, el paquete "Andino" provee una configuración de *nginx* que permite recibir esta llamada e invalidar la caché.
 
-Para configurar internamente nginx y andino, solo es necesario parar la opcion `--nginx-extended-cache` al momento de
+Para configurar internamente nginx y andino, sólo es necesario parar la opción `--nginx-extended-cache` al momento de
 usar el script de instalación.
 
-Si nuestra aplicación ya esta instalada, podemos seguir los siguientes pasos:
+Si nuestra aplicación ya está instalada, podemos seguir los siguientes pasos:
 
-1. Actualizar a la ultima verion de la aplicación, con el script de actualización.
+1. Actualizar a la ultima versión de la aplicación, con el script de actualización.
 1. Ir al directorio de instalación `cd /etc/portal`
 1. Editar el archivo `.env`
-1. Agregar una linea nueva que sea: `NGINX_CONFIG_FILE=nginx_extended.conf`
+1. Agregar una línea nueva que sea: `NGINX_CONFIG_FILE=nginx_extended.conf`
 1. Reiniciar el contenedor de nginx `docker-compose -f latest.yml up -d nginx`
 
 Luego configuramos el hook de invalidación:
