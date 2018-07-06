@@ -1,11 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import argparse
 import logging
 import subprocess
 import time
 from os import path, geteuid, makedirs, getcwd, chdir
+
+import argparse
 
 logger = logging.getLogger(__file__)
 logger.setLevel(logging.INFO)
@@ -42,7 +43,7 @@ def check_docker():
 
 def check_installdir(base_path):
     if path.isdir(base_path):
-        logger.error("Se encontró instalación previa en %s, aborando." % base_path)
+        logger.error("Se encontró instalación previa en %s, abortando." % base_path)
         logger.error("El directorio no debería existir.")
         exit(1)
     else:
@@ -147,6 +148,29 @@ def configure_application(compose_path, cfg):
     ])
 
 
+def configure_nginx_extended_cache(compose_path):
+    subprocess.check_call([
+        "docker-compose",
+        "-f",
+        compose_path,
+        "exec",
+        "-T",
+        "portal",
+        "/etc/ckan_init.d/update_conf.sh",
+        "andino.cache_clean_hook=http://nginx/meta/cache/purge",
+    ])
+    subprocess.check_call([
+        "docker-compose",
+        "-f",
+        compose_path,
+        "exec",
+        "-T",
+        "portal",
+        "/etc/ckan_init.d/update_conf.sh",
+        "andino.cache_clean_hook_method=PURGE",
+    ])
+
+
 def install_andino(cfg, compose_file_url, stable_version_url):
     # Check
     directory = cfg.install_directory
@@ -174,6 +198,10 @@ def install_andino(cfg, compose_file_url, stable_version_url):
         time.sleep(10)
         logger.info("Configurando...")
         configure_application(compose_file_path, cfg)
+        if cfg.nginx_extended_cache:
+            logger.info("Configurando cache extendidad de nginx")
+            configure_nginx_extended_cache(compose_file_path)
+
         logger.info("Listo.")
 
 
