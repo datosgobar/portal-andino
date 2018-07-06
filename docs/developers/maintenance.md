@@ -198,13 +198,33 @@ Para configurar el código se seguimiento de Google Tag Manager ejecutar el sigu
     # Finalmente reiniciamos el contenedor
     docker-compose -f latest.yml restart portal nginx
     
-### Configuración del hook para la limpieza de la caché
+### Configuración de la llamada de invalidación de caché
 
-*La caché de Andino debe haber sido habilitada para utilizar esta funcionalidad.*
+La aplicación puede ser configurada para hacer una llamada HTTP ante cada cambio en los metadatos del portal.
+Esta llamada (A.K.A. "hook") puede configurarse para ser a cualquier URL, y usando cualquier método HTTP.
+Se deberá utilizar un campo llamado `andino.cache_clean_hook`, que tendrá asignada la URL a la cual
+queremos enviarle requests HTTP que lograrán ese efecto.
 
-Para poder utilizar el hook que realiza una limpieza de la caché ante cada cambio en los metadatos del portal, se puede 
-modificar el archivo de configuración `production.ini`. Se deberá utilizar un campo llamado `andino.cache_clean_hook`, 
-al cual le asignaremos la URL a la cual queremos enviarle requests HTTP que lograrán ese efecto.
+Además, el paquete "Andino" provee una configuración de *nginx* que permite recibir esta llamada e invalidar la caché.
+
+Para configurar internamente nginx y andino, sólo es necesario parar la opción `--nginx-extended-cache` al momento de
+usar el script de instalación.
+
+Si nuestra aplicación ya está instalada, podemos seguir los siguientes pasos:
+
+1. Actualizar a la ultima versión de la aplicación, con el script de actualización.
+1. Ir al directorio de instalación `cd /etc/portal`
+1. Editar el archivo `.env`
+1. Agregar una línea nueva que sea: `NGINX_CONFIG_FILE=nginx_extended.conf`
+1. Reiniciar el contenedor de nginx `docker-compose -f latest.yml up -d nginx`
+
+Luego configuramos el hook de invalidación:
+
+1. Entramos al contenedor del portal: `docker-compose -f latest.yml exec portal bash`
+1. Configuramos el hook: `/etc/ckan_init.d/update_conf.sh andino.cache_clean_hook=http://nginx/meta/cache/purge`
+1. Salimos `exit`
+1. Reiniciamos el portal: `docker-compose -f latest.yml restart portal nginx`
+
 
 En el caso de que se haya implementado una caché custom que no esté dentro de Andino, este hook sirve también para 
 resetear esa caché.
