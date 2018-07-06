@@ -87,12 +87,12 @@ def configure_env_file(base_path, cfg):
     if cfg.andino_version:
         andino_version = cfg.andino_version
     else:
-        logger.info("Configurando version estable de andino.")
+        logger.info("Configurando versión estable de andino.")
         stable_version_path = get_stable_version_file(base_path, stable_version_url)
         with file(stable_version_path, "r") as f:
             content = f.read()
         andino_version = content.strip()
-    logger.info("Usando version '%s' de andino" % andino_version)
+    logger.info("Usando versión '%s' de andino" % andino_version)
     with open(env_file_path, "w") as env_f:
         env_f.write("POSTGRES_USER=%s\n" % cfg.database_user)
         env_f.write("ANDINO_TAG=%s\n" % andino_version)
@@ -180,7 +180,7 @@ def install_andino(cfg, compose_file_url, stable_version_url):
     check_installdir(directory)
     logger.info("Comprobando que docker esté instalado...")
     check_docker()
-    logger.info("Comprobando que docker-compose este instalado...")
+    logger.info("Comprobando que docker-compose esté instalado...")
     check_compose()
 
     # Download and install
@@ -189,17 +189,17 @@ def install_andino(cfg, compose_file_url, stable_version_url):
     logger.info("Escribiendo archivo de configuración del ambiente (.env) ...")
     configure_env_file(directory, cfg)
     with ComposeContext(directory):
-        logger.info("Obteniendo imagenes de Docker")
+        logger.info("Obteniendo imágenes de Docker")
         pull_application(compose_file_path)
         # Configure
         logger.info("Iniciando la aplicación")
         init_application(compose_file_path)
-        logger.info("Espetando a que la base de datos este disponible...")
+        logger.info("Esperando a que la base de datos este disponible...")
         time.sleep(10)
         logger.info("Configurando...")
         configure_application(compose_file_path, cfg)
         if cfg.nginx_extended_cache:
-            logger.info("Configurando cache extendidad de nginx")
+            logger.info("Configurando caché extendida de nginx")
             configure_nginx_extended_cache(compose_file_path)
 
         logger.info("Listo.")
