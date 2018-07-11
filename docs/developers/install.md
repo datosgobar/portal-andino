@@ -44,6 +44,9 @@ El mismo requiere algunos parametros y otros son opcionales:
     --database_password     Contraseña de la base de datos a crear
     --datastore_user        Nombre del usuario de la base de datos del datastore a crear
     --datastore_password    Contraseña de la base de datos del datastore a crear
+    [--nginx-extended-cache]
+        Configura nginx con una configuración extendida y configura el hook de
+        invalidación de cache de Andino para notificar a nginx
     [--nginx_port NGINX_PORT]
         Puerto del servidor "Host" que se desea que se tome para recibir llamadas HTTP.
         Por defecto es el 80.

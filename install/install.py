@@ -1,11 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import argparse
 import logging
 import subprocess
 import time
 from os import path, geteuid, makedirs, getcwd, chdir
+
+import argparse
 
 logger = logging.getLogger(__file__)
 logger.setLevel(logging.INFO)
@@ -42,7 +43,7 @@ def check_docker():
 
 def check_installdir(base_path):
     if path.isdir(base_path):
-        logger.error("Se encontró instalación previa en %s, aborando." % base_path)
+        logger.error("Se encontró instalación previa en %s, abortando." % base_path)
         logger.error("El directorio no debería existir.")
         exit(1)
     else:
@@ -86,12 +87,12 @@ def configure_env_file(base_path, cfg):
     if cfg.andino_version:
         andino_version = cfg.andino_version
     else:
-        logger.info("Configurando version estable de andino.")
+        logger.info("Configurando versión estable de andino.")
         stable_version_path = get_stable_version_file(base_path, stable_version_url)
         with file(stable_version_path, "r") as f:
             content = f.read()
         andino_version = content.strip()
-    logger.info("Usando version '%s' de andino" %  andino_version)
+    logger.info("Usando versión '%s' de andino" % andino_version)
     with open(env_file_path, "w") as env_f:
         env_f.write("POSTGRES_USER=%s\n" % cfg.database_user)
         env_f.write("ANDINO_TAG=%s\n" % andino_version)
@@ -99,6 +100,14 @@ def configure_env_file(base_path, cfg):
         env_f.write("NGINX_HOST_PORT=%s\n" % cfg.nginx_port)
         env_f.write("DATASTORE_HOST_PORT=%s\n" % cfg.datastore_port)
         env_f.write("maildomain=%s\n" % cfg.site_host)
+        env_f.write("NGINX_CONFIG_FILE=%s\n" % get_nginx_configuration(cfg))
+
+
+def get_nginx_configuration(cfg):
+    if cfg.nginx_extended_cache:
+        return "nginx_extended.conf"
+    else:
+        return "nginx.conf"
 
 
 def pull_application(compose_path):
@@ -139,6 +148,29 @@ def configure_application(compose_path, cfg):
     ])
 
 
+def configure_nginx_extended_cache(compose_path):
+    subprocess.check_call([
+        "docker-compose",
+        "-f",
+        compose_path,
+        "exec",
+        "-T",
+        "portal",
+        "/etc/ckan_init.d/update_conf.sh",
+        "andino.cache_clean_hook=http://nginx/meta/cache/purge",
+    ])
+    subprocess.check_call([
+        "docker-compose",
+        "-f",
+        compose_path,
+        "exec",
+        "-T",
+        "portal",
+        "/etc/ckan_init.d/update_conf.sh",
+        "andino.cache_clean_hook_method=PURGE",
+    ])
+
+
 def install_andino(cfg, compose_file_url, stable_version_url):
     # Check
     directory = cfg.install_directory
@@ -148,7 +180,7 @@ def install_andino(cfg, compose_file_url, stable_version_url):
     check_installdir(directory)
     logger.info("Comprobando que docker esté instalado...")
     check_docker()
-    logger.info("Comprobando que docker-compose este instalado...")
+    logger.info("Comprobando que docker-compose esté instalado...")
     check_compose()
 
     # Download and install
@@ -157,15 +189,19 @@ def install_andino(cfg, compose_file_url, stable_version_url):
     logger.info("Escribiendo archivo de configuración del ambiente (.env) ...")
     configure_env_file(directory, cfg)
     with ComposeContext(directory):
-        logger.info("Obteniendo imagenes de Docker")
+        logger.info("Obteniendo imágenes de Docker")
         pull_application(compose_file_path)
         # Configure
         logger.info("Iniciando la aplicación")
         init_application(compose_file_path)
-        logger.info("Espetando a que la base de datos este disponible...")
+        logger.info("Esperando a que la base de datos este disponible...")
         time.sleep(10)
         logger.info("Configurando...")
         configure_application(compose_file_path, cfg)
+        if cfg.nginx_extended_cache:
+            logger.info("Configurando caché extendida de nginx")
+            configure_nginx_extended_cache(compose_file_path)
+
         logger.info("Listo.")
 
 
@@ -184,6 +220,7 @@ def parse_args():
     parser.add_argument('--datastore_port', default="8800")
     parser.add_argument('--branch', default='master')
     parser.add_argument('--install_directory', default='/etc/portal/')
+    parser.add_argument('--nginx-extended-cache', action="store_true")
 
     return parser.parse_args()
 
