@@ -20,6 +20,8 @@
         - [Cambiar el remitente de los correos electrónicos que envía Andino](#cambiar-el-remitente-de-los-correos-electronicos-que-envia-andino)
         - [Deshabilitar la URL `/catalog.xlsx`](#deshabilitar-la-url--catalogxlsx)
         - [Google Tag Manager](#google-tag-manager)
+        - [Cache](#configuraci%C3%B3n-de-la-llamada-de-invalidaci%C3%B3n-de-cach%C3%A9)
+        - [Cache externa](#cache-externa)
     - [Acceso a los datos de andino](#acceso-a-los-datos-de-andino)
         - [Encontrar los volúmenes de mi andino dentro del filesystem del host](#encontrar-los-volumenes-de-mi-andino-dentro-del-filesystem-del-host)
         - [Ver las direcciones IP de mis contenedores](#ver-las-direcciones-ip-de-mis-contenedores)
@@ -225,18 +227,150 @@ Luego configuramos el hook de invalidación:
 1. Salimos `exit`
 1. Reiniciamos el portal: `docker-compose -f latest.yml restart portal nginx`
 
+_Nota: tener en cuenta que, por defecto, se emplea el método PURGE para disparar el hook, lo cual
+se puede cambiar editando el campo `andino.cache_clean_hook_method` dentro del archivo de configuración `production.ini`._ 
 
-En el caso de que se haya implementado una caché custom que no esté dentro de Andino, este hook sirve también para 
-resetear esa caché.
+### Cache externa
 
-Si se desea emplear el uso del hook, se pueden correr los siguientes comandos: 
+Es posible implementar la cache externa por fuera del paquete andino.
+Para esto, en el servidor que servirá de cache, necesitamos instalar [openresty](https://openresty.org/en/installation.html).
+Esta plataforma web nos permite correr **nginx** y modificar su comportamiento usando [lua](https://www.lua.org/).
+
+Luego de instalar **openresty**, debemos activarlo para que empiece cada vez que se prender el servdor:
+
+```
+systemctl enable openresty
+systemctl restart openresty
+```
+
+Luego de instalar `operesty`, debemos agregar los archivos de configuración.
+Primero borramos la configuración de nginx que viene por defecto en `/etc/openresty/nginx.conf` y agregamos la nuestra:
+
+```
+#user  nobody;
+worker_processes  1;
+
+#error_log  logs/error.log;
+#error_log  logs/error.log  notice;
+#error_log  logs/error.log  info;
+
+#pid        logs/nginx.pid;
+
+
+events {
+    worker_connections  1024;
+}
+
+
+http {
+    include       mime.types;
+    default_type  application/octet-stream;
+
+    #log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+    #                  '$status $body_bytes_sent "$http_referer" '
+    #                  '"$http_user_agent" "$http_x_forwarded_for"';
+
+    #access_log  logs/access.log  main;
+
+    sendfile        on;
+    #tcp_nopush     on;
+
+    #keepalive_timeout  0;
+    keepalive_timeout  65;
+
+    #gzip  on;
+
+    include /etc/nginx/conf.d/*.conf;
+
+}
+```
+
+
+Luego creamos el directorio donde pondremos la configuración de nuestra cache y creamos el archivo.
+
+```
+mkdir -p /etc/nginx/conf.d/
+touch /etc/nginx/conf.d/000-andino-cache.conf
+```
+
+El archivo `000-andino-cache.conf` contendrá lo siguiente.
+Es necesario cambiar la palabre `IP_A_ANDINO` por la IP donde esta andino.
+
+```
+proxy_cache_path /tmp/nginx_cache/ levels=1:2 keys_zone=cache:30m max_size=250m;
+proxy_temp_path /tmp/nginx_proxy 1 2;
+
+server_tokens off;
+
+server {
+    client_max_body_size 100M;
+    location / {
+        proxy_pass http://IP_A_ANDINO:80/;
+        proxy_set_header X-Forwarded-For $remote_addr;
+        proxy_set_header Host $host;
+        proxy_cache cache;
+
+        # Disable cache for logged-in users
+        proxy_cache_bypass $cookie_auth_tkt;
+        proxy_no_cache $cookie_auth_tkt;
+        proxy_cache_valid 30m;
+        proxy_cache_key $host$scheme$proxy_host$request_uri;
+
+        # Ignore apache "Cache-Control" header
+        # See https://lists.okfn.org/pipermail/ckan-dev/2016-March/009864.html
+        proxy_ignore_headers Cache-Control;
+        # In emergency comment out line to force caching
+        # proxy_ignore_headers X-Accel-Expires Expires;
+
+        # Show cache status
+        add_header X-Cache-Status $upstream_cache_status;
+    }
+
+    location /meta/cache/purge {
+        allow  192.168.0.0/16;
+        allow  172.16.0.0/12;
+        allow  10.0.0.0/8;
+        allow  127.0.0.1;
+        deny   all;
+        if ($request_method = PURGE ) {
+            content_by_lua_block {
+                filename = "/tmp/nginx_cache/"
+                local f = io.open(filename, "r")
+                if (f~=nil) then
+                    io.close(f)
+                    os.execute('rm -rf "'..filename..'"')
+                end
+                ngx.say("OK")
+                ngx.exit(ngx.OK)
+            }
+        }
+    }
+}
+```
+
+Finalmente, reiniciamos **openresty**: `systemctl restart openresty`.
+
+Ahora que tenemos la cache configurada, necesitamos configurar la llamada, o hook, de invalición de cache.
+Para esto, entramos al servidor donde esta corriendo andino y corremos:
+
 ```bash
-docker-compose -f latest.yml exec portal /etc/ckan_init.d/update_conf.sh "andino.cache_clean_hook=<la url que querés utilizar>";
+IP_INTERNA_CACHE=<ip interna del servidor de cache>
+
+cd /etc/portal
+docker-compose -f latest.yml exec portal /etc/ckan_init.d/update_conf.sh "andino.cache_clean_hook=http://$IP_INTERNA_CACHE/meta/cache/purge";
 docker-compose -f latest.yml restart portal nginx
 ```
 
-_Nota: tener en cuenta que, por default, se emplea el método PURGE para disparar el hook, lo cual 
-se puede cambiar editando el campo `andino.cache_clean_hook_method` dentro del archivo de configuración `production.ini`._ 
+Si queremos probar la integración, podemos entrar al contenedor de andino y probar invalidar la cache:
+
+```
+
+IP_INTERNA_CACHE=<ip interna del servidor de cache>
+cd /etc/portal
+docker-compose -f latest.yml exec portal curl -X PURGE "http://$IP_INTERNA_CACHE/meta/cache/purge";
+# =>  OK
+```
+
 
 ## Acceso a los datos de andino
 
