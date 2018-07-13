@@ -297,7 +297,52 @@ def update_andino(cfg, compose_file_url, stable_version_url):
         post_update_commands(compose_file_path)
         logging.info("Reiniciando")
         restart_apps(compose_file_path)
+        logger.info("Actualizando data.json y catalog.xlsx...")
+        generate_data_json_and_catalog_xlsx()
         logging.info("Listo.")
+
+
+def generate_data_json_and_catalog_xlsx():
+    subprocess.check_call([
+        "docker",
+        "exec",
+        "-it",
+        "portal",
+        "/usr/lib/ckan/default/bin/pip",
+        "install",
+        "-e",
+        "/theme",
+    ])
+    subprocess.check_call([
+        "docker",
+        "exec",
+        "-it",
+        "portal",
+        "bash",
+        "-c",
+        '"cd',
+        "/theme",
+        "&&",
+        "/usr/lib/ckan/default/bin/paster",
+        "--plugin=ckan",
+        "generate-data-json",
+        '--config=/etc/ckan/default/debug.ini"',
+    ])
+    subprocess.check_call([
+        "docker",
+        "exec",
+        "-it",
+        "portal",
+        "bash",
+        "-c",
+        '"cd',
+        "/theme",
+        "&&",
+        "/usr/lib/ckan/default/bin/paster",
+        "--plugin=ckan",
+        "generate-catalog-xlsx",
+        '--config=/etc/ckan/default/debug.ini"',
+    ])
 
 
 if __name__ == "__main__":
