@@ -372,6 +372,19 @@ docker-compose -f latest.yml exec portal curl -X PURGE "http://$IP_INTERNA_CACHE
 ```
 
 
+**NOTA:** Si estamos usando nuestro andino con un IP y *no* con un dominio, tendremos que cambiar la
+configuración `ckan.site_url` para que use la IP del servidor donde se encuentra la cache externa.
+
+```bash
+
+IP_PUBLICA_CACHE=<ip publica del servidor cache>
+
+cd /etc/portal
+docker-compose -f latest.yml exec portal /etc/ckan_init.d/update_conf.sh "ckan.site_url=http://$IP_PUBLICA_CACHE";
+docker-compose -f latest.yml restart portal nginx
+
+```
+
 ## Acceso a los datos de andino
 
 ### Encontrar los volúmenes de mi andino dentro del filesystem del host
