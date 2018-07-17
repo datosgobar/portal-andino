@@ -30,6 +30,7 @@ DOCKER_PKG = "docker.io"
 DOCKER_VERSION = VERSION_MATRIX[VERSION][DOCKER_PKG]
 
 IP = "192.168.23.10"
+CACHE_IP = "192.168.23.11"
 
 $script_install = <<SCRIPT
 sudo apt-get update
@@ -73,6 +74,9 @@ SCRIPT
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.box = "bento/ubuntu-16.04"
+  config.vm.define "cache" do |cache|
+    cache.vm.network "private_network", ip: CACHE_IP
+  end
   config.vm.define "andino" do |web|
     web.vm.network "private_network", ip: IP
     config.vm.provision "file", source: "install/install.py", destination: "install.py"
