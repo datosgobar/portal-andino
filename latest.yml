@@ -24,6 +24,8 @@ services:
         - postfix
       networks:
         - portal-network
+      environment:
+        - TZ
     db:
       container_name: andino-db
       image: postgres:9.5

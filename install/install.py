@@ -101,6 +101,7 @@ def configure_env_file(base_path, cfg):
         env_f.write("DATASTORE_HOST_PORT=%s\n" % cfg.datastore_port)
         env_f.write("maildomain=%s\n" % cfg.site_host)
         env_f.write("NGINX_CONFIG_FILE=%s\n" % get_nginx_configuration(cfg))
+        env_f.write("TZ=%s\n" % cfg.timezone)
 
 
 def get_nginx_configuration(cfg):
@@ -221,6 +222,7 @@ def parse_args():
     parser.add_argument('--branch', default='master')
     parser.add_argument('--install_directory', default='/etc/portal/')
     parser.add_argument('--nginx-extended-cache', action="store_true")
+    parser.add_argument('--timezone', default="America/Argentina/Buenos_Aires")
 
     return parser.parse_args()
 
