@@ -116,6 +116,7 @@ def pull_application(compose_path):
         "-f",
         compose_path,
         "pull",
+        "--ignore-pull-failures",
     ])
 
 
@@ -171,49 +172,6 @@ def configure_nginx_extended_cache(compose_path):
     ])
 
 
-def generate_data_json_and_catalog_xlsx():
-    subprocess.check_call([
-        "docker",
-        "exec",
-        "-it",
-        "portal",
-        "/usr/lib/ckan/default/bin/pip",
-        "install",
-        "-e",
-        "/theme",
-    ])
-    subprocess.check_call([
-        "docker",
-        "exec",
-        "-it",
-        "portal",
-        "bash",
-        "-c",
-        '"cd',
-        "/theme",
-        "&&",
-        "/usr/lib/ckan/default/bin/paster",
-        "--plugin=ckan",
-        "generate-data-json",
-        '--config=/etc/ckan/default/debug.ini"',
-    ])
-    subprocess.check_call([
-        "docker",
-        "exec",
-        "-it",
-        "portal",
-        "bash",
-        "-c",
-        '"cd',
-        "/theme",
-        "&&",
-        "/usr/lib/ckan/default/bin/paster",
-        "--plugin=ckan",
-        "generate-catalog-xlsx",
-        '--config=/etc/ckan/default/debug.ini"',
-    ])
-
-
 def install_andino(cfg, compose_file_url, stable_version_url):
     # Check
     directory = cfg.install_directory
@@ -244,8 +202,6 @@ def install_andino(cfg, compose_file_url, stable_version_url):
         if cfg.nginx_extended_cache:
             logger.info("Configurando caché extendida de nginx")
             configure_nginx_extended_cache(compose_file_path)
-        logger.info("Inicializando data.json y catalog.xlsx...")
-        generate_data_json_and_catalog_xlsx()
 
         logger.info("Listo.")
 
