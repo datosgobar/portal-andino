@@ -5,8 +5,6 @@ ARG PORTAL_VERSION
 ENV CKAN_HOME /usr/lib/ckan/default
 ENV CKAN_DIST_MEDIA /usr/lib/ckan/default/src/ckanext-gobar-theme/ckanext/gobar_theme/public/user_images
 ENV CKAN_DEFAULT /etc/ckan/default
-# Move to portal-base
-ENV TZ=America/Argentina/Buenos_Aires
 
 WORKDIR /portal
 
