@@ -214,6 +214,23 @@ def post_update_commands(compose_path):
     except subprocess.CalledProcessError as e:
         logging.error("Error al correr el script 'run_updates.sh'")
         logging.error(e)
+
+    try:
+        subprocess.check_call(
+            ["docker-compose",
+             "-f",
+             compose_path,
+             "exec",
+             "-T",
+             "portal",
+             "bash",
+             "/etc/ckan_init.d/update_data_json_and_catalog_xlsx.sh"
+             ]
+        )
+    except subprocess.CalledProcessError as e:
+        logging.error("Error al correr el script 'update_data_json_and_catalog_xlsx.sh'")
+        logging.error(e)
+
     all_plugins = subprocess.check_output(
         ["docker-compose",
          "-f",
