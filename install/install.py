@@ -105,6 +105,7 @@ def configure_env_file(base_path, cfg):
             env_f.write("NGINX_CACHE_MAX_SIZE=%s\n" % cfg.nginx_cache_max_size)
         if cfg.nginx_cache_inactive:
             env_f.write("NGINX_CACHE_INACTIVE=%s\n" % cfg.nginx_cache_inactive)
+        env_f.write("TZ=%s\n" % cfg.timezone)
 
 
 def get_nginx_configuration(cfg):
@@ -227,6 +228,7 @@ def parse_args():
     parser.add_argument('--nginx-extended-cache', action="store_true")
     parser.add_argument('--nginx-cache-max-size', default="")
     parser.add_argument('--nginx-cache-inactive', default="")
+    parser.add_argument('--timezone', default="America/Argentina/Buenos_Aires")
 
     return parser.parse_args()
 

@@ -129,6 +129,7 @@ def fix_env_file(base_path):
     nginx_var = "NGINX_HOST_PORT"
     datastore_var = "DATASTORE_HOST_PORT"
     maildomain_var = "maildomain"
+    timezone_var = "TZ"
 
     with open(env_file_path, "r") as env_f:
         content = env_f.read()
@@ -145,6 +146,8 @@ def fix_env_file(base_path):
                 print("Ningun valor fue ingresado, usando valor por defecto: localhost")
                 real_maildomain = "localhost"
             env_f.write("%s=%s\n" % (maildomain_var, real_maildomain))
+        if timezone_var not in content:
+            env_f.write("%s=%s\n" % (timezone_var, "America/Argentina/Buenos_Aires"))
 
 
 def backup_database(base_path, compose_path):

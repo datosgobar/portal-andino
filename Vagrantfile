@@ -66,6 +66,7 @@ sudo -E python ./install.py --error_email admin@example.com \
             --nginx-extended-cache \
             --nginx-cache-max-size 2g \
             --nginx-cache-inactive 120m
+            --timezone America/Argentina/Cordoba
 
 SCRIPT
 
