@@ -63,7 +63,8 @@ sudo -E python ./install.py --error_email admin@example.com \
             --datastore_password data_db_pass \
             --branch #{BRANCH} \
             --andino_version #{ANDINO_VERSION} \
-            --nginx-extended-cache
+            --nginx-extended-cache \
+            --timezone America/Argentina/Cordoba
 
 SCRIPT
 
