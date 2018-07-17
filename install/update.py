@@ -297,7 +297,6 @@ def update_andino(cfg, compose_file_url, stable_version_url):
         post_update_commands(compose_file_path)
         logging.info("Reiniciando")
         restart_apps(compose_file_path)
-        logger.info("Actualizando data.json y catalog.xlsx...")
         logging.info("Listo.")
 
 
