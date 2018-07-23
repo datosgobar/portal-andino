@@ -7,7 +7,7 @@ ENV CKAN_DIST_MEDIA /usr/lib/ckan/default/src/ckanext-gobar-theme/ckanext/gobar_
 ENV CKAN_DEFAULT /etc/ckan/default
 
 WORKDIR /portal
-RUN $CKAN_HOME/bin/pip install -e git+https://github.com/datosgobar/portal-andino-theme.git@609675b66ad73758dee2f14239411615581912ba#egg=ckanext-gobar_theme
+RUN $CKAN_HOME/bin/pip install -e git+https://github.com/datosgobar/portal-andino-theme.git@b061de977abc8a4f681011237c12986399512165#egg=ckanext-gobar_theme
 RUN $CKAN_HOME/bin/pip install -r $CKAN_HOME/src/ckanext-gobar-theme/dev-requirements.txt
 RUN /etc/ckan_init.d/build-combined-ckan-mo.sh $CKAN_HOME/src/ckanext-gobar-theme/ckanext/gobar_theme/i18n/es/LC_MESSAGES/ckan.po
 
