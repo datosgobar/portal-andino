@@ -79,7 +79,7 @@ Para asegurarte de que la red interna de los contenedores de Docker que conforma
 
 1. Editá el archivo `.env` y asegurate que el valor del atributo `SITE_HOST` tenga el valor del _hostname_ de tu instancia de Andino, sin _http_. Si no encontrás una entrada para `SITE_HOST` en tu archivo `.env`, agregala al final. Por ejemplo debería ser `SITE_HOST=mi-andino.mi-ministerio.gob.ar`.
 1. Descargá la última versión de `latest.yml`: `mv latest.yml latest.yml.bak && wget https://raw.githubusercontent.com/datosgobar/portal-andino/master/latest.yml`. Probablemente ya tengas esta misma versión si actualizaste a Andino 2.5, pero para asegurarnos de que tengas los últimos cambios necesarios para esta configuración es necesario realizar este paso.
-2. Recreá los contenedores `portal` y `nginx`: `docker-compose -f latest.yml up -d nginx`. Recordá que este paso puede generar algo de _downtime_, por lo que quizás sea prudente realizarlo en algún horario con poco tráfico en Andino.
+2. Recreá el contenedor `nginx`: `docker-compose -f latest.yml up -d nginx`. Recordá que este paso puede generar algo de _downtime_, por lo que quizás sea prudente realizarlo en algún horario con poco tráfico en Andino.
 
 ### Verificando que el problema fue resuelto
 
