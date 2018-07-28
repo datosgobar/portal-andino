@@ -30,8 +30,8 @@ Recordá que _todos los comandos de este artículo deben ser ejecutados en el di
 
 Para saber si es necesario realizar las configuraciones detalladas en este artículo, podés realizar los siguientes pasos detallados abajo.
 
-1. Obtener el valor de `ckan.site_url`: el valor se puede obtener ejecutando el siguiente comando: `sudo docker-compose -f latest.yml exec portal grep ckan\.site_url /etc/ckan/default/production.ini`. Ese comando debería devolver `ckan.site_url = <URL de tu Andino>`.
-2. Evaluar si tu andino puede navegar hasta la URL del sitio. Ejecutá el siguiente comando: `sudo docker-compose -f latest.yml exec portal curl <URL de tu Andino>/data.json`.
+1. Obtener el valor de `ckan.site_url`: el valor se puede obtener ejecutando el siguiente comando: `docker-compose -f latest.yml exec portal grep ckan\.site_url /etc/ckan/default/production.ini`. Ese comando debería devolver `ckan.site_url = <URL de tu Andino>`.
+2. Evaluar si tu andino puede navegar hasta la URL del sitio. Ejecutá el siguiente comando: `docker-compose -f latest.yml exec portal curl <URL de tu Andino>/data.json`.
 
 Si el segundo paso no devuelve una respuesta en formato _json_ con la información del catálogo de tu instancia idéntica a la que obtendrías navegando desde tu navegador a `<URL de tu Andino>/data.json` (por ejemplo, luego de un rato obtenés `curl: (7) Failed to connect to <URL de tu Andino> port 80: Connection timed out`), entonces _debés aplicar la configuración recomendada en este artículo_.
 
@@ -55,19 +55,19 @@ Si ya tenés un nombre de dominio asignado para acceder a tu andino y cuando lo 
 
 Para configurar el nuevo nombre de dominio es necesario actualizar el setting `ckan.site_url` de la instancia de Andino. Esto lo podés lograr con el siguiente comando:
 
-`sudo docker-compose -f latest.yml exec portal /etc/ckan_init.d/update_conf.sh "ckan.site_url=http://<tu nombre de dominio>"`.
+`docker-compose -f latest.yml exec portal /etc/ckan_init.d/update_conf.sh "ckan.site_url=http://<tu nombre de dominio>"`.
 
 Podés verificar que haya quedado bien configurado ejecutando:
 
-`sudo docker-compose -f latest.yml exec portal grep ckan\.site_url /etc/ckan/default/production.ini`.
+`docker-compose -f latest.yml exec portal grep ckan\.site_url /etc/ckan/default/production.ini`.
 
 Para reflejar los cambios es neceario reiniciar la aplicación web del contenedor `portal`:
 
-`sudo docker-compose -f latest.yml exec portal apachectl restart`.
+`docker-compose -f latest.yml exec portal apachectl restart`.
 
 Finalmente, si ya tenías datos cargados en tu andino, necesitás regenerar el índice de búsqueda, usando el siguiente comando:
 
-`sudo docker-compose -f latest.yml exec portal /etc/ckan_init.d/run_rebuild_search.sh`
+`docker-compose -f latest.yml exec portal /etc/ckan_init.d/run_rebuild_search.sh`
 
 ### Configurar un alias en la red de Docker para el contenedor nginx
 
