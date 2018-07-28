@@ -92,6 +92,7 @@ ENV/
 # Rope project settings
 .ropeproject
 
+.vscode/
 .idea/
 .vagrant/
 .rbenv-gemset
