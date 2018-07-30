@@ -130,6 +130,7 @@ def fix_env_file(base_path):
     datastore_var = "DATASTORE_HOST_PORT"
     maildomain_var = "maildomain"
     timezone_var = "TZ"
+    site_host_var = "SITE_HOST"
 
     with open(env_file_path, "r") as env_f:
         content = env_f.read()
@@ -148,6 +149,8 @@ def fix_env_file(base_path):
             env_f.write("%s=%s\n" % (maildomain_var, real_maildomain))
         if timezone_var not in content:
             env_f.write("%s=%s\n" % (timezone_var, "America/Argentina/Buenos_Aires"))
+        if site_host_var not in content:
+            env_f.write("%s=%s\n" % (site_host_var, "andino_nginx"))
 
 
 def backup_database(base_path, compose_path):

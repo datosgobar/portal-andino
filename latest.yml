@@ -10,7 +10,9 @@ services:
       depends_on:
         - portal
       networks:
-        - portal-network
+        portal-network:
+          aliases:
+            - "${SITE_HOST}"
       environment:
         - NGINX_CONFIG_FILE
         - NGINX_CACHE_MAX_SIZE
