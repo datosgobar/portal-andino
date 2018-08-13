@@ -24,6 +24,7 @@
     - [Configuración de la llamada de invalidación de caché](#configuraci%C3%B3n-de-la-llamada-de-invalidaci%C3%B3n-de-cach%C3%A9)
     - [Cache externa](#cache-externa)
     - [Configuración de CORS](#configuraci%C3%B3n-de-cors)
+    - [Configuración el explorador de series de tiempo](#series-de-tiempo-ar-explorer)
   - [Acceso a los datos de andino](#acceso-a-los-datos-de-andino)
     - [Encontrar los volúmenes de mi andino dentro del filesystem del host](#encontrar-los-vol%C3%BAmenes-de-mi-andino-dentro-del-filesystem-del-host)
     - [Ver las direcciones IP de mis contenedores](#ver-las-direcciones-ip-de-mis-contenedores)
@@ -401,6 +402,25 @@ Luego reiniciá los contenedores `portal` y `nginx`: `docker-compose -f latest.y
 Si deseás habilitar **todas** las URLs para CORS (no recomendado), en el paso 1 debés pasar el valor `true` para el atributo de configuración `ckan.cors.origin_allow_all`.
 
 Para ver más acerca del funcionamiento de CORS en CKAN ver la [documentación oficial de CKAN (en inglés)](http://docs.ckan.org/en/ckan-2.7.3/maintaining/configuration.html#cors-settings).
+
+### Series de Riempo Ar Explorer
+
+Andino tiene instalado el plugin [ckanext-seriestiempoarexplorer](https://github.com/datosgobar/ckanext-seriestiempoarexplorer), pero no se
+encuentra presente entre los plugins activos.
+Para actuivarlo, debemos entrar al contenedor de andino, editar el archivo `/etc/ckan/default/production.ini` y agregar
+el `seriestiempoarexplorer` a la lista de plugins.
+Luego de agregarlo, debemos reinicar el servidor.
+
+
+```
+cd /etc/portal
+docker-compose -f latest.yml exec portal bash;
+vim /etc/ckan/default/production.ini
+# ...
+apachectl restart
+```
+
+Luego, si vamos a la configuración del sitio, podremos apreciar que se agrego una nueva sección "Series" en el apartado "Otras secciones del portal".
 
 ## Acceso a los datos de andino
 
