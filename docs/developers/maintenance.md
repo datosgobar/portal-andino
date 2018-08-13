@@ -403,7 +403,7 @@ Si deseás habilitar **todas** las URLs para CORS (no recomendado), en el paso 1
 
 Para ver más acerca del funcionamiento de CORS en CKAN ver la [documentación oficial de CKAN (en inglés)](http://docs.ckan.org/en/ckan-2.7.3/maintaining/configuration.html#cors-settings).
 
-### Series de Riempo Ar Explorer
+### Series de Tziempo Ar Explorer
 
 Andino tiene instalado el plugin [ckanext-seriestiempoarexplorer](https://github.com/datosgobar/ckanext-seriestiempoarexplorer), pero no se
 encuentra presente entre los plugins activos.
