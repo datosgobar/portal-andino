@@ -17,8 +17,9 @@
 
 ### Actualización simple
 
-Si instalamos la aplicación con la última versión del instalador ([este](https://raw.github.com/datosgobar/portal-andino/master/install/install.py)).
-El mismo no requiere parámetros, pero contiene algunos opcionales:
+Si instalamos la aplicación con la última versión del instalador 
+([este](https://raw.github.com/datosgobar/portal-andino/master/install/install.py)), 
+el mismo no requerirá parámetros, pero contiene algunos opcionales:
 
     # Parametros de install.py
     [-h]                    Mostrar la ayuda del script
@@ -26,17 +27,17 @@ El mismo no requiere parámetros, pero contiene algunos opcionales:
         Directorio donde esta instalada la aplicacion.
         Por defecto es `/etc/portal`
 
-Para esta actualización de ejemplo usaremos los valores por defecto:
+Para esta actualización de ejemplo, usaremos los valores por defecto:
 
     sudo wget https://raw.github.com/datosgobar/portal-andino/master/install/update.py
     sudo python update.py
 
-De esta forma el script asumirá que instalamos la aplicacion en `/etc/portal`.
+De esta forma, el script asumirá que instalamos la aplicación en `/etc/portal`.
 
 ### Actualización avanzada
 
-Si instalamos la aplicacion en otro directorio distinto de `/etc/portal`, necesitamos correr el script de una manera diferente.
-Suponiendo que instalamos la aplicacion en `/home/user/app/`, debemos correr los siguientes pasos:
+Si instalamos la aplicación en otro directorio distinto de `/etc/portal`, necesitamos correr el script de una manera diferente.
+Suponiendo que instalamos la aplicación en `/home/user/app/`, debemos correr los siguientes pasos:
 
     wget https://raw.github.com/datosgobar/portal-andino/master/install/update.py
     sudo python update.py --install_directory="/home/user/app/"
