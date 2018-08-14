@@ -97,7 +97,7 @@ echo "Backup listo."
 
 Este script dejará un archivo `backup.gz` en el directorio actual.
 
-### 3.2) Backup de los archivos de la aplicacion
+### 3.2) Backup de los archivos de la aplicación
 
 Es necesario hacer un backup de los archivos de la aplicación: configuración y archivos subidos. 
 El mismo puede llevarse a cabo con el siguiente script:
