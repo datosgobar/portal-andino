@@ -3,38 +3,41 @@
 ## Indice
 
 - [Mantenimiento](#mantenimiento)
-  - [Exploración de la instancia de andino](#exploraci%C3%B3n-de-la-instancia-de-andino)
-    - [¿Qué está corriendo docker?](#%C2%BFqu%C3%A9-est%C3%A1-corriendo-docker)
-    - [Ingresar al contendor pricipal de andino](#ingresar-al-contendor-pricipal-de-andino)
-    - [Listar todas las `Propiedades` de cada contenedor](#listar-todas-las-propiedades-de-cada-contenedor)
-  - [Administración de usuarios](#administraci%C3%B3n-de-usuarios)
-    - [Crear un usuario ADMIN](#crear-un-usuario-admin)
-    - [Listar mis usuarios](#listar-mis-usuarios)
-    - [Ver los datos de un usuario](#ver-los-datos-de-un-usuario)
-    - [Crear un nuevo usuario](#crear-un-nuevo-usuario)
-    - [Crear un nuevo usuario extendido](#crear-un-nuevo-usuario-extendido)
-    - [Eliminar un usuario](#eliminar-un-usuario)
-    - [Cambiar password de un usuario](#cambiar-password-de-un-usuario)
-  - [Configuraciones de andino](#configuraciones-de-andino)
-    - [Cambiar la configuración del SMTP](#cambiar-la-configuraci%C3%B3n-del-smtp)
-    - [Cambiar el remitente de los correos electrónicos que envía Andino](#cambiar-el-remitente-de-los-correos-electr%C3%B3nicos-que-env%C3%ADa-andino)
-    - [Cambiar el id del container de Google Tag Manager](#cambiar-el-id-del-container-de-google-tag-manager)
-    - [Deshabilitar la URL `/catalog.xlsx`](#deshabilitar-la-url-catalogxlsx)
-    - [Google Tag Manager](#google-tag-manager)
-    - [Configuración de la llamada de invalidación de caché](#configuraci%C3%B3n-de-la-llamada-de-invalidaci%C3%B3n-de-cach%C3%A9)
-    - [Cache externa](#cache-externa)
-    - [Configuración de CORS](#configuraci%C3%B3n-de-cors)
-    - [Configuración el explorador de series de tiempo](#series-de-tiempo-ar-explorer)
-  - [Acceso a los datos de andino](#acceso-a-los-datos-de-andino)
-    - [Encontrar los volúmenes de mi andino dentro del filesystem del host](#encontrar-los-vol%C3%BAmenes-de-mi-andino-dentro-del-filesystem-del-host)
-    - [Ver las direcciones IP de mis contenedores](#ver-las-direcciones-ip-de-mis-contenedores)
-    - [Ver las variables de entorno que tienen mis contenedores](#ver-las-variables-de-entorno-que-tienen-mis-contenedores)
-    - [Acceder con un cliente de PostgreSQL a las bases de datos](#acceder-con-un-cliente-de-postgresql-a-las-bases-de-datos)
-  - [Eliminar objetos definitivamente](#eliminar-objetos-definitivamente)
-    - [Purgar Organizaciones Borradas](#purgar-organizaciones-borradas)
-    - [Purgar Grupos Borrados](#purgar-grupos-borrados)
-    - [Purgar Datasets Borrados](#purgar-datasets-borrados)
-    - [Listar nombres de los datasets contenidos en Andino](#listar-nombres-de-los-datasets-contenidos-en-andino)
+    - [Exploración de la instancia de andino](#exploracion-de-la-instancia-de-andino)
+        - [¿Qué está corriendo docker?](#que-esta-corriendo-docker)
+        - [Ingresar al contendor pricipal de andino](#ingresar-al-contendor-pricipal-de-andino)
+        - [Listar todas las `Propiedades` de cada contenedor](#listar-todas-las-propiedades-de-cada-contenedor)
+    - [Administración de usuarios](#administracion-de-usuarios)
+        - [Crear un usuario ADMIN](#crear-un-usuario-admin)
+        - [Listar mis usuarios](#listar-mis-usuarios)
+        - [Ver los datos de un usuario](#ver-los-datos-de-un-usuario)
+        - [Crear un nuevo usuario](#crear-un-nuevo-usuario)
+        - [Crear un nuevo usuario extendido](#crear-un-nuevo-usuario-extendido)
+        - [Eliminar un usuario](#eliminar-un-usuario)
+        - [Cambiar password de un usuario](#cambiar-password-de-un-usuario)
+    - [Configuraciones de andino](#configuraciones-de-andino)
+        - [Cambiar la configuración del SMTP](#cambiar-la-configuracion-del-smtp)
+        - [Modificar el archivo de configuración](#modificar-el-archivo-de-configuraci%C3%B3n)
+        - [Cambiar el remitente de los correos electrónicos que envía Andino](#cambiar-el-remitente-de-los-correos-electronicos-que-envia-andino)
+        - [Cambiar el id del container de Google Tag Manager](#cambiar-el-id-del-container-de-google-tag-manager)
+        - [Google Tag Manager](#google-tag-manager)
+        - [Cambiar el id del tag de Google Analytics](#cambiar-el-id-del-tag-de-google-analytics)
+        - [Deshabilitar la URL `/catalog.xlsx`](#deshabilitar-la-url--catalogxlsx)
+        - [Configuración de la llamada de invalidación de caché](#configuraci%C3%B3n-de-la-llamada-de-invalidaci%C3%B3n-de-cach%C3%A9)
+        - [Cache](#configuraci%C3%B3n-de-la-llamada-de-invalidaci%C3%B3n-de-cach%C3%A9)
+        - [Cache externa](#cache-externa)
+        - [Configuración de CORS](#configuraci%C3%B3n-de-cors)
+        - [Configuración el explorador de series de tiempo](#series-de-tiempo-ar-explorer)
+    - [Acceso a los datos de andino](#acceso-a-los-datos-de-andino)
+        - [Encontrar los volúmenes de mi andino dentro del filesystem del host](#encontrar-los-volumenes-de-mi-andino-dentro-del-filesystem-del-host)
+        - [Ver las direcciones IP de mis contenedores](#ver-las-direcciones-ip-de-mis-contenedores)
+        - [Ver las variables de entorno que tienen mis contenedores](#ver-las-variables-de-entorno-que-tienen-mis-contenedores)
+        - [Acceder con un cliente de PostgreSQL a las bases de datos](#acceder-con-un-cliente-de-postgresql-a-las-bases-de-datos)
+    - [Eliminar objetos definitivamente](#eliminar-objetos-definitivamente)
+        - [Purgar Organizaciones Borradas](#purgar-organizaciones-borradas)
+        - [Purgar Grupos Borrados](#purgar-grupos-borrados)
+        - [Purgar Datasets Borrados](#purgar-datasets-borrados)
+        - [Listar nombres de los datasets contenidos en Andino](#listar-nombres-de-los-datasets-contenidos-en-andino)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -102,6 +105,26 @@ El comando solicitará la contraseña del usuario administrador.
 
 ## Configuraciones de andino
 
+### Modificar el archivo de configuración
+
+El archivo de configuración de andino se llama `production.ini`, y se lo puede encontrar y modificar 
+de la siguiente manera:
+
+```bash
+# Ingresar al contenedor
+
+cd /etc/portal
+docker-compose -f latest.yml exec portal /bin/bash
+
+# Una vez adentro, abrimos el archivo production.ini, y buscamos la sección que necesita ser modificada
+ 
+vim /etc/ckan/default/production.ini
+
+# Editamos y, luego de salir del contenedor, lo reiniciamos
+
+docker-compose -f latest.yml restart portal nginx
+```    
+
 ### Cambiar la configuración del SMTP
 
 Por defecto, andino usará un servidor postfix integrado para el envío de emails.
@@ -124,23 +147,8 @@ smtp.password = portal
 smtp.mail_from = administrador
 ```
 
-Para editarlo directamente, ejecutamos los comandos:
-
-```bash
-# Ingresar al contenedor
-
-cd /etc/portal
-docker-compose -f latest.yml exec portal /bin/bash
-
-# Una vez adentro, editamos el archivo production.ini
-# Debemos buscar la configuración debajo del comentario "## Email settings"
- 
-vim /etc/ckan/default/production.ini
-
-# Editamos y luego de salir del contenedor lo reiniciamos
-
-docker-compose -f latest.yml restart portal nginx
-```    
+Para saber cómo hacerlo, leer la sección que explica 
+[cómo modificar el archivo de configuración](#modificar-el-archivo-de-configuraci%C3%B3n)
 
 2 ) Ejecutando comandos paster
 
@@ -167,32 +175,19 @@ Para modificar el remitente de los correos electrónicos que el sistema envía (
 
 ### Cambiar el id del container de Google Tag Manager
 
-Vamos a modificar la configuración en el archivo `production.ini`. Para eso, tendremos que ingresar al contenedor y buscar el archivo de una forma parecida al primer método que vimos para cambiar la configuración del SMTP:
+Será necesario modificar la configuración en el archivo `production.ini`.
 
-```bash
-cd /etc/portal
-docker-compose -f latest.yml exec portal /bin/bash
-vim /etc/ckan/default/production.ini
+Para saber cómo hacerlo, leer la sección que explica 
+[cómo modificar el archivo de configuración](#modificar-el-archivo-de-configuraci%C3%B3n).
 
-# Una vez adentro, editamos el archivo production.ini
-# Esta vez, buscaremos la configuración debajo de la sección [app:main] (vas a encontrar campos como "superThemeTaxonomy" y "ckan.site.title")
-# El campo que estamos buscando es "ckan.google_tag_manager.gtm_container_id"
+Esta vez, buscaremos la configuración debajo de la sección [app:main] (vas a encontrar campos como "superThemeTaxonomy" y "ckan.site.title")
 
-# Una vez editado el archivo, salimos del contenedor lo reiniciamos
-docker-compose -f latest.yml restart portal nginx
-```
+El campo que estamos buscando es `ckan.google_tag_manager.gtm_container_id`
+
 
 En caso de no encontrar el campo mencionado, lo podemos agregar:
 
 `ckan.google_tag_manager.gtm_container_id = { id que necesitás guardar }`
-
-### Deshabilitar la URL `/catalog.xlsx`
-
-En caso de desear deshabilitar la URL `/catalog.xlsx` puede ejecutar el siguiente comando:
-
-    docker-compose -f latest.yml exec portal /etc/ckan_init.d/update_conf.sh "andino.disable_catalog_xlsx_url=True";
-
-En caso de querer restaurarlo, debe configurar el atributo `andino.disable_catalog_xlsx_url` al valor `False`.
 
 ### Google Tag Manager
 
@@ -202,6 +197,32 @@ Para configurar el código se seguimiento de Google Tag Manager ejecutar el sigu
 
     # Finalmente reiniciamos el contenedor
     docker-compose -f latest.yml restart portal nginx
+    
+### Cambiar el id del tag de Google Analytics
+
+Será necesario modificar el archivo de configuración `production.ini`.
+
+Para saber cómo hacerlo, leer la sección que explica 
+[cómo modificar el archivo de configuración](#modificar-el-archivo-de-configuraci%C3%B3n).
+
+La sección a buscar luce de esta manera:
+
+```
+## Google Analytics
+googleanalytics.id = { un id }
+googleanalytics_resource_prefix = { un prefix }
+googleanalytics.domain = { un dominio }
+```
+
+Lo que se debe modificar es el campo `googleanalytics.id`.
+
+### Deshabilitar la URL `/catalog.xlsx`
+
+En caso de desear deshabilitar la URL `/catalog.xlsx` puede ejecutar el siguiente comando:
+
+    docker-compose -f latest.yml exec portal /etc/ckan_init.d/update_conf.sh "andino.disable_catalog_xlsx_url=True";
+
+En caso de querer restaurarlo, debe configurar el atributo `andino.disable_catalog_xlsx_url` al valor `False`.
     
 ### Configuración de la llamada de invalidación de caché
 
@@ -231,7 +252,10 @@ Luego configuramos el hook de invalidación:
 1. Reiniciamos el portal: `docker-compose -f latest.yml restart portal nginx`
 
 _Nota: tener en cuenta que, por defecto, se emplea el método PURGE para disparar el hook, lo cual
-se puede cambiar editando el campo `andino.cache_clean_hook_method` dentro del archivo de configuración `production.ini`._ 
+se puede cambiar editando el campo `andino.cache_clean_hook_method` dentro del archivo de configuración `production.ini`._
+
+_Para saber cómo hacerlo, leer la sección que explica 
+[cómo modificar el archivo de configuración](#modificar-el-archivo-de-configuraci%C3%B3n)._ 
 
 ### Cache externa
 
