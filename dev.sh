@@ -61,6 +61,7 @@ sub_create_admin() {
 
 sub_setup() {
     sub_exec /etc/ckan_init.d/init_dev.sh;
+    sub_exec chown www-data:www-data /usr/lib/ckan/default/src/ckan/ckan/public/base/i18n/ar.js
     sub_exec supervisorctl restart all
     sub_create_admin admin;
 }
