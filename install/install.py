@@ -94,6 +94,7 @@ def configure_env_file(base_path, cfg):
         andino_version = content.strip()
     logger.info("Usando versión '%s' de andino" % andino_version)
     with open(env_file_path, "w") as env_f:
+        env_f.write("SITE_HOST=%s\n" % cfg.site_host)
         env_f.write("POSTGRES_USER=%s\n" % cfg.database_user)
         env_f.write("ANDINO_TAG=%s\n" % andino_version)
         env_f.write("POSTGRES_PASSWORD=%s\n" % cfg.database_password)
@@ -101,6 +102,10 @@ def configure_env_file(base_path, cfg):
         env_f.write("DATASTORE_HOST_PORT=%s\n" % cfg.datastore_port)
         env_f.write("maildomain=%s\n" % cfg.site_host)
         env_f.write("NGINX_CONFIG_FILE=%s\n" % get_nginx_configuration(cfg))
+        if cfg.nginx_cache_max_size:
+            env_f.write("NGINX_CACHE_MAX_SIZE=%s\n" % cfg.nginx_cache_max_size)
+        if cfg.nginx_cache_inactive:
+            env_f.write("NGINX_CACHE_INACTIVE=%s\n" % cfg.nginx_cache_inactive)
         env_f.write("TZ=%s\n" % cfg.timezone)
 
 
@@ -222,6 +227,8 @@ def parse_args():
     parser.add_argument('--branch', default='master')
     parser.add_argument('--install_directory', default='/etc/portal/')
     parser.add_argument('--nginx-extended-cache', action="store_true")
+    parser.add_argument('--nginx-cache-max-size', default="")
+    parser.add_argument('--nginx-cache-inactive', default="")
     parser.add_argument('--timezone', default="America/Argentina/Buenos_Aires")
 
     return parser.parse_args()

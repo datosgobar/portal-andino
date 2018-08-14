@@ -1,6 +1,6 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-
+## Indice
 
 - [Mantenimiento](#mantenimiento)
     - [Exploración de la instancia de andino](#exploracion-de-la-instancia-de-andino)
@@ -23,8 +23,11 @@
         - [Cambiar el id del container de Google Tag Manager](#cambiar-el-id-del-container-de-google-tag-manager)
         - [Cambiar el id del tag de Google Analytics](#cambiar-el-id-del-tag-de-google-analytics)
         - [Deshabilitar la URL `/catalog.xlsx`](#deshabilitar-la-url--catalogxlsx)
+        - [Configuración de la llamada de invalidación de caché](#configuraci%C3%B3n-de-la-llamada-de-invalidaci%C3%B3n-de-cach%C3%A9)
         - [Cache](#configuraci%C3%B3n-de-la-llamada-de-invalidaci%C3%B3n-de-cach%C3%A9)
         - [Cache externa](#cache-externa)
+        - [Configuración de CORS](#configuraci%C3%B3n-de-cors)
+        - [Configuración el explorador de series de tiempo](#series-de-tiempo-ar-explorer)
     - [Acceso a los datos de andino](#acceso-a-los-datos-de-andino)
         - [Encontrar los volúmenes de mi andino dentro del filesystem del host](#encontrar-los-volumenes-de-mi-andino-dentro-del-filesystem-del-host)
         - [Ver las direcciones IP de mis contenedores](#ver-las-direcciones-ip-de-mis-contenedores)
@@ -408,6 +411,40 @@ docker-compose -f latest.yml exec portal /etc/ckan_init.d/update_conf.sh "ckan.s
 docker-compose -f latest.yml restart portal nginx
 
 ```
+
+### Configuración de CORS
+
+Cuando es necesario acceder a Andino desde URLs distintas que apuntan a una misma instancia (ej: accediendo a través de un gateway/caché o directamente a la instancia de Andino o usando la IP pública del servidor _host_) es necesario, para el correcto funcionamiento de Andino, configurar parámetros para habilitar CORS (_Cross-Origin Resource Sharing_). Esto se debe a que un Andino debe tener una URL canónica, por lo tanto, las demás URLs utilizadas deben estar en el _whitelist_ de CORS de Andino.
+
+Para poder navegar tu Andino usando como URL una que no es la canónica de tu instancia tenés que realizar dos acciones (los comandos deben ser ejecutados desde el directorio de instalación de Andino, por _default_ `/etc/portal`):
+
+1. Habilitar el comportamiento CORS: `docker-compose -f latest.yml exec portal /etc/ckan_init.d/update_conf.sh "ckan.cors.origin_allow_all = false"` (si bien el parámetro de configuración tiene el valor `false`, esto habilita el control de URLs contra el _whitelist_).
+2. Agregar las URLs al _whitelist_: `docker-compose -f latest.yml exec portal /etc/ckan_init.d/update_conf.sh "ckan.cors.origin_whitelist=http://localhost:8080 http://127.0.0.1 http://127.0.0.1:8080"` (en el ejemplo se habilitan las URLs `http://localhost:8080`, `http://127.0.0.1` y `http://127.0.0.1:8080`).
+
+Luego reiniciá los contenedores `portal` y `nginx`: `docker-compose -f latest.yml restart nginx portal`.
+
+Si deseás habilitar **todas** las URLs para CORS (no recomendado), en el paso 1 debés pasar el valor `true` para el atributo de configuración `ckan.cors.origin_allow_all`.
+
+Para ver más acerca del funcionamiento de CORS en CKAN ver la [documentación oficial de CKAN (en inglés)](http://docs.ckan.org/en/ckan-2.7.3/maintaining/configuration.html#cors-settings).
+
+### Series de Tziempo Ar Explorer
+
+Andino tiene instalado el plugin [ckanext-seriestiempoarexplorer](https://github.com/datosgobar/ckanext-seriestiempoarexplorer), pero no se
+encuentra presente entre los plugins activos.
+Para actuivarlo, debemos entrar al contenedor de andino, editar el archivo `/etc/ckan/default/production.ini` y agregar
+el `seriestiempoarexplorer` a la lista de plugins.
+Luego de agregarlo, debemos reinicar el servidor.
+
+
+```
+cd /etc/portal
+docker-compose -f latest.yml exec portal bash;
+vim /etc/ckan/default/production.ini
+# ...
+apachectl restart
+```
+
+Luego, si vamos a la configuración del sitio, podremos apreciar que se agrego una nueva sección "Series" en el apartado "Otras secciones del portal".
 
 ## Acceso a los datos de andino
 
