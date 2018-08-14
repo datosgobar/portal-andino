@@ -24,7 +24,6 @@
         - [Cambiar el id del tag de Google Analytics](#cambiar-el-id-del-tag-de-google-analytics)
         - [Deshabilitar la URL `/catalog.xlsx`](#deshabilitar-la-url--catalogxlsx)
         - [Configuración de la llamada de invalidación de caché](#configuraci%C3%B3n-de-la-llamada-de-invalidaci%C3%B3n-de-cach%C3%A9)
-        - [Caché](#configuraci%C3%B3n-de-la-llamada-de-invalidaci%C3%B3n-de-cach%C3%A9)
         - [Caché externa](#cach%C3%A9-externa)
         - [Configuración de CORS](#configuraci%C3%B3n-de-cors)
         - [Configuración del explorador de series de tiempo](#configuraci%C3%B3n-del-explorador-de-series-de-tiempo)
