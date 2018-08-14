@@ -21,6 +21,7 @@
         - [Cambiar el remitente de los correos electrónicos que envía Andino](#cambiar-el-remitente-de-los-correos-electronicos-que-envia-andino)
         - [Google Tag Manager](#google-tag-manager)
         - [Cambiar el id del container de Google Tag Manager](#cambiar-el-id-del-container-de-google-tag-manager)
+        - [Cambiar el id del tag de Google Analytics](#cambiar-el-id-del-tag-de-google-analytics)
         - [Deshabilitar la URL `/catalog.xlsx`](#deshabilitar-la-url--catalogxlsx)
         - [Cache](#configuraci%C3%B3n-de-la-llamada-de-invalidaci%C3%B3n-de-cach%C3%A9)
         - [Cache externa](#cache-externa)
@@ -193,6 +194,24 @@ Para configurar el código se seguimiento de Google Tag Manager ejecutar el sigu
 
     # Finalmente reiniciamos el contenedor
     docker-compose -f latest.yml restart portal nginx
+    
+### Cambiar el id del tag de Google Analytics
+
+Será necesario modificar el archivo de configuración `production.ini`.
+
+Para saber cómo hacerlo, leer la sección que explica 
+[cómo modificar el archivo de configuración](#modificar-el-archivo-de-configuracion).
+
+La sección a buscar luce de esta manera:
+
+```
+## Google Analytics
+googleanalytics.id = { un id }
+googleanalytics_resource_prefix = { un prefix }
+googleanalytics.domain = { un dominio }
+```
+
+Lo que se debe modificar es el campo `googleanalytics.id`.
 
 ### Deshabilitar la URL `/catalog.xlsx`
 
