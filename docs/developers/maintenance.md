@@ -17,6 +17,7 @@
         - [Cambiar password de un usuario](#cambiar-password-de-un-usuario)
     - [Configuraciones de andino](#configuraciones-de-andino)
         - [Cambiar la configuración del SMTP](#cambiar-la-configuracion-del-smtp)
+        - [Modificar el archivo de configuración](#modificar-el-archivo-de-configuracion)
         - [Cambiar el remitente de los correos electrónicos que envía Andino](#cambiar-el-remitente-de-los-correos-electronicos-que-envia-andino)
         - [Deshabilitar la URL `/catalog.xlsx`](#deshabilitar-la-url--catalogxlsx)
         - [Google Tag Manager](#google-tag-manager)
@@ -99,6 +100,26 @@ El comando solicitará la contraseña del usuario administrador.
 
 ## Configuraciones de andino
 
+### Modificar el archivo de configuración
+
+El archivo de configuración de andino se llama `production.ini`, y se lo puede encontrar y modificar 
+de la siguiente manera:
+
+```bash
+# Ingresar al contenedor
+
+cd /etc/portal
+docker-compose -f latest.yml exec portal /bin/bash
+
+# Una vez adentro, abrimos el archivo production.ini, y buscamos la sección que necesita ser modificada
+ 
+vim /etc/ckan/default/production.ini
+
+# Editamos y, luego de salir del contenedor, lo reiniciamos
+
+docker-compose -f latest.yml restart portal nginx
+```    
+
 ### Cambiar la configuración del SMTP
 
 Por defecto, andino usará un servidor postfix integrado para el envío de emails.
@@ -121,23 +142,8 @@ smtp.password = portal
 smtp.mail_from = administrador
 ```
 
-Para editarlo directamente, ejecutamos los comandos:
-
-```bash
-# Ingresar al contenedor
-
-cd /etc/portal
-docker-compose -f latest.yml exec portal /bin/bash
-
-# Una vez adentro, editamos el archivo production.ini
-# Debemos buscar la configuración debajo del comentario "## Email settings"
- 
-vim /etc/ckan/default/production.ini
-
-# Editamos y luego de salir del contenedor lo reiniciamos
-
-docker-compose -f latest.yml restart portal nginx
-```    
+Para saber cómo hacerlo, leer la sección que explica 
+[cómo modificar el archivo de configuración](#modificar-el-archivo-de-configuracion)
 
 2 ) Ejecutando comandos paster
 
@@ -164,20 +170,15 @@ Para modificar el remitente de los correos electrónicos que el sistema envía (
 
 ### Cambiar el id del container de Google Tag Manager
 
-Vamos a modificar la configuración en el archivo `production.ini`. Para eso, tendremos que ingresar al contenedor y buscar el archivo de una forma parecida al primer método que vimos para cambiar la configuración del SMTP:
+Será necesario modificar la configuración en el archivo `production.ini`.
 
-```bash
-cd /etc/portal
-docker-compose -f latest.yml exec portal /bin/bash
-vim /etc/ckan/default/production.ini
+Para saber cómo hacerlo, leer la sección que explica 
+[cómo modificar el archivo de configuración](#modificar-el-archivo-de-configuracion).
 
-# Una vez adentro, editamos el archivo production.ini
-# Esta vez, buscaremos la configuración debajo de la sección [app:main] (vas a encontrar campos como "superThemeTaxonomy" y "ckan.site.title")
-# El campo que estamos buscando es "ckan.google_tag_manager.gtm_container_id"
+Esta vez, buscaremos la configuración debajo de la sección [app:main] (vas a encontrar campos como "superThemeTaxonomy" y "ckan.site.title")
 
-# Una vez editado el archivo, salimos del contenedor lo reiniciamos
-docker-compose -f latest.yml restart portal nginx
-```
+El campo que estamos buscando es `ckan.google_tag_manager.gtm_container_id`
+
 
 En caso de no encontrar el campo mencionado, lo podemos agregar:
 
@@ -228,7 +229,10 @@ Luego configuramos el hook de invalidación:
 1. Reiniciamos el portal: `docker-compose -f latest.yml restart portal nginx`
 
 _Nota: tener en cuenta que, por defecto, se emplea el método PURGE para disparar el hook, lo cual
-se puede cambiar editando el campo `andino.cache_clean_hook_method` dentro del archivo de configuración `production.ini`._ 
+se puede cambiar editando el campo `andino.cache_clean_hook_method` dentro del archivo de configuración `production.ini`._
+
+_Para saber cómo hacerlo, leer la sección que explica 
+[cómo modificar el archivo de configuración](#modificar-el-archivo-de-configuracion)._ 
 
 ### Cache externa
 
