@@ -17,10 +17,10 @@
         - [Cambiar password de un usuario](#cambiar-password-de-un-usuario)
     - [Configuraciones de andino](#configuraciones-de-andino)
         - [Cambiar la configuración del SMTP](#cambiar-la-configuracion-del-smtp)
-        - [Modificar el archivo de configuración](#modificar-el-archivo-de-configuracion)
+        - [Modificar el archivo de configuración](#modificar-el-archivo-de-configuraci%C3%B3n)
         - [Cambiar el remitente de los correos electrónicos que envía Andino](#cambiar-el-remitente-de-los-correos-electronicos-que-envia-andino)
-        - [Google Tag Manager](#google-tag-manager)
         - [Cambiar el id del container de Google Tag Manager](#cambiar-el-id-del-container-de-google-tag-manager)
+        - [Google Tag Manager](#google-tag-manager)
         - [Cambiar el id del tag de Google Analytics](#cambiar-el-id-del-tag-de-google-analytics)
         - [Deshabilitar la URL `/catalog.xlsx`](#deshabilitar-la-url--catalogxlsx)
         - [Configuración de la llamada de invalidación de caché](#configuraci%C3%B3n-de-la-llamada-de-invalidaci%C3%B3n-de-cach%C3%A9)
@@ -148,7 +148,7 @@ smtp.mail_from = administrador
 ```
 
 Para saber cómo hacerlo, leer la sección que explica 
-[cómo modificar el archivo de configuración](#modificar-el-archivo-de-configuracion)
+[cómo modificar el archivo de configuración](#modificar-el-archivo-de-configuraci%C3%B3n)
 
 2 ) Ejecutando comandos paster
 
@@ -178,7 +178,7 @@ Para modificar el remitente de los correos electrónicos que el sistema envía (
 Será necesario modificar la configuración en el archivo `production.ini`.
 
 Para saber cómo hacerlo, leer la sección que explica 
-[cómo modificar el archivo de configuración](#modificar-el-archivo-de-configuracion).
+[cómo modificar el archivo de configuración](#modificar-el-archivo-de-configuraci%C3%B3n).
 
 Esta vez, buscaremos la configuración debajo de la sección [app:main] (vas a encontrar campos como "superThemeTaxonomy" y "ckan.site.title")
 
@@ -203,7 +203,7 @@ Para configurar el código se seguimiento de Google Tag Manager ejecutar el sigu
 Será necesario modificar el archivo de configuración `production.ini`.
 
 Para saber cómo hacerlo, leer la sección que explica 
-[cómo modificar el archivo de configuración](#modificar-el-archivo-de-configuracion).
+[cómo modificar el archivo de configuración](#modificar-el-archivo-de-configuraci%C3%B3n).
 
 La sección a buscar luce de esta manera:
 
@@ -255,7 +255,7 @@ _Nota: tener en cuenta que, por defecto, se emplea el método PURGE para dispara
 se puede cambiar editando el campo `andino.cache_clean_hook_method` dentro del archivo de configuración `production.ini`._
 
 _Para saber cómo hacerlo, leer la sección que explica 
-[cómo modificar el archivo de configuración](#modificar-el-archivo-de-configuracion)._ 
+[cómo modificar el archivo de configuración](#modificar-el-archivo-de-configuraci%C3%B3n)._ 
 
 ### Cache externa
 
