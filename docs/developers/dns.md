@@ -17,7 +17,7 @@
 
 ## Introducción
 
-Algunas funcionalidades del Portal Andino requieren que la aplicación web o procesos externos (ej: DataPusher) puedan navegar sin restricciones desde el proceso en el cual corre la aplicación Python a la URL donde está publicada el sitio (definida por el setting `ckan.site_url`).
+Algunas funcionalidades del Portal Andino requieren que la aplicación web o procesos externos (ej: DataPusher) puedan navegar sin restricciones desde el proceso en el cual corre la aplicación Python a la URL donde está publicado el sitio (definida por el setting `ckan.site_url`).
 
 Esta URL debe poder ser accedida sin problemas de resolución de nombres o de ruteo de IPs desde el mismo contenedor _portal_ para el correcto funcionamiento del sitio.
 
@@ -39,7 +39,7 @@ Si el segundo paso no devuelve una respuesta en formato _json_ con la informaci�
 
 La solución del problema se basa en asegurar que dentro de la red de Docker el nombre de dominio de Andino pueda resolverse correctamente a la IP pública del host, a la IP privada dentro de la red en la que está o a la IP interna dentro de la red de Docker.
 
-Para lograrlo planteamos distintas alternativas.
+Para lograrlo, planteamos distintas alternativas.
 
 ### Configuración de DNS públicos
 
@@ -51,7 +51,7 @@ Probablemente ya tengas un nombre de dominio asignado a tu instancia de andino, 
 
 ### Configurar andino con el nuevo nombre de dominio
 
-Si ya tenés un nombre de dominio asignado para acceder a tu andino y cuando lo instalaste lo configuraste usando ese nombre de dominio, podés saltar este paso.
+Si ya tenés un nombre de dominio asignado para acceder a tu andino, y cuando lo instalaste lo configuraste usando ese nombre de dominio, podés saltar este paso.
 
 Para configurar el nuevo nombre de dominio es necesario actualizar el setting `ckan.site_url` de la instancia de Andino. Esto lo podés lograr con el siguiente comando:
 
@@ -61,7 +61,7 @@ Podés verificar que haya quedado bien configurado ejecutando:
 
 `docker-compose -f latest.yml exec portal grep ckan\.site_url /etc/ckan/default/production.ini`.
 
-Para reflejar los cambios es neceario reiniciar la aplicación web del contenedor `portal`:
+Para reflejar los cambios, es neceario reiniciar la aplicación web del contenedor `portal`:
 
 `docker-compose -f latest.yml exec portal apachectl restart`.
 
@@ -71,7 +71,7 @@ Finalmente, si ya tenías datos cargados en tu andino, necesitás regenerar el �
 
 ### Configurar un alias en la red de Docker para el contenedor nginx
 
-Si aún teniendo un nombre de dominio asignado, tu portal no puede resolver el mismo a la IP pública del servidor, podés modificar la configuración de la red de Docker usada por Andino para mapear el nombre de dominio de tu instancia al contenedor `nginx`.
+Si, aún teniendo un nombre de dominio asignado, tu portal no puede resolver el mismo a la IP pública del servidor, podés modificar la configuración de la red de Docker usada por Andino para mapear el nombre de dominio de tu instancia al contenedor `nginx`.
 
 Acalaración: Esta configuración se realiza por defecto para todas las instancias de Andino desde la versión 2.5. Si tu instancia de Andino fue creada *antes de la versión 2.5*, seguramente quieras realizar estos pasos.
 

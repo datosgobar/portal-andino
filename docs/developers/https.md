@@ -12,13 +12,13 @@
 
 La forma más sencilla de configurar HTTPS para nuestro servidor **andino** es instalando nginx en el servidor que sirve de
 *host* para la aplicación.
-Tambien debemos contar ya con los certificados `.key` y `.crt` para nuestra aplicación.
-Cómo obtenerlos esta fuera del "scope" de esta documentación.
+También debemos contar ya con los certificados `.key` y `.crt` para nuestra aplicación.
+Cómo obtenerlos está fuera del "scope" de esta documentación.
 
 ## Configuración de la aplicación
 
-Primero, debemos asegurarnos que nuestra aplicación no este haciendo uso del puerto 80 del servidor, que es el comportamiendo
-por defecto.
+Primero, debemos asegurarnos que nuestra aplicación no esté haciendo uso del puerto 80 del servidor, 
+el cual es el comportamiento por defecto.
 
 Si aún no instalamos nuestra aplicación, debemos correr el script `install.py` como lo hacemos normalmente,
 pero con el parámetro `--nginx_port 127.0.0.1:8000`:
@@ -39,7 +39,7 @@ cd /etc/portal
 vim .env
 ```
 
-En el mismo habrá una línea parecida a esta:
+En el mismo habrá una línea parecida a ésta:
 
 ```
 NGINX_HOST_PORT=80
@@ -57,24 +57,26 @@ Luego debemos *recrear* el contenedor de nginx:
 
 ## Configuracion de nginx
 
-Ahora que nuestra aplicacón es accesible internamente, debemos instalar y configurar nginx _en el servidor que funciona como host_ para que apunte a la misma
-*y redireccione* a HTTTPS de ser necesario.
+Ahora que nuestra aplicación es accesible internamente, debemos instalar y configurar nginx 
+_en el servidor que funciona como host_ para que apunte a la misma *y redireccione* a HTTPS de ser necesario.
 
 Para eso, primero instalamos `nginx` según nuestro sistema operativo:
 
 - Ubuntu: `sudo apt-get install nginx`
 
-Primero creamos una clave **Diffie-Hellman** para más seguridad (ver [este artículo](https://medium.com/@mvuksano/how-to-properly-configure-your-nginx-for-tls-564651438fe0) para mas información).
+Primero creamos una clave **Diffie-Hellman** para más seguridad 
+(ver [este artículo](https://medium.com/@mvuksano/how-to-properly-configure-your-nginx-for-tls-564651438fe0) para mas información).
 
 ```
 sudo mkdir /etc/nginx/ssl/
 sudo openssl dhparam 2048 -out /etc/nginx/ssl/andino_dhparam.pem
 ```
 
-Luego debemos agregar la configuracion de `nginx` para que haga uso de nuestros certificados.
+Luego, debemos agregar la configuración de `nginx` para que haga uso de nuestros certificados.
 
-Aquí asumiremos que nuestro sitio es `miandino.gob.ar` y los certificados estan en `/etc/nginx/ssl/andino.crt` y `/etc/nginx/ssl/andino.key`.
-La configuracion la agregaremos en `/etc/nginx/sites-available/001-andino.conf`
+Aquí asumiremos que nuestro sitio es `miandino.gob.ar` y los certificados estan en `/etc/nginx/ssl/andino.crt` y 
+`/etc/nginx/ssl/andino.key`.
+La configuración la agregaremos en `/etc/nginx/sites-available/001-andino.conf`
 
 ```
 server_tokens off;
@@ -149,5 +151,6 @@ sudo ln -s /etc/nginx/sites-available/001-andino.conf /etc/nginx/sites-enabled/0
 sudo systemctl restart nginx
 ```
 
-Finalmente deberiamos poder acceder a nuestro sitio en http://miandino.gob.ar:80 y ser redireccionados a https://miandino.gob.ar:443.
+Finalmente, deberíamos poder acceder a nuestro sitio en http://miandino.gob.ar:80 y ser redireccionados a 
+https://miandino.gob.ar:443.
 El explorador *no debería* mostrarnos ninguna advertencia si los certificados son correctos.

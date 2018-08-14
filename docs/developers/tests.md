@@ -11,7 +11,7 @@
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-Para correr los test de la aplicación, se deben levantar todos los servicios y luego inicializar la configuración de test.
+Para correr los tests de la aplicación, se deben levantar todos los servicios, y luego inicializar la configuración de test.
 
 ## Tests de Ckan
     $ docker-compose -f dev.yml up --build -d portal
@@ -24,8 +24,8 @@ Para correr los test de la aplicación, se deben levantar todos los servicios y 
 
 ### Instalación de andino
 
-Primero debemos evitar instalar la aplicación en vagrant, ya que pasaremos un parametro mas.
-Para eso modificamos el `Vagrantfile` cambiando las líneas:
+Primero, debemos evitar instalar la aplicación en vagrant, ya que pasaremos un parámetro mas.
+Para eso, modificamos el `Vagrantfile` cambiando las líneas:
 
 ```diff
 -INSTALL_APP = true
@@ -46,7 +46,7 @@ Esto instalará la aplicación, pero solo la hará accesible desde `localhost:80
 
 ### Instalar y configurar nginx
 
-Luego instalamos `nginx` en el host `sudo apt install nginx`.
+Luego, instalamos `nginx` en el host `sudo apt install nginx`.
 
 Generamos los certificados locales:
 
@@ -54,7 +54,7 @@ Generamos los certificados locales:
 sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/nginx/ssl/andino.key -out /etc/nginx/ssl/andino.crt
 ```
 
-Creamos la configuracion de nginx (no apta para producción) en `/etc/nginx/sites-available/001-andino.conf`:
+Creamos la configuracion de nginx _(no apta para producción)_ en `/etc/nginx/sites-available/001-andino.conf`:
 
 ```
 upstream wsgi_andino {
@@ -109,6 +109,6 @@ sudo ln -s /etc/nginx/sites-available/001-andino.conf /etc/nginx/sites-enabled/0
 sudo systemctl restart nginx
 ```
 
-Finalmente accedemos al sitio en http://192.168.23.10:80, y el mismo nos deberia redireccionar a la versión *https*.
+Finalmente, accedemos al sitio en http://192.168.23.10:80, y el mismo nos debería redireccionar a la versión *https*.
 El explorador nos mostrará una advertencia sobre el sitio, ya que no podrá validar los certificados.
 
