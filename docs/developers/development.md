@@ -3,7 +3,7 @@
         - [Instalar nuevo requerimiento](#instalar-nuevo-requerimiento)
         - [Configuración](#configuraci%C3%B3n)
         - [Configuración propia](#configuraci%C3%B3n-propia)
-        - [Inicio automático](#inicio-automt%C3%A1ico)
+        - [Inicio automático](#inicio-autom%C3%A1tico)
         - [Generación del nuevo contenedor](#generaci%C3%B3n-del-nuevo-contenedor)
 
 # Desarrollo
