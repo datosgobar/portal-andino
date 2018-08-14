@@ -24,8 +24,8 @@
         - [Cambiar el id del tag de Google Analytics](#cambiar-el-id-del-tag-de-google-analytics)
         - [Deshabilitar la URL `/catalog.xlsx`](#deshabilitar-la-url--catalogxlsx)
         - [Configuración de la llamada de invalidación de caché](#configuraci%C3%B3n-de-la-llamada-de-invalidaci%C3%B3n-de-cach%C3%A9)
-        - [Cache](#configuraci%C3%B3n-de-la-llamada-de-invalidaci%C3%B3n-de-cach%C3%A9)
-        - [Cache externa](#cache-externa)
+        - [Caché](#configuraci%C3%B3n-de-la-llamada-de-invalidaci%C3%B3n-de-cach%C3%A9)
+        - [Caché externa](#cach%C3%A9-externa)
         - [Configuración de CORS](#configuraci%C3%B3n-de-cors)
         - [Configuración del explorador de series de tiempo](#configuraci%C3%B3n-del-explorador-de-series-de-tiempo)
     - [Acceso a los datos de andino](#acceso-a-los-datos-de-andino)
@@ -56,7 +56,8 @@ Para obtener una lista de lo que está corriendo actualmente Docker, podemos usa
 
 ### Ingresar al contendor principal de andino
 
-El contenedor principal de andino, donde se ejecuta la aplicación CKAN, es denominado `portal`. Para ingresar en una sesión de consola en el contenedor, ejecutar:
+El contenedor principal de andino, donde se ejecuta la aplicación CKAN, es denominado `portal`. 
+Para ingresar en una sesión de consola en el contenedor, ejecutar:
 
     docker-compose -f /etc/portal/latest.yml exec portal /bin/bash
 
@@ -152,7 +153,7 @@ Para saber cómo hacerlo, leer la sección que explica
 
 2 ) Ejecutando comandos paster
 
-Suponiendo que nuestro servidor SMTP esta en smtp.gmail.com, la dirección de correo del usuario es `smtp_user_mail@gmail.com`, 
+Suponiendo que nuestro servidor SMTP está en smtp.gmail.com, la dirección de correo del usuario es `smtp_user_mail@gmail.com`, 
 la contraseña de esa dirección de correo `mi_pass` y queremos usar "tls", podemos ejecutar los siguientes comandos:
 
 ```
@@ -171,7 +172,10 @@ de @gmail.com**, y que **starttls debe estar en True**.
 
 ### Cambiar el remitente de los correos electrónicos que envía Andino
 
-Para modificar el remitente de los correos electrónicos que el sistema envía (por ejemplo los de creación de usuarios nuevos o los de olvido de contraseña) se deben seguir los pasos de la sección [Cambiar la configuración del SMTP](#cambiar-la-configuracion-del-smtp) pero modificando el atributo de configuración `smtp.mail_from`.
+Para modificar el remitente de los correos electrónicos que el sistema envía 
+(por ejemplo los de creación de usuarios nuevos o los de olvido de contraseña), 
+se deben seguir los pasos de la sección [Cambiar la configuración del SMTP](#cambiar-la-configuracion-del-smtp) 
+pero modificando el atributo de configuración `smtp.mail_from`.
 
 ### Cambiar el id del container de Google Tag Manager
 
@@ -180,9 +184,10 @@ Será necesario modificar la configuración en el archivo `production.ini`.
 Para saber cómo hacerlo, leer la sección que explica 
 [cómo modificar el archivo de configuración](#modificar-el-archivo-de-configuraci%C3%B3n).
 
-Esta vez, buscaremos la configuración debajo de la sección [app:main] (vas a encontrar campos como "superThemeTaxonomy" y "ckan.site.title")
+Esta vez, buscaremos la configuración debajo de la sección [app:main] 
+(vas a encontrar campos como "superThemeTaxonomy" y "ckan.site.title").
 
-El campo que estamos buscando es `ckan.google_tag_manager.gtm_container_id`
+El campo que estamos buscando es `ckan.google_tag_manager.gtm_container_id`.
 
 
 En caso de no encontrar el campo mencionado, lo podemos agregar:
@@ -218,11 +223,11 @@ Lo que se debe modificar es el campo `googleanalytics.id`.
 
 ### Deshabilitar la URL `/catalog.xlsx`
 
-En caso de desear deshabilitar la URL `/catalog.xlsx` puede ejecutar el siguiente comando:
+En caso de desear deshabilitar la URL `/catalog.xlsx`, se puede ejecutar el siguiente comando:
 
     docker-compose -f latest.yml exec portal /etc/ckan_init.d/update_conf.sh "andino.disable_catalog_xlsx_url=True";
 
-En caso de querer restaurarlo, debe configurar el atributo `andino.disable_catalog_xlsx_url` al valor `False`.
+En caso de querer restaurarlo, se debe configurar el atributo `andino.disable_catalog_xlsx_url` con el valor `False`.
     
 ### Configuración de la llamada de invalidación de caché
 
@@ -253,17 +258,16 @@ Luego configuramos el hook de invalidación:
 
 _Nota: tener en cuenta que, por defecto, se emplea el método PURGE para disparar el hook, lo cual
 se puede cambiar editando el campo `andino.cache_clean_hook_method` dentro del archivo de configuración `production.ini`._
-
 _Para saber cómo hacerlo, leer la sección que explica 
 [cómo modificar el archivo de configuración](#modificar-el-archivo-de-configuraci%C3%B3n)._ 
 
-### Cache externa
+### Caché externa
 
-Es posible implementar la cache externa por fuera del paquete andino.
-Para esto, en el servidor que servirá de cache, necesitamos instalar [openresty](https://openresty.org/en/installation.html).
+Es posible implementar la caché externa por fuera del paquete andino.
+Para esto, en el servidor que servirá de caché, necesitamos instalar [openresty](https://openresty.org/en/installation.html).
 Esta plataforma web nos permite correr **nginx** y modificar su comportamiento usando [lua](https://www.lua.org/).
 
-Luego de instalar **openresty**, debemos activarlo para que empiece cada vez que se prender el servdor:
+Luego de instalar **openresty**, debemos activarlo para que empiece cada vez que se prenda el servidor:
 
 ```
 systemctl enable openresty
@@ -313,7 +317,7 @@ http {
 ```
 
 
-Luego creamos el directorio donde pondremos la configuración de nuestra cache y creamos el archivo.
+Luego, creamos el directorio donde pondremos la configuración de nuestra caché y creamos el archivo.
 
 ```
 mkdir -p /etc/nginx/conf.d/
@@ -321,7 +325,7 @@ touch /etc/nginx/conf.d/000-andino-cache.conf
 ```
 
 El archivo `000-andino-cache.conf` contendrá lo siguiente.
-Es necesario cambiar la palabre `IP_A_ANDINO` por la IP donde esta andino.
+Es necesario cambiar la palabre `IP_A_ANDINO` por la IP donde está andino.
 
 ```
 proxy_cache_path /tmp/nginx_cache/ levels=1:2 keys_zone=cache:30m max_size=250m;
@@ -377,22 +381,22 @@ server {
 
 Finalmente, reiniciamos **openresty**: `systemctl restart openresty`.
 
-Ahora que tenemos la cache configurada, necesitamos configurar la llamada, o hook, de invalición de cache.
-Para esto, entramos al servidor donde esta corriendo andino y corremos:
+Ahora que tenemos la caché configurada, necesitamos configurar la llamada, o hook, de invalidación de caché.
+Para esto, entramos al servidor donde está corriendo andino y corremos:
 
 ```bash
-IP_INTERNA_CACHE=<ip interna del servidor de cache>
+IP_INTERNA_CACHE=<ip interna del servidor de caché>
 
 cd /etc/portal
 docker-compose -f latest.yml exec portal /etc/ckan_init.d/update_conf.sh "andino.cache_clean_hook=http://$IP_INTERNA_CACHE/meta/cache/purge";
 docker-compose -f latest.yml restart portal nginx
 ```
 
-Si queremos probar la integración, podemos entrar al contenedor de andino y probar invalidar la cache:
+Si queremos probar la integración, podemos entrar al contenedor de andino y probar invalidar la caché:
 
 ```
 
-IP_INTERNA_CACHE=<ip interna del servidor de cache>
+IP_INTERNA_CACHE=<ip interna del servidor de caché>
 cd /etc/portal
 docker-compose -f latest.yml exec portal curl -X PURGE "http://$IP_INTERNA_CACHE/meta/cache/purge";
 # =>  OK
@@ -400,11 +404,11 @@ docker-compose -f latest.yml exec portal curl -X PURGE "http://$IP_INTERNA_CACHE
 
 
 **NOTA:** Si estamos usando nuestro andino con un IP y *no* con un dominio, tendremos que cambiar la
-configuración `ckan.site_url` para que use la IP del servidor donde se encuentra la cache externa.
+configuración `ckan.site_url` para que use la IP del servidor donde se encuentra la caché externa.
 
 ```bash
 
-IP_PUBLICA_CACHE=<ip publica del servidor cache>
+IP_PUBLICA_CACHE=<ip publica del servidor caché>
 
 cd /etc/portal
 docker-compose -f latest.yml exec portal /etc/ckan_init.d/update_conf.sh "ckan.site_url=http://$IP_PUBLICA_CACHE";
@@ -414,24 +418,31 @@ docker-compose -f latest.yml restart portal nginx
 
 ### Configuración de CORS
 
-Cuando es necesario acceder a Andino desde URLs distintas que apuntan a una misma instancia (ej: accediendo a través de un gateway/caché o directamente a la instancia de Andino o usando la IP pública del servidor _host_) es necesario, para el correcto funcionamiento de Andino, configurar parámetros para habilitar CORS (_Cross-Origin Resource Sharing_). Esto se debe a que un Andino debe tener una URL canónica, por lo tanto, las demás URLs utilizadas deben estar en el _whitelist_ de CORS de Andino.
+Cuando es necesario acceder a Andino desde URLs distintas que apuntan a una misma instancia 
+(ej: accediendo a través de un gateway/caché o directamente a la instancia de Andino o usando la IP pública 
+del servidor _host_) es necesario, para el correcto funcionamiento de Andino, configurar parámetros para habilitar 
+CORS (_Cross-Origin Resource Sharing_). Esto se debe a que un Andino debe tener una URL canónica, por lo tanto, 
+las demás URLs utilizadas deben estar en el _whitelist_ de CORS de Andino.
 
-Para poder navegar tu Andino usando como URL una que no es la canónica de tu instancia tenés que realizar dos acciones (los comandos deben ser ejecutados desde el directorio de instalación de Andino, por _default_ `/etc/portal`):
+Para poder navegar tu Andino usando como URL una que no es la canónica de tu instancia, tenés que realizar dos acciones 
+(los comandos deben ser ejecutados desde el directorio de instalación de Andino; por _default_, `/etc/portal`):
 
 1. Habilitar el comportamiento CORS: `docker-compose -f latest.yml exec portal /etc/ckan_init.d/update_conf.sh "ckan.cors.origin_allow_all = false"` (si bien el parámetro de configuración tiene el valor `false`, esto habilita el control de URLs contra el _whitelist_).
 2. Agregar las URLs al _whitelist_: `docker-compose -f latest.yml exec portal /etc/ckan_init.d/update_conf.sh "ckan.cors.origin_whitelist=http://localhost:8080 http://127.0.0.1 http://127.0.0.1:8080"` (en el ejemplo se habilitan las URLs `http://localhost:8080`, `http://127.0.0.1` y `http://127.0.0.1:8080`).
 
 Luego reiniciá los contenedores `portal` y `nginx`: `docker-compose -f latest.yml restart nginx portal`.
 
-Si deseás habilitar **todas** las URLs para CORS (no recomendado), en el paso 1 debés pasar el valor `true` para el atributo de configuración `ckan.cors.origin_allow_all`.
+Si deseás habilitar **todas** las URLs para CORS (no recomendado), en el paso 1 debés pasar el valor `true` para 
+el atributo de configuración `ckan.cors.origin_allow_all`.
 
-Para ver más acerca del funcionamiento de CORS en CKAN ver la [documentación oficial de CKAN (en inglés)](http://docs.ckan.org/en/ckan-2.7.3/maintaining/configuration.html#cors-settings).
+Para ver más acerca del funcionamiento de CORS en CKAN ver la 
+[documentación oficial de CKAN (en inglés)](http://docs.ckan.org/en/ckan-2.7.3/maintaining/configuration.html#cors-settings).
 
 ### Configuración del explorador de series de tiempo
 
-Andino tiene instalado el plugin [ckanext-seriestiempoarexplorer](https://github.com/datosgobar/ckanext-seriestiempoarexplorer), pero no se
-encuentra presente entre los plugins activos.
-Para actuivarlo, debemos entrar al contenedor de andino, editar el archivo `/etc/ckan/default/production.ini` y agregar
+Andino tiene instalado el plugin [ckanext-seriestiempoarexplorer](https://github.com/datosgobar/ckanext-seriestiempoarexplorer), 
+pero no se encuentra presente entre los plugins activos.
+Para activarlo, debemos entrar al contenedor de andino, editar el archivo `/etc/ckan/default/production.ini` y agregar
 el `seriestiempoarexplorer` a la lista de plugins.
 Luego de agregarlo, debemos reinicar el servidor.
 
@@ -444,7 +455,8 @@ vim /etc/ckan/default/production.ini
 apachectl restart
 ```
 
-Luego, si vamos a la configuración del sitio, podremos apreciar que se agrego una nueva sección "Series" en el apartado "Otras secciones del portal".
+Luego, si vamos a la configuración del sitio, podremos apreciar que se agrego una nueva sección "Series" en el apartado
+ "Otras secciones del portal".
 
 ## Acceso a los datos de andino
 
@@ -469,7 +481,8 @@ Luego, si vamos a la configuración del sitio, podremos apreciar que se agrego u
 
 ## Eliminar objetos definitivamente
 
-Es bien sabido que dentro de CKAN cada vez que borranmos algun elemento, en verdad no se borra, sino que pasa a estar inactivo, por tanto, tener alguna forma de eliminar elementos de manera definitiva, resulta altamente necesario.
+Es bien sabido que, dentro de CKAN, cada vez que borranmos algun elemento, en verdad no se borra, sino que pasa a estar 
+inactivo; por lo tanto, tener alguna forma de eliminar elementos de manera definitiva resulta altamente necesario.
 
 ### Purgar Organizaciones Borradas
 
@@ -488,10 +501,12 @@ Es bien sabido que dentro de CKAN cada vez que borranmos algun elemento, en verd
 
 ```bash
 docker-compose -f /etc/portal/latest.yml exec portal /etc/ckan_init.d/paster.sh  --plugin=ckan dataset list | grep -v DEBUG | grep -v count  | grep -v Datasets | xargs -n2 | while read id name; do echo $name; done
+```
 
 ## Backups
 
-Es altamente recomendable hacer copias de seguridad de los datos de la aplicacion, tanto la base de datos como los archivos de configuración y subidos por los usuarios.
+Es altamente recomendable hacer copias de seguridad de los datos de la aplicación, tanto la base de datos como los 
+archivos de configuración y subidos por los usuarios.
 
 ### Backup de la base de datos
 
@@ -536,9 +551,12 @@ Y para los demás archivos de la aplicación (requiere [`jq`](https://stedolan.g
 
     tar -C "$appbackupdir../" -zcvf backup.tar.gz "application/"
 
-Podria colocarse esos scripts en el directorio donde se instaló la aplicación (ejemplo : `/etc/portal/backup.sh`) y luego agregar un `cron`:
-Para correr el script cada domingo, podríamos usar la configuración `0 0 * * 0` (ver [cron](https://help.ubuntu.com/community/CronHowto) para más información)
-Correr el comando `crontab -e` y agregar la línea:
+Podria colocarse esos scripts en el directorio donde se instaló la aplicación 
+(ejemplo : `/etc/portal/backup.sh`) y luego agregar un `cron`:
+
+Para correr el script cada domingo, podríamos usar la configuración `0 0 * * 0` 
+(ver [cron](https://help.ubuntu.com/community/CronHowto) para más información), 
+correr el comando `crontab -e` y agregar la línea:
 
     0 0 * * 0 cd /etc/portal/ && bash /etc/portal/backup.sh
 
@@ -563,47 +581,64 @@ Correr el comando `crontab -e` y agregar la línea:
 
 ## Recomendaciones de Seguridad y Optimizaciones
 
-Mantener seguro un servidor web puede ser una tarea ardua, pero sobre todo es _constante_, ya que _constantemente_ se detectan nuevas vulnerabilidades en los distintos softwares.
-Y un servidor web no es la excepcion!
-En este breve apartado, se darán pequeñas recomendaciones para mantener seguro el servidor, no solo antes posibles atacantes, sino tambien ante posibles fallos del sistema y como efectuar mitigaciones.
+Mantener seguro un servidor web puede ser una tarea ardua, pero sobre todo es _constante_, ya que _constantemente_ 
+se detectan nuevas vulnerabilidades en los distintos softwares.
+Y un servidor web no es la excepción!
+En este breve apartado, se darán pequeñas recomendaciones para mantener seguro el servidor, 
+no solo antes posibles atacantes, sino tambien ante posibles fallos del sistema y como efectuar mitigaciones.
 
-Las siguientes recomendaciones puden ser implementadas fácilmente en un sistema Ubuntu 16.04, el cual es el recomendado (a la fecha), para correr la aplicación.
+Las siguientes recomendaciones puden ser implementadas fácilmente en un sistema Ubuntu 16.04, el cual es el 
+recomendado (a la fecha), para correr la aplicación.
 
 ### HTTPS
 
-HTTPS permite que la coneccion entre el _browser_ y el servidor sea encriptada y de esta manera segura.
+HTTPS permite que la conexión entre el _browser_ y el servidor sea encriptada y de esta manera segura.
 Es altamente recomendable usar HTTPS, para mantener la privacidad de los usuarios.
-El portal de documentación para desarrolladores de Google provee buena informacion sobre esto:
+El portal de documentación para desarrolladores de Google provee buena información sobre esto:
 https://developers.google.com/web/fundamentals/security/encrypt-in-transit/why-https
 
 
 ### Sistema y librerías
 
-Es _altamente recomendable_ mantener el sistema operativo y las aplicaciones que usemos actualizadas. Constantemente se estan subiendo _fixes_ de seguridad y posibles intrusos podrían aprovechar que las aplicaciones o el mismo sistema operativo esten desactualizados.
-Periodicamente podríamos constatar las nuevas versiones de nuestro software y actualizar dentro de lo posible. Como ejemplo, podemos ver que para Ubuntu 16.04 salió Ubuntu 16.04.2, con algunas correcciones de seguridad. [Ver](https://wiki.ubuntu.com/XenialXerus/ReleaseNotes/ChangeSummary/16.04.2).
+Es _altamente recomendable_ mantener el sistema operativo y las aplicaciones que usemos actualizadas. 
+Constantemente se están subiendo _fixes_ de seguridad y posibles intrusos podrían aprovechar que las aplicaciones 
+o el mismo sistema operativo estén desactualizados.
+Periódicamente, podríamos constatar las nuevas versiones de nuestro software y actualizar dentro de lo posible. 
+Como ejemplo, podemos ver que para Ubuntu 16.04 salió Ubuntu 16.04.2, con algunas correcciones de seguridad. 
+[Ver](https://wiki.ubuntu.com/XenialXerus/ReleaseNotes/ChangeSummary/16.04.2).
 
 ### Firewall
 
-**Todo servidor debe tener activado el firewall.** El firewall permitirá denegar (o permitr) el acceso a la red. En un servidor web, el puerto abierto al público deberían ser sólo el 80 (http) y el 443 (https). Además de ese puerto, si la máquina es accedida remotamente mediante un servidor SSH, deberíamos abrir este puerto también, pero con un límite de acceso.
-La solución es facilmente implementable con el programa [`ufw`](https://help.ubuntu.com/community/UFW).
+**Todo servidor debe tener activado el firewall.** El firewall permitirá denegar (o permitr) el acceso a la red. 
+En un servidor web, el puerto abierto al público deberían ser sólo el 80 (http) y el 443 (https). Además de ese puerto, 
+si la máquina es accedida remotamente mediante un servidor SSH, deberíamos abrir este puerto también, 
+pero con un límite de acceso.
+La solución es fácilmente implementable con el programa [`ufw`](https://help.ubuntu.com/community/UFW).
 
 
 ### SSH
 
-Los servidores ssh permiten el acceso al servidor remotamente. **No debe permitirse el acceso por ssh mediante usuario y password**. Sólo debe permitirse el acceso mediante clave publica.
-DigitalOcean tiene una buena guía de cómo configurar las claves pública [Ver](https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys--2).
+Los servidores ssh permiten el acceso al servidor remotamente. 
+**No debe permitirse el acceso por ssh mediante usuario y password**. 
+Sólo debe permitirse el acceso mediante clave publica.
+DigitalOcean tiene una buena guía de cómo configurar las claves públicas 
+[Ver](https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys--2).
 
 ## Optimización de logging
 
 ### Configurar otro `logging driver`
 
-Por default docker escribe a un archivo con formato `json`, lo cual puede llevar a que se acumulen los logs de la aplicacion y estos archivos crezcan indefinidamente.
-Para evitar esto, se puede configurar el [`logging driver`](https://docs.docker.com/engine/admin/logging/overview/) de docker.
+Por default, docker escribe a un archivo con formato `json`, lo cual puede llevar a que se acumulen los logs de la 
+aplicación, y estos archivos crezcan indefinidamente.
+Para evitar esto, se puede configurar el [`logging driver`](https://docs.docker.com/engine/admin/logging/overview/) 
+de docker.
 La recomendacion es usar `journald` y configurarlo para que los logs sean persistentes. 
 
 ### Eliminar `logs` antiguos de `Docker`
 
-Dentro del nomal funcionamiento de la plataforma, se generan gran catidad de logs, los cuales, ante un incidencia, son sumamente utiles, pero luego de un tiempo, y sabiendo que los mismo se almacenan internamente en Andino, podria ser necesario eliminarlos.
+Dentro del normal funcionamiento de la plataforma, se genera una gran cantidad de logs, los cuales, ante un incidencia, 
+son sumamente útiles. Pero, luego de un tiempo, y sabiendo que los mismos se almacenan internamente en Andino, podría 
+ser necesario eliminarlos.
 
     sudo su -c "ls  /var/lib/docker/containers/ | xargs -n1 | while read docker_id; do truncate -s 0 /var/lib/docker/containers/${docker_id%/*}/${docker_id%/*}-json.log; done"
 
