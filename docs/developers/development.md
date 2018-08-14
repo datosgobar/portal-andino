@@ -33,7 +33,7 @@ La parte que instala los requerimientos quedaría así:
 
 ```
 
-Al agregar `supervisor`, este será instalado cuando la generación de la imagen termine.
+Al agregar `supervisor`, éste será instalado cuando la generación de la imagen termine.
 Ahora, lo siguiente sólo sería agregar la configuración para levantar las colas de rq, 
 con la configuración que trae ckan.
 
@@ -44,7 +44,7 @@ El mejor punto para agregar esta configuración es en el archivo
 El mismo es utilizado _después_ de que ckan es instalado, por lo que el archivo de configuración ya está 
 presente en el sistema.
 
-Para eso, agregaremos una tarea más de ansible, usaremos el módulo [`copy`](https://docs.ansible.com/ansible/2.4/copy_module.html).
+Para eso, añadiremos una tarea más de ansible, usaremos el módulo [`copy`](https://docs.ansible.com/ansible/2.4/copy_module.html).
 Al final de `configure.yml`, agregaremos algo como:
 
 ```yaml
