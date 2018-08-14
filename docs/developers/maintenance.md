@@ -3,11 +3,11 @@
 ## Indice
 
 - [Mantenimiento](#mantenimiento)
-    - [Exploración de la instancia de andino](#exploracion-de-la-instancia-de-andino)
-        - [¿Qué está corriendo docker?](#que-esta-corriendo-docker)
-        - [Ingresar al contendor pricipal de andino](#ingresar-al-contendor-pricipal-de-andino)
+    - [Exploración de la instancia de andino](#exploraci%C3%B3n-de-la-instancia-de-andino)
+        - [¿Qué está corriendo docker?](#qu%C3%A9-est%C3%A1-corriendo-docker)
+        - [Ingresar al contendor principal de andino](#ingresar-al-contendor-principal-de-andino)
         - [Listar todas las `Propiedades` de cada contenedor](#listar-todas-las-propiedades-de-cada-contenedor)
-    - [Administración de usuarios](#administracion-de-usuarios)
+    - [Administración de usuarios](#administraci%C3%B3n-de-usuarios)
         - [Crear un usuario ADMIN](#crear-un-usuario-admin)
         - [Listar mis usuarios](#listar-mis-usuarios)
         - [Ver los datos de un usuario](#ver-los-datos-de-un-usuario)
@@ -16,9 +16,9 @@
         - [Eliminar un usuario](#eliminar-un-usuario)
         - [Cambiar password de un usuario](#cambiar-password-de-un-usuario)
     - [Configuraciones de andino](#configuraciones-de-andino)
-        - [Cambiar la configuración del SMTP](#cambiar-la-configuracion-del-smtp)
+        - [Cambiar la configuración del SMTP](#cambiar-la-configuraci%C3%B3n-del-smtp)
         - [Modificar el archivo de configuración](#modificar-el-archivo-de-configuraci%C3%B3n)
-        - [Cambiar el remitente de los correos electrónicos que envía Andino](#cambiar-el-remitente-de-los-correos-electronicos-que-envia-andino)
+        - [Cambiar el remitente de los correos electrónicos que envía Andino](#cambiar-el-remitente-de-los-correos-electr%C3%B3nicos-que-env%C3%ADa-andino)
         - [Cambiar el id del container de Google Tag Manager](#cambiar-el-id-del-container-de-google-tag-manager)
         - [Google Tag Manager](#google-tag-manager)
         - [Cambiar el id del tag de Google Analytics](#cambiar-el-id-del-tag-de-google-analytics)
@@ -27,9 +27,9 @@
         - [Cache](#configuraci%C3%B3n-de-la-llamada-de-invalidaci%C3%B3n-de-cach%C3%A9)
         - [Cache externa](#cache-externa)
         - [Configuración de CORS](#configuraci%C3%B3n-de-cors)
-        - [Configuración el explorador de series de tiempo](#series-de-tiempo-ar-explorer)
+        - [Configuración del explorador de series de tiempo](#configuraci%C3%B3n-del-explorador-de-series-tiempo)
     - [Acceso a los datos de andino](#acceso-a-los-datos-de-andino)
-        - [Encontrar los volúmenes de mi andino dentro del filesystem del host](#encontrar-los-volumenes-de-mi-andino-dentro-del-filesystem-del-host)
+        - [Encontrar los volúmenes de mi andino dentro del filesystem del host](#encontrar-los-vol%C3%BAmenes-de-mi-andino-dentro-del-filesystem-del-host)
         - [Ver las direcciones IP de mis contenedores](#ver-las-direcciones-ip-de-mis-contenedores)
         - [Ver las variables de entorno que tienen mis contenedores](#ver-las-variables-de-entorno-que-tienen-mis-contenedores)
         - [Acceder con un cliente de PostgreSQL a las bases de datos](#acceder-con-un-cliente-de-postgresql-a-las-bases-de-datos)
@@ -54,7 +54,7 @@ Para obtener una lista de lo que está corriendo actualmente Docker, podemos usa
     docker ps -aq # Listado de IDs de todos los contenedores disponibles.
 
 
-### Ingresar al contendor pricipal de andino
+### Ingresar al contendor principal de andino
 
 El contenedor principal de andino, donde se ejecuta la aplicación CKAN, es denominado `portal`. Para ingresar en una sesión de consola en el contenedor, ejecutar:
 
@@ -427,7 +427,7 @@ Si deseás habilitar **todas** las URLs para CORS (no recomendado), en el paso 1
 
 Para ver más acerca del funcionamiento de CORS en CKAN ver la [documentación oficial de CKAN (en inglés)](http://docs.ckan.org/en/ckan-2.7.3/maintaining/configuration.html#cors-settings).
 
-### Series de Tziempo Ar Explorer
+### Configuración del explorador de series de tiempo
 
 Andino tiene instalado el plugin [ckanext-seriestiempoarexplorer](https://github.com/datosgobar/ckanext-seriestiempoarexplorer), pero no se
 encuentra presente entre los plugins activos.
