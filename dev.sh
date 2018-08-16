@@ -61,6 +61,7 @@ sub_create_admin() {
 
 sub_setup() {
     sub_exec /etc/ckan_init.d/init_dev.sh;
+    sub_exec chown www-data:www-data /usr/lib/ckan/default/src/ckan/ckan/public/base/i18n/ar.js
     sub_exec supervisorctl restart all
     sub_create_admin admin;
 }
@@ -74,6 +75,7 @@ sub_setup_with() {
     sub_exec /usr/lib/ckan/default/bin/pip install -r "$directory/dev-requirements.txt"
     sub_exec /usr/lib/ckan/default/bin/pip install -e "$directory"
     sub_exec /etc/ckan_init.d/init_dev.sh
+    sub_exec chown www-data:www-data /usr/lib/ckan/default/src/ckan/ckan/public/base/i18n/ar.js
     sub_exec supervisorctl restart all
     sub_exec /usr/lib/ckan/default/bin/paster serve /etc/ckan/default/production.ini
 }
