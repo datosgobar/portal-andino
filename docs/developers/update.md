@@ -15,6 +15,8 @@
 
 ## Versiones 2.x
 
+**Nota: si actualizás desde una versión 2.4.x a una versión 2.5.x ver [Versiones 2.4.x a 2.5.x](#versiones-24x-a-25x) ANTES de proceder con la actualización**
+
 ### Actualización simple
 
 Si instalamos la aplicación con la última versión del instalador 
@@ -42,16 +44,13 @@ Suponiendo que instalamos la aplicación en `/home/user/app/`, debemos correr lo
     wget https://raw.github.com/datosgobar/portal-andino/master/install/update.py
     sudo python update.py --install_directory="/home/user/app/"
 
-### Problemas comunes
+### Versiones 2.4.x a 2.5.x
 
-#### Error de sqlalchemy por package.metadata_created
+En el caso de actualizar un Andino de versión 2.4.x a 2.5.x existe un error conocido de CKAN 2.5.8 (Ver issue [ckan/ckan#4168](https://github.com/ckan/ckan/issues/4168)) que **debe solucionarse ANTES de ejecutar la actualización**. 
 
-Al ejecutar la actualización a la versión de andino 2.5 estando en andino 2.4 o con CKAN 2.5.8, se produce el siguiente error:
-`sqlalchemy.exc.ProgrammingError: (ProgrammingError) column package.metadata_created does not exist`
+En el procedimiento normal, ocurriría un error: `sqlalchemy.exc.ProgrammingError: (ProgrammingError) column package.metadata_created does not exist`
 
-Es un problema conocido, para el cual existe un issue en el repositorio de CKAN: https://github.com/ckan/ckan/issues/4168
-
-Para poder solucionarlo, se debe correr el siguiente script:
+Para poder solucionarlo, se debe correr el siguiente script **antes de ejecutar el procedimiento normal de actualización**:
 
 ```bash
 docker-compose -f latest.yml exec -u postgres db psql -c "
