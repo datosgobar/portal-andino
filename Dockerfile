@@ -1,4 +1,4 @@
-FROM datosgobar/portal-base:latest
+FROM datosgobar/portal-base:163-workers-del-datajson-no-levantan-correctamente
 MAINTAINER Leandro Gomez<lgomez@devartis.com>
 
 ARG PORTAL_VERSION
