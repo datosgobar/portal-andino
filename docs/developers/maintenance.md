@@ -467,42 +467,39 @@ Ver https://github.com/datosgobar/ckanext-andinotemplate como referencia para la
 ### Utilizar un archivo nuevo como página base
 
 El archivo `andino_custom_base_page.html` deberá contener lo que desees mostrar en vez del template default que 
-utiliza Andino. Esto te permite, por ejemplo, tener secciones nuevas en el header (las cuales te pueden servir 
-para mostrar las nuevas funcionalidades).
+utiliza Andino. Esto te permite, por ejemplo, agregar secciones nuevas en el header (las cuales te pueden servir 
+para mostrar las nuevas funcionalidades) junto a las ya existentes.
 
 Recomendamos basarse en el template utilizado por default en Andino y realizar modificaciones a partir del mismo.
 
 ### Agregar una página custom
 
-Se deberá reemplazar el contenido del archivo `template_nuevo.html` con lo que se desea mostrar sobre la funcionalidad 
-nueva. Es posible cambiar el nombre de este template, pero también se deberá cambiar dentro del archivo `plugin_controller.py` 
-(ver comentario de la línea 10, "Especificamos el template").
+Se requiere la utilización de un template nuevo para cada funcionalidad, el cual debe ser guardado en el mismo 
+directorio que el archivo `template_nuevo.html`.
 
-Para ir metiendo múltiples funcionalidades (no sólo una, lo cual se logr simplemente modificando el contenido de 
-los archivos que ya existen), hay que seguir estos pasos:
+* Creá un nuevo template copiando el archivo template_nuevo.html, por ejemplo `mi_nuevo_template.html`.
 
-* Traer todos los templates nuevos que tengan que ver con la funcionalidad, dejándolos en la misma carpeta
+* Agrega una nueva "acción" en la clase dentro de plugin_controller.py; éste debe ser un método que reciba cierto 
+parámetro y devuelva render("mi_nuevo_template.html").
 
-* En el archivo `plugin.py` de ckanext-andinotemplate, dentro de la función `after_map`, pegar este código abajo de lo 
-que ya está escrito y arriba de la línea "return m":
+* En el archivo `plugin.py` de ckanext-andinotemplate, dentro de la función `after_map`, copiar y pegar un código 
+parecido a éste _exactamente arriba de la línea "return m"_:
 
 ```
-        m.connect('UN_NOMBRE_SOBRE_LA_FUNCIONALIDAD', "/UN_NOMBRE_SOBRE_LA_FUNCIONALIDAD",
+        m.connect('mi_pagina_custom', "/el_path_de_mi_pagina",
                   controller='ckanext.andinotemplate.plugin_controller:AndinoTemplateController',
-                  action='UN_NOMBRE_SOBRE_LA_FUNCIONALIDAD')
+                  action='nombre_de_mi_accion')
 ```
-
-* Cambiar donde diga "UN_NOMBRE_SOBRE_LA_FUNCIONALIDAD" por lo que se desea tener (todo en minúscula). Para evitar 
-confusiones, es recomendable que se use lo mismo para los 3 reemplazos.
 
 * En el archivo `plugin_controller.py` de ckanext-andinotemplate, pegar como función nueva este código:
 
 ```
-    def UN_NOMBRE_SOBRE_LA_FUNCIONALIDAD(self):
-        return base.render('NOMBRE_DEL_TEMPLATE_DE_LA_FUNCIONALIDAD.html')  # Especificamos el template
+    def nombre_de_mi_accion(self):
+        return base.render('mi_nuevo_template.html')  # Especificamos el template
 ```
 
-Es importante reemplazar "UN_NOMBRE_SOBRE_LA_FUNCIONALIDAD" por lo mismo que se escribió para 'action' en `plugin.py`.
+Es importante que el nombre de la función, en este ejemplo "nombre_de_mi_accion", sea _el mismo_ que se escribió para 
+'action' en `plugin.py`.
 
 ## Acceso a los datos de andino
 
