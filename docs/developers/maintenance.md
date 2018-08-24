@@ -27,6 +27,9 @@
         - [Caché externa](#cach%C3%A9-externa)
         - [Configuración de CORS](#configuraci%C3%B3n-de-cors)
         - [Configuración del explorador de series de tiempo](#configuraci%C3%B3n-del-explorador-de-series-de-tiempo)
+    - [Soporte para plugin extensible](#soporte-para-plugin-extensible)
+        - [Utilizar un archivo nuevo como página base](#utilizar-un-archivo-nuevo-como-p%C3%A1gina-base)
+        - [Agregar una página custom](#agregar-una-p%C3%A1gina-custom)
     - [Acceso a los datos de andino](#acceso-a-los-datos-de-andino)
         - [Encontrar los volúmenes de mi andino dentro del filesystem del host](#encontrar-los-vol%C3%BAmenes-de-mi-andino-dentro-del-filesystem-del-host)
         - [Ver las direcciones IP de mis contenedores](#ver-las-direcciones-ip-de-mis-contenedores)
@@ -456,6 +459,47 @@ apachectl restart
 
 Luego, si vamos a la configuración del sitio, podremos apreciar que se agrego una nueva sección "Series" en el apartado
  "Otras secciones del portal".
+
+## Soporte para plugin extensible
+
+Ver https://github.com/datosgobar/ckanext-andinotemplate como referencia para la instalación del plugin.
+
+### Utilizar un archivo nuevo como página base
+
+El archivo `andino_custom_base_page.html` deberá contener lo que desees mostrar en vez del template default que 
+utiliza Andino. Esto te permite, por ejemplo, agregar secciones nuevas en el header (las cuales te pueden servir 
+para mostrar las nuevas funcionalidades) junto a las ya existentes.
+
+Recomendamos basarse en el template utilizado por default en Andino y realizar modificaciones a partir del mismo.
+
+### Agregar una página custom
+
+Se requiere la utilización de un template nuevo para cada funcionalidad, el cual debe ser guardado en el mismo 
+directorio que el archivo `template_nuevo.html`.
+
+* Creá un nuevo template copiando el archivo template_nuevo.html, por ejemplo `mi_nuevo_template.html`.
+
+* Agrega una nueva "acción" en la clase dentro de plugin_controller.py; éste debe ser un método que reciba cierto 
+parámetro y devuelva render("mi_nuevo_template.html").
+
+* En el archivo `plugin.py` de ckanext-andinotemplate, dentro de la función `after_map`, copiar y pegar un código 
+parecido a éste _exactamente arriba de la línea "return m"_:
+
+```
+        m.connect('mi_pagina_custom', "/el_path_de_mi_pagina",
+                  controller='ckanext.andinotemplate.plugin_controller:AndinoTemplateController',
+                  action='nombre_de_mi_accion')
+```
+
+* En el archivo `plugin_controller.py` de ckanext-andinotemplate, pegar como función nueva este código:
+
+```
+    def nombre_de_mi_accion(self):
+        return base.render('mi_nuevo_template.html')  # Especificamos el template
+```
+
+Es importante que el nombre de la función, en este ejemplo "nombre_de_mi_accion", sea _el mismo_ que se escribió para 
+'action' en `plugin.py`.
 
 ## Acceso a los datos de andino
 
