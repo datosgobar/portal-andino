@@ -3,48 +3,49 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
+## Indice
 
 - [Primeros pasos](#primeros-pasos)
 - [Entrar y salir de tu portal](#entrar-y-salir-de-tu-portal)
 - [Permisos de usuario](#permisos-de-usuario)
 - [Elementos de tu portal](#elementos-de-tu-portal)
   - [Organizaciones](#organizaciones)
-      - [¿Dónde lo veo en el portal?](#%C2%BFd%C3%B3nde-lo-veo-en-el-portal)
+      - [¿Dónde lo veo en el portal?](#d%C3%B3nde-lo-veo-en-el-portal)
       - [Buenas prácticas al crear Organizaciones con datos](#buenas-pr%C3%A1cticas-al-crear-organizaciones-con-datos)
-      - [¿Cómo los creo?](#%C2%BFc%C3%B3mo-los-creo)
+      - [¿Cómo los creo?](#c%C3%B3mo-los-creo)
   - [Sección Organizaciones con datos](#secci%C3%B3n-organizaciones-con-datos)
-      - [¿Dónde lo veo en el portal?](#%C2%BFd%C3%B3nde-lo-veo-en-el-portal-1)
+      - [¿Dónde lo veo en el portal?](#d%C3%B3nde-lo-veo-en-el-portal-1)
       - [Buenas prácticas al crear la sección Organizaciones con datos](#buenas-pr%C3%A1cticas-al-crear-la-secci%C3%B3n-organizaciones-con-datos)
-      - [¿Cómo las creo?](#%C2%BFc%C3%B3mo-las-creo)
+      - [¿Cómo las creo?](#c%C3%B3mo-las-creo)
   - [Sección Acerca](#secci%C3%B3n-acerca)
     - [Tipos de Acerca](#tipos-de-acerca)
-    - [¿Cómo elijo el tipo de Acerca?](#%C2%BFc%C3%B3mo-elijo-el-tipo-de-acerca)
-    - [¿Cómo puedo escribir y mostrar información básica?](#%C2%BFc%C3%B3mo-puedo-escribir-y-mostrar-informaci%C3%B3n-b%C3%A1sica)
-    - [¿Cómo puedo crear y mostrar mis secciones personalizadas?](#%C2%BFc%C3%B3mo-puedo-crear-y-mostrar-mis-secciones-personalizadas)
-    - [¿Dónde añado los archivos requeridos para las secciones?](#%C2%BFd%C3%B3nde-a%C3%B1ado-los-archivos-requeridos-para-las-secciones)
-    - [¿Dónde y cómo puedo guardar imágenes para mostrarlas en mis secciones? ¿Cómo las muestro en mis templates?](#%C2%BFd%C3%B3nde-y-c%C3%B3mo-puedo-guardar-im%C3%A1genes-para-mostrarlas-en-mis-secciones-%C2%BFc%C3%B3mo-las-muestro-en-mis-templates)
+    - [¿Cómo elijo el tipo de Acerca?](#c%C3%B3mo-elijo-el-tipo-de-acerca)
+    - [¿Cómo puedo escribir y mostrar información básica?](#c%C3%B3mo-puedo-escribir-y-mostrar-informaci%C3%B3n-b%C3%A1sica)
+    - [¿Cómo puedo crear y mostrar mis secciones personalizadas?](#c%C3%B3mo-puedo-crear-y-mostrar-mis-secciones-personalizadas)
+    - [¿Dónde añado los archivos requeridos para las secciones?](#d%C3%B3nde-a%C3%B1ado-los-archivos-requeridos-para-las-secciones)
+    - [¿Dónde y cómo puedo guardar imágenes para mostrarlas en mis secciones? ¿Cómo las muestro en mis templates?](#d%C3%B3nde-y-c%C3%B3mo-puedo-guardar-im%C3%A1genes-para-mostrarlas-en-mis-secciones-c%C3%B3mo-las-muestro-en-mis-templates)
   - [Temas](#temas)
-      - [¿Dónde lo veo en el portal?](#%C2%BFd%C3%B3nde-lo-veo-en-el-portal-2)
+      - [¿Dónde lo veo en el portal?](#d%C3%B3nde-lo-veo-en-el-portal)
       - [Buenas prácticas al crear Temas específicos](#buenas-pr%C3%A1cticas-al-crear-temas-espec%C3%ADficos)
-      - [¿Cómo los creo?](#%C2%BFc%C3%B3mo-los-creo-1)
-      - [¿Cómo los asigno?](#%C2%BFc%C3%B3mo-los-asigno)
+      - [¿Cómo los creo?](#c%C3%B3mo-los-creo)
+      - [¿Cómo los asigno?](#c%C3%B3mo-los-asigno)
   - [Datasets](#datasets)
-      - [¿Dónde los veo en el portal?](#%C2%BFd%C3%B3nde-los-veo-en-el-portal)
+      - [¿Dónde los veo en el portal?](#d%C3%B3nde-los-veo-en-el-portal)
       - [Buenas prácticas al crear datasets](#buenas-pr%C3%A1cticas-al-crear-datasets)
-      - [¿Cómo los creo?](#%C2%BFc%C3%B3mo-los-creo-2)
+      - [¿Cómo los creo?](#c%C3%B3mo-los-creo)
   - [Recursos](#recursos)
-    - [¿Dónde los veo en el portal?](#%C2%BFd%C3%B3nde-los-veo-en-el-portal-1)
+    - [¿Dónde los veo en el portal?](#d%C3%B3nde-los-veo-en-el-portal)
     - [Buenas prácticas al crear recursos](#buenas-pr%C3%A1cticas-al-crear-recursos)
-    - [¿Cómo los creo?](#%C2%BFc%C3%B3mo-los-creo-3)
+    - [¿Cómo los creo?](#c%C3%B3mo-los-creo)
   - [Campos de un recurso](#campos-de-un-recurso)
-    - [¿Dónde los veo en el portal?](#%C2%BFd%C3%B3nde-los-veo-en-el-portal-2)
+    - [¿Dónde los veo en el portal?](#d%C3%B3nde-los-veo-en-el-portal)
     - [Buenas prácticas al cargar campos de un recurso](#buenas-pr%C3%A1cticas-al-cargar-campos-de-un-recurso)
   - [Series de tiempo](#series-de-tiempo)
-    - [¿Cómo documento una serie de tiempo?](#%C2%BFc%C3%B3mo-documento-una-serie-de-tiempo)
+    - [¿Cómo documento una serie de tiempo?](#c%C3%B3mo-documento-una-serie-de-tiempo)
   - [Etiquetas](#etiquetas)
-      - [¿Dónde las veo en el portal?](#%C2%BFd%C3%B3nde-las-veo-en-el-portal)
+      - [¿Dónde las veo en el portal?](#d%C3%B3nde-las-veo-en-el-portal)
       - [Buenas prácticas al crear etiquetas](#buenas-pr%C3%A1cticas-al-crear-etiquetas)
-      - [¿Cómo los creo?](#%C2%BFc%C3%B3mo-los-creo-4)
+      - [¿Cómo las creo?](#%C3%B3omo-las-creo)
   - [Personalizar el portal](#personalizar-el-portal)
 - [Integrar Andino con Google Analytics](#integrar-andino-con-google-analytics)
 - [Consultas sobre Andino](#consultas-sobre-andino)
@@ -124,7 +125,7 @@ En caso de que hayas elegido que tu portal tenga una sección de Organizaciones 
 ***
 ### Sección Organizaciones con datos
 
-**Esta sección es opcional**. Te permite armar un árbol de jerarquías con las organizaciones que abrieron datos en tu portal. Los organismos que se muestran en esta parte de tu portal son los mismos que asignás a los datasets y que creas antes de generar estos últimos. 
+**Esta sección es opcional**. Te permite armar un árbol de jerarquías con las organizaciones que abrieron datos en tu portal. Los organismos que se muestran en esta parte de tu portal son los mismos que asignás a los datasets y que creás antes de generar estos últimos. 
 
 ##### ¿Dónde lo veo en el portal?
 
@@ -304,7 +305,7 @@ Al igual que con los datasets, siempre podrás editar los recursos que hayas cre
 ***
 ### Campos de un recurso
 
-Los recursos pueden tener mucha información y ser difíciles de comprender, para ayudar a los usuarios que ven nuestros recursos, Andino permite documentar qué contiene cada campo.
+Los recursos pueden tener mucha información y ser difíciles de comprender. Para ayudar a los usuarios que ven nuestros recursos, Andino permite documentar qué contiene cada campo.
 
 #### ¿Dónde los veo en el portal?
 
@@ -329,7 +330,7 @@ También podés usar estos campos para documentar aspectos más avanzados de las
 
 ### Series de tiempo
 
-Andino permite documentar recursos que publican ** series de tiempo **.
+Andino permite documentar recursos que publican **series de tiempo**.
 
 #### ¿Cómo documento una serie de tiempo?
 En el formulario de carga de un recurso vas a encontrar campos avanzados y especiales que necesitás usar para documentar las columnas de una tabla que contiene series de tiempo.
@@ -365,7 +366,7 @@ En cada dataset específico.
 * Tratá de usar una sola palabra, siempre en plural.
 * Si la etiqueta tiene más de una palabra, separalas por un espacio. Por ejemplo: “declaraciones juradas”.
 
-Estas son algunas preguntas útiles a la hora de pensar las etiquetas:
+Éstas son algunas preguntas útiles a la hora de pensar las etiquetas:
 
 * ¿Cuál es el tema?
 * ¿Qué aspectos serán de interés para los usuarios?
@@ -373,7 +374,7 @@ Estas son algunas preguntas útiles a la hora de pensar las etiquetas:
 * ¿De qué tipo de información se trata?
 * ¿Qué área la provee?
 
-#####  ¿Cómo los creo?
+#####  ¿Cómo las creo?
 
 Al igual que con los Temas, cada vez que generes un nuevo dataset, el formulario te pedirá que asignes un etiqueta. Recordá siempre reutilizar las que ya hayas creado y no repetirlas.  
 

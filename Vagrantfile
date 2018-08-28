@@ -8,7 +8,7 @@ ANDINO_VERSION = ENV['ANDINO_VERSION'] || 'latest'
 
 INSTALL_DEPENDENCIES = true
 INSTALL_APP = true
-UPDATE_APP = !INSTALL_APP
+UPDATE_APP = false
 
 COMPOSE_VERSION = "1.12.0"
 
@@ -25,11 +25,12 @@ VERSION_MATRIX = {
 
 
 VERSION = "min"
-DOCKER_PKG = "docker.io"
+DOCKER_PKG = "docker-ce"
 
 DOCKER_VERSION = VERSION_MATRIX[VERSION][DOCKER_PKG]
 
 IP = "192.168.23.10"
+CACHE_IP = "192.168.23.11"
 
 $script_install = <<SCRIPT
 sudo apt-get update
@@ -61,7 +62,11 @@ sudo -E python ./install.py --error_email admin@example.com \
             --datastore_user data_db_user \
             --datastore_password data_db_pass \
             --branch #{BRANCH} \
-            --andino_version #{ANDINO_VERSION}
+            --andino_version #{ANDINO_VERSION} \
+            --nginx-extended-cache \
+            --nginx-cache-max-size 2g \
+            --nginx-cache-inactive 120m \
+            --timezone America/Argentina/Cordoba
 
 SCRIPT
 
@@ -72,6 +77,9 @@ SCRIPT
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.box = "bento/ubuntu-16.04"
+  config.vm.define "cache" do |cache|
+    cache.vm.network "private_network", ip: CACHE_IP
+  end
   config.vm.define "andino" do |web|
     web.vm.network "private_network", ip: IP
     config.vm.provision "file", source: "install/install.py", destination: "install.py"

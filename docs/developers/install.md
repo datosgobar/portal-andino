@@ -12,10 +12,14 @@
 
 # Instalación
 
-Teniendo en cuenta la dificultad de implementación e incluso la cantidad de pasos para lograr un deploy existoso, existen dos formas de instalar esta distribución de **CKAN**.
+Teniendo en cuenta la dificultad de implementación e incluso la cantidad de pasos para lograr un deploy existoso, 
+existen dos formas de instalar esta distribución de **CKAN**.
 
-- Si no tenés muchos conocimientos de CKAN, Docker o de administracion de servidores en general, es recomendable usar la instalación **[simplificada  de Andino](#instalacion-simplificada-de-andino)**. Está pensada para que en la menor cantidad de pasos y de manera sencilla, tengas un portal de datos funcionando. 
-- Si ya conocés la plataforma, tenés experiencia con Docker o simplemente, querés entender cómo funciona esta implementación, te sugiero que revises la **[instalacion avanzada de Andino](#instalacion-avanzada-de-andino)**
+- Si no tenés muchos conocimientos de CKAN, Docker o de administracién de servidores en general, es recomendable 
+usar la instalación **[simplificada  de Andino](#instalacion-simplificada-de-andino)**. 
+Está pensada para que, en la menor cantidad de pasos y de manera sencilla, tengas un portal de datos funcionando. 
+- Si ya conocés la plataforma, tenés experiencia con Docker o, simplemente, querés entender cómo funciona 
+esta implementación, te sugiero que revises la **[instalacion avanzada de Andino](#instalacion-avanzada-de-andino)**
 
 ## Dependencias
 
@@ -26,24 +30,30 @@ Teniendo en cuenta la dificultad de implementación e incluso la cantidad de pas
 
 ## Instalación simplificada de andino
 
-La idea detrás de esta implementación de CKAN es **que sólo te encargues de tus datos**, nada más. Por eso, si "copiás y pegás" el comando de consola, en sólo unos momentos, tendrás un Andino listo para usar.
-Esta clase de instalación no requiere que clones el repositorio, ya que usamos contenedores alojados en [DockerHub](https://hub.docker.com/r/datosgobar)
+La idea detrás de esta implementación de CKAN es **que sólo te encargues de tus datos**, nada más. 
+Por eso, si "copiás y pegás" el comando de consola, en sólo unos momentos, tendrás un Andino listo para usar.
+Esta clase de instalación no requiere que clones el repositorio, ya que usamos contenedores alojados en 
+[DockerHub](https://hub.docker.com/r/datosgobar)
 
 + Ubuntu|Debian|RHEL|CentOS:
 + Instalación:
 
-Para la instalación usamos un script de python llamado [`install.py`](https://github.com/datosgobar/portal-andino/blob/master/install/install.py).
-El mismo requiere algunos parametros y otros son opcionales:
+Para la instalación, usamos un script de python llamado 
+[`install.py`](https://github.com/datosgobar/portal-andino/blob/master/install/install.py).
+El mismo requiere algunos parámetros específicos, y existen otros que son opcionales:
 
 ```bash
 # Parametros de install.py
     [-h]                    Mostrar la ayuda del script
     --error_email           Email donde se mandaran los errores del portal de ser necesario
-    --site_host             Dominio o IP del la aplicacion *sin el protocolo*
+    --site_host             Dominio o IP del la aplicación *sin el protocolo*
     --database_user         Nombre del usuario de la base de datos a crear
     --database_password     Contraseña de la base de datos a crear
     --datastore_user        Nombre del usuario de la base de datos del datastore a crear
     --datastore_password    Contraseña de la base de datos del datastore a crear
+    [--nginx-extended-cache]
+        Configura nginx con una configuración extendida y configura el hook de
+        invalidación de cache de Andino para notificar a nginx
     [--nginx_port NGINX_PORT]
         Puerto del servidor "Host" que se desea que se tome para recibir llamadas HTTP.
         Por defecto es el 80.
@@ -51,13 +61,13 @@ El mismo requiere algunos parametros y otros son opcionales:
         Puerto del servidor "Host" que se desea que se tome para recibir llamadas HTTP al "datastore".
         Por defecto es el 8800.
     [--install_directory INSTALL_DIRECTORY]
-        Directorio donde se desea instalar la aplicacion.
+        Directorio donde se desea instalar la aplicación.
         Por defecto es `/etc/portal` (recomendado)
 
 ```
 
-Para esta instalación de ejemplo usaremos estos parametros para la aplicacion,
-para los demas usaremos los valores por defecto:
+Para esta instalación de ejemplo, usaremos estos parámetros para la aplicación.
+Para los demás, usaremos los valores por defecto:
 
 + Email donde se mandarán los errores. `EMAIL=admin@example.com`
 + Dominio o IP de la aplicación _sin el protocolo_: `HOST=datos.gob.ar`
@@ -66,8 +76,9 @@ para los demas usaremos los valores por defecto:
 + Usuario del datastore: `STORE_USER=<my datastore user>`
 + Password del datastore: `STORE_PASS=<my datastore password>`
 
-NOTA: Si usamos una IP en el para la variable `HOST`, el envio de mails no funcionará.
-Postfix require un "fully-qualified domain name (FQDN)". Ver [la documentación de Postfix](http://www.postfix.org/postconf.5.html#myhostname) para mas detalles.
+NOTA: Si usamos una IP para la variable `HOST`, el envio de mails no funcionará.
+Postfix require un "fully-qualified domain name (FQDN)". 
+Ver [la documentación de Postfix](http://www.postfix.org/postconf.5.html#myhostname) para más detalles.
 
 ```bash
 # Primero especificamos los valores necesarios
@@ -92,9 +103,9 @@ sudo python ./install.py \
 
 ## Instalación avanzada de andino
 
-La instalación avanzada está pensada para usarios que quieren ver cómo funciona internamente `Andino`
+La instalación avanzada está pensada para usuarios que quieren ver cómo funciona internamente `Andino`
 
-Para instalar y ejecutar Andino, seguimos estos pasos:
+Para instalar y ejecutar Andino, seguiremos estos pasos:
 
 + Paso 1: Clonar repositorio.
 
@@ -106,7 +117,8 @@ sudo git clone https://github.com/datosgobar/portal-andino.git .
 + Paso 2: Especificar las variables de entorno para el contenedor de postgresql.
 
 NOTA: Debemos usar un dominio válido para la variable `DOMINIO`, de otra forma el envio de mails no funcionará.
-Postfix require un "fully-qualified domain name (FQDN)". Ver [la documentación de Postfix](http://www.postfix.org/postconf.5.html#myhostname) para mas detalles.
+Postfix require un "fully-qualified domain name (FQDN)". 
+Ver [la documentación de Postfix](http://www.postfix.org/postconf.5.html#myhostname) para más detalles.
 
 
 ```bash
@@ -152,7 +164,8 @@ docker-compose -f latest.yml exec portal /etc/ckan_init.d/init.sh -e "$EMAIL" -h
 
 ## Desinstalar andino
 
-Esta secuencia de comandos va a ELIMINAR TODOS LOS CONTENEDORES, IMAGENES y VOLUMENES de la aplicación de la vm donde esta instalada la plataforma.
+Esta secuencia de comandos va a ELIMINAR TODOS LOS CONTENEDORES, IMÁGENES y VOLUMENES de la aplicación de la vm donde 
+está instalada la plataforma.
 
 Esta operación no es reversible. **Perderás todos tus datos si realizas esta operación**.
 

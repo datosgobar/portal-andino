@@ -3,7 +3,7 @@ version: '2'
 services:
     nginx:
       container_name: andino-nginx
-      image: datosgobar/portal-base-nginx:release-0.10.1
+      image: datosgobar/portal-base-nginx:release-0.10.2
       restart: always
       ports:
         - "${NGINX_HOST_PORT}:80"
@@ -15,6 +15,8 @@ services:
             - "${SITE_HOST}"
       environment:
         - NGINX_CONFIG_FILE
+        - NGINX_CACHE_MAX_SIZE
+        - NGINX_CACHE_INACTIVE
     portal:
       container_name: andino
       image: "datosgobar/portal-andino:${ANDINO_TAG}"
@@ -28,6 +30,8 @@ services:
         - postfix
       networks:
         - portal-network
+      environment:
+        - TZ
     db:
       container_name: andino-db
       image: postgres:9.5
