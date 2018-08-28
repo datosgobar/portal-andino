@@ -15,4 +15,4 @@ echo "Ejecutando comando de instalación..."
 ssh $DEPLOY_TARGET_USERNAME@$DEPLOY_TARGET_IP -p$DEPLOY_TARGET_SSH_PORT "rm -rf ~/update.py"
 scp -P $DEPLOY_TARGET_SSH_PORT "install/update.py" "$DEPLOY_TARGET_USERNAME@$DEPLOY_TARGET_IP:~/update.py"
 
-ssh -t $DEPLOY_TARGET_USERNAME@$DEPLOY_TARGET_IP -p$DEPLOY_TARGET_SSH_PORT "sudo python ~/update.py --andino_version $DEPLOY_TAG --branch=release-2.5"
+ssh -t $DEPLOY_TARGET_USERNAME@$DEPLOY_TARGET_IP -p$DEPLOY_TARGET_SSH_PORT "sudo python ~/update.py --andino_version $DEPLOY_TAG"
