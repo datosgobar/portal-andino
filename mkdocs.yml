@@ -6,6 +6,7 @@ pages:
   - Desarrollo:
     - Instalación: 'developers/install.md'
     - Actualización: 'developers/update.md'
+    - Recomendaciones para salir a producción: 'developers/checklist.md'
     - Migracion: 'developers/migration.md'
     - Mantenimiento: 'developers/maintenance.md'
     - Configuración HTTPS: 'developers/https.md'

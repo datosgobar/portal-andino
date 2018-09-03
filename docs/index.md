@@ -19,6 +19,7 @@
 - Desarrolladores
     - [Instalación](developers/install.md)
     - [Actualización](developers/update.md)
+    - [Recomendaciones para la puesta en producción de una instancia de Andino](developers/checklist.md)
     - [Migración](developers/migration.md)
     - [Mantenimiento](developers/maintenance.md)
     - [Configuración HTTPS](developers/https.md)
