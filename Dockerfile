@@ -14,7 +14,7 @@ RUN $CKAN_HOME/bin/pip install -e git+https://github.com/datosgobar/portal-andin
     /etc/ckan_init.d/build-combined-ckan-mo.sh $CKAN_HOME/src/ckanext-gobar-theme/ckanext/gobar_theme/i18n/es/LC_MESSAGES/ckan.po
 
 # Series de tiempo Ar explorer
-RUN $CKAN_HOME/bin/pip install -e git+https://github.com/datosgobar/ckanext-seriestiempoarexplorer.git@0.1.1#egg=ckanext-seriestiempoarexplorer
+RUN $CKAN_HOME/bin/pip install -e git+https://github.com/datosgobar/ckanext-seriestiempoarexplorer.git@0.1.2#egg=ckanext-seriestiempoarexplorer
 
 RUN mkdir -p $CKAN_DIST_MEDIA
 RUN chown -R www-data:www-data $CKAN_DIST_MEDIA
