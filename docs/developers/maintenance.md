@@ -37,6 +37,21 @@
         - [Purgar Grupos Borrados](#purgar-grupos-borrados)
         - [Purgar Datasets Borrados](#purgar-datasets-borrados)
         - [Listar nombres de los datasets contenidos en Andino](#listar-nombres-de-los-datasets-contenidos-en-andino)
+    - [Mantenimiento del Datastore](#mantenimiento-del-datastore)
+        - [Borrado de recursos huérfanos](#borrado-de-recursos-hu%C3%A9rfanos)
+    - [Backups](#backups)
+        - [Backup de la base de datos](#backup-de-la-base-de-datos)
+        - [Realizar un backup del file system](#realizar-un-backup-del-file-system)
+        - [Realizar un backup de la configuración](#realizar-un-backup-de-la-configuraci%C3%B3n)
+    - [Recomendaciones de Seguridad y Optimizaciones](#recomendaciones-de-seguridad-y-optimizaciones)
+        - [HTTPS](#https)
+        - [Sistema y librerías](#sistema-y-librer%C3%ADas)
+        - [Firewall](#firewall)
+        - [SSH](#ssh)
+    - [Optimización de logging](#optimizaci%C3%B3n-de-logging)
+        - [Configurar otro `logging driver`](#configurar-otro-logging-driver)
+        - [Eliminar `logs` antiguos de `Docker`](#eliminar-logs-antiguos-de-docker)
+        - [Eliminar logs dentro de Andino](#eliminar-logs-dentro-de-andino)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -501,6 +516,47 @@ inactivo; por lo tanto, tener alguna forma de eliminar elementos de manera defin
 ```bash
 docker-compose -f /etc/portal/latest.yml exec portal /etc/ckan_init.d/paster.sh  --plugin=ckan dataset list | grep -v DEBUG | grep -v count  | grep -v Datasets | xargs -n2 | while read id name; do echo $name; done
 ```
+
+## Mantenimiento del Datastore
+
+Las modificaciones realizadas en los recursos del sitio, y el borrado de los mismos, pueden no verse reflejados 
+correctamente en el Datastore. Con el fin de corregir ese problema, se puede utilizar tareas programadas que correrán 
+automáticamente. 
+
+Estas tareas se ejecutan una vez al día, y la forma en que se configuran te permiten modificar el horario a uno que 
+creas más conveniente; por default, las escribimos de modo que ejecuten a las 00:00.
+
+Para ver la lista de tareas programadas, podés ejecutar esta línea dentro del container:
+
+    crontab -l
+    
+Un ejemplo donde se escriba todos los días a las 00:00 en un archivo de ejemplo:
+
+    00 00 * * * echo "Soy una tarea programada" >> /tmp/archivo-ejemplo.txt
+    
+La forma de programar una tarea es bastante sencilla; solamente se requiere que hagas algunas especificaciones:
+
+    {minuto 0-59} {hora 0-23} {día 1-31} {mes 1-12} {día de la semana 0-6 (domingo=0)} {acción a ejecutar}
+    
+Para programar una tarea, ejecutá esta línea dentro del container:
+
+    crontab -e
+
+Acá es donde se guardan todas las tareas que deben ser ejecutadas automáticamente. Escribí cada una en un renglón distinto.
+
+* Para dar de alta una nueva, simplemente escribila, guardá y salí.
+
+* Para editar o borrar una existente, buscala y realizá la modificación que necesites. 
+
+### Borrado de recursos huérfanos
+
+Es necesario para limpiar el Datastore de los recursos que fueron borrados en el sitio pero aún residen ahí.
+
+Una vez que ejecutes el comando `crontab -e`, agregá el siguiente texto:
+
+    0 0 * * * /usr/lib/ckan/default/bin/paster --plugin=ckanext-gobar-theme update-datastore --config=/etc/ckan/default/production.ini
+    
+Recordá que podés cambiar el momento en que se debe ejecutar.
 
 ## Backups
 
