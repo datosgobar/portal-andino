@@ -177,6 +177,42 @@ def configure_nginx_extended_cache(compose_path):
     ])
 
 
+def configure_crontab_file(compose_path):
+    # Para cada comando que utilizaremos como tarea programada, lo guardamos en una lista
+    cron_commands = ['update-datastore']
+
+    def add_cron(command_name):
+        subprocess.check_call([
+            "docker-compose",
+            "-f",
+            compose_path,
+            "exec",
+            "-T",
+            "portal",
+            "crontab",
+            "-l",
+            "|",
+            "{cat;",
+            "echo",
+            "\"0",
+            "0",
+            "*",
+            "*",
+            "*",
+            "/usr/lib/ckan/default/bin/paster",
+            "--plugin=ckanext-gobar-theme",
+            command_name,
+            "--config=/etc/ckan/default/production.ini\";",
+            "}",
+            "|",
+            "crontab",
+            "-",
+        ])
+
+    for command in cron_commands:
+        add_cron(command)
+
+
 def install_andino(cfg, compose_file_url, stable_version_url):
     # Check
     directory = cfg.install_directory
@@ -198,15 +234,17 @@ def install_andino(cfg, compose_file_url, stable_version_url):
         logger.info("Obteniendo imágenes de Docker")
         pull_application(compose_file_path)
         # Configure
-        logger.info("Iniciando la aplicación")
+        logger.info("Iniciando la aplicación...")
         init_application(compose_file_path)
         logger.info("Esperando a que la base de datos este disponible...")
         time.sleep(10)
         logger.info("Configurando...")
         configure_application(compose_file_path, cfg)
         if cfg.nginx_extended_cache:
-            logger.info("Configurando caché extendida de nginx")
+            logger.info("Configurando caché extendida de nginx...")
             configure_nginx_extended_cache(compose_file_path)
+        logger.info("Croneando tareas...")
+        configure_crontab_file(compose_file_path)
 
         logger.info("Listo.")
 
