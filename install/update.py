@@ -293,59 +293,6 @@ def restart_apps(compose_path):
     ])
 
 
-def configure_crontab_file(compose_path):
-    # Para cada comando que utilizaremos como tarea programada, lo guardamos en una lista
-    cron_commands = ['update-datastore']
-
-    def text_contains_substring(text, substring):
-        for line in text.split('\n'):
-            if substring in line:
-                return True
-        return False
-
-    def add_cron_if_new(command_name):
-        output = subprocess.check_output([
-            "docker-compose",
-            "-f",
-            compose_path,
-            "exec",
-            "-T",
-            "portal",
-            "crontab",
-            "-l",
-        ])
-        if not text_contains_substring(output, command_name):
-            subprocess.check_call([
-                "docker-compose",
-                "-f",
-                compose_path,
-                "exec",
-                "-T",
-                "portal",
-                "crontab",
-                "-l",
-                "|",
-                "{cat;",
-                "echo",
-                "\"0",
-                "0",
-                "*",
-                "*",
-                "*",
-                "/usr/lib/ckan/default/bin/paster",
-                "--plugin=ckanext-gobar-theme",
-                command_name,
-                "--config=/etc/ckan/default/production.ini\";",
-                "}",
-                "|",
-                "crontab",
-                "-",
-            ])
-
-    for command in cron_commands:
-        add_cron_if_new(command)
-
-
 def update_andino(cfg, compose_file_url, stable_version_url):
     directory = cfg.install_directory
     logging.info("Comprobando permisos (sudo)")
@@ -373,8 +320,6 @@ def update_andino(cfg, compose_file_url, stable_version_url):
         post_update_commands(compose_file_path)
         logging.info("Reiniciando")
         restart_apps(compose_file_path)
-        logger.info("Croneando tareas faltantes...")
-        configure_crontab_file(compose_file_path)
         logging.info("Listo.")
 
 
