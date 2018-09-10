@@ -15,6 +15,7 @@ formatter = logging.Formatter('[ %(levelname)s ] %(message)s')
 ch.setFormatter(formatter)
 logger.addHandler(ch)
 
+CRONTAB_PATH = "/var/spool/cron/crontabs/andino-crontab"
 
 class ComposeContext:
     def __init__(self, compose_path):
@@ -177,6 +178,19 @@ def configure_nginx_extended_cache(compose_path):
     ])
 
 
+def install_crons(compose_path):
+    subprocess.check_call([
+        "docker-compose",
+        "-f",
+        compose_path,
+        "exec",
+        "-T",
+        "portal",
+        "crontab",
+        CRONTAB_PATH,
+    ])
+
+
 def install_andino(cfg, compose_file_url, stable_version_url):
     # Check
     directory = cfg.install_directory
@@ -207,6 +221,8 @@ def install_andino(cfg, compose_file_url, stable_version_url):
         if cfg.nginx_extended_cache:
             logger.info("Configurando caché extendida de nginx...")
             configure_nginx_extended_cache(compose_file_path)
+        logger.info("Croneando tareas...")
+        install_crons(compose_file_path)
 
         logger.info("Listo.")
 

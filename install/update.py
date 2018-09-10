@@ -17,6 +17,7 @@ logger.addHandler(ch)
 
 UPGRADE_DB_COMMAND = "/etc/ckan_init.d/upgrade_db.sh"
 REBUILD_SEARCH_COMMAND = "/etc/ckan_init.d/run_rebuild_search.sh"
+CRONTAB_PATH = "/var/spool/cron/crontabs/andino-crontab"
 
 
 class ComposeContext:
@@ -293,6 +294,19 @@ def restart_apps(compose_path):
     ])
 
 
+def install_crons(compose_path):
+    subprocess.check_call([
+        "docker-compose",
+        "-f",
+        compose_path,
+        "exec",
+        "-T",
+        "portal",
+        "crontab",
+        CRONTAB_PATH,
+    ])
+
+
 def update_andino(cfg, compose_file_url, stable_version_url):
     directory = cfg.install_directory
     logging.info("Comprobando permisos (sudo)")
@@ -320,6 +334,8 @@ def update_andino(cfg, compose_file_url, stable_version_url):
         post_update_commands(compose_file_path)
         logging.info("Reiniciando")
         restart_apps(compose_file_path)
+        logger.info("Croneando tareas faltantes...")
+        install_crons(compose_file_path)
         logging.info("Listo.")
 
 
