@@ -552,11 +552,20 @@ Acá es donde se guardan todas las tareas que deben ser ejecutadas automáticame
 
 Es necesario para limpiar el Datastore de los recursos que fueron borrados en el sitio pero aún residen ahí.
 
-Una vez que ejecutes el comando `crontab -e`, agregá el siguiente texto:
+Para cambiar la hora a la que se realiza, ejecutá el comando `crontab -e` y buscá el siguiente texto:
+
+    0 0 * * * /usr/lib/ckan/default/bin/paster --plugin=ckanext-gobar-theme clean-datastore --config=/etc/ckan/default/production.ini
+    
+Más arriba está explicado cómo modificar las tareas programadas.
+
+### Actualización de recursos
+
+Actualizar el archivo de un recurso no necesariamente impacta en los datos existentes en el Datastore. Esto significa que 
+se requiere volver a subir los recursos para mantenerlos actualizados.
+
+Para cambiar la hora a la que se realiza, ejecutá el comando `crontab -e` y buscá el siguiente texto:
 
     0 0 * * * /usr/lib/ckan/default/bin/paster --plugin=ckanext-gobar-theme update-datastore --config=/etc/ckan/default/production.ini
-    
-Recordá que podés cambiar el momento en que se debe ejecutar.
 
 ## Backups
 
