@@ -1,4 +1,4 @@
-FROM datosgobar/portal-base:release-0.10.8
+FROM datosgobar/portal-base:release-0.10.9
 MAINTAINER Leandro Gomez<lgomez@devartis.com>
 
 ARG PORTAL_VERSION
@@ -9,12 +9,15 @@ ENV CKAN_DEFAULT /etc/ckan/default
 WORKDIR /portal
 
 # portal-andino-theme
-RUN $CKAN_HOME/bin/pip install -e git+https://github.com/datosgobar/portal-andino-theme.git@9f23ffd4ccefb1be2353018c2d2d9f9d140bb3f1#egg=ckanext-gobar_theme && \
-    $CKAN_HOME/bin/pip install -r $CKAN_HOME/src/ckanext-gobar-theme/dev-requirements.txt && \
+RUN $CKAN_HOME/bin/pip install -e git+https://github.com/datosgobar/portal-andino-theme.git@78e92c705c51b59e450b398b435f338464e81d89#egg=ckanext-gobar_theme && \
+    $CKAN_HOME/bin/pip install -r $CKAN_HOME/src/ckanext-gobar-theme/requirements.txt && \
     /etc/ckan_init.d/build-combined-ckan-mo.sh $CKAN_HOME/src/ckanext-gobar-theme/ckanext/gobar_theme/i18n/es/LC_MESSAGES/ckan.po
 
 # Series de tiempo Ar explorer
 RUN $CKAN_HOME/bin/pip install -e git+https://github.com/datosgobar/ckanext-seriestiempoarexplorer.git@0.1.7#egg=ckanext-seriestiempoarexplorer
+
+# DCAT dependencies (el plugin se instala desde el `requirements.txt` de portal-andino-theme)
+RUN $CKAN_HOME/bin/pip install -r $CKAN_HOME/src/ckanext-dcat/requirements.txt
 
 RUN mkdir -p $CKAN_DIST_MEDIA
 RUN chown -R www-data:www-data $CKAN_DIST_MEDIA
