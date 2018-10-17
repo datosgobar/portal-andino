@@ -37,7 +37,7 @@ script:
 deploy:
 - provider: script
   skip_cleanup: true
-  script: "scripts/run_deploy.sh $TRAVIS_TAG 'andino-stg;datosgobar-stg'"
+  script: "scripts/run_deploy.sh 'release-$TRAVIS_TAG' 'andino-stg;datosgobar-stg'"
   on:
     tags: true
 - provider: script
