@@ -47,7 +47,6 @@ El mismo requiere algunos parámetros específicos, y existen otros que son opci
     [-h]                    Mostrar la ayuda del script
     --error_email           Email donde se mandaran los errores del portal de ser necesario
     --site_host             Dominio o IP del la aplicación *sin el protocolo*
-    --site_ip               IP interna estática del host donde corre Andino *sin el protocolo*
     --database_user         Nombre del usuario de la base de datos a crear
     --database_password     Contraseña de la base de datos a crear
     --datastore_user        Nombre del usuario de la base de datos del datastore a crear
@@ -72,7 +71,6 @@ Para los demás, usaremos los valores por defecto:
 
 + Email donde se mandarán los errores. `EMAIL=admin@example.com`
 + Dominio o IP de la aplicación _sin el protocolo_: `HOST=datos.gob.ar`
-+ IP interna del servidor donde correra Andino (se puede obtener con el comando `ifconfig`)
 + Usuario de la base de datos: `DB_USER=<my db user>`
 + Password de la base de datos: `DB_PASS=<my db pass>`
 + Usuario del datastore: `STORE_USER=<my datastore user>`
@@ -87,7 +85,6 @@ Ver [la documentación de Postfix](http://www.postfix.org/postconf.5.html#myhost
 
 EMAIL=admin@example.com
 HOST=andino.midominio.com.ar
-IP=<IP interna estática del host>
 DB_USER=my_database_user
 DB_PASS=my_database_pass
 STORE_USER=my_data_user
@@ -98,7 +95,6 @@ wget https://raw.github.com/datosgobar/portal-andino/master/install/install.py
 sudo python ./install.py \
     --error_email "$EMAIL" \
     --site_host="$HOST" \
-    --site_ip="$IP" \
     --database_user="$DB_USER" \
     --database_password="$DB_PASS" \
     --datastore_user="$STORE_USER" \

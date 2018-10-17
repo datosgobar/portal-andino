@@ -39,7 +39,7 @@ Y luego levantar la VM con `vagrant up`.
 Luego entramos a la aplicación y corremos el siguiente comando:
 
 ```
-sudo -E python ./install.py --error_email admin@example.com --site_host 192.168.23.10  --site_ip 192.168.23.10 --database_user db_user --database_password db_pass --datastore_user data_db_user --datastore_password data_db_pass --nginx_port 127.0.0.1:8000
+sudo -E python ./install.py --error_email admin@example.com --site_host 192.168.23.10 --database_user db_user --database_password db_pass --datastore_user data_db_user --datastore_password data_db_pass --nginx_port 127.0.0.1:8000
 ```
 
 Esto instalará la aplicación, pero solo la hará accesible desde `localhost:8000`.

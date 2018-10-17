@@ -95,7 +95,6 @@ def configure_env_file(base_path, cfg):
     logger.info("Usando versión '%s' de andino" % andino_version)
     with open(env_file_path, "w") as env_f:
         env_f.write("SITE_HOST=%s\n" % cfg.site_host)
-        env_f.write("SITE_IP=%s\n" % cfg.site_ip)
         env_f.write("POSTGRES_USER=%s\n" % cfg.database_user)
         env_f.write("ANDINO_TAG=%s\n" % andino_version)
         env_f.write("POSTGRES_PASSWORD=%s\n" % cfg.database_password)
@@ -148,7 +147,6 @@ def configure_application(compose_path, cfg):
         "/etc/ckan_init.d/init.sh",
         "-e", cfg.error_email,
         "-h", cfg.site_host,
-        "-a", cfg.site_ip,
         "-p", cfg.database_user,
         "-P", cfg.database_password,
         "-d", cfg.datastore_user,
@@ -218,7 +216,6 @@ def parse_args():
 
     parser.add_argument('--error_email', required=True)
     parser.add_argument('--site_host', required=True)
-    parser.add_argument('--site_ip', required=True)
     parser.add_argument('--database_user', required=True)
     parser.add_argument('--database_password', required=True)
     parser.add_argument('--datastore_user', required=True)

@@ -57,7 +57,6 @@ SCRIPT
 $script = <<SCRIPT
 sudo -E python ./install.py --error_email admin@example.com \
             --site_host #{IP} \
-            --site_ip #{IP} \
             --database_user db_user \
             --database_password db_pass \
             --datastore_user data_db_user \
