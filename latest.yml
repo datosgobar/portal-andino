@@ -32,6 +32,8 @@ services:
         - portal-network
       environment:
         - TZ
+      extra_hosts:
+        - "${SITE_HOST}:${SITE_IP}"
     db:
       container_name: andino-db
       image: postgres:9.5

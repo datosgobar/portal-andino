@@ -11,14 +11,14 @@ app_backup="backup.tar.gz"
 usage() {
     echo "Usage: `basename $0`" >&2
     echo "Se requiere las siguientes variables de entorno:" >&2
-    echo "EMAIL, HOST, DB_USER, DB_PASS, STORE_USER, STORE_PASS" >&2
+    echo "EMAIL, HOST, IP, DB_USER, DB_PASS, STORE_USER, STORE_PASS" >&2
 }
 
 info() {
     echo "[INFO] $1";
 }
 
-if [ -z "$EMAIL" ] || [ -z "$HOST" ] || [ -z "$DB_USER" ] || [ -z "$DB_PASS" ] || [ -z "$STORE_USER" ] || [ -z "$STORE_PASS" ]; then
+if [ -z "$EMAIL" ] || [ -z "$HOST" ] || [ -z "$IP" ] || [ -z "$DB_USER" ] || [ -z "$DB_PASS" ] || [ -z "$STORE_USER" ] || [ -z "$STORE_PASS" ]; then
     echo "Falta una variable de entorno."
     usage
     exit 1;
@@ -72,7 +72,7 @@ function install_andino {
     info "Descargando script de instalación."
     wget https://raw.github.com/datosgobar/portal-andino/master/install/install.py
     info "Iniciando instalación."
-    python ./install.py --error_email "$EMAIL" --site_host="$HOST" \
+    python ./install.py --error_email "$EMAIL" --site_host="$HOST" \--site_ip="$IP" \
         --database_user="$DB_USER" --database_password="$DB_PASS" \
         --datastore_user="$STORE_USER" --datastore_password="$STORE_PASS"
 }

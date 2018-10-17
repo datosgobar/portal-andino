@@ -131,6 +131,7 @@ def fix_env_file(base_path):
     maildomain_var = "maildomain"
     timezone_var = "TZ"
     site_host_var = "SITE_HOST"
+    site_ip_var = "SITE_IP"
 
     with open(env_file_path, "r") as env_f:
         content = env_f.read()
@@ -151,6 +152,11 @@ def fix_env_file(base_path):
             env_f.write("%s=%s\n" % (timezone_var, "America/Argentina/Buenos_Aires"))
         if site_host_var not in content:
             env_f.write("%s=%s\n" % (site_host_var, "andino_nginx"))
+        if site_ip_var not in content:
+            site_ip = ""
+            while not site_ip:
+                site_ip = ask("Por favor, ingrese la IP estatica interna del host donde esta instalando Andino: ")
+            env_f.write("%s=%s\n" % (site_ip_var, site_ip))
 
 
 def backup_database(base_path, compose_path):
