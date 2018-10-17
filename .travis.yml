@@ -40,7 +40,6 @@ deploy:
   script: "scripts/run_deploy.sh $TRAVIS_TAG 'andino-stg;datosgobar-stg'"
   on:
     tags: true
-    condition: "$TRAVIS_TAG =~ ^release-.*"
 - provider: script
   skip_cleanup: true
   script: "scripts/run_deploy.sh latest 'andino-dev;datosgobar-dev'"
