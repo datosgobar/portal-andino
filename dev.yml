@@ -2,7 +2,7 @@ version: '2'
 
 services:
     nginx:
-      image: datosgobar/portal-base-nginx:release-0.10.2
+      image: datosgobar/portal-base-nginx-mod:mod
       ports:
         - 80:80
       depends_on:
