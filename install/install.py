@@ -245,7 +245,10 @@ def install_andino(cfg, compose_file_url, stable_version_url):
         configure_application(compose_file_path, cfg)
         logger.info("Copiando certificados de SSL")
         if cfg.ssl_crt_path and cfg.ssl_key_path:
+            logger.info("Se encontraron los certificados")
             persist_ssl_certificates(cfg)
+        else:
+            logger.info("No se pudo encontrar al menos uno de los certificados")
         if cfg.nginx_extended_cache:
             logger.info("Configurando caché extendida de nginx")
             configure_nginx_extended_cache(compose_file_path)
