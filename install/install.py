@@ -177,6 +177,45 @@ def configure_nginx_extended_cache(compose_path):
     ])
 
 
+def persist_ssl_certificates(cfg):
+    # No hardcodear el nombre del container de nginx, es distinto para datosgobar
+    # Buscar forma de usar variable de entorno de nginx en vez de usar el path hardcodeado para los certificados (hay?)
+    subprocess.check_call([
+        "docker",
+        "cp",
+        cfg.ssl_key_path,
+        "andino-nginx:/etc/nginx/ssl/andino.key"
+    ])
+    subprocess.check_call([
+        "docker",
+        "cp",
+        cfg.ssl_crt_path,
+        "andino-nginx:/etc/nginx/ssl/andino.crt"
+    ])
+    subprocess.check_call([
+        "docker",
+        "exec",
+        "-d",
+        "andino-nginx",
+        "apk",
+        "add",
+        "--no-cache",
+        "openssl"
+    ])
+    subprocess.check_call([
+        "docker",
+        "exec",
+        "-d",
+        "andino-nginx",
+        "openssl",
+        "dhparam",
+        "2048",
+        "-out",
+        "/etc/nginx/ssl/andino_dhparam.pem",
+    ])
+    # Es necesario ejecutar 'openssl dhparam 2048 -out /etc/nginx/ssl/andino_dhparam.pem' ?
+
+
 def install_andino(cfg, compose_file_url, stable_version_url):
     # Check
     directory = cfg.install_directory
@@ -204,6 +243,9 @@ def install_andino(cfg, compose_file_url, stable_version_url):
         time.sleep(10)
         logger.info("Configurando...")
         configure_application(compose_file_path, cfg)
+        logger.info("Copiando certificados de SSL")
+        if cfg.ssl_crt_path and cfg.ssl_key_path:
+            persist_ssl_certificates(cfg)
         if cfg.nginx_extended_cache:
             logger.info("Configurando caché extendida de nginx")
             configure_nginx_extended_cache(compose_file_path)
@@ -229,7 +271,10 @@ def parse_args():
     parser.add_argument('--nginx-extended-cache', action="store_true")
     parser.add_argument('--nginx-cache-max-size', default="")
     parser.add_argument('--nginx-cache-inactive', default="")
+    parser.add_argument('--ssl_key_path', default="")
+    parser.add_argument('--ssl_crt_path', default="")
     parser.add_argument('--timezone', default="America/Argentina/Buenos_Aires")
+
 
     return parser.parse_args()
 
