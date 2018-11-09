@@ -15,6 +15,8 @@ formatter = logging.Formatter('[ %(levelname)s ] %(message)s')
 ch.setFormatter(formatter)
 logger.addHandler(ch)
 
+nginx_ssl_config_directory = '/etc/nginx/ssl'
+
 
 class ComposeContext:
     def __init__(self, compose_path):
@@ -178,42 +180,18 @@ def configure_nginx_extended_cache(compose_path):
 
 
 def persist_ssl_certificates(cfg):
-    # No hardcodear el nombre del container de nginx, es distinto para datosgobar
-    # Buscar forma de usar variable de entorno de nginx en vez de usar el path hardcodeado para los certificados (hay?)
     subprocess.check_call([
         "docker",
         "cp",
         cfg.ssl_key_path,
-        "andino-nginx:/etc/nginx/ssl/andino.key"
+        'andino-nginx:{0}/andino.key'.format(nginx_ssl_config_directory)
     ])
     subprocess.check_call([
         "docker",
         "cp",
         cfg.ssl_crt_path,
-        "andino-nginx:/etc/nginx/ssl/andino.crt"
+        'andino-nginx:{0}/andino.crt'.format(nginx_ssl_config_directory)
     ])
-    subprocess.check_call([
-        "docker",
-        "exec",
-        "-d",
-        "andino-nginx",
-        "apk",
-        "add",
-        "--no-cache",
-        "openssl"
-    ])
-    subprocess.check_call([
-        "docker",
-        "exec",
-        "-d",
-        "andino-nginx",
-        "openssl",
-        "dhparam",
-        "2048",
-        "-out",
-        "/etc/nginx/ssl/andino_dhparam.pem",
-    ])
-    # Es necesario ejecutar 'openssl dhparam 2048 -out /etc/nginx/ssl/andino_dhparam.pem' ?
 
 
 def install_andino(cfg, compose_file_url, stable_version_url):
@@ -235,7 +213,7 @@ def install_andino(cfg, compose_file_url, stable_version_url):
     configure_env_file(directory, cfg)
     with ComposeContext(directory):
         logger.info("Obteniendo imágenes de Docker")
-        # pull_application(compose_file_path)
+        pull_application(compose_file_path)
         # Configure
         logger.info("Iniciando la aplicación")
         init_application(compose_file_path)
@@ -243,15 +221,16 @@ def install_andino(cfg, compose_file_url, stable_version_url):
         time.sleep(10)
         logger.info("Configurando...")
         configure_application(compose_file_path, cfg)
-        logger.info("Copiando certificados de SSL")
-        if cfg.ssl_crt_path and cfg.ssl_key_path:
-            logger.info("Se encontraron los certificados")
-            persist_ssl_certificates(cfg)
-        else:
-            logger.info("No se pudo encontrar al menos uno de los certificados")
         if cfg.nginx_extended_cache:
             logger.info("Configurando caché extendida de nginx")
             configure_nginx_extended_cache(compose_file_path)
+        print(subprocess.check_output(["docker", "ps"]))
+        if cfg.ssl_crt_path and cfg.ssl_key_path:
+            logger.info("Copiando archivos del certificado de SSL")
+            if path.isfile(cfg.ssl_crt_path) and path.isfile(cfg.ssl_key_path):
+                persist_ssl_certificates(cfg)
+            else:
+                logger.error("No se pudo encontrar al menos uno de los archivos, por lo que no se realizará el copiado")
 
         logger.info("Listo.")
 
