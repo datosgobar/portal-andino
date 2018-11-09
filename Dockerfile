@@ -1,4 +1,4 @@
-FROM datosgobar/portal-base:68-generar-archivos-configuracion-ssl
+FROM datosgobar/portal-base:release-0.10.14
 MAINTAINER Leandro Gomez<lgomez@devartis.com>
 
 ARG PORTAL_VERSION
