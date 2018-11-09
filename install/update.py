@@ -18,6 +18,8 @@ logger.addHandler(ch)
 UPGRADE_DB_COMMAND = "/etc/ckan_init.d/upgrade_db.sh"
 REBUILD_SEARCH_COMMAND = "/etc/ckan_init.d/run_rebuild_search.sh"
 
+nginx_ssl_config_directory = '/etc/nginx/ssl'
+
 
 class ComposeContext:
     def __init__(self, compose_path):
@@ -180,6 +182,21 @@ def pull_application(compose_path):
     ])
 
 
+def persist_ssl_certificates(cfg):
+    subprocess.check_call([
+        "docker",
+        "cp",
+        cfg.ssl_key_path,
+        'andino-nginx:{0}/andino.key'.format(nginx_ssl_config_directory)
+    ])
+    subprocess.check_call([
+        "docker",
+        "cp",
+        cfg.ssl_crt_path,
+        'andino-nginx:{0}/andino.crt'.format(nginx_ssl_config_directory)
+    ])
+
+
 def reload_application(compose_path):
     subprocess.check_call([
         "docker-compose",
@@ -315,6 +332,12 @@ def update_andino(cfg, compose_file_url, stable_version_url):
         update_env(directory, cfg, stable_version_url)
         logging.info("Descargando nuevas imagenes...")
         pull_application(compose_file_path)
+        if cfg.ssl_crt_path and cfg.ssl_key_path:
+            logger.info("Copiando archivos del certificado de SSL")
+            if path.isfile(cfg.ssl_crt_path) and path.isfile(cfg.ssl_key_path):
+                persist_ssl_certificates(cfg)
+            else:
+                logger.error("No se pudo encontrar al menos uno de los archivos, por lo que no se realizará el copiado")
         reload_application(compose_file_path)
         logging.info("Corriendo comandos post-instalación")
         post_update_commands(compose_file_path)
@@ -329,6 +352,8 @@ if __name__ == "__main__":
     parser.add_argument('--branch', default='master')
     parser.add_argument('--install_directory', default='/etc/portal/')
     parser.add_argument('--andino_version')
+    parser.add_argument('--ssl_key_path', default="")
+    parser.add_argument('--ssl_crt_path', default="")
     args = parser.parse_args()
 
     base_url = "https://raw.githubusercontent.com/datosgobar/portal-andino"
