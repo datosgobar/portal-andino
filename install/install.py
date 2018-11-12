@@ -104,6 +104,8 @@ def configure_env_file(base_path, cfg):
         env_f.write("DATASTORE_HOST_PORT=%s\n" % cfg.datastore_port)
         env_f.write("maildomain=%s\n" % cfg.site_host)
         env_f.write("NGINX_CONFIG_FILE=%s\n" % get_nginx_configuration(cfg))
+        # Podría utilizarse una variable que contenga todas las configuraciones extra, pero por ahora es innecesario
+        env_f.write("NGINX_EXTENDED_CACHE=%s\n" % "yes" if cfg.nginx_extended_cache else "no")
         if cfg.nginx_cache_max_size:
             env_f.write("NGINX_CACHE_MAX_SIZE=%s\n" % cfg.nginx_cache_max_size)
         if cfg.nginx_cache_inactive:
@@ -112,8 +114,10 @@ def configure_env_file(base_path, cfg):
 
 
 def get_nginx_configuration(cfg):
-    if cfg.nginx_extended_cache:
-        return "nginx_extended.conf"
+    # if cfg.nginx_extended_cache:
+    #     return "nginx_extended.conf"
+    if cfg.nginx_ssl:
+        return "nginx_ssl.conf"
     else:
         return "nginx.conf"
 
@@ -194,6 +198,16 @@ def persist_ssl_certificates(cfg):
     ])
 
 
+def include_necessary_nginx_configuration(filename):
+    subprocess.check_call([
+        "docker",
+        "exec",
+        "-d",
+        "andino-nginx",
+        "/etc/nginx/scripts/{0}".format(filename)
+    ])
+
+
 def install_andino(cfg, compose_file_url, stable_version_url):
     # Check
     directory = cfg.install_directory
@@ -213,7 +227,7 @@ def install_andino(cfg, compose_file_url, stable_version_url):
     configure_env_file(directory, cfg)
     with ComposeContext(directory):
         logger.info("Obteniendo imágenes de Docker")
-        pull_application(compose_file_path)
+        # pull_application(compose_file_path)
         # Configure
         logger.info("Iniciando la aplicación")
         init_application(compose_file_path)
@@ -224,6 +238,7 @@ def install_andino(cfg, compose_file_url, stable_version_url):
         if cfg.nginx_extended_cache:
             logger.info("Configurando caché extendida de nginx")
             configure_nginx_extended_cache(compose_file_path)
+            include_necessary_nginx_configuration("extend_nginx.sh")
         if cfg.ssl_crt_path and cfg.ssl_key_path:
             logger.info("Copiando archivos del certificado de SSL")
             if path.isfile(cfg.ssl_crt_path) and path.isfile(cfg.ssl_key_path):
@@ -252,10 +267,10 @@ def parse_args():
     parser.add_argument('--nginx-extended-cache', action="store_true")
     parser.add_argument('--nginx-cache-max-size', default="")
     parser.add_argument('--nginx-cache-inactive', default="")
+    parser.add_argument('--nginx_ssl', action="store_true")
     parser.add_argument('--ssl_key_path', default="")
     parser.add_argument('--ssl_crt_path', default="")
     parser.add_argument('--timezone', default="America/Argentina/Buenos_Aires")
-
 
     return parser.parse_args()
 
