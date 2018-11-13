@@ -87,6 +87,24 @@ def get_stable_version_file(base_path, download_url):
     return stable_version_path
 
 
+def get_nginx_configuration(cfg):
+    if cfg.nginx_ssl:
+        if path.isfile(cfg.ssl_crt_path) and path.isfile(cfg.ssl_key_path):
+            return "nginx_ssl.conf"
+        else:
+            # Chequeo si los archivos ya existen en el contenedor de Nginx, para no tener que pasarlos siempre
+            if subprocess.check_output("docker", "exec", "-it", "andino-nginx", "bash", "-c", "'if", "[[", "-f",
+                                       "\"$NGINX_SSL_CONFIG_DATA/andino.key\"", "]]", " ;", "then", "echo", "\"Y\"",
+                                       ";", "else", "echo", "\"N\"", ";", "fi'") == 'Y' and \
+                subprocess.check_output("docker", "exec", "-it", "andino-nginx", "bash", "-c", "'if", "[[", "-f",
+                                       "\"$NGINX_SSL_CONFIG_DATA/andino.key\"", "]]", " ;", "then", "echo", "\"Y\"",
+                                       ";", "else", "echo", "\"N\"", ";", "fi'") == 'Y':
+                return "nginx_ssl.conf"
+        logger.error("No se puede utilizar el archivo de configuración para SSL debido a que falta al menos un "
+                             "archivo para el certificado. Se utilizará el default en su lugar.")
+    return "nginx.conf"
+
+
 def get_andino_version(cfg, base_path, stable_version_url):
     if cfg.andino_version:
         andino_version = cfg.andino_version
@@ -104,6 +122,10 @@ def update_env(base_path, cfg, stable_version_url):
     env_file = ".env"
     env_file_path = path.join(base_path, env_file)
     envconf = {}
+    nginx_config_file = "NGINX_CONFIG_FILE"
+    nginx_extended_cache = "NGINX_EXTENDED_CACHE"
+    nginx_cache_max_size = "NGINX_CACHE_MAX_SIZE"
+    nginx_cache_inactive = "NGINX_CACHE_INACTIVE"
     # Get current variables
     with open(env_file_path, "r") as env_f:
         for line in env_f.readlines():
@@ -123,6 +145,14 @@ def update_env(base_path, cfg, stable_version_url):
     with open(env_file_path, "w") as env_f:
         for key in envconf.keys():
             env_f.write("%s=%s\n" % (key, envconf[key]))
+        if nginx_config_file not in envconf.keys():
+            env_f.write("NGINX_CONFIG_FILE=%s\n" % get_nginx_configuration(cfg))
+        if nginx_extended_cache not in envconf.keys():
+            env_f.write("NGINX_EXTENDED_CACHE=%s\n" % "yes" if cfg.nginx_extended_cache else "no")
+        if nginx_cache_max_size not in envconf.keys() or cfg.nginx_cache_max_size:
+            env_f.write("NGINX_CACHE_MAX_SIZE=%s\n" % cfg.nginx_cache_max_size)
+        if nginx_cache_inactive not in envconf.keys() or cfg.nginx_cache_inactive:
+            env_f.write("NGINX_CACHE_INACTIVE=%s\n" % cfg.nginx_cache_inactive)
 
 
 def fix_env_file(base_path):
@@ -310,6 +340,39 @@ def restart_apps(compose_path):
     ])
 
 
+def configure_nginx_extended_cache(compose_path):
+    subprocess.check_call([
+        "docker-compose",
+        "-f",
+        compose_path,
+        "exec",
+        "-T",
+        "portal",
+        "/etc/ckan_init.d/update_conf.sh",
+        "andino.cache_clean_hook=http://nginx/meta/cache/purge",
+    ])
+    subprocess.check_call([
+        "docker-compose",
+        "-f",
+        compose_path,
+        "exec",
+        "-T",
+        "portal",
+        "/etc/ckan_init.d/update_conf.sh",
+        "andino.cache_clean_hook_method=PURGE",
+    ])
+
+
+def include_necessary_nginx_configuration(filename):
+    subprocess.check_call([
+        "docker",
+        "exec",
+        "-d",
+        "andino-nginx",
+        "/etc/nginx/scripts/{0}".format(filename)
+    ])
+
+
 def update_andino(cfg, compose_file_url, stable_version_url):
     directory = cfg.install_directory
     logging.info("Comprobando permisos (sudo)")
@@ -331,7 +394,11 @@ def update_andino(cfg, compose_file_url, stable_version_url):
         download_compose_file(compose_file_path, compose_file_url)
         update_env(directory, cfg, stable_version_url)
         logging.info("Descargando nuevas imagenes...")
-        pull_application(compose_file_path)
+        # pull_application(compose_file_path)
+        if cfg.nginx_extended_cache:
+            logger.info("Configurando caché extendida de nginx")
+            configure_nginx_extended_cache(compose_file_path)
+            include_necessary_nginx_configuration("extend_nginx.sh")
         if cfg.ssl_crt_path and cfg.ssl_key_path:
             logger.info("Copiando archivos del certificado de SSL")
             if path.isfile(cfg.ssl_crt_path) and path.isfile(cfg.ssl_key_path):
@@ -352,6 +419,10 @@ if __name__ == "__main__":
     parser.add_argument('--branch', default='master')
     parser.add_argument('--install_directory', default='/etc/portal/')
     parser.add_argument('--andino_version')
+    parser.add_argument('--nginx-extended-cache', action="store_true")
+    parser.add_argument('--nginx-cache-max-size', default="")
+    parser.add_argument('--nginx-cache-inactive', default="")
+    parser.add_argument('--nginx_ssl', action="store_true")
     parser.add_argument('--ssl_key_path', default="")
     parser.add_argument('--ssl_crt_path', default="")
     args = parser.parse_args()
