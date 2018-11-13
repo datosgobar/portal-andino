@@ -87,21 +87,27 @@ def get_stable_version_file(base_path, download_url):
     return stable_version_path
 
 
+def check_nginx_ssl_files_exist(cfg):
+    if path.isfile(cfg.ssl_crt_path) and path.isfile(cfg.ssl_key_path):
+        return True
+    else:
+        # Chequeo si los archivos ya existen en el contenedor de Nginx, para no tener que pasarlos siempre
+        if subprocess.check_output("docker exec -it andino-nginx bash -c "
+                                   "'if [[ -f \"$NGINX_SSL_CONFIG_DATA/andino.key\" ]]  ; then echo \"Y\" ; "
+                                   "else echo \"N\" ; fi'", shell=True).strip() == 'Y' and \
+            subprocess.check_output("docker exec -it andino-nginx bash -c "
+                                    "'if [[ -f \"$NGINX_SSL_CONFIG_DATA/andino.crt\" ]] ; then echo \"Y\" ; "
+                                    "else echo \"N\" ; fi'", shell=True).strip() == 'Y':
+            return True
+    return False
+
+
 def get_nginx_configuration(cfg):
     if cfg.nginx_ssl:
-        if path.isfile(cfg.ssl_crt_path) and path.isfile(cfg.ssl_key_path):
+        if check_nginx_ssl_files_exist(cfg):
             return "nginx_ssl.conf"
-        else:
-            # Chequeo si los archivos ya existen en el contenedor de Nginx, para no tener que pasarlos siempre
-            if subprocess.check_output("docker", "exec", "-it", "andino-nginx", "bash", "-c", "'if", "[[", "-f",
-                                       "\"$NGINX_SSL_CONFIG_DATA/andino.key\"", "]]", " ;", "then", "echo", "\"Y\"",
-                                       ";", "else", "echo", "\"N\"", ";", "fi'") == 'Y' and \
-                subprocess.check_output("docker", "exec", "-it", "andino-nginx", "bash", "-c", "'if", "[[", "-f",
-                                       "\"$NGINX_SSL_CONFIG_DATA/andino.key\"", "]]", " ;", "then", "echo", "\"Y\"",
-                                       ";", "else", "echo", "\"N\"", ";", "fi'") == 'Y':
-                return "nginx_ssl.conf"
-        logger.error("No se puede utilizar el archivo de configuración para SSL debido a que falta al menos un "
-                             "archivo para el certificado. Se utilizará el default en su lugar.")
+    logger.error("No se puede utilizar el archivo de configuración para SSL debido a que falta al menos un "
+                 "archivo para el certificado. Se utilizará el default en su lugar.")
     return "nginx.conf"
 
 
@@ -145,7 +151,7 @@ def update_env(base_path, cfg, stable_version_url):
     with open(env_file_path, "w") as env_f:
         for key in envconf.keys():
             env_f.write("%s=%s\n" % (key, envconf[key]))
-        if nginx_config_file not in envconf.keys():
+        if nginx_config_file not in envconf.keys() or cfg.nginx_ssl:
             env_f.write("NGINX_CONFIG_FILE=%s\n" % get_nginx_configuration(cfg))
         if nginx_extended_cache not in envconf.keys():
             env_f.write("NGINX_EXTENDED_CACHE=%s\n" % "yes" if cfg.nginx_extended_cache else "no")
