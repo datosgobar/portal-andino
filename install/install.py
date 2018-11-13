@@ -104,7 +104,7 @@ def configure_env_file(base_path, cfg):
         env_f.write("DATASTORE_HOST_PORT=%s\n" % cfg.datastore_port)
         env_f.write("maildomain=%s\n" % cfg.site_host)
         env_f.write("NGINX_CONFIG_FILE=%s\n" % get_nginx_configuration(cfg))
-        # Podría utilizarse una variable que contenga todas las configuraciones extra, pero por ahora es innecesario
+        # Podría usarse un string que contenga todas las configuraciones extra de Nginx, pero por ahora es innecesario
         env_f.write("NGINX_EXTENDED_CACHE=%s\n" % "yes" if cfg.nginx_extended_cache else "no")
         if cfg.nginx_cache_max_size:
             env_f.write("NGINX_CACHE_MAX_SIZE=%s\n" % cfg.nginx_cache_max_size)
@@ -114,12 +114,13 @@ def configure_env_file(base_path, cfg):
 
 
 def get_nginx_configuration(cfg):
-    # if cfg.nginx_extended_cache:
-    #     return "nginx_extended.conf"
     if cfg.nginx_ssl:
-        return "nginx_ssl.conf"
-    else:
-        return "nginx.conf"
+        if path.isfile(cfg.ssl_crt_path) and path.isfile(cfg.ssl_key_path):
+            return "nginx_ssl.conf"
+        else:
+            logger.error("No se puede utilizar el archivo de configuración para SSL debido a que falta al menos un "
+                         "archivo para el certificado. Se utilizará el default en su lugar.")
+    return "nginx.conf"
 
 
 def pull_application(compose_path):
