@@ -247,6 +247,7 @@ def install_andino(cfg, compose_file_url, stable_version_url):
                 persist_ssl_certificates(cfg)
             else:
                 logger.error("No se pudo encontrar al menos uno de los archivos, por lo que no se realizará el copiado")
+        subprocess.check_call(["docker-compose", "-f", "latest.yml", "restart", "nginx"])
 
         logger.info("Listo.")
 
