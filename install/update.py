@@ -403,7 +403,7 @@ def update_andino(cfg, compose_file_url, stable_version_url):
         download_compose_file(compose_file_path, compose_file_url)
         update_env(directory, cfg, stable_version_url)
         logging.info("Descargando nuevas imagenes...")
-        pull_application(compose_file_path)
+        # pull_application(compose_file_path)
         if cfg.nginx_extended_cache:
             logger.info("Configurando caché extendida de nginx")
             configure_nginx_extended_cache(compose_file_path)
