@@ -229,7 +229,7 @@ def install_andino(cfg, compose_file_url, stable_version_url):
     configure_env_file(directory, cfg)
     with ComposeContext(directory):
         logger.info("Obteniendo imágenes de Docker")
-        # pull_application(compose_file_path)
+        pull_application(compose_file_path)
         # Configure
         logger.info("Iniciando la aplicación")
         init_application(compose_file_path)
