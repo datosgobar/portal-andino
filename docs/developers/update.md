@@ -23,11 +23,25 @@ Si instalamos la aplicación con la última versión del instalador
 ([este](https://raw.github.com/datosgobar/portal-andino/master/install/install.py)), 
 el mismo no requerirá parámetros, pero contiene algunos opcionales:
 
-    # Parametros de install.py
+```bash
+# Parámetros de update.py
     [-h]                    Mostrar la ayuda del script
     [--install_directory INSTALL_DIRECTORY]
-        Directorio donde esta instalada la aplicacion.
+        Directorio donde está instalada la aplicación.
         Por defecto es `/etc/portal`
+    [--nginx-extended-cache]
+        Configura nginx con una configuración extendida y configura el hook de
+        invalidación de cache de Andino para notificar a nginx
+    [--nginx_ssl]
+        Aplica la configuración HTTPS en nginx. Requiere ambos archivos del certificado SSL para poder lograrlo; en 
+        caso contrario, se utilizará la configuración default
+    [--ssl_key_path SSL_KEY_PATH]
+        Path dentro del host donde está ubicado el archivo .key para el certificado SSL; será copiado al contenedor 
+        de nginx si tanto éste como el .crt pueden ser encontrados
+    [--ssl_crt_path SSL_CRT_PATH]
+        Path dentro del host donde está ubicado el archivo .crt para el certificado SSL; será copiado al contenedor 
+        de nginx si tanto éste como el .key pueden ser encontrados
+```
 
 Para esta actualización de ejemplo, usaremos los valores por defecto:
 

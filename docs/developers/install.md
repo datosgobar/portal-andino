@@ -54,9 +54,21 @@ El mismo requiere algunos parámetros específicos, y existen otros que son opci
     [--nginx-extended-cache]
         Configura nginx con una configuración extendida y configura el hook de
         invalidación de cache de Andino para notificar a nginx
+    [--nginx_ssl]
+        Aplica la configuración HTTPS en nginx. Requiere ambos archivos del certificado SSL para poder lograrlo; en 
+        caso contrario, se utilizará la configuración default
+    [--ssl_key_path SSL_KEY_PATH]
+        Path dentro del host donde está ubicado el archivo .key para el certificado SSL; será copiado al contenedor 
+        de nginx si tanto éste como el .crt pueden ser encontrados
+    [--ssl_crt_path SSL_CRT_PATH]
+        Path dentro del host donde está ubicado el archivo .crt para el certificado SSL; será copiado al contenedor 
+        de nginx si tanto éste como el .key pueden ser encontrados
     [--nginx_port NGINX_PORT]
         Puerto del servidor "Host" que se desea que se tome para recibir llamadas HTTP.
         Por defecto es el 80.
+    [--nginx_ssl_port NGINX_SSL_PORT]
+        Puerto del servidor "Host" que se desea que se tome para recibir llamadas HTTPS.
+        Por defecto es el 443.
     [--datastore_port DATASTORE_PORT]
         Puerto del servidor "Host" que se desea que se tome para recibir llamadas HTTP al "datastore".
         Por defecto es el 8800.
