@@ -7,6 +7,7 @@
   - [Configuracion de SSL](#configuraci%C3%B3n-de-ssl)
   - [Modificar el puerto](#modificar-el-puerto)
   - [Realizar cambios en un Andino instalado](#realizar-cambios-en-un-andino-instalado)
+  - [Probar la configuración](#probar-la-configuraci%C3%B3n)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -40,6 +41,8 @@ El archivo de configuración para Nginx a utilizar queda guardado como variable 
 del directorio donde fue instalado el portal (por default, _`/etc/portal`_). Esto significa que, si ya se implementó 
 el SSL, no será necesario volver a especificarlo mediante parámetros al actualizar Andino.
 
+Cuando el contenedor de Nginx se levante, puede tardar hasta dos minutos para que se pueda acceder al portal.
+
 ### Modificar el puerto
 
 Para la instalación de Andino, el puerto a ser utilizado por default es el 443, pero éste puede ser cambiado mediante 
@@ -71,3 +74,16 @@ NGINX_CONFIG_FILE=nginx.conf
 
 Luego de realizar la modificación deseada, se deberá reiniciar el contenedor de Nginx:
 `docker-compose -f latest.yml restart nginx` 
+
+
+## Probar la configuración
+
+Para asegurarse de que Nginx esté utilizando la configuración HTTPS, ejecutar el siguiente comando debería mostrar 
+`nginx_ssl.conf`:
+
+`docker exec -it andino-nginx bash -c 'echo $NGINX_CONFIG_FILE'`. 
+
+Si se está implementando la configuración HTTPS y los certificados fueron creados correctamente, el explorador debería 
+redirigir cualquier llamada HTTP a HTTPS.
+
+Si se especificó un puerto para SSL, el portal debería permitir el ingreso si el puerto es parte de la URL.
