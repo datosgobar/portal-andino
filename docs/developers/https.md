@@ -5,8 +5,8 @@
 - [Configuración HTTPS](#configuraci%C3%B3n-https)
   - [Certificado SSL](#certificado-ssl)
   - [Configuracion de SSL](#configuraci%C3%B3n-de-ssl)
-          - [Modificar el puerto](#modificar-el-puerto)
-          - [Realizar cambios en un Andino instalado](#realizar-cambios-en-un-andino-instalado)
+    - [Modificar el puerto](#modificar-el-puerto)
+    - [Realizar cambios en un Andino instalado](#realizar-cambios-en-un-andino-instalado)
   - [Probar la configuración](#probar-la-configuraci%C3%B3n)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
