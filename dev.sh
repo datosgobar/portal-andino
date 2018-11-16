@@ -31,6 +31,7 @@ sub_down(){
 }
 
 sub_build() {
+    echo "Buildeando!"
     sub_compose build;
 }
 
@@ -47,6 +48,7 @@ sub_console() {
 }
 
 sub_up(){
+    echo "En travis, up $@"
     sub_compose up -d $@;
 }
 
@@ -93,6 +95,7 @@ sub_up_with(){
     db_container=portalandino_db_1;
     solr_container=portalandino_solr_1;
     nginx_container=portalandino_nginx_1;
+    echo "nginx"
     postfix_container=portalandino_postfix_1;
     docker run -v "$src:$dest" \
         --link $redis_container:redis --link $db_container:db --link $nginx_container:nginx \
