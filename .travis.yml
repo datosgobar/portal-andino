@@ -47,7 +47,7 @@ before_script:
 #- docker-compose -f latest.yml exec andino bash /etc/ckan_init.d/tests/install_solr4.sh
 - docker exec -it andino-nginx bash -c 'ls $NGINX_SSL_CONFIG_DATA'
 - docker exec -it andino-nginx bash -c 'echo $NGINX_CONFIG_FILE'
-- while [[ "200" != $(echo $(curl -s -o /dev/null -w "%{http_code}" "https://localhost:7777")) ]]; do sleep 10s ; echo $(curl -s -o /dev/null -w "%{http_code}" "https://localhost:7777") ; done
+- while [[ "200" != $(echo $(curl -k -s -o /dev/null -w "%{http_code}" "https://localhost:7777")) ]]; do sleep 10s ; echo $(curl -k -s -o /dev/null -w "%{http_code}" "https://localhost:7777") ; done
 - curl -I -k https://localhost:7777
 
 script:
