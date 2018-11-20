@@ -128,6 +128,7 @@ def pull_application(compose_path):
     subprocess.check_call([
         "docker-compose",
         "-f",
+        "--ignore-pull-failures",
         compose_path,
         "pull",
     ])
