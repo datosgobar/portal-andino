@@ -42,9 +42,9 @@ before_script:
 - STORE_PASS=my_data_pass
 - sudo python ./install.py --error_email "$EMAIL" --site_host="$HOST" --database_user="$DB_USER" --database_password="$DB_PASS" --datastore_user="$STORE_USER" --datastore_password="$STORE_PASS" --andino_version="test-ssl" --branch="180-tests-instalacion-con-ssl" --ssl_key_path="/tmp/ssl/andino.key" --ssl_crt_path="/tmp/ssl/andino.crt" --nginx_ssl --nginx_ssl_port="777"
 - cd -
+- docker ps
 - docker-compose -f dev.yml exec portal bash /etc/ckan_init.d/tests/install_nodejs.sh
 - docker-compose -f dev.yml exec portal bash /etc/ckan_init.d/tests/install_solr4.sh
-- docker ps
 - docker exec -it andino-nginx bash -c 'ls $NGINX_SSL_CONFIG_DATA'
 
 script:
