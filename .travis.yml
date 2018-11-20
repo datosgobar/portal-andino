@@ -40,15 +40,15 @@ before_script:
 - DB_PASS=my_database_pass
 - STORE_USER=my_data_user
 - STORE_PASS=my_data_pass
-- sudo python ./install.py --error_email "$EMAIL" --site_host="$HOST" --database_user="$DB_USER" --database_password="$DB_PASS" --datastore_user="$STORE_USER" --datastore_password="$STORE_PASS" --andino_version="test-ssl" --branch="180-tests-instalacion-con-ssl" --ssl_key_path="/tmp/ssl/andino.key" --ssl_crt_path="/tmp/ssl/andino.crt" --nginx_ssl --nginx_ssl_port="777"
+- sudo python ./install.py --error_email "$EMAIL" --site_host="$HOST" --database_user="$DB_USER" --database_password="$DB_PASS" --datastore_user="$STORE_USER" --datastore_password="$STORE_PASS" --andino_version="test-ssl" --branch="180-tests-instalacion-con-ssl" --ssl_key_path="/tmp/ssl/andino.key" --ssl_crt_path="/tmp/ssl/andino.crt" --nginx_ssl --nginx_ssl_port="7777"
 - cd -
 - docker ps
 #- docker-compose -f latest.yml exec andino bash /etc/ckan_init.d/tests/install_nodejs.sh
 #- docker-compose -f latest.yml exec andino bash /etc/ckan_init.d/tests/install_solr4.sh
 - docker exec -it andino-nginx bash -c 'ls $NGINX_SSL_CONFIG_DATA'
 - docker exec -it andino-nginx bash -c 'echo $NGINX_CONFIG_FILE'
-- sleep 3m  # TODO: sacar
-- curl -I https://localhost:777
+- while [[ "200" != $(echo $(curl -s -o /dev/null -w "%{http_code}" "http://localhost:7777")) ]]; do sleep 10s ; echo -n "." ; done
+- curl -I -k https://localhost:777
 
 script:
 - docker-compose -f dev.yml exec portal bash -c 'su -c "bash /etc/ckan_init.d/tests/run_all_tests.sh" -l $USER'
