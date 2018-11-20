@@ -46,6 +46,8 @@ before_script:
 #- docker-compose -f latest.yml exec andino bash /etc/ckan_init.d/tests/install_nodejs.sh
 #- docker-compose -f latest.yml exec andino bash /etc/ckan_init.d/tests/install_solr4.sh
 - docker exec -it andino-nginx bash -c 'ls $NGINX_SSL_CONFIG_DATA'
+- docker exec -it andino-nginx bash -c 'ls $NGINX_CONFIG_FILE'
+- sleep 3m  # TODO: sacar
 - curl -I https://localhost:777
 
 script:
