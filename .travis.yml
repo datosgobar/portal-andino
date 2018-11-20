@@ -15,7 +15,7 @@ before_install:
 - docker info
 - sudo apt-get remove docker docker-engine
 - sudo apt-get update
-- sudo apt-get install linux-image-extra-$(uname -r) linux-image-extra-virtual apt-transport-https ca-certificates curl software-properties-common
+- sudo apt-get install linux-image-extra-$(uname -r) linux-image-extra-virtual apt-transport-https ca-certificates curl software-properties-common npm
 - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 - sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
 - sudo apt-get update
@@ -33,7 +33,6 @@ before_script:
 - sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -subj '/CN=localhost/O=My Company Name LTD./C=AR' -keyout /tmp/ssl/andino.key -out /tmp/ssl/andino.crt
 - docker build -t datosgobar/portal-andino:test-ssl .
 - cd install/
-#- env PORTAL_VERSION="${TRAVIS_TAG:-$TRAVIS_COMMIT}" docker-compose -f dev.yml up -d --build nginx
 - EMAIL=admin@example.com
 - HOST=localhost
 - DB_USER=my_database_user
@@ -43,12 +42,14 @@ before_script:
 - sudo python ./install.py --error_email "$EMAIL" --site_host="$HOST" --database_user="$DB_USER" --database_password="$DB_PASS" --datastore_user="$STORE_USER" --datastore_password="$STORE_PASS" --andino_version="test-ssl" --branch="180-tests-instalacion-con-ssl" --ssl_key_path="/tmp/ssl/andino.key" --ssl_crt_path="/tmp/ssl/andino.crt" --nginx_ssl --nginx_ssl_port="7777"
 - cd -
 - docker ps
-#- docker-compose -f latest.yml exec andino bash /etc/ckan_init.d/tests/install_nodejs.sh
-#- docker-compose -f latest.yml exec andino bash /etc/ckan_init.d/tests/install_solr4.sh
+- cd /etc/portal
+- docker-compose -f latest.yml exec portal bash -c 'bash /etc/ckan_init.d/tests/install_nodejs.sh'
+- docker-compose -f latest.yml exec portal bash -c 'bash /etc/ckan_init.d/tests/install_solr4.sh'
 - docker exec -it andino-nginx bash -c 'ls $NGINX_SSL_CONFIG_DATA'
 - docker exec -it andino-nginx bash -c 'echo $NGINX_CONFIG_FILE'
 - while [[ "200" != $(echo $(curl -k -s -o /dev/null -w "%{http_code}" "https://localhost:7777")) ]]; do sleep 10s ; echo $(curl -k -s -o /dev/null -w "%{http_code}" "https://localhost:7777") ; done
 - curl -I -k https://localhost:7777
+- cd -
 
 script:
 - docker-compose -f dev.yml exec andino bash -c 'su -c "bash /etc/ckan_init.d/tests/run_all_tests.sh" -l $USER'
