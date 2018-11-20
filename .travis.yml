@@ -28,6 +28,7 @@ before_install:
 
 before_script:
 - sudo apt-get install openssl
+- sudo mkdir -p /tmp/ssl
 - openssl req -x509 -nodes -days 365 -newkey rsa:2048 -subj '/CN=localhost/O=My Company Name LTD./C=AR' -keyout /tmp/ssl/andino.key -out /tmp/ssl/andino.crt
 - docker build -t datosgobar/portal-andino:test-ssl .
 - cd install/
