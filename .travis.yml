@@ -50,6 +50,7 @@ before_script:
 - while [[ "200" != $(echo $(curl -k -s -o /dev/null -w "%{http_code}" "https://localhost:7777")) ]]; do sleep 10s ; echo $(curl -k -s -o /dev/null -w "%{http_code}" "https://localhost:7777") ; done
 - curl -I -k https://localhost:7777
 - cd -
+- find / -name test_ssl.sh
 
 script:
 #- docker-compose -f latest.yml exec portal bash -c 'su -c "bash /etc/ckan_init.d/tests/run_all_tests.sh" -l $USER'
