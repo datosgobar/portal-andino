@@ -54,10 +54,11 @@ before_script:
 - cd tests/
 - ls
 - chmod +x ./test_ssl.sh
+- sudo ./test_ssl.sh
+- cd -
 
 script:
 - docker-compose -f latest.yml exec portal bash -c 'su -c "bash /etc/ckan_init.d/tests/run_all_tests.sh" -l $USER'
-- sudo ./test_ssl.sh
 
 deploy:
 - provider: script
