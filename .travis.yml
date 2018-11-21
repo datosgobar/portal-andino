@@ -45,6 +45,7 @@ before_script:
 - cd /etc/portal
 - docker-compose -f latest.yml exec portal bash -c 'bash /etc/ckan_init.d/tests/install_nodejs.sh'
 - docker-compose -f latest.yml exec portal bash -c 'bash /etc/ckan_init.d/tests/install_solr4.sh'
+- docker-compose -f latest.yml exec portal bash -c 'pip install --ignore-installed mock bs4 httpretty pycodestyle factory'
 - docker exec -it andino-nginx bash -c 'ls $NGINX_SSL_CONFIG_DATA'
 - docker exec -it andino-nginx bash -c 'echo $NGINX_CONFIG_FILE'
 - while [[ "200" != $(echo $(curl -k -s -o /dev/null -w "%{http_code}" "https://localhost:7777")) ]]; do sleep 10s ; echo $(curl -k -s -o /dev/null -w "%{http_code}" "https://localhost:7777") ; done
@@ -55,7 +56,7 @@ before_script:
 - chmod +x ./test_ssl.sh
 
 script:
-#- docker-compose -f latest.yml exec portal bash -c 'su -c "bash /etc/ckan_init.d/tests/run_all_tests.sh" -l $USER'
+- docker-compose -f latest.yml exec portal bash -c 'su -c "bash /etc/ckan_init.d/tests/run_all_tests.sh" -l $USER'
 - sudo ./test_ssl.sh
 
 deploy:
