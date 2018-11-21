@@ -15,6 +15,8 @@ formatter = logging.Formatter('[ %(levelname)s ] %(message)s')
 ch.setFormatter(formatter)
 logger.addHandler(ch)
 
+nginx_ssl_config_directory = '/etc/nginx/ssl'
+
 
 class ComposeContext:
     def __init__(self, compose_path):
@@ -177,6 +179,21 @@ def configure_nginx_extended_cache(compose_path):
     ])
 
 
+def persist_ssl_certificates(cfg):
+    subprocess.check_call([
+        "docker",
+        "cp",
+        cfg.ssl_key_path,
+        'andino-nginx:{0}/andino.key'.format(nginx_ssl_config_directory)
+    ])
+    subprocess.check_call([
+        "docker",
+        "cp",
+        cfg.ssl_crt_path,
+        'andino-nginx:{0}/andino.crt'.format(nginx_ssl_config_directory)
+    ])
+
+
 def install_andino(cfg, compose_file_url, stable_version_url):
     # Check
     directory = cfg.install_directory
@@ -207,6 +224,12 @@ def install_andino(cfg, compose_file_url, stable_version_url):
         if cfg.nginx_extended_cache:
             logger.info("Configurando caché extendida de nginx")
             configure_nginx_extended_cache(compose_file_path)
+        if cfg.ssl_crt_path and cfg.ssl_key_path:
+            logger.info("Copiando archivos del certificado de SSL")
+            if path.isfile(cfg.ssl_crt_path) and path.isfile(cfg.ssl_key_path):
+                persist_ssl_certificates(cfg)
+            else:
+                logger.error("No se pudo encontrar al menos uno de los archivos, por lo que no se realizará el copiado")
 
         logger.info("Listo.")
 
@@ -229,7 +252,10 @@ def parse_args():
     parser.add_argument('--nginx-extended-cache', action="store_true")
     parser.add_argument('--nginx-cache-max-size', default="")
     parser.add_argument('--nginx-cache-inactive', default="")
+    parser.add_argument('--ssl_key_path', default="")
+    parser.add_argument('--ssl_crt_path', default="")
     parser.add_argument('--timezone', default="America/Argentina/Buenos_Aires")
+
 
     return parser.parse_args()
 
