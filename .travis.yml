@@ -53,7 +53,7 @@ before_script:
 
 script:
 #- docker-compose -f latest.yml exec portal bash -c 'su -c "bash /etc/ckan_init.d/tests/run_all_tests.sh" -l $USER'
-- tests/test_ssl.sh
+- sudo tests/test_ssl.sh
 
 deploy:
 - provider: script
