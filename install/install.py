@@ -106,7 +106,7 @@ def configure_env_file(base_path, cfg):
         env_f.write("maildomain=%s\n" % cfg.site_host)
         env_f.write("NGINX_CONFIG_FILE=%s\n" % get_nginx_configuration(cfg))
         # Podría usarse un string que contenga todas las configuraciones extra de Nginx, pero por ahora es innecesario
-        env_f.write("NGINX_EXTENDED_CACHE=%s\n" % "yes" if cfg.nginx_extended_cache else "no")
+        env_f.write("NGINX_EXTENDED_CACHE=%s\n" % ("yes" if cfg.nginx_extended_cache else "no"))
         if cfg.nginx_cache_max_size:
             env_f.write("NGINX_CACHE_MAX_SIZE=%s\n" % cfg.nginx_cache_max_size)
         if cfg.nginx_cache_inactive:
