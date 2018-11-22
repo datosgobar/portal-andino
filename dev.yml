@@ -9,6 +9,7 @@ services:
         - portal
       environment:
         - NGINX_CONFIG_FILE
+        - NGINX_EXTENDED_CACHE
         - NGINX_CACHE_MAX_SIZE
         - NGINX_CACHE_INACTIVE
     portal:
