@@ -101,6 +101,7 @@ def configure_env_file(base_path, cfg):
         env_f.write("ANDINO_TAG=%s\n" % andino_version)
         env_f.write("POSTGRES_PASSWORD=%s\n" % cfg.database_password)
         env_f.write("NGINX_HOST_PORT=%s\n" % cfg.nginx_port)
+        env_f.write("NGINX_HOST_SSL_PORT=%s\n" % cfg.nginx_ssl_port)
         env_f.write("DATASTORE_HOST_PORT=%s\n" % cfg.datastore_port)
         env_f.write("maildomain=%s\n" % cfg.site_host)
         env_f.write("NGINX_CONFIG_FILE=%s\n" % get_nginx_configuration(cfg))
@@ -246,6 +247,7 @@ def install_andino(cfg, compose_file_url, stable_version_url):
                 persist_ssl_certificates(cfg)
             else:
                 logger.error("No se pudo encontrar al menos uno de los archivos, por lo que no se realizará el copiado")
+        subprocess.check_call(["docker-compose", "-f", "latest.yml", "restart", "nginx"])
 
         logger.info("Listo.")
 
@@ -262,6 +264,7 @@ def parse_args():
 
     parser.add_argument('--andino_version')
     parser.add_argument('--nginx_port', default="80")
+    parser.add_argument('--nginx_ssl_port', default="443")
     parser.add_argument('--datastore_port', default="8800")
     parser.add_argument('--branch', default='master')
     parser.add_argument('--install_directory', default='/etc/portal/')
