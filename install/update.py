@@ -106,8 +106,8 @@ def get_nginx_configuration(cfg):
     if cfg.nginx_ssl:
         if check_nginx_ssl_files_exist(cfg):
             return "nginx_ssl.conf"
-    logger.error("No se puede utilizar el archivo de configuración para SSL debido a que falta al menos un "
-                 "archivo para el certificado. Se utilizará el default en su lugar.")
+        logger.error("No se puede utilizar el archivo de configuración para SSL debido a que falta al menos un "
+                    "archivo para el certificado. Se utilizará el default en su lugar.")
     return "nginx.conf"
 
 
@@ -148,17 +148,15 @@ def update_env(base_path, cfg, stable_version_url):
 
     # Write new config
     envconf["ANDINO_TAG"] = get_andino_version(cfg, base_path, stable_version_url)
+
+    envconf["NGINX_CONFIG_FILE"] = get_nginx_configuration(cfg)
+    envconf["NGINX_EXTENDED_CACHE"] = "yes" if cfg.nginx_extended_cache else "no"
+    envconf["NGINX_CACHE_MAX_SIZE"] = cfg.nginx_cache_max_size
+    envconf["NGINX_CACHE_INACTIVE"] = cfg.nginx_cache_inactive
+
     with open(env_file_path, "w") as env_f:
         for key in envconf.keys():
             env_f.write("%s=%s\n" % (key, envconf[key]))
-        if nginx_config_file not in envconf.keys() or cfg.nginx_ssl:
-            env_f.write("NGINX_CONFIG_FILE=%s\n" % get_nginx_configuration(cfg))
-        if nginx_extended_cache not in envconf.keys():
-            env_f.write("NGINX_EXTENDED_CACHE=%s\n" % "yes" if cfg.nginx_extended_cache else "no")
-        if nginx_cache_max_size not in envconf.keys() or cfg.nginx_cache_max_size:
-            env_f.write("NGINX_CACHE_MAX_SIZE=%s\n" % cfg.nginx_cache_max_size)
-        if nginx_cache_inactive not in envconf.keys() or cfg.nginx_cache_inactive:
-            env_f.write("NGINX_CACHE_INACTIVE=%s\n" % cfg.nginx_cache_inactive)
 
 
 def fix_env_file(base_path):
