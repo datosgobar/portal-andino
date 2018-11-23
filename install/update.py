@@ -132,6 +132,8 @@ def update_env(base_path, cfg, stable_version_url):
     nginx_extended_cache = "NGINX_EXTENDED_CACHE"
     nginx_cache_max_size = "NGINX_CACHE_MAX_SIZE"
     nginx_cache_inactive = "NGINX_CACHE_INACTIVE"
+    nginx_var = "NGINX_HOST_PORT"
+    nginx_ssl_var = "NGINX_HOST_SSL_PORT"
     # Get current variables
     with open(env_file_path, "r") as env_f:
         for line in env_f.readlines():
@@ -159,13 +161,13 @@ def update_env(base_path, cfg, stable_version_url):
             env_f.write("NGINX_CACHE_MAX_SIZE=%s\n" % cfg.nginx_cache_max_size)
         if nginx_cache_inactive not in envconf.keys() or cfg.nginx_cache_inactive:
             env_f.write("NGINX_CACHE_INACTIVE=%s\n" % cfg.nginx_cache_inactive)
+        env_f.write("%s=%s\n" % (nginx_var, cfg.nginx_port))
+        env_f.write("%s=%s\n" % (nginx_ssl_var, cfg.nginx_ssl_port))
 
 
 def fix_env_file(base_path):
     env_file = ".env"
     env_file_path = path.join(base_path, env_file)
-    nginx_var = "NGINX_HOST_PORT"
-    nginx_ssl_var = "NGINX_HOST_SSL_PORT"
     datastore_var = "DATASTORE_HOST_PORT"
     maildomain_var = "maildomain"
     timezone_var = "TZ"
@@ -174,10 +176,6 @@ def fix_env_file(base_path):
     with open(env_file_path, "r") as env_f:
         content = env_f.read()
     with open(env_file_path, "a") as env_f:
-        if nginx_var not in content:
-            env_f.write("%s=%s\n" % (nginx_var, "80"))
-        if nginx_ssl_var not in content:
-            env_f.write("%s=%s\n" % (nginx_ssl_var, "443"))
         if datastore_var not in content:
             env_f.write("%s=%s\n" % (datastore_var, "8800"))
         if maildomain_var not in content:
@@ -428,6 +426,8 @@ if __name__ == "__main__":
     parser.add_argument('--branch', default='master')
     parser.add_argument('--install_directory', default='/etc/portal/')
     parser.add_argument('--andino_version')
+    parser.add_argument('--nginx_port', default="80")
+    parser.add_argument('--nginx_ssl_port', default="443")
     parser.add_argument('--nginx-extended-cache', action="store_true")
     parser.add_argument('--nginx-cache-max-size', default="")
     parser.add_argument('--nginx-cache-inactive', default="")
