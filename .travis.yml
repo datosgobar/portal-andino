@@ -40,7 +40,7 @@ before_script:
 - DB_PASS=ckan
 - STORE_USER=ckan_store
 - STORE_PASS=ckan_store
-- pip install nose
+- sudo pip install nose
 - sudo python ./install.py --error_email "$EMAIL" --site_host="$HOST" --database_user="$DB_USER" --database_password="$DB_PASS" --datastore_user="$STORE_USER" --datastore_password="$STORE_PASS" --andino_version="test-ssl" --branch="180-tests-instalacion-con-ssl"
 - cd -
 - cd tests/
