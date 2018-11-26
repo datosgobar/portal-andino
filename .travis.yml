@@ -47,7 +47,7 @@ before_script:
 - nosetests tests_portal_with_base_config.py
 - cd -
 - cd install/
-- sudo python ./update.py --andino_version="test-ssl" --branch="180-tests-instalacion-con-ssl" --ssl_key_path="/tmp/ssl/andino.key" --ssl_crt_path="/tmp/ssl/andino.crt" --nginx_ssl --nginx_ssl_port="7777"
+- sudo python ./update.py --andino_version="test-ssl" --branch="180-tests-instalacion-con-ssl" --ssl_key_path="/tmp/ssl/andino.key" --ssl_crt_path="/tmp/ssl/andino.crt" --nginx_ssl --nginx_ssl_port="7777" --nginx-extended-cache
 - cd -
 - docker ps
 - cd /etc/portal
