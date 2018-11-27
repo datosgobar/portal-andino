@@ -212,8 +212,9 @@ def include_necessary_nginx_configuration(filename):
 
 def update_site_url_in_configuration_file(cfg, compose_path):
     # Se modifica el campo "ckan.site_url" modificando el protocolo para que quede HTTP o HTTP según corresponda
-    current_url = subprocess.check_output('docker-compose -f /etc/portal/latest.yml exec -T portal grep '
-                                          '"ckan.site_url = " /etc/ckan/default/production.ini', shell=True)
+    current_url = subprocess.check_output(
+        'docker-compose -f {} exec -T portal grep "ckan.site_url = " '
+        '/etc/ckan/default/production.ini'.format(compose_path), shell=True)
     current_url = current_url.strip().replace('ckan.site_url = ', '')
     if get_nginx_configuration(cfg) == 'nginx_ssl.conf':
         new_url = current_url.replace("http://", "https://")
