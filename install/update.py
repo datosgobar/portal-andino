@@ -223,12 +223,14 @@ def persist_ssl_certificates(cfg):
     subprocess.check_call([
         "docker",
         "cp",
+        "-L",
         cfg.ssl_key_path,
         'andino-nginx:{0}/andino.key'.format(nginx_ssl_config_directory)
     ])
     subprocess.check_call([
         "docker",
         "cp",
+        "-L",
         cfg.ssl_crt_path,
         'andino-nginx:{0}/andino.crt'.format(nginx_ssl_config_directory)
     ])
