@@ -210,6 +210,29 @@ def include_necessary_nginx_configuration(filename):
     ])
 
 
+def update_site_url_in_configuration_file(cfg, compose_path):
+    # Se modifica el campo "ckan.site_url" modificando el protocolo para que quede HTTP o HTTP según corresponda
+    current_url = subprocess.check_output(
+        'docker-compose -f {} exec -T portal grep "ckan.site_url = " '
+        '/etc/ckan/default/production.ini'.format(compose_path), shell=True)
+    current_url = current_url.strip().replace('ckan.site_url = ', '')
+    if get_nginx_configuration(cfg) == 'nginx_ssl.conf':
+        new_url = current_url.replace("http://", "https://")
+    else:
+        new_url = current_url.replace("https://", "http://")
+    if current_url != new_url:
+        subprocess.check_call([
+            "docker-compose",
+            "-f",
+            compose_path,
+            "exec",
+            "-T",
+            "portal",
+            "/etc/ckan_init.d/change_site_url.sh",
+            new_url,
+        ])
+
+
 def install_andino(cfg, compose_file_url, stable_version_url):
     # Check
     directory = cfg.install_directory
@@ -235,8 +258,6 @@ def install_andino(cfg, compose_file_url, stable_version_url):
         init_application(compose_file_path)
         logger.info("Esperando a que la base de datos este disponible...")
         time.sleep(10)
-        logger.info("Configurando...")
-        configure_application(compose_file_path, cfg)
         if cfg.nginx_extended_cache:
             logger.info("Configurando caché extendida de nginx")
             configure_nginx_extended_cache(compose_file_path)
@@ -247,6 +268,9 @@ def install_andino(cfg, compose_file_url, stable_version_url):
                 persist_ssl_certificates(cfg)
             else:
                 logger.error("No se pudo encontrar al menos uno de los archivos, por lo que no se realizará el copiado")
+        logger.info("Configurando...")
+        configure_application(compose_file_path, cfg)
+        update_site_url_in_configuration_file(cfg, compose_file_path)
         subprocess.check_call(["docker-compose", "-f", "latest.yml", "restart", "nginx"])
 
         logger.info("Listo.")

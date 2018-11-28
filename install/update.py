@@ -380,6 +380,29 @@ def include_necessary_nginx_configuration(filename):
     ])
 
 
+def update_site_url_in_configuration_file(cfg, compose_path):
+    # Se modifica el campo "ckan.site_url" modificando el protocolo para que quede HTTP o HTTP según corresponda
+    current_url = subprocess.check_output(
+        'docker-compose -f {} exec -T portal grep "ckan.site_url = " '
+        '/etc/ckan/default/production.ini'.format(compose_path), shell=True)
+    current_url = current_url.strip().replace('ckan.site_url = ', '')
+    if get_nginx_configuration(cfg) == 'nginx_ssl.conf':
+        new_url = current_url.replace("http://", "https://")
+    else:
+        new_url = current_url.replace("https://", "http://")
+    if current_url != new_url:
+        subprocess.check_call([
+            "docker-compose",
+            "-f",
+            compose_path,
+            "exec",
+            "-T",
+            "portal",
+            "/etc/ckan_init.d/change_site_url.sh",
+            new_url,
+        ])
+
+
 def update_andino(cfg, compose_file_url, stable_version_url):
     directory = cfg.install_directory
     logging.info("Comprobando permisos (sudo)")
@@ -415,6 +438,7 @@ def update_andino(cfg, compose_file_url, stable_version_url):
         reload_application(compose_file_path)
         logging.info("Corriendo comandos post-instalación")
         post_update_commands(compose_file_path)
+        update_site_url_in_configuration_file(cfg, compose_file_path)
         logging.info("Reiniciando")
         restart_apps(compose_file_path)
         logging.info("Listo.")
