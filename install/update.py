@@ -445,33 +445,33 @@ def ping_nginx_until_200_response_or_timeout(directory, site_url):
             'echo $(curl -k -s -o /dev/null -w "%{{http_code}}" {})'.format(complete_url), shell=True).strip()
         print("Intentando comunicarse con: {0} - Código de respuesta: {1}".format(complete_url, site_status_code))
         if time.time() > timeout:
-            logger.info("No fue posible reiniciar el contenedor de Nginx. "
-                        "Es posible que haya problemas de configuración.")
+            logger.warning("No fue posible reiniciar el contenedor de Nginx. "
+                           "Es posible que haya problemas de configuración.")
             break
         time.sleep(10 if site_status_code != "200" else 0)  # Si falla, esperamos 10 segundos para reintentarlo
 
 
 def update_andino(cfg, compose_file_url, stable_version_url):
     directory = cfg.install_directory
-    logging.info("Comprobando permisos (sudo)")
+    logger.info("Comprobando permisos (sudo)")
     check_permissions()
-    logging.info("Comprobando que docker esté instalado...")
+    logger.info("Comprobando que docker esté instalado...")
     check_docker()
-    logging.info("Comprobando que docker-compose este instalado...")
+    logger.info("Comprobando que docker-compose este instalado...")
     check_compose()
-    logging.info("Comprobando instalación previa...")
+    logger.info("Comprobando instalación previa...")
     check_previous_installation(directory)
     compose_file_path = get_compose_file_path(directory)
     fix_env_file(directory)
 
     with ComposeContext(directory):
-        logging.info("Guardando base de datos...")
+        logger.info("Guardando base de datos...")
         backup_database(directory, compose_file_path)
-        logging.info("Actualizando la aplicación")
-        logging.info("Descargando archivos necesarios...")
+        logger.info("Actualizando la aplicación")
+        logger.info("Descargando archivos necesarios...")
         download_compose_file(compose_file_path, compose_file_url)
         update_env(directory, cfg, stable_version_url)
-        logging.info("Descargando nuevas imagenes...")
+        logger.info("Descargando nuevas imagenes...")
         pull_application(compose_file_path)
         if cfg.nginx_extended_cache:
             logger.info("Configurando caché extendida de nginx")
@@ -484,13 +484,13 @@ def update_andino(cfg, compose_file_url, stable_version_url):
             else:
                 logger.error("No se pudo encontrar al menos uno de los archivos, por lo que no se realizará el copiado")
         reload_application(compose_file_path)
-        logging.info("Corriendo comandos post-instalación")
+        logger.info("Corriendo comandos post-instalación")
         post_update_commands(compose_file_path)
         site_url = update_site_url_in_configuration_file(cfg, compose_file_path)
-        logging.info("Reiniciando")
+        logger.info("Reiniciando")
         restart_apps(compose_file_path)
         ping_nginx_until_200_response_or_timeout(directory, site_url)
-        logging.info("Listo.")
+        logger.info("Listo.")
 
 
 if __name__ == "__main__":

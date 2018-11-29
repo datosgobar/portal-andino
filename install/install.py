@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 
 import logging
-import requests
 import subprocess
 import time
 from os import path, geteuid, makedirs, getcwd, chdir
@@ -244,8 +243,8 @@ def ping_nginx_until_200_response_or_timeout(cfg, site_url):
             'echo $(curl -k -s -o /dev/null -w "%{{http_code}}" {})'.format(complete_url), shell=True).strip()
         print("Intentando comunicarse con: {0} - Código de respuesta: {1}".format(complete_url, site_status_code))
         if time.time() > timeout:
-            logger.info("No fue posible reiniciar el contenedor de Nginx. "
-                        "Es posible que haya problemas de configuración.")
+            logger.warning("No fue posible reiniciar el contenedor de Nginx. "
+                           "Es posible que haya problemas de configuración.")
             break
         time.sleep(10 if site_status_code != "200" else 0)  # Si falla, esperamos 10 segundos para reintentarlo
 
