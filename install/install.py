@@ -235,6 +235,21 @@ def update_site_url_in_configuration_file(cfg, compose_path):
     return new_url
 
 
+def ping_nginx_until_200_response_or_timeout(cfg, site_url):
+    timeout = time.time() + 60 * 5  # límite de 5 minutos
+    site_status_code = 0
+    while site_status_code != "200":
+        complete_url = '{0}:{1}'.format(site_url, cfg.nginx_ssl_port if 'https://' in site_url else cfg.nginx_port)
+        site_status_code = subprocess.check_output(
+            'echo $(curl -k -s -o /dev/null -w "%{{http_code}}" {})'.format(complete_url), shell=True).strip()
+        print("Intentando comunicarse con: {0} - Código de respuesta: {1}".format(complete_url, site_status_code))
+        if time.time() > timeout:
+            logger.info("No fue posible reiniciar el contenedor de Nginx. "
+                        "Es posible que haya problemas de configuración.")
+            break
+        time.sleep(10 if site_status_code != "200" else 0)  # Si falla, esperamos 10 segundos para reintentarlo
+
+
 def install_andino(cfg, compose_file_url, stable_version_url):
     # Check
     directory = cfg.install_directory
@@ -274,19 +289,8 @@ def install_andino(cfg, compose_file_url, stable_version_url):
         configure_application(compose_file_path, cfg)
         site_url = update_site_url_in_configuration_file(cfg, compose_file_path)
         subprocess.check_call(["docker-compose", "-f", "latest.yml", "restart", "nginx"])
-
-        site_status_code = 0
         logger.info("Esperando a que Nginx se reinicie...")
-        while site_status_code != 200 and site_status_code != 301:
-            time.sleep(5)
-            url = '{0}:{1}'.format(site_url, cfg.nginx_ssl_port if 'https://' in site_url else cfg.nginx_port)
-            try:
-                site_status_code = requests.get(url, verify=False, timeout=5).status_code
-            except requests.exceptions.SSLError:
-                pass
-            print("Status code: {}".format(site_status_code))
-            print("URL: {}".format(url))
-
+        ping_nginx_until_200_response_or_timeout(cfg, site_url)
         logger.info("Listo.")
 
 
