@@ -161,16 +161,12 @@ def update_env(base_path, cfg, stable_version_url):
 
     if cfg.nginx_port:
         envconf[nginx_var] = cfg.nginx_port
-    elif envconf.get(nginx_var, ''):
-        pass
-    else:
+    elif not envconf.get(nginx_var, ''):
         envconf[nginx_var] = "80"
 
     if cfg.nginx_ssl_port:
         envconf[nginx_ssl_var] = cfg.nginx_ssl_port
-    elif envconf.get(nginx_ssl_var, ''):
-        pass
-    else:
+    elif not envconf.get(nginx_ssl_var, ''):
         envconf[nginx_ssl_var] = "443"
 
     with open(env_file_path, "w") as env_f:
@@ -489,6 +485,7 @@ def update_andino(cfg, compose_file_url, stable_version_url):
         site_url = update_site_url_in_configuration_file(cfg, compose_file_path)
         logger.info("Reiniciando")
         restart_apps(compose_file_path)
+        logger.info("Esperando a que Nginx inicie...")
         ping_nginx_until_200_response_or_timeout(directory, site_url)
         logger.info("Listo.")
 
