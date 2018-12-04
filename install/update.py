@@ -400,9 +400,9 @@ def include_necessary_nginx_configuration(filename):
 def update_site_url_in_configuration_file(cfg, compose_path):
     # Se modifica el campo "ckan.site_url" modificando el protocolo para que quede HTTP o HTTP según corresponda
     current_url = subprocess.check_output(
-        'docker-compose -f {} exec -T portal grep "ckan.site_url = " '
+        'docker-compose -f {} exec -T portal grep "ckan.site_url" '
         '/etc/ckan/default/production.ini'.format(compose_path), shell=True)
-    current_url = current_url.strip().replace('ckan.site_url = ', '')
+    current_url = current_url.strip().replace('ckan.site_url', '').replace(' ', '')[1:]
     if get_nginx_configuration(cfg) == 'nginx_ssl.conf':
         new_url = current_url.replace("http://", "https://")
     else:
@@ -470,7 +470,7 @@ def update_andino(cfg, compose_file_url, stable_version_url):
         download_compose_file(compose_file_path, compose_file_url)
         update_env(directory, cfg, stable_version_url)
         logger.info("Descargando nuevas imagenes...")
-        pull_application(compose_file_path)
+        # pull_application(compose_file_path)
         reload_application(compose_file_path)
         if cfg.nginx_extended_cache:
             logger.info("Configurando caché extendida de nginx")
