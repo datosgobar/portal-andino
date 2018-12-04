@@ -1,12 +1,13 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+## Indice
 
-
-- [Actualización](#actualizaci%C3%B3n)
+- [Actualización](#actualizacion)
   - [Versiones 2.x](#versiones-2x)
-    - [Actualización simple](#actualizaci%C3%B3n-simple)
-    - [Actualización avanzada](#actualizaci%C3%B3n-avanzada)
-    - [Problemas comunes](#problemas-comunes)
+    - [Actualización simple](#actualizacion-simple)
+    - [Actualización avanzada](#actualizacion-avanzada)
+    - [Andino con plugins ad-hoc](#andino-con-plugins-ad-hoc)
+    - [Versiones 2.4.x a 2.5.x](#versiones-24x-a-25x)
   - [Versiones 1.x a 2.x](#versiones-1x-a-2x)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -41,6 +42,13 @@ el mismo no requerirá parámetros, pero contiene algunos opcionales:
     [--ssl_crt_path SSL_CRT_PATH]
         Path dentro del host donde está ubicado el archivo .crt para el certificado SSL; será copiado al contenedor 
         de nginx si tanto éste como el .key pueden ser encontrados
+    [--nginx_port NGINX_PORT]
+        Puerto del servidor "Host" que se desea que se tome para recibir llamadas HTTP.
+        Por defecto es el 80.
+    [--nginx_ssl_port NGINX_SSL_PORT]
+        Puerto del servidor "Host" que se desea que se tome para recibir llamadas HTTPS.
+        Por defecto es el 443.
+        Es importante para los administradores saber que Andino tomará el puerto especificado (o el default) ya sea que el portal use o no use HTTPS. En caso de no querer usar HTTPS y que el host tenga erl puerto 443 tomado por un servidor web, es requisito especificar un puerto distinto (ejemplo: 8443) que será reservado por Andino, pero no utilizado.
 ```
 
 Para esta actualización de ejemplo, usaremos los valores por defecto:
@@ -57,6 +65,18 @@ Suponiendo que instalamos la aplicación en `/home/user/app/`, debemos correr lo
 
     wget https://raw.github.com/datosgobar/portal-andino/master/install/update.py
     sudo python update.py --install_directory="/home/user/app/"
+
+### Andino con plugins ad-hoc
+
+Si configuraste tu instancia de Andino con algún plugin de CKAN que Andino no trae por defecto, es importante que antes de la instalación elimines los mismos de la opcioón de configuración `ckan.plugins` del archivo `/etc/ckan/default/production.ini` del contenedor `portal`. Esto es importante, ya que el proceso de actualización descarga imágenes de Docker nuevas que no contendrán los binarios de los plugins _ad-hoc_ y si los mismos están en el archivo de configuración de CKAN, la actualización fallará.
+
+Los pasos adicionales que deberás seguir si tenés plugins _ad-hoc_ son:
+
+1. Editar el archivo `/etc/ckan/default/production.ini` del contenedor `portal` y quitar de la lista de `ckan.plugins` los plugins _ad-hoc_.
+1. Actualizar Andino.
+1. Instalar los plugins _ad-hoc_ dentro del _virtualenv_ `/usr/lib/ckan/default` del contenedor `portal`.
+1. Editar el archivo `/etc/ckan/default/production.ini` del contenedor `portal` y agregar a la lista de `ckan.plugins` los plugins _ad-hoc_.
+1. Reiniciar Andino.
 
 ### Versiones 2.4.x a 2.5.x
 

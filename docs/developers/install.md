@@ -1,11 +1,11 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+## Indice
 
-
-- [Instalación](#instalaci%C3%B3n)
+- [Instalación](#instalacion)
   - [Dependencias](#dependencias)
-  - [Instalación simplificada de andino](#instalaci%C3%B3n-simplificada-de-andino)
-  - [Instalación avanzada de andino](#instalaci%C3%B3n-avanzada-de-andino)
+  - [Instalación simplificada de andino](#instalacion-simplificada-de-andino)
+  - [Instalación avanzada de andino](#instalacion-avanzada-de-andino)
   - [Desinstalar andino](#desinstalar-andino)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -69,6 +69,7 @@ El mismo requiere algunos parámetros específicos, y existen otros que son opci
     [--nginx_ssl_port NGINX_SSL_PORT]
         Puerto del servidor "Host" que se desea que se tome para recibir llamadas HTTPS.
         Por defecto es el 443.
+        Es importante para los administradores saber que Andino tomará el puerto especificado (o el default) ya sea que el portal use o no use HTTPS. En caso de no querer usar HTTPS y que el host tenga erl puerto 443 tomado por un servidor web, es requisito especificar un puerto distinto (ejemplo: 8443) que será reservado por Andino, pero no utilizado.
     [--datastore_port DATASTORE_PORT]
         Puerto del servidor "Host" que se desea que se tome para recibir llamadas HTTP al "datastore".
         Por defecto es el 8800.
