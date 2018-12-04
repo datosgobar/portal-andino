@@ -471,6 +471,7 @@ def update_andino(cfg, compose_file_url, stable_version_url):
         update_env(directory, cfg, stable_version_url)
         logger.info("Descargando nuevas imagenes...")
         pull_application(compose_file_path)
+        reload_application(compose_file_path)
         if cfg.nginx_extended_cache:
             logger.info("Configurando caché extendida de nginx")
             configure_nginx_extended_cache(compose_file_path)
@@ -481,7 +482,6 @@ def update_andino(cfg, compose_file_url, stable_version_url):
                 persist_ssl_certificates(cfg)
             else:
                 logger.error("No se pudo encontrar al menos uno de los archivos, por lo que no se realizará el copiado")
-        reload_application(compose_file_path)
         logger.info("Corriendo comandos post-instalación")
         post_update_commands(compose_file_path)
         site_url = update_site_url_in_configuration_file(cfg, compose_file_path)
