@@ -3,40 +3,53 @@
 ## Indice
 
 - [Mantenimiento](#mantenimiento)
-    - [Exploración de la instancia de andino](#exploraci%C3%B3n-de-la-instancia-de-andino)
-        - [¿Qué está corriendo docker?](#qu%C3%A9-est%C3%A1-corriendo-docker)
-        - [Ingresar al contendor principal de andino](#ingresar-al-contendor-principal-de-andino)
-        - [Listar todas las `Propiedades` de cada contenedor](#listar-todas-las-propiedades-de-cada-contenedor)
-    - [Administración de usuarios](#administraci%C3%B3n-de-usuarios)
-        - [Crear un usuario ADMIN](#crear-un-usuario-admin)
-        - [Listar mis usuarios](#listar-mis-usuarios)
-        - [Ver los datos de un usuario](#ver-los-datos-de-un-usuario)
-        - [Crear un nuevo usuario](#crear-un-nuevo-usuario)
-        - [Crear un nuevo usuario extendido](#crear-un-nuevo-usuario-extendido)
-        - [Eliminar un usuario](#eliminar-un-usuario)
-        - [Cambiar password de un usuario](#cambiar-password-de-un-usuario)
-    - [Configuraciones de andino](#configuraciones-de-andino)
-        - [Modificar el archivo de configuración](#modificar-el-archivo-de-configuraci%C3%B3n)
-        - [Cambiar la configuración del SMTP](#cambiar-la-configuraci%C3%B3n-del-smtp)
-        - [Cambiar el remitente de los correos electrónicos que envía Andino](#cambiar-el-remitente-de-los-correos-electr%C3%B3nicos-que-env%C3%ADa-andino)
-        - [Cambiar el id del container de Google Tag Manager](#cambiar-el-id-del-container-de-google-tag-manager)
-        - [Google Tag Manager](#google-tag-manager)
-        - [Cambiar el id del tag de Google Analytics](#cambiar-el-id-del-tag-de-google-analytics)
-        - [Deshabilitar la URL `/catalog.xlsx`](#deshabilitar-la-url--catalogxlsx)
-        - [Configuración de la llamada de invalidación de caché](#configuraci%C3%B3n-de-la-llamada-de-invalidaci%C3%B3n-de-cach%C3%A9)
-        - [Caché externa](#cach%C3%A9-externa)
-        - [Configuración de CORS](#configuraci%C3%B3n-de-cors)
-        - [Configuración del explorador de series de tiempo](#configuraci%C3%B3n-del-explorador-de-series-de-tiempo)
-    - [Acceso a los datos de andino](#acceso-a-los-datos-de-andino)
-        - [Encontrar los volúmenes de mi andino dentro del filesystem del host](#encontrar-los-vol%C3%BAmenes-de-mi-andino-dentro-del-filesystem-del-host)
-        - [Ver las direcciones IP de mis contenedores](#ver-las-direcciones-ip-de-mis-contenedores)
-        - [Ver las variables de entorno que tienen mis contenedores](#ver-las-variables-de-entorno-que-tienen-mis-contenedores)
-        - [Acceder con un cliente de PostgreSQL a las bases de datos](#acceder-con-un-cliente-de-postgresql-a-las-bases-de-datos)
-    - [Eliminar objetos definitivamente](#eliminar-objetos-definitivamente)
-        - [Purgar Organizaciones Borradas](#purgar-organizaciones-borradas)
-        - [Purgar Grupos Borrados](#purgar-grupos-borrados)
-        - [Purgar Datasets Borrados](#purgar-datasets-borrados)
-        - [Listar nombres de los datasets contenidos en Andino](#listar-nombres-de-los-datasets-contenidos-en-andino)
+  - [Exploración de la instancia de andino](#exploracion-de-la-instancia-de-andino)
+    - [¿Qué está corriendo docker?](#que-esta-corriendo-docker)
+    - [Ingresar al contendor principal de andino](#ingresar-al-contendor-principal-de-andino)
+    - [Listar todas las `Propiedades` de cada contenedor](#listar-todas-las-propiedades-de-cada-contenedor)
+  - [Administración de usuarios](#administracion-de-usuarios)
+    - [Crear un usuario ADMIN](#crear-un-usuario-admin)
+    - [Listar mis usuarios](#listar-mis-usuarios)
+    - [Ver los datos de un usuario](#ver-los-datos-de-un-usuario)
+    - [Crear un nuevo usuario](#crear-un-nuevo-usuario)
+    - [Crear un nuevo usuario extendido](#crear-un-nuevo-usuario-extendido)
+    - [Eliminar un usuario](#eliminar-un-usuario)
+    - [Cambiar password de un usuario](#cambiar-password-de-un-usuario)
+  - [Configuraciones de andino](#configuraciones-de-andino)
+    - [Modificar el archivo de configuración](#modificar-el-archivo-de-configuracion)
+    - [Cambiar la configuración del SMTP](#cambiar-la-configuracion-del-smtp)
+    - [Cambiar el remitente de los correos electrónicos que envía Andino](#cambiar-el-remitente-de-los-correos-electronicos-que-envia-andino)
+    - [Cambiar el id del container de Google Tag Manager](#cambiar-el-id-del-container-de-google-tag-manager)
+    - [Google Tag Manager](#google-tag-manager)
+    - [Cambiar el id del tag de Google Analytics](#cambiar-el-id-del-tag-de-google-analytics)
+    - [Deshabilitar la URL `/catalog.xlsx`](#deshabilitar-la-url-catalogxlsx)
+    - [Configuración de la llamada de invalidación de caché](#configuracion-de-la-llamada-de-invalidaci%C3%B3n-de-cache)
+    - [Caché externa](#cache-externa)
+    - [Configuración de CORS](#configuracion-de-cors)
+    - [Configuración del explorador de series de tiempo](#configuracion-del-explorador-de-series-de-tiempo)
+  - [Acceso a los datos de andino](#acceso-a-los-datos-de-andino)
+    - [Encontrar los volúmenes de mi andino dentro del filesystem del host](#encontrar-los-volumenes-de-mi-andino-dentro-del-filesystem-del-host)
+    - [Ver las direcciones IP de mis contenedores](#ver-las-direcciones-ip-de-mis-contenedores)
+    - [Ver las variables de entorno que tienen mis contenedores](#ver-las-variables-de-entorno-que-tienen-mis-contenedores)
+    - [Acceder con un cliente de PostgreSQL a las bases de datos](#acceder-con-un-cliente-de-postgresql-a-las-bases-de-datos)
+  - [Eliminar objetos definitivamente](#eliminar-objetos-definitivamente)
+    - [Purgar Organizaciones Borradas](#purgar-organizaciones-borradas)
+    - [Purgar Grupos Borrados](#purgar-grupos-borrados)
+    - [Purgar Datasets Borrados](#purgar-datasets-borrados)
+    - [Listar nombres de los datasets contenidos en Andino](#listar-nombres-de-los-datasets-contenidos-en-andino)
+  - [Backups](#backups)
+    - [Backup de la base de datos](#backup-de-la-base-de-datos)
+    - [Realizar un backup del file system](#realizar-un-backup-del-file-system)
+    - [Realizar un backup de la configuración](#realizar-un-backup-de-la-configuracion)
+  - [Recomendaciones de Seguridad y Optimizaciones](#recomendaciones-de-seguridad-y-optimizaciones)
+    - [HTTPS](#https)
+    - [Sistema y librerías](#sistema-y-librerias)
+    - [Firewall](#firewall)
+    - [SSH](#ssh)
+  - [Optimización de logging](#optimizacion-de-logging)
+    - [Configurar otro `logging driver`](#configurar-otro-logging-driver)
+    - [Eliminar `logs` antiguos de `Docker`](#eliminar-logs-antiguos-de-docker)
+    - [Eliminar logs dentro de Andino](#eliminar-logs-dentro-de-andino)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -148,7 +161,7 @@ smtp.mail_from = administrador
 ```
 
 Para saber cómo hacerlo, leer la sección que explica 
-[cómo modificar el archivo de configuración](#modificar-el-archivo-de-configuraci%C3%B3n)
+[cómo modificar el archivo de configuración](#modificar-el-archivo-de-configuracion)
 
 2 ) Ejecutando comandos paster
 
@@ -181,7 +194,7 @@ pero modificando el atributo de configuración `smtp.mail_from`.
 Será necesario modificar la configuración en el archivo `production.ini`.
 
 Para saber cómo hacerlo, leer la sección que explica 
-[cómo modificar el archivo de configuración](#modificar-el-archivo-de-configuraci%C3%B3n).
+[cómo modificar el archivo de configuración](#modificar-el-archivo-de-configuracion).
 
 Esta vez, buscaremos la configuración debajo de la sección [app:main] 
 (vas a encontrar campos como "superThemeTaxonomy" y "ckan.site.title").
@@ -207,7 +220,7 @@ Para configurar el código se seguimiento de Google Tag Manager ejecutar el sigu
 Será necesario modificar el archivo de configuración `production.ini`.
 
 Para saber cómo hacerlo, leer la sección que explica 
-[cómo modificar el archivo de configuración](#modificar-el-archivo-de-configuraci%C3%B3n).
+[cómo modificar el archivo de configuración](#modificar-el-archivo-de-configuracion).
 
 La sección a buscar luce de esta manera:
 
@@ -258,7 +271,7 @@ Luego configuramos el hook de invalidación:
 _Nota: tener en cuenta que, por defecto, se emplea el método PURGE para disparar el hook, lo cual
 se puede cambiar editando el campo `andino.cache_clean_hook_method` dentro del archivo de configuración `production.ini`._
 _Para saber cómo hacerlo, leer la sección que explica 
-[cómo modificar el archivo de configuración](#modificar-el-archivo-de-configuraci%C3%B3n)._ 
+[cómo modificar el archivo de configuración](#modificar-el-archivo-de-configuracion)._ 
 
 ### Caché externa
 

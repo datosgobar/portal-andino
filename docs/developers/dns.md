@@ -1,15 +1,15 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+## Indice
 
-
-- [Configuración de DNS](#configuraci%C3%B3n-de-dns)
-    - [Introducción](#introducci%C3%B3n)
-    - [Cómo diagnosticar si tu andino tiene el problema](#c%C3%B3mo-diagnosticar-si-tu-andino-tiene-el-problema)
-    - [Cómo resolver el problema](#c%C3%B3mo-resolver-el-problema)
-        - [Configuración de DNS públicos](#configuraci%C3%B3n-de-dns-p%C3%BAblicos)
-        - [Configurar andino con el nuevo nombre de dominio](#configurar-andino-con-el-nuevo-nombre-de-dominio)
-        - [Configurar un alias en la red de Docker para el contenedor nginx](#configurar-un-alias-en-la-red-de-docker-para-el-contenedor-nginx)
-        - [Verificando que el problema fue resuelto](#verificando-que-el-problema-fue-resuelto)
+- [Configuración de DNS](#configuracion-de-dns)
+  - [Introducción](#introduccion)
+  - [Cómo diagnosticar si tu andino tiene el problema](#como-diagnosticar-si-tu-andino-tiene-el-problema)
+  - [Cómo resolver el problema](#como-resolver-el-problema)
+    - [Configuración de DNS públicos](#configuracion-de-dns-publicos)
+    - [Configurar andino con el nuevo nombre de dominio](#configurar-andino-con-el-nuevo-nombre-de-dominio)
+    - [Configurar un alias en la red de Docker para el contenedor nginx](#configurar-un-alias-en-la-red-de-docker-para-el-contenedor-nginx)
+    - [Verificando que el problema fue resuelto](#verificando-que-el-problema-fue-resuelto)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -83,4 +83,4 @@ Para asegurarte de que la red interna de los contenedores de Docker que conforma
 
 ### Verificando que el problema fue resuelto
 
-Si el problema fue resuelto, ahora podrías realizar el procedimiento detallado en [Cómo diagnosticar si tu andino tiene el problema](#c%C3%B3mo-diagnosticar-si-tu-andino-tiene-el-problema) y deberías obtener un _json_ como respuesta.
+Si el problema fue resuelto, ahora podrías realizar el procedimiento detallado en [Cómo diagnosticar si tu andino tiene el problema](#como-diagnosticar-si-tu-andino-tiene-el-problema) y deberías obtener un _json_ como respuesta.
