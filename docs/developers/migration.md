@@ -5,20 +5,20 @@ versión 2.0 de andino.
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+## Indice
 
-
-- [1) Requisitos](#1-requisitos)
-- [2) Script de migración automático](#2-script-de-migraci%C3%B3n-autom%C3%A1tico)
-- [3) Migración manual](#3-migraci%C3%B3n-manual)
-  - [3.1) Backup de la base de datos](#31-backup-de-la-base-de-datos)
-  - [3.2) Backup de los archivos de la aplicación](#32-backup-de-los-archivos-de-la-aplicaci%C3%B3n)
-- [4) Instalación](#4-instalaci%C3%B3n)
-  - [4.1) Detener la aplicación](#41-detener-la-aplicaci%C3%B3n)
-  - [4.2) Instalar la aplicación](#42-instalar-la-aplicaci%C3%B3n)
+  - [1) Requisitos](#1-requisitos)
+  - [2) Script de migración automático.](#2-script-de-migracion-automatico)
+  - [3) Migración manual](#3-migracion-manual)
+    - [3.1) Backup de la base de datos](#31-backup-de-la-base-de-datos)
+    - [3.2) Backup de los archivos de la aplicación](#32-backup-de-los-archivos-de-la-aplicacion)
+  - [4) Instalación](#4-instalacion)
+    - [4.1) Detener la aplicación](#41-detener-la-aplicacion)
+    - [4.2) Instalar la aplicación](#42-instalar-la-aplicacion)
 - [5) Restores](#5-restores)
-  - [5.1) Restaurar los archivos](#51-restaurar-los-archivos)
-  - [5.2) Restaurar la base de datos](#52-restaurar-la-base-de-datos)
-  - [5.3) Regenerar el índice de búsquedas](#53-regenerar-el-%C3%ADndice-de-b%C3%BAsquedas)
+    - [5.1) Restaurar los archivos](#51-restaurar-los-archivos)
+    - [5.2) Restaurar la base de datos](#52-restaurar-la-base-de-datos)
+    - [5.3) Regenerar el índice de búsquedas](#53-regenerar-el-indice-de-busquedas)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
