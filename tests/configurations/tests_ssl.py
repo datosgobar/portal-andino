@@ -14,4 +14,4 @@ class TestSSL(unittest.TestCase):
     def test_ssl_port_returns_response_with_redirection(self):
         req = requests.get('http://localhost', verify=False)
         nt.assert_true(len(req.history) == 1)
-        nt.assert_false(req.history[0].status_code == 301)
+        nt.assert_true(req.history[0].status_code == 301)
