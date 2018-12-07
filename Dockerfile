@@ -1,4 +1,4 @@
-FROM datosgobar/portal-base:andino-180-tests-instalacion-con-ssl
+FROM datosgobar/portal-base:release-0.10.17
 MAINTAINER Leandro Gomez<lgomez@devartis.com>
 
 ARG PORTAL_VERSION
