@@ -78,6 +78,12 @@ Los pasos adicionales que deberás seguir si tenés plugins _ad-hoc_ son:
 1. Editar el archivo `/etc/ckan/default/production.ini` del contenedor `portal` y agregar a la lista de `ckan.plugins` los plugins _ad-hoc_.
 1. Reiniciar Andino.
 
+### Versiones 2.5.0 y 2.5.1
+
+Si actualizás de 2.5.0 o 2.5.1 a 2.5.2, hay que modificar el archivo de configuración para que `googleanalytics` esté _sólo una vez y al final_ en `ckan.plugins`.
+
+Para ver cómo modificar el archivo de configuración, ir a [la documentación de mantenimiento](/docs/developers/maintenance.md#modificar-el-archivo-de-configuracion).
+
 ### Versiones 2.4.x a 2.5.x
 
 En el caso de actualizar un Andino de versión 2.4.x a 2.5.x existe un error conocido de CKAN 2.5.8 (Ver issue [ckan/ckan#4168](https://github.com/ckan/ckan/issues/4168)) que **debe solucionarse ANTES de ejecutar la actualización**. 
