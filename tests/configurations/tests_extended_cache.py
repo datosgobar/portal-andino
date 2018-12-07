@@ -1,6 +1,5 @@
 #! coding: utf-8
 
-import unittest
 import requests
 import nose.tools as nt
 from tests import TestPortalAndino
@@ -15,3 +14,6 @@ class TestExtendedCache(TestPortalAndino.TestPortalAndino):
         requests.get('http://localhost:{}'.format(self.nginx_port), verify=False)
         req = requests.get('http://localhost:{}'.format(self.nginx_port), verify=False)
         nt.assert_true(req.headers.get('X-Cache-Status', '') == 'HIT')
+
+    def test_rompete(self):
+        raise ArithmeticError
