@@ -7,8 +7,9 @@ from tests import TestPortalAndino
 
 class TestSSL(TestPortalAndino.TestPortalAndino):
 
-    def setup(self):
-        super(TestSSL, self).setup()
+    @classmethod
+    def setUpClass(cls):
+        super(TestSSL, cls).setUpClass()
 
     def test_ssl_port_returns_response_with_status_200(self):
         req = requests.get('https://localhost:{}'.format(self.nginx_ssl_port), verify=False)

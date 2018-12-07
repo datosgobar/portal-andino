@@ -7,8 +7,9 @@ from tests import TestPortalAndino
 
 class TestBaseConfig(TestPortalAndino.TestPortalAndino):
 
-    def setup(self):
-        super(TestBaseConfig, self).setup()
+    @classmethod
+    def setUpClass(cls):
+        super(TestBaseConfig, cls).setUpClass()
 
     def test_cache_miss(self):
         req = requests.get('http://localhost:{}'.format(self.nginx_port), verify=False)
