@@ -1,156 +1,94 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+## Indice
 
-
-- [Configuración HTTPS](#configuraci%C3%B3n-https)
-  - [Configuración de la aplicación](#configuraci%C3%B3n-de-la-aplicaci%C3%B3n)
-  - [Configuracion de nginx](#configuracion-de-nginx)
+- [Configuración HTTPS](#configuracion-https)
+  - [Certificado SSL](#certificado-ssl)
+  - [Configuración de SSL](#configuracion-de-ssl)
+    - [Modificar el puerto](#modificar-el-puerto)
+    - [Realizar cambios en un Andino instalado](#realizar-cambios-en-un-andino-instalado)
+  - [Probar la configuración](#probar-la-configuracion)
+  - [Renovar certificados SSL](#renovar-certificados-ssl)
+  - [Deshabilitar SSL](#deshabilitar-ssl)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 # Configuración HTTPS
 
-La forma más sencilla de configurar HTTPS para nuestro servidor **andino** es instalando nginx en el servidor que sirve de
-*host* para la aplicación.
-También debemos contar ya con los certificados `.key` y `.crt` para nuestra aplicación.
-Cómo obtenerlos está fuera del "scope" de esta documentación.
+## Certificado SSL
 
-## Configuración de la aplicación
+Andino cuenta con soporte _builtin_ de certificados SSL. Es posible instalar Andino con SSL, actualizar una versión de Andino sin SSL y agregarle el soporte para SSL, e inclusive deshabilitar SSL a una instancia con SSL.
 
-Primero, debemos asegurarnos que nuestra aplicación no esté haciendo uso del puerto 80 del servidor, 
-el cual es el comportamiento por defecto.
+Lo único que un administrador de Andino necesita para habilitar SSL es contar con los certificados `.key` y `.crt` para nuestra aplicación y la elección de un puerto libre del host para usar SSL.
 
-Si aún no instalamos nuestra aplicación, debemos correr el script `install.py` como lo hacemos normalmente,
-pero con el parámetro `--nginx_port 127.0.0.1:8000`:
+Cómo obtener estos archivos está fuera del "scope" de esta documentación.
 
+## Configuración de SSL
+
+Tanto la instalación como la actualización de un Andino emplean el uso de un parámetro llamado `nginx_ssl`, el cual 
+puede ser utilizado para especificar que se desea utilizar SSL.
+
+Para especificar el path de los archivos del certificado, se debe utilizar los parámetros `ssl_key_path` y 
+`ssl_crt_path`. Los archivos dentro del contenedor `nginx` se llamarán _`andino.key`_ y _`andino.crt`_ 
+respectivamente, y el proceso de instalación o actualización los copiará en el directorio _`/etc/nginx/ssl`_. En caso de que al menos uno de estos archivos no 
+esté, _no se podrá utilizar el archivo de configuración para SSL_ y se elegirá el default en su lugar. Hay que 
+asegurarse de que el path de cada archivo sea válido (exista en el host), y que estén especificados en la 
+instalación/actualización.
+
+Un navegador web *no debería* mostrarnos ninguna advertencia si los certificados son correctos.
+
+Un ejemplo de uso dentro del comando de instalación de Andino para los parámetros mencionados:
 ```
-sudo python install.py ...opciones normales... --nginx_port 127.0.0.1:8000
-
-```
-
-Esto hará que nuestra aplicación sólamente sea accesible desde el servidor y en el puerto **8000**.
-
-
-Si nuestra aplicación ya está instalada, debemos modificar un archivo y *recrear* el contenedor de nginx.
-Debemos ir al directorio donde se instaló la aplicación (`/etc/portal`) y editar el archivo `.env`.
-
-```
-cd /etc/portal
-vim .env
+--nginx_ssl --ssl_key_path="/home/miusuario/Desktop/mi_archivo_key.key" --ssl_crt_path="/home/miusuario/Desktop/mi_archivo_crt.crt"
 ```
 
-En el mismo habrá una línea parecida a ésta:
+Estos parámetros de configuración deben ser especificados en cada actualización de Andino, para mantener SSL habilitado.
 
+### Modificar el puerto
+
+Para la instalación de Andino, el puerto a ser utilizado por default es el 443, pero éste puede ser cambiado mediante 
+el parámetro `nginx_ssl_port` y un valor a elección.
+
+Ejemplo:
 ```
-NGINX_HOST_PORT=80
-```
-
-Debemos cambiarla para que sea:
-
-```
-NGINX_HOST_PORT=127.0.0.1:8000
-```
-
-Luego debemos *recrear* el contenedor de nginx:
-
-`docker-compose -f latest.yml up -d nginx`
-
-## Configuracion de nginx
-
-Ahora que nuestra aplicación es accesible internamente, debemos instalar y configurar nginx 
-_en el servidor que funciona como host_ para que apunte a la misma *y redireccione* a HTTPS de ser necesario.
-
-Para eso, primero instalamos `nginx` según nuestro sistema operativo:
-
-- Ubuntu: `sudo apt-get install nginx`
-
-Primero creamos una clave **Diffie-Hellman** para más seguridad 
-(ver [este artículo](https://medium.com/@mvuksano/how-to-properly-configure-your-nginx-for-tls-564651438fe0) para mas información).
-
-```
-sudo mkdir /etc/nginx/ssl/
-sudo openssl dhparam 2048 -out /etc/nginx/ssl/andino_dhparam.pem
+--nginx_ssl_port=8443
 ```
 
-Luego, debemos agregar la configuración de `nginx` para que haga uso de nuestros certificados.
+  Es importante para los administradores saber que Andino tomará el puerto especificado (o el default) ya sea que el portal use o no use HTTPS. En caso de no querer usar HTTPS y que el host tenga erl puerto 443 tomado por un servidor web, es requisito especificar un puerto distinto (ejemplo: 8443) que será reservado por Andino, pero no utilizado.
 
-Aquí asumiremos que nuestro sitio es `miandino.gob.ar` y los certificados estan en `/etc/nginx/ssl/andino.crt` y 
-`/etc/nginx/ssl/andino.key`.
-La configuración la agregaremos en `/etc/nginx/sites-available/001-andino.conf`
+### Realizar cambios en un Andino instalado
 
-```
-server_tokens off;
+Para lograr que Andino implemente la configuración HTTPS, es necesario realizar una actualización de andino y especificar las opciones detalladas en la sección [Configuración de SSL](#configuracion-de-ssl).
 
-add_header X-Frame-Options SAMEORIGIN;
-add_header X-Content-Type-Options nosniff;
-add_header X-XSS-Protection "1; mode=block";
-add_header Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://ssl.google-analytics.com https://assets.zendesk.com https://connect.facebook.net; img-src 'self' https://ssl.google-analytics.com https://s-static.ak.facebook.com https://assets.zendesk.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://assets.zendesk.com; font-src 'self' https://themes.googleusercontent.com; frame-src https://assets.zendesk.com https://www.facebook.com https://s-static.ak.facebook.com https://tautt.zendesk.com; object-src 'none'";
+Estas opciones solo son válidas a partir de Andino `release-2.5.2`.
 
-upstream wsgi_andino {
-  # fail_timeout=0 means we always retry an upstream even if it failed
-  # to return a good HTTP response (in case the gunicorn master nukes a
-  # single worker for timing out).
+## Probar la configuración
 
-  server 127.0.0.1:8000 fail_timeout=0;
-}
+Para asegurarse de que Nginx esté utilizando la configuración HTTPS, ejecutar el siguiente comando debería mostrar 
+`nginx_ssl.conf`:
 
-# redirect all http traffic to https
-server {
-  listen 80 default_server;
-  listen [::]:80 default_server;
-  server_name miandino.gob.ar;
-  return 301 https://$host$request_uri;
-}
+`docker exec -it andino-nginx bash -c 'echo $NGINX_CONFIG_FILE'`. 
 
-server {
-  listen 443 ssl http2;
-  listen [::]:443 ssl http2;
-  server_name miandino.gob.ar;
+Si se está implementando la configuración HTTPS y los certificados fueron creados correctamente, el explorador debería 
+redirigir cualquier llamada HTTP a HTTPS.
 
-  ssl_certificate /etc/nginx/ssl/andino.crt;
-  ssl_certificate_key /etc/nginx/ssl/andino.key;
+Si se especificó un puerto para SSL, el portal debería permitir el ingreso si el puerto es parte de la URL.
 
-  ssl_session_cache shared:SSL:50m;
-  ssl_session_timeout 1d;
-  ssl_session_tickets off;
+También deberías poder navegar el portal en el puerto SSL seleccionado.
 
-  ssl_dhparam /etc/nginx/ssl/andino_dhparam.pem;
+## Renovar certificados SSL
 
-  ssl_prefer_server_ciphers on;
-  ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
-  ssl_ciphers 'ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA:ECDHE-RSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:DHE-RSA-AES256-SHA256:DHE-RSA-AES256-SHA:ECDHE-ECDSA-DES-CBC3-SHA:ECDHE-RSA-DES-CBC3-SHA:EDH-RSA-DES-CBC3-SHA:AES128-GCM-SHA256:AES256-GCM-SHA384:AES128-SHA256:AES256-SHA256:AES128-SHA:AES256-SHA:DES-CBC3-SHA:!DSS';
+Para renovar los certificados SSL de tu instancia de Andino es tan sencillo como ejecutar una actualización de Andino. Para llevarlo a cabo es necesario que subas los dos archivos que componen el certificado (`.cer` y `.key`) y que ejecutes el comando de actualización de Andino, especificando la opción `--nginx_ssl` y las opciones que permiten configurar los archivos del certificado como estaá especificado en la sección [Configuración de SSL](#configuracion-de-ssl).
 
-  resolver 8.8.8.8 8.8.4.4;
-  ssl_stapling on;
-  ssl_stapling_verify on;
-  ssl_trusted_certificate /etc/nginx/ssl/andino.crt;
+Si deseás mantener la versión de Andino que tenés, debés especificar la opción `--andino_version` con la versión de tu instancia de Andino.
 
-  add_header Strict-Transport-Security "max-age=31536000; includeSubdomains; preload";
+## Deshabilitar SSL
 
-  location / {
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header Host $http_host;
-        proxy_set_header X-Forwarded-Protocol https;
-        proxy_redirect off;
+El proceso de deshabilitación de SSL se puede lograr mediante la ejecución del proceso de actualización de Andino `update.py` especificando el parámetro `--andino_version` a una versión igual a la del portal a configurar (es decir, se mantendrá la misma versión), pero no especificando el parámetro `--nginx_ssl`.
 
-        if (!-f $request_filename) {
-            proxy_pass http://wsgi_andino;
-            break;
-        }
-    }
-}
-```
+De esta manera el script de actualización usará la configuración de Andino que no habilita HTTPS y se habilitará el acceso por el puerto 80.
 
+Ejemplo de uso:
 
-Activamos el sitio
-
-```
-sudo rm /etc/nginx/sites-enabled/default -rf
-sudo ln -s /etc/nginx/sites-available/001-andino.conf /etc/nginx/sites-enabled/001-andino.conf
-
-sudo systemctl restart nginx
-```
-
-Finalmente, deberíamos poder acceder a nuestro sitio en http://miandino.gob.ar:80 y ser redireccionados a 
-https://miandino.gob.ar:443.
-El explorador *no debería* mostrarnos ninguna advertencia si los certificados son correctos.
+    sudo wget https://raw.github.com/datosgobar/portal-andino/master/install/update.py
+    sudo python update.py --andino_version=<versión del andino del portal>

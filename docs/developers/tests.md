@@ -2,11 +2,11 @@
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-
+## Indice
 
 - [Tests de Ckan](#tests-de-ckan)
-- [Probar la instalación con SSL en Vagrant (Instalando nginx)](#probar-la-instalaci%C3%B3n-con-ssl-en-vagrant-instalando-nginx)
-  - [Instalación de andino](#instalaci%C3%B3n-de-andino)
+- [Probar la instalación con SSL en Vagrant (Instalando nginx)](#probar-la-instalacion-con-ssl-en-vagrant-instalando-nginx)
+  - [Instalación de andino](#instalacion-de-andino)
   - [Instalar y configurar nginx](#instalar-y-configurar-nginx)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->

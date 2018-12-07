@@ -106,7 +106,7 @@ def configure_env_file(base_path, cfg):
         env_f.write("maildomain=%s\n" % cfg.site_host)
         env_f.write("NGINX_CONFIG_FILE=%s\n" % get_nginx_configuration(cfg))
         # Podría usarse un string que contenga todas las configuraciones extra de Nginx, pero por ahora es innecesario
-        env_f.write("NGINX_EXTENDED_CACHE=%s\n" % "yes" if cfg.nginx_extended_cache else "no")
+        env_f.write("NGINX_EXTENDED_CACHE=%s\n" % ("yes" if cfg.nginx_extended_cache else "no"))
         if cfg.nginx_cache_max_size:
             env_f.write("NGINX_CACHE_MAX_SIZE=%s\n" % cfg.nginx_cache_max_size)
         if cfg.nginx_cache_inactive:
@@ -211,6 +211,45 @@ def include_necessary_nginx_configuration(filename):
     ])
 
 
+def update_site_url_in_configuration_file(cfg, compose_path):
+    # Se modifica el campo "ckan.site_url" modificando el protocolo para que quede HTTP o HTTP según corresponda
+    current_url = subprocess.check_output(
+        'docker-compose -f {} exec -T portal grep "ckan.site_url = " '
+        '/etc/ckan/default/production.ini'.format(compose_path), shell=True)
+    current_url = current_url.strip().replace('ckan.site_url = ', '')
+    if get_nginx_configuration(cfg) == 'nginx_ssl.conf':
+        new_url = current_url.replace("http://", "https://")
+    else:
+        new_url = current_url.replace("https://", "http://")
+    if current_url != new_url:
+        subprocess.check_call([
+            "docker-compose",
+            "-f",
+            compose_path,
+            "exec",
+            "-T",
+            "portal",
+            "/etc/ckan_init.d/change_site_url.sh",
+            new_url,
+        ])
+    return new_url
+
+
+def ping_nginx_until_200_response_or_timeout(cfg, site_url):
+    timeout = time.time() + 60 * 5  # límite de 5 minutos
+    site_status_code = 0
+    while site_status_code != "200":
+        complete_url = '{0}:{1}'.format(site_url, cfg.nginx_ssl_port if 'https://' in site_url else cfg.nginx_port)
+        site_status_code = subprocess.check_output(
+            'echo $(curl -k -s -o /dev/null -w "%{{http_code}}" {})'.format(complete_url), shell=True).strip()
+        print("Intentando comunicarse con: {0} - Código de respuesta: {1}".format(complete_url, site_status_code))
+        if time.time() > timeout:
+            logger.warning("No fue posible reiniciar el contenedor de Nginx. "
+                           "Es posible que haya problemas de configuración.")
+            break
+        time.sleep(10 if site_status_code != "200" else 0)  # Si falla, esperamos 10 segundos para reintentarlo
+
+
 def install_andino(cfg, compose_file_url, stable_version_url):
     # Check
     directory = cfg.install_directory
@@ -236,8 +275,6 @@ def install_andino(cfg, compose_file_url, stable_version_url):
         init_application(compose_file_path)
         logger.info("Esperando a que la base de datos este disponible...")
         time.sleep(10)
-        logger.info("Configurando...")
-        configure_application(compose_file_path, cfg)
         if cfg.nginx_extended_cache:
             logger.info("Configurando caché extendida de nginx")
             configure_nginx_extended_cache(compose_file_path)
@@ -248,8 +285,12 @@ def install_andino(cfg, compose_file_url, stable_version_url):
                 persist_ssl_certificates(cfg)
             else:
                 logger.error("No se pudo encontrar al menos uno de los archivos, por lo que no se realizará el copiado")
+        logger.info("Configurando...")
+        configure_application(compose_file_path, cfg)
+        site_url = update_site_url_in_configuration_file(cfg, compose_file_path)
         subprocess.check_call(["docker-compose", "-f", "latest.yml", "restart", "nginx"])
-
+        logger.info("Esperando a que Nginx se reinicie...")
+        ping_nginx_until_200_response_or_timeout(cfg, site_url)
         logger.info("Listo.")
 
 

@@ -106,8 +106,8 @@ def get_nginx_configuration(cfg):
     if cfg.nginx_ssl:
         if check_nginx_ssl_files_exist(cfg):
             return "nginx_ssl.conf"
-    logger.error("No se puede utilizar el archivo de configuración para SSL debido a que falta al menos un "
-                 "archivo para el certificado. Se utilizará el default en su lugar.")
+        logger.error("No se puede utilizar el archivo de configuración para SSL debido a que falta al menos un "
+                    "archivo para el certificado. Se utilizará el default en su lugar.")
     return "nginx.conf"
 
 
@@ -150,19 +150,28 @@ def update_env(base_path, cfg, stable_version_url):
 
     # Write new config
     envconf["ANDINO_TAG"] = get_andino_version(cfg, base_path, stable_version_url)
+    envconf[nginx_config_file] = get_nginx_configuration(cfg)
+    envconf[nginx_extended_cache] = "yes" if cfg.nginx_extended_cache else "no"
+
+    envconf[nginx_cache_max_size] = \
+        cfg.nginx_cache_max_size if cfg.nginx_cache_max_size else envconf.get(nginx_cache_max_size, '')
+
+    envconf[nginx_cache_inactive] = \
+        cfg.nginx_cache_inactive if cfg.nginx_cache_inactive else envconf.get(nginx_cache_inactive, '')
+
+    if cfg.nginx_port:
+        envconf[nginx_var] = cfg.nginx_port
+    elif not envconf.get(nginx_var, ''):
+        envconf[nginx_var] = "80"
+
+    if cfg.nginx_ssl_port:
+        envconf[nginx_ssl_var] = cfg.nginx_ssl_port
+    elif not envconf.get(nginx_ssl_var, ''):
+        envconf[nginx_ssl_var] = "443"
+
     with open(env_file_path, "w") as env_f:
         for key in envconf.keys():
             env_f.write("%s=%s\n" % (key, envconf[key]))
-        if nginx_config_file not in envconf.keys() or cfg.nginx_ssl:
-            env_f.write("NGINX_CONFIG_FILE=%s\n" % get_nginx_configuration(cfg))
-        if nginx_extended_cache not in envconf.keys():
-            env_f.write("NGINX_EXTENDED_CACHE=%s\n" % "yes" if cfg.nginx_extended_cache else "no")
-        if nginx_cache_max_size not in envconf.keys() or cfg.nginx_cache_max_size:
-            env_f.write("NGINX_CACHE_MAX_SIZE=%s\n" % cfg.nginx_cache_max_size)
-        if nginx_cache_inactive not in envconf.keys() or cfg.nginx_cache_inactive:
-            env_f.write("NGINX_CACHE_INACTIVE=%s\n" % cfg.nginx_cache_inactive)
-        env_f.write("%s=%s\n" % (nginx_var, cfg.nginx_port))
-        env_f.write("%s=%s\n" % (nginx_ssl_var, cfg.nginx_ssl_port))
 
 
 def fix_env_file(base_path):
@@ -224,12 +233,14 @@ def persist_ssl_certificates(cfg):
     subprocess.check_call([
         "docker",
         "cp",
+        "-L",
         cfg.ssl_key_path,
         'andino-nginx:{0}/andino.key'.format(nginx_ssl_config_directory)
     ])
     subprocess.check_call([
         "docker",
         "cp",
+        "-L",
         cfg.ssl_crt_path,
         'andino-nginx:{0}/andino.crt'.format(nginx_ssl_config_directory)
     ])
@@ -381,28 +392,81 @@ def include_necessary_nginx_configuration(filename):
     ])
 
 
+def update_site_url_in_configuration_file(cfg, compose_path):
+    # Se modifica el campo "ckan.site_url" modificando el protocolo para que quede HTTP o HTTP según corresponda
+    current_url = subprocess.check_output(
+        'docker-compose -f {} exec -T portal grep "ckan.site_url = " '
+        '/etc/ckan/default/production.ini'.format(compose_path), shell=True)
+    current_url = current_url.strip().replace('ckan.site_url = ', '')
+    if get_nginx_configuration(cfg) == 'nginx_ssl.conf':
+        new_url = current_url.replace("http://", "https://")
+    else:
+        new_url = current_url.replace("https://", "http://")
+    if current_url != new_url:
+        subprocess.check_call([
+            "docker-compose",
+            "-f",
+            compose_path,
+            "exec",
+            "-T",
+            "portal",
+            "/etc/ckan_init.d/change_site_url.sh",
+            new_url,
+        ])
+    return new_url
+
+
+def ping_nginx_until_200_response_or_timeout(directory, site_url):
+    env_file = ".env"
+    env_file_path = path.join(directory, env_file)
+    envconf = {}
+    nginx_var = "NGINX_HOST_PORT"
+    nginx_ssl_var = "NGINX_HOST_SSL_PORT"
+    with open(env_file_path, "r") as env_f:
+        for line in env_f.readlines():
+            key, value = line.split("=", 1)
+            if key == nginx_var or key == nginx_ssl_var:
+                envconf[key] = value.strip()
+
+    timeout = time.time() + 60 * 5  # límite de 5 minutos
+    site_status_code = 0
+    while site_status_code != "200":
+        complete_url = '{0}:{1}'.format(
+            site_url,
+            envconf.get(nginx_ssl_var, '443') if 'https://' in site_url else envconf.get(nginx_var, '80'))
+        site_status_code = subprocess.check_output(
+            'echo $(curl -k -s -o /dev/null -w "%{{http_code}}" {})'.format(complete_url), shell=True).strip()
+        print("Intentando comunicarse con: {0} - Código de respuesta: {1}".format(complete_url, site_status_code))
+        if time.time() > timeout:
+            logger.warning("No fue posible reiniciar el contenedor de Nginx. "
+                           "Es posible que haya problemas de configuración.")
+            break
+        time.sleep(10 if site_status_code != "200" else 0)  # Si falla, esperamos 10 segundos para reintentarlo
+
+
 def update_andino(cfg, compose_file_url, stable_version_url):
     directory = cfg.install_directory
-    logging.info("Comprobando permisos (sudo)")
+    logger.info("Comprobando permisos (sudo)")
     check_permissions()
-    logging.info("Comprobando que docker esté instalado...")
+    logger.info("Comprobando que docker esté instalado...")
     check_docker()
-    logging.info("Comprobando que docker-compose este instalado...")
+    logger.info("Comprobando que docker-compose este instalado...")
     check_compose()
-    logging.info("Comprobando instalación previa...")
+    logger.info("Comprobando instalación previa...")
     check_previous_installation(directory)
     compose_file_path = get_compose_file_path(directory)
     fix_env_file(directory)
 
     with ComposeContext(directory):
-        logging.info("Guardando base de datos...")
+        logger.info("Guardando base de datos...")
         backup_database(directory, compose_file_path)
-        logging.info("Actualizando la aplicación")
-        logging.info("Descargando archivos necesarios...")
+        logger.info("Actualizando la aplicación")
+        logger.info("Descargando archivos necesarios...")
         download_compose_file(compose_file_path, compose_file_url)
         update_env(directory, cfg, stable_version_url)
-        logging.info("Descargando nuevas imagenes...")
+        logger.info("Descargando nuevas imagenes...")
         pull_application(compose_file_path)
+        reload_application(compose_file_path)
         if cfg.nginx_extended_cache:
             logger.info("Configurando caché extendida de nginx")
             configure_nginx_extended_cache(compose_file_path)
@@ -413,12 +477,14 @@ def update_andino(cfg, compose_file_url, stable_version_url):
                 persist_ssl_certificates(cfg)
             else:
                 logger.error("No se pudo encontrar al menos uno de los archivos, por lo que no se realizará el copiado")
-        reload_application(compose_file_path)
-        logging.info("Corriendo comandos post-instalación")
+        logger.info("Corriendo comandos post-instalación")
         post_update_commands(compose_file_path)
-        logging.info("Reiniciando")
+        site_url = update_site_url_in_configuration_file(cfg, compose_file_path)
+        logger.info("Reiniciando")
         restart_apps(compose_file_path)
-        logging.info("Listo.")
+        logger.info("Esperando a que Nginx inicie...")
+        ping_nginx_until_200_response_or_timeout(directory, site_url)
+        logger.info("Listo.")
 
 
 if __name__ == "__main__":
@@ -427,8 +493,8 @@ if __name__ == "__main__":
     parser.add_argument('--branch', default='master')
     parser.add_argument('--install_directory', default='/etc/portal/')
     parser.add_argument('--andino_version')
-    parser.add_argument('--nginx_port', default="80")
-    parser.add_argument('--nginx_ssl_port', default="443")
+    parser.add_argument('--nginx_port', default="")  # Sin valor default para evitar overrides si ya existe un valor
+    parser.add_argument('--nginx_ssl_port', default="")  # Sin valor default para evitar overrides si ya existe un valor
     parser.add_argument('--nginx-extended-cache', action="store_true")
     parser.add_argument('--nginx-cache-max-size', default="")
     parser.add_argument('--nginx-cache-inactive', default="")
