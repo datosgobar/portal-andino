@@ -86,6 +86,9 @@ Si actualizás de 2.5.0 o 2.5.1 a 2.5.2 o una versión más nueva, hay que modif
 
 Para ver cómo modificar el archivo de configuración, ir a [la documentación de mantenimiento](/docs/developers/maintenance.md#modificar-el-archivo-de-configuracion).
 
+Ejemplo de cómo podría quedar:
+`ckan.plugins = datajson_harvest datajson harvest ckan_harvester stats text_view image_view recline_view hierarchy_display hierarchy_form dcat structured_data gobar_theme datastore datapusher seriestiempoarexplorer googleanalytics`
+
 ### Versiones 2.4.x a 2.5.x
 
 En el caso de actualizar un Andino de versión 2.4.x a 2.5.x existe un error conocido de CKAN 2.5.8 (Ver issue [ckan/ckan#4168](https://github.com/ckan/ckan/issues/4168)) que **debe solucionarse ANTES de ejecutar la actualización**. 
