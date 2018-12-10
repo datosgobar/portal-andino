@@ -7,6 +7,7 @@
     - [Actualización simple](#actualizacion-simple)
     - [Actualización avanzada](#actualizacion-avanzada)
     - [Andino con plugins ad-hoc](#andino-con-plugins-ad-hoc)
+    - [Versiones 2.5.0 y 2.5.1](#versiones-2.5.0-y-2.5.1)
     - [Versiones 2.4.x a 2.5.x](#versiones-24x-a-25x)
   - [Versiones 1.x a 2.x](#versiones-1x-a-2x)
 
@@ -77,6 +78,16 @@ Los pasos adicionales que deberás seguir si tenés plugins _ad-hoc_ son:
 1. Instalar los plugins _ad-hoc_ dentro del _virtualenv_ `/usr/lib/ckan/default` del contenedor `portal`.
 1. Editar el archivo `/etc/ckan/default/production.ini` del contenedor `portal` y agregar a la lista de `ckan.plugins` los plugins _ad-hoc_.
 1. Reiniciar Andino.
+
+### Versiones 2.5.0 y 2.5.1
+
+Si actualizás de 2.5.0 o 2.5.1 a 2.5.2 o una versión más nueva, hay que modificar el archivo de configuración para que 
+`googleanalytics` esté _sólo una vez y al final_ en `ckan.plugins`.
+
+Para ver cómo modificar el archivo de configuración, ir a [la documentación de mantenimiento](/docs/developers/maintenance.md#modificar-el-archivo-de-configuracion).
+
+Ejemplo de cómo podría quedar:
+`ckan.plugins = datajson_harvest datajson harvest ckan_harvester stats text_view image_view recline_view hierarchy_display hierarchy_form dcat structured_data gobar_theme datastore datapusher seriestiempoarexplorer googleanalytics`
 
 ### Versiones 2.4.x a 2.5.x
 
