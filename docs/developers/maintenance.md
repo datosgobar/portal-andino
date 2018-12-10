@@ -22,6 +22,7 @@
     - [Cambiar el id del container de Google Tag Manager](#cambiar-el-id-del-container-de-google-tag-manager)
     - [Google Tag Manager](#google-tag-manager)
     - [Cambiar el id del tag de Google Analytics](#cambiar-el-id-del-tag-de-google-analytics)
+    - [Indexar datasets con Google Dataset Search](#indexar-datasets-con-google-dataset-search)
     - [Deshabilitar la URL `/catalog.xlsx`](#deshabilitar-la-url-catalogxlsx)
     - [Configuración de la llamada de invalidación de caché](#configuracion-de-la-llamada-de-invalidaci%C3%B3n-de-cache)
     - [Caché externa](#cache-externa)
@@ -232,6 +233,14 @@ googleanalytics.domain = { un dominio }
 ```
 
 Lo que se debe modificar es el campo `googleanalytics.id`.
+
+### Indexar datasets con Google Dataset Search
+
+Andino cuenta con la posibilidad de utilizar Google Dataset Search para que éste indexe tus datasets.
+Para el mejor entendimiento de la herramienta, recomendamos que entres a https://search.google.com/search-console/about.
+
+Por default, esta configuración se encuentra desactivada. Para activarla, podés ir a 
+_Configuración_ -> _Configuración avanzada_ -> _Google Dataset Search_ -> Clickear el checkbox y guardar el cambio.
 
 ### Deshabilitar la URL `/catalog.xlsx`
 
