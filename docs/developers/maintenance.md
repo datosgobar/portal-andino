@@ -5,6 +5,7 @@
 - [Mantenimiento](#mantenimiento)
   - [Exploración de la instancia de andino](#exploracion-de-la-instancia-de-andino)
     - [¿Qué está corriendo docker?](#que-esta-corriendo-docker)
+    - [Utilización del archivo latest.yml en los comandos de docker-compose](#utilizaci%C3%B3n-del-archivo-latest.yml-en-los-comandos-de-docker-compose)
     - [Ingresar al contendor principal de andino](#ingresar-al-contendor-principal-de-andino)
     - [Listar todas las `Propiedades` de cada contenedor](#listar-todas-las-propiedades-de-cada-contenedor)
   - [Administración de usuarios](#administracion-de-usuarios)
@@ -64,6 +65,16 @@ Para obtener una lista de lo que está corriendo actualmente Docker, podemos usa
     docker ps # Tabla de ejecucion actual
     docker ps -q # Listado de IDs de cada contenedor
     docker ps -aq # Listado de IDs de todos los contenedores disponibles.
+    
+### Utilización del archivo latest.yml en los comandos de docker-compose
+
+En múltiples secciones de esta documentación se emplea el uso de comandos que comienzan de la siguiente manera:
+
+    docker-compose -f /etc/portal/latest.yml
+
+Es importante recordar que no alcanza con especificar el directorio del archivo `latest.yml` sino que, además, es 
+necesario ejecutar estos comandos _exactamente en ese mismo directorio_ debido a que ahí también se encuentra el 
+archivo que contiene las variables de entorno (`.env`).  
 
 
 ### Ingresar al contendor principal de andino
