@@ -19,6 +19,7 @@ services:
         - NGINX_EXTENDED_CACHE
         - NGINX_CACHE_MAX_SIZE
         - NGINX_CACHE_INACTIVE
+        - NGINX_HOST_SSL_PORT
     portal:
       container_name: andino
       image: "datosgobar/portal-andino:${ANDINO_TAG}"
