@@ -5,6 +5,7 @@
 - [Mantenimiento](#mantenimiento)
   - [Exploración de la instancia de andino](#exploracion-de-la-instancia-de-andino)
     - [¿Qué está corriendo docker?](#que-esta-corriendo-docker)
+    - [Utilización del archivo latest.yml en los comandos de docker-compose](#utilizacion-del-archivo-latestyml-en-los-comandos-de-docker-compose)
     - [Ingresar al contendor principal de andino](#ingresar-al-contendor-principal-de-andino)
     - [Listar todas las `Propiedades` de cada contenedor](#listar-todas-las-propiedades-de-cada-contenedor)
   - [Administración de usuarios](#administracion-de-usuarios)
@@ -65,6 +66,16 @@ Para obtener una lista de lo que está corriendo actualmente Docker, podemos usa
     docker ps # Tabla de ejecucion actual
     docker ps -q # Listado de IDs de cada contenedor
     docker ps -aq # Listado de IDs de todos los contenedores disponibles.
+    
+### Utilización del archivo latest.yml en los comandos de docker-compose
+
+En múltiples secciones de esta documentación se emplea el uso de comandos que comienzan de la siguiente manera:
+
+    docker-compose -f latest.yml
+
+Es importante recordar que no alcanzaría con especificar el directorio absoluto del archivo `latest.yml`; es necesario 
+ejecutar estos comandos _exactamente en ese mismo directorio_, debido a que ahí también se encuentra el archivo que 
+contiene las variables de entorno (`.env`) ya que es el directorio de instalación de Andino.  
 
 
 ### Ingresar al contendor principal de andino
@@ -72,50 +83,65 @@ Para obtener una lista de lo que está corriendo actualmente Docker, podemos usa
 El contenedor principal de andino, donde se ejecuta la aplicación CKAN, es denominado `portal`. 
 Para ingresar en una sesión de consola en el contenedor, ejecutar:
 
-    docker-compose -f /etc/portal/latest.yml exec portal /bin/bash
+    docker-compose -f latest.yml exec portal /bin/bash
+    
+Ver [la sección sobre la utilización del archivo latest.yml en los comandos de docker-compose](#utilizacion-del-archivo-latest.yml-en-los-comandos-de-docker-compose).
 
 
 ### Listar todas las `Propiedades` de cada contenedor
 
-    docker-compose -f /etc/portal/latest.yml ps -q portal solr db | xargs -n 1 | while read container; do docker inspect $container; done
-
+    docker-compose -f latest.yml ps -q portal solr db | xargs -n 1 | while read container; do docker inspect $container; done
+    
+Ver [la sección sobre la utilización del archivo latest.yml en los comandos de docker-compose](#utilizacion-del-archivo-latest.yml-en-los-comandos-de-docker-compose).
 
 ## Administración de usuarios
 
 ### Crear un usuario ADMIN
 
-    docker-compose -f /etc/portal/latest.yml exec portal /etc/ckan_init.d/add_admin.sh mi_nuevo_usuario_admin email_del_usuario_admin
+    docker-compose -f latest.yml exec portal /etc/ckan_init.d/add_admin.sh mi_nuevo_usuario_admin email_del_usuario_admin
+    
+Ver [la sección sobre la utilización del archivo latest.yml en los comandos de docker-compose](#utilizacion-del-archivo-latest.yml-en-los-comandos-de-docker-compose).
 
 El comando solicitará la contraseña del usuario administrador.
 
 
 ### Listar mis usuarios
 
-    docker-compose -f /etc/portal/latest.yml exec portal /etc/ckan_init.d/paster.sh --plugin=ckan user list
+    docker-compose -f latest.yml exec portal /etc/ckan_init.d/paster.sh --plugin=ckan user list
+    
+Ver [la sección sobre la utilización del archivo latest.yml en los comandos de docker-compose](#utilizacion-del-archivo-latest.yml-en-los-comandos-de-docker-compose).
 
 ### Ver los datos de un usuario
 
-    docker-compose -f /etc/portal/latest.yml exec portal /etc/ckan_init.d/paster.sh --plugin=ckan user nombre-de-usuario
+    docker-compose -f latest.yml exec portal /etc/ckan_init.d/paster.sh --plugin=ckan user nombre-de-usuario
+    
+Ver [la sección sobre la utilización del archivo latest.yml en los comandos de docker-compose](#utilizacion-del-archivo-latest.yml-en-los-comandos-de-docker-compose).
 
 
 ### Crear un nuevo usuario
 
-    docker-compose -f /etc/portal/latest.yml exec portal /etc/ckan_init.d/paster.sh --plugin=ckan user add nombre-de-usuario
+    docker-compose -f latest.yml exec portal /etc/ckan_init.d/paster.sh --plugin=ckan user add nombre-de-usuario
+    
+Ver [la sección sobre la utilización del archivo latest.yml en los comandos de docker-compose](#utilizacion-del-archivo-latest.yml-en-los-comandos-de-docker-compose).
 
 
 ### Crear un nuevo usuario extendido
 
-    docker-compose -f /etc/portal/latest.yml exec portal /etc/ckan_init.d/paster.sh --plugin=ckan user add nomber [email=mi-usuario@host.com password=mi-contraseña-rara apikey=unsecretomisticonoleible]
-
+    docker-compose -f latest.yml exec portal /etc/ckan_init.d/paster.sh --plugin=ckan user add nomber [email=mi-usuario@host.com password=mi-contraseña-rara apikey=unsecretomisticonoleible]
+    
+Ver [la sección sobre la utilización del archivo latest.yml en los comandos de docker-compose](#utilizacion-del-archivo-latest.yml-en-los-comandos-de-docker-compose).
 
 ### Eliminar un usuario
 
-    docker-compose -f /etc/portal/latest.yml exec portal /etc/ckan_init.d/paster.sh --plugin=ckan user remove nombre-de-usuario
-
+    docker-compose -f latest.yml exec portal /etc/ckan_init.d/paster.sh --plugin=ckan user remove nombre-de-usuario
+    
+Ver [la sección sobre la utilización del archivo latest.yml en los comandos de docker-compose](#utilizacion-del-archivo-latest.yml-en-los-comandos-de-docker-compose).
 
 ### Cambiar password de un usuario
 
-    docker-compose -f /etc/portal/latest.yml exec portal /etc/ckan_init.d/paster.sh --plugin=ckan user setpass nombre-de-usuario
+    docker-compose -f latest.yml exec portal /etc/ckan_init.d/paster.sh --plugin=ckan user setpass nombre-de-usuario
+    
+Ver [la sección sobre la utilización del archivo latest.yml en los comandos de docker-compose](#utilizacion-del-archivo-latest.yml-en-los-comandos-de-docker-compose).
 
 ## Configuraciones de andino
 
@@ -483,16 +509,19 @@ Luego, si vamos a la configuración del sitio, podremos apreciar que se agrego u
 
 ### Encontrar los volúmenes de mi andino dentro del filesystem del host
 
-    docker-compose -f /etc/portal/latest.yml ps -q andino solr db | xargs -n 1 | while read container; do docker inspect -f ' {{.Name}}: {{range .Mounts}}{{.Source}}: {{.Destination}}  {{end}} ' $container; done
+    docker-compose -f latest.yml ps -q andino solr db | xargs -n 1 | while read container; do docker inspect -f ' {{.Name}}: {{range .Mounts}}{{.Source}}: {{.Destination}}  {{end}} ' $container; done
 
+Ver [la sección sobre la utilización del archivo latest.yml en los comandos de docker-compose](#utilizacion-del-archivo-latest.yml-en-los-comandos-de-docker-compose).
 
 ### Ver las direcciones IP de mis contenedores
 
-    docker-compose -f /etc/portal/latest.yml ps -q andino solr db | xargs -n 1 | while read container; do docker inspect -f '{{.Name}}: {{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $container; done
+    docker-compose -f latest.yml ps -q andino solr db | xargs -n 1 | while read container; do docker inspect -f '{{.Name}}: {{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $container; done
 
 ### Ver las variables de entorno que tienen mis contenedores
 
-    docker-compose -f /etc/portal/latest.yml ps -q andino solr db | xargs -n 1 | while read container; do docker inspect -f '{{range $index, $value := .Config.Env}}export {{$value}}{{println}}{{end}}' $container; done
+    docker-compose -f latest.yml ps -q andino solr db | xargs -n 1 | while read container; do docker inspect -f '{{range $index, $value := .Config.Env}}export {{$value}}{{println}}{{end}}' $container; done
+
+Ver [la sección sobre la utilización del archivo latest.yml en los comandos de docker-compose](#utilizacion-del-archivo-latest.yml-en-los-comandos-de-docker-compose).
 
 ### Acceder con un cliente de PostgreSQL a las bases de datos
 
@@ -521,8 +550,10 @@ inactivo; por lo tanto, tener alguna forma de eliminar elementos de manera defin
 ### Listar nombres de los datasets contenidos en Andino
 
 ```bash
-docker-compose -f /etc/portal/latest.yml exec portal /etc/ckan_init.d/paster.sh  --plugin=ckan dataset list | grep -v DEBUG | grep -v count  | grep -v Datasets | xargs -n2 | while read id name; do echo $name; done
+docker-compose -f latest.yml exec portal /etc/ckan_init.d/paster.sh  --plugin=ckan dataset list | grep -v DEBUG | grep -v count  | grep -v Datasets | xargs -n2 | while read id name; do echo $name; done
 ```
+Ver [la sección sobre la utilización del archivo latest.yml en los comandos de docker-compose](#utilizacion-del-archivo-latest.yml-en-los-comandos-de-docker-compose).
+
 
 ## Backups
 
@@ -665,4 +696,6 @@ ser necesario eliminarlos.
 
 ### Eliminar logs dentro de Andino
 
-    docker-compose -f /etc/portal/latest.yml exec portal truncate -s 0 /var/log/apache2/*.log
+    docker-compose -f latest.yml exec portal truncate -s 0 /var/log/apache2/*.log
+
+Ver [la sección sobre la utilización del archivo latest.yml en los comandos de docker-compose](#utilizacion-del-archivo-latest.yml-en-los-comandos-de-docker-compose).
