@@ -216,9 +216,12 @@ def update_site_url_in_configuration_file(cfg, compose_path):
     current_url = subprocess.check_output(
         'docker-compose -f {} exec -T portal grep -E "^ckan.site_url[[:space:]]*=[[:space:]]*" '
         '/etc/ckan/default/production.ini | tr -d [[:space:]]'.format(compose_path), shell=True).strip()
-    current_url = current_url.replace('ckan.site_url', '')[1:]
-    host_name = urlparse(current_url).netloc
-    new_url = "http{0}://{1}".format('s' if get_nginx_configuration(cfg) == 'nginx_ssl.conf' else '', host_name)
+    current_url = current_url.replace('ckan.site_url', '')[1:]  # guardamos sólo la url, ignoramos el símbolo '='
+    host_name = urlparse(current_url).hostname
+    new_url = "http{0}://{1}:{2}".format(
+        's' if get_nginx_configuration(cfg) == 'nginx_ssl.conf' else '',
+        host_name,
+        cfg.nginx_ssl_port if get_nginx_configuration(cfg) == 'nginx_ssl.conf' else cfg.nginx_port)
     if current_url != new_url:
         subprocess.check_call([
             "docker-compose",
@@ -233,14 +236,13 @@ def update_site_url_in_configuration_file(cfg, compose_path):
     return new_url
 
 
-def ping_nginx_until_200_response_or_timeout(cfg, site_url):
+def ping_nginx_until_200_response_or_timeout(site_url):
     timeout = time.time() + 60 * 5  # límite de 5 minutos
     site_status_code = 0
     while site_status_code != "200":
-        complete_url = '{0}:{1}'.format(site_url, cfg.nginx_ssl_port if 'https://' in site_url else cfg.nginx_port)
         site_status_code = subprocess.check_output(
-            'echo $(curl -k -s -o /dev/null -w "%{{http_code}}" {})'.format(complete_url), shell=True).strip()
-        print("Intentando comunicarse con: {0} - Código de respuesta: {1}".format(complete_url, site_status_code))
+            'echo $(curl -k -s -o /dev/null -w "%{{http_code}}" {})'.format(site_url), shell=True).strip()
+        print("Intentando comunicarse con: {0} - Código de respuesta: {1}".format(site_url, site_status_code))
         if time.time() > timeout:
             logger.warning("No fue posible reiniciar el contenedor de Nginx. "
                            "Es posible que haya problemas de configuración.")
@@ -288,7 +290,7 @@ def install_andino(cfg, compose_file_url, stable_version_url):
         site_url = update_site_url_in_configuration_file(cfg, compose_file_path)
         subprocess.check_call(["docker-compose", "-f", "latest.yml", "restart", "nginx"])
         logger.info("Esperando a que Nginx se reinicie...")
-        ping_nginx_until_200_response_or_timeout(cfg, site_url)
+        ping_nginx_until_200_response_or_timeout(site_url)
         logger.info("Listo.")
 
 
