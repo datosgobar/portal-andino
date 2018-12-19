@@ -43,6 +43,8 @@
     - [Backup de la base de datos](#backup-de-la-base-de-datos)
     - [Realizar un backup del file system](#realizar-un-backup-del-file-system)
     - [Realizar un backup de la configuración](#realizar-un-backup-de-la-configuracion)
+  - [Comandos de DataPusher](#comandos-de-datapusher)
+    - [Subir todos los recursos al Datastore](#subir-todos-los-recursos-al-datastore)
   - [Recomendaciones de Seguridad y Optimizaciones](#recomendaciones-de-seguridad-y-optimizaciones)
     - [HTTPS](#https)
     - [Sistema y librerías](#sistema-y-librerias)
@@ -630,6 +632,18 @@ correr el comando `crontab -e` y agregar la línea:
 
     # Creo un tar.gz con la info.
     tar -C "$(dirname "$ANDINO_CONFIG")" -zcvf /ruta/para/guardar/mis/bkps/mi_andino.config-data_$(date +%F).tar.gz "$(basename "$ANDINO_CONFIG")"
+
+
+## Comandos de DataPusher
+
+Deben ser corridos en el directorio de instalación de Andino.
+
+### Subir todos los recursos al Datastore
+
+Es posible que existan recursos que no hayan sido subidos al Datastore. Para buscar e intentar subir dichos recursos, ejecutar:
+
+    docker-compose -f latest.yml exec portal /usr/lib/ckan/default/bin/paster --plugin=ckan datapusher submit_all -c /etc/ckan/default/production.ini
+
 
 ## Recomendaciones de Seguridad y Optimizaciones
 
