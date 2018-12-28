@@ -10,11 +10,9 @@
     - [Inicio automático](#inicio-automatico)
     - [Generación del nuevo contenedor](#generacion-del-nuevo-contenedor)
   - [Probar modificaciones y nuevas funcionalidades](#probar-modificaciones-y-nuevas-funcionalidades)
-    - [Instalar nuevo requerimiento](#instalar-nuevo-requerimiento)
-    - [Configuración](#configuracion)
-    - [Configuración propia](#configuracion-propia)
-    - [Inicio automático](#inicio-automatico)
-    - [Generación del nuevo contenedor](#generacion-del-nuevo-contenedor)
+    - [Portal Andino](#portal-andino)
+    - [Portal Andino Theme](#portal-andino-theme)
+    - [Portal Base](#portal-base)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -25,6 +23,10 @@
         - [Configuración propia](#configuracion-propia)
         - [Inicio automático](#inicio-automatico)
         - [Generación del nuevo contenedor](#generacion-del-nuevo-contenedor)
+    - [Probar modificaciones y nuevas funcionalidades](#probar-modificaciones-y-nuevas-funcionalidades)
+        - [Portal Andino](#portal-andino)
+        - [Portal Andino Theme](#portal-andino-theme)
+        - [Portal Base](#portal-base)
 
 # Desarrollo
 
