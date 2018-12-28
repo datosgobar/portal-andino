@@ -9,6 +9,12 @@
     - [Configuración propia](#configuracion-propia)
     - [Inicio automático](#inicio-automatico)
     - [Generación del nuevo contenedor](#generacion-del-nuevo-contenedor)
+  - [Probar modificaciones y nuevas funcionalidades](#probar-modificaciones-y-nuevas-funcionalidades)
+    - [Instalar nuevo requerimiento](#instalar-nuevo-requerimiento)
+    - [Configuración](#configuracion)
+    - [Configuración propia](#configuracion-propia)
+    - [Inicio automático](#inicio-automatico)
+    - [Generación del nuevo contenedor](#generacion-del-nuevo-contenedor)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -191,3 +197,62 @@ a su estado anterior (deshaciendo el cambio en el `FROM`).
 Luego, debemos sacar una nueva imagen del **portal-base** y, finalmente, una nueva de **portal-andino**
 que se base en la anterior.
 
+
+## Probar modificaciones y nuevas funcionalidades
+
+### Portal Andino
+
+Para levantar el contenedor, se debe ejecutar los siguientes comandos:
+    
+    ./dev.sh up
+    ./dev.sh setup
+
+Para acceder a la terminal del portal, ejecutar:
+
+    ./dev.sh console
+    
+### Portal Andino Theme
+
+Cuando el contenedor de Andino se levanta, se descarga y utiliza el branch master de portal-andino-theme.
+Como queremos probar las modificaciones implementadas, es necesario reemplazar el código que existe en el contenedor.
+
+Para esto, hay que asegurarnos de que exista el directorio `wrks` dentro del directorio de portal-andino en el host 
+antes de levantar todo (en caso de no exista, ejecutar `mkdir wrks` dentro del directorio de portal-andino). 
+Dentro de `wrks/`, debemos tener portal-andino-theme con los cambios realizados.
+
+* Si ya existe en el host un directorio donde se encuentra el código de portal-andino-theme, la forma de traerlo a wrks 
+es:
+
+```
+cp {directorio-de-portal-andino-theme} {directorio-de-portal-andino}/wrks/portal-andino-theme
+```
+    
+* Si aún no existe (puede ocurrir, por ejemplo, para probar el código de un branch del repositorio), hay que clonarlo:
+
+```
+git clone -b {nombre-del-branch-con-los-cambios-a-testear} --single-branch https://github.com/datosgobar/portal-andino-theme.git
+```
+
+Ahora que ya tenemos portal-andino-theme listo, ejecutar los comandos para levantar el contenedor y acceder a la terminal.
+Lo único que hace falta hacer para reemplazar el código de master es hacer un cp:
+
+    cp -a /dev-app/wrks/portal-andino-theme/. /usr/lib/ckan/default/src/ckanext-gobar-theme/
+    
+Como último paso, reiniciar apache:
+
+    apachectl restart
+
+### Portal Base
+
+Para poder probar el código de portal-base, hay que crear una nueva imagen, la cual será usada por el portal.
+
+Dentro del directorio existente en el host de portal-base, hay que crearla mediante el siguiente comando y esperar 
+a que termine:
+
+    docker build base_portal -t "datosgobar/portal-base:{nombre-que-se-le-desea-dar-a-la-imagen}"
+
+Como portal-andino tiene un nombre de imagen para portal-base dentro de su Dockerfile, será necesario reemplazarlo.
+La primera línea de este archivo debería quedar con este contenido: 
+`FROM datosgobar/portal-base:{nombre-que-se-le-dio-a-la-imagen-de-portal-base}`.
+
+Ahora, al levantarse el portal se utilizará la imagen de portal-base generada con los nuevos cambios. 
