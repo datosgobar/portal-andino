@@ -213,6 +213,10 @@ Para acceder a la terminal del portal, ejecutar:
 
     ./dev.sh console
     
+Si se quiere borrar los contenedores:
+
+    ./dev.sh down
+    
 ### Portal Andino Theme
 
 Cuando el contenedor de Andino se levanta, se descarga y utiliza el branch master de portal-andino-theme.
@@ -257,4 +261,5 @@ Como portal-andino tiene un nombre de imagen para portal-base dentro de su Docke
 La primera línea de este archivo debería quedar con este contenido: 
 `FROM datosgobar/portal-base:{nombre-que-se-le-dio-a-la-imagen-de-portal-base}`.
 
-Ahora, al levantarse el portal se utilizará la imagen de portal-base generada con los nuevos cambios. 
+Una vez seguidos estos pasos, puede levantarse el portal, y se utilizará la imagen de portal-base generada con los 
+nuevos cambios. 
