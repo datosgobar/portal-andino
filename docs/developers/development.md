@@ -246,10 +246,10 @@ Como último paso, reiniciar apache:
 
 ### Portal Base
 
-Para poder probar el código de portal-base, hay que crear una nueva imagen, la cual será usada por el portal.
+Para poder probar el código de portal-base, hay que crear una nueva imagen, la cual será usada por Andino.
 
-Dentro del directorio existente en el host de portal-base, hay que crearla mediante el siguiente comando y esperar 
-a que termine:
+Se requiere tener un directorio separado del de portal-andino para el código de portal-base; 
+la imagen de prueba debe ser creada mediante el siguiente comando, y se debe esperar a que termine para continuar:
 
     docker build base_portal -t "datosgobar/portal-base:{nombre-que-se-le-desea-dar-a-la-imagen}"
 
