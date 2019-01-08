@@ -643,6 +643,8 @@ Deben ser corridos en el directorio de instalación de Andino.
 Es posible que existan recursos que no hayan sido subidos al Datastore. Para buscar e intentar subir dichos recursos, ejecutar:
 
     docker-compose -f latest.yml exec portal /usr/lib/ckan/default/bin/paster --plugin=ckan datapusher submit_all -c /etc/ckan/default/production.ini
+    
+Se preguntará si se desea proceder. Al escribir que sí (`y`), iniciar la subida de recursos. Para cada uno de ellos, se escribirá su id y luego el status: si subió correctamente, aparecerá "_OK_"; en caso contrario, "_FAIL_".
 
 
 ## Recomendaciones de Seguridad y Optimizaciones
