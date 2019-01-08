@@ -393,14 +393,34 @@ def include_necessary_nginx_configuration(filename):
     ])
 
 
-def update_site_url_in_configuration_file(cfg, compose_path):
+def update_site_url_in_configuration_file(cfg, compose_path, directory):
+    env_file = ".env"
+    env_file_path = path.join(directory, env_file)
+    envconf = {}
+    nginx_var = "NGINX_HOST_PORT"
+    nginx_ssl_var = "NGINX_HOST_SSL_PORT"
+    with open(env_file_path, "r") as env_f:
+        for line in env_f.readlines():
+            key, value = line.split("=", 1)
+            if key == nginx_var or key == nginx_ssl_var:
+                envconf[key] = value.strip()
+
     # Se modifica el campo "ckan.site_url" modificando el protocolo para que quede HTTP o HTTP según corresponda
     current_url = subprocess.check_output(
         'docker-compose -f {} exec -T portal grep -E "^ckan.site_url[[:space:]]*=[[:space:]]*" '
         '/etc/ckan/default/production.ini | tr -d [[:space:]]'.format(compose_path), shell=True).strip()
-    current_url = current_url.replace('ckan.site_url', '')[1:]
-    host_name = urlparse(current_url).netloc
-    new_url = "http{0}://{1}".format('s' if get_nginx_configuration(cfg) == 'nginx_ssl.conf' else '', host_name)
+    current_url = current_url.replace('ckan.site_url', '')[1:]  # guardamos sólo la url, ignoramos el símbolo '='
+    host_name = urlparse(current_url).hostname
+    if get_nginx_configuration(cfg) == 'nginx_ssl.conf':
+        port = envconf.get(nginx_ssl_var)
+    elif get_nginx_configuration(cfg) == 'nginx.conf':
+        port = envconf.get(nginx_var)
+    else:
+        port = ''
+    if port:
+        port = ":{}".format(port)
+    new_url = "http{0}://{1}{2}".format(
+        's' if get_nginx_configuration(cfg) == 'nginx_ssl.conf' else '', host_name, port)
     if current_url != new_url:
         subprocess.check_call([
             "docker-compose",
@@ -415,27 +435,13 @@ def update_site_url_in_configuration_file(cfg, compose_path):
     return new_url
 
 
-def ping_nginx_until_200_response_or_timeout(directory, site_url):
-    env_file = ".env"
-    env_file_path = path.join(directory, env_file)
-    envconf = {}
-    nginx_var = "NGINX_HOST_PORT"
-    nginx_ssl_var = "NGINX_HOST_SSL_PORT"
-    with open(env_file_path, "r") as env_f:
-        for line in env_f.readlines():
-            key, value = line.split("=", 1)
-            if key == nginx_var or key == nginx_ssl_var:
-                envconf[key] = value.strip()
-
+def ping_nginx_until_200_response_or_timeout(site_url):
     timeout = time.time() + 60 * 5  # límite de 5 minutos
     site_status_code = 0
     while site_status_code != "200":
-        complete_url = '{0}:{1}'.format(
-            site_url,
-            envconf.get(nginx_ssl_var, '443') if 'https://' in site_url else envconf.get(nginx_var, '80'))
         site_status_code = subprocess.check_output(
-            'echo $(curl -k -s -o /dev/null -w "%{{http_code}}" {})'.format(complete_url), shell=True).strip()
-        print("Intentando comunicarse con: {0} - Código de respuesta: {1}".format(complete_url, site_status_code))
+            'echo $(curl -k -s -o /dev/null -w "%{{http_code}}" {})'.format(site_url), shell=True).strip()
+        print("Intentando comunicarse con: {0} - Código de respuesta: {1}".format(site_url, site_status_code))
         if time.time() > timeout:
             logger.warning("No fue posible reiniciar el contenedor de Nginx. "
                            "Es posible que haya problemas de configuración.")
@@ -478,11 +484,11 @@ def update_andino(cfg, compose_file_url, stable_version_url):
                 logger.error("No se pudo encontrar al menos uno de los archivos, por lo que no se realizará el copiado")
         logger.info("Corriendo comandos post-instalación")
         post_update_commands(compose_file_path)
-        site_url = update_site_url_in_configuration_file(cfg, compose_file_path)
+        site_url = update_site_url_in_configuration_file(cfg, compose_file_path, directory)
         logger.info("Reiniciando")
         restart_apps(compose_file_path)
         logger.info("Esperando a que Nginx inicie...")
-        ping_nginx_until_200_response_or_timeout(directory, site_url)
+        ping_nginx_until_200_response_or_timeout(site_url)
         logger.info("Listo.")
 
 
