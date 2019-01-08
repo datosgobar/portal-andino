@@ -31,7 +31,6 @@ sub_down(){
 }
 
 sub_build() {
-    echo "Buildeando!"
     sub_compose build;
 }
 
@@ -48,7 +47,6 @@ sub_console() {
 }
 
 sub_up(){
-    echo "En travis, up $@"
     sub_compose up -d $@;
 }
 
