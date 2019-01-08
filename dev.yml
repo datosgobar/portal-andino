@@ -2,7 +2,7 @@ version: '2'
 
 services:
     nginx:
-      image: datosgobar/portal-base-nginx:release-0.10.test-ssl
+      image: datosgobar/portal-base-nginx:release-0.10.19
       ports:
         - 80:80
         - 443:443
