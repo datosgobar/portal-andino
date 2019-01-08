@@ -2,8 +2,10 @@
 
 set -ev
 
-container_id=$(docker-compose -f dev.yml ps -q portal)
+container_id=$(docker ps -q --filter "name=andino$")
+echo Container id: $container_id
 container_image=$(docker ps --format '{{ .Image }}' --filter "id=$container_id")
+echo Container image name: $container_image
 tag="$1"
 
 image_full_name="datosgobar/portal-andino:$tag"
