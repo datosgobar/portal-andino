@@ -2,9 +2,10 @@ version: '2'
 
 services:
     nginx:
-      image: datosgobar/portal-base-nginx:release-0.10.2
+      image: datosgobar/portal-base-nginx:release-0.10.19
       ports:
         - 80:80
+        - 443:443
       depends_on:
         - portal
       environment:
@@ -12,6 +13,7 @@ services:
         - NGINX_EXTENDED_CACHE
         - NGINX_CACHE_MAX_SIZE
         - NGINX_CACHE_INACTIVE
+        - NGINX_HOST_SSL_PORT
     portal:
         build: 
           context: .
@@ -34,7 +36,7 @@ services:
         - POSTGRES_PASSWORD=ckan
         - POSTGRES_DB=ckan
     redis:
-      image: redis:3.2.7-alpine
+      image: redis:3.2.4-alpine
     solr:
       image: datosgobar/portal-base-solr:release-0.9.0
     postfix:

@@ -130,6 +130,7 @@ def pull_application(compose_path):
         "-f",
         compose_path,
         "pull",
+        "--ignore-pull-failures",
     ])
 
 

@@ -177,8 +177,6 @@ def update_env(base_path, cfg, stable_version_url):
 def fix_env_file(base_path):
     env_file = ".env"
     env_file_path = path.join(base_path, env_file)
-    nginx_var = "NGINX_HOST_PORT"
-    nginx_ssl_var = "NGINX_HOST_SSL_PORT"
     datastore_var = "DATASTORE_HOST_PORT"
     maildomain_var = "maildomain"
     timezone_var = "TZ"
@@ -187,10 +185,6 @@ def fix_env_file(base_path):
     with open(env_file_path, "r") as env_f:
         content = env_f.read()
     with open(env_file_path, "a") as env_f:
-        if nginx_var not in content:
-            env_f.write("%s=%s\n" % (nginx_var, "80"))
-        if nginx_ssl_var not in content:
-            env_f.write("%s=%s\n" % (nginx_ssl_var, "443"))
         if datastore_var not in content:
             env_f.write("%s=%s\n" % (datastore_var, "8800"))
         if maildomain_var not in content:
@@ -231,6 +225,7 @@ def pull_application(compose_path):
         "-f",
         compose_path,
         "pull",
+        "--ignore-pull-failures",
     ])
 
 
