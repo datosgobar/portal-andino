@@ -6,6 +6,7 @@ import shutil
 import subprocess
 import time
 import sys
+from urlparse import urlparse
 from os import path, geteuid, getcwd, chdir
 
 logger = logging.getLogger(__file__)
@@ -395,13 +396,11 @@ def include_necessary_nginx_configuration(filename):
 def update_site_url_in_configuration_file(cfg, compose_path):
     # Se modifica el campo "ckan.site_url" modificando el protocolo para que quede HTTP o HTTP según corresponda
     current_url = subprocess.check_output(
-        'docker-compose -f {} exec -T portal grep "ckan.site_url = " '
-        '/etc/ckan/default/production.ini'.format(compose_path), shell=True)
-    current_url = current_url.strip().replace('ckan.site_url = ', '')
-    if get_nginx_configuration(cfg) == 'nginx_ssl.conf':
-        new_url = current_url.replace("http://", "https://")
-    else:
-        new_url = current_url.replace("https://", "http://")
+        'docker-compose -f {} exec -T portal grep -E "^ckan.site_url[[:space:]]*=[[:space:]]*" '
+        '/etc/ckan/default/production.ini | tr -d [[:space:]]'.format(compose_path), shell=True).strip()
+    current_url = current_url.replace('ckan.site_url', '')[1:]
+    host_name = urlparse(current_url).netloc
+    new_url = "http{0}://{1}".format('s' if get_nginx_configuration(cfg) == 'nginx_ssl.conf' else '', host_name)
     if current_url != new_url:
         subprocess.check_call([
             "docker-compose",
