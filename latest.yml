@@ -3,7 +3,7 @@ version: '2'
 services:
     nginx:
       container_name: andino-nginx
-      image: datosgobar/portal-base-nginx:release-0.10.15
+      image: datosgobar/portal-base-nginx:release-0.10.19
       restart: always
       ports:
         - "${NGINX_HOST_PORT}:80"
