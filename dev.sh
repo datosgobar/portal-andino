@@ -95,6 +95,7 @@ sub_up_with(){
     nginx_container=portalandino_nginx_1;
     echo "nginx"
     postfix_container=portalandino_postfix_1;
+    # --link es legacy, eventualmente se deberá cambiar
     docker run -v "$src:$dest" \
         --link $redis_container:redis --link $db_container:db --link $nginx_container:nginx \
         --link $solr_container:solr --link $postfix_container:postfix \
