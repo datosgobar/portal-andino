@@ -56,6 +56,7 @@ script:
 - while [[ "200" != $(echo $(curl -k -s -o /dev/null -w "%{http_code}" "https://localhost:7777")) ]]; do sleep 10s ; echo $(curl -k -s -o /dev/null -w "%{http_code}" "https://localhost:7777") ; done
 - cd tests/
 - sudo nosetests configurations/ globals/
+- cd -
 
 deploy:
 - provider: script
