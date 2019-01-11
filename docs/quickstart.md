@@ -313,20 +313,27 @@ También podés usar estos campos para documentar aspectos más avanzados de las
 
 ### Series de tiempo
 
-Andino permite documentar recursos que publican **series de tiempo**.
+Andino permite documentar recursos que publican **series de tiempo**. Un recurso con series de tiempo es un [archivo CSV de determinada estructura](https://datosgobar.github.io/paquete-apertura-datos/guia-metadatos/#series-de-tiempo).
 
 #### ¿Cómo documento una serie de tiempo?
+
 En el formulario de carga de un recurso vas a encontrar campos avanzados y especiales que necesitás usar para documentar las columnas de una tabla que contiene series de tiempo.
 
 Los campos **Tipo de dato especial** y **Detalle de tipo especial** te permiten marcar la columna del índice de tiempo y qué frecuencia tiene. 
 
+* **Tipo de dato especial**: marcar la columna que tiene las fechas como "Indice de tiempo".
+* **Detalle de tipo de dato especial**: especificar la frecuencia del índice (anual, diaria, mensual, etc).
+
 ![alt text](assets/portal-andino-campos-especiales.jpg "campos-especiales")
 
-Los campos  **Unidad de medida **e** Identificador** te permiten documentar cada una de las columnas que son series de tiempo.
+Los campos **Unidad de medida** e **Identificador** te permiten documentar cada una de las columnas, que son tus series de tiempo.
+
+* **Unidad de medida**: es la unidad de medida en que está expresada la serie ("Millones de pesos corrientes", "Kilómetros", "Millones de dólares americanos")
+* **Identificador**: es un identificador único de la serie para toda la APN. Debe ser inmutable en el tiempo para la serie, no muy largo (entre 6 y 20 caracteres aproximadamente) y no pisarse potencialmente con otras series de la Administración Pública Nacional.
 
 ![alt text](assets/portal-andino-campos-avanzados.jpg "campos-avanzados")
 
-Para conocer más sobre series de tiempo mirá la [documentación completa](http://paquete-apertura-datos.readthedocs.io/es/stable/guia_metadatos.html#series-de-tiempo "documentación completa") en el perfil de metadatos.
+Para conocer más sobre series de tiempo mirá la [documentación completa](https://datosgobar.github.io/paquete-apertura-datos/guia-metadatos/#series-de-tiempo) en el perfil de metadatos.
 
 ***
 

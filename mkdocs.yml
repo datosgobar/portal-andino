@@ -6,7 +6,7 @@ repo_url: https://github.com/datosgobar/portal-andino/
 nav:
   - Inicio: 'index.md'
   - Comienzo rápido: 'quickstart.md'
-  - Manual de uso: 'usage.md'
+  # - Manual de uso: 'usage.md'
   - Desarrollo:
     - Instalación: 'developers/install.md'
     - Actualización: 'developers/update.md'
