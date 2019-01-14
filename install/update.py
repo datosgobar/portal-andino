@@ -489,6 +489,7 @@ def update_andino(cfg, compose_file_url, stable_version_url):
         restart_apps(compose_file_path)
         logger.info("Esperando a que Nginx inicie...")
         ping_nginx_until_200_response_or_timeout(site_url)
+        subprocess.check_call("docker-compose -f latest.yml exec portal supervisorctl restart all", shell=True)
         logger.info("Listo.")
 
 
