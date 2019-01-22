@@ -2,7 +2,7 @@
 
 set -ev
 
-container_id=$(docker ps -q --filter "name=andino$")
+container_id=$(docker ps -q --filter "name=_portal_")
 echo Container id: $container_id
 container_image=$(docker ps --format '{{ .Image }}' --filter "id=$container_id")
 echo Container image name: $container_image
