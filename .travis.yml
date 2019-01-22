@@ -32,7 +32,7 @@ before_script:
 - sudo apt-get install openssl
 - sudo mkdir -p /tmp/ssl
 - sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -subj '/CN=localhost/O=My Company Name LTD./C=AR' -keyout /tmp/ssl/andino.key -out /tmp/ssl/andino.crt
-- env PORTAL_VERSION="${TRAVIS_TAG:-$TRAVIS_COMMIT}" docker build -t datosgobar/portal-andino:$TRAVIS_BRANCH .
+- docker build -t datosgobar/portal-andino:$TRAVIS_BRANCH .
 - cd install/
 - EMAIL=admin@example.com
 - HOST=localhost
@@ -57,6 +57,8 @@ script:
 - cd tests/
 - sudo nosetests configurations/ globals/
 - cd -
+- docker kill $(docker ps -q)
+- env PORTAL_VERSION="${TRAVIS_TAG:-$TRAVIS_COMMIT}" docker-compose -f dev.yml up -d --build portal
 
 deploy:
 - provider: script
