@@ -1,4 +1,4 @@
-FROM datosgobar/portal-base:release-0.10.19
+FROM datosgobar/portal-base:release-0.10.21
 MAINTAINER Leandro Gomez<lgomez@devartis.com>
 
 ARG PORTAL_VERSION
