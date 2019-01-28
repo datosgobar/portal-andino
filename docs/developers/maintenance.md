@@ -150,8 +150,8 @@ Ver [la sección sobre la utilización del archivo latest.yml en los comandos de
 
 Existe un usuario administrador llamado _default_, el cual es utilizado por la aplicación para la ejecución de ciertas 
 funciones que corren de fondo (por ejemplo, la actualización de la caché del data.json). Es muy importante que dicho 
-usuario **siempre** esté disponible, ya que provocaría un funcionamiento incorrecto en el portal; por lo tanto, se 
-recomienda muy fuertemente no intentar eliminarlo ni desactivarlo.
+usuario **siempre** esté disponible ya que, en caso de no estarlo, provocaría un funcionamiento incorrecto en el 
+portal; por lo tanto, se recomienda muy fuertemente no intentar eliminarlo ni desactivarlo.
 
 ## Configuraciones de andino
 
