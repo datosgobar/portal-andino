@@ -103,9 +103,10 @@ Este comando recuperará los archivos de recursos para los cuales se cumplan est
 
 Para poder implementar la solución, una vez hecha la actualización ejecutar los siguientes comandos: 
 ```bash
-pip install -e .
-apachectl restart
+docker-compose -f latest.yml exec portal bash
+cd /usr/lib/ckan/default/src/ckanext-gobar-theme
 /usr/lib/ckan/default/bin/paster --plugin=ckan reupload-resources-files --config=/etc/ckan/default/production.ini
+exit
 ```
 
 ### Versiones 2.4.x a 2.5.x
