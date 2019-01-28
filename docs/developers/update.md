@@ -8,6 +8,7 @@
     - [Actualización avanzada](#actualizacion-avanzada)
     - [Andino con plugins ad-hoc](#andino-con-plugins-ad-hoc)
     - [Versiones 2.5.0 y 2.5.1](#versiones-2.5.0-y-2.5.1)
+    - [Versiones entre 2.4.0 y 2.5.3](#versiones-entre-2.4.0-y-2.5.3)
     - [Versiones 2.4.x a 2.5.x](#versiones-24x-a-25x)
   - [Versiones 1.x a 2.x](#versiones-1x-a-2x)
 
@@ -88,6 +89,24 @@ Para ver cómo modificar el archivo de configuración, ir a [la documentación d
 
 Ejemplo de cómo podría quedar:
 `ckan.plugins = datajson_harvest datajson harvest ckan_harvester stats text_view image_view recline_view hierarchy_display hierarchy_form dcat structured_data gobar_theme datastore datapusher seriestiempoarexplorer googleanalytics`
+
+### Versiones entre 2.4.0 y 2.5.3
+
+Al actualizar un portal cuya versión se encuentra entre 2.4.0 y 2.5.3 a una versión más nueva, existe un comando que 
+se debe ejecutar debido a problemas con el guardado de archivos de recursos (no se puede descargar un archivo de 
+recurso si éste fue editado sin que se actualizara el archivo).
+
+Este comando recuperará los archivos de recursos para los cuales se cumplan estas condiciones:
+* El recurso es local
+* El recurso posee el campo `downloadURL` en el data.json
+* El archivo del recurso existe en el Datastore (su extensión debe ser _csv_, _xls_ o _xlsx_) y no está vacío
+
+Para poder implementar la solución, una vez hecha la actualización ejecutar los siguientes comandos: 
+```bash
+pip install -e .
+apachectl restart
+/usr/lib/ckan/default/bin/paster --plugin=ckan reupload-resources-files --config=/etc/ckan/default/production.ini
+```
 
 ### Versiones 2.4.x a 2.5.x
 
