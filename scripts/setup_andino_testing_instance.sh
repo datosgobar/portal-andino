@@ -127,27 +127,6 @@ docker build -t datosgobar/portal-andino:$andino_branch .
 
 # Instalo y levanto Andino
 printf "\nComenzando instalación.\n"
-
-cat <<EOM
-sudo python ./install.py      \
-    --error_email "$EMAIL" \
-    --site_host="$HOST" \
-    --database_user="$DB_USER"\
-    --database_password="$DB_PASS"\
-    --datastore_user="$STORE_USER"\
-    --datastore_password="$STORE_PASS"\
-    --andino_version=$andino_branch\
-    --branch=$andino_branch\
-    $nginx_ssl\
-    $nginx_extended_cache\
-    $nginx_host_port\
-    $nginx_ssl_port\
-    $ssl_key_path\
-    $ssl_crt_path
-EOM
-
-
-
 cd $DIR/install
 sudo python ./install.py      \
     --error_email "$EMAIL" \
