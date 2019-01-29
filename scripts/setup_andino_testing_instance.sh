@@ -105,6 +105,10 @@ fi
 printf "Utilizando el branch $andino_branch de portal-andino.\n"
 printf "Host port: $nginx_host_port - SSL port: $nginx_ssl_port.\n"
 printf "Path key: $ssl_key_path - Path crt: $ssl_crt_path.\n"
+if ! [ -z "$base_branch" ]
+  then
+    base_version_argument=" --build-arg IMAGE_VERSION=release-$base_branch"
+fi
 
 # Preparo variables
 printf "Preparando variables.\n"
@@ -123,7 +127,7 @@ PAT_DIR=/usr/lib/ckan/default/src/ckanext-gobar-theme
 # Creo imagen de portal-andino
 printf "Creando imagen de portal-andino.\n"
 cd $DIR
-docker build -t datosgobar/portal-andino:$andino_branch .
+docker build -t datosgobar/portal-andino:$andino_branch $base_version_argument .
 
 # Instalo y levanto Andino
 printf "\nComenzando instalación.\n"
