@@ -4,7 +4,7 @@ set -e;
 
 # Parámetros
 SHORTOPTS="a:t:b:h"
-LONGOPTS="andino_branch:,theme_branch:,base_branch:,nginx_ssl,nginx_host_port:,nginx_ssl_port:,nginx_extended_cache,ssl_key_path:,ssl_crt_path:,help"
+LONGOPTS="andino_branch:,theme_branch:,base_branch:,nginx_ssl,nginx_host_port:,nginx_ssl_port:,nginx-extended-cache,ssl_key_path:,ssl_crt_path:,help"
 
 ARGS=$(getopt -s bash --options $SHORTOPTS --longoptions $LONGOPTS -- "$@" )
 eval set -- "$ARGS"
@@ -20,7 +20,7 @@ Usage: $(basename "$0") [OPTION]...
        --nginx_ssl                        activar la configuración de SSL
        --nginx_host_port         VALUE    puerto a usar para HTTP
        --nginx_ssl_port          VALUE    puerto a usar para HTTPS
-       --nginx_extended_cache             activar la configuración de caché extendida de Nginx
+       --nginx-extended-cache             activar la configuración de caché extendida de Nginx
        --ssl_key_path            VALUE    path a la clave privada del certificado SSL
        --ssl_crt_path            VALUE    path al certificado SSL
 EOM
@@ -42,38 +42,38 @@ while true; do
 	  base_branch="$1"
       ;;
 	--nginx_ssl)
-	  shift
-	  nginx_ssl="true"
+	  nginx_ssl=" --nginx_ssl"
       ;;
 	--nginx_host_port)
 	  shift
-	  nginx_host_port="$1"
+	  nginx_host_port=" --nginx_port=$1"
       ;;
 	--nginx_ssl_port)
 	  shift
-	  nginx_ssl_port="$1"
+	  nginx_ssl_port=" --nginx_ssl_port=$1"
       ;;
-	--nginx_extended_cache)
-	  shift
-	  nginx_extended_cache="true"
+	--nginx-extended-cache)
+	  nginx_extended_cache=" --nginx-extended-cache"
       ;;
 	--ssl_key_path)
 	  shift
 	  if ! [[ -f $1 ]];
         then
-        printf "\nEl path ingresado para ssl_key_path es inválido.\n"
-        exit 1
+          printf "\nEl path ingresado para ssl_key_path es inválido.\n"
+          exit 1
+        else
+          ssl_key_path="--ssl_key_path=$1"
       fi
-	  ssl_key_path="$1"
       ;;
 	--ssl_crt_path)
 	  shift
 	  if ! [[ -f $1 ]];
         then
-        printf "\nEl path ingresado para ssl_crt_path es inválido.\n"
-        exit 1
+          printf "\nEl path ingresado para ssl_crt_path es inválido.\n"
+          exit 1
+        else
+          ssl_crt_path="--ssl_crt_path=$1"
       fi
-	  ssl_crt_path="$1"
       ;;
 	-h | --help)
 	  usage
@@ -104,6 +104,7 @@ if [ -z "$andino_branch" ]
 fi
 printf "Utilizando el branch $andino_branch de portal-andino.\n"
 printf "Host port: $nginx_host_port - SSL port: $nginx_ssl_port.\n"
+printf "Path key: $ssl_key_path - Path crt: $ssl_crt_path.\n"
 
 # Preparo variables
 printf "Preparando variables.\n"
@@ -126,6 +127,27 @@ docker build -t datosgobar/portal-andino:$andino_branch .
 
 # Instalo y levanto Andino
 printf "\nComenzando instalación.\n"
+
+cat <<EOM
+sudo python ./install.py      \
+    --error_email "$EMAIL" \
+    --site_host="$HOST" \
+    --database_user="$DB_USER"\
+    --database_password="$DB_PASS"\
+    --datastore_user="$STORE_USER"\
+    --datastore_password="$STORE_PASS"\
+    --andino_version=$andino_branch\
+    --branch=$andino_branch\
+    $nginx_ssl\
+    $nginx_extended_cache\
+    $nginx_host_port\
+    $nginx_ssl_port\
+    $ssl_key_path\
+    $ssl_crt_path
+EOM
+
+
+
 cd $DIR/install
 sudo python ./install.py      \
     --error_email "$EMAIL" \
@@ -135,7 +157,13 @@ sudo python ./install.py      \
     --datastore_user="$STORE_USER"\
     --datastore_password="$STORE_PASS"\
     --andino_version=$andino_branch\
-    --branch=$andino_branch
+    --branch=$andino_branch\
+    $nginx_ssl\
+    $nginx_extended_cache\
+    $nginx_host_port\
+    $nginx_ssl_port\
+    $ssl_key_path\
+    $ssl_crt_path
 
 # Checkout al directorio donde está instalado Andino
 cd /etc/portal
@@ -143,7 +171,7 @@ cd /etc/portal
 # Creo un usuario con nombre y contraseña 'admin'
 printf "\nCreando usuario administrador (username: admin, password: admin).\n"
 docker-compose -f latest.yml exec portal bash -c \
-"yes | /etc/ckan_init.d/paster.sh --plugin=ckan sysadmin add admin email=cdigiorno@devartis.com password=admin"
+"yes | /etc/ckan_init.d/paster.sh --plugin=ckan sysadmin add admin email=john@doe.com password=admin"
 
 # Especifico path del log de apache (los errores del portal se escribirán ahí)
 printf "\nEspecificando path del archivo de log para apache.\n"
