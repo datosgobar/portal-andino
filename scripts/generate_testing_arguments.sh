@@ -7,8 +7,8 @@ usage() {
 Usage: $(basename "$0") [OPTION]...
 
   -h | --help                             mostrar ayuda
-  -a | --andino_branch           VALUE    nombre del branch de portal-andino (default:master)
-  -t | --theme_branch            VALUE    nombre del branch de portal-andino-theme
+  -a | --andino_branch           VALUE    nombre del branch de portal-andino (default: master)
+  -t | --theme_branch            VALUE    nombre del branch de portal-andino-theme (default: master o el ya utilizado)
   -b | --base_branch             VALUE    nombre del branch de portal-base
        --nginx_ssl                        activar la configuración de SSL
        --nginx_host_port         VALUE    puerto a usar para HTTP
