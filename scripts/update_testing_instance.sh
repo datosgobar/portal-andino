@@ -14,10 +14,6 @@ eval set -- "$ARGS"
 printf "Utilizando el branch $andino_branch de portal-andino.\n"
 printf "Host port: $nginx_host_port - SSL port: $nginx_ssl_port.\n"
 printf "Path key: $ssl_key_path - Path crt: $ssl_crt_path.\n"
-if ! [ -z "$base_branch" ]
-  then
-    base_version_argument=" --build-arg IMAGE_VERSION=release-$base_branch"
-fi
 
 # Preparo variables
 printf "Preparando variables.\n"

@@ -202,64 +202,38 @@ que se base en la anterior.
 
 ## Probar modificaciones y nuevas funcionalidades
 
-### Portal Andino
+### Instalando Andino
 
-Para levantar el contenedor, se debe ejecutar los siguientes comandos:
-    
-    ./dev.sh up
-    ./dev.sh setup
+En el directorio `scripts/` de portal-andino, existe un script `setup_testing_instance.sh` el cual permite levantar una 
+instancia en base a los parámetros recibidos. Dicho script puede ser usado para testear cambios en portal-andino, 
+portal-andino-theme, y/o portal-base.
 
-Para acceder a la terminal del portal, ejecutar:
+Los parámetros a utilizar son:
 
-    ./dev.sh console
-    
-Si se quiere borrar los contenedores:
-
-    ./dev.sh down
-    
-### Portal Andino Theme
-
-Cuando el contenedor de Andino se levanta, se descarga y utiliza el branch master de portal-andino-theme.
-Como queremos probar las modificaciones implementadas, es necesario reemplazar el código que existe en el contenedor.
-
-Para esto, hay que asegurarnos de que exista el directorio `wrks` dentro del directorio de portal-andino en el host 
-antes de levantar todo (en caso de no exista, ejecutar `mkdir wrks` dentro del directorio de portal-andino). 
-Dentro de `wrks/`, debemos tener portal-andino-theme con los cambios realizados.
-
-* Si ya existe en el host un directorio donde se encuentra el código de portal-andino-theme, la forma de traerlo a wrks 
-es:
-
-```
-cp {directorio-de-portal-andino-theme} {directorio-de-portal-andino}/wrks/portal-andino-theme
-```
-    
-* Si aún no existe (puede ocurrir, por ejemplo, para probar el código de un branch del repositorio), hay que clonarlo:
-
-```
-git clone -b {nombre-del-branch-con-los-cambios-a-testear} --single-branch https://github.com/datosgobar/portal-andino-theme.git
+```bash
+  -h | --help                             mostrar ayuda
+  -a | --andino_branch           VALUE    nombre del branch de portal-andino (default: master)
+  -t | --theme_branch            VALUE    nombre del branch de portal-andino-theme (default: master o el ya utilizado)
+  -b | --base_branch             VALUE    nombre del branch de portal-base
+       --nginx_ssl                        activar la configuración de SSL (requiere los archivos del certificado SSL)
+       --nginx_host_port         VALUE    puerto a usar para HTTP
+       --nginx_ssl_port          VALUE    puerto a usar para HTTPS
+       --nginx-extended-cache             activar la configuración de caché extendida de Nginx
+       --ssl_key_path            VALUE    path a la clave privada del certificado SSL
+       --ssl_crt_path            VALUE    path al certificado SSL
 ```
 
-Ahora que ya tenemos portal-andino-theme listo, ejecutar los comandos para levantar el contenedor y acceder a la terminal.
-Lo único que hace falta hacer para reemplazar el código de master es hacer un cp:
+Todos los parámetros son opcionales. Para portal-andino y portal-andino-theme, el branch a utilizar, por default, 
+será master en ambos casos. Para portal-base, se defaulteará a la versión que figure en el Dockerfile de portal-andino.
 
-    cp -a /dev-app/wrks/portal-andino-theme/. /usr/lib/ckan/default/src/ckanext-gobar-theme/
-    
-Como último paso, reiniciar apache:
+### Actualizando Andino
 
-    apachectl restart
+En el mismo directorio, también existe un script `update_testing_instance.sh`, cuya función es actualizar una instancia 
+ya levantada.
 
-### Portal Base
+Los parámetros que recibe son exactamente los mismos que para el script de instalación. No obstante, especificar un 
+branch de portal-base no tendrá efecto debido a que no se desea generar una imagen nueva de portal-andino.
 
-Para poder probar el código de portal-base, hay que crear una nueva imagen, la cual será usada por Andino.
-
-Se requiere tener un directorio separado del de portal-andino para el código de portal-base; 
-la imagen de prueba debe ser creada mediante el siguiente comando, y se debe esperar a que termine para continuar:
-
-    docker build base_portal -t "datosgobar/portal-base:{nombre-que-se-le-desea-dar-a-la-imagen}"
-
-Como portal-andino tiene un nombre de imagen para portal-base dentro de su Dockerfile, será necesario reemplazarlo.
-La primera línea de este archivo debería quedar con este contenido: 
-`FROM datosgobar/portal-base:{nombre-que-se-le-dio-a-la-imagen-de-portal-base}`.
-
-Una vez seguidos estos pasos, puede levantarse el portal, y se utilizará la imagen de portal-base generada con los 
-nuevos cambios. 
+_Nota: si se desea mantener la configuración de SSL y/o de la caché extendida, es necesario especificarlo utilizando 
+los parámetros correspondientes. No ocurre lo mismo para los archivos del certificado, puesto que son persistidos al 
+instalar Andino._
