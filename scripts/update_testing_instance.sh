@@ -14,6 +14,10 @@ eval set -- "$ARGS"
 printf "Utilizando el branch $andino_branch de portal-andino.\n"
 printf "Host port: $nginx_host_port - SSL port: $nginx_ssl_port.\n"
 printf "Path key: $ssl_key_path - Path crt: $ssl_crt_path.\n"
+if ! [ -z "$base_branch" ]
+  then
+    base_version_argument=" --build-arg IMAGE_VERSION=release-$base_branch"
+fi
 
 # Preparo variables
 printf "Preparando variables.\n"
@@ -28,6 +32,11 @@ PAT_DIR=/usr/lib/ckan/default/src/ckanext-gobar-theme
 
 # Se asume que ya se hizo el checkout al branch de portal-andino a testear, o que se está en master y se testeará otro
 # proyecto, y que no es necesario realizar un pull
+
+# Creo o actualizo imagen de portal-andino
+printf "Creando imagen de portal-andino.\n"
+cd $DIR
+docker build -t datosgobar/portal-andino:$andino_branch $base_version_argument .
 
 # Instalo y levanto Andino
 printf "\nComenzando instalación.\n"

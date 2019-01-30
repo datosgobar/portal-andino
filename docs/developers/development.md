@@ -231,8 +231,7 @@ será master en ambos casos. Para portal-base, se defaulteará a la versión que
 En el mismo directorio, también existe un script `update_testing_instance.sh`, cuya función es actualizar una instancia 
 ya levantada.
 
-Los parámetros que recibe son exactamente los mismos que para el script de instalación. No obstante, especificar un 
-branch de portal-base no tendrá efecto debido a que no se desea generar una imagen nueva de portal-andino.
+Los parámetros que recibe son exactamente los mismos que para el script de instalación.
 
 _Nota: si se desea mantener la configuración de SSL y/o de la caché extendida, es necesario especificarlo utilizando 
 los parámetros correspondientes. No ocurre lo mismo para los archivos del certificado, puesto que son persistidos al 
