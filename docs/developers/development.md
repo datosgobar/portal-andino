@@ -204,8 +204,8 @@ que se base en la anterior.
 
 ### Instalando Andino
 
-En el directorio `scripts/` de portal-andino, existe un script `setup_testing_instance.sh` el cual permite levantar una 
-instancia en base a los parámetros recibidos. Dicho script puede ser usado para testear cambios en portal-andino, 
+Se utilizará el archivo `dev.sh` de portal-andino ejecutando la función `complete_up`, la cual permite levantar una 
+instancia en base a los parámetros recibidos. Dicha función puede ser usada para testear cambios en portal-andino, 
 portal-andino-theme, y/o portal-base.
 
 Los parámetros a utilizar son:
@@ -228,10 +228,10 @@ será master en ambos casos. Para portal-base, se defaulteará a la versión que
 
 ### Actualizando Andino
 
-En el mismo directorio, también existe un script `update_testing_instance.sh`, cuya función es actualizar una instancia 
+Para el mismo archivo, también existe una función `complete_update`, cuyo objetivo es actualizar una instancia 
 ya levantada.
 
-Los parámetros que recibe son exactamente los mismos que para el script de instalación.
+Los parámetros que recibe son exactamente los mismos que para la función de instalación.
 
 _Nota: si se desea mantener la configuración de SSL y/o de la caché extendida, es necesario especificarlo utilizando 
 los parámetros correspondientes. No ocurre lo mismo para los archivos del certificado, puesto que son persistidos al 
