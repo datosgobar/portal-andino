@@ -101,13 +101,33 @@ Este comando recuperará los archivos de recursos para los cuales se cumplan est
 * El recurso posee el campo `downloadURL` en el data.json
 * El archivo del recurso existe en el Datastore (su extensión debe ser _csv_, _xls_ o _xlsx_) y no está vacío
 
-Para poder implementar la solución, una vez hecha la actualización ejecutar los siguientes comandos: 
+Existen 3 métodos para ejecutar la actualización de los recursos:
+1) Actualizar sólo aquellos recursos cuyos archivos **no** sean descargables y cumplan con las condiciones detalladas 
+más arriba
+2) Actualizar todos los recursos que simplemente cumplan con las condiciones detalladas más arriba
+3) Especificar uno o más IDs de los recursos que se quieran actualizar (en vez de modificar todos los posibles)
+
+_Nota: Los métodos 2) y 3) son combinables._
+
+Para poder implementar la solución una vez hecha la actualización del portal, se debe ejecutar los siguientes comandos:
+
 ```bash
 docker-compose -f latest.yml exec portal bash
 cd /usr/lib/ckan/default/src/ckanext-gobar-theme
 /usr/lib/ckan/default/bin/paster --plugin=ckan reupload-resources-files --config=/etc/ckan/default/production.ini
 exit
 ```
+Para cada método mencionado, la tercera línea a ejecutar (el comando de actualización de recursos) será distinta:
+1) Dejar el comando tal y como está, ya que es el comportamiento default
+2) Escribir después del texto `reupload-resources-files` el flag `--force=true`
+3) Escribir después del texto `reupload-resources-files` (o del flag `--force=true` si se lo utilizó) todos los IDs de 
+los recursos a actualizar
+
+Ejemplo de cómo quedaría si se quiere utilizar los métodos 2) y 3) actualizando dos recursos distintos:
+
+`/usr/lib/ckan/default/bin/paster --plugin=ckan reupload-resources-files --force=true 
+a57e4006-9e15-4bc7-b46a-25bf3580e538 t5t4rp09-156s-xzq2-36vl-2d5e8fghn98q --config=/etc/ckan/default/production.ini`
+
 
 ### Versiones 2.4.x a 2.5.x
 
