@@ -16,6 +16,7 @@
     - [Crear un nuevo usuario extendido](#crear-un-nuevo-usuario-extendido)
     - [Eliminar un usuario](#eliminar-un-usuario)
     - [Cambiar password de un usuario](#cambiar-password-de-un-usuario)
+    - [Usuario administrador de CKAN](#usuario-administrador-de-ckan)
   - [Configuraciones de andino](#configuraciones-de-andino)
     - [Modificar el archivo de configuración](#modificar-el-archivo-de-configuracion)
     - [Cambiar la configuración del SMTP](#cambiar-la-configuracion-del-smtp)
@@ -144,6 +145,13 @@ Ver [la sección sobre la utilización del archivo latest.yml en los comandos de
     docker-compose -f latest.yml exec portal /etc/ckan_init.d/paster.sh --plugin=ckan user setpass nombre-de-usuario
     
 Ver [la sección sobre la utilización del archivo latest.yml en los comandos de docker-compose](#utilizacion-del-archivo-latest.yml-en-los-comandos-de-docker-compose).
+
+### Usuario administrador de CKAN
+
+Existe un usuario administrador llamado _default_, el cual es utilizado por la aplicación para la ejecución de ciertas 
+funciones que corren de fondo (por ejemplo, la actualización de la caché del data.json). Es muy importante que dicho 
+usuario **siempre** esté disponible ya que, en caso de no estarlo, provocaría un funcionamiento incorrecto en el 
+portal; por lo tanto, se recomienda muy fuertemente no intentar eliminarlo ni desactivarlo.
 
 ## Configuraciones de andino
 
