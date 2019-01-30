@@ -10,9 +10,8 @@
     - [Inicio automático](#inicio-automatico)
     - [Generación del nuevo contenedor](#generacion-del-nuevo-contenedor)
   - [Probar modificaciones y nuevas funcionalidades](#probar-modificaciones-y-nuevas-funcionalidades)
-    - [Portal Andino](#portal-andino)
-    - [Portal Andino Theme](#portal-andino-theme)
-    - [Portal Base](#portal-base)
+    - [Instalando Andino](#instalando-andino)
+    - [Actualizando Andino](#actualizando-theme)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
