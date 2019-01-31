@@ -93,6 +93,9 @@ NOTA: Si usamos una IP para la variable `HOST`, el envio de mails no funcionará
 Postfix require un "fully-qualified domain name (FQDN)". 
 Ver [la documentación de Postfix](http://www.postfix.org/postconf.5.html#myhostname) para más detalles.
 
+NOTA 2: Si utilizamos el nombre 'localhost' para la variable `HOST`, es posible que ocurra un error al intentar subir un 
+archivo perteneciente a un recurso al Datastore: `Error: Proceso completo pero no se pudo enviar a result_url.`
+
 ```bash
 # Primero especificamos los valores necesarios
 
