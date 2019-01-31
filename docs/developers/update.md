@@ -7,8 +7,8 @@
     - [Actualización simple](#actualizacion-simple)
     - [Actualización avanzada](#actualizacion-avanzada)
     - [Andino con plugins ad-hoc](#andino-con-plugins-ad-hoc)
-    - [Versiones 2.5.0 y 2.5.1](#versiones-2.5.0-y-2.5.1)
-    - [Versiones entre 2.4.0 y 2.5.3](#versiones-entre-2.4.0-y-2.5.3)
+    - [Versiones 2.5.0 y 2.5.1](#versiones-250-y-251)
+    - [Versiones entre 2.4.0 y 2.5.3](#versiones-entre-240-y-253)
     - [Versiones 2.4.x a 2.5.x](#versiones-24x-a-25x)
   - [Versiones 1.x a 2.x](#versiones-1x-a-2x)
 
@@ -97,15 +97,16 @@ se debe ejecutar debido a problemas con el guardado de archivos de recursos (no 
 recurso si éste fue editado sin que se actualizara el archivo).
 
 Este comando recuperará los archivos de recursos para los cuales se cumplan estas condiciones:
-* El recurso es local
-* El recurso posee el campo `downloadURL` en el data.json
-* El archivo del recurso existe en el Datastore (su extensión debe ser _csv_, _xls_ o _xlsx_) y no está vacío
+- El recurso es local
+- El recurso posee el campo `downloadURL` en el data.json
+- El archivo del recurso existe en el Datastore (su extensión debe ser _csv_, _xls_ o _xlsx_) y no está vacío
 
 Existen 3 métodos para ejecutar la actualización de los recursos:
-1) Actualizar sólo aquellos recursos cuyos archivos **no** sean descargables y cumplan con las condiciones detalladas 
+
+1. Actualizar sólo aquellos recursos cuyos archivos **no** sean descargables y cumplan con las condiciones detalladas 
 más arriba
-2) Actualizar todos los recursos que simplemente cumplan con las condiciones detalladas más arriba
-3) Especificar uno o más IDs de los recursos que se quieran actualizar (en vez de modificar todos los posibles)
+2. Actualizar todos los recursos que simplemente cumplan con las condiciones detalladas más arriba
+3. Especificar uno o más IDs de los recursos que se quieran actualizar (en vez de modificar todos los posibles)
 
 _Nota: Los métodos 2) y 3) son combinables._
 
@@ -118,9 +119,9 @@ cd /usr/lib/ckan/default/src/ckanext-gobar-theme
 exit
 ```
 Para cada método mencionado, la tercera línea a ejecutar (el comando de actualización de recursos) será distinta:
-1) Dejar el comando tal y como está, ya que es el comportamiento default
-2) Escribir después del texto `reupload-resources-files` el flag `--force=true`
-3) Escribir después del texto `reupload-resources-files` (o del flag `--force=true` si se lo utilizó) todos los IDs de 
+1. Dejar el comando tal y como está, ya que es el comportamiento default
+2. Escribir después del texto `reupload-resources-files` el flag `--force=true`
+3. Escribir después del texto `reupload-resources-files` (o del flag `--force=true` si se lo utilizó) todos los IDs de 
 los recursos a actualizar
 
 Ejemplo de cómo quedaría si se quiere utilizar los métodos 2) y 3) actualizando dos recursos distintos:
