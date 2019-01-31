@@ -219,10 +219,16 @@ def update_site_url_in_configuration_file(cfg, compose_path):
         '/etc/ckan/default/production.ini | tr -d [[:space:]]'.format(compose_path), shell=True).strip()
     current_url = current_url.replace('ckan.site_url', '')[1:]  # guardamos sólo la url, ignoramos el símbolo '='
     host_name = urlparse(current_url).hostname
-    new_url = "http{0}://{1}:{2}".format(
+    if cfg.nginx_ssl_port != '443' and get_nginx_configuration(cfg) == 'nginx_ssl.conf':
+        port = cfg.nginx_ssl_port
+    elif '80' != cfg.nginx_port:
+        port = cfg.nginx_port
+    else:
+        port = ''
+    new_url = "http{0}://{1}{2}".format(
         's' if get_nginx_configuration(cfg) == 'nginx_ssl.conf' else '',
         host_name,
-        cfg.nginx_ssl_port if get_nginx_configuration(cfg) == 'nginx_ssl.conf' else cfg.nginx_port)
+        ':{}'.format(port) if port else '')
     if current_url != new_url:
         subprocess.check_call([
             "docker-compose",
