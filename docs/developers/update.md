@@ -119,6 +119,7 @@ cd /usr/lib/ckan/default/src/ckanext-gobar-theme
 exit
 ```
 Para cada método mencionado, la tercera línea a ejecutar (el comando de actualización de recursos) será distinta:
+
 1. Dejar el comando tal y como está, ya que es el comportamiento default
 2. Escribir después del texto `reupload-resources-files` el flag `--force=true`
 3. Escribir después del texto `reupload-resources-files` (o del flag `--force=true` si se lo utilizó) todos los IDs de 
