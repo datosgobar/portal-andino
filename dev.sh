@@ -153,6 +153,10 @@ generate_testing_arguments(){
               ssl_crt_path="--ssl_crt_path=$1"
           fi
           ;;
+        --site_host)
+          shift
+          site_host="$1"
+          ;;
         -h | --help)
           usage
           ;;
@@ -185,7 +189,7 @@ generate_testing_arguments(){
 sub_complete_up(){
     # Parámetros
     SHORTOPTS="a:t:b:h"
-    LONGOPTS="andino_branch:,theme_branch:,base_branch:,nginx_ssl,nginx_host_port:,nginx_ssl_port:,nginx-extended-cache,ssl_key_path:,ssl_crt_path:,help"
+    LONGOPTS="andino_branch:,theme_branch:,base_branch:,nginx_ssl,nginx_host_port:,nginx_ssl_port:,nginx-extended-cache,ssl_key_path:,ssl_crt_path:,site_host:,help"
 
     ARGS=$(getopt -s bash --options $SHORTOPTS --longoptions $LONGOPTS -- "$@" )
     eval set -- "$ARGS"
@@ -204,7 +208,11 @@ sub_complete_up(){
     printf "Preparando variables.\n"
     DIR=$( dirname "${BASH_SOURCE[0]}" )
     EMAIL=admin@example.com
-    HOST=localhost
+    if [ -z "$site_host" ]
+      then
+        site_host=localhost
+    fi
+    HOST=$site_host
     DB_USER=my_database_user
     DB_PASS=my_database_pass
     STORE_USER=my_data_user

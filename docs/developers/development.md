@@ -225,6 +225,19 @@ Los parámetros a utilizar son:
 Todos los parámetros son opcionales. Para portal-andino y portal-andino-theme, el branch a utilizar, por default, 
 será master en ambos casos. Para portal-base, se defaulteará a la versión que figure en el Dockerfile de portal-andino.
 
+_Nota: Si se utiliza el nombre 'localhost' para la variable `site_host`, es posible que ocurra un error al intentar 
+subir un archivo perteneciente a un recurso al Datastore: `Error: Proceso completo pero no se pudo enviar a 
+result_url.`
+Para evitar este problema, se puede utilizar un hostname local diferente; seguir los siguientes pasos para utilizar uno 
+nuevo:
+* Ejecutar `vi /etc/hosts` en el host
+* Puede existir la línea `127.0.0.1       localhost`, y también otras parecidas; hay que escribir una nueva (es 
+necesario asegurarse de que la IP y el hostname de la que queremos escribir sean distintos a todos los anteriores).
+  * Escribir una línea nueva `127.0.X.1 nuevo_hostname`, reemplazando la 'X' por algún número que no esté en una de las 
+  IPs de arriba, y 'nuevo_hostname' por el que se quiera utilizar_
+
+
+
 ### Actualizando Andino
 
 Para el mismo archivo, también existe una función `complete_update`, cuyo objetivo es actualizar una instancia 
