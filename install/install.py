@@ -161,6 +161,7 @@ def configure_application(compose_path, cfg):
         "-P", cfg.database_password,
         "-d", cfg.datastore_user,
         "-D", cfg.datastore_password,
+        "-c",
     ])
 
 
