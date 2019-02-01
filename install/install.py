@@ -219,7 +219,8 @@ def update_site_url_in_configuration_file(cfg, compose_path):
         '/etc/ckan/default/production.ini | tr -d [[:space:]]'.format(compose_path), shell=True).strip()
     current_url = current_url.replace('ckan.site_url', '')[1:]  # guardamos sólo la url, ignoramos el símbolo '='
     host_name = urlparse(current_url).hostname
-    if cfg.nginx_ssl_port != '443' and get_nginx_configuration(cfg) == 'nginx_ssl.conf':
+    is_custom_ssl_port = cfg.nginx_ssl_port != '443' and get_nginx_configuration(cfg) == 'nginx_ssl.conf'
+    if is_custom_ssl_port:
         port = cfg.nginx_ssl_port
     elif '80' != cfg.nginx_port:
         port = cfg.nginx_port
