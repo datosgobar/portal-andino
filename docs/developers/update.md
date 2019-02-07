@@ -88,7 +88,7 @@ Si actualizás de 2.5.0 o 2.5.1 a 2.5.2 o una versión más nueva, hay que modif
 Para ver cómo modificar el archivo de configuración, ir a [la documentación de mantenimiento](/docs/developers/maintenance.md#modificar-el-archivo-de-configuracion).
 
 Ejemplo de cómo podría quedar:
-`ckan.plugins = datajson_harvest datajson harvest ckan_harvester stats text_view image_view recline_view hierarchy_display hierarchy_form dcat structured_data gobar_theme datastore datapusher seriestiempoarexplorer googleanalytics`
+`ckan.plugins = datajson stats text_view image_view recline_view hierarchy_display hierarchy_form dcat structured_data gobar_theme datastore datapusher seriestiempoarexplorer googleanalytics`
 
 ### Versiones entre 2.4.0 y 2.5.3
 

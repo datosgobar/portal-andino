@@ -25,7 +25,6 @@ También podés [ver el repositorio del tema visual](https://github.com/datosgob
 + [Datapusher](https://github.com/ckan/datapusher)
 + [Hierarchy](https://github.com/datagovuk/ckanext-hierarchy)
 + [datajsonAR](https://github.com/datosgobar/ckanext-datajsonAR)
-+ [Harvest](https://github.com/ckan/ckanext-harvest)
 + [Portal Andino theme](https://github.com/datosgobar/portal-andino-theme)
 + [Apache2 & NginX](http://docs.ckan.org/en/ckan-2.5.2/maintaining/installing/deployment.html#install-apache-modwsgi-modrpaf)
 
@@ -48,7 +47,6 @@ También podés [ver el repositorio del tema visual](https://github.com/datosgob
     + Datapusher
     + DataJSONAR
     + Andino Theme
-    + Harvest
     + Hierarchy
 + Nginx:
   + Package | Service:
