@@ -201,7 +201,7 @@ sub_complete_up(){
     printf "Path key: $ssl_key_path - Path crt: $ssl_crt_path.\n"
     if ! [ -z "$base_branch" ]
       then
-        base_version_argument=" --build-arg IMAGE_VERSION=release-$base_branch"
+        base_version_argument=" --build-arg IMAGE_VERSION=$base_branch"
     fi
 
     # Preparo variables
@@ -286,7 +286,7 @@ sub_complete_update(){
     printf "Path key: $ssl_key_path - Path crt: $ssl_crt_path.\n"
     if ! [ -z "$base_branch" ]
       then
-        base_version_argument=" --build-arg IMAGE_VERSION=release-$base_branch"
+        base_version_argument=" --build-arg IMAGE_VERSION=$base_branch"
     fi
 
     # Preparo variables
