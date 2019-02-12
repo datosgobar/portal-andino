@@ -230,7 +230,7 @@ sub_complete_up(){
     # Instalo y levanto Andino
     printf "\nComenzando instalación.\n"
     cd $DIR/install
-    sudo python ./install.py      \
+    sudo python2 ./install.py      \
         --error_email "$EMAIL" \
         --site_host="$HOST" \
         --database_user="$DB_USER"\
@@ -311,7 +311,7 @@ sub_complete_update(){
     # Instalo y levanto Andino
     printf "\nComenzando instalación.\n"
     cd $DIR/install
-    sudo python ./update.py       \
+    sudo python2 ./update.py       \
         --andino_version=$andino_branch\
         --branch=$andino_branch\
         $nginx_ssl\
