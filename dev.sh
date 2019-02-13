@@ -201,6 +201,7 @@ sub_complete_up(){
     printf "Path key: $ssl_key_path - Path crt: $ssl_crt_path.\n"
     if ! [ -z "$base_branch" ]
       then
+        docker pull datosgobar/portal-base:"$base_branch"
         base_version_argument=" --build-arg IMAGE_VERSION=$base_branch"
     fi
 
@@ -286,6 +287,7 @@ sub_complete_update(){
     printf "Path key: $ssl_key_path - Path crt: $ssl_crt_path.\n"
     if ! [ -z "$base_branch" ]
       then
+        docker pull datosgobar/portal-base:"$base_branch"
         base_version_argument=" --build-arg IMAGE_VERSION=$base_branch"
     fi
 
