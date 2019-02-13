@@ -130,6 +130,7 @@ sudo mkdir /etc/portal
 cd /etc/portal
 sudo git clone https://github.com/datosgobar/portal-andino.git .
 ```
+
 + Paso 2: Especificar las variables de entorno para el contenedor de postgresql.
 
 NOTA: Debemos usar un dominio válido para la variable `DOMINIO`, de otra forma el envio de mails no funcionará.
@@ -150,16 +151,10 @@ sudo su -c "echo maildomain=$DOMINIO >> .env"
 sudo su -c "echo ANDINO_TAG=$ANDINO_VERSION >> .env"
 ```
 
-+ Paso 3: Construir y lanzar los contenedor de servicios usando el archivo **latest.yml**
 
-    docker-compose -f latest.yml up -d db postfix redis solr
-
-+ Paso 4: Construir y lanzar el contenedor de **andino** usando el archivo **latest.yml**
-
-    docker-compose -f latest.yml up -d portal
-
++ Paso 3: Construir y lanzar los contenedor de servicios usando el archivo **latest.yml**: `docker-compose -f latest.yml up -d db postfix redis solr`
++ Paso 4: Construir y lanzar el contenedor de **andino** usando el archivo **latest.yml**: `docker-compose -f latest.yml up -d portal`
 + Paso 5: Inicializar la base de datos y la configuración de la aplicación:
-
 
 ```bash
 EMAIL=admin@example.com
@@ -171,12 +166,10 @@ STORE_PASS=<my datastore password>
 docker-compose -f latest.yml exec portal /etc/ckan_init.d/init.sh -e "$EMAIL" -h "$HOST" \
         -p "$DB_USER" -P "$DB_PASS" \
         -d "$STORE_USER" -D "$STORE_PASS"
-
 ```
 
-+ Paso 8: Construir el contenedor de **nginx** usando el archivo **latest.yml**
 
-	$ docker-compose -f latest.yml up -d nginx
++ Paso 8: Construir el contenedor de **nginx** usando el archivo **latest.yml**: `docker-compose -f latest.yml up -d nginx
 
 ## Desinstalar andino
 

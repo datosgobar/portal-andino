@@ -1,13 +1,15 @@
 site_name: Portal Andino
-site_author: Datos Argentina
+site_url: https://datosgobar.github.io/portal-andino
 site_description: Documentación de Portal Andino, la distribución de CKAN desarrollada por la República Argentina dockerizada, fácil de instalar y compatible con el Perfil Nacional de Metadatos de la Política de Apertura de Datos.
+site_author: Datos Argentina
 repo_url: https://github.com/datosgobar/portal-andino/
 
 nav:
   - Inicio: 'index.md'
-  - Comienzo rápido: 'quickstart.md'
+  - Usuarios:
+    - Comienzo rápido: 'quickstart.md'
   # - Manual de uso: 'usage.md'
-  - Desarrollo:
+  - Desarrolladores:
     - Instalación: 'developers/install.md'
     - Actualización: 'developers/update.md'
     - Recomendaciones para salir a producción: 'developers/checklist.md'
@@ -18,6 +20,7 @@ nav:
     - Generación de imágenes Docker: 'developers/docker.md'
     - Desarrollo: 'developers/development.md'
     - Tests: 'developers/tests.md'
+  # - Historial de versiones: history.md
 
 theme: datosgobar_docs
 
@@ -27,4 +30,3 @@ extra_css:
   - css/extra_rtd.css
 
 google_analytics: ['UA-91435482-1', "https://portal-andino.readthedocs.io/"]
-

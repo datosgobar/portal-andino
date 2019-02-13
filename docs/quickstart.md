@@ -68,7 +68,6 @@ Desde agosto de 2017, en Andino **hay dos tipos de usuarios: los administradores
 **Los administradores de Andino pueden invitar a más personas a colaborar** en la apertura de datos, **eligiendo el tipo que quieren asignar**:
 
 * **Administrador**: podrá crear usuarios, editar la configuración general del portal; crear, actualizar y borrar todos los datasets; y gestionar temas y organizaciones. 
-
 * **Colaborador**: podrá crear, actualizar y borrar datasets sólo de las organizaciones que tenga asignadas (por eso es importante que primero crees en tu Andino las organizaciones en las que necesitás colaboradores). 
 
 **Asigná permisos desde Mi cuenta > Crear usuarios**.
@@ -85,8 +84,7 @@ Son los organismos que abren o mantienen cada dataset. **Es muy importante que c
 
 ##### ¿Dónde lo veo en el portal?
 
-* Como uno de los filtros de la vista de Datasets. 
-
+* Como uno de los filtros de la vista de Datasets.
 * Como número agregado, en la Página principal de tu portal, en caso de que hayas elegido la vista que muestra el número de Organizaciones con datos.
 
 ![alt text](assets/portal-andino-comoveo-org.png "comoveo-org")
@@ -106,6 +104,7 @@ En caso de que hayas elegido que tu portal tenga una sección de Organizaciones 
 ![alt text](assets/portal-andino-sec-org.png "sec-org")
 
 ***
+
 ### Sección Organizaciones con datos
 
 **Esta sección es opcional**. Te permite armar un árbol de jerarquías con las organizaciones que abrieron datos en tu portal. Los organismos que se muestran en esta parte de tu portal son los mismos que asignás a los datasets y que creás antes de generar estos últimos. 
@@ -125,6 +124,7 @@ Como la sección Organizaciones con datos es opcional, podés elegir que se vea 
 ![alt text](assets/portal-andino-sec-org-02.png "sec-op-org")
 
 ***
+
 ### Sección Acerca
 
 **Esta sección es opcional**. Te permite darle la oportunidad a los usuarios que naveguen tu portal de leer información del mismo para un mejor entendimiento.
@@ -134,9 +134,7 @@ Como la sección Organizaciones con datos es opcional, podés elegir que se vea 
 Existen tres tipos diferentes que vas a poder elegir:
 
 * **Sin sección de acerca**: para cuando se decida no mostrar información.
-
 * **Sección con información básica**: existirá un botón que lleve al usuario a una página donde encontrará información básica sobre el portal (un título y una descripción). Estará ubicado en Página Principal > **Acerca**.
-
 * **Secciones personalizadas**: se crearán varias secciones personalizadas que vas a poder modificar a gusto. El botón Acerca ahora desplegará un menú que contendrá todas y cada una de las secciones que hayas añadido al portal. Para cada sección, se necesitará un archivo (de formato .html) con el contenido que quieras mostrar.
 
 #### ¿Cómo elijo el tipo de Acerca?
@@ -166,7 +164,6 @@ Dentro del container, dichos archivos deben ser guardados en el directorio **/va
 De no existir la carpeta **/templates**, se deberá crearla utilizando dos comandos:
 
 * mkdir /var/lib/ckan/theme_config/templates
-
 * chown www-data:www-data /var/lib/ckan/theme_config/templates/
 
 (www-data es el usuario con el que se corre el proceso apache en el sistema operativo **Ubuntu**)
@@ -180,12 +177,12 @@ Dentro del container, las imágenes deben ser guardadas en una carpeta llamada "
 Para poder copiar y pegar una imagen en dicha carpeta existe un comando que podés usar, pero primero tenés que hacer tres cosas:
 
 * Dentro del contenedor, ejecutar este comando:
+
 ```
 chown www-data:www-data /usr/lib/ckan/default/src/ckanext-gobar-theme/ckanext/gobar_theme/public/user_images/
 ```
 
 * En caso de que hayas cambiado manualmente el puerto del contenedor, saber cuál es (el default es 8080)
-
 * Tener preparado el nombre del contenedor (ya que queremos decirle al comando en qué lugar vamos a guardar la imagen)
 
 El nombre del contenedor se consigue escribiendo en una terminal dentro del host: 
@@ -204,19 +201,18 @@ Supongamos que guardaste una imagen llamada 'mi_imagen.png'; para poder utilizar
 ```
 
 ***
+
 ### Temas
 
 Son las categorías en las que se pueden clasificar todos los datasets de tu portal. Hay dos taxonomías de temas:
 
-*  **Temas globales**, que ya vienen con Andino, y que necesitás elegir para cada dataset. Estos temas no se ven en tu portal, pero es necesario que lo elijas para que el portal nacional datos.gob.ar pueda republicar el dataset según esta clasificación. Por ejemplo: “Economía y finanzas”. 
-
-* **Temas específicos**, que son opcionales, pero que te recomendamos con énfasis que agregues a todos tus conjuntos de datos porque son los temas que van a ver tus usuarios. Por ejemplo, si el tema global era “Economía y finanzas”, un tema específico podría ser “Compras”. 
+*  **Temas globales**, que ya vienen con Andino, y que necesitás elegir para cada dataset. Estos temas no se ven en tu portal, pero es necesario que lo elijas para que el portal nacional datos.gob.ar pueda republicar el dataset según esta clasificación. Por ejemplo: "Economía y finanzas".
+* **Temas específicos**, que son opcionales, pero que te recomendamos con énfasis que agregues a todos tus conjuntos de datos porque son los temas que van a ver tus usuarios. Por ejemplo, si el tema global era "Economía y finanzas", un tema específico podría ser "Compras".
 
 
 ##### ¿Dónde lo veo en el portal?
 
 * En la Página principal de tu catálogo de datos. 
-
 * También como detalle de cada dataset específico.
 
 ![alt text](assets/portal-andino-sec-temas.png "sec-temas")
@@ -238,10 +234,12 @@ Son las categorías en las que se pueden clasificar todos los datasets de tu por
 **Cada vez que generes un nuevo dataset**, el formulario te pedirá que asignes temas. Recordá siempre reutilizar los que ya hayas creado y no repetirlos.  
 
 ![alt text](assets/portal-andino-form-temas.png "form-temas")
+
 ***
+
 ### Datasets
 
-También los llamamos “conjuntos de datos”. Son la pieza principal de tu portal o catálogo de datos. Cada dataset está formado por uno o más recursos. 
+También los llamamos "conjuntos de datos". Son la pieza principal de tu portal o catálogo de datos. Cada dataset está formado por uno o más recursos. 
 
 ##### ¿Dónde los veo en el portal?
 
@@ -252,7 +250,6 @@ Todos los datasets que subas al portal se verán **en la sección Datasets**. Ad
 ##### Buenas prácticas al crear datasets
 
 * **Títulos de los datasets**: es el primer vistazo que los usuarios tendrán sobre su contenido. Por eso, intentá no superar los 100 caracteres. Prestá especial atención a las mayúsculas. Sólo los sustantivos propios las necesitan. 
-
 * **Descripción de los datasets**: es el detalle que le contás a los usuarios. Por esa razón, es importante que trates de dar una explicación general de los datos con los que se va a encontrar. Intentá no superar los 500 caracteres.
 
 ##### ¿Cómo los creo?
@@ -262,7 +259,9 @@ Ingresá a tu cuenta y andá a **Página principal > Crear dataset**.
 ![alt text](assets/portal-andino-crear-dataset.png "crear-dat")
 
 **Siempre podrás editar los dataset** que hayas creado. Para eso, ingresá a tu cuenta > Página principal > Datasets > **Editar dataset**. 
+
 ***
+
 ### Recursos
 
 Cada dataset está formado por, al menos, un recurso. Por eso decimos que los recursos son la pieza de información más pequeña del catálogo y los verdaderos activos de datos del portal. 
@@ -274,8 +273,7 @@ Página principal > Datasets > Clic en el recurso específico.
 #### Buenas prácticas al crear recursos
 Seguí los mismos criterios de escritura que con los datasets. 
 
-* **Títulos de los recursos**: intentá no superar los 150 caracteres. 
-
+* **Títulos de los recursos**: intentá no superar los 150 caracteres.
 * **Descripción de los recursos**: intentá no superar los 200 caracteres.
 
 #### ¿Cómo los creo?
@@ -285,7 +283,9 @@ Ingresá a tu cuenta y andá a Página principal > Crear dataset. Una vez que co
 ![alt text](assets/portal-andino-asig-recurso.png "crear-recurso")
 
 Al igual que con los datasets, siempre podrás editar los recursos que hayas creado. Para eso, ingresá a tu cuenta > Página principal > Datasets > Editar dataset > Editar recursos. 
+
 ***
+
 ### Campos de un recurso
 
 Los recursos pueden tener mucha información y ser difíciles de comprender. Para ayudar a los usuarios que ven nuestros recursos, Andino permite documentar qué contiene cada campo.
@@ -354,7 +354,7 @@ En cada dataset específico.
 * Respetá las etiquetas anteriores.
 * Agregá sinónimos y usá lenguaje natural.
 * Tratá de usar una sola palabra, siempre en plural.
-* Si la etiqueta tiene más de una palabra, separalas por un espacio. Por ejemplo: “declaraciones juradas”.
+* Si la etiqueta tiene más de una palabra, separalas por un espacio. Por ejemplo: "declaraciones juradas".
 
 Éstas son algunas preguntas útiles a la hora de pensar las etiquetas:
 
@@ -371,6 +371,7 @@ Al igual que con los Temas, cada vez que generes un nuevo dataset, el formulario
 ![alt text](assets/portal-andino-asig-tags.png "crear-etiquetas")
 
 ***
+
 ### Personalizar el portal
 
 Hacer que tu portal represente tu organización es muy fácil. Por favor, **andá a la Página principal > Configuración**. Llegarás a la sección que te permite cambiar cómo luce la portada de tu catálogo de datos y cada sección en particular.
@@ -398,7 +399,5 @@ Te invitamos a crear issues o enviarnos sugerencias en caso de que encuentren al
 ## Otros contenidos útiles
 
 * <a href="http://paquete-apertura-datos.readthedocs.io/es/stable/guia_metadatos.html" target="_blank">Guía para el uso y la publicación de metadatos</a>
-
 * <a href="http://paquete-apertura-datos.readthedocs.io/es/stable/guia_interoperables.html" target="_blank">Guía para la identificación y uso de entidades interoperables</a>
-
 * <a href="http://paquete-apertura-datos.readthedocs.io/es/stable/guia_abiertos.html" target="_blank">Guía para la publicación de datos en formatos abiertos</a>
