@@ -201,7 +201,8 @@ sub_complete_up(){
     printf "Path key: $ssl_key_path - Path crt: $ssl_crt_path.\n"
     if ! [ -z "$base_branch" ]
       then
-        base_version_argument=" --build-arg IMAGE_VERSION=release-$base_branch"
+        docker pull datosgobar/portal-base:"$base_branch"
+        base_version_argument=" --build-arg IMAGE_VERSION=$base_branch"
     fi
 
     # Preparo variables
@@ -230,7 +231,7 @@ sub_complete_up(){
     # Instalo y levanto Andino
     printf "\nComenzando instalación.\n"
     cd $DIR/install
-    sudo python ./install.py      \
+    sudo python2 ./install.py      \
         --error_email "$EMAIL" \
         --site_host="$HOST" \
         --database_user="$DB_USER"\
@@ -286,7 +287,8 @@ sub_complete_update(){
     printf "Path key: $ssl_key_path - Path crt: $ssl_crt_path.\n"
     if ! [ -z "$base_branch" ]
       then
-        base_version_argument=" --build-arg IMAGE_VERSION=release-$base_branch"
+        docker pull datosgobar/portal-base:"$base_branch"
+        base_version_argument=" --build-arg IMAGE_VERSION=$base_branch"
     fi
 
     # Preparo variables
@@ -311,7 +313,7 @@ sub_complete_update(){
     # Instalo y levanto Andino
     printf "\nComenzando instalación.\n"
     cd $DIR/install
-    sudo python ./update.py       \
+    sudo python2 ./update.py       \
         --andino_version=$andino_branch\
         --branch=$andino_branch\
         $nginx_ssl\
