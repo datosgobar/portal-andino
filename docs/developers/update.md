@@ -80,6 +80,15 @@ Los pasos adicionales que deberás seguir si tenés plugins _ad-hoc_ son:
 1. Editar el archivo `/etc/ckan/default/production.ini` del contenedor `portal` y agregar a la lista de `ckan.plugins` los plugins _ad-hoc_.
 1. Reiniciar Andino.
 
+### Versiones 2.5.5 en adelante
+
+Debido a la posibilidad de que ocasionen problemas durante la instalación, se removieron los plugin `harvest` y 
+`datajson` del archivo de configuración, y se agregó una migración para eliminarlos al actualizar Andino para evitar 
+posibles problemas. 
+
+De ser necesaria la utilización de los plugins mencionados, deberán ser añadidos manualmente una vez finalizada la 
+actualización.  
+
 ### Versiones 2.5.0 y 2.5.1
 
 Si actualizás de 2.5.0 o 2.5.1 a 2.5.2 o una versión más nueva, hay que modificar el archivo de configuración para que 
