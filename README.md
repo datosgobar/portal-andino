@@ -1,8 +1,8 @@
 # Portal Andino
 
 [![Build Status](https://travis-ci.org/datosgobar/portal-andino.svg?branch=master)](https://travis-ci.org/datosgobar/portal-andino)
-
 [![Docs Status](https://readthedocs.org/projects/portal-andino/badge/?version=master)](http://portal-andino.readthedocs.io/es/master/)
+[![GitHub version](https://badge.fury.io/gh/datosgobar%2Fportal-andino.svg)](https://badge.fury.io/gh/datosgobar%2Fportal-andino)
 
 Implementación de CKAN en Docker, desarrollada en el contexto del portal distribuible Andino.
 
