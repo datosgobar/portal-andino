@@ -18,7 +18,8 @@ doctoc: ## generate table of contents, doctoc command line tool required
 	find docs/ -name "*.md" -exec bash fix_github_links.sh {} \;
 
 pdf:
-	python md2pdf.py mkdocs.yml docs/portal-andino-docs.pdf
+	mkdocs_datosgobar md2pdf mkdocs.yml docs/portal-andino-docs.pdf
+
 
 
 
