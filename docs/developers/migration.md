@@ -1,4 +1,4 @@
-# Migracion de version 1.0 de andino a 2.0
+# Migracion
 
 En el presente documento, se pretende explicar cómo llevar a cabo una migración de la versión 1.0 de andino a la 
 versión 2.0 de andino.

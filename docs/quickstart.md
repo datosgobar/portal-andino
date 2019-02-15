@@ -57,7 +57,7 @@ Esta guía te ayudará a:
 
 **Cada vez que quieras entrar al portal, podrás hacerlo desde http://*tu-url.com*/ingresar**.
 
-![alt text](assets/portal-andino-login.png "login")
+<center>![alt text](assets/portal-andino-login.png "login")</center>
 
 ***
 
@@ -72,7 +72,7 @@ Desde agosto de 2017, en Andino **hay dos tipos de usuarios: los administradores
 
 **Asigná permisos desde Mi cuenta > Crear usuarios**.
 
-![alt text](assets/portal-andino-user.png "user")
+<center>![alt text](assets/portal-andino-user.png "user")</center>
 
 ***
 
@@ -87,7 +87,7 @@ Son los organismos que abren o mantienen cada dataset. **Es muy importante que c
 * Como uno de los filtros de la vista de Datasets.
 * Como número agregado, en la Página principal de tu portal, en caso de que hayas elegido la vista que muestra el número de Organizaciones con datos.
 
-![alt text](assets/portal-andino-comoveo-org.png "comoveo-org")
+<center>![alt text](assets/portal-andino-comoveo-org.png "comoveo-org")</center>
 
 ##### Buenas prácticas al crear Organizaciones con datos
 
@@ -97,11 +97,11 @@ Tené en cuenta que **siempre que borres una organización, todos los conjuntos 
 
 Andá a **Página principal > Crear Organizaciones**.
 
-![alt text](assets/portal-andino-crear-org.png "crear-org")
+<center>![alt text](assets/portal-andino-crear-org.png "crear-org")</center>
 
 En caso de que hayas elegido que tu portal tenga una sección de Organizaciones con datos, también se mostrarán allí. 
 
-![alt text](assets/portal-andino-sec-org.png "sec-org")
+<center>![alt text](assets/portal-andino-sec-org.png "sec-org")</center>
 
 ***
 
@@ -121,7 +121,7 @@ Es importante que tengas bien en claro qué organizaciones dependenden de otras,
 
 Como la sección Organizaciones con datos es opcional, podés elegir que se vea en tu portal. Para eso, **andá a Configuraciones > Organizaciones con datos** y tildá la habilitación. 
 
-![alt text](assets/portal-andino-sec-org-02.png "sec-op-org")
+<center>![alt text](assets/portal-andino-sec-org-02.png "sec-op-org")</center>
 
 ***
 
@@ -141,21 +141,21 @@ Existen tres tipos diferentes que vas a poder elegir:
 
 Andá a Página Principal > Usuario > Configuración > **Otras secciones del portal > Acerca (opcional)**
 
-![alt text](assets/portal-andino-sec-acerca.png "sec-acerca")
+<center>![alt text](assets/portal-andino-sec-acerca.png "sec-acerca")</center>
 
-![alt text](assets/portal-andino-sec-acerca-02.png "sec-acerca-02")
+<center>![alt text](assets/portal-andino-sec-acerca-02.png "sec-acerca-02")</center>
 
 #### ¿Cómo puedo escribir y mostrar información básica?
 
 Habiendo elegido la **segunda opción**, podés modificar el título y la descripción.
 
-![alt text](assets/portal-andino-sec-acerca-03.png "sec-acerca-03")
+<center>![alt text](assets/portal-andino-sec-acerca-03.png "sec-acerca-03")</center>
 
 #### ¿Cómo puedo crear y mostrar mis secciones personalizadas?
 
 Habiendo elegido la **tercera opción**, podrás ir creando tus secciones escribiendo un título y un nombre de archivo. Recordá que, para cada sección, será necesario guardar un archivo (de formato .html) para que el portal pueda mostrar su contenido.
 
-![alt text](assets/portal-andino-sec-acerca-04.png "sec-acerca-04")
+<center>![alt text](assets/portal-andino-sec-acerca-04.png "sec-acerca-04")</center>
 
 #### ¿Dónde añado los archivos requeridos para las secciones?
 
@@ -215,7 +215,7 @@ Son las categorías en las que se pueden clasificar todos los datasets de tu por
 * En la Página principal de tu catálogo de datos. 
 * También como detalle de cada dataset específico.
 
-![alt text](assets/portal-andino-sec-temas.png "sec-temas")
+<center>![alt text](assets/portal-andino-sec-temas.png "sec-temas")</center>
 
 ##### Buenas prácticas al crear Temas específicos
 
@@ -227,13 +227,13 @@ Son las categorías en las que se pueden clasificar todos los datasets de tu por
 
 **Andá a Página principal > Crear tema**. 
 
-![alt text](assets/portal-andino-sec-temas-03.png "sec-temas-03")
+<center>![alt text](assets/portal-andino-sec-temas-03.png "sec-temas-03")</center>
 
 ##### ¿Cómo los asigno?
 
 **Cada vez que generes un nuevo dataset**, el formulario te pedirá que asignes temas. Recordá siempre reutilizar los que ya hayas creado y no repetirlos.  
 
-![alt text](assets/portal-andino-form-temas.png "form-temas")
+<center>![alt text](assets/portal-andino-form-temas.png "form-temas")</center>
 
 ***
 
@@ -245,7 +245,7 @@ También los llamamos "conjuntos de datos". Son la pieza principal de tu portal 
 
 Todos los datasets que subas al portal se verán **en la sección Datasets**. Además, **podrás destacar** los que creas más importantes en la Página principal.
 
-![alt text](assets/portal-andino-sec-temas-02.png "sec-temas-2")
+<center>![alt text](assets/portal-andino-sec-temas-02.png "sec-temas-2")</center>
 
 ##### Buenas prácticas al crear datasets
 
@@ -256,7 +256,7 @@ Todos los datasets que subas al portal se verán **en la sección Datasets**. Ad
 
 Ingresá a tu cuenta y andá a **Página principal > Crear dataset**.
 
-![alt text](assets/portal-andino-crear-dataset.png "crear-dat")
+<center>![alt text](assets/portal-andino-crear-dataset.png "crear-dat")</center>
 
 **Siempre podrás editar los dataset** que hayas creado. Para eso, ingresá a tu cuenta > Página principal > Datasets > **Editar dataset**. 
 
@@ -280,7 +280,7 @@ Seguí los mismos criterios de escritura que con los datasets.
 
 Ingresá a tu cuenta y andá a Página principal > Crear dataset. Una vez que completes el dataset, podrás agregar recursos. 
 
-![alt text](assets/portal-andino-asig-recurso.png "crear-recurso")
+<center>![alt text](assets/portal-andino-asig-recurso.png "crear-recurso")</center>
 
 Al igual que con los datasets, siempre podrás editar los recursos que hayas creado. Para eso, ingresá a tu cuenta > Página principal > Datasets > Editar dataset > Editar recursos. 
 
@@ -294,7 +294,7 @@ Los recursos pueden tener mucha información y ser difíciles de comprender. Par
 
 Los recursos que tengan información sobre sus campos se visualizarán en la vista de un recurso.
 
-![alt text](assets/portal-andino-metadatos.jpg "metadatos")
+<center>![alt text](assets/portal-andino-metadatos.jpg "metadatos")</center>
 
 #### Buenas prácticas al cargar campos de un recurso
 
@@ -324,14 +324,14 @@ Los campos **Tipo de dato especial** y **Detalle de tipo especial** te permiten 
 * **Tipo de dato especial**: marcar la columna que tiene las fechas como "Indice de tiempo".
 * **Detalle de tipo de dato especial**: especificar la frecuencia del índice (anual, diaria, mensual, etc).
 
-![alt text](assets/portal-andino-campos-especiales.jpg "campos-especiales")
+<center>![alt text](assets/portal-andino-campos-especiales.jpg "campos-especiales")</center>
 
 Los campos **Unidad de medida** e **Identificador** te permiten documentar cada una de las columnas, que son tus series de tiempo.
 
 * **Unidad de medida**: es la unidad de medida en que está expresada la serie ("Millones de pesos corrientes", "Kilómetros", "Millones de dólares americanos")
 * **Identificador**: es un identificador único de la serie para toda la APN. Debe ser inmutable en el tiempo para la serie, no muy largo (entre 6 y 20 caracteres aproximadamente) y no pisarse potencialmente con otras series de la Administración Pública Nacional.
 
-![alt text](assets/portal-andino-campos-avanzados.jpg "campos-avanzados")
+<center>![alt text](assets/portal-andino-campos-avanzados.jpg "campos-avanzados")</center>
 
 Para conocer más sobre series de tiempo mirá la [documentación completa](https://datosgobar.github.io/paquete-apertura-datos/guia-metadatos/#series-de-tiempo) en el perfil de metadatos.
 
@@ -345,7 +345,7 @@ Son las palabras que ayudan a los usuarios a filtrar y encontrar los datasets. C
 
 En cada dataset específico. 
 
-![alt text](assets/portal-andino-dat-tags.png "dat-tags")
+<center>![alt text](assets/portal-andino-dat-tags.png "dat-tags")</center>
 
 ##### Buenas prácticas al crear etiquetas
 
@@ -368,7 +368,7 @@ En cada dataset específico.
 
 Al igual que con los Temas, cada vez que generes un nuevo dataset, el formulario te pedirá que asignes un etiqueta. Recordá siempre reutilizar las que ya hayas creado y no repetirlas.  
 
-![alt text](assets/portal-andino-asig-tags.png "crear-etiquetas")
+<center>![alt text](assets/portal-andino-asig-tags.png "crear-etiquetas")</center>
 
 ***
 
@@ -376,7 +376,7 @@ Al igual que con los Temas, cada vez que generes un nuevo dataset, el formulario
 
 Hacer que tu portal represente tu organización es muy fácil. Por favor, **andá a la Página principal > Configuración**. Llegarás a la sección que te permite cambiar cómo luce la portada de tu catálogo de datos y cada sección en particular.
 
-![alt text](assets/portal-andino-sec-config.png "sec-config")
+<center>![alt text](assets/portal-andino-sec-config.png "sec-config")</center>
 
 ***
 
