@@ -66,7 +66,7 @@ errores de Javascript.
 * Generación del `data.json` y `catalog.xlsx` al instalar Andino.
 
 
-## 2.4 - 2018/06/14
+## 2.4 - 2018-06-14
 
 * Migración a la versión 2.7.4 de CKAN.
 * Implementación de hook para limpieza de la caché
@@ -92,7 +92,7 @@ necesitan leer la configuración del portal.
 * Mejoras en la visualización de la tabla de metadatos mostrada en la pantalla de recursos.
 
 
-## 2.3 - 2018/02/21
+## 2.3 - 2018-02-21
 
 * Correcciones en el guardado de campos en el `data.json`.
 * Correcciones en la pantalla de visualización de datasets y recursos.
@@ -105,19 +105,19 @@ interfaz).
 * Correcciones en los botones de la página de vistas de los recursos.
 
 
-## 2.2 - 2018/01/09
+## 2.2 - 2018-01-09
 
 * Validaciones para campos pertenecientes a la configuración del portal, datasets y recursos.
 * Modificación del formulario de creación/edición de recursos para que no se pueda guardar un recurso sin título.
 
 
-## 2.1 - 2017/07/13
+## 2.1 - 2017-07-13
 
 * Integración del plugin de Google Analytics.
 * Corrección de errores al intentar ingresar al formulario de edición de datasets.
 
 
-## 2.0 - 2017/07/03
+## 2.0 - 2017-07-03
 
 * Implementación del borrado físico de datasets, recursos, organizaciones y temas.
 * Validaciones para campos de tipo texto en formularios.
