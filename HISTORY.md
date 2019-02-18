@@ -12,14 +12,7 @@
 ## 2.5 - Actual
 
 * Corrección del formulario de creación/edición de recursos para mantener guardado un archivo al editar un recurso sin 
-modificar el campo correspondiente.  
-* Implementación de un comando de CKAN que toma todos los recursos locales del portal que cumplan determinadas 
-condiciones e intenta resubirlos para recuperar los archivos perdidos en versiones anteriores de Andino por el problema 
-mencionado en el item anterior.
-* Se eliminaron los plugins `harvest` y `datajson` de la configuración de Andino y se creó una migración para lograr 
-tal efecto durante la actualización de una instancia debido a posibles problemas al instalar una nueva.   
-* Correción del comportamiento correspondiente al botón que permite seleccionar y subir un archivo para un recurso en 
-el formulario de creación/edición de recursos.
+modificar el campo correspondiente.
 * Utilización de un criterio para decidir en qué casos especificar (o no) el número de puerto de Andino en el archivo 
 de configuración (se evita la especificación de los puertos default: 80 para HTTP y 443 para HTTPS).
 * Implementación de estrategia para decidir la versión a utilizar de portal-base en el Dockerfile de portal-andino; se 
