@@ -28,6 +28,7 @@ versión default.
 * Implementación de comandos en el archivo `dev.sh` para instalar y actualizar una instancia de Andino con fines de 
 desarrollo.
 * Aumento en el tamaño del nombre de la versión mostrada en la interfaz de Andino.
+* Actualización del plugin series-tiempo-ar-explorer a 2.0.2.
 
 
 ## 2.5 - Actual
@@ -70,7 +71,6 @@ errores de Javascript.
 * Guardado de información de datasets que se pierde en el proceso de federación.
 * Se agrega la licencia _Creative Commons Attribution 4.0_ y se la utiliza como default.
 * Generación del `data.json` y `catalog.xlsx` al instalar Andino.
-* Actualización del plugin series-tiempo-ar-explorer a 2.0.2.
 
 
 ## 2.4 - 2018-06-14
