@@ -10,10 +10,10 @@
 
 Para generar las imágenes, ejecutar la aplicación y levantarla, previamente es necesario instalar `Docker` y `docker-compose`:
 
-* Instalar [Docker](https://docs.docker.com/engine/installation/linux/ubuntu/)
+* Instalar [Docker](https://docs.docker.com/engine/installation/linux/ubuntu/) (la versión debe ser igual o más reciente a 17.05.0-ce (2017-05-04))
 * Instalar [docker-compose](https://docs.docker.com/compose/install/)
 
-Actualmente, el repositorio contiene 1 arhivo `Dockerfile` y 2 archivos `docker-compose`
+Actualmente, el repositorio contiene 1 archivo `Dockerfile` y 2 archivos `docker-compose`
 
 * `Dockerfile`: Se usa para generar la imagen de la aplicación
 * `dev.yml`: Archivo de docker-compose para levantar los servicios necesarios y generar la imagen de la aplicación.
