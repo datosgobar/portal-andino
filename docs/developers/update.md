@@ -83,11 +83,13 @@ Los pasos adicionales que deberás seguir si tenés plugins _ad-hoc_ son:
 
 ### Versiones 2.5.5 en adelante
 
-Debido a la posibilidad de que ocasionen problemas durante la instalación, se removieron los plugin `harvest` y 
+* Es necesario asegurarse de que la versión de Docker instalada sea una igual o más reciente a 17.05.0-ce (2017-05-04).
+
+* Debido a la posibilidad de que ocasionen problemas durante la instalación, se removieron los plugin `harvest` y 
 `datajson` del archivo de configuración, y se agregó una migración para eliminarlos al actualizar Andino para evitar 
 posibles problemas. 
 
-De ser necesaria la utilización de los plugins mencionados, deberán ser añadidos manualmente una vez finalizada la 
+  * De ser necesaria la utilización de los plugins mencionados, deberán ser añadidos manualmente una vez finalizada la 
 actualización.  
 
 ### Versiones 2.5.0 y 2.5.1
