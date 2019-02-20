@@ -9,10 +9,17 @@
 - [2.1](#21---2017-07-13)
 - [2.0](#20---2017-07-03)
 
-## 2.5 - Actual
+## 2.5.5 - Actual
 
 * Corrección del formulario de creación/edición de recursos para mantener guardado un archivo al editar un recurso sin 
 modificar el campo correspondiente.
+* Implementación de un comando de CKAN que toma todos los recursos locales del portal que cumplan determinadas 	
+condiciones e intenta resubirlos para recuperar los archivos perdidos en versiones anteriores de Andino por el problema 	
+mencionado en el item anterior.	
+* Se eliminaron los plugins `harvest` y `datajson` de la configuración de Andino y se creó una migración para lograr 	
+tal efecto durante la actualización de una instancia debido a posibles problemas al instalar una nueva.   	
+* Correción del comportamiento correspondiente al botón que permite seleccionar y subir un archivo para un recurso en 	
+el formulario de creación/edición de recursos.
 * Utilización de un criterio para decidir en qué casos especificar (o no) el número de puerto de Andino en el archivo 
 de configuración (se evita la especificación de los puertos default: 80 para HTTP y 443 para HTTPS).
 * Implementación de estrategia para decidir la versión a utilizar de portal-base en el Dockerfile de portal-andino; se 
@@ -57,6 +64,7 @@ errores de Javascript.
 * Guardado de información de datasets que se pierde en el proceso de federación.
 * Se agrega la licencia _Creative Commons Attribution 4.0_ y se la utiliza como default.
 * Generación del `data.json` y `catalog.xlsx` al instalar Andino.
+* Actualización del plugin series-tiempo-ar-explorer a 2.0.2.
 
 
 ## 2.4 - 2018-06-14
