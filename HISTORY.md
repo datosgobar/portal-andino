@@ -2,6 +2,7 @@
 
 ## Indice
 
+- [2.5.5](#255---2019-02-20)
 - [2.5](#25---actual)
 - [2.4](#24---2018-06-14)
 - [2.3](#23---2018-02-21)
@@ -9,10 +10,9 @@
 - [2.1](#21---2017-07-13)
 - [2.0](#20---2017-07-03)
 
-## 2.5.5 - Actual
 
-* Corrección del formulario de creación/edición de recursos para mantener guardado un archivo al editar un recurso sin 
-modificar el campo correspondiente.
+## 2.5.5 - 2019-02-20
+
 * Implementación de un comando de CKAN que toma todos los recursos locales del portal que cumplan determinadas 	
 condiciones e intenta resubirlos para recuperar los archivos perdidos en versiones anteriores de Andino por el problema 	
 mencionado en el item anterior.	
@@ -28,6 +28,12 @@ versión default.
 * Implementación de comandos en el archivo `dev.sh` para instalar y actualizar una instancia de Andino con fines de 
 desarrollo.
 * Aumento en el tamaño del nombre de la versión mostrada en la interfaz de Andino.
+
+
+## 2.5 - Actual
+
+* Corrección del formulario de creación/edición de recursos para mantener guardado un archivo al editar un recurso sin 
+modificar el campo correspondiente.
 * Implementación de sección dentro de la configuración del portal en la interfaz para activar el croneo de la subida 
 automática diaria de subida de recursos al Datastore mediante un comando de Datapusher. 
 * Creación del campo _"Nombre del enlace"_ en las secciones personalizadas del Acerca para que el portal utilice como URL.
