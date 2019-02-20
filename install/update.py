@@ -135,6 +135,7 @@ def update_env(base_path, cfg, stable_version_url):
     nginx_cache_inactive = "NGINX_CACHE_INACTIVE"
     nginx_var = "NGINX_HOST_PORT"
     nginx_ssl_var = "NGINX_HOST_SSL_PORT"
+    file_size_limit = "FILE_SIZE_LIMIT"
     # Get current variables
     with open(env_file_path, "r") as env_f:
         for line in env_f.readlines():
@@ -169,6 +170,11 @@ def update_env(base_path, cfg, stable_version_url):
         envconf[nginx_ssl_var] = cfg.nginx_ssl_port
     elif not envconf.get(nginx_ssl_var, ''):
         envconf[nginx_ssl_var] = "443"
+
+    if cfg.file_size_limit:
+        envconf[file_size_limit] = cfg.file_size_limit
+    elif not envconf.get(file_size_limit, ''):
+        envconf[file_size_limit] = "300"
 
     with open(env_file_path, "w") as env_f:
         for key in envconf.keys():
@@ -435,6 +441,20 @@ def update_site_url_in_configuration_file(cfg, compose_path, directory):
     return new_url
 
 
+def update_config_file_value(value, compose_path):
+    if value:
+        subprocess.check_call([
+            "docker-compose",
+            "-f",
+            compose_path,
+            "exec",
+            "-T",
+            "portal",
+            "/etc/ckan_init.d/update_conf.sh",
+            value,
+        ])
+
+
 def ping_nginx_until_200_response_or_timeout(site_url):
     timeout = time.time() + 60 * 5  # límite de 5 minutos
     site_status_code = 0
@@ -485,6 +505,8 @@ def update_andino(cfg, compose_file_url, stable_version_url):
         logger.info("Corriendo comandos post-instalación")
         post_update_commands(compose_file_path)
         site_url = update_site_url_in_configuration_file(cfg, compose_file_path, directory)
+        if cfg.file_size_limit:
+            update_config_file_value("ckan.max_resource_size = {}".format(cfg.file_size_limit), compose_file_path)
         logger.info("Reiniciando")
         restart_apps(compose_file_path)
         logger.info("Esperando a que Nginx inicie...")
@@ -499,8 +521,9 @@ if __name__ == "__main__":
     parser.add_argument('--branch', default='master')
     parser.add_argument('--install_directory', default='/etc/portal/')
     parser.add_argument('--andino_version')
-    parser.add_argument('--nginx_port', default="")  # Sin valor default para evitar overrides si ya existe un valor
-    parser.add_argument('--nginx_ssl_port', default="")  # Sin valor default para evitar overrides si ya existe un valor
+    parser.add_argument('--nginx_port', default="")  # Sin default para evitar overrides si ya existe un valor
+    parser.add_argument('--nginx_ssl_port', default="")  # Sin default para evitar overrides si ya existe un valor
+    parser.add_argument('--file_size_limit', default="")  # Sin default para evitar overrides si ya existe un valor
     parser.add_argument('--nginx-extended-cache', action="store_true")
     parser.add_argument('--nginx-cache-max-size', default="")
     parser.add_argument('--nginx-cache-inactive', default="")
