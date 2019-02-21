@@ -157,8 +157,12 @@ generate_testing_arguments(){
           shift
           site_host="$1"
           ;;
+        --file_size_limit)
+          shift
+          file_size_limit=" --file_size_limit=$1"
+          ;;
         -h | --help)
-          usage
+          complete_commands_usage
           ;;
         \?)
           echo "Invalid option: -$OPTARG" >&2
@@ -189,7 +193,7 @@ generate_testing_arguments(){
 sub_complete_up(){
     # Parámetros
     SHORTOPTS="a:t:b:h"
-    LONGOPTS="andino_branch:,theme_branch:,base_branch:,nginx_ssl,nginx_host_port:,nginx_ssl_port:,nginx-extended-cache,ssl_key_path:,ssl_crt_path:,site_host:,help"
+    LONGOPTS="andino_branch:,theme_branch:,base_branch:,nginx_ssl,nginx_host_port:,nginx_ssl_port:,nginx-extended-cache,ssl_key_path:,ssl_crt_path:,file_size_limit:,site_host:,help"
 
     ARGS=$(getopt -s bash --options $SHORTOPTS --longoptions $LONGOPTS -- "$@" )
     eval set -- "$ARGS"
@@ -245,7 +249,8 @@ sub_complete_up(){
         $nginx_host_port\
         $nginx_ssl_port\
         $ssl_key_path\
-        $ssl_crt_path
+        $ssl_crt_path\
+        $file_size_limit
 
     # Checkout al directorio donde está instalado Andino
     cd /etc/portal
@@ -275,7 +280,7 @@ sub_complete_up(){
 sub_complete_update(){
     # Parámetros
     SHORTOPTS="a:t:b:h"
-    LONGOPTS="andino_branch:,theme_branch:,base_branch:,nginx_ssl,nginx_host_port:,nginx_ssl_port:,nginx-extended-cache,ssl_key_path:,ssl_crt_path:,help"
+    LONGOPTS="andino_branch:,theme_branch:,base_branch:,nginx_ssl,nginx_host_port:,nginx_ssl_port:,nginx-extended-cache,ssl_key_path:,ssl_crt_path:,file_size_limit:,help"
 
     ARGS=$(getopt -s bash --options $SHORTOPTS --longoptions $LONGOPTS -- "$@" )
     eval set -- "$ARGS"
@@ -311,7 +316,7 @@ sub_complete_update(){
     docker build -t datosgobar/portal-andino:$andino_branch $base_version_argument .
 
     # Instalo y levanto Andino
-    printf "\nComenzando instalación.\n"
+    printf "\nComenzando actualización.\n"
     cd $DIR/install
     sudo python2 ./update.py       \
         --andino_version=$andino_branch\
@@ -321,7 +326,8 @@ sub_complete_update(){
         $nginx_host_port\
         $nginx_ssl_port\
         $ssl_key_path\
-        $ssl_crt_path
+        $ssl_crt_path\
+        $file_size_limit
 
     # Checkout al directorio donde está instalado Andino
     cd /etc/portal
@@ -336,6 +342,25 @@ sub_complete_update(){
         "cd $PAT_DIR && git fetch && git checkout $theme_branch && git pull origin $theme_branch " \
         "&& pip install -e . && apachectl restart"
     fi
+}
+
+complete_commands_usage() {
+	cat <<EOM
+Usage: $(basename "$0") [OPTION]...
+  -h | --help                             mostrar ayuda
+  -a | --andino_branch           VALUE    nombre del branch de portal-andino (default: master)
+  -t | --theme_branch            VALUE    nombre del branch de portal-andino-theme (default: master o el ya utilizado)
+  -b | --base_branch             VALUE    nombre del branch de portal-base
+       --nginx_host_port         VALUE    puerto a usar para HTTP
+       --nginx_ssl                        activar la configuración de SSL
+       --nginx_ssl_port          VALUE    puerto a usar para HTTPS
+       --ssl_key_path            VALUE    path a la clave privada del certificado SSL
+       --ssl_crt_path            VALUE    path al certificado SSL
+       --nginx-extended-cache             activar la configuración de caché extendida de Nginx
+       --file_size_limit         VALUE    tamaño máximo en MB para archivos de recursos (default: 300, máximo recomendado: 1024)
+       --site_host               VALUE    [sólo instalación] nombre de dominio del portal (default: localhost)
+EOM
+	exit 2
 }
 
 subcommand=$1
