@@ -213,12 +213,14 @@ Los parámetros a utilizar son:
   -a | --andino_branch           VALUE    nombre del branch de portal-andino (default: master)
   -t | --theme_branch            VALUE    nombre del branch de portal-andino-theme (default: master o el ya utilizado)
   -b | --base_branch             VALUE    nombre del branch de portal-base
-       --nginx_ssl                        activar la configuración de SSL (requiere los archivos del certificado SSL)
        --nginx_host_port         VALUE    puerto a usar para HTTP
+       --nginx_ssl                        activar la configuración de SSL
        --nginx_ssl_port          VALUE    puerto a usar para HTTPS
-       --nginx-extended-cache             activar la configuración de caché extendida de Nginx
        --ssl_key_path            VALUE    path a la clave privada del certificado SSL
        --ssl_crt_path            VALUE    path al certificado SSL
+       --nginx-extended-cache             activar la configuración de caché extendida de Nginx
+       --file_size_limit         VALUE    tamanio máximo en MB para archivos de recursos (default: 300, máximo recomendado: 1024)
+       --site_host               VALUE    nombre de dominio del portal (default: localhost)
 ```
 
 Todos los parámetros son opcionales. Para portal-andino y portal-andino-theme, el branch a utilizar, por default, 
@@ -226,7 +228,7 @@ será master en ambos casos. Para portal-base, se defaulteará a la versión que
 
 _Nota: Si se utiliza el nombre 'localhost' para la variable `site_host`, es posible que ocurra un error al intentar 
 subir un archivo perteneciente a un recurso al Datastore: `Error: Proceso completo pero no se pudo enviar a 
-result_url.`
+result_url.`_
 Para evitar este problema, se puede utilizar un hostname local diferente; seguir los siguientes pasos para utilizar uno 
 nuevo:
 * Ejecutar `vi /etc/hosts` en el host
