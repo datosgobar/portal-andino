@@ -13,5 +13,5 @@ class TestExtendedCache(TestPortalAndino.TestPortalAndino):
 
     def test_cache_hit_with_extended_cache(self):
         requests.get('http://{0}:{1}'.format(self.site_url, self.nginx_port), verify=False)
-        req = requests.get('http://{}:{1}'.format(self.site_url, self.nginx_port), verify=False)
+        req = requests.get('http://{0}:{1}'.format(self.site_url, self.nginx_port), verify=False)
         nt.assert_true(req.headers.get('X-Cache-Status', '') == 'HIT')
