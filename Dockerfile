@@ -1,5 +1,5 @@
 # Si se lleva a cabo un docker build de portal-andino sin el parámetro "--build-arg IMAGE_VERSION={versión de portal-base}, se usa el ARG IMAGE_VERSION por default
-ARG IMAGE_VERSION=release-0.10.22
+ARG IMAGE_VERSION=release-0.10.23
 FROM datosgobar/portal-base:$IMAGE_VERSION
 MAINTAINER Leandro Gomez<lgomez@devartis.com>
 
