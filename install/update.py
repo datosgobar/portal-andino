@@ -404,13 +404,6 @@ def include_necessary_nginx_configuration(filename):
 
 
 def update_site_url_in_configuration_file(cfg, compose_path, directory):
-
-    def get_new_host_name_if_specified(current_host_name):
-        envconf_host_name = envconf.pop(site_host, '')
-        if envconf_host_name and envconf_host_name != current_host_name:
-            return envconf_host_name
-        return current_host_name
-
     env_file = ".env"
     env_file_path = path.join(directory, env_file)
     envconf = {}
@@ -427,7 +420,7 @@ def update_site_url_in_configuration_file(cfg, compose_path, directory):
         'docker-compose -f {} exec -T portal grep -E "^ckan.site_url[[:space:]]*=[[:space:]]*" '
         '/etc/ckan/default/production.ini | tr -d [[:space:]]'.format(compose_path), shell=True).strip()
     current_url = current_url.replace('ckan.site_url', '')[1:]  # guardamos sólo la url, ignoramos el símbolo '='
-    host_name = get_new_host_name_if_specified(urlparse(current_url).hostname)
+    host_name = envconf.pop(site_host, urlparse(current_url).hostname)
     if get_nginx_configuration(cfg) == 'nginx_ssl.conf' and envconf.get(nginx_ssl_var) != '443':
         port = envconf.pop(nginx_ssl_var, '')
     elif get_nginx_configuration(cfg) == 'nginx.conf' and envconf.get(nginx_var) != '80':
