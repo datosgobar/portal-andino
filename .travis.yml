@@ -32,7 +32,7 @@ before_script:
 - sudo apt-get install openssl
 - sudo mkdir -p /tmp/ssl
 - sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -subj '/CN=localhost/O=My Company Name LTD./C=AR' -keyout /tmp/ssl/andino.key -out /tmp/ssl/andino.crt
-- if ! [ -z $TRAVIS_PULL_REQUEST ] ; then BRANCH_TO_USE=$TRAVIS_PULL_REQUEST ; elif ! [ -z $TRAVIS_TAG ] ; then BRANCH_TO_USE=$TRAVIS_TAG ; else BRANCH_TO_USE=$TRAVIS_BRANCH ; fi
+- if ! [ -z $TRAVIS_PULL_REQUEST ] ; then BRANCH_TO_USE=$TRAVIS_PULL_REQUEST_BRANCH ; elif ! [ -z $TRAVIS_TAG ] ; then BRANCH_TO_USE=$TRAVIS_TAG ; else BRANCH_TO_USE=$TRAVIS_BRANCH ; fi
 - docker build -t datosgobar/portal-andino:$BRANCH_TO_USE .
 - cd install/
 - EMAIL=admin@example.com
