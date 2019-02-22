@@ -51,7 +51,7 @@ script:
 - nosetests tests_portal_with_base_config.py
 - cd -
 - cd install/
-- sudo python ./update.py --andino_version=$BRANCH_TO_USE --branch=$BRANCH_TO_USE --site_host=updated_localhost --ssl_key_path="/tmp/ssl/andino.key" --ssl_crt_path="/tmp/ssl/andino.crt" --nginx_ssl --nginx_ssl_port="7777" --nginx-extended-cache --file_size_limit=1024
+- sudo python ./update.py --andino_version=$BRANCH_TO_USE --branch=$BRANCH_TO_USE --site_host=localhost --ssl_key_path="/tmp/ssl/andino.key" --ssl_crt_path="/tmp/ssl/andino.crt" --nginx_ssl --nginx_ssl_port="7777" --nginx-extended-cache --file_size_limit=1024
 - cd -
 - docker ps
 - docker exec -it andino-nginx bash -c 'ls $NGINX_SSL_CONFIG_DATA'
