@@ -33,6 +33,7 @@ before_script:
 - sudo mkdir -p /tmp/ssl
 - sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -subj '/CN=localhost/O=My Company Name LTD./C=AR' -keyout /tmp/ssl/andino.key -out /tmp/ssl/andino.crt
 - if ! [ -z $TRAVIS_PULL_REQUEST ] ; then BRANCH_TO_USE=$TRAVIS_PULL_REQUEST_BRANCH ; elif ! [ -z $TRAVIS_TAG ] ; then BRANCH_TO_USE=$TRAVIS_TAG ; else BRANCH_TO_USE=$TRAVIS_BRANCH ; fi
+- echo "Building portal with branch or tag $BRANCH_TO_USE"
 - docker build -t datosgobar/portal-andino:$BRANCH_TO_USE .
 - cd install/
 - EMAIL=admin@example.com
