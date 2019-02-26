@@ -129,6 +129,7 @@ def update_env(base_path, cfg, stable_version_url):
     env_file = ".env"
     env_file_path = path.join(base_path, env_file)
     envconf = {}
+    site_host = "SITE_HOST"
     nginx_config_file = "NGINX_CONFIG_FILE"
     nginx_extended_cache = "NGINX_EXTENDED_CACHE"
     nginx_cache_max_size = "NGINX_CACHE_MAX_SIZE"
@@ -160,6 +161,9 @@ def update_env(base_path, cfg, stable_version_url):
 
     envconf[nginx_cache_inactive] = \
         cfg.nginx_cache_inactive if cfg.nginx_cache_inactive else envconf.get(nginx_cache_inactive, '')
+
+    if cfg.site_host:
+        envconf[site_host] = cfg.site_host
 
     if cfg.nginx_port:
         envconf[nginx_var] = cfg.nginx_port
@@ -403,24 +407,24 @@ def update_site_url_in_configuration_file(cfg, compose_path, directory):
     env_file = ".env"
     env_file_path = path.join(directory, env_file)
     envconf = {}
+    site_host = "SITE_HOST"
     nginx_var = "NGINX_HOST_PORT"
     nginx_ssl_var = "NGINX_HOST_SSL_PORT"
     with open(env_file_path, "r") as env_f:
         for line in env_f.readlines():
             key, value = line.split("=", 1)
-            if key == nginx_var or key == nginx_ssl_var:
-                envconf[key] = value.strip()
+            envconf[key] = value.strip()
 
     # Se modifica el campo "ckan.site_url" modificando el protocolo para que quede HTTP o HTTP según corresponda
     current_url = subprocess.check_output(
         'docker-compose -f {} exec -T portal grep -E "^ckan.site_url[[:space:]]*=[[:space:]]*" '
         '/etc/ckan/default/production.ini | tr -d [[:space:]]'.format(compose_path), shell=True).strip()
     current_url = current_url.replace('ckan.site_url', '')[1:]  # guardamos sólo la url, ignoramos el símbolo '='
-    host_name = urlparse(current_url).hostname
+    host_name = envconf.pop(site_host, urlparse(current_url).hostname)
     if get_nginx_configuration(cfg) == 'nginx_ssl.conf' and envconf.get(nginx_ssl_var) != '443':
-        port = envconf.get(nginx_ssl_var)
+        port = envconf.pop(nginx_ssl_var, '')
     elif get_nginx_configuration(cfg) == 'nginx.conf' and envconf.get(nginx_var) != '80':
-        port = envconf.get(nginx_var)
+        port = envconf.pop(nginx_var, '')
     else:
         port = ''
     if port:
@@ -521,6 +525,7 @@ if __name__ == "__main__":
     parser.add_argument('--branch', default='master')
     parser.add_argument('--install_directory', default='/etc/portal/')
     parser.add_argument('--andino_version')
+    parser.add_argument('--site_host', default="")  # Sin default para evitar overrides si ya existe un valor
     parser.add_argument('--nginx_port', default="")  # Sin default para evitar overrides si ya existe un valor
     parser.add_argument('--nginx_ssl_port', default="")  # Sin default para evitar overrides si ya existe un valor
     parser.add_argument('--file_size_limit', default="")  # Sin default para evitar overrides si ya existe un valor

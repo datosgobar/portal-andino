@@ -33,6 +33,8 @@ el mismo no requerirá parámetros, pero contiene algunos opcionales:
     [--install_directory INSTALL_DIRECTORY]
         Directorio donde está instalada la aplicación.
         Por defecto es `/etc/portal`
+    [--site_host SITE_HOST]
+        Dominio o IP del la aplicación *sin el protocolo*. Ver [una forma alternativa de actualizarlo](/docs/developers/checklist.md#verificar-si-mi-andino-tiene-el-nombre-de-dominio-configurado-correctamente)
     [--nginx-extended-cache]
         Configura nginx con una configuración extendida y configura el hook de
         invalidación de cache de Andino para notificar a nginx
@@ -52,6 +54,8 @@ el mismo no requerirá parámetros, pero contiene algunos opcionales:
         Puerto del servidor "Host" que se desea que se tome para recibir llamadas HTTPS.
         Por defecto es el 443.
         Es importante para los administradores saber que Andino tomará el puerto especificado (o el default) ya sea que el portal use o no use HTTPS. En caso de no querer usar HTTPS y que el host tenga erl puerto 443 tomado por un servidor web, es requisito especificar un puerto distinto (ejemplo: 8443) que será reservado por Andino, pero no utilizado.
+    [--file_size_limit FILE_SIZE_LIMIT]
+        Configura el límite de tamaño para subida de archivos en recursos. 
 ```
 
 Para esta actualización de ejemplo, usaremos los valores por defecto:
