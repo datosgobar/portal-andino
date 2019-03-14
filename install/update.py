@@ -360,8 +360,9 @@ def post_update_commands(compose_path, crontab_content):
         REBUILD_SEARCH_COMMAND,
     ])
     
-    subprocess.check_call('docker exec -it andino (crontab -u www-data -l; {} ) '
-                          '| crontab -u www-data -'.format(crontab_content), shell=True)
+    if crontab_content:
+        subprocess.check_call('docker exec -it andino crontab -u www-data -l; {}  '
+                              '| crontab -u www-data -'.format(crontab_content), shell=True)
 
 
 def restart_apps(compose_path):
@@ -490,7 +491,11 @@ def update_andino(cfg, compose_file_url, stable_version_url):
     fix_env_file(directory)
 
     with ComposeContext(directory):
-        crontab_content = subprocess.check_output('docker exec -it andino crontab -u www-data -l', shell=True).strip()
+        try:
+            crontab_content = subprocess.check_output('docker exec -it andino crontab -u www-data -l', shell=True).strip()
+        except subprocess.CalledProcessError:
+            # No hay cronjobs para guardar
+            crontab_content = ""
         logger.info("Guardando base de datos...")
         backup_database(directory, compose_file_path)
         logger.info("Actualizando la aplicación")
