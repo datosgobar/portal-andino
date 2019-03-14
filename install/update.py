@@ -7,7 +7,6 @@ import subprocess
 import time
 import sys
 from urlparse import urlparse
-from crontab import CronTab
 from os import path, geteuid, getcwd, chdir
 
 logger = logging.getLogger(__file__)
