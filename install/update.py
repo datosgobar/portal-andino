@@ -7,6 +7,7 @@ import subprocess
 import time
 import sys
 from urlparse import urlparse
+from crontab import CronTab
 from os import path, geteuid, getcwd, chdir
 
 logger = logging.getLogger(__file__)
@@ -278,7 +279,7 @@ def check_previous_installation(base_path):
         raise Exception("[ ERROR ] No se encontró una instalación.")
 
 
-def post_update_commands(compose_path):
+def post_update_commands(compose_path, crontab_content):
     try:
         subprocess.check_call(
             ["docker-compose",
@@ -359,6 +360,9 @@ def post_update_commands(compose_path):
         "portal",
         REBUILD_SEARCH_COMMAND,
     ])
+    
+    subprocess.check_call('docker exec -it andino (crontab -u www-data -l; {} ) '
+                          '| crontab -u www-data -'.format(crontab_content), shell=True)
 
 
 def restart_apps(compose_path):
@@ -487,6 +491,7 @@ def update_andino(cfg, compose_file_url, stable_version_url):
     fix_env_file(directory)
 
     with ComposeContext(directory):
+        crontab_content = subprocess.check_output('docker exec -it andino crontab -u www-data -l', shell=True).strip()
         logger.info("Guardando base de datos...")
         backup_database(directory, compose_file_path)
         logger.info("Actualizando la aplicación")
@@ -507,7 +512,7 @@ def update_andino(cfg, compose_file_url, stable_version_url):
             else:
                 logger.error("No se pudo encontrar al menos uno de los archivos, por lo que no se realizará el copiado")
         logger.info("Corriendo comandos post-instalación")
-        post_update_commands(compose_file_path)
+        post_update_commands(compose_file_path, crontab_content)
         site_url = update_site_url_in_configuration_file(cfg, compose_file_path, directory)
         if cfg.file_size_limit:
             update_config_file_value("ckan.max_resource_size = {}".format(cfg.file_size_limit), compose_file_path)
