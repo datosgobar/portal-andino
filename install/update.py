@@ -474,8 +474,12 @@ def ping_nginx_until_200_response_or_timeout(site_url):
 
 
 def restore_cron_jobs(crontab_content):
-    subprocess.check_call('docker exec -it andino crontab -u www-data -l; {}  '
-                          '| crontab -u www-data -'.format(crontab_content), shell=True)
+    try:
+        subprocess.check_call('docker exec -it andino crontab -u www-data -l; {}  '
+                              '| crontab -u www-data -'.format(crontab_content), shell=True)
+    except subprocess.CalledProcessError:
+        # Error durante un deploy
+        pass
 
 
 def update_andino(cfg, compose_file_url, stable_version_url):
