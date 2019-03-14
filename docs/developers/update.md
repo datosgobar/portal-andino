@@ -7,6 +7,7 @@
     - [Actualización simple](#actualizacion-simple)
     - [Actualización avanzada](#actualizacion-avanzada)
     - [Andino con plugins ad-hoc](#andino-con-plugins-ad-hoc)
+    - [Versiones 2.5.6 en adelante](#versiones-256-en-adelante)
     - [Versiones 2.5.5 en adelante](#versiones-255-en-adelante)
     - [Versiones 2.5.0 y 2.5.1](#versiones-250-y-251)
     - [Versiones entre 2.4.0 y 2.5.3](#versiones-entre-240-y-253)
@@ -84,6 +85,13 @@ Los pasos adicionales que deberás seguir si tenés plugins _ad-hoc_ son:
 1. Instalar los plugins _ad-hoc_ dentro del _virtualenv_ `/usr/lib/ckan/default` del contenedor `portal`.
 1. Editar el archivo `/etc/ckan/default/production.ini` del contenedor `portal` y agregar a la lista de `ckan.plugins` los plugins _ad-hoc_.
 1. Reiniciar Andino.
+
+### Versiones 2.5.6 en adelante
+
+* Se especificó en el archivo de configuración (`production.ini`) un nuevo path donde ahora se encuentra un JSON que 
+contiene las licencias que utiliza Andino; `/var/lib/ckan/theme_config/licenses.json`. Se deberá tener en cuenta al 
+actualizar si el campo _licenses_group_url_ dentro del archivo de configuración había sido modificado manualmente, ya 
+que se correrá una migración para utilizar el path correspondiente al JSON nombrado.
 
 ### Versiones 2.5.5 en adelante
 

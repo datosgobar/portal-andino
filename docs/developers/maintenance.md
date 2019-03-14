@@ -28,6 +28,7 @@
     - [Deshabilitar la URL `/catalog.xlsx`](#deshabilitar-la-url-catalogxlsx)
     - [Configuración de la llamada de invalidación de caché](#configuracion-de-la-llamada-de-invalidaci%C3%B3n-de-cache)
     - [Caché externa](#cache-externa)
+    - [Especificar las licencias a utilizar](#especificar-las-licencias-a-utilizar)
     - [Configuración de CORS](#configuracion-de-cors)
     - [Configuración del explorador de series de tiempo](#configuracion-del-explorador-de-series-de-tiempo)
   - [Acceso a los datos de andino](#acceso-a-los-datos-de-andino)
@@ -521,6 +522,18 @@ docker-compose -f latest.yml exec portal /etc/ckan_init.d/update_conf.sh "ckan.s
 docker-compose -f latest.yml restart portal nginx
 
 ```
+
+### Especificar las licencias a utilizar
+
+Existe un JSON que contiene las licencias a utilizar en el portal, y cuyo path es 
+`/var/lib/ckan/theme_config/licenses.json`. Este archivo está especificado en el campo _licenses_group_url_ del 
+archivo de configuración.
+
+Es posible cambiarlo para lograr utilizar un archivo distinto; para ello, hay que cambiar el path por el deseado, 
+teniendo en cuenta las siguientes indicaciones:
+* Para utilizar un path de un archivo existente en el container, el mismo debe comenzar con el texto _file://_, tal y 
+como ocurre con el path utilizado por default.
+* Para utilizar una URL, debe comenzar con _http://_ o _https://_.
 
 ### Configuración de CORS
 
