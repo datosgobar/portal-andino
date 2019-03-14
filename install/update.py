@@ -278,7 +278,7 @@ def check_previous_installation(base_path):
         raise Exception("[ ERROR ] No se encontró una instalación.")
 
 
-def post_update_commands(compose_path, crontab_content):
+def post_update_commands(compose_path):
     try:
         subprocess.check_call(
             ["docker-compose",
@@ -517,7 +517,7 @@ def update_andino(cfg, compose_file_url, stable_version_url):
             else:
                 logger.error("No se pudo encontrar al menos uno de los archivos, por lo que no se realizará el copiado")
         logger.info("Corriendo comandos post-instalación")
-        post_update_commands(compose_file_path, crontab_content)
+        post_update_commands(compose_file_path)
         if crontab_content:
             restore_cron_jobs(crontab_content)
         site_url = update_site_url_in_configuration_file(cfg, compose_file_path, directory)
