@@ -475,8 +475,8 @@ def ping_nginx_until_200_response_or_timeout(site_url):
 
 def restore_cron_jobs(crontab_content):
     try:
-        subprocess.check_call('docker exec -it andino crontab -u www-data -l; {}  '
-                              '| crontab -u www-data -'.format(crontab_content), shell=True)
+        subprocess.check_call("docker exec -it andino bash -c 'echo \"{}\" | "
+                              "sudo crontab -u www-data -'".format(crontab_content).format(crontab_content), shell=True)
     except subprocess.CalledProcessError:
         # Error durante un deploy
         pass
@@ -497,7 +497,9 @@ def update_andino(cfg, compose_file_url, stable_version_url):
 
     with ComposeContext(directory):
         try:
-            crontab_content = subprocess.check_output('docker exec -it andino crontab -u www-data -l', shell=True).strip()
+            crontab_content = subprocess.check_output(
+                'docker exec -it andino crontab -u www-data -l', shell=True).strip()
+            logger.info("Tareas croneadas encontradas: {}".format(crontab_content))
         except subprocess.CalledProcessError:
             # No hay cronjobs para guardar
             crontab_content = ""
