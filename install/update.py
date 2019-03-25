@@ -129,12 +129,14 @@ def update_env(base_path, cfg, stable_version_url):
     env_file = ".env"
     env_file_path = path.join(base_path, env_file)
     envconf = {}
+    site_host = "SITE_HOST"
     nginx_config_file = "NGINX_CONFIG_FILE"
     nginx_extended_cache = "NGINX_EXTENDED_CACHE"
     nginx_cache_max_size = "NGINX_CACHE_MAX_SIZE"
     nginx_cache_inactive = "NGINX_CACHE_INACTIVE"
     nginx_var = "NGINX_HOST_PORT"
     nginx_ssl_var = "NGINX_HOST_SSL_PORT"
+    file_size_limit = "FILE_SIZE_LIMIT"
     # Get current variables
     with open(env_file_path, "r") as env_f:
         for line in env_f.readlines():
@@ -160,6 +162,9 @@ def update_env(base_path, cfg, stable_version_url):
     envconf[nginx_cache_inactive] = \
         cfg.nginx_cache_inactive if cfg.nginx_cache_inactive else envconf.get(nginx_cache_inactive, '')
 
+    if cfg.site_host:
+        envconf[site_host] = cfg.site_host
+
     if cfg.nginx_port:
         envconf[nginx_var] = cfg.nginx_port
     elif not envconf.get(nginx_var, ''):
@@ -169,6 +174,11 @@ def update_env(base_path, cfg, stable_version_url):
         envconf[nginx_ssl_var] = cfg.nginx_ssl_port
     elif not envconf.get(nginx_ssl_var, ''):
         envconf[nginx_ssl_var] = "443"
+
+    if cfg.file_size_limit:
+        envconf[file_size_limit] = cfg.file_size_limit
+    elif not envconf.get(file_size_limit, ''):
+        envconf[file_size_limit] = "300"
 
     with open(env_file_path, "w") as env_f:
         for key in envconf.keys():
@@ -397,24 +407,24 @@ def update_site_url_in_configuration_file(cfg, compose_path, directory):
     env_file = ".env"
     env_file_path = path.join(directory, env_file)
     envconf = {}
+    site_host = "SITE_HOST"
     nginx_var = "NGINX_HOST_PORT"
     nginx_ssl_var = "NGINX_HOST_SSL_PORT"
     with open(env_file_path, "r") as env_f:
         for line in env_f.readlines():
             key, value = line.split("=", 1)
-            if key == nginx_var or key == nginx_ssl_var:
-                envconf[key] = value.strip()
+            envconf[key] = value.strip()
 
     # Se modifica el campo "ckan.site_url" modificando el protocolo para que quede HTTP o HTTP según corresponda
     current_url = subprocess.check_output(
         'docker-compose -f {} exec -T portal grep -E "^ckan.site_url[[:space:]]*=[[:space:]]*" '
         '/etc/ckan/default/production.ini | tr -d [[:space:]]'.format(compose_path), shell=True).strip()
     current_url = current_url.replace('ckan.site_url', '')[1:]  # guardamos sólo la url, ignoramos el símbolo '='
-    host_name = urlparse(current_url).hostname
+    host_name = envconf.pop(site_host, urlparse(current_url).hostname)
     if get_nginx_configuration(cfg) == 'nginx_ssl.conf' and envconf.get(nginx_ssl_var) != '443':
-        port = envconf.get(nginx_ssl_var)
+        port = envconf.pop(nginx_ssl_var, '')
     elif get_nginx_configuration(cfg) == 'nginx.conf' and envconf.get(nginx_var) != '80':
-        port = envconf.get(nginx_var)
+        port = envconf.pop(nginx_var, '')
     else:
         port = ''
     if port:
@@ -435,6 +445,20 @@ def update_site_url_in_configuration_file(cfg, compose_path, directory):
     return new_url
 
 
+def update_config_file_value(value, compose_path):
+    if value:
+        subprocess.check_call([
+            "docker-compose",
+            "-f",
+            compose_path,
+            "exec",
+            "-T",
+            "portal",
+            "/etc/ckan_init.d/update_conf.sh",
+            value,
+        ])
+
+
 def ping_nginx_until_200_response_or_timeout(site_url):
     timeout = time.time() + 60 * 5  # límite de 5 minutos
     site_status_code = 0
@@ -447,6 +471,15 @@ def ping_nginx_until_200_response_or_timeout(site_url):
                            "Es posible que haya problemas de configuración.")
             break
         time.sleep(10 if site_status_code != "200" else 0)  # Si falla, esperamos 10 segundos para reintentarlo
+
+
+def restore_cron_jobs(crontab_content):
+    try:
+        subprocess.check_call("docker exec -it andino bash -c 'echo \"{}\" | "
+                              "sudo crontab -u www-data -'".format(crontab_content).format(crontab_content), shell=True)
+    except subprocess.CalledProcessError:
+        # Error durante un deploy
+        pass
 
 
 def update_andino(cfg, compose_file_url, stable_version_url):
@@ -463,6 +496,13 @@ def update_andino(cfg, compose_file_url, stable_version_url):
     fix_env_file(directory)
 
     with ComposeContext(directory):
+        try:
+            crontab_content = subprocess.check_output(
+                'docker exec -it andino crontab -u www-data -l', shell=True).strip()
+            logger.info("Tareas croneadas encontradas: {}".format(crontab_content))
+        except subprocess.CalledProcessError:
+            # No hay cronjobs para guardar
+            crontab_content = ""
         logger.info("Guardando base de datos...")
         backup_database(directory, compose_file_path)
         logger.info("Actualizando la aplicación")
@@ -484,7 +524,11 @@ def update_andino(cfg, compose_file_url, stable_version_url):
                 logger.error("No se pudo encontrar al menos uno de los archivos, por lo que no se realizará el copiado")
         logger.info("Corriendo comandos post-instalación")
         post_update_commands(compose_file_path)
+        if crontab_content:
+            restore_cron_jobs(crontab_content)
         site_url = update_site_url_in_configuration_file(cfg, compose_file_path, directory)
+        if cfg.file_size_limit:
+            update_config_file_value("ckan.max_resource_size = {}".format(cfg.file_size_limit), compose_file_path)
         logger.info("Reiniciando")
         restart_apps(compose_file_path)
         logger.info("Esperando a que Nginx inicie...")
@@ -499,8 +543,10 @@ if __name__ == "__main__":
     parser.add_argument('--branch', default='master')
     parser.add_argument('--install_directory', default='/etc/portal/')
     parser.add_argument('--andino_version')
-    parser.add_argument('--nginx_port', default="")  # Sin valor default para evitar overrides si ya existe un valor
-    parser.add_argument('--nginx_ssl_port', default="")  # Sin valor default para evitar overrides si ya existe un valor
+    parser.add_argument('--site_host', default="")  # Sin default para evitar overrides si ya existe un valor
+    parser.add_argument('--nginx_port', default="")  # Sin default para evitar overrides si ya existe un valor
+    parser.add_argument('--nginx_ssl_port', default="")  # Sin default para evitar overrides si ya existe un valor
+    parser.add_argument('--file_size_limit', default="")  # Sin default para evitar overrides si ya existe un valor
     parser.add_argument('--nginx-extended-cache', action="store_true")
     parser.add_argument('--nginx-cache-max-size', default="")
     parser.add_argument('--nginx-cache-inactive', default="")

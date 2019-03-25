@@ -28,6 +28,7 @@
     - [Deshabilitar la URL `/catalog.xlsx`](#deshabilitar-la-url-catalogxlsx)
     - [Configuración de la llamada de invalidación de caché](#configuracion-de-la-llamada-de-invalidaci%C3%B3n-de-cache)
     - [Caché externa](#cache-externa)
+    - [Especificar las licencias a utilizar](#especificar-las-licencias-a-utilizar)
     - [Configuración de CORS](#configuracion-de-cors)
     - [Configuración del explorador de series de tiempo](#configuracion-del-explorador-de-series-de-tiempo)
   - [Acceso a los datos de andino](#acceso-a-los-datos-de-andino)
@@ -391,7 +392,7 @@ proxy_temp_path /tmp/nginx_proxy 1 2;
 server_tokens off;
 
 server {
-    client_max_body_size 100M;
+    client_max_body_size 300M;
     location / {
         proxy_pass http://IP_A_ANDINO:80/;
         proxy_set_header X-Forwarded-For $remote_addr;
@@ -436,6 +437,55 @@ server {
 }
 ```
 
+Si se está utilizando la configuración SSL, agregar al final del archivo la siguiente sección, reemplazando _[el texto que aparezca entre corchetes (y éstos) por el valor adecuado]:
+
+```
+server {
+  client_max_body_size 300M;
+  listen 443 ssl http2;
+  listen [::]:443 ssl http2;
+  server_name [Tu nombre de dominio];
+
+  ssl_certificate [Path al certificado];
+  ssl_certificate_key [Path a la llave del certificado];
+
+  ssl_session_cache shared:SSL:50m;
+  ssl_session_timeout 1d;
+  ssl_session_tickets off;
+
+  ssl_prefer_server_ciphers on;
+  ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+  ssl_ciphers 'ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA:ECDHE-RSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:DHE-RSA-AES256-SHA256:DHE-RSA-AES256-SHA:ECDHE-ECDSA-DES-CBC3-SHA:ECDHE-RSA-DES-CBC3-SHA:EDH-RSA-DES-CBC3-SHA:AES128-GCM-SHA256:AES256-GCM-SHA384:AES128-SHA256:AES256-SHA256:AES128-SHA:AES256-SHA:DES-CBC3-SHA:!DSS';
+
+  resolver 8.8.8.8 8.8.4.4;
+  ssl_stapling on;
+  ssl_stapling_verify on;
+  ssl_trusted_certificate [Path al certificado];
+
+  add_header Strict-Transport-Security "max-age=31536000; includeSubdomains; preload";
+  add_header X-Xss-Protection "1; mode=block" always;
+  add_header X-Content-Type-Options "nosniff" always;
+  add_header X-Frame-Options "SAMEORIGIN" always;
+  proxy_ignore_headers Cache-Control;
+
+  location / {
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host $http_host;
+        proxy_set_header X-Forwarded-Protocol https;
+    proxy_ignore_headers Cache-Control;
+        add_header X-Xss-Protection "1; mode=block" always;
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header X-Frame-Options "SAMEORIGIN" always;
+        proxy_redirect off;
+
+        if (!-f $request_filename) {
+            proxy_pass https://[Tu URL]:443;
+            break;
+        }
+    }
+}
+```
+
 Finalmente, reiniciamos **openresty**: `systemctl restart openresty`.
 
 Ahora que tenemos la caché configurada, necesitamos configurar la llamada, o hook, de invalidación de caché.
@@ -472,6 +522,18 @@ docker-compose -f latest.yml exec portal /etc/ckan_init.d/update_conf.sh "ckan.s
 docker-compose -f latest.yml restart portal nginx
 
 ```
+
+### Especificar las licencias a utilizar
+
+Existe un JSON que contiene las licencias a utilizar en el portal, y cuyo path es 
+`/var/lib/ckan/theme_config/licenses.json`. Este archivo está especificado en el campo _licenses_group_url_ del 
+archivo de configuración.
+
+Es posible cambiarlo para lograr utilizar un archivo distinto; para ello, hay que cambiar el path por el deseado, 
+teniendo en cuenta las siguientes indicaciones:
+* Para utilizar un path de un archivo existente en el container, el mismo debe comenzar con el texto _file://_, tal y 
+como ocurre con el path utilizado por default.
+* Para utilizar una URL, debe comenzar con _http://_ o _https://_.
 
 ### Configuración de CORS
 

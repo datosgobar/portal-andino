@@ -106,6 +106,7 @@ def configure_env_file(base_path, cfg):
         env_f.write("DATASTORE_HOST_PORT=%s\n" % cfg.datastore_port)
         env_f.write("maildomain=%s\n" % cfg.site_host)
         env_f.write("NGINX_CONFIG_FILE=%s\n" % get_nginx_configuration(cfg))
+        env_f.write("FILE_SIZE_LIMIT=%s\n" % cfg.file_size_limit)
         # Podría usarse un string que contenga todas las configuraciones extra de Nginx, pero por ahora es innecesario
         env_f.write("NGINX_EXTENDED_CACHE=%s\n" % ("yes" if cfg.nginx_extended_cache else "no"))
         if cfg.nginx_cache_max_size:
@@ -244,6 +245,20 @@ def update_site_url_in_configuration_file(cfg, compose_path):
     return new_url
 
 
+def update_config_file_value(value, compose_path):
+    if value:
+        subprocess.check_call([
+            "docker-compose",
+            "-f",
+            compose_path,
+            "exec",
+            "-T",
+            "portal",
+            "/etc/ckan_init.d/update_conf.sh",
+            value,
+        ])
+
+
 def ping_nginx_until_200_response_or_timeout(site_url):
     timeout = time.time() + 60 * 5  # límite de 5 minutos
     site_status_code = 0
@@ -296,6 +311,7 @@ def install_andino(cfg, compose_file_url, stable_version_url):
         logger.info("Configurando...")
         configure_application(compose_file_path, cfg)
         site_url = update_site_url_in_configuration_file(cfg, compose_file_path)
+        update_config_file_value("ckan.max_resource_size = {}".format(cfg.file_size_limit), compose_file_path)
         subprocess.check_call(["docker-compose", "-f", "latest.yml", "restart", "nginx"])
         logger.info("Esperando a que Nginx se reinicie...")
         ping_nginx_until_200_response_or_timeout(site_url)
@@ -319,6 +335,7 @@ def parse_args():
     parser.add_argument('--datastore_port', default="8800")
     parser.add_argument('--branch', default='master')
     parser.add_argument('--install_directory', default='/etc/portal/')
+    parser.add_argument('--file_size_limit', default='300')
     parser.add_argument('--nginx-extended-cache', action="store_true")
     parser.add_argument('--nginx-cache-max-size', default="")
     parser.add_argument('--nginx-cache-inactive', default="")

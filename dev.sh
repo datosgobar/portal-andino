@@ -119,16 +119,29 @@ generate_testing_arguments(){
           shift
           base_branch="$1"
           ;;
+        --site_host)
+          shift
+          if ! [ -z "$1" ]
+            then
+              site_host="$1"
+          fi
+          ;;
         --nginx_ssl)
           nginx_ssl=" --nginx_ssl"
           ;;
         --nginx_host_port)
           shift
-          nginx_host_port=" --nginx_port=$1"
+          if ! [ -z "$1" ]
+            then
+              nginx_host_port=" --nginx_port=$1"
+          fi
           ;;
         --nginx_ssl_port)
           shift
-          nginx_ssl_port=" --nginx_ssl_port=$1"
+          if ! [ -z "$1" ]
+            then
+              nginx_ssl_port=" --nginx_ssl_port=$1"
+          fi
           ;;
         --nginx-extended-cache)
           nginx_extended_cache=" --nginx-extended-cache"
@@ -140,7 +153,7 @@ generate_testing_arguments(){
               printf "\nEl path ingresado para ssl_key_path es inválido.\n"
               exit 1
             else
-              ssl_key_path="--ssl_key_path=$1"
+              ssl_key_path=" --ssl_key_path=$1"
           fi
           ;;
         --ssl_crt_path)
@@ -150,15 +163,18 @@ generate_testing_arguments(){
               printf "\nEl path ingresado para ssl_crt_path es inválido.\n"
               exit 1
             else
-              ssl_crt_path="--ssl_crt_path=$1"
+              ssl_crt_path=" --ssl_crt_path=$1"
           fi
           ;;
-        --site_host)
+        --file_size_limit)
           shift
-          site_host="$1"
+          if ! [ -z "$1" ]
+            then
+              file_size_limit=" --file_size_limit=$1"
+          fi
           ;;
         -h | --help)
-          usage
+          complete_commands_usage
           ;;
         \?)
           echo "Invalid option: -$OPTARG" >&2
@@ -189,7 +205,7 @@ generate_testing_arguments(){
 sub_complete_up(){
     # Parámetros
     SHORTOPTS="a:t:b:h"
-    LONGOPTS="andino_branch:,theme_branch:,base_branch:,nginx_ssl,nginx_host_port:,nginx_ssl_port:,nginx-extended-cache,ssl_key_path:,ssl_crt_path:,site_host:,help"
+    LONGOPTS="andino_branch:,theme_branch:,base_branch:,site_host:,nginx_ssl,nginx_host_port:,nginx_ssl_port:,nginx-extended-cache,ssl_key_path:,ssl_crt_path:,file_size_limit:,help"
 
     ARGS=$(getopt -s bash --options $SHORTOPTS --longoptions $LONGOPTS -- "$@" )
     eval set -- "$ARGS"
@@ -201,7 +217,7 @@ sub_complete_up(){
     printf "Path key: $ssl_key_path - Path crt: $ssl_crt_path.\n"
     if ! [ -z "$base_branch" ]
       then
-        docker pull datosgobar/portal-base:"$base_branch"
+        docker pull datosgobar/portal-base:"$base_branch" || true
         base_version_argument=" --build-arg IMAGE_VERSION=$base_branch"
     fi
 
@@ -245,7 +261,8 @@ sub_complete_up(){
         $nginx_host_port\
         $nginx_ssl_port\
         $ssl_key_path\
-        $ssl_crt_path
+        $ssl_crt_path\
+        $file_size_limit
 
     # Checkout al directorio donde está instalado Andino
     cd /etc/portal
@@ -275,7 +292,7 @@ sub_complete_up(){
 sub_complete_update(){
     # Parámetros
     SHORTOPTS="a:t:b:h"
-    LONGOPTS="andino_branch:,theme_branch:,base_branch:,nginx_ssl,nginx_host_port:,nginx_ssl_port:,nginx-extended-cache,ssl_key_path:,ssl_crt_path:,help"
+    LONGOPTS="andino_branch:,theme_branch:,base_branch:,site_host:,nginx_ssl,nginx_host_port:,nginx_ssl_port:,nginx-extended-cache,ssl_key_path:,ssl_crt_path:,file_size_limit:,help"
 
     ARGS=$(getopt -s bash --options $SHORTOPTS --longoptions $LONGOPTS -- "$@" )
     eval set -- "$ARGS"
@@ -294,13 +311,12 @@ sub_complete_update(){
     # Preparo variables
     printf "Preparando variables.\n"
     DIR=$( dirname "${BASH_SOURCE[0]}" )
-    EMAIL=admin@example.com
     HOST=localhost
-    DB_USER=my_database_user
-    DB_PASS=my_database_pass
-    STORE_USER=my_data_user
-    STORE_PASS=my_data_pass
     PAT_DIR=/usr/lib/ckan/default/src/ckanext-gobar-theme
+    if ! [ -z "$site_host" ]
+      then
+        site_host=" --site_host=$site_host"  # Le doy el formato de parámetros opcionales
+    fi
 
     # Se asume que ya se hizo el checkout al branch de portal-andino a testear, o que se está en master y se testeará otro
     # proyecto, y que no es necesario realizar un pull
@@ -310,18 +326,20 @@ sub_complete_update(){
     cd $DIR
     docker build -t datosgobar/portal-andino:$andino_branch $base_version_argument .
 
-    # Instalo y levanto Andino
-    printf "\nComenzando instalación.\n"
+    # Actualizo Andino
+    printf "\nComenzando actualización.\n"
     cd $DIR/install
     sudo python2 ./update.py       \
         --andino_version=$andino_branch\
         --branch=$andino_branch\
+        $site_host\
         $nginx_ssl\
         $nginx_extended_cache\
         $nginx_host_port\
         $nginx_ssl_port\
         $ssl_key_path\
-        $ssl_crt_path
+        $ssl_crt_path\
+        $file_size_limit
 
     # Checkout al directorio donde está instalado Andino
     cd /etc/portal
@@ -336,6 +354,25 @@ sub_complete_update(){
         "cd $PAT_DIR && git fetch && git checkout $theme_branch && git pull origin $theme_branch " \
         "&& pip install -e . && apachectl restart"
     fi
+}
+
+complete_commands_usage() {
+	cat <<EOM
+Usage: $(basename "$0") [OPTION]...
+  -h | --help                             mostrar ayuda
+  -a | --andino_branch           VALUE    nombre del branch de portal-andino (default: master)
+  -t | --theme_branch            VALUE    nombre del branch de portal-andino-theme (default: master o el ya utilizado)
+  -b | --base_branch             VALUE    nombre del branch de portal-base
+       --site_host               VALUE    nombre de dominio del portal (default: localhost)
+       --nginx_host_port         VALUE    puerto a usar para HTTP
+       --nginx_ssl                        activar la configuración de SSL
+       --nginx_ssl_port          VALUE    puerto a usar para HTTPS
+       --ssl_key_path            VALUE    path a la clave privada del certificado SSL
+       --ssl_crt_path            VALUE    path al certificado SSL
+       --nginx-extended-cache             activar la configuración de caché extendida de Nginx
+       --file_size_limit         VALUE    tamaño máximo en MB para archivos de recursos (default: 300, máximo recomendado: 1024)
+EOM
+	exit 2
 }
 
 subcommand=$1

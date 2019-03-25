@@ -76,6 +76,8 @@ El mismo requiere algunos parámetros específicos, y existen otros que son opci
     [--install_directory INSTALL_DIRECTORY]
         Directorio donde se desea instalar la aplicación.
         Por defecto es `/etc/portal` (recomendado)
+    [--file_size_limit FILE_SIZE_LIMIT]
+        Configura el límite de tamaño para subida de archivos en recursos. 
 
 ```
 
