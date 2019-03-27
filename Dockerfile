@@ -16,7 +16,7 @@ RUN $CKAN_HOME/bin/pip install -e git+https://github.com/datosgobar/portal-andin
     /etc/ckan_init.d/build-combined-ckan-mo.sh $CKAN_HOME/src/ckanext-gobar-theme/ckanext/gobar_theme/i18n/es/LC_MESSAGES/ckan.po
 
 # Series de tiempo Ar explorer
-RUN $CKAN_HOME/bin/pip install -e git+https://github.com/datosgobar/ckanext-seriestiempoarexplorer.git@2.1.0#egg=ckanext-seriestiempoarexplorer
+RUN $CKAN_HOME/bin/pip install -e git+https://github.com/datosgobar/ckanext-seriestiempoarexplorer.git@2.2.2#egg=ckanext-seriestiempoarexplorer
 
 # DCAT dependencies (el plugin se instala desde el `requirements.txt` de portal-andino-theme)
 RUN $CKAN_HOME/bin/pip install -r $CKAN_HOME/src/ckanext-dcat/requirements.txt
