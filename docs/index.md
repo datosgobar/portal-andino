@@ -1,11 +1,3 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-## Indice
-
-- [Portal Andino](#portal-andino)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
 # Portal Andino
 
 <!-- [![Build Status](https://travis-ci.org/datosgobar/portal-andino.svg?branch=master)](https://travis-ci.org/datosgobar/portal-andino)
@@ -16,8 +8,9 @@
 
 **Portal Andino** es un desarrollo de la Administración Pública Nacional basado en [CKAN](https://ckan.org/). Es la tecnología detrás del [Portal Nacional de Datos Abiertos](https://datos.gob.ar/) y de otros portales de datos abiertos de organismos de la APN, provincias y municipios.
 
-- [Comienzo rápido](quickstart.md)
-<!-- - [Manual de uso](usage.md) -->
+- Usuarios
+    - [Comienzo rápido](quickstart.md)
+    - [Publicar series de tiempo](time-series.md)
 - Desarrolladores
     - [Instalación](developers/install.md)
     - [Actualización](developers/update.md)
