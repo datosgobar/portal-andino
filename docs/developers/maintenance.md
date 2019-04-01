@@ -1,14 +1,14 @@
+# Mantenimiento
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 ## Indice
 
-- [Mantenimiento](#mantenimiento)
-  - [Exploración de la instancia de andino](#exploracion-de-la-instancia-de-andino)
+- [Exploración de la instancia de andino](#exploracion-de-la-instancia-de-andino)
     - [¿Qué está corriendo docker?](#que-esta-corriendo-docker)
     - [Utilización del archivo latest.yml en los comandos de docker-compose](#utilizacion-del-archivo-latestyml-en-los-comandos-de-docker-compose)
     - [Ingresar al contendor principal de andino](#ingresar-al-contendor-principal-de-andino)
     - [Listar todas las `Propiedades` de cada contenedor](#listar-todas-las-propiedades-de-cada-contenedor)
-  - [Administración de usuarios](#administracion-de-usuarios)
+- [Administración de usuarios](#administracion-de-usuarios)
     - [Crear un usuario ADMIN](#crear-un-usuario-admin)
     - [Listar mis usuarios](#listar-mis-usuarios)
     - [Ver los datos de un usuario](#ver-los-datos-de-un-usuario)
@@ -17,7 +17,7 @@
     - [Eliminar un usuario](#eliminar-un-usuario)
     - [Cambiar password de un usuario](#cambiar-password-de-un-usuario)
     - [Usuario administrador de CKAN](#usuario-administrador-de-ckan)
-  - [Configuraciones de andino](#configuraciones-de-andino)
+- [Configuraciones de andino](#configuraciones-de-andino)
     - [Modificar el archivo de configuración](#modificar-el-archivo-de-configuracion)
     - [Cambiar la configuración del SMTP](#cambiar-la-configuracion-del-smtp)
     - [Cambiar el remitente de los correos electrónicos que envía Andino](#cambiar-el-remitente-de-los-correos-electronicos-que-envia-andino)
@@ -31,35 +31,33 @@
     - [Especificar las licencias a utilizar](#especificar-las-licencias-a-utilizar)
     - [Configuración de CORS](#configuracion-de-cors)
     - [Configuración del explorador de series de tiempo](#configuracion-del-explorador-de-series-de-tiempo)
-  - [Acceso a los datos de andino](#acceso-a-los-datos-de-andino)
+- [Acceso a los datos de andino](#acceso-a-los-datos-de-andino)
     - [Encontrar los volúmenes de mi andino dentro del filesystem del host](#encontrar-los-volumenes-de-mi-andino-dentro-del-filesystem-del-host)
     - [Ver las direcciones IP de mis contenedores](#ver-las-direcciones-ip-de-mis-contenedores)
     - [Ver las variables de entorno que tienen mis contenedores](#ver-las-variables-de-entorno-que-tienen-mis-contenedores)
     - [Acceder con un cliente de PostgreSQL a las bases de datos](#acceder-con-un-cliente-de-postgresql-a-las-bases-de-datos)
-  - [Eliminar objetos definitivamente](#eliminar-objetos-definitivamente)
+- [Eliminar objetos definitivamente](#eliminar-objetos-definitivamente)
     - [Purgar Organizaciones Borradas](#purgar-organizaciones-borradas)
     - [Purgar Grupos Borrados](#purgar-grupos-borrados)
     - [Purgar Datasets Borrados](#purgar-datasets-borrados)
     - [Listar nombres de los datasets contenidos en Andino](#listar-nombres-de-los-datasets-contenidos-en-andino)
-  - [Backups](#backups)
+- [Backups](#backups)
     - [Backup de la base de datos](#backup-de-la-base-de-datos)
     - [Realizar un backup del file system](#realizar-un-backup-del-file-system)
     - [Realizar un backup de la configuración](#realizar-un-backup-de-la-configuracion)
-  - [Comandos de DataPusher](#comandos-de-datapusher)
+- [Comandos de DataPusher](#comandos-de-datapusher)
     - [Subir todos los recursos al Datastore](#subir-todos-los-recursos-al-datastore)
-  - [Recomendaciones de Seguridad y Optimizaciones](#recomendaciones-de-seguridad-y-optimizaciones)
+- [Recomendaciones de Seguridad y Optimizaciones](#recomendaciones-de-seguridad-y-optimizaciones)
     - [HTTPS](#https)
     - [Sistema y librerías](#sistema-y-librerias)
     - [Firewall](#firewall)
     - [SSH](#ssh)
-  - [Optimización de logging](#optimizacion-de-logging)
+- [Optimización de logging](#optimizacion-de-logging)
     - [Configurar otro `logging driver`](#configurar-otro-logging-driver)
     - [Eliminar `logs` antiguos de `Docker`](#eliminar-logs-antiguos-de-docker)
     - [Eliminar logs dentro de Andino](#eliminar-logs-dentro-de-andino)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
-# Mantenimiento
 
 ## Exploración de la instancia de andino
 

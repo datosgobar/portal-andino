@@ -2,7 +2,7 @@
 
 
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es" class="no-js">
   <head>
     
@@ -12,6 +12,8 @@
       
         <meta name="description" content="Documentación de Portal Andino, la distribución de CKAN desarrollada por la República Argentina dockerizada, fácil de instalar y compatible con el Perfil Nacional de Metadatos de la Política de Apertura de Datos.">
       
+      
+        <link rel="canonical" href="https://datosgobar.github.io/portal-andino/developers/migration/">
       
       
         <meta name="author" content="Datos Argentina">
@@ -36,7 +38,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.0, mkdocs-material-3.1.0">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.1.1">
     
     
       
@@ -45,7 +47,7 @@
     
     
 	
-      <link rel="stylesheet" href="../../assets/stylesheets/application.11e41852.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/application.3020aac5.css">
       
       
     
@@ -53,7 +55,7 @@
 
     
     
-      <script src="../../assets/javascripts/modernizr.20ef595d.js"></script>
+      <script src="../../assets/javascripts/modernizr.01ccdecf.js"></script>
     
     <script src="../../js/extra.js"></script>
 
@@ -68,6 +70,34 @@
     
     
       <link rel="stylesheet" href="../../css/extra_rtd.css">
+    
+    
+      
+        
+<script>
+  window.ga = window.ga || function() {
+    (ga.q = ga.q || []).push(arguments)
+  }
+  ga.l = +new Date
+  /* Setup integration and send page view */
+  ga("create", "UA-91435482-1", "https://portal-andino.readthedocs.io/")
+  ga("set", "anonymizeIp", true)
+  ga("send", "pageview")
+  /* Register handler to log search on blur */
+  document.addEventListener("DOMContentLoaded", () => {
+    if (document.forms.search) {
+      var query = document.forms.search.query
+      query.addEventListener("blur", function() {
+        if (this.value) {
+          var path = document.location.pathname;
+          ga("send", "pageview", path + "?q=" + this.value)
+        }
+      })
+    }
+  })
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+      
     
     
   </head>
@@ -103,7 +133,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#migracion-de-version-10-de-andino-a-20" tabindex="1" class="md-skip">
+      <a href="#migracion" tabindex="1" class="md-skip">
         Saltar a contenido
       </a>
     
@@ -112,7 +142,7 @@
   <nav class="md-header-nav md-grid">
     <div class="md-flex">
       <div class="md-flex__cell md-flex__cell--shrink">
-        <a href="../.." title="Portal Andino" class="md-header-nav__button md-logo">
+        <a href="https://datosgobar.github.io/portal-andino" title="Portal Andino" class="md-header-nav__button md-logo">
           
             <img src="../../images/logo.svg" width="24" height="24">
           
@@ -124,22 +154,19 @@
       <div class="md-flex__cell md-flex__cell--stretch">
         <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
           
-            
-              <span class="md-header-nav__topic">
-                Portal Andino
-              </span>
-              <span class="md-header-nav__topic">
-                Migracion
-              </span>
-            
+            <span class="md-header-nav__topic">
+              Portal Andino
+            </span>
+            <span class="md-header-nav__topic">
+              Migracion
+            </span>
           
         </div>
       </div>
       <div class="md-flex__cell md-flex__cell--shrink">
         
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
           
-            <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
-            
 <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
@@ -162,7 +189,6 @@
     </div>
   </div>
 </div>
-          
         
       </div>
       
@@ -173,20 +199,18 @@
 
   
 
-
-  <a href="https://github.com/datosgobar/portal-andino/" title="Ir al repositorio" class="md-source" data-md-source="github">
-    
-      <div class="md-source__icon">
-        <svg viewBox="0 0 24 24" width="24" height="24">
-          <use xlink:href="#__github" width="24" height="24"></use>
-        </svg>
-      </div>
-    
-    <div class="md-source__repository">
-      GitHub
+<a href="https://github.com/datosgobar/portal-andino/" title="Ir al repositorio" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
     </div>
-  </a>
-
+  
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
           </div>
         </div>
       
@@ -233,7 +257,7 @@
 
         <!-- Site title -->
         <label class="md-nav__title md-nav__title--site" for="__drawer">
-          <a href="../.."
+          <a href="https://datosgobar.github.io/portal-andino"
               title="Portal Andino" class="md-nav__button md-logo">
             
               <img src="../../images/logo.svg" width="48" height="48" />
@@ -250,20 +274,18 @@
 
   
 
-
-  <a href="https://github.com/datosgobar/portal-andino/" title="Ir al repositorio" class="md-source" data-md-source="github">
-    
-      <div class="md-source__icon">
-        <svg viewBox="0 0 24 24" width="24" height="24">
-          <use xlink:href="#__github" width="24" height="24"></use>
-        </svg>
-      </div>
-    
-    <div class="md-source__repository">
-      GitHub
+<a href="https://github.com/datosgobar/portal-andino/" title="Ir al repositorio" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
     </div>
-  </a>
-
+  
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
           </div>
         
       
@@ -288,23 +310,46 @@
             
 
 
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      Usuarios
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        Usuarios
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
   <li class="md-nav__item">
-    <a href="../../quickstart/" title="Comienzo rápido" class="md-nav__link">
-      Comienzo rápido
+    <a href="../../quickstart/" title="Comenzar a usar Andino" class="md-nav__link">
+      Comenzar a usar Andino
     </a>
   </li>
 
-            <hr/>
+        
           
-            
-            
-            
+          
+          
 
 
   <li class="md-nav__item">
-    <a href="../../usage/" title="Manual de uso" class="md-nav__link">
-      Manual de uso
+    <a href="../../time-series/" title="Publicar series de tiempo" class="md-nav__link">
+      Publicar series de tiempo
     </a>
+  </li>
+
+        
+      </ul>
+    </nav>
   </li>
 
             <hr/>
@@ -318,14 +363,14 @@
 
   <li class="md-nav__item md-nav__item--active md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" checked>
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
     
-    <label class="md-nav__link" for="nav-4">
-      Desarrollo
+    <label class="md-nav__link" for="nav-3">
+      Desarrolladores
     </label>
     <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
-      <label class="md-nav__title" for="nav-4">
-        Desarrollo
+      <label class="md-nav__title" for="nav-3">
+        Desarrolladores
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
         
@@ -406,37 +451,37 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#1-requisitos" title="1) Requisitos" class="md-nav__link">
-    1) Requisitos
+  <a href="#1-requisitos" title="1. Requisitos" class="md-nav__link">
+    1. Requisitos
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-script-de-migracion-automatico" title="2) Script de migración automático." class="md-nav__link">
-    2) Script de migración automático.
+  <a href="#2-script-de-migracion-automatico" title="2. Script de migración automático." class="md-nav__link">
+    2. Script de migración automático.
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#3-migracion-manual" title="3) Migración manual" class="md-nav__link">
-    3) Migración manual
+  <a href="#3-migracion-manual" title="3. Migración manual" class="md-nav__link">
+    3. Migración manual
   </a>
   
     <nav class="md-nav">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#31-backup-de-la-base-de-datos" title="3.1) Backup de la base de datos" class="md-nav__link">
-    3.1) Backup de la base de datos
+  <a href="#31-backup-de-la-base-de-datos" title="3.1. Backup de la base de datos" class="md-nav__link">
+    3.1. Backup de la base de datos
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#32-backup-de-los-archivos-de-la-aplicacion" title="3.2) Backup de los archivos de la aplicación" class="md-nav__link">
-    3.2) Backup de los archivos de la aplicación
+  <a href="#32-backup-de-los-archivos-de-la-aplicacion" title="3.2. Backup de los archivos de la aplicación" class="md-nav__link">
+    3.2. Backup de los archivos de la aplicación
   </a>
   
 </li>
@@ -447,23 +492,23 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#4-instalacion" title="4) Instalación" class="md-nav__link">
-    4) Instalación
+  <a href="#4-instalacion" title="4. Instalación" class="md-nav__link">
+    4. Instalación
   </a>
   
     <nav class="md-nav">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#41-detener-la-aplicacion" title="4.1) Detener la aplicación" class="md-nav__link">
-    4.1) Detener la aplicación
+  <a href="#41-detener-la-aplicacion" title="4.1. Detener la aplicación" class="md-nav__link">
+    4.1. Detener la aplicación
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#42-instalar-la-aplicacion" title="4.2) Instalar la aplicación" class="md-nav__link">
-    4.2) Instalar la aplicación
+  <a href="#42-instalar-la-aplicacion" title="4.2. Instalar la aplicación" class="md-nav__link">
+    4.2. Instalar la aplicación
   </a>
   
 </li>
@@ -591,37 +636,37 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#1-requisitos" title="1) Requisitos" class="md-nav__link">
-    1) Requisitos
+  <a href="#1-requisitos" title="1. Requisitos" class="md-nav__link">
+    1. Requisitos
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-script-de-migracion-automatico" title="2) Script de migración automático." class="md-nav__link">
-    2) Script de migración automático.
+  <a href="#2-script-de-migracion-automatico" title="2. Script de migración automático." class="md-nav__link">
+    2. Script de migración automático.
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#3-migracion-manual" title="3) Migración manual" class="md-nav__link">
-    3) Migración manual
+  <a href="#3-migracion-manual" title="3. Migración manual" class="md-nav__link">
+    3. Migración manual
   </a>
   
     <nav class="md-nav">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#31-backup-de-la-base-de-datos" title="3.1) Backup de la base de datos" class="md-nav__link">
-    3.1) Backup de la base de datos
+  <a href="#31-backup-de-la-base-de-datos" title="3.1. Backup de la base de datos" class="md-nav__link">
+    3.1. Backup de la base de datos
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#32-backup-de-los-archivos-de-la-aplicacion" title="3.2) Backup de los archivos de la aplicación" class="md-nav__link">
-    3.2) Backup de los archivos de la aplicación
+  <a href="#32-backup-de-los-archivos-de-la-aplicacion" title="3.2. Backup de los archivos de la aplicación" class="md-nav__link">
+    3.2. Backup de los archivos de la aplicación
   </a>
   
 </li>
@@ -632,23 +677,23 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#4-instalacion" title="4) Instalación" class="md-nav__link">
-    4) Instalación
+  <a href="#4-instalacion" title="4. Instalación" class="md-nav__link">
+    4. Instalación
   </a>
   
     <nav class="md-nav">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#41-detener-la-aplicacion" title="4.1) Detener la aplicación" class="md-nav__link">
-    4.1) Detener la aplicación
+  <a href="#41-detener-la-aplicacion" title="4.1. Detener la aplicación" class="md-nav__link">
+    4.1. Detener la aplicación
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#42-instalar-la-aplicacion" title="4.2) Instalar la aplicación" class="md-nav__link">
-    4.2) Instalar la aplicación
+  <a href="#42-instalar-la-aplicacion" title="4.2. Instalar la aplicación" class="md-nav__link">
+    4.2. Instalar la aplicación
   </a>
   
 </li>
@@ -677,37 +722,36 @@
                   <a href="https://github.com/datosgobar/portal-andino/edit/master/docs/developers/migration.md" title="Editar esta página" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
-                <h1 id="migracion-de-version-10-de-andino-a-20">Migracion de version 1.0 de andino a 2.0</h1>
-<p>En el presente documento, se pretende explicar cómo llevar a cabo una migración de la versión 1.0 de andino a la 
-versión 2.0 de andino.</p>
+                <h1 id="migracion">Migracion</h1>
+<p>En el presente documento, se pretende explicar cómo llevar a cabo una migración de la versión 1.0 de andino a la versión 2.0 de andino.</p>
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 <h2 id="indice">Indice</h2>
 <ul>
-<li><a href="#1-requisitos">1) Requisitos</a></li>
-<li><a href="#2-script-de-migracion-automatico">2) Script de migración automático.</a></li>
-<li><a href="#3-migracion-manual">3) Migración manual</a><ul>
-<li><a href="#31-backup-de-la-base-de-datos">3.1) Backup de la base de datos</a></li>
-<li><a href="#32-backup-de-los-archivos-de-la-aplicacion">3.2) Backup de los archivos de la aplicación</a></li>
+<li><a href="#1-requisitos">1. Requisitos</a></li>
+<li><a href="#2-script-de-migracion-automatico">2. Script de migración automático.</a></li>
+<li><a href="#3-migracion-manual">3. Migración manual</a><ul>
+<li><a href="#31-backup-de-la-base-de-datos">3.1. Backup de la base de datos</a></li>
+<li><a href="#32-backup-de-los-archivos-de-la-aplicacion">3.2. Backup de los archivos de la aplicación</a></li>
 </ul>
 </li>
-<li><a href="#4-instalacion">4) Instalación</a><ul>
-<li><a href="#41-detener-la-aplicacion">4.1) Detener la aplicación</a></li>
-<li><a href="#42-instalar-la-aplicacion">4.2) Instalar la aplicación</a></li>
+<li><a href="#4-instalacion">4. Instalación</a><ul>
+<li><a href="#41-detener-la-aplicacion">4.1. Detener la aplicación</a></li>
+<li><a href="#42-instalar-la-aplicacion">4.2. Instalar la aplicación</a></li>
 </ul>
 </li>
-<li><a href="#5-restores">5) Restores</a><ul>
-<li><a href="#51-restaurar-los-archivos">5.1) Restaurar los archivos</a></li>
-<li><a href="#52-restaurar-la-base-de-datos">5.2) Restaurar la base de datos</a></li>
-<li><a href="#53-regenerar-el-indice-de-busquedas">5.3) Regenerar el índice de búsquedas</a></li>
+<li><a href="#5-restores">5. Restores</a><ul>
+<li><a href="#51-restaurar-los-archivos">5.1. Restaurar los archivos</a></li>
+<li><a href="#52-restaurar-la-base-de-datos">5.2. Restaurar la base de datos</a></li>
+<li><a href="#53-regenerar-el-indice-de-busquedas">5.3. Regenerar el índice de búsquedas</a></li>
 </ul>
 </li>
 </ul>
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-<h2 id="1-requisitos">1) Requisitos</h2>
+<h2 id="1-requisitos">1. Requisitos</h2>
 <p>Se requiere tener instalado:</p>
 <ul>
 <li><a href="https://stedolan.github.io/jq/download/">jq</a> &gt;= 1.5</li>
@@ -721,7 +765,7 @@ versión 2.0 de andino.</p>
 <li><code>solr-ckan</code></li>
 </ul>
 <p>Además, se debe conocer los <code>usuarios</code> y <code>passwords</code> de la base de datos (tanto de la usada por <code>ckan</code> como por el <code>datastore</code>).</p>
-<h2 id="2-script-de-migracion-automatico">2) Script de migración automático.</h2>
+<h2 id="2-script-de-migracion-automatico">2. Script de migración automático.</h2>
 <p>El repositorio cuenta con un script para correr la migración automáticamente. (el mismo se puede encontrar en 
 <a href="https://github.com/datosgobar/portal-andino/blob/master/install/migrate.sh"><code>install/migrate.sh</code></a>, dentro del repositorio).
 Ciertas variables de entorno y tener instalado <code>docker</code> y <code>docker-compose</code>.
@@ -737,7 +781,7 @@ sudo -E ./migrate.sh
 </pre></div>
 
 
-<h2 id="3-migracion-manual">3) Migración manual</h2>
+<h2 id="3-migracion-manual">3. Migración manual</h2>
 <p>Para realizar la migración manual, debemos conocer las variables con las que se inicializó el portal.
 En este caso, serán las siguientes:</p>
 <div class="codehilite"><pre><span></span>export EMAIL=admin@example.com
@@ -749,7 +793,7 @@ export STORE_PASS=dspass
 </pre></div>
 
 
-<h3 id="31-backup-de-la-base-de-datos">3.1) Backup de la base de datos</h3>
+<h3 id="31-backup-de-la-base-de-datos">3.1. Backup de la base de datos</h3>
 <p>Es necesario hacer un backup de la base de datos antes de empezar con la migración. La misma puede llevarse a cabo 
 con el siguiente script:</p>
 <div class="codehilite"><pre><span></span><span class="ch">#!/usr/bin/env bash</span>
@@ -774,7 +818,7 @@ cp <span class="s2">&quot;</span><span class="nv">$backupfile</span><span class=
 
 
 <p>Este script dejará un archivo <code>backup.gz</code> en el directorio actual.</p>
-<h3 id="32-backup-de-los-archivos-de-la-aplicacion">3.2) Backup de los archivos de la aplicación</h3>
+<h3 id="32-backup-de-los-archivos-de-la-aplicacion">3.2. Backup de los archivos de la aplicación</h3>
 <p>Es necesario hacer un backup de los archivos de la aplicación: configuración y archivos subidos. 
 El mismo puede llevarse a cabo con el siguiente script:</p>
 <p><strong>Nota:</strong> Requiere <a href="https://stedolan.github.io/jq/">jq</a> &gt;= 1.5</p>
@@ -828,18 +872,18 @@ El mismo, una vez descomprimido, contendrá la siguiente estructura (por ejemplo
 
 <p>Cada sub-directorio contiene el ID del volumen en docker usado; los números varian de volumen en volumen. 
 Dentro de cada sub-directorio se encuentra un archivo <em>.tar.gz junto con un archivo destination.txt. 
-</em> El archivo destination.txt indica dónde corresponde la información dentro del container.
-<em> El archivo </em>.tar.gz contiene una carpeta _data con los archivos.</p>
-<h2 id="4-instalacion">4) Instalación</h2>
-<h3 id="41-detener-la-aplicacion">4.1) Detener la aplicación</h3>
+* El archivo destination.txt indica dónde corresponde la información dentro del container.
+* El archivo </em>.tar.gz contiene una carpeta _data con los archivos.</p>
+<h2 id="4-instalacion">4. Instalación</h2>
+<h3 id="41-detener-la-aplicacion">4.1. Detener la aplicación</h3>
 <p>Debemos detener la aplicación para lograr que se liberen los puertos usados. Por ejemplo, el puerto 80.</p>
 <p>docker stop solr-ckan pg-ckan app-ckan</p>
-<h3 id="42-instalar-la-aplicacion">4.2) Instalar la aplicación</h3>
+<h3 id="42-instalar-la-aplicacion">4.2. Instalar la aplicación</h3>
 <p>Ver la documentación <a href="../install/">Aquí</a></p>
 <p><strong>Nota:</strong> Actualizar la versión de docker y docker-compose de ser necesario.</p>
 <p>Ahora, es necesario restaurar tanto la base de datos como los archivos de la aplicación.</p>
-<h1 id="5-restores">5) Restores</h1>
-<h3 id="51-restaurar-los-archivos">5.1) Restaurar los archivos</h3>
+<h1 id="5-restores">5. Restores</h1>
+<h3 id="51-restaurar-los-archivos">5.1. Restaurar los archivos</h3>
 <p>Descomprimir el archivo <code>backup.tar.gz</code>. En cada subdirectorio encontraremos el archivo destination.txt; 
 el contenido de este archivo nos ayudará a saber donde debemos copiar los archivos. 
 Con el siguiete comando, podremos saber qué volúmenes hay montados en el nuevo esquema y dónde debemos copiar 
@@ -872,9 +916,7 @@ los archivos dentro del <code>backup_*.tar.gz</code></p>
 </pre></div>
 
 
-<p>Como podemos ver, hay una entrada "Destination" que coincidirá con el contenido del archivo destination.txt en 
-cada directorio. Debemos asegurarnos de no copiar el archivo production.ini, ya que el mismo cambio bastante 
-de versión en versión.</p>
+<p>Como podemos ver, hay una entrada "Destination" que coincidirá con el contenido del archivo destination.txt en cada directorio. Debemos asegurarnos de no copiar el archivo production.ini, ya que el mismo cambio bastante de versión en versión.</p>
 <p>El restore puede ser llevado a cabo con el siguiente script:</p>
 <div class="codehilite"><pre><span></span><span class="ch">#!/usr/bin/env bash</span>
 <span class="nb">set</span> -e<span class="p">;</span>
@@ -913,7 +955,7 @@ docker-compose -f latest.yml restart<span class="p">;</span>
 </pre></div>
 
 
-<h3 id="52-restaurar-la-base-de-datos">5.2) Restaurar la base de datos</h3>
+<h3 id="52-restaurar-la-base-de-datos">5.2. Restaurar la base de datos</h3>
 <p>Para restaurar la base de datos, se puede usar el siguiente script contra el archivo previamente generado (backup.gz):</p>
 <div class="codehilite"><pre><span></span><span class="ch">#!/usr/bin/env bash</span>
 <span class="nb">set</span> -e<span class="p">;</span>
@@ -956,7 +998,7 @@ docker-compose -f latest.yml restart<span class="p">;</span>
 </pre></div>
 
 
-<h3 id="53-regenerar-el-indice-de-busquedas">5.3) Regenerar el índice de búsquedas</h3>
+<h3 id="53-regenerar-el-indice-de-busquedas">5.3. Regenerar el índice de búsquedas</h3>
 <p>Para regenerar el índice de búsquedas, debemos ir al directorio donde se instaló la aplicación y correr el siguiente comando:</p>
 <div class="codehilite"><pre><span></span>docker-compose -f latest.yml exec portal /etc/ckan_init.d/run_rebuild_search.sh
 </pre></div>
@@ -1023,15 +1065,13 @@ docker-compose -f latest.yml restart<span class="p">;</span>
           Material for MkDocs</a>
       </div>
       
-        
-      
     </div>
   </div>
 </footer>
       
     </div>
     
-      <script src="../../assets/javascripts/application.9e1f3b71.js"></script>
+      <script src="../../assets/javascripts/application.dc02f8ce.js"></script>
       
         
         
@@ -1048,12 +1088,7 @@ docker-compose -f latest.yml restart<span class="p">;</span>
           
         
       
-      <script>app.initialize({version:"1.0",url:{base:"../.."}})</script>
-      
-    
-    
-      
-        <script>!function(e,a,t,n,o,c,i){e.GoogleAnalyticsObject=o,e.ga=e.ga||function(){(e.ga.q=e.ga.q||[]).push(arguments)},e.ga.l=1*new Date,c=a.createElement(t),i=a.getElementsByTagName(t)[0],c.async=1,c.src="https://www.google-analytics.com/analytics.js",i.parentNode.insertBefore(c,i)}(window,document,"script",0,"ga"),ga("create","UA-91435482-1","https://portal-andino.readthedocs.io/"),ga("set","anonymizeIp",!0),ga("send","pageview");var links=document.getElementsByTagName("a");if(Array.prototype.map.call(links,function(a){a.host!=document.location.host&&a.addEventListener("click",function(){var e=a.getAttribute("data-md-action")||"follow";ga("send","event","outbound",e,a.href)})}),document.forms.search){var query=document.forms.search.query;query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}</script>
+      <script>app.initialize({version:"1.0.4",url:{base:"../.."}})</script>
       
     
   </body>

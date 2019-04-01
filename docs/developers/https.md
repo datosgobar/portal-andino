@@ -1,19 +1,19 @@
+# Configuración HTTPS
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 ## Indice
 
-- [Configuración HTTPS](#configuracion-https)
-  - [Certificado SSL](#certificado-ssl)
-  - [Configuración de SSL](#configuracion-de-ssl)
+- [Certificado SSL](#certificado-ssl)
+- [Configuración de SSL](#configuracion-de-ssl)
     - [Modificar el puerto](#modificar-el-puerto)
     - [Realizar cambios en un Andino instalado](#realizar-cambios-en-un-andino-instalado)
-  - [Probar la configuración](#probar-la-configuracion)
-  - [Renovar certificados SSL](#renovar-certificados-ssl)
-  - [Deshabilitar SSL](#deshabilitar-ssl)
+- [Probar la configuración](#probar-la-configuracion)
+- [Renovar certificados SSL](#renovar-certificados-ssl)
+- [Deshabilitar SSL](#deshabilitar-ssl)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-# Configuración HTTPS
 
 ## Certificado SSL
 

@@ -1,15 +1,3 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-## Indice
-
-- [Instalación](#instalacion)
-  - [Dependencias](#dependencias)
-  - [Instalación simplificada de andino](#instalacion-simplificada-de-andino)
-  - [Instalación avanzada de andino](#instalacion-avanzada-de-andino)
-  - [Desinstalar andino](#desinstalar-andino)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
 # Instalación
 
 Teniendo en cuenta la dificultad de implementación e incluso la cantidad de pasos para lograr un deploy existoso, 
@@ -20,6 +8,17 @@ usar la instalación **[simplificada  de Andino](#instalacion-simplificada-de-an
 Está pensada para que, en la menor cantidad de pasos y de manera sencilla, tengas un portal de datos funcionando. 
 - Si ya conocés la plataforma, tenés experiencia con Docker o, simplemente, querés entender cómo funciona 
 esta implementación, te sugiero que revises la **[instalacion avanzada de Andino](#instalacion-avanzada-de-andino)**
+
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+## Indice
+
+- [Dependencias](#dependencias)
+- [Instalación simplificada de andino](#instalacion-simplificada-de-andino)
+- [Instalación avanzada de andino](#instalacion-avanzada-de-andino)
+- [Desinstalar andino](#desinstalar-andino)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## Dependencias
 

@@ -1,9 +1,10 @@
+# Actualización
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 ## Indice
 
-- [Actualización](#actualizacion)
-  - [Versiones 2.x](#versiones-2x)
+- [Versiones 2.x](#versiones-2x)
     - [Actualización simple](#actualizacion-simple)
     - [Actualización avanzada](#actualizacion-avanzada)
     - [Andino con plugins ad-hoc](#andino-con-plugins-ad-hoc)
@@ -12,11 +13,9 @@
     - [Versiones 2.5.0 y 2.5.1](#versiones-250-y-251)
     - [Versiones entre 2.4.0 y 2.5.3](#versiones-entre-240-y-253)
     - [Versiones 2.4.x a 2.5.x](#versiones-24x-a-25x)
-  - [Versiones 1.x a 2.x](#versiones-1x-a-2x)
+- [Versiones 1.x a 2.x](#versiones-1x-a-2x)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
-# Actualización
 
 ## Versiones 2.x
 

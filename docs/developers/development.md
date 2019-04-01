@@ -1,17 +1,18 @@
+# Desarrollo
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 ## Indice
 
-- [Desarrollo](#desarrollo)
-  - [Instalar un nuevo requerimiento en la imagen base](#instalar-un-nuevo-requerimiento-en-la-imagen-base)
+- [Instalar un nuevo requerimiento en la imagen base](#instalar-un-nuevo-requerimiento-en-la-imagen-base)
     - [Instalar nuevo requerimiento](#instalar-nuevo-requerimiento)
     - [Configuración](#configuracion)
     - [Configuración propia](#configuracion-propia)
     - [Inicio automático](#inicio-automatico)
     - [Generación del nuevo contenedor](#generacion-del-nuevo-contenedor)
-  - [Probar modificaciones y nuevas funcionalidades](#probar-modificaciones-y-nuevas-funcionalidades)
+- [Probar modificaciones y nuevas funcionalidades](#probar-modificaciones-y-nuevas-funcionalidades)
     - [Instalando Andino](#instalando-andino)
-    - [Actualizando Andino](#actualizando-theme)
+    - [Actualizando Andino](#actualizando-andino)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -26,7 +27,6 @@
       - [Instalando Andino](#instalando-andino)
       - [Actualizando Andino](#actualizando-theme)
 
-# Desarrollo
 
 ## Instalar un nuevo requerimiento en la imagen base
 

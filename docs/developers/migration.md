@@ -1,45 +1,43 @@
 # Migracion
 
-En el presente documento, se pretende explicar cómo llevar a cabo una migración de la versión 1.0 de andino a la 
-versión 2.0 de andino.
+En el presente documento, se pretende explicar cómo llevar a cabo una migración de la versión 1.0 de andino a la versión 2.0 de andino.
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 ## Indice
 
-  - [1) Requisitos](#1-requisitos)
-  - [2) Script de migración automático.](#2-script-de-migracion-automatico)
-  - [3) Migración manual](#3-migracion-manual)
-    - [3.1) Backup de la base de datos](#31-backup-de-la-base-de-datos)
-    - [3.2) Backup de los archivos de la aplicación](#32-backup-de-los-archivos-de-la-aplicacion)
-  - [4) Instalación](#4-instalacion)
-    - [4.1) Detener la aplicación](#41-detener-la-aplicacion)
-    - [4.2) Instalar la aplicación](#42-instalar-la-aplicacion)
-- [5) Restores](#5-restores)
-    - [5.1) Restaurar los archivos](#51-restaurar-los-archivos)
-    - [5.2) Restaurar la base de datos](#52-restaurar-la-base-de-datos)
-    - [5.3) Regenerar el índice de búsquedas](#53-regenerar-el-indice-de-busquedas)
+- [1. Requisitos](#1-requisitos)
+- [2. Script de migración automático.](#2-script-de-migracion-automatico)
+- [3. Migración manual](#3-migracion-manual)
+    - [3.1. Backup de la base de datos](#31-backup-de-la-base-de-datos)
+    - [3.2. Backup de los archivos de la aplicación](#32-backup-de-los-archivos-de-la-aplicacion)
+- [4. Instalación](#4-instalacion)
+    - [4.1. Detener la aplicación](#41-detener-la-aplicacion)
+    - [4.2. Instalar la aplicación](#42-instalar-la-aplicacion)
+- [5. Restores](#5-restores)
+    - [5.1. Restaurar los archivos](#51-restaurar-los-archivos)
+    - [5.2. Restaurar la base de datos](#52-restaurar-la-base-de-datos)
+    - [5.3. Regenerar el índice de búsquedas](#53-regenerar-el-indice-de-busquedas)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-## 1) Requisitos
+## 1. Requisitos
 
 Se requiere tener instalado:
 
-- [jq](https://stedolan.github.io/jq/download/) >= 1.5
-- docker
-- docker-compose
-
+* [jq](https://stedolan.github.io/jq/download/) >= 1.5
+* docker
+* docker-compose
 
 Se asume que, en el servidor, hay 3 containers de docker corriendo:
 
-- `app-ckan`
-- `pg-ckan`
-- `solr-ckan`
+* `app-ckan`
+* `pg-ckan`
+* `solr-ckan`
 
 Además, se debe conocer los `usuarios` y `passwords` de la base de datos (tanto de la usada por `ckan` como por el `datastore`).
 
-## 2) Script de migración automático.
+## 2. Script de migración automático.
 
 El repositorio cuenta con un script para correr la migración automáticamente. (el mismo se puede encontrar en 
 [`install/migrate.sh`](https://github.com/datosgobar/portal-andino/blob/master/install/migrate.sh), dentro del repositorio).
@@ -56,8 +54,7 @@ Ejemplo:
     export STORE_PASS=dspass
     sudo -E ./migrate.sh
 
-
-## 3) Migración manual
+## 3. Migración manual
 
 Para realizar la migración manual, debemos conocer las variables con las que se inicializó el portal.
 En este caso, serán las siguientes:
@@ -69,7 +66,7 @@ En este caso, serán las siguientes:
     export STORE_USER=dsuser
     export STORE_PASS=dspass
 
-### 3.1) Backup de la base de datos
+### 3.1. Backup de la base de datos
 
 Es necesario hacer un backup de la base de datos antes de empezar con la migración. La misma puede llevarse a cabo 
 con el siguiente script:
@@ -97,7 +94,7 @@ echo "Backup listo."
 
 Este script dejará un archivo `backup.gz` en el directorio actual.
 
-### 3.2) Backup de los archivos de la aplicación
+### 3.2. Backup de los archivos de la aplicación
 
 Es necesario hacer un backup de los archivos de la aplicación: configuración y archivos subidos. 
 El mismo puede llevarse a cabo con el siguiente script:
@@ -157,15 +154,15 @@ Dentro de cada sub-directorio se encuentra un archivo *.tar.gz junto con un arch
 * El archivo destination.txt indica dónde corresponde la información dentro del container.
 * El archivo *.tar.gz contiene una carpeta _data con los archivos.
 
-## 4) Instalación
+## 4. Instalación
 
-### 4.1) Detener la aplicación
+### 4.1. Detener la aplicación
 
 Debemos detener la aplicación para lograr que se liberen los puertos usados. Por ejemplo, el puerto 80.
 
 docker stop solr-ckan pg-ckan app-ckan
 
-### 4.2) Instalar la aplicación
+### 4.2. Instalar la aplicación
 
 Ver la documentación [Aquí](install.md)
 
@@ -173,9 +170,9 @@ Ver la documentación [Aquí](install.md)
 
 Ahora, es necesario restaurar tanto la base de datos como los archivos de la aplicación.
 
-# 5) Restores
+# 5. Restores
 
-### 5.1) Restaurar los archivos
+### 5.1. Restaurar los archivos
 
 Descomprimir el archivo `backup.tar.gz`. En cada subdirectorio encontraremos el archivo destination.txt; 
 el contenido de este archivo nos ayudará a saber donde debemos copiar los archivos. 
@@ -210,9 +207,7 @@ El comando mostrará, por ejemplo, lo siquiente:
 
     ...
 
-Como podemos ver, hay una entrada "Destination" que coincidirá con el contenido del archivo destination.txt en 
-cada directorio. Debemos asegurarnos de no copiar el archivo production.ini, ya que el mismo cambio bastante 
-de versión en versión.
+Como podemos ver, hay una entrada "Destination" que coincidirá con el contenido del archivo destination.txt en cada directorio. Debemos asegurarnos de no copiar el archivo production.ini, ya que el mismo cambio bastante de versión en versión.
 
 El restore puede ser llevado a cabo con el siguiente script:
 
@@ -254,7 +249,7 @@ cd -;
 ```
 
 
-### 5.2) Restaurar la base de datos
+### 5.2. Restaurar la base de datos
 
 Para restaurar la base de datos, se puede usar el siguiente script contra el archivo previamente generado (backup.gz):
 
@@ -299,8 +294,7 @@ docker-compose -f latest.yml restart;
 cd -;
 ```
 
-
-### 5.3) Regenerar el índice de búsquedas
+### 5.3. Regenerar el índice de búsquedas
 
 Para regenerar el índice de búsquedas, debemos ir al directorio donde se instaló la aplicación y correr el siguiente comando:
 

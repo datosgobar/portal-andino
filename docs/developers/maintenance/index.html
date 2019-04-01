@@ -2,7 +2,7 @@
 
 
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es" class="no-js">
   <head>
     
@@ -12,6 +12,8 @@
       
         <meta name="description" content="Documentación de Portal Andino, la distribución de CKAN desarrollada por la República Argentina dockerizada, fácil de instalar y compatible con el Perfil Nacional de Metadatos de la Política de Apertura de Datos.">
       
+      
+        <link rel="canonical" href="https://datosgobar.github.io/portal-andino/developers/maintenance/">
       
       
         <meta name="author" content="Datos Argentina">
@@ -36,7 +38,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.0, mkdocs-material-3.1.0">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.1.1">
     
     
       
@@ -45,7 +47,7 @@
     
     
 	
-      <link rel="stylesheet" href="../../assets/stylesheets/application.11e41852.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/application.3020aac5.css">
       
       
     
@@ -53,7 +55,7 @@
 
     
     
-      <script src="../../assets/javascripts/modernizr.20ef595d.js"></script>
+      <script src="../../assets/javascripts/modernizr.01ccdecf.js"></script>
     
     <script src="../../js/extra.js"></script>
 
@@ -68,6 +70,34 @@
     
     
       <link rel="stylesheet" href="../../css/extra_rtd.css">
+    
+    
+      
+        
+<script>
+  window.ga = window.ga || function() {
+    (ga.q = ga.q || []).push(arguments)
+  }
+  ga.l = +new Date
+  /* Setup integration and send page view */
+  ga("create", "UA-91435482-1", "https://portal-andino.readthedocs.io/")
+  ga("set", "anonymizeIp", true)
+  ga("send", "pageview")
+  /* Register handler to log search on blur */
+  document.addEventListener("DOMContentLoaded", () => {
+    if (document.forms.search) {
+      var query = document.forms.search.query
+      query.addEventListener("blur", function() {
+        if (this.value) {
+          var path = document.location.pathname;
+          ga("send", "pageview", path + "?q=" + this.value)
+        }
+      })
+    }
+  })
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+      
     
     
   </head>
@@ -103,7 +133,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#indice" tabindex="1" class="md-skip">
+      <a href="#mantenimiento" tabindex="1" class="md-skip">
         Saltar a contenido
       </a>
     
@@ -112,7 +142,7 @@
   <nav class="md-header-nav md-grid">
     <div class="md-flex">
       <div class="md-flex__cell md-flex__cell--shrink">
-        <a href="../.." title="Portal Andino" class="md-header-nav__button md-logo">
+        <a href="https://datosgobar.github.io/portal-andino" title="Portal Andino" class="md-header-nav__button md-logo">
           
             <img src="../../images/logo.svg" width="24" height="24">
           
@@ -124,22 +154,19 @@
       <div class="md-flex__cell md-flex__cell--stretch">
         <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
           
-            
-              <span class="md-header-nav__topic">
-                Portal Andino
-              </span>
-              <span class="md-header-nav__topic">
-                Mantenimiento
-              </span>
-            
+            <span class="md-header-nav__topic">
+              Portal Andino
+            </span>
+            <span class="md-header-nav__topic">
+              Mantenimiento
+            </span>
           
         </div>
       </div>
       <div class="md-flex__cell md-flex__cell--shrink">
         
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
           
-            <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
-            
 <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
@@ -162,7 +189,6 @@
     </div>
   </div>
 </div>
-          
         
       </div>
       
@@ -173,20 +199,18 @@
 
   
 
-
-  <a href="https://github.com/datosgobar/portal-andino/" title="Ir al repositorio" class="md-source" data-md-source="github">
-    
-      <div class="md-source__icon">
-        <svg viewBox="0 0 24 24" width="24" height="24">
-          <use xlink:href="#__github" width="24" height="24"></use>
-        </svg>
-      </div>
-    
-    <div class="md-source__repository">
-      GitHub
+<a href="https://github.com/datosgobar/portal-andino/" title="Ir al repositorio" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
     </div>
-  </a>
-
+  
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
           </div>
         </div>
       
@@ -233,7 +257,7 @@
 
         <!-- Site title -->
         <label class="md-nav__title md-nav__title--site" for="__drawer">
-          <a href="../.."
+          <a href="https://datosgobar.github.io/portal-andino"
               title="Portal Andino" class="md-nav__button md-logo">
             
               <img src="../../images/logo.svg" width="48" height="48" />
@@ -250,20 +274,18 @@
 
   
 
-
-  <a href="https://github.com/datosgobar/portal-andino/" title="Ir al repositorio" class="md-source" data-md-source="github">
-    
-      <div class="md-source__icon">
-        <svg viewBox="0 0 24 24" width="24" height="24">
-          <use xlink:href="#__github" width="24" height="24"></use>
-        </svg>
-      </div>
-    
-    <div class="md-source__repository">
-      GitHub
+<a href="https://github.com/datosgobar/portal-andino/" title="Ir al repositorio" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
     </div>
-  </a>
-
+  
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
           </div>
         
       
@@ -288,23 +310,46 @@
             
 
 
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      Usuarios
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        Usuarios
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
   <li class="md-nav__item">
-    <a href="../../quickstart/" title="Comienzo rápido" class="md-nav__link">
-      Comienzo rápido
+    <a href="../../quickstart/" title="Comenzar a usar Andino" class="md-nav__link">
+      Comenzar a usar Andino
     </a>
   </li>
 
-            <hr/>
+        
           
-            
-            
-            
+          
+          
 
 
   <li class="md-nav__item">
-    <a href="../../usage/" title="Manual de uso" class="md-nav__link">
-      Manual de uso
+    <a href="../../time-series/" title="Publicar series de tiempo" class="md-nav__link">
+      Publicar series de tiempo
     </a>
+  </li>
+
+        
+      </ul>
+    </nav>
   </li>
 
             <hr/>
@@ -318,14 +363,14 @@
 
   <li class="md-nav__item md-nav__item--active md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" checked>
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
     
-    <label class="md-nav__link" for="nav-4">
-      Desarrollo
+    <label class="md-nav__link" for="nav-3">
+      Desarrolladores
     </label>
     <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
-      <label class="md-nav__title" for="nav-4">
-        Desarrollo
+      <label class="md-nav__title" for="nav-3">
+        Desarrolladores
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
         
@@ -392,9 +437,463 @@
       
     
     
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Mantenimiento
+      </label>
+    
     <a href="./" title="Mantenimiento" class="md-nav__link md-nav__link--active">
       Mantenimiento
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Contenidos de la sección</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#indice" title="Indice" class="md-nav__link">
+    Indice
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exploracion-de-la-instancia-de-andino" title="Exploración de la instancia de andino" class="md-nav__link">
+    Exploración de la instancia de andino
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#que-esta-corriendo-docker" title="¿Qué está corriendo docker?" class="md-nav__link">
+    ¿Qué está corriendo docker?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#utilizacion-del-archivo-latestyml-en-los-comandos-de-docker-compose" title="Utilización del archivo latest.yml en los comandos de docker-compose" class="md-nav__link">
+    Utilización del archivo latest.yml en los comandos de docker-compose
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ingresar-al-contendor-principal-de-andino" title="Ingresar al contendor principal de andino" class="md-nav__link">
+    Ingresar al contendor principal de andino
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#listar-todas-las-propiedades-de-cada-contenedor" title="Listar todas las Propiedades de cada contenedor" class="md-nav__link">
+    Listar todas las Propiedades de cada contenedor
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#administracion-de-usuarios" title="Administración de usuarios" class="md-nav__link">
+    Administración de usuarios
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#crear-un-usuario-admin" title="Crear un usuario ADMIN" class="md-nav__link">
+    Crear un usuario ADMIN
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#listar-mis-usuarios" title="Listar mis usuarios" class="md-nav__link">
+    Listar mis usuarios
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ver-los-datos-de-un-usuario" title="Ver los datos de un usuario" class="md-nav__link">
+    Ver los datos de un usuario
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#crear-un-nuevo-usuario" title="Crear un nuevo usuario" class="md-nav__link">
+    Crear un nuevo usuario
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#crear-un-nuevo-usuario-extendido" title="Crear un nuevo usuario extendido" class="md-nav__link">
+    Crear un nuevo usuario extendido
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#eliminar-un-usuario" title="Eliminar un usuario" class="md-nav__link">
+    Eliminar un usuario
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cambiar-password-de-un-usuario" title="Cambiar password de un usuario" class="md-nav__link">
+    Cambiar password de un usuario
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usuario-administrador-de-ckan" title="Usuario administrador de CKAN" class="md-nav__link">
+    Usuario administrador de CKAN
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuraciones-de-andino" title="Configuraciones de andino" class="md-nav__link">
+    Configuraciones de andino
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#modificar-el-archivo-de-configuracion" title="Modificar el archivo de configuración" class="md-nav__link">
+    Modificar el archivo de configuración
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cambiar-la-configuracion-del-smtp" title="Cambiar la configuración del SMTP" class="md-nav__link">
+    Cambiar la configuración del SMTP
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cambiar-el-remitente-de-los-correos-electronicos-que-envia-andino" title="Cambiar el remitente de los correos electrónicos que envía Andino" class="md-nav__link">
+    Cambiar el remitente de los correos electrónicos que envía Andino
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cambiar-el-id-del-container-de-google-tag-manager" title="Cambiar el id del container de Google Tag Manager" class="md-nav__link">
+    Cambiar el id del container de Google Tag Manager
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#google-tag-manager" title="Google Tag Manager" class="md-nav__link">
+    Google Tag Manager
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cambiar-el-id-del-tag-de-google-analytics" title="Cambiar el id del tag de Google Analytics" class="md-nav__link">
+    Cambiar el id del tag de Google Analytics
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#indexar-datasets-con-google-dataset-search" title="Indexar datasets con Google Dataset Search" class="md-nav__link">
+    Indexar datasets con Google Dataset Search
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deshabilitar-la-url-catalogxlsx" title="Deshabilitar la URL /catalog.xlsx" class="md-nav__link">
+    Deshabilitar la URL /catalog.xlsx
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuracion-de-la-llamada-de-invalidacion-de-cache" title="Configuración de la llamada de invalidación de caché" class="md-nav__link">
+    Configuración de la llamada de invalidación de caché
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cache-externa" title="Caché externa" class="md-nav__link">
+    Caché externa
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#especificar-las-licencias-a-utilizar" title="Especificar las licencias a utilizar" class="md-nav__link">
+    Especificar las licencias a utilizar
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuracion-de-cors" title="Configuración de CORS" class="md-nav__link">
+    Configuración de CORS
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuracion-del-explorador-de-series-de-tiempo" title="Configuración del explorador de series de tiempo" class="md-nav__link">
+    Configuración del explorador de series de tiempo
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#acceso-a-los-datos-de-andino" title="Acceso a los datos de andino" class="md-nav__link">
+    Acceso a los datos de andino
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#encontrar-los-volumenes-de-mi-andino-dentro-del-filesystem-del-host" title="Encontrar los volúmenes de mi andino dentro del filesystem del host" class="md-nav__link">
+    Encontrar los volúmenes de mi andino dentro del filesystem del host
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ver-las-direcciones-ip-de-mis-contenedores" title="Ver las direcciones IP de mis contenedores" class="md-nav__link">
+    Ver las direcciones IP de mis contenedores
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ver-las-variables-de-entorno-que-tienen-mis-contenedores" title="Ver las variables de entorno que tienen mis contenedores" class="md-nav__link">
+    Ver las variables de entorno que tienen mis contenedores
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#acceder-con-un-cliente-de-postgresql-a-las-bases-de-datos" title="Acceder con un cliente de PostgreSQL a las bases de datos" class="md-nav__link">
+    Acceder con un cliente de PostgreSQL a las bases de datos
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#eliminar-objetos-definitivamente" title="Eliminar objetos definitivamente" class="md-nav__link">
+    Eliminar objetos definitivamente
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#purgar-organizaciones-borradas" title="Purgar Organizaciones Borradas" class="md-nav__link">
+    Purgar Organizaciones Borradas
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#purgar-grupos-borrados" title="Purgar Grupos Borrados" class="md-nav__link">
+    Purgar Grupos Borrados
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#purgar-datasets-borrados" title="Purgar Datasets Borrados" class="md-nav__link">
+    Purgar Datasets Borrados
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#listar-nombres-de-los-datasets-contenidos-en-andino" title="Listar nombres de los datasets contenidos en Andino" class="md-nav__link">
+    Listar nombres de los datasets contenidos en Andino
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#backups" title="Backups" class="md-nav__link">
+    Backups
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#backup-de-la-base-de-datos" title="Backup de la base de datos" class="md-nav__link">
+    Backup de la base de datos
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#realizar-un-backup-del-file-system" title="Realizar un backup del file system" class="md-nav__link">
+    Realizar un backup del file system
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#realizar-un-backup-de-la-configuracion" title="Realizar un backup de la configuración" class="md-nav__link">
+    Realizar un backup de la configuración
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comandos-de-datapusher" title="Comandos de DataPusher" class="md-nav__link">
+    Comandos de DataPusher
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#subir-todos-los-recursos-al-datastore" title="Subir todos los recursos al Datastore" class="md-nav__link">
+    Subir todos los recursos al Datastore
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recomendaciones-de-seguridad-y-optimizaciones" title="Recomendaciones de Seguridad y Optimizaciones" class="md-nav__link">
+    Recomendaciones de Seguridad y Optimizaciones
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#https" title="HTTPS" class="md-nav__link">
+    HTTPS
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sistema-y-librerias" title="Sistema y librerías" class="md-nav__link">
+    Sistema y librerías
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#firewall" title="Firewall" class="md-nav__link">
+    Firewall
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ssh" title="SSH" class="md-nav__link">
+    SSH
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optimizacion-de-logging" title="Optimización de logging" class="md-nav__link">
+    Optimización de logging
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configurar-otro-logging-driver" title="Configurar otro logging driver" class="md-nav__link">
+    Configurar otro logging driver
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#eliminar-logs-antiguos-de-docker" title="Eliminar logs antiguos de Docker" class="md-nav__link">
+    Eliminar logs antiguos de Docker
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#eliminar-logs-dentro-de-andino" title="Eliminar logs dentro de Andino" class="md-nav__link">
+    Eliminar logs dentro de Andino
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
     
   </li>
 
@@ -483,6 +982,447 @@
     
   
   
+    <label class="md-nav__title" for="__toc">Contenidos de la sección</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#indice" title="Indice" class="md-nav__link">
+    Indice
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exploracion-de-la-instancia-de-andino" title="Exploración de la instancia de andino" class="md-nav__link">
+    Exploración de la instancia de andino
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#que-esta-corriendo-docker" title="¿Qué está corriendo docker?" class="md-nav__link">
+    ¿Qué está corriendo docker?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#utilizacion-del-archivo-latestyml-en-los-comandos-de-docker-compose" title="Utilización del archivo latest.yml en los comandos de docker-compose" class="md-nav__link">
+    Utilización del archivo latest.yml en los comandos de docker-compose
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ingresar-al-contendor-principal-de-andino" title="Ingresar al contendor principal de andino" class="md-nav__link">
+    Ingresar al contendor principal de andino
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#listar-todas-las-propiedades-de-cada-contenedor" title="Listar todas las Propiedades de cada contenedor" class="md-nav__link">
+    Listar todas las Propiedades de cada contenedor
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#administracion-de-usuarios" title="Administración de usuarios" class="md-nav__link">
+    Administración de usuarios
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#crear-un-usuario-admin" title="Crear un usuario ADMIN" class="md-nav__link">
+    Crear un usuario ADMIN
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#listar-mis-usuarios" title="Listar mis usuarios" class="md-nav__link">
+    Listar mis usuarios
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ver-los-datos-de-un-usuario" title="Ver los datos de un usuario" class="md-nav__link">
+    Ver los datos de un usuario
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#crear-un-nuevo-usuario" title="Crear un nuevo usuario" class="md-nav__link">
+    Crear un nuevo usuario
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#crear-un-nuevo-usuario-extendido" title="Crear un nuevo usuario extendido" class="md-nav__link">
+    Crear un nuevo usuario extendido
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#eliminar-un-usuario" title="Eliminar un usuario" class="md-nav__link">
+    Eliminar un usuario
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cambiar-password-de-un-usuario" title="Cambiar password de un usuario" class="md-nav__link">
+    Cambiar password de un usuario
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usuario-administrador-de-ckan" title="Usuario administrador de CKAN" class="md-nav__link">
+    Usuario administrador de CKAN
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuraciones-de-andino" title="Configuraciones de andino" class="md-nav__link">
+    Configuraciones de andino
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#modificar-el-archivo-de-configuracion" title="Modificar el archivo de configuración" class="md-nav__link">
+    Modificar el archivo de configuración
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cambiar-la-configuracion-del-smtp" title="Cambiar la configuración del SMTP" class="md-nav__link">
+    Cambiar la configuración del SMTP
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cambiar-el-remitente-de-los-correos-electronicos-que-envia-andino" title="Cambiar el remitente de los correos electrónicos que envía Andino" class="md-nav__link">
+    Cambiar el remitente de los correos electrónicos que envía Andino
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cambiar-el-id-del-container-de-google-tag-manager" title="Cambiar el id del container de Google Tag Manager" class="md-nav__link">
+    Cambiar el id del container de Google Tag Manager
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#google-tag-manager" title="Google Tag Manager" class="md-nav__link">
+    Google Tag Manager
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cambiar-el-id-del-tag-de-google-analytics" title="Cambiar el id del tag de Google Analytics" class="md-nav__link">
+    Cambiar el id del tag de Google Analytics
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#indexar-datasets-con-google-dataset-search" title="Indexar datasets con Google Dataset Search" class="md-nav__link">
+    Indexar datasets con Google Dataset Search
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deshabilitar-la-url-catalogxlsx" title="Deshabilitar la URL /catalog.xlsx" class="md-nav__link">
+    Deshabilitar la URL /catalog.xlsx
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuracion-de-la-llamada-de-invalidacion-de-cache" title="Configuración de la llamada de invalidación de caché" class="md-nav__link">
+    Configuración de la llamada de invalidación de caché
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cache-externa" title="Caché externa" class="md-nav__link">
+    Caché externa
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#especificar-las-licencias-a-utilizar" title="Especificar las licencias a utilizar" class="md-nav__link">
+    Especificar las licencias a utilizar
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuracion-de-cors" title="Configuración de CORS" class="md-nav__link">
+    Configuración de CORS
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuracion-del-explorador-de-series-de-tiempo" title="Configuración del explorador de series de tiempo" class="md-nav__link">
+    Configuración del explorador de series de tiempo
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#acceso-a-los-datos-de-andino" title="Acceso a los datos de andino" class="md-nav__link">
+    Acceso a los datos de andino
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#encontrar-los-volumenes-de-mi-andino-dentro-del-filesystem-del-host" title="Encontrar los volúmenes de mi andino dentro del filesystem del host" class="md-nav__link">
+    Encontrar los volúmenes de mi andino dentro del filesystem del host
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ver-las-direcciones-ip-de-mis-contenedores" title="Ver las direcciones IP de mis contenedores" class="md-nav__link">
+    Ver las direcciones IP de mis contenedores
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ver-las-variables-de-entorno-que-tienen-mis-contenedores" title="Ver las variables de entorno que tienen mis contenedores" class="md-nav__link">
+    Ver las variables de entorno que tienen mis contenedores
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#acceder-con-un-cliente-de-postgresql-a-las-bases-de-datos" title="Acceder con un cliente de PostgreSQL a las bases de datos" class="md-nav__link">
+    Acceder con un cliente de PostgreSQL a las bases de datos
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#eliminar-objetos-definitivamente" title="Eliminar objetos definitivamente" class="md-nav__link">
+    Eliminar objetos definitivamente
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#purgar-organizaciones-borradas" title="Purgar Organizaciones Borradas" class="md-nav__link">
+    Purgar Organizaciones Borradas
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#purgar-grupos-borrados" title="Purgar Grupos Borrados" class="md-nav__link">
+    Purgar Grupos Borrados
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#purgar-datasets-borrados" title="Purgar Datasets Borrados" class="md-nav__link">
+    Purgar Datasets Borrados
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#listar-nombres-de-los-datasets-contenidos-en-andino" title="Listar nombres de los datasets contenidos en Andino" class="md-nav__link">
+    Listar nombres de los datasets contenidos en Andino
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#backups" title="Backups" class="md-nav__link">
+    Backups
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#backup-de-la-base-de-datos" title="Backup de la base de datos" class="md-nav__link">
+    Backup de la base de datos
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#realizar-un-backup-del-file-system" title="Realizar un backup del file system" class="md-nav__link">
+    Realizar un backup del file system
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#realizar-un-backup-de-la-configuracion" title="Realizar un backup de la configuración" class="md-nav__link">
+    Realizar un backup de la configuración
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comandos-de-datapusher" title="Comandos de DataPusher" class="md-nav__link">
+    Comandos de DataPusher
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#subir-todos-los-recursos-al-datastore" title="Subir todos los recursos al Datastore" class="md-nav__link">
+    Subir todos los recursos al Datastore
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recomendaciones-de-seguridad-y-optimizaciones" title="Recomendaciones de Seguridad y Optimizaciones" class="md-nav__link">
+    Recomendaciones de Seguridad y Optimizaciones
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#https" title="HTTPS" class="md-nav__link">
+    HTTPS
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sistema-y-librerias" title="Sistema y librerías" class="md-nav__link">
+    Sistema y librerías
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#firewall" title="Firewall" class="md-nav__link">
+    Firewall
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ssh" title="SSH" class="md-nav__link">
+    SSH
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optimizacion-de-logging" title="Optimización de logging" class="md-nav__link">
+    Optimización de logging
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configurar-otro-logging-driver" title="Configurar otro logging driver" class="md-nav__link">
+    Configurar otro logging driver
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#eliminar-logs-antiguos-de-docker" title="Eliminar logs antiguos de Docker" class="md-nav__link">
+    Eliminar logs antiguos de Docker
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#eliminar-logs-dentro-de-andino" title="Eliminar logs dentro de Andino" class="md-nav__link">
+    Eliminar logs dentro de Andino
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -496,13 +1436,11 @@
                   <a href="https://github.com/datosgobar/portal-andino/edit/master/docs/developers/maintenance.md" title="Editar esta página" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
-                <!-- START doctoc generated TOC please keep comment here to allow auto update -->
-
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-
+                <h1 id="mantenimiento">Mantenimiento</h1>
+<p><!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE --></p>
 <h2 id="indice">Indice</h2>
 <ul>
-<li><a href="#mantenimiento">Mantenimiento</a></li>
 <li><a href="#exploracion-de-la-instancia-de-andino">Exploración de la instancia de andino</a><ul>
 <li><a href="#que-esta-corriendo-docker">¿Qué está corriendo docker?</a></li>
 <li><a href="#utilizacion-del-archivo-latestyml-en-los-comandos-de-docker-compose">Utilización del archivo latest.yml en los comandos de docker-compose</a></li>
@@ -518,6 +1456,7 @@
 <li><a href="#crear-un-nuevo-usuario-extendido">Crear un nuevo usuario extendido</a></li>
 <li><a href="#eliminar-un-usuario">Eliminar un usuario</a></li>
 <li><a href="#cambiar-password-de-un-usuario">Cambiar password de un usuario</a></li>
+<li><a href="#usuario-administrador-de-ckan">Usuario administrador de CKAN</a></li>
 </ul>
 </li>
 <li><a href="#configuraciones-de-andino">Configuraciones de andino</a><ul>
@@ -527,9 +1466,11 @@
 <li><a href="#cambiar-el-id-del-container-de-google-tag-manager">Cambiar el id del container de Google Tag Manager</a></li>
 <li><a href="#google-tag-manager">Google Tag Manager</a></li>
 <li><a href="#cambiar-el-id-del-tag-de-google-analytics">Cambiar el id del tag de Google Analytics</a></li>
+<li><a href="#indexar-datasets-con-google-dataset-search">Indexar datasets con Google Dataset Search</a></li>
 <li><a href="#deshabilitar-la-url-catalogxlsx">Deshabilitar la URL <code>/catalog.xlsx</code></a></li>
 <li><a href="#configuracion-de-la-llamada-de-invalidaci%C3%B3n-de-cache">Configuración de la llamada de invalidación de caché</a></li>
 <li><a href="#cache-externa">Caché externa</a></li>
+<li><a href="#especificar-las-licencias-a-utilizar">Especificar las licencias a utilizar</a></li>
 <li><a href="#configuracion-de-cors">Configuración de CORS</a></li>
 <li><a href="#configuracion-del-explorador-de-series-de-tiempo">Configuración del explorador de series de tiempo</a></li>
 </ul>
@@ -554,6 +1495,10 @@
 <li><a href="#realizar-un-backup-de-la-configuracion">Realizar un backup de la configuración</a></li>
 </ul>
 </li>
+<li><a href="#comandos-de-datapusher">Comandos de DataPusher</a><ul>
+<li><a href="#subir-todos-los-recursos-al-datastore">Subir todos los recursos al Datastore</a></li>
+</ul>
+</li>
 <li><a href="#recomendaciones-de-seguridad-y-optimizaciones">Recomendaciones de Seguridad y Optimizaciones</a><ul>
 <li><a href="#https">HTTPS</a></li>
 <li><a href="#sistema-y-librerias">Sistema y librerías</a></li>
@@ -570,7 +1515,6 @@
 </ul>
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-<h1 id="mantenimiento">Mantenimiento</h1>
 <h2 id="exploracion-de-la-instancia-de-andino">Exploración de la instancia de andino</h2>
 <h3 id="que-esta-corriendo-docker">¿Qué está corriendo docker?</h3>
 <p>Para obtener una lista de lo que está corriendo actualmente Docker, podemos usar el siguiente comando:</p>
@@ -647,6 +1591,11 @@ Para ingresar en una sesión de consola en el contenedor, ejecutar:</p>
 
 
 <p>Ver <a href="#utilizacion-del-archivo-latest.yml-en-los-comandos-de-docker-compose">la sección sobre la utilización del archivo latest.yml en los comandos de docker-compose</a>.</p>
+<h3 id="usuario-administrador-de-ckan">Usuario administrador de CKAN</h3>
+<p>Existe un usuario administrador llamado <em>default</em>, el cual es utilizado por la aplicación para la ejecución de ciertas 
+funciones que corren de fondo (por ejemplo, la actualización de la caché del data.json). Es muy importante que dicho 
+usuario <strong>siempre</strong> esté disponible ya que, en caso de no estarlo, provocaría un funcionamiento incorrecto en el 
+portal; por lo tanto, se recomienda muy fuertemente no intentar eliminarlo ni desactivarlo.</p>
 <h2 id="configuraciones-de-andino">Configuraciones de andino</h2>
 <h3 id="modificar-el-archivo-de-configuracion">Modificar el archivo de configuración</h3>
 <p>El archivo de configuración de andino se llama <code>production.ini</code>, y se lo puede encontrar y modificar 
@@ -718,7 +1667,7 @@ pero modificando el atributo de configuración <code>smtp.mail_from</code>.</p>
 <p><code>ckan.google_tag_manager.gtm_container_id = { id que necesitás guardar }</code></p>
 <h3 id="google-tag-manager">Google Tag Manager</h3>
 <p>Para configurar el código se seguimiento de Google Tag Manager ejecutar el siguiente comando:</p>
-<div class="codehilite"><pre><span></span>docker-compose -f latest.yml exec portal /etc/ckan_init.d/update_conf.sh &quot;ckan.google_tag_manager.gtm_container_id=&amp;lt;tu código de seguimiento GTM&amp;gt;&quot;;
+<div class="codehilite"><pre><span></span>docker-compose -f latest.yml exec portal /etc/ckan_init.d/update_conf.sh &quot;ckan.google_tag_manager.gtm_container_id=&lt;tu código de seguimiento GTM&gt;&quot;;
 
 # Finalmente reiniciamos el contenedor
 docker-compose -f latest.yml restart portal nginx
@@ -738,6 +1687,11 @@ googleanalytics.domain = { un dominio }
 
 
 <p>Lo que se debe modificar es el campo <code>googleanalytics.id</code>.</p>
+<h3 id="indexar-datasets-con-google-dataset-search">Indexar datasets con Google Dataset Search</h3>
+<p>Andino cuenta con la posibilidad de utilizar Google Dataset Search para que éste indexe tus datasets.
+Para el mejor entendimiento de la herramienta, recomendamos que entres a https://search.google.com/search-console/about.</p>
+<p>Por default, esta configuración se encuentra desactivada. Para activarla, podés ir a 
+<em>Configuración</em> -&gt; <em>Configuración avanzada</em> -&gt; <em>Google Dataset Search</em> -&gt; Clickear el checkbox y guardar el cambio.</p>
 <h3 id="deshabilitar-la-url-catalogxlsx">Deshabilitar la URL <code>/catalog.xlsx</code></h3>
 <p>En caso de desear deshabilitar la URL <code>/catalog.xlsx</code>, se puede ejecutar el siguiente comando:</p>
 <div class="codehilite"><pre><span></span>docker-compose -f latest.yml exec portal /etc/ckan_init.d/update_conf.sh &quot;andino.disable_catalog_xlsx_url=True&quot;;
@@ -837,7 +1791,7 @@ Es necesario cambiar la palabre <code>IP_A_ANDINO</code> por la IP donde está a
 <span class="nt">server_tokens</span> <span class="nt">off</span><span class="o">;</span>
 
 <span class="nt">server</span> <span class="p">{</span>
-    <span class="err">client_max_body_size</span> <span class="err">100M</span><span class="p">;</span>
+    <span class="err">client_max_body_size</span> <span class="err">300M</span><span class="p">;</span>
     <span class="err">location</span> <span class="err">/</span> <span class="err">{</span>
         <span class="err">proxy_pass</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">IP_A_ANDINO</span><span class="o">:</span><span class="mi">80</span><span class="o">/</span><span class="p">;</span>
         <span class="err">proxy_set_header</span> <span class="err">X-Forwarded-For</span> <span class="err">$remote_addr</span><span class="p">;</span>
@@ -883,6 +1837,54 @@ Es necesario cambiar la palabre <code>IP_A_ANDINO</code> por la IP donde está a
 </pre></div>
 
 
+<p>Si se está utilizando la configuración SSL, agregar al final del archivo la siguiente sección, reemplazando _[el texto que aparezca entre corchetes (y éstos) por el valor adecuado]:</p>
+<div class="codehilite"><pre><span></span><span class="n">server</span> <span class="p">{</span>
+  <span class="n">client_max_body_size</span> <span class="mi">300</span><span class="n">M</span><span class="p">;</span>
+  <span class="n">listen</span> <span class="mi">443</span> <span class="n">ssl</span> <span class="n">http2</span><span class="p">;</span>
+  <span class="n">listen</span> <span class="p">[</span><span class="o">::</span><span class="p">]</span><span class="o">:</span><span class="mi">443</span> <span class="n">ssl</span> <span class="n">http2</span><span class="p">;</span>
+  <span class="n">server_name</span> <span class="p">[</span><span class="n">Tu</span> <span class="n">nombre</span> <span class="n">de</span> <span class="n">dominio</span><span class="p">];</span>
+
+  <span class="n">ssl_certificate</span> <span class="p">[</span><span class="n">Path</span> <span class="n">al</span> <span class="n">certificado</span><span class="p">];</span>
+  <span class="n">ssl_certificate_key</span> <span class="p">[</span><span class="n">Path</span> <span class="n">a</span> <span class="n">la</span> <span class="n">llave</span> <span class="n">del</span> <span class="n">certificado</span><span class="p">];</span>
+
+  <span class="n">ssl_session_cache</span> <span class="nl">shared</span><span class="p">:</span><span class="nl">SSL</span><span class="p">:</span><span class="mi">50</span><span class="n">m</span><span class="p">;</span>
+  <span class="n">ssl_session_timeout</span> <span class="mi">1</span><span class="n">d</span><span class="p">;</span>
+  <span class="n">ssl_session_tickets</span> <span class="n">off</span><span class="p">;</span>
+
+  <span class="n">ssl_prefer_server_ciphers</span> <span class="n">on</span><span class="p">;</span>
+  <span class="n">ssl_protocols</span> <span class="n">TLSv1</span> <span class="n">TLSv1</span><span class="mf">.1</span> <span class="n">TLSv1</span><span class="mf">.2</span><span class="p">;</span>
+  <span class="n">ssl_ciphers</span> <span class="err">&#39;</span><span class="n">ECDHE</span><span class="o">-</span><span class="n">ECDSA</span><span class="o">-</span><span class="n">CHACHA20</span><span class="o">-</span><span class="nl">POLY1305</span><span class="p">:</span><span class="n">ECDHE</span><span class="o">-</span><span class="n">RSA</span><span class="o">-</span><span class="n">CHACHA20</span><span class="o">-</span><span class="nl">POLY1305</span><span class="p">:</span><span class="n">ECDHE</span><span class="o">-</span><span class="n">ECDSA</span><span class="o">-</span><span class="n">AES128</span><span class="o">-</span><span class="n">GCM</span><span class="o">-</span><span class="nl">SHA256</span><span class="p">:</span><span class="n">ECDHE</span><span class="o">-</span><span class="n">RSA</span><span class="o">-</span><span class="n">AES128</span><span class="o">-</span><span class="n">GCM</span><span class="o">-</span><span class="nl">SHA256</span><span class="p">:</span><span class="n">ECDHE</span><span class="o">-</span><span class="n">ECDSA</span><span class="o">-</span><span class="n">AES256</span><span class="o">-</span><span class="n">GCM</span><span class="o">-</span><span class="nl">SHA384</span><span class="p">:</span><span class="n">ECDHE</span><span class="o">-</span><span class="n">RSA</span><span class="o">-</span><span class="n">AES256</span><span class="o">-</span><span class="n">GCM</span><span class="o">-</span><span class="nl">SHA384</span><span class="p">:</span><span class="n">DHE</span><span class="o">-</span><span class="n">RSA</span><span class="o">-</span><span class="n">AES128</span><span class="o">-</span><span class="n">GCM</span><span class="o">-</span><span class="nl">SHA256</span><span class="p">:</span><span class="n">DHE</span><span class="o">-</span><span class="n">RSA</span><span class="o">-</span><span class="n">AES256</span><span class="o">-</span><span class="n">GCM</span><span class="o">-</span><span class="nl">SHA384</span><span class="p">:</span><span class="n">ECDHE</span><span class="o">-</span><span class="n">ECDSA</span><span class="o">-</span><span class="n">AES128</span><span class="o">-</span><span class="nl">SHA256</span><span class="p">:</span><span class="n">ECDHE</span><span class="o">-</span><span class="n">RSA</span><span class="o">-</span><span class="n">AES128</span><span class="o">-</span><span class="nl">SHA256</span><span class="p">:</span><span class="n">ECDHE</span><span class="o">-</span><span class="n">ECDSA</span><span class="o">-</span><span class="n">AES128</span><span class="o">-</span><span class="nl">SHA</span><span class="p">:</span><span class="n">ECDHE</span><span class="o">-</span><span class="n">RSA</span><span class="o">-</span><span class="n">AES256</span><span class="o">-</span><span class="nl">SHA384</span><span class="p">:</span><span class="n">ECDHE</span><span class="o">-</span><span class="n">RSA</span><span class="o">-</span><span class="n">AES128</span><span class="o">-</span><span class="nl">SHA</span><span class="p">:</span><span class="n">ECDHE</span><span class="o">-</span><span class="n">ECDSA</span><span class="o">-</span><span class="n">AES256</span><span class="o">-</span><span class="nl">SHA384</span><span class="p">:</span><span class="n">ECDHE</span><span class="o">-</span><span class="n">ECDSA</span><span class="o">-</span><span class="n">AES256</span><span class="o">-</span><span class="nl">SHA</span><span class="p">:</span><span class="n">ECDHE</span><span class="o">-</span><span class="n">RSA</span><span class="o">-</span><span class="n">AES256</span><span class="o">-</span><span class="nl">SHA</span><span class="p">:</span><span class="n">DHE</span><span class="o">-</span><span class="n">RSA</span><span class="o">-</span><span class="n">AES128</span><span class="o">-</span><span class="nl">SHA256</span><span class="p">:</span><span class="n">DHE</span><span class="o">-</span><span class="n">RSA</span><span class="o">-</span><span class="n">AES128</span><span class="o">-</span><span class="nl">SHA</span><span class="p">:</span><span class="n">DHE</span><span class="o">-</span><span class="n">RSA</span><span class="o">-</span><span class="n">AES256</span><span class="o">-</span><span class="nl">SHA256</span><span class="p">:</span><span class="n">DHE</span><span class="o">-</span><span class="n">RSA</span><span class="o">-</span><span class="n">AES256</span><span class="o">-</span><span class="nl">SHA</span><span class="p">:</span><span class="n">ECDHE</span><span class="o">-</span><span class="n">ECDSA</span><span class="o">-</span><span class="n">DES</span><span class="o">-</span><span class="n">CBC3</span><span class="o">-</span><span class="nl">SHA</span><span class="p">:</span><span class="n">ECDHE</span><span class="o">-</span><span class="n">RSA</span><span class="o">-</span><span class="n">DES</span><span class="o">-</span><span class="n">CBC3</span><span class="o">-</span><span class="nl">SHA</span><span class="p">:</span><span class="n">EDH</span><span class="o">-</span><span class="n">RSA</span><span class="o">-</span><span class="n">DES</span><span class="o">-</span><span class="n">CBC3</span><span class="o">-</span><span class="nl">SHA</span><span class="p">:</span><span class="n">AES128</span><span class="o">-</span><span class="n">GCM</span><span class="o">-</span><span class="nl">SHA256</span><span class="p">:</span><span class="n">AES256</span><span class="o">-</span><span class="n">GCM</span><span class="o">-</span><span class="nl">SHA384</span><span class="p">:</span><span class="n">AES128</span><span class="o">-</span><span class="nl">SHA256</span><span class="p">:</span><span class="n">AES256</span><span class="o">-</span><span class="nl">SHA256</span><span class="p">:</span><span class="n">AES128</span><span class="o">-</span><span class="nl">SHA</span><span class="p">:</span><span class="n">AES256</span><span class="o">-</span><span class="nl">SHA</span><span class="p">:</span><span class="n">DES</span><span class="o">-</span><span class="n">CBC3</span><span class="o">-</span><span class="nl">SHA</span><span class="p">:</span><span class="o">!</span><span class="n">DSS</span><span class="err">&#39;</span><span class="p">;</span>
+
+  <span class="n">resolver</span> <span class="mf">8.8.8.8</span> <span class="mf">8.8.4.4</span><span class="p">;</span>
+  <span class="n">ssl_stapling</span> <span class="n">on</span><span class="p">;</span>
+  <span class="n">ssl_stapling_verify</span> <span class="n">on</span><span class="p">;</span>
+  <span class="n">ssl_trusted_certificate</span> <span class="p">[</span><span class="n">Path</span> <span class="n">al</span> <span class="n">certificado</span><span class="p">];</span>
+
+  <span class="n">add_header</span> <span class="n">Strict</span><span class="o">-</span><span class="n">Transport</span><span class="o">-</span><span class="n">Security</span> <span class="s">&quot;max-age=31536000; includeSubdomains; preload&quot;</span><span class="p">;</span>
+  <span class="n">add_header</span> <span class="n">X</span><span class="o">-</span><span class="n">Xss</span><span class="o">-</span><span class="n">Protection</span> <span class="s">&quot;1; mode=block&quot;</span> <span class="n">always</span><span class="p">;</span>
+  <span class="n">add_header</span> <span class="n">X</span><span class="o">-</span><span class="n">Content</span><span class="o">-</span><span class="n">Type</span><span class="o">-</span><span class="n">Options</span> <span class="s">&quot;nosniff&quot;</span> <span class="n">always</span><span class="p">;</span>
+  <span class="n">add_header</span> <span class="n">X</span><span class="o">-</span><span class="n">Frame</span><span class="o">-</span><span class="n">Options</span> <span class="s">&quot;SAMEORIGIN&quot;</span> <span class="n">always</span><span class="p">;</span>
+  <span class="n">proxy_ignore_headers</span> <span class="n">Cache</span><span class="o">-</span><span class="n">Control</span><span class="p">;</span>
+
+  <span class="n">location</span> <span class="o">/</span> <span class="p">{</span>
+        <span class="n">proxy_set_header</span> <span class="n">X</span><span class="o">-</span><span class="n">Forwarded</span><span class="o">-</span><span class="n">For</span> <span class="err">$</span><span class="n">proxy_add_x_forwarded_for</span><span class="p">;</span>
+        <span class="n">proxy_set_header</span> <span class="n">Host</span> <span class="err">$</span><span class="n">http_host</span><span class="p">;</span>
+        <span class="n">proxy_set_header</span> <span class="n">X</span><span class="o">-</span><span class="n">Forwarded</span><span class="o">-</span><span class="n">Protocol</span> <span class="n">https</span><span class="p">;</span>
+    <span class="n">proxy_ignore_headers</span> <span class="n">Cache</span><span class="o">-</span><span class="n">Control</span><span class="p">;</span>
+        <span class="n">add_header</span> <span class="n">X</span><span class="o">-</span><span class="n">Xss</span><span class="o">-</span><span class="n">Protection</span> <span class="s">&quot;1; mode=block&quot;</span> <span class="n">always</span><span class="p">;</span>
+    <span class="n">add_header</span> <span class="n">X</span><span class="o">-</span><span class="n">Content</span><span class="o">-</span><span class="n">Type</span><span class="o">-</span><span class="n">Options</span> <span class="s">&quot;nosniff&quot;</span> <span class="n">always</span><span class="p">;</span>
+    <span class="n">add_header</span> <span class="n">X</span><span class="o">-</span><span class="n">Frame</span><span class="o">-</span><span class="n">Options</span> <span class="s">&quot;SAMEORIGIN&quot;</span> <span class="n">always</span><span class="p">;</span>
+        <span class="n">proxy_redirect</span> <span class="n">off</span><span class="p">;</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="o">!-</span><span class="n">f</span> <span class="err">$</span><span class="n">request_filename</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">proxy_pass</span> <span class="nl">https</span><span class="p">:</span><span class="c1">//[Tu URL]:443;</span>
+            <span class="k">break</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
 <p>Finalmente, reiniciamos <strong>openresty</strong>: <code>systemctl restart openresty</code>.</p>
 <p>Ahora que tenemos la caché configurada, necesitamos configurar la llamada, o hook, de invalidación de caché.
 Para esto, entramos al servidor donde está corriendo andino y corremos:</p>
@@ -895,7 +1897,7 @@ docker-compose -f latest.yml restart portal nginx
 
 
 <p>Si queremos probar la integración, podemos entrar al contenedor de andino y probar invalidar la caché:</p>
-<div class="codehilite"><pre><span></span><span class="nt">IP_INTERNA_CACHE</span><span class="o">=&lt;</span><span class="nt">ip</span> <span class="nt">interna</span> <span class="nt">del</span> <span class="nt">servidor</span> <span class="nt">de</span> <span class="nt">cach</span><span class="err">é</span><span class="o">&gt;</span>
+<div class="codehilite"><pre><span></span><span class="nt">IP_INTERNA_CACHE</span><span class="o">=&lt;</span><span class="nt">ip</span> <span class="nt">interna</span> <span class="nt">del</span> <span class="nt">servidor</span> <span class="nt">de</span> <span class="nt">caché</span><span class="o">&gt;</span>
 <span class="nt">cd</span> <span class="o">/</span><span class="nt">etc</span><span class="o">/</span><span class="nt">portal</span>
 <span class="nt">docker-compose</span> <span class="nt">-f</span> <span class="nt">latest</span><span class="p">.</span><span class="nc">yml</span> <span class="nt">exec</span> <span class="nt">portal</span> <span class="nt">curl</span> <span class="nt">-X</span> <span class="nt">PURGE</span> <span class="s2">&quot;http://$IP_INTERNA_CACHE/meta/cache/purge&quot;</span><span class="o">;</span>
 <span class="err">#</span> <span class="o">=&gt;</span>  <span class="nt">OK</span>
@@ -912,6 +1914,15 @@ docker-compose -f latest.yml restart portal nginx
 </pre></div>
 
 
+<h3 id="especificar-las-licencias-a-utilizar">Especificar las licencias a utilizar</h3>
+<p>Existe un JSON que contiene las licencias a utilizar en el portal, y cuyo path es 
+<code>/var/lib/ckan/theme_config/licenses.json</code>. Este archivo está especificado en el campo <em>licenses_group_url</em> del 
+archivo de configuración.</p>
+<p>Es posible cambiarlo para lograr utilizar un archivo distinto; para ello, hay que cambiar el path por el deseado, 
+teniendo en cuenta las siguientes indicaciones:
+* Para utilizar un path de un archivo existente en el container, el mismo debe comenzar con el texto <em>file://</em>, tal y 
+como ocurre con el path utilizado por default.
+* Para utilizar una URL, debe comenzar con <em>http://</em> o <em>https://</em>.</p>
 <h3 id="configuracion-de-cors">Configuración de CORS</h3>
 <p>Cuando es necesario acceder a Andino desde URLs distintas que apuntan a una misma instancia 
 (ej: accediendo a través de un gateway/caché o directamente a la instancia de Andino o usando la IP pública 
@@ -1008,7 +2019,7 @@ backupdir=$(mktemp -d)
 backupfile=&quot;$backupdir/$filename&quot;
 
 # Exporto la base de datos
-docker exec $container pg_dumpall -c -U postgres | gzip &amp;gt; &quot;$backupfile&quot;
+docker exec $container pg_dumpall -c -U postgres | gzip &gt; &quot;$backupfile&quot;
 
 # Copio el archivo al directorio actual y borro el original
 # Podría reemplazar $PWD con mi directorio de backups, como /etc/portal/backups
@@ -1026,7 +2037,7 @@ mv &quot;$backupfile&quot; $PWD
 <span class="x">docker inspect --format &#39;</span><span class="cp">{{</span><span class="nv">json</span> <span class="nv">.Mounts</span><span class="cp">}}</span><span class="x">&#39; $container  | jq -r &#39;.[]|[.Name, .Source, .Destination] | @tsv&#39; |</span>
 <span class="x">while IFS=$&#39;\t&#39; read -r name source destination; do</span>
 
-<span class="x">    if ls $source/* 1&amp;gt; /dev/null 2&amp;gt;&amp;amp;1; then</span>
+<span class="x">    if ls $source/* 1&gt; /dev/null 2&gt;&amp;1; then</span>
 <span class="x">        dest=&quot;$appbackupdir$name&quot;</span>
 <span class="x">        mkdir -p $dest</span>
 
@@ -1045,7 +2056,7 @@ mv &quot;$backupfile&quot; $PWD
 <p>Para correr el script cada domingo, podríamos usar la configuración <code>0 0 * * 0</code> 
 (ver <a href="https://help.ubuntu.com/community/CronHowto">cron</a> para más información), 
 correr el comando <code>crontab -e</code> y agregar la línea:</p>
-<div class="codehilite"><pre><span></span>0 0 * * 0 cd /etc/portal/ &amp;amp;&amp;amp; bash /etc/portal/backup.sh
+<div class="codehilite"><pre><span></span>0 0 * * 0 cd /etc/portal/ &amp;&amp; bash /etc/portal/backup.sh
 </pre></div>
 
 
@@ -1067,6 +2078,15 @@ correr el comando <code>crontab -e</code> y agregar la línea:</p>
 </pre></div>
 
 
+<h2 id="comandos-de-datapusher">Comandos de DataPusher</h2>
+<p>Deben ser corridos en el directorio de instalación de Andino.</p>
+<h3 id="subir-todos-los-recursos-al-datastore">Subir todos los recursos al Datastore</h3>
+<p>Es posible que existan recursos que no hayan sido subidos al Datastore. Para buscar e intentar subir dichos recursos, ejecutar:</p>
+<div class="codehilite"><pre><span></span>docker-compose -f latest.yml exec portal /usr/lib/ckan/default/bin/paster --plugin=ckan datapusher submit_all -c /etc/ckan/default/production.ini
+</pre></div>
+
+
+<p>Se preguntará si se desea proceder. Al escribir que sí (<code>y</code>), iniciar la subida de recursos. Para cada uno de ellos, se escribirá su id y luego el status: si subió correctamente, aparecerá "<em>OK</em>"; en caso contrario, "<em>FAIL</em>".</p>
 <h2 id="recomendaciones-de-seguridad-y-optimizaciones">Recomendaciones de Seguridad y Optimizaciones</h2>
 <p>Mantener seguro un servidor web puede ser una tarea ardua, pero sobre todo es <em>constante</em>, ya que <em>constantemente</em> 
 se detectan nuevas vulnerabilidades en los distintos softwares.
@@ -1183,15 +2203,13 @@ ser necesario eliminarlos.</p>
           Material for MkDocs</a>
       </div>
       
-        
-      
     </div>
   </div>
 </footer>
       
     </div>
     
-      <script src="../../assets/javascripts/application.9e1f3b71.js"></script>
+      <script src="../../assets/javascripts/application.dc02f8ce.js"></script>
       
         
         
@@ -1208,12 +2226,7 @@ ser necesario eliminarlos.</p>
           
         
       
-      <script>app.initialize({version:"1.0",url:{base:"../.."}})</script>
-      
-    
-    
-      
-        <script>!function(e,a,t,n,o,c,i){e.GoogleAnalyticsObject=o,e.ga=e.ga||function(){(e.ga.q=e.ga.q||[]).push(arguments)},e.ga.l=1*new Date,c=a.createElement(t),i=a.getElementsByTagName(t)[0],c.async=1,c.src="https://www.google-analytics.com/analytics.js",i.parentNode.insertBefore(c,i)}(window,document,"script",0,"ga"),ga("create","UA-91435482-1","https://portal-andino.readthedocs.io/"),ga("set","anonymizeIp",!0),ga("send","pageview");var links=document.getElementsByTagName("a");if(Array.prototype.map.call(links,function(a){a.host!=document.location.host&&a.addEventListener("click",function(){var e=a.getAttribute("data-md-action")||"follow";ga("send","event","outbound",e,a.href)})}),document.forms.search){var query=document.forms.search.query;query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}</script>
+      <script>app.initialize({version:"1.0.4",url:{base:"../.."}})</script>
       
     
   </body>

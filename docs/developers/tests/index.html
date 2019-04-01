@@ -2,7 +2,7 @@
 
 
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es" class="no-js">
   <head>
     
@@ -12,6 +12,8 @@
       
         <meta name="description" content="Documentación de Portal Andino, la distribución de CKAN desarrollada por la República Argentina dockerizada, fácil de instalar y compatible con el Perfil Nacional de Metadatos de la Política de Apertura de Datos.">
       
+      
+        <link rel="canonical" href="https://datosgobar.github.io/portal-andino/developers/tests/">
       
       
         <meta name="author" content="Datos Argentina">
@@ -36,7 +38,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.0, mkdocs-material-3.1.0">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.1.1">
     
     
       
@@ -45,7 +47,7 @@
     
     
 	
-      <link rel="stylesheet" href="../../assets/stylesheets/application.11e41852.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/application.3020aac5.css">
       
       
     
@@ -53,7 +55,7 @@
 
     
     
-      <script src="../../assets/javascripts/modernizr.20ef595d.js"></script>
+      <script src="../../assets/javascripts/modernizr.01ccdecf.js"></script>
     
     <script src="../../js/extra.js"></script>
 
@@ -68,6 +70,34 @@
     
     
       <link rel="stylesheet" href="../../css/extra_rtd.css">
+    
+    
+      
+        
+<script>
+  window.ga = window.ga || function() {
+    (ga.q = ga.q || []).push(arguments)
+  }
+  ga.l = +new Date
+  /* Setup integration and send page view */
+  ga("create", "UA-91435482-1", "https://portal-andino.readthedocs.io/")
+  ga("set", "anonymizeIp", true)
+  ga("send", "pageview")
+  /* Register handler to log search on blur */
+  document.addEventListener("DOMContentLoaded", () => {
+    if (document.forms.search) {
+      var query = document.forms.search.query
+      query.addEventListener("blur", function() {
+        if (this.value) {
+          var path = document.location.pathname;
+          ga("send", "pageview", path + "?q=" + this.value)
+        }
+      })
+    }
+  })
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+      
     
     
   </head>
@@ -112,7 +142,7 @@
   <nav class="md-header-nav md-grid">
     <div class="md-flex">
       <div class="md-flex__cell md-flex__cell--shrink">
-        <a href="../.." title="Portal Andino" class="md-header-nav__button md-logo">
+        <a href="https://datosgobar.github.io/portal-andino" title="Portal Andino" class="md-header-nav__button md-logo">
           
             <img src="../../images/logo.svg" width="24" height="24">
           
@@ -124,22 +154,19 @@
       <div class="md-flex__cell md-flex__cell--stretch">
         <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
           
-            
-              <span class="md-header-nav__topic">
-                Portal Andino
-              </span>
-              <span class="md-header-nav__topic">
-                Tests
-              </span>
-            
+            <span class="md-header-nav__topic">
+              Portal Andino
+            </span>
+            <span class="md-header-nav__topic">
+              Tests
+            </span>
           
         </div>
       </div>
       <div class="md-flex__cell md-flex__cell--shrink">
         
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
           
-            <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
-            
 <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
@@ -162,7 +189,6 @@
     </div>
   </div>
 </div>
-          
         
       </div>
       
@@ -173,20 +199,18 @@
 
   
 
-
-  <a href="https://github.com/datosgobar/portal-andino/" title="Ir al repositorio" class="md-source" data-md-source="github">
-    
-      <div class="md-source__icon">
-        <svg viewBox="0 0 24 24" width="24" height="24">
-          <use xlink:href="#__github" width="24" height="24"></use>
-        </svg>
-      </div>
-    
-    <div class="md-source__repository">
-      GitHub
+<a href="https://github.com/datosgobar/portal-andino/" title="Ir al repositorio" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
     </div>
-  </a>
-
+  
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
           </div>
         </div>
       
@@ -233,7 +257,7 @@
 
         <!-- Site title -->
         <label class="md-nav__title md-nav__title--site" for="__drawer">
-          <a href="../.."
+          <a href="https://datosgobar.github.io/portal-andino"
               title="Portal Andino" class="md-nav__button md-logo">
             
               <img src="../../images/logo.svg" width="48" height="48" />
@@ -250,20 +274,18 @@
 
   
 
-
-  <a href="https://github.com/datosgobar/portal-andino/" title="Ir al repositorio" class="md-source" data-md-source="github">
-    
-      <div class="md-source__icon">
-        <svg viewBox="0 0 24 24" width="24" height="24">
-          <use xlink:href="#__github" width="24" height="24"></use>
-        </svg>
-      </div>
-    
-    <div class="md-source__repository">
-      GitHub
+<a href="https://github.com/datosgobar/portal-andino/" title="Ir al repositorio" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
     </div>
-  </a>
-
+  
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
           </div>
         
       
@@ -288,23 +310,46 @@
             
 
 
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      Usuarios
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        Usuarios
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
   <li class="md-nav__item">
-    <a href="../../quickstart/" title="Comienzo rápido" class="md-nav__link">
-      Comienzo rápido
+    <a href="../../quickstart/" title="Comenzar a usar Andino" class="md-nav__link">
+      Comenzar a usar Andino
     </a>
   </li>
 
-            <hr/>
+        
           
-            
-            
-            
+          
+          
 
 
   <li class="md-nav__item">
-    <a href="../../usage/" title="Manual de uso" class="md-nav__link">
-      Manual de uso
+    <a href="../../time-series/" title="Publicar series de tiempo" class="md-nav__link">
+      Publicar series de tiempo
     </a>
+  </li>
+
+        
+      </ul>
+    </nav>
   </li>
 
             <hr/>
@@ -318,14 +363,14 @@
 
   <li class="md-nav__item md-nav__item--active md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" checked>
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
     
-    <label class="md-nav__link" for="nav-4">
-      Desarrollo
+    <label class="md-nav__link" for="nav-3">
+      Desarrolladores
     </label>
     <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
-      <label class="md-nav__title" for="nav-4">
-        Desarrollo
+      <label class="md-nav__title" for="nav-3">
+        Desarrolladores
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
         
@@ -610,6 +655,7 @@
                 
                 
                 <h1 id="tests">Tests</h1>
+<p>Para correr los tests de la aplicación, se deben levantar todos los servicios, y luego inicializar la configuración de test.</p>
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
@@ -617,13 +663,14 @@
 <h2 id="indice">Indice</h2>
 <ul>
 <li><a href="#tests-de-ckan">Tests de Ckan</a></li>
-<li><a href="#probar-la-instalacion-con-ssl-en-vagrant-instalando-nginx">Probar la instalación con SSL en Vagrant (Instalando nginx)</a></li>
+<li><a href="#probar-la-instalacion-con-ssl-en-vagrant-instalando-nginx">Probar la instalación con SSL en Vagrant (Instalando nginx)</a><ul>
 <li><a href="#instalacion-de-andino">Instalación de andino</a></li>
 <li><a href="#instalar-y-configurar-nginx">Instalar y configurar nginx</a></li>
 </ul>
+</li>
+</ul>
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-<p>Para correr los tests de la aplicación, se deben levantar todos los servicios, y luego inicializar la configuración de test.</p>
 <h2 id="tests-de-ckan">Tests de Ckan</h2>
 <div class="codehilite"><pre><span></span>$ docker-compose -f dev.yml up --build -d portal
 $ docker <span class="nb">exec</span> andino bash /etc/ckan_init.d/tests/install_solr4.sh    
@@ -761,15 +808,13 @@ El explorador nos mostrará una advertencia sobre el sitio, ya que no podrá val
           Material for MkDocs</a>
       </div>
       
-        
-      
     </div>
   </div>
 </footer>
       
     </div>
     
-      <script src="../../assets/javascripts/application.9e1f3b71.js"></script>
+      <script src="../../assets/javascripts/application.dc02f8ce.js"></script>
       
         
         
@@ -786,12 +831,7 @@ El explorador nos mostrará una advertencia sobre el sitio, ya que no podrá val
           
         
       
-      <script>app.initialize({version:"1.0",url:{base:"../.."}})</script>
-      
-    
-    
-      
-        <script>!function(e,a,t,n,o,c,i){e.GoogleAnalyticsObject=o,e.ga=e.ga||function(){(e.ga.q=e.ga.q||[]).push(arguments)},e.ga.l=1*new Date,c=a.createElement(t),i=a.getElementsByTagName(t)[0],c.async=1,c.src="https://www.google-analytics.com/analytics.js",i.parentNode.insertBefore(c,i)}(window,document,"script",0,"ga"),ga("create","UA-91435482-1","https://portal-andino.readthedocs.io/"),ga("set","anonymizeIp",!0),ga("send","pageview");var links=document.getElementsByTagName("a");if(Array.prototype.map.call(links,function(a){a.host!=document.location.host&&a.addEventListener("click",function(){var e=a.getAttribute("data-md-action")||"follow";ga("send","event","outbound",e,a.href)})}),document.forms.search){var query=document.forms.search.query;query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}</script>
+      <script>app.initialize({version:"1.0.4",url:{base:"../.."}})</script>
       
     
   </body>

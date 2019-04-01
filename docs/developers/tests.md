@@ -1,17 +1,18 @@
 # Tests
 
+Para correr los tests de la aplicación, se deben levantar todos los servicios, y luego inicializar la configuración de test.
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 ## Indice
 
 - [Tests de Ckan](#tests-de-ckan)
 - [Probar la instalación con SSL en Vagrant (Instalando nginx)](#probar-la-instalacion-con-ssl-en-vagrant-instalando-nginx)
-  - [Instalación de andino](#instalacion-de-andino)
-  - [Instalar y configurar nginx](#instalar-y-configurar-nginx)
+    - [Instalación de andino](#instalacion-de-andino)
+    - [Instalar y configurar nginx](#instalar-y-configurar-nginx)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-Para correr los tests de la aplicación, se deben levantar todos los servicios, y luego inicializar la configuración de test.
 
 ## Tests de Ckan
     $ docker-compose -f dev.yml up --build -d portal

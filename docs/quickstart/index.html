@@ -2,7 +2,7 @@
 
 
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es" class="no-js">
   <head>
     
@@ -12,6 +12,8 @@
       
         <meta name="description" content="Documentación de Portal Andino, la distribución de CKAN desarrollada por la República Argentina dockerizada, fácil de instalar y compatible con el Perfil Nacional de Metadatos de la Política de Apertura de Datos.">
       
+      
+        <link rel="canonical" href="https://datosgobar.github.io/portal-andino/quickstart/">
       
       
         <meta name="author" content="Datos Argentina">
@@ -36,16 +38,16 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.0, mkdocs-material-3.1.0">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.1.1">
     
     
       
-        <title>Comienzo rápido - Portal Andino</title>
+        <title>Comenzar a usar Andino - Portal Andino</title>
       
     
     
 	
-      <link rel="stylesheet" href="../assets/stylesheets/application.11e41852.css">
+      <link rel="stylesheet" href="../assets/stylesheets/application.3020aac5.css">
       
       
     
@@ -53,7 +55,7 @@
 
     
     
-      <script src="../assets/javascripts/modernizr.20ef595d.js"></script>
+      <script src="../assets/javascripts/modernizr.01ccdecf.js"></script>
     
     <script src="../js/extra.js"></script>
 
@@ -68,6 +70,34 @@
     
     
       <link rel="stylesheet" href="../css/extra_rtd.css">
+    
+    
+      
+        
+<script>
+  window.ga = window.ga || function() {
+    (ga.q = ga.q || []).push(arguments)
+  }
+  ga.l = +new Date
+  /* Setup integration and send page view */
+  ga("create", "UA-91435482-1", "https://portal-andino.readthedocs.io/")
+  ga("set", "anonymizeIp", true)
+  ga("send", "pageview")
+  /* Register handler to log search on blur */
+  document.addEventListener("DOMContentLoaded", () => {
+    if (document.forms.search) {
+      var query = document.forms.search.query
+      query.addEventListener("blur", function() {
+        if (this.value) {
+          var path = document.location.pathname;
+          ga("send", "pageview", path + "?q=" + this.value)
+        }
+      })
+    }
+  })
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+      
     
     
   </head>
@@ -103,7 +133,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#comienzo-rapido" tabindex="1" class="md-skip">
+      <a href="#comenzar-a-usar-andino" tabindex="1" class="md-skip">
         Saltar a contenido
       </a>
     
@@ -112,7 +142,7 @@
   <nav class="md-header-nav md-grid">
     <div class="md-flex">
       <div class="md-flex__cell md-flex__cell--shrink">
-        <a href=".." title="Portal Andino" class="md-header-nav__button md-logo">
+        <a href="https://datosgobar.github.io/portal-andino" title="Portal Andino" class="md-header-nav__button md-logo">
           
             <img src="../images/logo.svg" width="24" height="24">
           
@@ -124,22 +154,19 @@
       <div class="md-flex__cell md-flex__cell--stretch">
         <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
           
-            
-              <span class="md-header-nav__topic">
-                Portal Andino
-              </span>
-              <span class="md-header-nav__topic">
-                Comienzo rápido
-              </span>
-            
+            <span class="md-header-nav__topic">
+              Portal Andino
+            </span>
+            <span class="md-header-nav__topic">
+              Comenzar a usar Andino
+            </span>
           
         </div>
       </div>
       <div class="md-flex__cell md-flex__cell--shrink">
         
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
           
-            <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
-            
 <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
@@ -162,7 +189,6 @@
     </div>
   </div>
 </div>
-          
         
       </div>
       
@@ -173,20 +199,18 @@
 
   
 
-
-  <a href="https://github.com/datosgobar/portal-andino/" title="Ir al repositorio" class="md-source" data-md-source="github">
-    
-      <div class="md-source__icon">
-        <svg viewBox="0 0 24 24" width="24" height="24">
-          <use xlink:href="#__github" width="24" height="24"></use>
-        </svg>
-      </div>
-    
-    <div class="md-source__repository">
-      GitHub
+<a href="https://github.com/datosgobar/portal-andino/" title="Ir al repositorio" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
     </div>
-  </a>
-
+  
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
           </div>
         </div>
       
@@ -233,7 +257,7 @@
 
         <!-- Site title -->
         <label class="md-nav__title md-nav__title--site" for="__drawer">
-          <a href=".."
+          <a href="https://datosgobar.github.io/portal-andino"
               title="Portal Andino" class="md-nav__button md-logo">
             
               <img src="../images/logo.svg" width="48" height="48" />
@@ -250,20 +274,18 @@
 
   
 
-
-  <a href="https://github.com/datosgobar/portal-andino/" title="Ir al repositorio" class="md-source" data-md-source="github">
-    
-      <div class="md-source__icon">
-        <svg viewBox="0 0 24 24" width="24" height="24">
-          <use xlink:href="#__github" width="24" height="24"></use>
-        </svg>
-      </div>
-    
-    <div class="md-source__repository">
-      GitHub
+<a href="https://github.com/datosgobar/portal-andino/" title="Ir al repositorio" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
     </div>
-  </a>
-
+  
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
           </div>
         
       
@@ -290,6 +312,27 @@
   
 
 
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" checked>
+    
+    <label class="md-nav__link" for="nav-2">
+      Usuarios
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        Usuarios
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+  
+
+
   <li class="md-nav__item md-nav__item--active">
     
     <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
@@ -298,11 +341,11 @@
     
     
       <label class="md-nav__link md-nav__link--active" for="__toc">
-        Comienzo rápido
+        Comenzar a usar Andino
       </label>
     
-    <a href="./" title="Comienzo rápido" class="md-nav__link md-nav__link--active">
-      Comienzo rápido
+    <a href="./" title="Comenzar a usar Andino" class="md-nav__link md-nav__link--active">
+      Comenzar a usar Andino
     </a>
     
       
@@ -707,17 +750,21 @@
     
   </li>
 
-            <hr/>
+        
           
-            
-            
-            
+          
+          
 
 
   <li class="md-nav__item">
-    <a href="../usage/" title="Manual de uso" class="md-nav__link">
-      Manual de uso
+    <a href="../time-series/" title="Publicar series de tiempo" class="md-nav__link">
+      Publicar series de tiempo
     </a>
+  </li>
+
+        
+      </ul>
+    </nav>
   </li>
 
             <hr/>
@@ -729,14 +776,14 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
     
-    <label class="md-nav__link" for="nav-4">
-      Desarrollo
+    <label class="md-nav__link" for="nav-3">
+      Desarrolladores
     </label>
     <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
-      <label class="md-nav__title" for="nav-4">
-        Desarrollo
+      <label class="md-nav__title" for="nav-3">
+        Desarrolladores
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
         
@@ -1289,7 +1336,7 @@
                   <a href="https://github.com/datosgobar/portal-andino/edit/master/docs/quickstart.md" title="Editar esta página" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
-                <h1 id="comienzo-rapido">Comienzo rápido</h1>
+                <h1 id="comenzar-a-usar-andino">Comenzar a usar Andino</h1>
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
@@ -1299,37 +1346,19 @@
 <li><a href="#primeros-pasos">Primeros pasos</a></li>
 <li><a href="#entrar-y-salir-de-tu-portal">Entrar y salir de tu portal</a></li>
 <li><a href="#permisos-de-usuario">Permisos de usuario</a></li>
-<li><a href="#elementos-de-tu-portal">Elementos de tu portal</a></li>
+<li><a href="#elementos-de-tu-portal">Elementos de tu portal</a><ul>
 <li><a href="#organizaciones">Organizaciones</a></li>
 <li><a href="#seccion-organizaciones-con-datos">Sección Organizaciones con datos</a></li>
-<li><a href="#seccion-acerca">Sección Acerca</a><ul>
-<li><a href="#tipos-de-acerca">Tipos de Acerca</a></li>
-<li><a href="#como-elijo-el-tipo-de-acerca">¿Cómo elijo el tipo de Acerca?</a></li>
-<li><a href="#como-puedo-escribir-y-mostrar-informaci%C3%B3n-basica">¿Cómo puedo escribir y mostrar información básica?</a></li>
-<li><a href="#como-puedo-crear-y-mostrar-mis-secciones-personalizadas">¿Cómo puedo crear y mostrar mis secciones personalizadas?</a></li>
-<li><a href="#donde-a%C3%B1ado-los-archivos-requeridos-para-las-secciones">¿Dónde añado los archivos requeridos para las secciones?</a></li>
-<li><a href="#donde-y-c%C3%B3mo-puedo-guardar-imagenes-para-mostrarlas-en-mis-secciones-%C2%BFc%C3%B3mo-las-muestro-en-mis-templates">¿Dónde y cómo puedo guardar imágenes para mostrarlas en mis secciones? ¿Cómo las muestro en mis templates?</a></li>
-</ul>
-</li>
+<li><a href="#seccion-acerca">Sección Acerca</a></li>
 <li><a href="#temas">Temas</a></li>
 <li><a href="#datasets">Datasets</a></li>
-<li><a href="#recursos">Recursos</a><ul>
-<li><a href="#donde-los-veo-en-el-portal">¿Dónde los veo en el portal?</a></li>
-<li><a href="#buenas-practicas-al-crear-recursos">Buenas prácticas al crear recursos</a></li>
-<li><a href="#como-los-creo">¿Cómo los creo?</a></li>
-</ul>
-</li>
-<li><a href="#campos-de-un-recurso">Campos de un recurso</a><ul>
-<li><a href="#donde-los-veo-en-el-portal-1">¿Dónde los veo en el portal?</a></li>
-<li><a href="#buenas-practicas-al-cargar-campos-de-un-recurso">Buenas prácticas al cargar campos de un recurso</a></li>
-</ul>
-</li>
-<li><a href="#series-de-tiempo">Series de tiempo</a><ul>
-<li><a href="#como-documento-una-serie-de-tiempo">¿Cómo documento una serie de tiempo?</a></li>
-</ul>
-</li>
+<li><a href="#recursos">Recursos</a></li>
+<li><a href="#campos-de-un-recurso">Campos de un recurso</a></li>
+<li><a href="#series-de-tiempo">Series de tiempo</a></li>
 <li><a href="#etiquetas">Etiquetas</a></li>
 <li><a href="#personalizar-el-portal">Personalizar el portal</a></li>
+</ul>
+</li>
 <li><a href="#integrar-andino-con-google-analytics">Integrar Andino con Google Analytics</a></li>
 <li><a href="#consultas-sobre-andino">Consultas sobre Andino</a></li>
 <li><a href="#otros-contenidos-utiles">Otros contenidos útiles</a></li>
@@ -1351,42 +1380,34 @@
 <hr />
 <h2 id="entrar-y-salir-de-tu-portal">Entrar y salir de tu portal</h2>
 <p><strong>Cada vez que quieras entrar al portal, podrás hacerlo desde http://<em>tu-url.com</em>/ingresar</strong>.</p>
-<p><img alt="alt text" src="../assets/portal-andino-login.png" title="login" /></p>
+<p><center><img alt="alt text" src="../assets/portal-andino-login.png" title="login" /></center></p>
 <hr />
 <h2 id="permisos-de-usuario">Permisos de usuario</h2>
 <p>Desde agosto de 2017, en Andino <strong>hay dos tipos de usuarios: los administradores y los colaboradores</strong>. El primer usuario administrador siempre es creado por el técnico en sistemas que instaló Andino. </p>
 <p><strong>Los administradores de Andino pueden invitar a más personas a colaborar</strong> en la apertura de datos, <strong>eligiendo el tipo que quieren asignar</strong>:</p>
 <ul>
-<li>
-<p><strong>Administrador</strong>: podrá crear usuarios, editar la configuración general del portal; crear, actualizar y borrar todos los datasets; y gestionar temas y organizaciones. </p>
-</li>
-<li>
-<p><strong>Colaborador</strong>: podrá crear, actualizar y borrar datasets sólo de las organizaciones que tenga asignadas (por eso es importante que primero crees en tu Andino las organizaciones en las que necesitás colaboradores). </p>
-</li>
+<li><strong>Administrador</strong>: podrá crear usuarios, editar la configuración general del portal; crear, actualizar y borrar todos los datasets; y gestionar temas y organizaciones. </li>
+<li><strong>Colaborador</strong>: podrá crear, actualizar y borrar datasets sólo de las organizaciones que tenga asignadas (por eso es importante que primero crees en tu Andino las organizaciones en las que necesitás colaboradores). </li>
 </ul>
 <p><strong>Asigná permisos desde Mi cuenta &gt; Crear usuarios</strong>.</p>
-<p><img alt="alt text" src="../assets/portal-andino-user.png" title="user" /></p>
+<p><center><img alt="alt text" src="../assets/portal-andino-user.png" title="user" /></center></p>
 <hr />
 <h2 id="elementos-de-tu-portal">Elementos de tu portal</h2>
 <h3 id="organizaciones">Organizaciones</h3>
 <p>Son los organismos que abren o mantienen cada dataset. <strong>Es muy importante que crees las organizaciones antes de que generes un dataset</strong> que esté asociado a ella. </p>
 <h5 id="donde-lo-veo-en-el-portal">¿Dónde lo veo en el portal?</h5>
 <ul>
-<li>
-<p>Como uno de los filtros de la vista de Datasets. </p>
-</li>
-<li>
-<p>Como número agregado, en la Página principal de tu portal, en caso de que hayas elegido la vista que muestra el número de Organizaciones con datos.</p>
-</li>
+<li>Como uno de los filtros de la vista de Datasets.</li>
+<li>Como número agregado, en la Página principal de tu portal, en caso de que hayas elegido la vista que muestra el número de Organizaciones con datos.</li>
 </ul>
-<p><img alt="alt text" src="../assets/portal-andino-comoveo-org.png" title="comoveo-org" /></p>
+<p><center><img alt="alt text" src="../assets/portal-andino-comoveo-org.png" title="comoveo-org" /></center></p>
 <h5 id="buenas-practicas-al-crear-organizaciones-con-datos">Buenas prácticas al crear Organizaciones con datos</h5>
 <p>Tené en cuenta que <strong>siempre que borres una organización, todos los conjuntos de datos (y también los recursos), se borrarán</strong> definitivamente. </p>
 <h5 id="como-los-creo">¿Cómo los creo?</h5>
 <p>Andá a <strong>Página principal &gt; Crear Organizaciones</strong>.</p>
-<p><img alt="alt text" src="../assets/portal-andino-crear-org.png" title="crear-org" /></p>
+<p><center><img alt="alt text" src="../assets/portal-andino-crear-org.png" title="crear-org" /></center></p>
 <p>En caso de que hayas elegido que tu portal tenga una sección de Organizaciones con datos, también se mostrarán allí. </p>
-<p><img alt="alt text" src="../assets/portal-andino-sec-org.png" title="sec-org" /></p>
+<p><center><img alt="alt text" src="../assets/portal-andino-sec-org.png" title="sec-org" /></center></p>
 <hr />
 <h3 id="seccion-organizaciones-con-datos">Sección Organizaciones con datos</h3>
 <p><strong>Esta sección es opcional</strong>. Te permite armar un árbol de jerarquías con las organizaciones que abrieron datos en tu portal. Los organismos que se muestran en esta parte de tu portal son los mismos que asignás a los datasets y que creás antes de generar estos últimos. </p>
@@ -1396,43 +1417,33 @@
 <p>Es importante que tengas bien en claro qué organizaciones dependenden de otras, para que el árbol de jerarquías represente bien las correspondencias. </p>
 <h5 id="como-las-creo">¿Cómo las creo?</h5>
 <p>Como la sección Organizaciones con datos es opcional, podés elegir que se vea en tu portal. Para eso, <strong>andá a Configuraciones &gt; Organizaciones con datos</strong> y tildá la habilitación. </p>
-<p><img alt="alt text" src="../assets/portal-andino-sec-org-02.png" title="sec-op-org" /></p>
+<p><center><img alt="alt text" src="../assets/portal-andino-sec-org-02.png" title="sec-op-org" /></center></p>
 <hr />
 <h3 id="seccion-acerca">Sección Acerca</h3>
 <p><strong>Esta sección es opcional</strong>. Te permite darle la oportunidad a los usuarios que naveguen tu portal de leer información del mismo para un mejor entendimiento.</p>
 <h4 id="tipos-de-acerca">Tipos de Acerca</h4>
 <p>Existen tres tipos diferentes que vas a poder elegir:</p>
 <ul>
-<li>
-<p><strong>Sin sección de acerca</strong>: para cuando se decida no mostrar información.</p>
-</li>
-<li>
-<p><strong>Sección con información básica</strong>: existirá un botón que lleve al usuario a una página donde encontrará información básica sobre el portal (un título y una descripción). Estará ubicado en Página Principal &gt; <strong>Acerca</strong>.</p>
-</li>
-<li>
-<p><strong>Secciones personalizadas</strong>: se crearán varias secciones personalizadas que vas a poder modificar a gusto. El botón Acerca ahora desplegará un menú que contendrá todas y cada una de las secciones que hayas añadido al portal. Para cada sección, se necesitará un archivo (de formato .html) con el contenido que quieras mostrar.</p>
-</li>
+<li><strong>Sin sección de acerca</strong>: para cuando se decida no mostrar información.</li>
+<li><strong>Sección con información básica</strong>: existirá un botón que lleve al usuario a una página donde encontrará información básica sobre el portal (un título y una descripción). Estará ubicado en Página Principal &gt; <strong>Acerca</strong>.</li>
+<li><strong>Secciones personalizadas</strong>: se crearán varias secciones personalizadas que vas a poder modificar a gusto. El botón Acerca ahora desplegará un menú que contendrá todas y cada una de las secciones que hayas añadido al portal. Para cada sección, se necesitará un archivo (de formato .html) con el contenido que quieras mostrar.</li>
 </ul>
 <h4 id="como-elijo-el-tipo-de-acerca">¿Cómo elijo el tipo de Acerca?</h4>
 <p>Andá a Página Principal &gt; Usuario &gt; Configuración &gt; <strong>Otras secciones del portal &gt; Acerca (opcional)</strong></p>
-<p><img alt="alt text" src="../assets/portal-andino-sec-acerca.png" title="sec-acerca" /></p>
-<p><img alt="alt text" src="../assets/portal-andino-sec-acerca-02.png" title="sec-acerca-02" /></p>
+<p><center><img alt="alt text" src="../assets/portal-andino-sec-acerca.png" title="sec-acerca" /></center></p>
+<p><center><img alt="alt text" src="../assets/portal-andino-sec-acerca-02.png" title="sec-acerca-02" /></center></p>
 <h4 id="como-puedo-escribir-y-mostrar-informacion-basica">¿Cómo puedo escribir y mostrar información básica?</h4>
 <p>Habiendo elegido la <strong>segunda opción</strong>, podés modificar el título y la descripción.</p>
-<p><img alt="alt text" src="../assets/portal-andino-sec-acerca-03.png" title="sec-acerca-03" /></p>
+<p><center><img alt="alt text" src="../assets/portal-andino-sec-acerca-03.png" title="sec-acerca-03" /></center></p>
 <h4 id="como-puedo-crear-y-mostrar-mis-secciones-personalizadas">¿Cómo puedo crear y mostrar mis secciones personalizadas?</h4>
 <p>Habiendo elegido la <strong>tercera opción</strong>, podrás ir creando tus secciones escribiendo un título y un nombre de archivo. Recordá que, para cada sección, será necesario guardar un archivo (de formato .html) para que el portal pueda mostrar su contenido.</p>
-<p><img alt="alt text" src="../assets/portal-andino-sec-acerca-04.png" title="sec-acerca-04" /></p>
+<p><center><img alt="alt text" src="../assets/portal-andino-sec-acerca-04.png" title="sec-acerca-04" /></center></p>
 <h4 id="donde-anado-los-archivos-requeridos-para-las-secciones">¿Dónde añado los archivos requeridos para las secciones?</h4>
 <p>Dentro del container, dichos archivos deben ser guardados en el directorio <strong>/var/lib/ckan/theme_config/templates/</strong> .</p>
 <p>De no existir la carpeta <strong>/templates</strong>, se deberá crearla utilizando dos comandos:</p>
 <ul>
-<li>
-<p>mkdir /var/lib/ckan/theme_config/templates</p>
-</li>
-<li>
-<p>chown www-data:www-data /var/lib/ckan/theme_config/templates/</p>
-</li>
+<li>mkdir /var/lib/ckan/theme_config/templates</li>
+<li>chown www-data:www-data /var/lib/ckan/theme_config/templates/</li>
 </ul>
 <p>(www-data es el usuario con el que se corre el proceso apache en el sistema operativo <strong>Ubuntu</strong>)</p>
 <p>Dentro de cada archivo deberá estar el contenido de su sección correspondiente. Por favor, <strong>no te olvides</strong> de que el nombre del archivo <strong>debe coincidir</strong> con lo escrito en el campo 'Nombre del archivo' de la sección.</p>
@@ -1447,12 +1458,8 @@
 
 
 <ul>
-<li>
-<p>En caso de que hayas cambiado manualmente el puerto del contenedor, saber cuál es (el default es 8080)</p>
-</li>
-<li>
-<p>Tener preparado el nombre del contenedor (ya que queremos decirle al comando en qué lugar vamos a guardar la imagen)</p>
-</li>
+<li>En caso de que hayas cambiado manualmente el puerto del contenedor, saber cuál es (el default es 8080)</li>
+<li>Tener preparado el nombre del contenedor (ya que queremos decirle al comando en qué lugar vamos a guardar la imagen)</li>
 </ul>
 <p>El nombre del contenedor se consigue escribiendo en una terminal dentro del host: </p>
 <div class="codehilite"><pre><span></span>sudo docker-compose -f latest.yml ps |grep &lt;puerto del container&gt;
@@ -1473,23 +1480,15 @@
 <h3 id="temas">Temas</h3>
 <p>Son las categorías en las que se pueden clasificar todos los datasets de tu portal. Hay dos taxonomías de temas:</p>
 <ul>
-<li>
-<p><strong>Temas globales</strong>, que ya vienen con Andino, y que necesitás elegir para cada dataset. Estos temas no se ven en tu portal, pero es necesario que lo elijas para que el portal nacional datos.gob.ar pueda republicar el dataset según esta clasificación. Por ejemplo: “Economía y finanzas”. </p>
-</li>
-<li>
-<p><strong>Temas específicos</strong>, que son opcionales, pero que te recomendamos con énfasis que agregues a todos tus conjuntos de datos porque son los temas que van a ver tus usuarios. Por ejemplo, si el tema global era “Economía y finanzas”, un tema específico podría ser “Compras”. </p>
-</li>
+<li><strong>Temas globales</strong>, que ya vienen con Andino, y que necesitás elegir para cada dataset. Estos temas no se ven en tu portal, pero es necesario que lo elijas para que el portal nacional datos.gob.ar pueda republicar el dataset según esta clasificación. Por ejemplo: "Economía y finanzas".</li>
+<li><strong>Temas específicos</strong>, que son opcionales, pero que te recomendamos con énfasis que agregues a todos tus conjuntos de datos porque son los temas que van a ver tus usuarios. Por ejemplo, si el tema global era "Economía y finanzas", un tema específico podría ser "Compras".</li>
 </ul>
 <h5 id="donde-lo-veo-en-el-portal_2">¿Dónde lo veo en el portal?</h5>
 <ul>
-<li>
-<p>En la Página principal de tu catálogo de datos. </p>
-</li>
-<li>
-<p>También como detalle de cada dataset específico.</p>
-</li>
+<li>En la Página principal de tu catálogo de datos. </li>
+<li>También como detalle de cada dataset específico.</li>
 </ul>
-<p><img alt="alt text" src="../assets/portal-andino-sec-temas.png" title="sec-temas" /></p>
+<p><center><img alt="alt text" src="../assets/portal-andino-sec-temas.png" title="sec-temas" /></center></p>
 <h5 id="buenas-practicas-al-crear-temas-especificos">Buenas prácticas al crear Temas específicos</h5>
 <ul>
 <li>Intentá crear los temas específicos a conciencia para poder reutilizarlos a futuro. </li>
@@ -1498,28 +1497,24 @@
 </ul>
 <h5 id="como-los-creo_1">¿Cómo los creo?</h5>
 <p><strong>Andá a Página principal &gt; Crear tema</strong>. </p>
-<p><img alt="alt text" src="../assets/portal-andino-sec-temas-03.png" title="sec-temas-03" /></p>
+<p><center><img alt="alt text" src="../assets/portal-andino-sec-temas-03.png" title="sec-temas-03" /></center></p>
 <h5 id="como-los-asigno">¿Cómo los asigno?</h5>
 <p><strong>Cada vez que generes un nuevo dataset</strong>, el formulario te pedirá que asignes temas. Recordá siempre reutilizar los que ya hayas creado y no repetirlos.  </p>
-<p><img alt="alt text" src="../assets/portal-andino-form-temas.png" title="form-temas" /></p>
+<p><center><img alt="alt text" src="../assets/portal-andino-form-temas.png" title="form-temas" /></center></p>
 <hr />
 <h3 id="datasets">Datasets</h3>
-<p>También los llamamos “conjuntos de datos”. Son la pieza principal de tu portal o catálogo de datos. Cada dataset está formado por uno o más recursos. </p>
+<p>También los llamamos "conjuntos de datos". Son la pieza principal de tu portal o catálogo de datos. Cada dataset está formado por uno o más recursos. </p>
 <h5 id="donde-los-veo-en-el-portal">¿Dónde los veo en el portal?</h5>
 <p>Todos los datasets que subas al portal se verán <strong>en la sección Datasets</strong>. Además, <strong>podrás destacar</strong> los que creas más importantes en la Página principal.</p>
-<p><img alt="alt text" src="../assets/portal-andino-sec-temas-02.png" title="sec-temas-2" /></p>
+<p><center><img alt="alt text" src="../assets/portal-andino-sec-temas-02.png" title="sec-temas-2" /></center></p>
 <h5 id="buenas-practicas-al-crear-datasets">Buenas prácticas al crear datasets</h5>
 <ul>
-<li>
-<p><strong>Títulos de los datasets</strong>: es el primer vistazo que los usuarios tendrán sobre su contenido. Por eso, intentá no superar los 100 caracteres. Prestá especial atención a las mayúsculas. Sólo los sustantivos propios las necesitan. </p>
-</li>
-<li>
-<p><strong>Descripción de los datasets</strong>: es el detalle que le contás a los usuarios. Por esa razón, es importante que trates de dar una explicación general de los datos con los que se va a encontrar. Intentá no superar los 500 caracteres.</p>
-</li>
+<li><strong>Títulos de los datasets</strong>: es el primer vistazo que los usuarios tendrán sobre su contenido. Por eso, intentá no superar los 100 caracteres. Prestá especial atención a las mayúsculas. Sólo los sustantivos propios las necesitan. </li>
+<li><strong>Descripción de los datasets</strong>: es el detalle que le contás a los usuarios. Por esa razón, es importante que trates de dar una explicación general de los datos con los que se va a encontrar. Intentá no superar los 500 caracteres.</li>
 </ul>
 <h5 id="como-los-creo_2">¿Cómo los creo?</h5>
 <p>Ingresá a tu cuenta y andá a <strong>Página principal &gt; Crear dataset</strong>.</p>
-<p><img alt="alt text" src="../assets/portal-andino-crear-dataset.png" title="crear-dat" /></p>
+<p><center><img alt="alt text" src="../assets/portal-andino-crear-dataset.png" title="crear-dat" /></center></p>
 <p><strong>Siempre podrás editar los dataset</strong> que hayas creado. Para eso, ingresá a tu cuenta &gt; Página principal &gt; Datasets &gt; <strong>Editar dataset</strong>. </p>
 <hr />
 <h3 id="recursos">Recursos</h3>
@@ -1529,23 +1524,19 @@
 <h4 id="buenas-practicas-al-crear-recursos">Buenas prácticas al crear recursos</h4>
 <p>Seguí los mismos criterios de escritura que con los datasets. </p>
 <ul>
-<li>
-<p><strong>Títulos de los recursos</strong>: intentá no superar los 150 caracteres. </p>
-</li>
-<li>
-<p><strong>Descripción de los recursos</strong>: intentá no superar los 200 caracteres.</p>
-</li>
+<li><strong>Títulos de los recursos</strong>: intentá no superar los 150 caracteres.</li>
+<li><strong>Descripción de los recursos</strong>: intentá no superar los 200 caracteres.</li>
 </ul>
 <h4 id="como-los-creo_3">¿Cómo los creo?</h4>
 <p>Ingresá a tu cuenta y andá a Página principal &gt; Crear dataset. Una vez que completes el dataset, podrás agregar recursos. </p>
-<p><img alt="alt text" src="../assets/portal-andino-asig-recurso.png" title="crear-recurso" /></p>
+<p><center><img alt="alt text" src="../assets/portal-andino-asig-recurso.png" title="crear-recurso" /></center></p>
 <p>Al igual que con los datasets, siempre podrás editar los recursos que hayas creado. Para eso, ingresá a tu cuenta &gt; Página principal &gt; Datasets &gt; Editar dataset &gt; Editar recursos. </p>
 <hr />
 <h3 id="campos-de-un-recurso">Campos de un recurso</h3>
 <p>Los recursos pueden tener mucha información y ser difíciles de comprender. Para ayudar a los usuarios que ven nuestros recursos, Andino permite documentar qué contiene cada campo.</p>
 <h4 id="donde-los-veo-en-el-portal_2">¿Dónde los veo en el portal?</h4>
 <p>Los recursos que tengan información sobre sus campos se visualizarán en la vista de un recurso.</p>
-<p><img alt="alt text" src="../assets/portal-andino-metadatos.jpg" title="metadatos" /></p>
+<p><center><img alt="alt text" src="../assets/portal-andino-metadatos.jpg" title="metadatos" /></center></p>
 <h4 id="buenas-practicas-al-cargar-campos-de-un-recurso">Buenas prácticas al cargar campos de un recurso</h4>
 <p>Puede ser de mucha ayuda para los usuarios que siempre cargues al menos los siguientes campos:
 - Título de la columna
@@ -1558,20 +1549,28 @@
 - Detalle de tipo especial</p>
 <hr />
 <h3 id="series-de-tiempo">Series de tiempo</h3>
-<p>Andino permite documentar recursos que publican <strong>series de tiempo</strong>.</p>
+<p>Andino permite documentar recursos que publican <strong>series de tiempo</strong>. Un recurso con series de tiempo es un <a href="https://datosgobar.github.io/paquete-apertura-datos/guia-metadatos/#series-de-tiempo">archivo CSV de determinada estructura</a>.</p>
 <h4 id="como-documento-una-serie-de-tiempo">¿Cómo documento una serie de tiempo?</h4>
 <p>En el formulario de carga de un recurso vas a encontrar campos avanzados y especiales que necesitás usar para documentar las columnas de una tabla que contiene series de tiempo.</p>
 <p>Los campos <strong>Tipo de dato especial</strong> y <strong>Detalle de tipo especial</strong> te permiten marcar la columna del índice de tiempo y qué frecuencia tiene. </p>
-<p><img alt="alt text" src="../assets/portal-andino-campos-especiales.jpg" title="campos-especiales" /></p>
-<p>Los campos  <strong>Unidad de medida </strong>e<strong> Identificador</strong> te permiten documentar cada una de las columnas que son series de tiempo.</p>
-<p><img alt="alt text" src="../assets/portal-andino-campos-avanzados.jpg" title="campos-avanzados" /></p>
-<p>Para conocer más sobre series de tiempo mirá la <a href="http://paquete-apertura-datos.readthedocs.io/es/stable/guia_metadatos.html#series-de-tiempo" title="documentación completa">documentación completa</a> en el perfil de metadatos.</p>
+<ul>
+<li><strong>Tipo de dato especial</strong>: marcar la columna que tiene las fechas como "Indice de tiempo".</li>
+<li><strong>Detalle de tipo de dato especial</strong>: especificar la frecuencia del índice (anual, diaria, mensual, etc).</li>
+</ul>
+<p><center><img alt="alt text" src="../assets/portal-andino-campos-especiales.jpg" title="campos-especiales" /></center></p>
+<p>Los campos <strong>Unidad de medida</strong> e <strong>Identificador</strong> te permiten documentar cada una de las columnas, que son tus series de tiempo.</p>
+<ul>
+<li><strong>Unidad de medida</strong>: es la unidad de medida en que está expresada la serie ("Millones de pesos corrientes", "Kilómetros", "Millones de dólares americanos")</li>
+<li><strong>Identificador</strong>: es un identificador único de la serie para toda la APN. Debe ser inmutable en el tiempo para la serie, no muy largo (entre 6 y 20 caracteres aproximadamente) y no pisarse potencialmente con otras series de la Administración Pública Nacional.</li>
+</ul>
+<p><center><img alt="alt text" src="../assets/portal-andino-campos-avanzados.jpg" title="campos-avanzados" /></center></p>
+<p>Para conocer más sobre series de tiempo mirá la <a href="https://datosgobar.github.io/paquete-apertura-datos/guia-metadatos/#series-de-tiempo">documentación completa</a> en el perfil de metadatos.</p>
 <hr />
 <h3 id="etiquetas">Etiquetas</h3>
 <p>Son las palabras que ayudan a los usuarios a filtrar y encontrar los datasets. Cuanto más amplia y uniforme sea la lista de Etiquetas, mayor es su poder de ayuda. </p>
 <h5 id="donde-las-veo-en-el-portal">¿Dónde las veo en el portal?</h5>
 <p>En cada dataset específico. </p>
-<p><img alt="alt text" src="../assets/portal-andino-dat-tags.png" title="dat-tags" /></p>
+<p><center><img alt="alt text" src="../assets/portal-andino-dat-tags.png" title="dat-tags" /></center></p>
 <h5 id="buenas-practicas-al-crear-etiquetas">Buenas prácticas al crear etiquetas</h5>
 <ul>
 <li>Usá mayúsculas sólo donde corresponda.</li>
@@ -1579,7 +1578,7 @@
 <li>Respetá las etiquetas anteriores.</li>
 <li>Agregá sinónimos y usá lenguaje natural.</li>
 <li>Tratá de usar una sola palabra, siempre en plural.</li>
-<li>Si la etiqueta tiene más de una palabra, separalas por un espacio. Por ejemplo: “declaraciones juradas”.</li>
+<li>Si la etiqueta tiene más de una palabra, separalas por un espacio. Por ejemplo: "declaraciones juradas".</li>
 </ul>
 <p>Éstas son algunas preguntas útiles a la hora de pensar las etiquetas:</p>
 <ul>
@@ -1591,11 +1590,11 @@
 </ul>
 <h5 id="como-las-creo_1">¿Cómo las creo?</h5>
 <p>Al igual que con los Temas, cada vez que generes un nuevo dataset, el formulario te pedirá que asignes un etiqueta. Recordá siempre reutilizar las que ya hayas creado y no repetirlas.  </p>
-<p><img alt="alt text" src="../assets/portal-andino-asig-tags.png" title="crear-etiquetas" /></p>
+<p><center><img alt="alt text" src="../assets/portal-andino-asig-tags.png" title="crear-etiquetas" /></center></p>
 <hr />
 <h3 id="personalizar-el-portal">Personalizar el portal</h3>
 <p>Hacer que tu portal represente tu organización es muy fácil. Por favor, <strong>andá a la Página principal &gt; Configuración</strong>. Llegarás a la sección que te permite cambiar cómo luce la portada de tu catálogo de datos y cada sección en particular.</p>
-<p><img alt="alt text" src="../assets/portal-andino-sec-config.png" title="sec-config" /></p>
+<p><center><img alt="alt text" src="../assets/portal-andino-sec-config.png" title="sec-config" /></center></p>
 <hr />
 <h2 id="integrar-andino-con-google-analytics">Integrar Andino con Google Analytics</h2>
 <p>Por favor, <a href="mailto:datos@modernizacion.gob.ar">escribinos</a> y contanos con qué casilla de e-mail querés tener permisos para ver las métricas de tu Andino. </p>
@@ -1607,15 +1606,9 @@
 <hr />
 <h2 id="otros-contenidos-utiles">Otros contenidos útiles</h2>
 <ul>
-<li>
-<p><a href="http://paquete-apertura-datos.readthedocs.io/es/stable/guia_metadatos.html" target="_blank">Guía para el uso y la publicación de metadatos</a></p>
-</li>
-<li>
-<p><a href="http://paquete-apertura-datos.readthedocs.io/es/stable/guia_interoperables.html" target="_blank">Guía para la identificación y uso de entidades interoperables</a></p>
-</li>
-<li>
-<p><a href="http://paquete-apertura-datos.readthedocs.io/es/stable/guia_abiertos.html" target="_blank">Guía para la publicación de datos en formatos abiertos</a></p>
-</li>
+<li><a href="http://paquete-apertura-datos.readthedocs.io/es/stable/guia_metadatos.html" target="_blank">Guía para el uso y la publicación de metadatos</a></li>
+<li><a href="http://paquete-apertura-datos.readthedocs.io/es/stable/guia_interoperables.html" target="_blank">Guía para la identificación y uso de entidades interoperables</a></li>
+<li><a href="http://paquete-apertura-datos.readthedocs.io/es/stable/guia_abiertos.html" target="_blank">Guía para la publicación de datos en formatos abiertos</a></li>
 </ul>
                 
                   
@@ -1652,13 +1645,13 @@
           </a>
         
         
-          <a href="../usage/" title="Manual de uso" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../time-series/" title="Publicar series de tiempo" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Siguiente
                 </span>
-                Manual de uso
+                Publicar series de tiempo
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">
@@ -1680,15 +1673,13 @@
           Material for MkDocs</a>
       </div>
       
-        
-      
     </div>
   </div>
 </footer>
       
     </div>
     
-      <script src="../assets/javascripts/application.9e1f3b71.js"></script>
+      <script src="../assets/javascripts/application.dc02f8ce.js"></script>
       
         
         
@@ -1705,12 +1696,7 @@
           
         
       
-      <script>app.initialize({version:"1.0",url:{base:".."}})</script>
-      
-    
-    
-      
-        <script>!function(e,a,t,n,o,c,i){e.GoogleAnalyticsObject=o,e.ga=e.ga||function(){(e.ga.q=e.ga.q||[]).push(arguments)},e.ga.l=1*new Date,c=a.createElement(t),i=a.getElementsByTagName(t)[0],c.async=1,c.src="https://www.google-analytics.com/analytics.js",i.parentNode.insertBefore(c,i)}(window,document,"script",0,"ga"),ga("create","UA-91435482-1","https://portal-andino.readthedocs.io/"),ga("set","anonymizeIp",!0),ga("send","pageview");var links=document.getElementsByTagName("a");if(Array.prototype.map.call(links,function(a){a.host!=document.location.host&&a.addEventListener("click",function(){var e=a.getAttribute("data-md-action")||"follow";ga("send","event","outbound",e,a.href)})}),document.forms.search){var query=document.forms.search.query;query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}</script>
+      <script>app.initialize({version:"1.0.4",url:{base:".."}})</script>
       
     
   </body>

@@ -2,7 +2,7 @@
 
 
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es" class="no-js">
   <head>
     
@@ -12,6 +12,8 @@
       
         <meta name="description" content="Documentación de Portal Andino, la distribución de CKAN desarrollada por la República Argentina dockerizada, fácil de instalar y compatible con el Perfil Nacional de Metadatos de la Política de Apertura de Datos.">
       
+      
+        <link rel="canonical" href="https://datosgobar.github.io/portal-andino/developers/install/">
       
       
         <meta name="author" content="Datos Argentina">
@@ -36,7 +38,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.0, mkdocs-material-3.1.0">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.1.1">
     
     
       
@@ -45,7 +47,7 @@
     
     
 	
-      <link rel="stylesheet" href="../../assets/stylesheets/application.11e41852.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/application.3020aac5.css">
       
       
     
@@ -53,7 +55,7 @@
 
     
     
-      <script src="../../assets/javascripts/modernizr.20ef595d.js"></script>
+      <script src="../../assets/javascripts/modernizr.01ccdecf.js"></script>
     
     <script src="../../js/extra.js"></script>
 
@@ -68,6 +70,34 @@
     
     
       <link rel="stylesheet" href="../../css/extra_rtd.css">
+    
+    
+      
+        
+<script>
+  window.ga = window.ga || function() {
+    (ga.q = ga.q || []).push(arguments)
+  }
+  ga.l = +new Date
+  /* Setup integration and send page view */
+  ga("create", "UA-91435482-1", "https://portal-andino.readthedocs.io/")
+  ga("set", "anonymizeIp", true)
+  ga("send", "pageview")
+  /* Register handler to log search on blur */
+  document.addEventListener("DOMContentLoaded", () => {
+    if (document.forms.search) {
+      var query = document.forms.search.query
+      query.addEventListener("blur", function() {
+        if (this.value) {
+          var path = document.location.pathname;
+          ga("send", "pageview", path + "?q=" + this.value)
+        }
+      })
+    }
+  })
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+      
     
     
   </head>
@@ -103,7 +133,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#indice" tabindex="1" class="md-skip">
+      <a href="#instalacion" tabindex="1" class="md-skip">
         Saltar a contenido
       </a>
     
@@ -112,7 +142,7 @@
   <nav class="md-header-nav md-grid">
     <div class="md-flex">
       <div class="md-flex__cell md-flex__cell--shrink">
-        <a href="../.." title="Portal Andino" class="md-header-nav__button md-logo">
+        <a href="https://datosgobar.github.io/portal-andino" title="Portal Andino" class="md-header-nav__button md-logo">
           
             <img src="../../images/logo.svg" width="24" height="24">
           
@@ -124,22 +154,19 @@
       <div class="md-flex__cell md-flex__cell--stretch">
         <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
           
-            
-              <span class="md-header-nav__topic">
-                Portal Andino
-              </span>
-              <span class="md-header-nav__topic">
-                Instalación
-              </span>
-            
+            <span class="md-header-nav__topic">
+              Portal Andino
+            </span>
+            <span class="md-header-nav__topic">
+              Instalación
+            </span>
           
         </div>
       </div>
       <div class="md-flex__cell md-flex__cell--shrink">
         
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
           
-            <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
-            
 <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
@@ -162,7 +189,6 @@
     </div>
   </div>
 </div>
-          
         
       </div>
       
@@ -173,20 +199,18 @@
 
   
 
-
-  <a href="https://github.com/datosgobar/portal-andino/" title="Ir al repositorio" class="md-source" data-md-source="github">
-    
-      <div class="md-source__icon">
-        <svg viewBox="0 0 24 24" width="24" height="24">
-          <use xlink:href="#__github" width="24" height="24"></use>
-        </svg>
-      </div>
-    
-    <div class="md-source__repository">
-      GitHub
+<a href="https://github.com/datosgobar/portal-andino/" title="Ir al repositorio" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
     </div>
-  </a>
-
+  
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
           </div>
         </div>
       
@@ -233,7 +257,7 @@
 
         <!-- Site title -->
         <label class="md-nav__title md-nav__title--site" for="__drawer">
-          <a href="../.."
+          <a href="https://datosgobar.github.io/portal-andino"
               title="Portal Andino" class="md-nav__button md-logo">
             
               <img src="../../images/logo.svg" width="48" height="48" />
@@ -250,20 +274,18 @@
 
   
 
-
-  <a href="https://github.com/datosgobar/portal-andino/" title="Ir al repositorio" class="md-source" data-md-source="github">
-    
-      <div class="md-source__icon">
-        <svg viewBox="0 0 24 24" width="24" height="24">
-          <use xlink:href="#__github" width="24" height="24"></use>
-        </svg>
-      </div>
-    
-    <div class="md-source__repository">
-      GitHub
+<a href="https://github.com/datosgobar/portal-andino/" title="Ir al repositorio" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
     </div>
-  </a>
-
+  
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
           </div>
         
       
@@ -288,23 +310,46 @@
             
 
 
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      Usuarios
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        Usuarios
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
   <li class="md-nav__item">
-    <a href="../../quickstart/" title="Comienzo rápido" class="md-nav__link">
-      Comienzo rápido
+    <a href="../../quickstart/" title="Comenzar a usar Andino" class="md-nav__link">
+      Comenzar a usar Andino
     </a>
   </li>
 
-            <hr/>
+        
           
-            
-            
-            
+          
+          
 
 
   <li class="md-nav__item">
-    <a href="../../usage/" title="Manual de uso" class="md-nav__link">
-      Manual de uso
+    <a href="../../time-series/" title="Publicar series de tiempo" class="md-nav__link">
+      Publicar series de tiempo
     </a>
+  </li>
+
+        
+      </ul>
+    </nav>
   </li>
 
             <hr/>
@@ -318,14 +363,14 @@
 
   <li class="md-nav__item md-nav__item--active md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" checked>
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
     
-    <label class="md-nav__link" for="nav-4">
-      Desarrollo
+    <label class="md-nav__link" for="nav-3">
+      Desarrolladores
     </label>
     <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
-      <label class="md-nav__title" for="nav-4">
-        Desarrollo
+      <label class="md-nav__title" for="nav-3">
+        Desarrolladores
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
         
@@ -344,9 +389,66 @@
       
     
     
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Instalación
+      </label>
+    
     <a href="./" title="Instalación" class="md-nav__link md-nav__link--active">
       Instalación
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Contenidos de la sección</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#indice" title="Indice" class="md-nav__link">
+    Indice
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dependencias" title="Dependencias" class="md-nav__link">
+    Dependencias
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#instalacion-simplificada-de-andino" title="Instalación simplificada de andino" class="md-nav__link">
+    Instalación simplificada de andino
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#instalacion-avanzada-de-andino" title="Instalación avanzada de andino" class="md-nav__link">
+    Instalación avanzada de andino
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#desinstalar-andino" title="Desinstalar andino" class="md-nav__link">
+    Desinstalar andino
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
     
   </li>
 
@@ -483,6 +585,50 @@
     
   
   
+    <label class="md-nav__title" for="__toc">Contenidos de la sección</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#indice" title="Indice" class="md-nav__link">
+    Indice
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dependencias" title="Dependencias" class="md-nav__link">
+    Dependencias
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#instalacion-simplificada-de-andino" title="Instalación simplificada de andino" class="md-nav__link">
+    Instalación simplificada de andino
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#instalacion-avanzada-de-andino" title="Instalación avanzada de andino" class="md-nav__link">
+    Instalación avanzada de andino
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#desinstalar-andino" title="Desinstalar andino" class="md-nav__link">
+    Desinstalar andino
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -496,21 +642,7 @@
                   <a href="https://github.com/datosgobar/portal-andino/edit/master/docs/developers/install.md" title="Editar esta página" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
-                <!-- START doctoc generated TOC please keep comment here to allow auto update -->
-
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-
-<h2 id="indice">Indice</h2>
-<ul>
-<li><a href="#instalacion">Instalación</a></li>
-<li><a href="#dependencias">Dependencias</a></li>
-<li><a href="#instalacion-simplificada-de-andino">Instalación simplificada de andino</a></li>
-<li><a href="#instalacion-avanzada-de-andino">Instalación avanzada de andino</a></li>
-<li><a href="#desinstalar-andino">Desinstalar andino</a></li>
-</ul>
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
-<h1 id="instalacion">Instalación</h1>
+                <h1 id="instalacion">Instalación</h1>
 <p>Teniendo en cuenta la dificultad de implementación e incluso la cantidad de pasos para lograr un deploy existoso, 
 existen dos formas de instalar esta distribución de <strong>CKAN</strong>.</p>
 <ul>
@@ -520,6 +652,19 @@ Está pensada para que, en la menor cantidad de pasos y de manera sencilla, teng
 <li>Si ya conocés la plataforma, tenés experiencia con Docker o, simplemente, querés entender cómo funciona 
 esta implementación, te sugiero que revises la <strong><a href="#instalacion-avanzada-de-andino">instalacion avanzada de Andino</a></strong></li>
 </ul>
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+<h2 id="indice">Indice</h2>
+<ul>
+<li><a href="#dependencias">Dependencias</a></li>
+<li><a href="#instalacion-simplificada-de-andino">Instalación simplificada de andino</a></li>
+<li><a href="#instalacion-avanzada-de-andino">Instalación avanzada de andino</a></li>
+<li><a href="#desinstalar-andino">Desinstalar andino</a></li>
+</ul>
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 <h2 id="dependencias">Dependencias</h2>
 <ul>
 <li>DOCKER: <a href="https://docs.docker.com/engine/installation">Guía de instalación</a>.</li>
@@ -572,6 +717,8 @@ El mismo requiere algunos parámetros específicos, y existen otros que son opci
     <span class="o">[</span>--install_directory INSTALL_DIRECTORY<span class="o">]</span>
         Directorio donde se desea instalar la aplicación.
         Por defecto es <span class="sb">`</span>/etc/portal<span class="sb">`</span> <span class="o">(</span>recomendado<span class="o">)</span>
+    <span class="o">[</span>--file_size_limit FILE_SIZE_LIMIT<span class="o">]</span>
+        Configura el límite de tamaño para subida de archivos en recursos. 
 </pre></div>
 
 
@@ -588,6 +735,8 @@ Para los demás, usaremos los valores por defecto:</p>
 <p>NOTA: Si usamos una IP para la variable <code>HOST</code>, el envio de mails no funcionará.
 Postfix require un "fully-qualified domain name (FQDN)". 
 Ver <a href="http://www.postfix.org/postconf.5.html#myhostname">la documentación de Postfix</a> para más detalles.</p>
+<p>NOTA 2: Si utilizamos el nombre 'localhost' para la variable <code>HOST</code>, es posible que ocurra un error al intentar subir un 
+archivo perteneciente a un recurso al Datastore: <code>Error: Proceso completo pero no se pudo enviar a result_url.</code></p>
 <div class="codehilite"><pre><span></span><span class="c1"># Primero especificamos los valores necesarios</span>
 
 <span class="nv">EMAIL</span><span class="o">=</span>admin@example.com
@@ -641,17 +790,9 @@ sudo su -c <span class="s2">&quot;echo ANDINO_TAG=</span><span class="nv">$ANDIN
 
 
 <ul>
-<li>
-<p>Paso 3: Construir y lanzar los contenedor de servicios usando el archivo <strong>latest.yml</strong></p>
-<p>docker-compose -f latest.yml up -d db postfix redis solr</p>
-</li>
-<li>
-<p>Paso 4: Construir y lanzar el contenedor de <strong>andino</strong> usando el archivo <strong>latest.yml</strong></p>
-<p>docker-compose -f latest.yml up -d portal</p>
-</li>
-<li>
-<p>Paso 5: Inicializar la base de datos y la configuración de la aplicación:</p>
-</li>
+<li>Paso 3: Construir y lanzar los contenedor de servicios usando el archivo <strong>latest.yml</strong>: <code>docker-compose -f latest.yml up -d db postfix redis solr</code></li>
+<li>Paso 4: Construir y lanzar el contenedor de <strong>andino</strong> usando el archivo <strong>latest.yml</strong>: <code>docker-compose -f latest.yml up -d portal</code></li>
+<li>Paso 5: Inicializar la base de datos y la configuración de la aplicación:</li>
 </ul>
 <div class="codehilite"><pre><span></span><span class="nv">EMAIL</span><span class="o">=</span>admin@example.com
 <span class="nv">HOST</span><span class="o">=</span>datos.gob.ar
@@ -666,10 +807,7 @@ docker-compose -f latest.yml <span class="nb">exec</span> portal /etc/ckan_init.
 
 
 <ul>
-<li>
-<p>Paso 8: Construir el contenedor de <strong>nginx</strong> usando el archivo <strong>latest.yml</strong></p>
-<p>$ docker-compose -f latest.yml up -d nginx</p>
-</li>
+<li>Paso 8: Construir el contenedor de <strong>nginx</strong> usando el archivo <strong>latest.yml</strong>: `docker-compose -f latest.yml up -d nginx</li>
 </ul>
 <h2 id="desinstalar-andino">Desinstalar andino</h2>
 <p>Esta secuencia de comandos va a ELIMINAR TODOS LOS CONTENEDORES, IMÁGENES y VOLUMENES de la aplicación de la vm donde 
@@ -701,7 +839,7 @@ sudo rm <span class="nv">$app_dir</span> -r
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../../usage/" title="Manual de uso" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../../time-series/" title="Publicar series de tiempo" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -710,7 +848,7 @@ sudo rm <span class="nv">$app_dir</span> -r
                 <span class="md-footer-nav__direction">
                   Anterior
                 </span>
-                Manual de uso
+                Publicar series de tiempo
               </span>
             </div>
           </a>
@@ -744,15 +882,13 @@ sudo rm <span class="nv">$app_dir</span> -r
           Material for MkDocs</a>
       </div>
       
-        
-      
     </div>
   </div>
 </footer>
       
     </div>
     
-      <script src="../../assets/javascripts/application.9e1f3b71.js"></script>
+      <script src="../../assets/javascripts/application.dc02f8ce.js"></script>
       
         
         
@@ -769,12 +905,7 @@ sudo rm <span class="nv">$app_dir</span> -r
           
         
       
-      <script>app.initialize({version:"1.0",url:{base:"../.."}})</script>
-      
-    
-    
-      
-        <script>!function(e,a,t,n,o,c,i){e.GoogleAnalyticsObject=o,e.ga=e.ga||function(){(e.ga.q=e.ga.q||[]).push(arguments)},e.ga.l=1*new Date,c=a.createElement(t),i=a.getElementsByTagName(t)[0],c.async=1,c.src="https://www.google-analytics.com/analytics.js",i.parentNode.insertBefore(c,i)}(window,document,"script",0,"ga"),ga("create","UA-91435482-1","https://portal-andino.readthedocs.io/"),ga("set","anonymizeIp",!0),ga("send","pageview");var links=document.getElementsByTagName("a");if(Array.prototype.map.call(links,function(a){a.host!=document.location.host&&a.addEventListener("click",function(){var e=a.getAttribute("data-md-action")||"follow";ga("send","event","outbound",e,a.href)})}),document.forms.search){var query=document.forms.search.query;query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}</script>
+      <script>app.initialize({version:"1.0.4",url:{base:"../.."}})</script>
       
     
   </body>

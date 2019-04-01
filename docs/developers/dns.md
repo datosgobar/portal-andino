@@ -1,11 +1,12 @@
+# Configuración de DNS
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 ## Indice
 
-- [Configuración de DNS](#configuracion-de-dns)
-  - [Introducción](#introduccion)
-  - [Cómo diagnosticar si tu andino tiene el problema](#como-diagnosticar-si-tu-andino-tiene-el-problema)
-  - [Cómo resolver el problema](#como-resolver-el-problema)
+- [Introducción](#introduccion)
+- [Cómo diagnosticar si tu andino tiene el problema](#como-diagnosticar-si-tu-andino-tiene-el-problema)
+- [Cómo resolver el problema](#como-resolver-el-problema)
     - [Configuración de DNS públicos](#configuracion-de-dns-publicos)
     - [Configurar andino con el nuevo nombre de dominio](#configurar-andino-con-el-nuevo-nombre-de-dominio)
     - [Configurar un alias en la red de Docker para el contenedor nginx](#configurar-un-alias-en-la-red-de-docker-para-el-contenedor-nginx)
@@ -13,7 +14,6 @@
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-# Configuración de DNS
 
 ## Introducción
 
