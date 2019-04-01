@@ -9,6 +9,8 @@ Andino permite documentar archivos CSV como series de tiempo (indicadores con ev
 - [1. Crear una distribución de series de tiempo](#1-crear-una-distribucion-de-series-de-tiempo)
     - [Fechas en formato  `YYYY-MM-DD`](#fechas-en-formato-yyyy-mm-dd)
     - [Fecha más antigua primero a la más reciente al final](#fecha-mas-antigua-primero-a-la-m%C3%A1s-reciente-al-final)
+    - [Fechas continuas](#fechas-continuas)
+    - [Fecha inicial del período](#fecha-inicial-del-periodo)
     - [Usar "," como separador de columnas](#usar-como-separador-de-columnas)
     - [Usar "." como separador decimal](#usar-como-separador-decimal)
     - [No usar separador de miles](#no-usar-separador-de-miles)
@@ -149,13 +151,111 @@ El indice de tiempo debe comenzar por la fecha más antigua y terminar por la m�
     <td>1997-01-01</td>
     <td>1995-01-01</td>
   </tr>
+</table>
+
+### Fechas continuas
+
+Al índice de tiempo no le pueden faltar valores intermedios. Si no hay datos de una serie para determinado período, debe estar la celda en blanco.
+
+<table>
   <tr>
-    <td>1998-01-01</td>
+    <th style="background-color: green">indice_tiempo_correcto</th>
+    <th style="background-color: red">indice_tiempo_incorrecto</th>
+  </tr>
+  <tr>
+    <td>1993-01-01</td>
+    <td>1993-01-01</td>
+  </tr>
+  <tr>
+    <td>1994-01-01</td>
     <td>1994-01-01</td>
   </tr>
   <tr>
+    <td>1995-01-01</td>
+    <td>1997-01-01</td>
+  </tr>
+  <tr>
+    <td>1996-01-01</td>
+    <td>1998-01-01</td>
+  </tr>
+  <tr>
+    <td>1997-01-01</td>
     <td>1999-01-01</td>
-    <td>1993-01-01</td>
+  </tr>
+</table>
+
+### Fecha inicial del período
+
+Para representar períodos más largos que una fecha (el caso de todas las frecuencias de tiempo más bajas que la diaria) debe usarse siempre la **fecha completa del comienzo del período**.
+
+**Mensual**
+
+<table>
+  <tr>
+    <th style="background-color: green">indice_tiempo_correcto</th>
+    <th style="background-color: red">indice_tiempo_incorrecto</th>
+  </tr>
+  <tr>
+    <td>1980-01-01</td>
+    <td>1980-01-31</td>
+  </tr>
+  <tr>
+    <td>1980-02-01</td>
+    <td>1980-02-28</td>
+  </tr>
+  <tr>
+    <td>1980-03-01</td>
+    <td>1980-03-31</td>
+  </tr>
+</table>
+
+**Trimestral**
+
+<table>
+  <tr>
+    <th style="background-color: green">indice_tiempo_correcto</th>
+    <th style="background-color: red">indice_tiempo_incorrecto</th>
+  </tr>
+  <tr>
+    <td>1980-01-01</td>
+    <td>1980-02-01</td>
+  </tr>
+  <tr>
+    <td>1980-04-01</td>
+    <td>1980-05-01</td>
+  </tr>
+  <tr>
+    <td>1980-07-01</td>
+    <td>1980-08-01</td>
+  </tr>
+  <tr>
+    <td>1980-10-01</td>
+    <td>1980-11-01</td>
+  </tr>
+</table>
+
+**Semestral**
+
+<table>
+  <tr>
+    <th style="background-color: green">indice_tiempo_correcto</th>
+    <th style="background-color: red">indice_tiempo_incorrecto</th>
+    <th style="background-color: red">indice_tiempo_incorrecto</th>
+  </tr>
+  <tr>
+    <td>1980-01-01</td>
+    <td>1980-01-01</td>
+    <td>1980-01-31</td>
+  </tr>
+  <tr>
+    <td>1980-07-01</td>
+    <td>1980-08-01</td>
+    <td>1980-07-31</td>
+  </tr>
+  <tr>
+    <td>1981-01-01</td>
+    <td>1981-01-01</td>
+    <td>1981-01-31</td>
   </tr>
 </table>
 
