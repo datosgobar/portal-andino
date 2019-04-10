@@ -2,6 +2,7 @@
 
 ## Indice
 
+- [2.5.5](#256---2019-04-09)
 - [2.5.5](#255---2019-02-20)
 - [2.5](#25---actual)
 - [2.4](#24---2018-06-14)
@@ -9,6 +10,20 @@
 - [2.2](#22---2018-01-09)
 - [2.1](#21---2017-07-13)
 - [2.0](#20---2017-07-03)
+
+
+## 2.5.6 - 2019-04-09
+
+* Mejora de performance en la página de búsqueda de datasets.
+* Implementación de persistencia de cronjobs en la actualización de instancias de Andino.
+* Mejoras en la previsualización de recursos. 
+* Actualización del cronjob de la subida automática diaria de recursos al Datastore para que se cree también una vista.
+* Actualización del formulario de datasets para poder guardar un dataset en borrador sin necesidad de crear un recurso.
+* Implementación de un archivo JSON donde se guardan las licencias a utilizar en el portal, y de un campo en el archivo 
+de configuración donde se especifica su path.
+* Parametrización del tamaño máximo de archivos para recursos en la instalación y actualización de instancias de Andino.
+* Parametrización del nombre de dominio en la actualización de instancias de Andino.
+* Actualización de un header de la configuración SSL de Nginx (X-Forwarded-Protocol -> X-Forwarded-Proto).
 
 
 ## 2.5.5 - 2019-02-20
@@ -36,7 +51,7 @@ desarrollo.
 * Corrección del formulario de creación/edición de recursos para mantener guardado un archivo al editar un recurso sin 
 modificar el campo correspondiente.
 * Implementación de sección dentro de la configuración del portal en la interfaz para activar el croneo de la subida 
-automática diaria de subida de recursos al Datastore mediante un comando de Datapusher. 
+automática diaria de recursos al Datastore mediante un comando de Datapusher. 
 * Creación del campo _"Nombre del enlace"_ en las secciones personalizadas del Acerca para que el portal utilice como URL.
 * Modificación de la URL definida para el botón "VOLVER" en el formulario de creación/edición de recursos.
 * Se implementó el reinicio de los workers de supervisor al instalar o actualizar Andino.
