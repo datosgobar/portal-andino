@@ -72,9 +72,8 @@ def download_file(file_path, download_url):
     ])
 
 
-def get_compose_file(base_path, download_url):
+def get_compose_file(base_path, download_url, compose_file):  # TODO: parametrizar qué forma se utilizará (usar la vieja como default)
     parent_directory = os.path.abspath(os.path.join(subprocess.check_output('pwd', shell=True).strip(), os.pardir))
-    compose_file = "latest.yml"
     local_compose_file_path = path.join(parent_directory, compose_file)
     dest_compose_file_path = path.join(base_path, compose_file)
     if os.path.isfile(local_compose_file_path):
@@ -121,6 +120,11 @@ def configure_env_file(base_path, cfg):
         if cfg.nginx_cache_inactive:
             env_f.write("NGINX_CACHE_INACTIVE=%s\n" % cfg.nginx_cache_inactive)
         env_f.write("TZ=%s\n" % cfg.timezone)
+        env_f.write("THEME_VOLUME_SRC=%s\n" % cfg.theme_volume_src)
+        theme_volume_dst = ''
+        if cfg.theme_volume_src:
+            theme_volume_dst = "/opt/{}".format(os.path.basename(os.path.normpath(cfg.theme_volume_src)))
+        env_f.write("THEME_VOLUME_DST=%s\n" % theme_volume_dst)
 
 
 def get_nginx_configuration(cfg):
@@ -143,15 +147,12 @@ def pull_application(compose_path):
     ])
 
 
-def init_application(compose_path):
-    subprocess.check_call([
-        "docker-compose",
-        "-f",
-        compose_path,
-        "up",
-        "-d",
-        "nginx",
-    ])
+def init_application(compose_path, dev_compose_path, theme_volume_src):
+    extra_file_argument = "-f {}".format(dev_compose_path)
+    logger.info("Usando el latest dev.")
+    subprocess.check_call(
+        ["docker-compose -f {0} {1} up -d nginx".format(compose_path, extra_file_argument if theme_volume_src else "")],
+        shell=True)
 
 
 def configure_application(compose_path, cfg):
@@ -280,7 +281,7 @@ def ping_nginx_until_200_response_or_timeout(site_url):
         time.sleep(10 if site_status_code != "200" else 0)  # Si falla, esperamos 10 segundos para reintentarlo
 
 
-def install_andino(cfg, compose_file_url, stable_version_url):
+def install_andino(cfg, compose_file_url, dev_compose_file_url, stable_version_url):
     # Check
     directory = cfg.install_directory
     logger.info("Comprobando permisos (sudo)")
@@ -294,7 +295,8 @@ def install_andino(cfg, compose_file_url, stable_version_url):
 
     # Download and install
     logger.info("Descargando archivos necesarios...")
-    compose_file_path = get_compose_file(directory, compose_file_url)
+    compose_file_path = get_compose_file(directory, compose_file_url, "latest.yml")
+    dev_compose_file_path = get_compose_file(directory, compose_file_url, "latest.dev.yml")
     logger.info("Escribiendo archivo de configuración del ambiente (.env) ...")
     configure_env_file(directory, cfg)
     with ComposeContext(directory):
@@ -302,7 +304,7 @@ def install_andino(cfg, compose_file_url, stable_version_url):
         pull_application(compose_file_path)
         # Configure
         logger.info("Iniciando la aplicación")
-        init_application(compose_file_path)
+        init_application(compose_file_path, dev_compose_file_path, cfg.theme_volume_src)
         logger.info("Esperando a que la base de datos este disponible...")
         time.sleep(10)
         if cfg.nginx_extended_cache:
@@ -350,6 +352,8 @@ def parse_args():
     parser.add_argument('--ssl_key_path', default="")
     parser.add_argument('--ssl_crt_path', default="")
     parser.add_argument('--timezone', default="America/Argentina/Buenos_Aires")
+    parser.add_argument('--development', default=False)
+    parser.add_argument('--theme_volume_src', default="")
 
     return parser.parse_args()
 
@@ -360,9 +364,11 @@ if __name__ == "__main__":
     base_url = "https://raw.githubusercontent.com/datosgobar/portal-andino"
     branch = args.branch
     compose_file_name = "latest.yml"
+    dev_compose_file_name = "latest.dev.yml"
     stable_version_file_nane = "stable_version.txt"
 
     compose_url = path.join(base_url, branch, compose_file_name)
+    dev_compose_url = compose_url.replace('latest', 'latest.dev')
     stable_version_url = path.join(base_url, branch, "install", stable_version_file_nane)
 
-    install_andino(args, compose_url, stable_version_url)
+    install_andino(args, compose_url, dev_compose_url, stable_version_url)
