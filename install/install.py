@@ -2,10 +2,12 @@
 # -*- coding: utf-8 -*-
 
 import logging
+import os
 import subprocess
 import time
-from urlparse import urlparse
 from os import path, geteuid, makedirs, getcwd, chdir
+from shutil import copyfile
+from urlparse import urlparse
 
 import argparse
 
@@ -71,10 +73,15 @@ def download_file(file_path, download_url):
 
 
 def get_compose_file(base_path, download_url):
+    parent_directory = os.path.abspath(os.path.join(subprocess.check_output('pwd', shell=True).strip(), os.pardir))
     compose_file = "latest.yml"
-    compose_file_path = path.join(base_path, compose_file)
-    download_file(compose_file_path, download_url)
-    return compose_file_path
+    local_compose_file_path = path.join(parent_directory, compose_file)
+    dest_compose_file_path = path.join(base_path, compose_file)
+    if os.path.isfile(local_compose_file_path):
+        copyfile(local_compose_file_path, dest_compose_file_path)
+    else:
+        download_file(dest_compose_file_path, download_url)
+    return dest_compose_file_path
 
 
 def get_stable_version_file(base_path, download_url):
