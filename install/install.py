@@ -296,7 +296,7 @@ def install_andino(cfg, compose_file_url, dev_compose_file_url, stable_version_u
     # Download and install
     logger.info("Descargando archivos necesarios...")
     compose_file_path = get_compose_file(directory, compose_file_url, "latest.yml")
-    dev_compose_file_path = get_compose_file(directory, compose_file_url, "latest.dev.yml")
+    dev_compose_file_path = get_compose_file(directory, dev_compose_file_url, "latest.dev.yml")
     logger.info("Escribiendo archivo de configuración del ambiente (.env) ...")
     configure_env_file(directory, cfg)
     with ComposeContext(directory):
