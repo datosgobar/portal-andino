@@ -72,11 +72,11 @@ def download_file(file_path, download_url):
     ])
 
 
-def get_compose_file(base_path, download_url, compose_file):  # TODO: parametrizar qué forma se utilizará (usar la vieja como default)
+def get_compose_file(base_path, download_url, compose_file, development):
     parent_directory = os.path.abspath(os.path.join(subprocess.check_output('pwd', shell=True).strip(), os.pardir))
     local_compose_file_path = path.join(parent_directory, compose_file)
     dest_compose_file_path = path.join(base_path, compose_file)
-    if os.path.isfile(local_compose_file_path):
+    if development and os.path.isfile(local_compose_file_path):
         copyfile(local_compose_file_path, dest_compose_file_path)
     else:
         download_file(dest_compose_file_path, download_url)
@@ -295,8 +295,8 @@ def install_andino(cfg, compose_file_url, dev_compose_file_url, stable_version_u
 
     # Download and install
     logger.info("Descargando archivos necesarios...")
-    compose_file_path = get_compose_file(directory, compose_file_url, "latest.yml")
-    dev_compose_file_path = get_compose_file(directory, dev_compose_file_url, "latest.dev.yml")
+    compose_file_path = get_compose_file(directory, compose_file_url, "latest.yml", cfg.development)
+    dev_compose_file_path = get_compose_file(directory, dev_compose_file_url, "latest.dev.yml", cfg.development)
     logger.info("Escribiendo archivo de configuración del ambiente (.env) ...")
     configure_env_file(directory, cfg)
     with ComposeContext(directory):
@@ -321,6 +321,10 @@ def install_andino(cfg, compose_file_url, dev_compose_file_url, stable_version_u
         configure_application(compose_file_path, cfg)
         site_url = update_site_url_in_configuration_file(cfg, compose_file_path)
         update_config_file_value("ckan.max_resource_size = {}".format(cfg.file_size_limit), compose_file_path)
+        if cfg.theme_volume_src:
+            theme_directory_name = os.path.basename(os.path.normpath(cfg.theme_volume_src))
+            subprocess.check_call("/usr/lib/ckan/default/bin/pip install -e /opt/{}".format(theme_directory_name),
+                                  shell=True)
         subprocess.check_call(["docker-compose", "-f", "latest.yml", "restart", "nginx"])
         logger.info("Esperando a que Nginx se reinicie...")
         ping_nginx_until_200_response_or_timeout(site_url)
@@ -352,7 +356,7 @@ def parse_args():
     parser.add_argument('--ssl_key_path', default="")
     parser.add_argument('--ssl_crt_path', default="")
     parser.add_argument('--timezone', default="America/Argentina/Buenos_Aires")
-    parser.add_argument('--development', default=False)
+    parser.add_argument('--development', action="store_true")
     parser.add_argument('--theme_volume_src', default="")
 
     return parser.parse_args()
