@@ -6,3 +6,4 @@ services:
         - ${THEME_VOLUME_SRC}:/opt/theme
       ports:
         - "${DATASTORE_HOST_PORT}:8800"
+        - "5000:5000"
