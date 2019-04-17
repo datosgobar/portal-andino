@@ -367,7 +367,7 @@ if __name__ == "__main__":
     stable_version_file_nane = "stable_version.txt"
 
     compose_url = path.join(base_url, branch, compose_file_name)
-    dev_compose_url = compose_url.replace('latest', 'latest.dev')
+    dev_compose_url = path.join(base_url, branch,  dev_compose_file_name)
     stable_version_url = path.join(base_url, branch, "install", stable_version_file_nane)
 
     install_andino(args, compose_url, dev_compose_url)
