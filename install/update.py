@@ -188,10 +188,6 @@ def update_env(base_path, cfg, stable_version_url):
         envconf[file_size_limit] = "300"
 
     envconf["THEME_VOLUME_SRC"] = cfg.theme_volume_src
-    theme_volume_dst = ''
-    if cfg.theme_volume_src:
-        theme_volume_dst = "/opt/{}".format(os.path.basename(os.path.normpath(cfg.theme_volume_src)))
-    envconf["THEME_VOLUME_DST"] = theme_volume_dst
 
     with open(env_file_path, "w") as env_f:
         for key in envconf.keys():
@@ -532,10 +528,9 @@ def update_andino(cfg, compose_file_url, dev_compose_file_url, stable_version_ur
         site_url = update_site_url_in_configuration_file(cfg, compose_file_path, directory)
         if cfg.file_size_limit:
             update_config_file_value("ckan.max_resource_size = {}".format(cfg.file_size_limit), compose_file_path)
-        if cfg.theme_volume_src:
-            theme_directory_name = os.path.basename(os.path.normpath(cfg.theme_volume_src))
+        if cfg.theme_volume_src != "/dev/null":
             subprocess.check_call("docker-compose -f latest.yml exec portal /usr/lib/ckan/default/bin/pip install "
-                                  "-e /opt/{}".format(theme_directory_name),
+                                  "-e /opt/theme",
                                   shell=True)
         logger.info("Reiniciando")
         restart_apps(compose_file_path)
@@ -562,7 +557,7 @@ if __name__ == "__main__":
     parser.add_argument('--ssl_key_path', default="")
     parser.add_argument('--ssl_crt_path', default="")
     parser.add_argument('--use_local_compose_files', action="store_true")
-    parser.add_argument('--theme_volume_src', default="")
+    parser.add_argument('--theme_volume_src', default="/dev/null")
     args = parser.parse_args()
 
     base_url = "https://raw.githubusercontent.com/datosgobar/portal-andino"

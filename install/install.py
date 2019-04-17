@@ -121,10 +121,6 @@ def configure_env_file(base_path, cfg):
             env_f.write("NGINX_CACHE_INACTIVE=%s\n" % cfg.nginx_cache_inactive)
         env_f.write("TZ=%s\n" % cfg.timezone)
         env_f.write("THEME_VOLUME_SRC=%s\n" % cfg.theme_volume_src)
-        theme_volume_dst = ''
-        if cfg.theme_volume_src:
-            theme_volume_dst = "/opt/{}".format(os.path.basename(os.path.normpath(cfg.theme_volume_src)))
-        env_f.write("THEME_VOLUME_DST=%s\n" % theme_volume_dst)
 
 
 def get_nginx_configuration(cfg):
@@ -315,10 +311,9 @@ def install_andino(cfg, compose_file_url, dev_compose_file_url):
         configure_application(compose_file_path, cfg)
         site_url = update_site_url_in_configuration_file(cfg, compose_file_path)
         update_config_file_value("ckan.max_resource_size = {}".format(cfg.file_size_limit), compose_file_path)
-        if cfg.theme_volume_src:
-            theme_directory_name = os.path.basename(os.path.normpath(cfg.theme_volume_src))
+        if cfg.theme_volume_src != "/dev/null":
             subprocess.check_call("docker-compose -f latest.yml exec portal /usr/lib/ckan/default/bin/pip install "
-                                  "-e /opt/{}".format(theme_directory_name),
+                                  "-e /opt/theme",
                                   shell=True)
         subprocess.check_call(["docker-compose", "-f", "latest.yml", "restart", "nginx"])
         logger.info("Esperando a que Nginx se reinicie...")
@@ -352,7 +347,7 @@ def parse_args():
     parser.add_argument('--ssl_crt_path', default="")
     parser.add_argument('--timezone', default="America/Argentina/Buenos_Aires")
     parser.add_argument('--use_local_compose_files', action="store_true")
-    parser.add_argument('--theme_volume_src', default="")
+    parser.add_argument('--theme_volume_src', default="/dev/null")
 
     return parser.parse_args()
 

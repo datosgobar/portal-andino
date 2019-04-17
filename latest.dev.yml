@@ -3,4 +3,6 @@ version: '2'
 services:
     portal:
       volumes:
-        - ${THEME_VOLUME_SRC}:${THEME_VOLUME_DST}
+        - ${THEME_VOLUME_SRC}:/opt/theme
+      ports:
+        - "${DATASTORE_HOST_PORT}:8800"
