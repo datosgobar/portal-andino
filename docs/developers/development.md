@@ -13,6 +13,7 @@
 - [Probar modificaciones y nuevas funcionalidades](#probar-modificaciones-y-nuevas-funcionalidades)
     - [Instalando Andino](#instalando-andino)
     - [Actualizando Andino](#actualizando-andino)
+    - [Debugear Andino](#debuguear-andino)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
