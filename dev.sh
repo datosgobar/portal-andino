@@ -271,14 +271,14 @@ sub_complete_up(){
         --andino_version=$andino_branch\
         --branch=$andino_branch\
         --use_local_compose_files\
-        --theme_volume_src=$theme_volume_src\
         $nginx_ssl\
         $nginx_extended_cache\
         $nginx_host_port\
         $nginx_ssl_port\
         $ssl_key_path\
         $ssl_crt_path\
-        $file_size_limit
+        $file_size_limit\
+        $theme_volume_src
 
     # Checkout al directorio donde está instalado Andino
     cd /etc/portal
@@ -315,7 +315,7 @@ sub_complete_up(){
 sub_complete_update(){
     # Parámetros
     SHORTOPTS="a:t:b:h"
-    LONGOPTS="andino_branch:,theme_branch:,base_branch:,site_host:,nginx_ssl,nginx_host_port:,nginx_ssl_port:,nginx-extended-cache,ssl_key_path:,ssl_crt_path:,file_size_limit:,help"
+    LONGOPTS="andino_branch:,theme_branch:,base_branch:,site_host:,nginx_ssl,nginx_host_port:,nginx_ssl_port:,nginx-extended-cache,ssl_key_path:,ssl_crt_path:,file_size_limit:,theme_volume_src:,help"
 
     ARGS=$(getopt -s bash --options $SHORTOPTS --longoptions $LONGOPTS -- "$@" )
     eval set -- "$ARGS"
@@ -355,6 +355,7 @@ sub_complete_update(){
     sudo python2 ./update.py       \
         --andino_version=$andino_branch\
         --branch=$andino_branch\
+        --use_local_compose_files\
         $site_host\
         $nginx_ssl\
         $nginx_extended_cache\
@@ -362,10 +363,18 @@ sub_complete_update(){
         $nginx_ssl_port\
         $ssl_key_path\
         $ssl_crt_path\
-        $file_size_limit
+        $file_size_limit\
+        $theme_volume_src
 
     # Checkout al directorio donde está instalado Andino
     cd /etc/portal
+
+    # Genero otro archivo de configuración para debugueo mediante paster (apache no soporta "debug = true")
+    printf "\Creando archivo de configuración 'debug.ini'.\n"
+    docker-compose -f latest.yml exec portal bash -c \
+    "cp /etc/ckan/default/production.ini /etc/ckan/default/debug.ini"
+    docker-compose -f latest.yml exec portal bash -c \
+    "sed -i 's/debug = false/debug = true/g' /etc/ckan/default/debug.ini"
 
     # Hago un checkout dentro del contenedor al branch de portal-andino-theme, si se especificó uno
     if [ -z "$theme_branch" ]
