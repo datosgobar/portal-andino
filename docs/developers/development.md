@@ -17,18 +17,6 @@
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-- [Desarrollo](#desarrollo)
-    - [Instalar un nuevo requerimiento en la imagen base](#instalar-un-nuevo-requerimiento-en-la-imagen-base)
-        - [Instalar nuevo requerimiento](#instalar-nuevo-requerimiento)
-        - [Configuración](#configuracion)
-        - [Configuración propia](#configuracion-propia)
-        - [Inicio automático](#inicio-automatico)
-        - [Generación del nuevo contenedor](#generacion-del-nuevo-contenedor)
-    - [Probar modificaciones y nuevas funcionalidades](#probar-modificaciones-y-nuevas-funcionalidades)
-      - [Instalando Andino](#instalando-andino)
-      - [Actualizando Andino](#actualizando-theme)
-      - [Debugear Andino](#debuguear-andino)
-
 
 ## Instalar un nuevo requerimiento en la imagen base
 
