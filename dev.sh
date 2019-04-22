@@ -17,6 +17,7 @@ sub_help(){
     echo "    setup             Inicializar la base de datos y un admin"
     echo "    up_with SRC DEST  Levanta la aplicacion montando un directorio"
     echo "    setup_with        Instala el directorio con pip y levantar el server"
+    echo "    serve             Usar un servidor de paster para debuguear fácilmente la aplicación en el puerto 5000"
     echo ""
 }
 
@@ -104,6 +105,12 @@ sub_up_with(){
         --network portalandino_default -it -p 8080:8080 -p 5000:5000 datosgobar/portal-base /bin/bash
 }
 
+sub_serve(){
+    cd /etc/portal;
+    docker-compose -f latest.yml exec portal bash -c \
+    "/usr/lib/ckan/default/bin/paster serve /etc/ckan/default/debug.ini --reload";
+}
+
 generate_testing_arguments(){
     while true; do
         case $1 in
@@ -173,6 +180,13 @@ generate_testing_arguments(){
               file_size_limit=" --file_size_limit=$1"
           fi
           ;;
+        --theme_volume_src)
+          shift
+          if ! [ -z "$1" ]
+            then
+              theme_volume_src=" --theme_volume_src=$1"
+          fi
+          ;;
         -h | --help)
           complete_commands_usage
           ;;
@@ -205,7 +219,7 @@ generate_testing_arguments(){
 sub_complete_up(){
     # Parámetros
     SHORTOPTS="a:t:b:h"
-    LONGOPTS="andino_branch:,theme_branch:,base_branch:,site_host:,nginx_ssl,nginx_host_port:,nginx_ssl_port:,nginx-extended-cache,ssl_key_path:,ssl_crt_path:,file_size_limit:,help"
+    LONGOPTS="andino_branch:,theme_branch:,base_branch:,site_host:,nginx_ssl,nginx_host_port:,nginx_ssl_port:,nginx-extended-cache,ssl_key_path:,ssl_crt_path:,file_size_limit:,theme_volume_src:,help"
 
     ARGS=$(getopt -s bash --options $SHORTOPTS --longoptions $LONGOPTS -- "$@" )
     eval set -- "$ARGS"
@@ -256,6 +270,8 @@ sub_complete_up(){
         --datastore_password="$STORE_PASS"\
         --andino_version=$andino_branch\
         --branch=$andino_branch\
+        --use_local_compose_files\
+        --theme_volume_src=$theme_volume_src\
         $nginx_ssl\
         $nginx_extended_cache\
         $nginx_host_port\
@@ -276,6 +292,13 @@ sub_complete_up(){
     printf "\nEspecificando path del archivo de log para apache.\n"
     docker-compose -f latest.yml exec portal bash -c \
     "sed -i 's/\/proc\/self\/fd\/1/\/var\/log\/apache2\/error.log/g' /etc/apache2/sites-enabled/ckan_default.conf"
+
+    # Genero otro archivo de configuración para debugueo mediante paster (apache no soporta "debug = true")
+    printf "\Creando archivo de configuración 'debug.ini'.\n"
+    docker-compose -f latest.yml exec portal bash -c \
+    "cp /etc/ckan/default/production.ini /etc/ckan/default/debug.ini"
+    docker-compose -f latest.yml exec portal bash -c \
+    "sed -i 's/debug = false/debug = true/g' /etc/ckan/default/debug.ini"
 
     # Hago un checkout dentro del contenedor al branch de portal-andino-theme, si se especificó uno
     if [ -z "$theme_branch" ]
