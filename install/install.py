@@ -2,10 +2,12 @@
 # -*- coding: utf-8 -*-
 
 import logging
+import os
 import subprocess
 import time
-from urlparse import urlparse
 from os import path, geteuid, makedirs, getcwd, chdir
+from shutil import copyfile
+from urlparse import urlparse
 
 import argparse
 
@@ -70,11 +72,15 @@ def download_file(file_path, download_url):
     ])
 
 
-def get_compose_file(base_path, download_url):
-    compose_file = "latest.yml"
-    compose_file_path = path.join(base_path, compose_file)
-    download_file(compose_file_path, download_url)
-    return compose_file_path
+def get_compose_file(base_path, download_url, compose_file, use_local_compose_files):
+    parent_directory = os.path.abspath(os.path.join(subprocess.check_output('pwd', shell=True).strip(), os.pardir))
+    local_compose_file_path = path.join(parent_directory, compose_file)
+    dest_compose_file_path = path.join(base_path, compose_file)
+    if use_local_compose_files and os.path.isfile(local_compose_file_path):
+        copyfile(local_compose_file_path, dest_compose_file_path)
+    else:
+        download_file(dest_compose_file_path, download_url)
+    return dest_compose_file_path
 
 
 def get_stable_version_file(base_path, download_url):
@@ -114,6 +120,7 @@ def configure_env_file(base_path, cfg):
         if cfg.nginx_cache_inactive:
             env_f.write("NGINX_CACHE_INACTIVE=%s\n" % cfg.nginx_cache_inactive)
         env_f.write("TZ=%s\n" % cfg.timezone)
+        env_f.write("THEME_VOLUME_SRC=%s\n" % cfg.theme_volume_src)
 
 
 def get_nginx_configuration(cfg):
@@ -126,25 +133,15 @@ def get_nginx_configuration(cfg):
     return "nginx.conf"
 
 
-def pull_application(compose_path):
-    subprocess.check_call([
-        "docker-compose",
-        "-f",
-        compose_path,
-        "pull",
-        "--ignore-pull-failures",
-    ])
+def pull_application(compose_path, dev_compose_path, theme_volume_src):
+    extra_file_argument = "-f {}".format(dev_compose_path) if theme_volume_src else ""
+    subprocess.check_call(
+        ["docker-compose -f {0} {1} pull --ignore-pull-failures".format(compose_path, extra_file_argument)], shell=True)
 
 
-def init_application(compose_path):
-    subprocess.check_call([
-        "docker-compose",
-        "-f",
-        compose_path,
-        "up",
-        "-d",
-        "nginx",
-    ])
+def init_application(compose_path, dev_compose_path, theme_volume_src):
+    extra_file_argument = "-f {}".format(dev_compose_path) if theme_volume_src else ""
+    subprocess.check_call(["docker-compose -f {0} {1} up -d nginx".format(compose_path, extra_file_argument)], shell=True)
 
 
 def configure_application(compose_path, cfg):
@@ -273,7 +270,7 @@ def ping_nginx_until_200_response_or_timeout(site_url):
         time.sleep(10 if site_status_code != "200" else 0)  # Si falla, esperamos 10 segundos para reintentarlo
 
 
-def install_andino(cfg, compose_file_url, stable_version_url):
+def install_andino(cfg, compose_file_url, dev_compose_file_url):
     # Check
     directory = cfg.install_directory
     logger.info("Comprobando permisos (sudo)")
@@ -287,15 +284,17 @@ def install_andino(cfg, compose_file_url, stable_version_url):
 
     # Download and install
     logger.info("Descargando archivos necesarios...")
-    compose_file_path = get_compose_file(directory, compose_file_url)
+    compose_file_path = get_compose_file(directory, compose_file_url, "latest.yml", cfg.use_local_compose_files)
+    dev_compose_file_path = get_compose_file(directory, dev_compose_file_url, "latest.dev.yml",
+                                             cfg.use_local_compose_files)
     logger.info("Escribiendo archivo de configuración del ambiente (.env) ...")
     configure_env_file(directory, cfg)
     with ComposeContext(directory):
         logger.info("Obteniendo imágenes de Docker")
-        pull_application(compose_file_path)
+        pull_application(compose_file_path, dev_compose_file_path, cfg.theme_volume_src)
         # Configure
         logger.info("Iniciando la aplicación")
-        init_application(compose_file_path)
+        init_application(compose_file_path, dev_compose_file_path, cfg.theme_volume_src)
         logger.info("Esperando a que la base de datos este disponible...")
         time.sleep(10)
         if cfg.nginx_extended_cache:
@@ -312,6 +311,10 @@ def install_andino(cfg, compose_file_url, stable_version_url):
         configure_application(compose_file_path, cfg)
         site_url = update_site_url_in_configuration_file(cfg, compose_file_path)
         update_config_file_value("ckan.max_resource_size = {}".format(cfg.file_size_limit), compose_file_path)
+        if cfg.theme_volume_src != "/dev/null":
+            subprocess.check_call("docker-compose -f latest.yml exec portal /usr/lib/ckan/default/bin/pip install "
+                                  "-e /opt/theme",
+                                  shell=True)
         subprocess.check_call(["docker-compose", "-f", "latest.yml", "restart", "nginx"])
         logger.info("Esperando a que Nginx se reinicie...")
         ping_nginx_until_200_response_or_timeout(site_url)
@@ -343,6 +346,8 @@ def parse_args():
     parser.add_argument('--ssl_key_path', default="")
     parser.add_argument('--ssl_crt_path', default="")
     parser.add_argument('--timezone', default="America/Argentina/Buenos_Aires")
+    parser.add_argument('--use_local_compose_files', action="store_true")
+    parser.add_argument('--theme_volume_src', default="/dev/null")
 
     return parser.parse_args()
 
@@ -353,9 +358,11 @@ if __name__ == "__main__":
     base_url = "https://raw.githubusercontent.com/datosgobar/portal-andino"
     branch = args.branch
     compose_file_name = "latest.yml"
+    dev_compose_file_name = "latest.dev.yml"
     stable_version_file_nane = "stable_version.txt"
 
     compose_url = path.join(base_url, branch, compose_file_name)
+    dev_compose_url = path.join(base_url, branch,  dev_compose_file_name)
     stable_version_url = path.join(base_url, branch, "install", stable_version_file_nane)
 
-    install_andino(args, compose_url, stable_version_url)
+    install_andino(args, compose_url, dev_compose_url)

@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 import argparse
 import logging
+import os
 import shutil
 import subprocess
 import time
@@ -72,12 +73,18 @@ def download_file(file_path, download_url):
     ])
 
 
-def download_compose_file(compose_path, download_url):
-    download_file(compose_path, download_url)
+def get_compose_file(base_path, download_url, compose_file, use_local_compose_files):
+    parent_directory = os.path.abspath(os.path.join(subprocess.check_output('pwd', shell=True).strip(), os.pardir))
+    local_compose_file_path = path.join(parent_directory, compose_file)
+    dest_compose_file_path = path.join(base_path, compose_file)
+    if use_local_compose_files and os.path.isfile(local_compose_file_path):
+        shutil.copyfile(local_compose_file_path, dest_compose_file_path)
+    else:
+        download_file(dest_compose_file_path, download_url)
+    return dest_compose_file_path
 
 
-def get_compose_file_path(base_path):
-    compose_file = "latest.yml"
+def get_compose_file_path(base_path, compose_file):
     return path.join(base_path, compose_file)
 
 
@@ -180,6 +187,8 @@ def update_env(base_path, cfg, stable_version_url):
     elif not envconf.get(file_size_limit, ''):
         envconf[file_size_limit] = "300"
 
+    envconf["THEME_VOLUME_SRC"] = cfg.theme_volume_src
+
     with open(env_file_path, "w") as env_f:
         for key in envconf.keys():
             env_f.write("%s=%s\n" % (key, envconf[key]))
@@ -230,14 +239,10 @@ def backup_database(base_path, compose_path):
         a_file.write(output)
 
 
-def pull_application(compose_path):
-    subprocess.check_call([
-        "docker-compose",
-        "-f",
-        compose_path,
-        "pull",
-        "--ignore-pull-failures",
-    ])
+def pull_application(compose_path, dev_compose_path, theme_volume_src):
+    extra_file_argument = "-f {}".format(dev_compose_path) if theme_volume_src else ""
+    subprocess.check_call(
+        ["docker-compose -f {0} {1} pull --ignore-pull-failures".format(compose_path, extra_file_argument)], shell=True)
 
 
 def persist_ssl_certificates(cfg):
@@ -257,15 +262,9 @@ def persist_ssl_certificates(cfg):
     ])
 
 
-def reload_application(compose_path):
-    subprocess.check_call([
-        "docker-compose",
-        "-f",
-        compose_path,
-        "up",
-        "-d",
-        "nginx",
-    ])
+def reload_application(compose_path, dev_compose_path, theme_volume_src):
+    extra_file_argument = "-f {}".format(dev_compose_path) if theme_volume_src else ""
+    subprocess.check_call(["docker-compose -f {0} {1} up -d nginx".format(compose_path, extra_file_argument)], shell=True)
 
 
 def check_previous_installation(base_path):
@@ -482,7 +481,7 @@ def restore_cron_jobs(crontab_content):
         pass
 
 
-def update_andino(cfg, compose_file_url, stable_version_url):
+def update_andino(cfg, compose_file_url, dev_compose_file_url, stable_version_url):
     directory = cfg.install_directory
     logger.info("Comprobando permisos (sudo)")
     check_permissions()
@@ -492,10 +491,13 @@ def update_andino(cfg, compose_file_url, stable_version_url):
     check_compose()
     logger.info("Comprobando instalación previa...")
     check_previous_installation(directory)
-    compose_file_path = get_compose_file_path(directory)
     fix_env_file(directory)
+    compose_file_path = get_compose_file(directory, compose_file_url, "latest.yml", cfg.use_local_compose_files)
+    dev_compose_file_path = get_compose_file(directory, dev_compose_file_url, "latest.dev.yml", cfg.use_local_compose_files)
 
     with ComposeContext(directory):
+        logger.info("Descargando archivos necesarios...")
+        update_env(directory, cfg, stable_version_url)
         try:
             crontab_content = subprocess.check_output(
                 'docker exec -it andino crontab -u www-data -l', shell=True).strip()
@@ -506,12 +508,9 @@ def update_andino(cfg, compose_file_url, stable_version_url):
         logger.info("Guardando base de datos...")
         backup_database(directory, compose_file_path)
         logger.info("Actualizando la aplicación")
-        logger.info("Descargando archivos necesarios...")
-        download_compose_file(compose_file_path, compose_file_url)
-        update_env(directory, cfg, stable_version_url)
         logger.info("Descargando nuevas imagenes...")
-        pull_application(compose_file_path)
-        reload_application(compose_file_path)
+        pull_application(compose_file_path, dev_compose_file_path, cfg.theme_volume_src)
+        reload_application(compose_file_path, dev_compose_file_path, cfg.theme_volume_src)
         if cfg.nginx_extended_cache:
             logger.info("Configurando caché extendida de nginx")
             configure_nginx_extended_cache(compose_file_path)
@@ -529,6 +528,10 @@ def update_andino(cfg, compose_file_url, stable_version_url):
         site_url = update_site_url_in_configuration_file(cfg, compose_file_path, directory)
         if cfg.file_size_limit:
             update_config_file_value("ckan.max_resource_size = {}".format(cfg.file_size_limit), compose_file_path)
+        if cfg.theme_volume_src != "/dev/null":
+            subprocess.check_call("docker-compose -f latest.yml exec portal /usr/lib/ckan/default/bin/pip install "
+                                  "-e /opt/theme",
+                                  shell=True)
         logger.info("Reiniciando")
         restart_apps(compose_file_path)
         logger.info("Esperando a que Nginx inicie...")
@@ -553,14 +556,18 @@ if __name__ == "__main__":
     parser.add_argument('--nginx_ssl', action="store_true")
     parser.add_argument('--ssl_key_path', default="")
     parser.add_argument('--ssl_crt_path', default="")
+    parser.add_argument('--use_local_compose_files', action="store_true")
+    parser.add_argument('--theme_volume_src', default="/dev/null")
     args = parser.parse_args()
 
     base_url = "https://raw.githubusercontent.com/datosgobar/portal-andino"
     branch = args.branch
     file_name = "latest.yml"
+    dev_file_name = "latest.dev.yml"
     stable_version_file_nane = "stable_version.txt"
 
     compose_file_download_url = path.join(base_url, branch, file_name)
+    dev_compose_file_download_url = path.join(base_url, branch, dev_file_name)
     stable_version_url = path.join(base_url, branch, "install", stable_version_file_nane)
 
-    update_andino(args, compose_file_download_url, stable_version_url)
+    update_andino(args, compose_file_download_url, dev_compose_file_download_url, stable_version_url)
