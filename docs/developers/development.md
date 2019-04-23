@@ -192,7 +192,7 @@ que se base en la anterior.
 
 ### Instalando Andino
 
-Se utilizará el archivo `dev.sh` de portal-andino ejecutando la función `complete_up`, la cual permite levantar una 
+Se utilizará el archivo `dev.sh` de portal-andino ejecutando la función `complete_install`, la cual permite levantar una 
 instancia en base a los parámetros recibidos. Dicha función puede ser usada para testear cambios en portal-andino, 
 portal-andino-theme, y/o portal-base.
 

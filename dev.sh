@@ -5,24 +5,26 @@ set -e;
 ProgName=$(basename $0);
 
 sub_help(){
-    echo "Uso: $ProgName <subcomando>"
     echo "Subcomandos:"
-    echo "    build             Generar las imágenes necesarias para los servicios"
-    echo "    up                Levantar los servicios"
-    echo "    stop              Parar los servicios"
-    echo "    down              Borra los contenedores y los volúmenes"
-    echo "    rm                Borrar los contenedores de los servicios"
-    echo "    exec              Ejecuta comandos en el contenedor"
-    echo "    create_admin      Crear un usuario administrador"
-    echo "    setup             Inicializar la base de datos y un admin"
-    echo "    up_with SRC DEST  Levanta la aplicacion montando un directorio"
-    echo "    setup_with        Instala el directorio con pip y levantar el server"
-    echo "    serve             Usar un servidor de paster para debuguear fácilmente la aplicación en el puerto 5000"
+    echo "    complete_install   Instalar una instancia de Andino usando configuraciones específicas (usar '-h' para ver cuáles existen y para qué sirven)"
+    echo "    complete_update    Actualizar una instancia de Andino usando configuraciones específicas (idem complete_install)"
+    echo "    exec               Ejecutar el comando especificado en el contenedor de Andino"
+    echo "    logs               Mostrar y seguir log del contenedor especificado"
+    echo "    serve              Usar un servidor de paster para debuguear fácilmente la aplicación en el puerto 5000"
+    echo "    up                 Levantar los servicios"
+    echo "    stop               Parar los servicios"
+    echo "    down               Borrar los contenedores y los volúmenes"
     echo ""
 }
 
 sub_compose() {
-    docker-compose -f dev.yml $@;
+    cd /etc/portal;
+    echo "docker-compose -f latest.yml -f latest.dev.yml" $@;
+    docker-compose -f latest.yml -f latest.dev.yml $@;
+}
+
+sub_up(){
+    sub_compose up -d $@;
 }
 
 sub_stop(){
@@ -30,85 +32,20 @@ sub_stop(){
 }
 
 sub_down(){
-    sub_compose down -v;
-}
-
-sub_build() {
-    sub_compose build;
-}
-
-sub_rm() {
-    sub_compose rm $@;
+    sub_compose down -v $@;
 }
 
 sub_exec() {
     sub_compose exec portal $@;
 }
 
-sub_console() {
-    sub_exec /bin/bash;
-}
-
-sub_up(){
-    sub_compose up -d $@;
-}
-
 sub_logs(){
-    sub_compose logs -f portal;
-}
-
-
-sub_create_admin() {
-    sub_exec /etc/ckan_init.d/add_admin.sh $@ info@example.com;
-}
-
-sub_setup() {
-    sub_exec /etc/ckan_init.d/init_dev.sh;
-    sub_exec supervisorctl restart all
-    sub_create_admin admin;
-}
-
-sub_setup_with() {
-    if [ -z "$1" ]; then
-        echo "Falta el directorio a instalar."
-        exit 1;
-    fi
-    directory="$1"
-    sub_exec /usr/lib/ckan/default/bin/pip install -r "$directory/requirements.txt"
-    sub_exec /usr/lib/ckan/default/bin/pip install -e "$directory"
-    sub_exec /etc/ckan_init.d/init_dev.sh
-    sub_exec supervisorctl restart all
-    sub_exec /usr/lib/ckan/default/bin/paster serve /etc/ckan/default/production.ini
-}
-
-sub_up_with(){
-    if [ -z "$1" ]; then
-        echo "Falta source del directorio a montar."
-        exit 1;
-    fi
-    if [ -z "$2" ]; then
-        echo "Falta el destino del directorio."
-        exit 1;
-    fi
-    src="$1"
-    dest="$2"
-    redis_container=portalandino_redis_1;
-    db_container=portalandino_db_1;
-    solr_container=portalandino_solr_1;
-    nginx_container=portalandino_nginx_1;
-    echo "nginx"
-    postfix_container=portalandino_postfix_1;
-    # --link es legacy, eventualmente se deberá cambiar
-    docker run -v "$src:$dest" \
-        --link $redis_container:redis --link $db_container:db --link $nginx_container:nginx \
-        --link $solr_container:solr --link $postfix_container:postfix \
-        --network portalandino_default -it -p 8080:8080 -p 5000:5000 datosgobar/portal-base /bin/bash
+    docker logs -f --tail 20 $1;
 }
 
 sub_serve(){
     cd /etc/portal;
-    docker-compose -f latest.yml exec portal bash -c \
-    "/usr/lib/ckan/default/bin/paster serve /etc/ckan/default/debug.ini --reload";
+    docker-compose -f latest.yml exec portal bash -c "/usr/lib/ckan/default/bin/paster serve /etc/ckan/default/debug.ini --reload";
 }
 
 generate_testing_arguments(){
@@ -216,7 +153,7 @@ generate_testing_arguments(){
     fi
 }
 
-sub_complete_up(){
+sub_complete_install(){
     # Parámetros
     SHORTOPTS="a:t:b:h"
     LONGOPTS="andino_branch:,theme_branch:,base_branch:,site_host:,nginx_ssl,nginx_host_port:,nginx_ssl_port:,nginx-extended-cache,ssl_key_path:,ssl_crt_path:,file_size_limit:,theme_volume_src:,help"
@@ -403,6 +340,7 @@ Usage: $(basename "$0") [OPTION]...
        --ssl_crt_path            VALUE    path al certificado SSL
        --nginx-extended-cache             activar la configuración de caché extendida de Nginx
        --file_size_limit         VALUE    tamaño máximo en MB para archivos de recursos (default: 300, máximo recomendado: 1024)
+       --theme_volume_src        VALUE    path del host donde se encuentra clonado portal-andino-theme para crear un volumen (default: /dev/null para no usar un theme)
 EOM
 	exit 2
 }
