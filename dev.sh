@@ -13,7 +13,7 @@ sub_help(){
     echo "    serve              Usar un servidor de paster para debuguear fácilmente la aplicación en el puerto 5000"
     echo "    up                 Levantar los servicios"
     echo "    stop               Parar los servicios"
-    echo "    down               Borrar los contenedores y los volúmenes"
+    echo "    down               Borrar los contenedores, sus volúmenes, y el directorio de instalación"
     echo ""
 }
 
@@ -33,6 +33,7 @@ sub_stop(){
 
 sub_down(){
     sub_compose down -v $@;
+    sudo rm -rf /etc/portal/;
 }
 
 sub_exec() {
@@ -40,7 +41,7 @@ sub_exec() {
 }
 
 sub_logs(){
-    docker logs -f --tail 20 $1;
+    docker logs -f --tail 150 andino $1;
 }
 
 sub_serve(){
