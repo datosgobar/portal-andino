@@ -49,111 +49,6 @@ sub_serve(){
     docker-compose -f latest.yml exec portal bash -c "/usr/lib/ckan/default/bin/paster serve /etc/ckan/default/debug.ini --reload";
 }
 
-generate_testing_arguments(){
-    while true; do
-        case $1 in
-        -a | --andino_branch)
-          shift
-          andino_branch="$1"
-          ;;
-        -t | --theme_branch)
-          shift
-          theme_branch="$1"
-          ;;
-        -b | --base_branch)
-          shift
-          base_branch="$1"
-          ;;
-        --site_host)
-          shift
-          if ! [ -z "$1" ]
-            then
-              site_host="$1"
-          fi
-          ;;
-        --nginx_ssl)
-          nginx_ssl=" --nginx_ssl"
-          ;;
-        --nginx_host_port)
-          shift
-          if ! [ -z "$1" ]
-            then
-              nginx_host_port=" --nginx_port=$1"
-          fi
-          ;;
-        --nginx_ssl_port)
-          shift
-          if ! [ -z "$1" ]
-            then
-              nginx_ssl_port=" --nginx_ssl_port=$1"
-          fi
-          ;;
-        --nginx-extended-cache)
-          nginx_extended_cache=" --nginx-extended-cache"
-          ;;
-        --ssl_key_path)
-          shift
-          if ! [[ -f $1 ]];
-            then
-              printf "\nEl path ingresado para ssl_key_path es inválido.\n"
-              exit 1
-            else
-              ssl_key_path=" --ssl_key_path=$1"
-          fi
-          ;;
-        --ssl_crt_path)
-          shift
-          if ! [[ -f $1 ]];
-            then
-              printf "\nEl path ingresado para ssl_crt_path es inválido.\n"
-              exit 1
-            else
-              ssl_crt_path=" --ssl_crt_path=$1"
-          fi
-          ;;
-        --file_size_limit)
-          shift
-          if ! [ -z "$1" ]
-            then
-              file_size_limit=" --file_size_limit=$1"
-          fi
-          ;;
-        --theme_volume_src)
-          shift
-          if ! [ -z "$1" ]
-            then
-              theme_volume_src=" --theme_volume_src=$1"
-          fi
-          ;;
-        -h | --help)
-          complete_commands_usage
-          ;;
-        \?)
-          echo "Invalid option: -$OPTARG" >&2
-          exit 1
-          ;;
-        :)
-          echo "Option -$OPTARG requires an argument." >&2
-          exit 1
-          ;;
-        --)
-          shift
-          break
-            ;;
-        *)
-          shift
-          break
-          ;;
-        esac
-        shift
-    done
-
-    if [ -z "$andino_branch" ]
-      then
-        andino_branch=master
-    fi
-}
-
 sub_complete_install(){
     # Parámetros
     SHORTOPTS="a:t:b:h"
@@ -344,6 +239,111 @@ Usage: $(basename "$0") [OPTION]...
        --theme_volume_src        VALUE    path del host donde se encuentra clonado portal-andino-theme para crear un volumen (default: /dev/null para no usar un theme)
 EOM
 	exit 2
+}
+
+generate_testing_arguments(){
+    while true; do
+        case $1 in
+        -a | --andino_branch)
+          shift
+          andino_branch="$1"
+          ;;
+        -t | --theme_branch)
+          shift
+          theme_branch="$1"
+          ;;
+        -b | --base_branch)
+          shift
+          base_branch="$1"
+          ;;
+        --site_host)
+          shift
+          if ! [ -z "$1" ]
+            then
+              site_host="$1"
+          fi
+          ;;
+        --nginx_ssl)
+          nginx_ssl=" --nginx_ssl"
+          ;;
+        --nginx_host_port)
+          shift
+          if ! [ -z "$1" ]
+            then
+              nginx_host_port=" --nginx_port=$1"
+          fi
+          ;;
+        --nginx_ssl_port)
+          shift
+          if ! [ -z "$1" ]
+            then
+              nginx_ssl_port=" --nginx_ssl_port=$1"
+          fi
+          ;;
+        --nginx-extended-cache)
+          nginx_extended_cache=" --nginx-extended-cache"
+          ;;
+        --ssl_key_path)
+          shift
+          if ! [[ -f $1 ]];
+            then
+              printf "\nEl path ingresado para ssl_key_path es inválido.\n"
+              exit 1
+            else
+              ssl_key_path=" --ssl_key_path=$1"
+          fi
+          ;;
+        --ssl_crt_path)
+          shift
+          if ! [[ -f $1 ]];
+            then
+              printf "\nEl path ingresado para ssl_crt_path es inválido.\n"
+              exit 1
+            else
+              ssl_crt_path=" --ssl_crt_path=$1"
+          fi
+          ;;
+        --file_size_limit)
+          shift
+          if ! [ -z "$1" ]
+            then
+              file_size_limit=" --file_size_limit=$1"
+          fi
+          ;;
+        --theme_volume_src)
+          shift
+          if ! [ -z "$1" ]
+            then
+              theme_volume_src=" --theme_volume_src=$1"
+          fi
+          ;;
+        -h | --help)
+          complete_commands_usage
+          ;;
+        \?)
+          echo "Invalid option: -$OPTARG" >&2
+          exit 1
+          ;;
+        :)
+          echo "Option -$OPTARG requires an argument." >&2
+          exit 1
+          ;;
+        --)
+          shift
+          break
+            ;;
+        *)
+          shift
+          break
+          ;;
+        esac
+        shift
+    done
+
+    if [ -z "$andino_branch" ]
+      then
+        andino_branch=master
+    fi
 }
 
 subcommand=$1
