@@ -15,6 +15,7 @@ class InstallationManager:
     def __init__(self):
         self.logger = self.build_logger()
         self.nginx_ssl_config_directory = '/etc/nginx/ssl'
+        self.compose_files = ['latest.yml', 'latest.dev.yml']
 
     def run(self):
         pass
@@ -24,6 +25,12 @@ class InstallationManager:
 
     def get_subprocess_output(self, command):
         return subprocess.check_output(command, shell=True).strip()
+
+    def run_compose_comand(self, cmd):
+        self.run_with_subprocess("docker compose {0} {1}".format(self.convert_compose_filenames_to_flags(), cmd))
+
+    def convert_compose_filenames_to_flags(self):
+        return "%s%s" % ('-f ', ' -f '.join(self.compose_files))
 
     def parse_args(self):
         pass
@@ -37,12 +44,12 @@ class InstallationManager:
         self.run_with_subprocess("docker ps")
 
     def check_compose(self):
-        self.run_with_subprocess("docker-compose --version")
+        self.run_compose_comand("--version")
 
     def download_file(self, file_path, download_url):
         self.run_with_subprocess("curl {0} --fail --output {1}".format(download_url, file_path))
 
-    def get_compose_file(self, base_path, download_url, compose_file, use_local_compose_files):
+    def get_compose_file(self, base_path, download_url, compose_file, use_local_compose_files):  # TODO: refactorear junto a scripts
         parent_directory = os.path.abspath(os.path.join(self.get_subprocess_output('pwd'), os.pardir))
         local_compose_file_path = path.join(parent_directory, compose_file)
         dest_compose_file_path = path.join(base_path, compose_file)
@@ -52,9 +59,9 @@ class InstallationManager:
             self.download_file(dest_compose_file_path, download_url)
         return dest_compose_file_path
 
-    def get_stable_version_file(self, base_path, download_url):
-        compose_file = "stable_version.yml"
-        stable_version_path = path.join(base_path, compose_file)
+    def get_stable_version_file_path(self, base_path, download_url):
+        stable_version_file = "stable_version.yml"
+        stable_version_path = path.join(base_path, stable_version_file)
         self.download_file(stable_version_path, download_url)
         return stable_version_path
 
@@ -63,8 +70,8 @@ class InstallationManager:
             andino_version = cfg.andino_version
         else:
             self.logger.info("Configurando versión estable de andino.")
-            stable_version_path = self.get_stable_version_file(base_path, stable_version_url)
-            with file(stable_version_path, "r") as f:
+            stable_version_file_path = self.get_stable_version_file_path(base_path, stable_version_url)
+            with file(stable_version_file_path, "r") as f:
                 content = f.read()
             andino_version = content.strip()
         self.logger.info("Usando versión '%s' de andino" % andino_version)
@@ -84,33 +91,28 @@ class InstallationManager:
                               "un archivo para el certificado. Se utilizará el default en su lugar.")
         return "nginx.conf"
 
-    def pull_application(self, compose_path, dev_compose_path, theme_volume_src):
-        extra_file_argument = "-f {}".format(dev_compose_path) if theme_volume_src else ""
-        self.run_with_subprocess(
-            "docker-compose -f {0} {1} pull --ignore-pull-failures".format(compose_path, extra_file_argument))
+    def pull_application(self):
+        self.run_compose_comand("pull --ignore-pull-failures")
 
-    def load_application(self, compose_path, dev_compose_path, theme_volume_src):
-        extra_file_argument = "-f {}".format(dev_compose_path) if theme_volume_src else ""
-        self.run_with_subprocess(
-            "docker-compose -f {0} {1} up -d nginx".format(compose_path, extra_file_argument))
+    def load_application(self):
+        self.run_compose_comand("up -d nginx")
 
     def configure_application(self, compose_path):
         pass
 
-    def restart_apps(self, compose_path):
-        self.run_with_subprocess("docker compose -f {} restart".format(compose_path))
+    def restart_apps(self):
+        self.run_compose_comand("restart")
 
-    def configure_nginx_extended_cache(self, compose_path):
-        self.update_config_file_value("andino.cache_clean_hook=http://nginx/meta/cache/purge", compose_path)
-        self.update_config_file_value("andino.cache_clean_hook_method=PURGE", compose_path)
+    def configure_nginx_extended_cache(self):
+        self.update_config_file_value("andino.cache_clean_hook=http://nginx/meta/cache/purge")
+        self.update_config_file_value("andino.cache_clean_hook_method=PURGE")
 
-    def update_config_file_value(self, value, compose_path):
+    def update_config_file_value(self, value):
         if value:
-            self.run_with_subprocess(
-                "docker-compose -f {0} exec -T portal /etc/ckan_init.d/update_conf.sh {1}".format(compose_path, value))
+            self.run_compose_comand("exec -T portal /etc/ckan_init.d/update_conf.sh {}".format(value))
 
     def include_necessary_nginx_configuration(self, filename):
-        self.run_with_subprocess("docker exec -d andino-nginx /etc/nginx/scripts/{}".format(filename))
+        self.run_compose_comand("exec nginx /etc/nginx/scripts/{}".format(filename))
 
     def persist_ssl_certificates(self, cfg):
         self.copy_file_to_container(
