@@ -101,12 +101,13 @@ class InstallationManager:
         self.run_with_subprocess("docker compose -f {} restart".format(compose_path))
 
     def configure_nginx_extended_cache(self, compose_path):
-        self.run_with_subprocess(
-            "docker-compose -f {} exec -T portal /etc/ckan_init.d/update_conf.sh "  # TODO: usar update_config_file_value
-            "andino.cache_clean_hook=http://nginx/meta/cache/purge".format(compose_path))
-        self.run_with_subprocess(
-            "docker-compose -f {} exec -T portal /etc/ckan_init.d/update_conf.sh "
-            "andino.cache_clean_hook_method=PURGE".format(compose_path))
+        self.update_config_file_value("andino.cache_clean_hook=http://nginx/meta/cache/purge", compose_path)
+        self.update_config_file_value("andino.cache_clean_hook_method=PURGE", compose_path)
+
+    def update_config_file_value(self, value, compose_path):
+        if value:
+            self.run_with_subprocess(
+                "docker-compose -f {0} exec -T portal /etc/ckan_init.d/update_conf.sh {1}".format(compose_path, value))
 
     def include_necessary_nginx_configuration(self, filename):
         self.run_with_subprocess("docker exec -d andino-nginx /etc/nginx/scripts/{}".format(filename))
@@ -119,11 +120,6 @@ class InstallationManager:
 
     def copy_file_to_container(self, src, dst):
         self.run_with_subprocess("docker cp {0} {1}".format(src, dst))
-
-    def update_config_file_value(self, value, compose_path):
-        if value:
-            self.run_with_subprocess(
-                "docker-compose -f {0} exec -T portal /etc/ckan_init.d/update_conf.sh {1}".format(compose_path, value))
 
     def ping_nginx_until_200_response_or_timeout(self, site_url):
         timeout = time.time() + 60 * 5  # límite de 5 minutos
