@@ -1,12 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import argparse
 import logging
 import os
 import shutil
 import subprocess
-import time
 import sys
+import time
 from os import geteuid, path
 
 
@@ -14,8 +15,8 @@ class InstallationManager:
 
     def __init__(self):
         self.logger = self.build_logger()
-        self.nginx_ssl_config_directory = '/etc/nginx/ssl'
         self.compose_files = ['latest.yml', 'latest.dev.yml']
+        self.cfg = self.parse_args()
 
     def run(self):
         pass
@@ -33,7 +34,10 @@ class InstallationManager:
         return "%s%s" % ('-f ', ' -f '.join(self.compose_files))
 
     def parse_args(self):
-        pass
+        return argparse.ArgumentParser().parse_args()
+
+    def get_install_directory(self):
+        return self.cfg.install_directory
 
     def check_permissions(self):
         if geteuid() != 0:
@@ -49,35 +53,35 @@ class InstallationManager:
     def download_file(self, file_path, download_url):
         self.run_with_subprocess("curl {0} --fail --output {1}".format(download_url, file_path))
 
-    def get_compose_file(self, base_path, download_url, compose_file, use_local_compose_files):  # TODO: refactorear junto a scripts
+    def get_compose_file(self, download_url, compose_file, use_local_compose_files):  # TODO: refactorear junto a scripts
         parent_directory = os.path.abspath(os.path.join(self.get_subprocess_output('pwd'), os.pardir))
         local_compose_file_path = path.join(parent_directory, compose_file)
-        dest_compose_file_path = path.join(base_path, compose_file)
+        dest_compose_file_path = path.join(self.get_install_directory(), compose_file)
         if use_local_compose_files and os.path.isfile(local_compose_file_path):
             shutil.copyfile(local_compose_file_path, dest_compose_file_path)
         else:
             self.download_file(dest_compose_file_path, download_url)
         return dest_compose_file_path
 
-    def get_stable_version_file_path(self, base_path, download_url):
+    def get_stable_version_file_path(self, download_url):
         stable_version_file = "stable_version.yml"
-        stable_version_path = path.join(base_path, stable_version_file)
+        stable_version_path = path.join(self.get_install_directory(), stable_version_file)
         self.download_file(stable_version_path, download_url)
         return stable_version_path
 
-    def get_andino_version(self, cfg, base_path, stable_version_url):
+    def get_andino_version(self, cfg, stable_version_url):
         if cfg.andino_version:
             andino_version = cfg.andino_version
         else:
             self.logger.info("Configurando versión estable de andino.")
-            stable_version_file_path = self.get_stable_version_file_path(base_path, stable_version_url)
+            stable_version_file_path = self.get_stable_version_file_path(stable_version_url)
             with file(stable_version_file_path, "r") as f:
                 content = f.read()
             andino_version = content.strip()
         self.logger.info("Usando versión '%s' de andino" % andino_version)
         return andino_version
 
-    def configure_env_file(self, base_path, cfg, stable_version_url):
+    def configure_env_file(self, cfg, stable_version_url):
         pass
 
     def check_nginx_ssl_files_exist(self, cfg):
@@ -115,10 +119,11 @@ class InstallationManager:
         self.run_compose_comand("exec nginx /etc/nginx/scripts/{}".format(filename))
 
     def persist_ssl_certificates(self, cfg):
+        nginx_ssl_config_directory = '/etc/nginx/ssl'
         self.copy_file_to_container(
-            cfg.ssl_key_path, "andino-nginx:{}/andino.key".format(self.nginx_ssl_config_directory))
+            cfg.ssl_key_path, "andino-nginx:{}/andino.key".format(nginx_ssl_config_directory))
         self.copy_file_to_container(
-            cfg.ssl_key_path, "andino-nginx:{}/andino.crt".format(self.nginx_ssl_config_directory))
+            cfg.ssl_key_path, "andino-nginx:{}/andino.crt".format(nginx_ssl_config_directory))
 
     def copy_file_to_container(self, src, dst):
         self.run_with_subprocess("docker cp {0} {1}".format(src, dst))
