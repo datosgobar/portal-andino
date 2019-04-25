@@ -14,9 +14,9 @@ from os import geteuid, path
 class InstallationManager:
 
     def __init__(self):
-        self.logger = self.build_logger()
-        self.compose_files = ['latest.yml', 'latest.dev.yml']
         self.cfg = self.parse_args()
+        self.compose_files = ['latest.yml', 'latest.dev.yml']
+        self.logger = self.build_logger()
 
     def run(self):
         pass
@@ -63,23 +63,26 @@ class InstallationManager:
             self.download_file(dest_compose_file_path, download_url)
         return dest_compose_file_path
 
-    def get_stable_version_file_path(self, download_url):
-        stable_version_file = "stable_version.yml"
-        stable_version_path = path.join(self.get_install_directory(), stable_version_file)
-        self.download_file(stable_version_path, download_url)
-        return stable_version_path
-
-    def get_andino_version(self, cfg, stable_version_url):
+    def get_andino_version(self, cfg):
         if cfg.andino_version:
             andino_version = cfg.andino_version
         else:
             self.logger.info("Configurando versión estable de andino.")
-            stable_version_file_path = self.get_stable_version_file_path(stable_version_url)
+            stable_version_file_path = self.download_stable_version_file()
             with file(stable_version_file_path, "r") as f:
                 content = f.read()
             andino_version = content.strip()
         self.logger.info("Usando versión '%s' de andino" % andino_version)
         return andino_version
+
+    def download_stable_version_file(self):
+        stable_version_file = "stable_version.yml"
+        base_url = "https://raw.githubusercontent.com/datosgobar/portal-andino"
+        stable_version_file_name = "stable_version.txt"
+        stable_version_url = path.join(base_url, self.cfg.branch, "install", stable_version_file_name)
+        stable_version_path = path.join(self.get_install_directory(), stable_version_file)
+        self.download_file(stable_version_path, stable_version_url)
+        return stable_version_path
 
     def configure_env_file(self, cfg, stable_version_url):
         pass
