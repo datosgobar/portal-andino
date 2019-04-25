@@ -63,9 +63,9 @@ class InstallationManager:
             self.download_file(dest_compose_file_path, download_url)
         return dest_compose_file_path
 
-    def get_andino_version(self, cfg):
-        if cfg.andino_version:
-            andino_version = cfg.andino_version
+    def get_andino_version(self):
+        if self.cfg.andino_version:
+            andino_version = self.cfg.andino_version
         else:
             self.logger.info("Configurando versión estable de andino.")
             stable_version_file_path = self.download_stable_version_file()
@@ -84,19 +84,19 @@ class InstallationManager:
         self.download_file(stable_version_path, stable_version_url)
         return stable_version_path
 
-    def configure_env_file(self, cfg, stable_version_url):
+    def configure_env_file(self, stable_version_url):
         pass
 
-    def check_nginx_ssl_files_exist(self, cfg):
-        return path.isfile(cfg.ssl_crt_path) and path.isfile(cfg.ssl_key_path)
-
-    def get_nginx_configuration(self, cfg):
-        if cfg.nginx_ssl:
-            if self.check_nginx_ssl_files_exist(cfg):
+    def get_nginx_configuration(self):
+        if self.cfg.nginx_ssl:
+            if self.check_nginx_ssl_files_exist():
                 return "nginx_ssl.conf"
             self.logger.error("No se puede utilizar el archivo de configuración para SSL debido a que falta al menos "
                               "un archivo para el certificado. Se utilizará el default en su lugar.")
         return "nginx.conf"
+
+    def check_nginx_ssl_files_exist(self):
+        return path.isfile(self.cfg.ssl_crt_path) and path.isfile(self.cfg.ssl_key_path)
 
     def pull_application(self):
         self.run_compose_comand("pull --ignore-pull-failures")
@@ -121,12 +121,12 @@ class InstallationManager:
     def include_necessary_nginx_configuration(self, filename):
         self.run_compose_comand("exec nginx /etc/nginx/scripts/{}".format(filename))
 
-    def persist_ssl_certificates(self, cfg):
+    def persist_ssl_certificates(self):
         nginx_ssl_config_directory = '/etc/nginx/ssl'
         self.copy_file_to_container(
-            cfg.ssl_key_path, "andino-nginx:{}/andino.key".format(nginx_ssl_config_directory))
+            self.cfg.ssl_key_path, "andino-nginx:{}/andino.key".format(nginx_ssl_config_directory))
         self.copy_file_to_container(
-            cfg.ssl_key_path, "andino-nginx:{}/andino.crt".format(nginx_ssl_config_directory))
+            self.cfg.ssl_key_path, "andino-nginx:{}/andino.crt".format(nginx_ssl_config_directory))
 
     def copy_file_to_container(self, src, dst):
         self.run_with_subprocess("docker cp {0} {1}".format(src, dst))
