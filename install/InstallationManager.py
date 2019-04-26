@@ -9,6 +9,7 @@ import subprocess
 import sys
 import time
 from os import chdir, getcwd, geteuid, path
+from urlparse import urlparse
 
 
 class InstallationManager(object):
@@ -50,6 +51,17 @@ class InstallationManager(object):
 
     def check_compose(self):
         self.run_with_subprocess("docker-compose --version")
+
+    def read_env_file_data(self, path):
+        envconf = {}
+        with open(path, "r") as env_f:
+            for line in env_f.readlines():
+                try:
+                    key, value = line.split("=", 1)
+                    envconf[key] = value.strip()
+                except ValueError:
+                    self.logger.warn("Ignorando linea '%s'" % line)
+        return envconf
 
     def check_previous_installation(self):
         pass
@@ -133,6 +145,35 @@ class InstallationManager(object):
 
     def copy_file_to_container(self, src, dst):
         self.run_with_subprocess("docker cp {0} {1}".format(src, dst))
+
+    def update_site_url_in_configuration_file(self):
+        env_file = ".env"
+        env_file_path = path.join(self.get_install_directory(), env_file)
+        envconf = self.read_env_file_data(env_file_path)
+        site_host = "SITE_HOST"
+        nginx_var = "NGINX_HOST_PORT"
+        nginx_ssl_var = "NGINX_HOST_SSL_PORT"
+        nginx_config_file = "NGINX_CONFIG_FILE"
+
+        # Se modifica el campo "ckan.site_url" modificando el protocolo para que quede HTTP o HTTPS según corresponda
+        cmd = 'exec -T portal grep -E "^ckan.site_url[[:space:]]*=[[:space:]]*" ' \
+              '/etc/ckan/default/production.ini | tr -d [[:space:]]'
+        current_url = self.run_compose_command(cmd)
+        current_url = current_url.replace('ckan.site_url', '')[1:]  # guardamos sólo la url, ignoramos el símbolo '='
+        host_name = envconf.pop(site_host, urlparse(current_url).hostname)
+        config_file_in_use = envconf.pop(nginx_config_file)
+
+        port = ''
+        if config_file_in_use == 'nginx_ssl.conf' and envconf.get(nginx_ssl_var) != '443':
+            port = ':{}'.format(envconf.pop(nginx_ssl_var, ''))
+        elif config_file_in_use == 'nginx.conf' and envconf.get(nginx_var) != '80':
+            port = ':{}'.format(envconf.pop(nginx_var, ''))
+        new_url = "http{0}://{1}{2}".format('s' if config_file_in_use == 'nginx_ssl.conf' else '', host_name, port)
+
+        if current_url != new_url:
+            self.logger.info("Actualizando site_url...")
+            self.run_compose_command("exec -T portal /etc/ckan_init.d/change_site_url.sh {}".format(new_url))
+        return new_url
 
     def ping_nginx_until_200_response_or_timeout(self, site_url):
         timeout = time.time() + 60 * 5  # límite de 5 minutos

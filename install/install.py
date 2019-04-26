@@ -5,13 +5,11 @@ import argparse
 import subprocess
 import time
 from os import path, makedirs
-from urlparse import urlparse
 
 from InstallationManager import InstallationManager
 
 
 class Installer(InstallationManager):
-
     def check_previous_installation(self):
         install_directory = self.get_install_directory()
         if path.isdir(install_directory):
@@ -49,26 +47,6 @@ class Installer(InstallationManager):
             self.cfg.error_email, self.cfg.site_host, self.cfg.database_user, self.cfg.database_password,
             self.cfg.datastore_user, self.cfg.datastore_password)
         self.run_compose_command(cmd)
-
-    def update_site_url_in_configuration_file(self):  # TODO: function class (override)
-        # Se modifica el campo "ckan.site_url" modificando el protocolo para que quede HTTP o HTTPS según corresponda
-        current_url = self.run_compose_command('exec -T portal grep -E "^ckan.site_url[[:space:]]*=[[:space:]]*" '
-                                               '/etc/ckan/default/production.ini | tr -d [[:space:]]')
-        current_url = current_url.replace('ckan.site_url', '')[1:]  # guardamos sólo la url, ignoramos el símbolo '='
-        host_name = urlparse(current_url).hostname
-        is_custom_ssl_port = self.cfg.nginx_ssl_port != '443' and self.get_nginx_configuration() == 'nginx_ssl.conf'
-        if is_custom_ssl_port:
-            port = self.cfg.nginx_ssl_port
-        elif '80' != self.cfg.nginx_port:
-            port = self.cfg.nginx_port
-        else:
-            port = ''
-        new_url = "http{0}://{1}{2}".format('s' if self.get_nginx_configuration() == 'nginx_ssl.conf' else '',
-                                            host_name, ':{}'.format(port) if port else '')
-        if current_url != new_url:
-            self.logger.info("Cambiando site_url...")
-            self.run_compose_command("exec -T portal /etc/ckan_init.d/change_site_url.sh {}".format(new_url))
-        return new_url
 
     def run(self):
         self.logger.info("Comprobando permisos (sudo)...")
