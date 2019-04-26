@@ -8,33 +8,34 @@ import shutil
 import subprocess
 import sys
 import time
-from os import geteuid, path
+from os import chdir, getcwd, geteuid, path
 
 
-class InstallationManager:
+class InstallationManager(object):
 
     def __init__(self):
         self.cfg = self.parse_args()
         self.compose_files = ['latest.yml', 'latest.dev.yml']
         self.logger = self.build_logger()
+        self.stable_version_path = path.join(self.get_install_directory(), "stable_version.yml")
 
     def run(self):
         pass
 
-    def run_with_subprocess(self, command):
-        subprocess.check_call(command, shell=True)
+    def run_with_subprocess(self, cmd):
+        return subprocess.check_output(cmd, shell=True).strip()
 
-    def get_subprocess_output(self, command):
-        return subprocess.check_output(command, shell=True).strip()
+    def run_compose_command(self, cmd):
+        chdir(self.get_install_directory())
+        output = self.run_with_subprocess("docker-compose {0} {1}".format(self.convert_compose_files_to_flags(), cmd))
+        chdir(getcwd())
+        return output
 
-    def run_compose_comand(self, cmd):
-        self.run_with_subprocess("docker compose {0} {1}".format(self.convert_compose_filenames_to_flags(), cmd))
-
-    def convert_compose_filenames_to_flags(self):
+    def convert_compose_files_to_flags(self):
         return "%s%s" % ('-f ', ' -f '.join(self.compose_files))
 
     def parse_args(self):
-        return argparse.ArgumentParser().parse_args()
+        return None
 
     def get_install_directory(self):
         return self.cfg.install_directory
@@ -48,43 +49,45 @@ class InstallationManager:
         self.run_with_subprocess("docker ps")
 
     def check_compose(self):
-        self.run_compose_comand("--version")
+        self.run_with_subprocess("docker-compose --version")
+
+    def check_previous_installation(self):
+        pass
 
     def download_file(self, file_path, download_url):
         self.run_with_subprocess("curl {0} --fail --output {1}".format(download_url, file_path))
 
-    def get_compose_file(self, download_url, compose_file, use_local_compose_files):  # TODO: refactorear junto a scripts
-        parent_directory = os.path.abspath(os.path.join(self.get_subprocess_output('pwd'), os.pardir))
-        local_compose_file_path = path.join(parent_directory, compose_file)
-        dest_compose_file_path = path.join(self.get_install_directory(), compose_file)
-        if use_local_compose_files and os.path.isfile(local_compose_file_path):
-            shutil.copyfile(local_compose_file_path, dest_compose_file_path)
-        else:
-            self.download_file(dest_compose_file_path, download_url)
-        return dest_compose_file_path
+    def set_compose_files(self):
+        parent_directory = os.path.abspath(os.path.join(self.run_with_subprocess('pwd'), os.pardir))
+        base_url = "https://raw.githubusercontent.com/datosgobar/portal-andino"
+        for file in self.compose_files:
+            local_compose_file_path = path.join(parent_directory, file)
+            dest_compose_file_path = path.join(self.get_install_directory(), file)
+            if self.cfg.use_local_compose_files and os.path.isfile(local_compose_file_path):
+                shutil.copyfile(local_compose_file_path, dest_compose_file_path)
+            else:
+                download_url = path.join(base_url, self.cfg.branch, file)
+                self.download_file(dest_compose_file_path, download_url)
 
     def get_andino_version(self):
         if self.cfg.andino_version:
             andino_version = self.cfg.andino_version
         else:
             self.logger.info("Configurando versión estable de andino.")
-            stable_version_file_path = self.download_stable_version_file()
-            with file(stable_version_file_path, "r") as f:
+            self.download_stable_version_file()
+            with file(self.stable_version_path, "r") as f:
                 content = f.read()
             andino_version = content.strip()
         self.logger.info("Usando versión '%s' de andino" % andino_version)
         return andino_version
 
     def download_stable_version_file(self):
-        stable_version_file = "stable_version.yml"
         base_url = "https://raw.githubusercontent.com/datosgobar/portal-andino"
         stable_version_file_name = "stable_version.txt"
         stable_version_url = path.join(base_url, self.cfg.branch, "install", stable_version_file_name)
-        stable_version_path = path.join(self.get_install_directory(), stable_version_file)
-        self.download_file(stable_version_path, stable_version_url)
-        return stable_version_path
+        self.download_file(self.stable_version_path, stable_version_url)
 
-    def configure_env_file(self, stable_version_url):
+    def configure_env_file(self):
         pass
 
     def get_nginx_configuration(self):
@@ -99,16 +102,16 @@ class InstallationManager:
         return path.isfile(self.cfg.ssl_crt_path) and path.isfile(self.cfg.ssl_key_path)
 
     def pull_application(self):
-        self.run_compose_comand("pull --ignore-pull-failures")
+        self.run_compose_command("pull --ignore-pull-failures")
 
     def load_application(self):
-        self.run_compose_comand("up -d nginx")
+        self.run_compose_command("up -d nginx")
 
-    def configure_application(self, compose_path):
+    def configure_application(self):
         pass
 
     def restart_apps(self):
-        self.run_compose_comand("restart")
+        self.run_compose_command("restart")
 
     def configure_nginx_extended_cache(self):
         self.update_config_file_value("andino.cache_clean_hook=http://nginx/meta/cache/purge")
@@ -116,10 +119,10 @@ class InstallationManager:
 
     def update_config_file_value(self, value):
         if value:
-            self.run_compose_comand("exec -T portal /etc/ckan_init.d/update_conf.sh {}".format(value))
+            self.run_compose_command("exec portal /etc/ckan_init.d/update_conf.sh '{}'".format(value))
 
     def include_necessary_nginx_configuration(self, filename):
-        self.run_compose_comand("exec nginx /etc/nginx/scripts/{}".format(filename))
+        self.run_compose_command("exec nginx /etc/nginx/scripts/{}".format(filename))
 
     def persist_ssl_certificates(self):
         nginx_ssl_config_directory = '/etc/nginx/ssl'
@@ -135,7 +138,7 @@ class InstallationManager:
         timeout = time.time() + 60 * 5  # límite de 5 minutos
         site_status_code = 0
         while site_status_code != "200":
-            site_status_code = self.get_subprocess_output(
+            site_status_code = self.run_with_subprocess(
                 'echo $(curl -k -s -o /dev/null -w "%{{http_code}}" {})'.format(site_url))
             print("Intentando comunicarse con: {0} - Código de respuesta: {1}".format(site_url, site_status_code))
             if time.time() > timeout:
