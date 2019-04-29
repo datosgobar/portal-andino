@@ -141,7 +141,7 @@ class InstallationManager(object):
         self.copy_file_to_container(
             self.cfg.ssl_key_path, "andino-nginx:{}/andino.key".format(nginx_ssl_config_directory))
         self.copy_file_to_container(
-            self.cfg.ssl_key_path, "andino-nginx:{}/andino.crt".format(nginx_ssl_config_directory))
+            self.cfg.ssl_crt_path, "andino-nginx:{}/andino.crt".format(nginx_ssl_config_directory))
 
     def copy_file_to_container(self, src, dst):
         self.run_with_subprocess("docker cp {0} {1}".format(src, dst))
