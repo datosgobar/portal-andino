@@ -7,7 +7,7 @@ import subprocess
 import time
 from os import path
 
-from InstallationManager import InstallationManager
+from installation_manager import InstallationManager
 
 
 class Updater(InstallationManager):

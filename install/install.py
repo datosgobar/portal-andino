@@ -6,7 +6,7 @@ import subprocess
 import time
 from os import path, makedirs
 
-from InstallationManager import InstallationManager
+from installation_manager import InstallationManager
 
 
 class Installer(InstallationManager):
