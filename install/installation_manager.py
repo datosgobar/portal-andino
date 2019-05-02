@@ -88,7 +88,7 @@ class InstallationManager(object):
         self.logger.info("Escribiendo archivo de configuración del ambiente (.env) ...")
         self.configure_env_file()
 
-    def download_file(self, file_path, download_url):
+    def download_file(self, download_url, file_path):
         self.run_with_subprocess("curl {0} --fail --output {1}".format(download_url, file_path))
 
     def set_compose_files(self):
@@ -101,7 +101,7 @@ class InstallationManager(object):
                 shutil.copyfile(local_compose_file_path, dest_compose_file_path)
             else:
                 download_url = path.join(base_url, self.cfg.branch, file)
-                self.download_file(dest_compose_file_path, download_url)
+                self.download_file(download_url, dest_compose_file_path)
 
     def get_andino_version(self):
         if self.cfg.andino_version:
@@ -119,7 +119,7 @@ class InstallationManager(object):
         base_url = "https://raw.githubusercontent.com/datosgobar/portal-andino"
         stable_version_file_name = "stable_version.txt"
         stable_version_url = path.join(base_url, self.cfg.branch, "install", stable_version_file_name)
-        self.download_file(self.stable_version_path, stable_version_url)
+        self.download_file(stable_version_url, self.stable_version_path)
 
     def configure_env_file(self):
         pass
