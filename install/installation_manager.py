@@ -107,7 +107,7 @@ class InstallationManager(object):
         if self.cfg.andino_version:
             andino_version = self.cfg.andino_version
         else:
-            self.logger.info("Configurando versión estable de andino.")
+            self.logger.info("Configurando versión estable de andino...")
             self.download_stable_version_file()
             with file(self.stable_version_path, "r") as f:
                 content = f.read()
@@ -147,11 +147,11 @@ class InstallationManager(object):
     def configure_nginx(self):
         self.logger.info("Configurando Nginx...")
         if self.cfg.nginx_extended_cache:
-            self.logger.info("Configurando caché extendida de nginx")
+            self.logger.info("Configurando caché extendida de nginx...")
             self.configure_nginx_extended_cache()
             self.include_necessary_nginx_configuration("extend_nginx.sh")
         if self.cfg.ssl_crt_path and self.cfg.ssl_key_path:
-            self.logger.info("Copiando archivos del certificado de SSL")
+            self.logger.info("Copiando archivos del certificado de SSL...")
             if path.isfile(self.cfg.ssl_crt_path) and path.isfile(self.cfg.ssl_key_path):
                 self.persist_ssl_certificates()
             else:

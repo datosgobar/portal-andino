@@ -49,9 +49,9 @@ class Installer(InstallationManager):
         self.run_compose_command(cmd)
 
     def prepare_application(self):
-        self.logger.info("Obteniendo imágenes de Docker")
+        self.logger.info("Obteniendo imágenes de Docker...")
         self.pull_application()
-        self.logger.info("Iniciando la aplicación")
+        self.logger.info("Iniciando la aplicación...")
         self.load_application()
         self.logger.info("Esperando a que la base de datos este disponible...")
         time.sleep(10)

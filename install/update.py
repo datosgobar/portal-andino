@@ -125,7 +125,7 @@ class Updater(InstallationManager):
             a_file.write(output)
 
     def run_configuration_scripts(self):
-        self.logger.info("Corriendo comandos post-instalación")
+        self.logger.info("Corriendo comandos post-instalación...")
         current_plugins = "stats text_view image_view recline_view hierarchy_display hierarchy_form dcat " \
                           "structured_data gobar_theme datastore datapusher seriestiempoarexplorer googleanalytics"
         try:
@@ -163,10 +163,10 @@ class Updater(InstallationManager):
     def prepare_application(self):
         self.logger.info("Guardando base de datos...")
         self.backup_database()
-        self.logger.info("Actualizando la aplicación")
+        self.logger.info("Actualizando la aplicación...")
         self.logger.info("Descargando nuevas imagenes...")
         self.pull_application()
-        self.logger.info("Reiniciando la aplicación")
+        self.logger.info("Reiniciando la aplicación...")
         self.load_application()
 
     def parse_args(self):
