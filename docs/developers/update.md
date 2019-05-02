@@ -60,7 +60,7 @@ el mismo no requerirá parámetros, pero contiene algunos opcionales:
 
 Para esta actualización de ejemplo, usaremos los valores por defecto:
 
-    sudo wget https://raw.github.com/datosgobar/portal-andino/master/install/update.py
+    sudo wget https://raw.github.com/datosgobar/portal-andino/master/install/{install,installation_manager}.py
     sudo python update.py
 
 De esta forma, el script asumirá que instalamos la aplicación en `/etc/portal`.
@@ -70,7 +70,7 @@ De esta forma, el script asumirá que instalamos la aplicación en `/etc/portal`
 Si instalamos la aplicación en otro directorio distinto de `/etc/portal`, necesitamos correr el script de una manera diferente.
 Suponiendo que instalamos la aplicación en `/home/user/app/`, debemos correr los siguientes pasos:
 
-    wget https://raw.github.com/datosgobar/portal-andino/master/install/update.py
+    wget https://raw.github.com/datosgobar/portal-andino/master/install/{install,installation_manager}.py
     sudo python update.py --install_directory="/home/user/app/"
 
 ### Andino con plugins ad-hoc
