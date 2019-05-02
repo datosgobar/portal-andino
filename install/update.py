@@ -26,16 +26,6 @@ class Updater(InstallationManager):
             self.logger.error("Por favor, corra este comando en el mismo directorio donde instaló la aplicación")
             raise Exception("[ ERROR ] No se encontró una instalación.")
 
-    def check_nginx_ssl_files_exist(self):
-        if super(Updater, self).check_nginx_ssl_files_exist():
-            return True
-        else:
-            # Chequeo si los archivos ya existen en el contenedor de Nginx, para no tener que pasarlos en cada update
-            cmd = "exec nginx bash -c 'if [[ -f \"$NGINX_SSL_CONFIG_DATA/{}\" ]]  ;" \
-                  " then echo \"Y\" ; else echo \"N\" ; fi'"
-            return self.run_compose_command(cmd.format('andino.key')) == 'Y' and \
-                   self.run_compose_command(cmd.format("andino.crt")) == 'Y'
-
     def configure_env_file(self):
         env_file = ".env"
         env_file_path = path.join(self.get_install_directory(), env_file)
@@ -107,10 +97,18 @@ class Updater(InstallationManager):
             envconf[timezone] = "America/Argentina/Buenos_Aires"
 
         envconf["THEME_VOLUME_SRC"] = self.cfg.theme_volume_src
-
         with open(env_file_path, "w") as env_f:
             for key in envconf.keys():
                 env_f.write("%s=%s\n" % (key, envconf[key]))
+
+    def check_nginx_ssl_files_exist(self):
+        if super(Updater, self).check_nginx_ssl_files_exist():
+            return True
+        else:
+            cmd = "docker exec andino-nginx bash -c 'if [[ -f \"$NGINX_SSL_CONFIG_DATA/{}\" ]]  ;" \
+                  " then echo \"Y\" ; else echo \"N\" ; fi'"
+            return self.run_with_subprocess(cmd.format('andino.key')) == 'Y' and \
+                   self.run_with_subprocess(cmd.format("andino.crt")) == 'Y'
 
     def generate_env_file_backup(self, env_file_path):
         datetime_var = time.strftime("__%d_%m_%y-%H-%M")
@@ -126,7 +124,8 @@ class Updater(InstallationManager):
         with open(dump, "wb") as a_file:
             a_file.write(output)
 
-    def configure_application(self):
+    def run_configuration_scripts(self):
+        self.logger.info("Corriendo comandos post-instalación")
         current_plugins = "stats text_view image_view recline_view hierarchy_display hierarchy_form dcat " \
                           "structured_data gobar_theme datastore datapusher seriestiempoarexplorer googleanalytics"
         try:
@@ -161,55 +160,14 @@ class Updater(InstallationManager):
             # Error durante un deploy; se lo ignora
             pass
 
-    def run(self):
-        self.logger.info("Comprobando permisos (sudo)...")
-        self.check_permissions()
-        self.logger.info("Comprobando que docker esté instalado...")
-        self.check_docker()
-        self.logger.info("Comprobando que docker-compose esté instalado...")
-        self.check_compose()
-        self.logger.info("Comprobando instalación previa...")
-        self.check_previous_installation()
-
-        # Download and update
-        self.logger.info("Descargando archivos necesarios...")
-        self.set_compose_files()
-        self.logger.info("Escribiendo archivo de configuración del ambiente (.env) ...")
-        self.configure_env_file()
-        crontab_content = self.find_cron_jobs()
+    def prepare_application(self):
         self.logger.info("Guardando base de datos...")
         self.backup_database()
         self.logger.info("Actualizando la aplicación")
         self.logger.info("Descargando nuevas imagenes...")
         self.pull_application()
-        # Configure
         self.logger.info("Reiniciando la aplicación")
         self.load_application()
-        if self.cfg.nginx_extended_cache:
-            self.logger.info("Configurando caché extendida de nginx")
-            self.configure_nginx_extended_cache()
-            self.include_necessary_nginx_configuration("extend_nginx.sh")
-        if self.cfg.ssl_crt_path and self.cfg.ssl_key_path:
-            self.logger.info("Copiando archivos del certificado de SSL")
-            if path.isfile(self.cfg.ssl_crt_path) and path.isfile(self.cfg.ssl_key_path):
-                self.persist_ssl_certificates()
-            else:
-                self.logger.error("No se pudo encontrar uno de los archivos, por lo que no se realizará el copiado")
-        self.logger.info("Corriendo comandos post-instalación")
-        self.configure_application()
-        if crontab_content:
-            self.restore_cron_jobs(crontab_content)
-        site_url = self.update_site_url_in_configuration_file()
-        if self.cfg.file_size_limit:
-            self.update_config_file_value("ckan.max_resource_size = {}".format(self.cfg.file_size_limit))
-        if self.cfg.theme_volume_src != "/dev/null":
-            self.run_compose_command("exec portal /usr/lib/ckan/default/bin/pip install -e /opt/theme")
-        self.logger.info("Reiniciando")
-        self.restart_apps()
-        self.logger.info("Esperando a que Nginx inicie...")
-        self.ping_nginx_until_200_response_or_timeout(site_url)
-        self.run_compose_command("exec portal supervisorctl restart all")
-        self.logger.info("Listo.")
 
     def parse_args(self):
         parser = argparse.ArgumentParser(description='Actualizar andino.')
@@ -233,6 +191,18 @@ class Updater(InstallationManager):
         parser.add_argument('--theme_volume_src', default="/dev/null")
 
         return parser.parse_args()
+
+    def run(self):
+        self.checkup()
+        self.prepare_necessary_files()
+        self.prepare_application()
+        crontab_content = self.find_cron_jobs()
+        self.configure_nginx()
+        self.run_configuration_scripts()
+        if crontab_content:
+            self.restore_cron_jobs(crontab_content)
+        self.update_configuration_file()
+        self.restart_apps()
 
 
 if __name__ == "__main__":

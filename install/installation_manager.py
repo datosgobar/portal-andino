@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import argparse
 import logging
 import os
 import shutil
@@ -19,9 +18,16 @@ class InstallationManager(object):
         self.compose_files = ['latest.yml', 'latest.dev.yml']
         self.logger = self.build_logger()
         self.stable_version_path = path.join(self.get_install_directory(), "stable_version.yml")
+        self.site_url = ''
 
-    def run(self):
-        pass
+    def build_logger(self):
+        formatter = logging.Formatter('[ %(levelname)s ] %(message)s')
+        ch = logging.StreamHandler(stream=sys.stdout)
+        ch.setFormatter(formatter)
+        logger = logging.getLogger(__file__)
+        logger.setLevel(logging.DEBUG)
+        logger.addHandler(ch)
+        return logger
 
     def run_with_subprocess(self, cmd):
         return subprocess.check_output(cmd, shell=True).strip()
@@ -65,6 +71,22 @@ class InstallationManager(object):
 
     def check_previous_installation(self):
         pass
+
+    def checkup(self):
+        self.logger.info("Comprobando permisos (sudo)...")
+        self.check_permissions()
+        self.logger.info("Comprobando que docker esté instalado...")
+        self.check_docker()
+        self.logger.info("Comprobando que docker-compose esté instalado...")
+        self.check_compose()
+        self.logger.info("Comprobando instalación previa...")
+        self.check_previous_installation()
+
+    def prepare_necessary_files(self):
+        self.logger.info("Descargando archivos necesarios...")
+        self.set_compose_files()
+        self.logger.info("Escribiendo archivo de configuración del ambiente (.env) ...")
+        self.configure_env_file()
 
     def download_file(self, file_path, download_url):
         self.run_with_subprocess("curl {0} --fail --output {1}".format(download_url, file_path))
@@ -119,11 +141,30 @@ class InstallationManager(object):
     def load_application(self):
         self.run_compose_command("up -d nginx")
 
-    def configure_application(self):
+    def prepare_application(self):
         pass
 
-    def restart_apps(self):
-        self.run_compose_command("restart")
+    def configure_nginx(self):
+        self.logger.info("Configurando Nginx...")
+        if self.cfg.nginx_extended_cache:
+            self.logger.info("Configurando caché extendida de nginx")
+            self.configure_nginx_extended_cache()
+            self.include_necessary_nginx_configuration("extend_nginx.sh")
+        if self.cfg.ssl_crt_path and self.cfg.ssl_key_path:
+            self.logger.info("Copiando archivos del certificado de SSL")
+            if path.isfile(self.cfg.ssl_crt_path) and path.isfile(self.cfg.ssl_key_path):
+                self.persist_ssl_certificates()
+            else:
+                self.logger.error("No se pudo encontrar al menos uno de los archivos, "
+                                  "por lo que no se realizará el copiado")
+
+    def run_configuration_scripts(self):
+        pass
+
+    def configure_theme_volume(self):
+        self.logger.info("Configurando volumen...")
+        if self.cfg.theme_volume_src != "/dev/null":
+            self.run_compose_command("exec portal /usr/lib/ckan/default/bin/pip install -e /opt/theme")
 
     def configure_nginx_extended_cache(self):
         self.update_config_file_value("andino.cache_clean_hook=http://nginx/meta/cache/purge")
@@ -145,6 +186,12 @@ class InstallationManager(object):
 
     def copy_file_to_container(self, src, dst):
         self.run_with_subprocess("docker cp {0} {1}".format(src, dst))
+
+    def update_configuration_file(self):
+        self.logger.info("Actualizando archivo de configuración...")
+        if self.cfg.file_size_limit:
+            self.update_config_file_value("ckan.max_resource_size = {}".format(self.cfg.file_size_limit))
+        self.update_site_url_in_configuration_file()
 
     def update_site_url_in_configuration_file(self):
         env_file = ".env"
@@ -173,26 +220,28 @@ class InstallationManager(object):
         if current_url != new_url:
             self.logger.info("Actualizando site_url...")
             self.run_compose_command("exec -T portal /etc/ckan_init.d/change_site_url.sh {}".format(new_url))
-        return new_url
+        self.site_url = new_url
 
-    def ping_nginx_until_200_response_or_timeout(self, site_url):
+    def restart_apps(self):
+        self.logger.info("Reiniciando la aplicación...")
+        self.run_compose_command("restart")
+        self.logger.info("Esperando a que Nginx inicie...")
+        self.ping_nginx_until_200_response_or_timeout()
+        self.run_compose_command("exec portal supervisorctl restart all")
+        self.logger.info("Listo.")
+
+    def ping_nginx_until_200_response_or_timeout(self):
         timeout = time.time() + 60 * 5  # límite de 5 minutos
         site_status_code = 0
         while site_status_code != "200":
             site_status_code = self.run_with_subprocess(
-                'echo $(curl -k -s -o /dev/null -w "%{{http_code}}" {})'.format(site_url))
-            print("Intentando comunicarse con: {0} - Código de respuesta: {1}".format(site_url, site_status_code))
+                'echo $(curl -k -s -o /dev/null -w "%{{http_code}}" {})'.format(self.site_url))
+            print("Intentando comunicarse con: {0} - Código de respuesta: {1}".format(self.site_url, site_status_code))
             if time.time() > timeout:
                 self.logger.warning("No fue posible reiniciar el contenedor de Nginx. "
                                     "Es posible que haya problemas de configuración.")
                 break
             time.sleep(10 if site_status_code != "200" else 0)  # Si falla, esperamos 10 segundos para reintentarlo
 
-    def build_logger(self):
-        formatter = logging.Formatter('[ %(levelname)s ] %(message)s')
-        ch = logging.StreamHandler(stream=sys.stdout)
-        ch.setFormatter(formatter)
-        logger = logging.getLogger(__file__)
-        logger.setLevel(logging.DEBUG)
-        logger.addHandler(ch)
-        return logger
+    def run(self):
+        pass

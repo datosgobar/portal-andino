@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 
 import argparse
-import subprocess
 import time
 from os import path, makedirs
 
@@ -42,63 +41,20 @@ class Installer(InstallationManager):
             env_f.write("TZ=%s\n" % self.cfg.timezone)
             env_f.write("THEME_VOLUME_SRC=%s\n" % self.cfg.theme_volume_src)
 
-    def configure_application(self):
+    def run_configuration_scripts(self):
+        self.logger.info("Corriendo la inicialización...")
         cmd = "exec -T portal /etc/ckan_init.d/init.sh -e {0} -h {1} -p {2} -P {3} -d {4} -D {5}".format(
             self.cfg.error_email, self.cfg.site_host, self.cfg.database_user, self.cfg.database_password,
             self.cfg.datastore_user, self.cfg.datastore_password)
         self.run_compose_command(cmd)
 
-    def run(self):
-        self.logger.info("Comprobando permisos (sudo)...")
-        self.check_permissions()
-        self.logger.info("Comprobando que docker esté instalado...")
-        self.check_docker()
-        self.logger.info("Comprobando que docker-compose esté instalado...")
-        self.check_compose()
-        self.logger.info("Comprobando instalación previa...")
-        self.check_previous_installation()
-
-        # Download and install
-        self.logger.info("Descargando archivos necesarios...")
-        self.set_compose_files()
-        self.logger.info("Escribiendo archivo de configuración del ambiente (.env) ...")
-        self.configure_env_file()
+    def prepare_application(self):
         self.logger.info("Obteniendo imágenes de Docker")
         self.pull_application()
-        # Configure
         self.logger.info("Iniciando la aplicación")
         self.load_application()
         self.logger.info("Esperando a que la base de datos este disponible...")
         time.sleep(10)
-        self.logger.info("Configurando...")
-        if self.cfg.nginx_extended_cache:
-            self.logger.info("Configurando caché extendida de nginx")
-            self.configure_nginx_extended_cache()
-            self.include_necessary_nginx_configuration("extend_nginx.sh")
-        if self.cfg.ssl_crt_path and self.cfg.ssl_key_path:
-            self.logger.info("Copiando archivos del certificado de SSL")
-            if path.isfile(self.cfg.ssl_crt_path) and path.isfile(self.cfg.ssl_key_path):
-                self.persist_ssl_certificates()
-            else:
-                self.logger.error("No se pudo encontrar al menos uno de los archivos, "
-                                  "por lo que no se realizará el copiado")
-        self.logger.info("Corriendo la inicialización...")
-        self.configure_application()
-        self.logger.info("Actualizando archivo de configuración...")
-        site_url = self.update_site_url_in_configuration_file()
-        self.update_config_file_value("ckan.max_resource_size = {}".format(self.cfg.file_size_limit))
-        self.logger.info("Configurando volumen...")
-        if self.cfg.theme_volume_src != "/dev/null":
-            subprocess.check_call("docker-compose -f latest.yml exec portal /usr/lib/ckan/default/bin/pip install "
-                                  "-e /opt/theme",
-                                  shell=True)
-        self.logger.info("Reiniciando Nginx...")
-        subprocess.check_call(["docker-compose", "-f", "latest.yml", "restart", "nginx"])
-        self.restart_apps()
-        self.logger.info("Esperando a que Nginx se reinicie...")
-        self.ping_nginx_until_200_response_or_timeout(site_url)
-        subprocess.check_call("docker-compose -f latest.yml exec portal supervisorctl restart all", shell=True)
-        self.logger.info("Listo.")
 
     def parse_args(self):
         parser = argparse.ArgumentParser(description='Instalar andino con docker.')
@@ -128,6 +84,15 @@ class Installer(InstallationManager):
         parser.add_argument('--theme_volume_src', default="/dev/null")
 
         return parser.parse_args()
+
+    def run(self):
+        self.checkup()
+        self.prepare_necessary_files()
+        self.prepare_application()
+        self.configure_nginx()
+        self.run_configuration_scripts()
+        self.update_configuration_file()
+        self.restart_apps()
 
 
 if __name__ == "__main__":
