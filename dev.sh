@@ -202,6 +202,11 @@ sub_complete_update(){
     # Checkout al directorio donde está instalado Andino
     cd /etc/portal
 
+    # Especifico path del log de apache (los errores del portal se escribirán ahí)
+    printf "\nEspecificando path del archivo de log para apache.\n"
+    docker-compose -f latest.yml exec portal bash -c \
+    "sed -i 's/\/proc\/self\/fd\/1/\/var\/log\/apache2\/error.log/g' /etc/apache2/sites-enabled/ckan_default.conf"
+
     # Genero otro archivo de configuración para debugueo mediante paster (apache no soporta "debug = true")
     printf "\Creando archivo de configuración 'debug.ini'.\n"
     docker-compose -f latest.yml exec portal bash -c \
