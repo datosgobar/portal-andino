@@ -1,11 +1,3 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-## Indice
-
-- [Portal Andino](#portal-andino)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
 # Portal Andino
 
 <!-- [![Build Status](https://travis-ci.org/datosgobar/portal-andino.svg?branch=master)](https://travis-ci.org/datosgobar/portal-andino)
