@@ -128,8 +128,8 @@ class InstallationManager(object):
         if self.cfg.nginx_ssl:
             if self.check_nginx_ssl_files_exist():
                 return "nginx_ssl.conf"
-            self.logger.error("No se puede utilizar el archivo de configuración para SSL debido a que falta al menos "
-                              "un archivo para el certificado. Se utilizará el default en su lugar.")
+            self.logger.warning("No se puede utilizar el archivo de configuración para SSL debido a que falta al menos "
+                                "un archivo para el certificado. Se utilizará el default en su lugar.")
         return "nginx.conf"
 
     def check_nginx_ssl_files_exist(self):
@@ -155,8 +155,8 @@ class InstallationManager(object):
             if path.isfile(self.cfg.ssl_crt_path) and path.isfile(self.cfg.ssl_key_path):
                 self.persist_ssl_certificates()
             else:
-                self.logger.error("No se pudo encontrar al menos uno de los archivos, "
-                                  "por lo que no se realizará el copiado")
+                self.logger.warning("No se pudo encontrar al menos uno de los archivos, "
+                                    "por lo que no se realizará el copiado")
 
     def run_configuration_scripts(self):
         pass
