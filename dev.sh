@@ -6,14 +6,14 @@ ProgName=$(basename $0);
 
 sub_help(){
     echo "Subcomandos:"
-    echo "    complete_install   Instalar una instancia de Andino usando configuraciones específicas (usar '-h' para ver cuáles existen y para qué sirven)"
-    echo "    complete_update    Actualizar una instancia de Andino usando configuraciones específicas (idem complete_install)"
-    echo "    exec               Ejecutar el comando especificado en el contenedor de Andino"
-    echo "    logs               Mostrar y seguir log del contenedor especificado"
-    echo "    serve              Usar un servidor de paster para debuguear fácilmente la aplicación en el puerto 5000"
-    echo "    up                 Levantar los servicios"
-    echo "    stop               Parar los servicios"
-    echo "    down               Borrar los contenedores, sus volúmenes, y el directorio de instalación"
+    echo "    install       Instalar una instancia de Andino usando configuraciones específicas (usar '-h' para ver cuáles existen y para qué sirven)"
+    echo "    update        Actualizar una instancia de Andino usando configuraciones específicas (idem install)"
+    echo "    exec          Ejecutar el comando especificado en el contenedor de Andino"
+    echo "    logs          Mostrar y seguir log del contenedor especificado"
+    echo "    serve         Usar un servidor de paster para debuguear fácilmente la aplicación en el puerto 5000"
+    echo "    up            Levantar los servicios"
+    echo "    stop          Parar los servicios"
+    echo "    down          Borrar los contenedores, sus volúmenes, y el directorio de instalación"
     echo ""
 }
 
@@ -49,7 +49,7 @@ sub_serve(){
     docker-compose -f latest.yml exec portal bash -c "/usr/lib/ckan/default/bin/paster serve /etc/ckan/default/debug.ini --reload";
 }
 
-sub_complete_install(){
+sub_install(){
     # Parámetros
     SHORTOPTS="a:t:b:h"
     LONGOPTS="andino_branch:,theme_branch:,base_branch:,site_host:,nginx_ssl,nginx_host_port:,nginx_ssl_port:,nginx-extended-cache,ssl_key_path:,ssl_crt_path:,file_size_limit:,theme_volume_src:,help"
@@ -145,7 +145,7 @@ sub_complete_install(){
     fi
 }
 
-sub_complete_update(){
+sub_update(){
     # Parámetros
     SHORTOPTS="a:t:b:h"
     LONGOPTS="andino_branch:,theme_branch:,base_branch:,site_host:,nginx_ssl,nginx_host_port:,nginx_ssl_port:,nginx-extended-cache,ssl_key_path:,ssl_crt_path:,file_size_limit:,theme_volume_src:,help"

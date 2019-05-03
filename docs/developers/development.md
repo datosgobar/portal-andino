@@ -192,7 +192,7 @@ que se base en la anterior.
 
 ### Instalando Andino
 
-Se utilizará el archivo `dev.sh` de portal-andino ejecutando la función `complete_install`, la cual permite levantar una 
+Se utilizará el archivo `dev.sh` de portal-andino ejecutando la función `install`, la cual permite levantar una 
 instancia en base a los parámetros recibidos. Dicha función puede ser usada para testear cambios en portal-andino, 
 portal-andino-theme, y/o portal-base.
 
@@ -232,7 +232,7 @@ necesario asegurarse de que la IP y el hostname de la que queremos escribir sean
 
 ### Actualizando Andino
 
-Para el mismo archivo, también existe una función `complete_update`, cuyo objetivo es actualizar una instancia 
+Para el mismo archivo, también existe una función `update`, cuyo objetivo es actualizar una instancia 
 ya levantada.
 
 Los parámetros que recibe son exactamente los mismos que para la función de instalación.
