@@ -798,7 +798,7 @@ el mismo no requerirá parámetros, pero contiene algunos opcionales:</p>
 
 
 <p>Para esta actualización de ejemplo, usaremos los valores por defecto:</p>
-<div class="codehilite"><pre><span></span>sudo wget https://raw.github.com/datosgobar/portal-andino/master/install/update.py
+<div class="codehilite"><pre><span></span>sudo wget https://raw.github.com/datosgobar/portal-andino/master/install/{install,installation_manager}.py
 sudo python update.py
 </pre></div>
 
@@ -807,7 +807,7 @@ sudo python update.py
 <h3 id="actualizacion-avanzada">Actualización avanzada</h3>
 <p>Si instalamos la aplicación en otro directorio distinto de <code>/etc/portal</code>, necesitamos correr el script de una manera diferente.
 Suponiendo que instalamos la aplicación en <code>/home/user/app/</code>, debemos correr los siguientes pasos:</p>
-<div class="codehilite"><pre><span></span>wget https://raw.github.com/datosgobar/portal-andino/master/install/update.py
+<div class="codehilite"><pre><span></span>wget https://raw.github.com/datosgobar/portal-andino/master/install/{install,installation_manager}.py
 sudo python update.py --install_directory=&quot;/home/user/app/&quot;
 </pre></div>
 
