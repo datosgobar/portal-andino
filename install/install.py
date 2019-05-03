@@ -91,6 +91,7 @@ class Installer(InstallationManager):
         self.prepare_application()
         self.configure_nginx()
         self.run_configuration_scripts()
+        self.configure_theme_volume()
         self.update_configuration_file()
         self.restart_apps()
 

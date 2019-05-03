@@ -197,6 +197,7 @@ class Updater(InstallationManager):
         crontab_content = self.find_cron_jobs()
         self.configure_nginx()
         self.run_configuration_scripts()
+        self.configure_theme_volume()
         if crontab_content:
             self.restore_cron_jobs(crontab_content)
         self.update_configuration_file()
