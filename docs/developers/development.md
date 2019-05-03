@@ -13,6 +13,7 @@
 - [Probar modificaciones y nuevas funcionalidades](#probar-modificaciones-y-nuevas-funcionalidades)
     - [Instalando Andino](#instalando-andino)
     - [Actualizando Andino](#actualizando-andino)
+    - [Utilizar una imagen custom de portal-base o portal-base-nginx](#utilizar-una-imagen-custom-de-portal-base-o-portal-base-nginx)
     - [Debugear Andino](#debuguear-andino)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -190,6 +191,19 @@ que se base en la anterior.
 
 ## Probar modificaciones y nuevas funcionalidades
 
+Para una mayor facilidad a la hora de desarrollar existe un archivo `dev.sh`, el cual contiene los siguientes comandos:
+
+```bash
+    install       Instalar una instancia de Andino usando configuraciones específicas (usar '-h' para ver cuáles existen y para qué sirven)
+    update        Actualizar una instancia de Andino usando configuraciones específicas (idem install)
+    exec          Ejecutar el comando especificado en el contenedor de Andino
+    logs          Mostrar y seguir log del contenedor especificado (default: Andino)
+    serve         Usar un servidor de paster para debuguear fácilmente la aplicación en el puerto 5000
+    up            Levantar los servicios
+    stop          Parar los servicios
+    down          Borrar los contenedores, sus volúmenes, y el directorio de instalación
+```
+
 ### Instalando Andino
 
 Se utilizará el archivo `dev.sh` de portal-andino ejecutando la función `install`, la cual permite levantar una 
@@ -240,6 +254,17 @@ Los parámetros que recibe son exactamente los mismos que para la función de in
 _Nota: si se desea mantener la configuración de SSL y/o de la caché extendida, es necesario especificarlo utilizando 
 los parámetros correspondientes. No ocurre lo mismo para los archivos del certificado, puesto que son persistidos al 
 instalar Andino._
+
+
+
+### Utilizar una imagen custom de portal-base o portal-base-nginx
+
+Si se quiere utilizar una imagen local en lugar de las existentes en https://hub.docker.com/r/datosgobar/portal-base, 
+se debe correr este comando en el directorio donde se encuentra portal-base:
+
+`docker build base_portal -t {nombre que se le quiera dar a la imagen}`
+
+Lo mismo aplica para Nginx: recordar que su Dockerfile está en `nginx/`, por lo que el comando se debe correr ahí.
 
 
 
