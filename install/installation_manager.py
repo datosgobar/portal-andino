@@ -14,6 +14,7 @@ from urlparse import urlparse
 class InstallationManager(object):
 
     def __init__(self):
+        self.base_url = "https://raw.githubusercontent.com/datosgobar/portal-andino"
         self.cfg = self.parse_args()
         self.compose_files = ['latest.yml', 'latest.dev.yml']
         self.logger = self.build_logger()
@@ -93,14 +94,13 @@ class InstallationManager(object):
 
     def set_compose_files(self):
         parent_directory = os.path.abspath(os.path.join(self.run_with_subprocess('pwd'), os.pardir))
-        base_url = "https://raw.githubusercontent.com/datosgobar/portal-andino"
         for file in self.compose_files:
             local_compose_file_path = path.join(parent_directory, file)
             dest_compose_file_path = path.join(self.get_install_directory(), file)
             if self.cfg.use_local_compose_files and os.path.isfile(local_compose_file_path):
                 shutil.copyfile(local_compose_file_path, dest_compose_file_path)
             else:
-                download_url = path.join(base_url, self.cfg.branch, file)
+                download_url = path.join(self.base_url, self.cfg.branch, file)
                 self.download_file(download_url, dest_compose_file_path)
 
     def get_andino_version(self):
@@ -116,9 +116,8 @@ class InstallationManager(object):
         return andino_version
 
     def download_stable_version_file(self):
-        base_url = "https://raw.githubusercontent.com/datosgobar/portal-andino"
         stable_version_file_name = "stable_version.txt"
-        stable_version_url = path.join(base_url, self.cfg.branch, "install", stable_version_file_name)
+        stable_version_url = path.join(self.base_url, self.cfg.branch, "install", stable_version_file_name)
         self.download_file(stable_version_url, self.stable_version_path)
 
     def configure_env_file(self):
