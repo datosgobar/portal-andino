@@ -7,19 +7,21 @@ import shutil
 import subprocess
 import sys
 import time
+from abc import ABCMeta, abstractmethod
 from os import chdir, getcwd, geteuid, path
 from urlparse import urlparse
 
 
 class InstallationManager(object):
+    __metaclass__ = ABCMeta
 
     def __init__(self):
         self.base_url = "https://raw.githubusercontent.com/datosgobar/portal-andino"
         self.cfg = self.parse_args()
         self.compose_files = ['latest.yml', 'latest.dev.yml']
         self.logger = self.build_logger()
-        self.stable_version_path = path.join(self.get_install_directory(), "stable_version.yml")
         self.site_url = ''
+        self.stable_version_path = path.join(self.get_install_directory(), "stable_version.yml")
 
     def build_logger(self):
         formatter = logging.Formatter('[ %(levelname)s ] %(message)s')
@@ -42,6 +44,7 @@ class InstallationManager(object):
     def convert_compose_files_to_flags(self):
         return "%s%s" % ('-f ', ' -f '.join(self.compose_files))
 
+    @abstractmethod
     def parse_args(self):
         return None
 
@@ -70,6 +73,7 @@ class InstallationManager(object):
                     self.logger.warn("Ignorando linea '%s'" % line)
         return envconf
 
+    @abstractmethod
     def check_previous_installation(self):
         pass
 
@@ -120,6 +124,7 @@ class InstallationManager(object):
         stable_version_url = path.join(self.base_url, self.cfg.branch, "install", stable_version_file_name)
         self.download_file(stable_version_url, self.stable_version_path)
 
+    @abstractmethod
     def configure_env_file(self):
         pass
 
@@ -140,6 +145,7 @@ class InstallationManager(object):
     def load_application(self):
         self.run_compose_command("up -d nginx")
 
+    @abstractmethod
     def prepare_application(self):
         pass
 
@@ -157,6 +163,7 @@ class InstallationManager(object):
                 self.logger.warning("No se pudo encontrar al menos uno de los archivos, "
                                     "por lo que no se realizará el copiado")
 
+    @abstractmethod
     def run_configuration_scripts(self):
         pass
 
@@ -242,5 +249,6 @@ class InstallationManager(object):
                 break
             time.sleep(10 if site_status_code != "200" else 0)  # Si falla, esperamos 10 segundos para reintentarlo
 
+    @abstractmethod
     def run(self):
         pass
