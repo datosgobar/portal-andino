@@ -12,7 +12,7 @@
 [![Docs Status](https://readthedocs.org/projects/portal-andino/badge/?version=master)](http://portal-andino.readthedocs.io/es/master/)
 [![GitHub version](https://badge.fury.io/gh/datosgobar%2Fportal-andino.svg)](https://badge.fury.io/gh/datosgobar%2Fportal-andino)
  -->
-**Versión**: 2.5.4
+**Versión**: 2.5.6
 
 **Portal Andino** es un desarrollo de la Administración Pública Nacional basado en [CKAN](https://ckan.org/). Es la tecnología detrás del [Portal Nacional de Datos Abiertos](https://datos.gob.ar/) y de otros portales de datos abiertos de organismos de la APN, provincias y municipios.
 
