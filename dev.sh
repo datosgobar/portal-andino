@@ -9,7 +9,7 @@ sub_help(){
     echo "    install       Instalar una instancia de Andino usando configuraciones específicas (usar '-h' para ver cuáles existen y para qué sirven)"
     echo "    update        Actualizar una instancia de Andino usando configuraciones específicas (idem install)"
     echo "    exec          Ejecutar el comando especificado en el contenedor de Andino"
-    echo "    logs          Mostrar y seguir log del contenedor especificado"
+    echo "    logs          Mostrar y seguir log del contenedor especificado (default: Andino)"
     echo "    serve         Usar un servidor de paster para debuguear fácilmente la aplicación en el puerto 5000"
     echo "    up            Levantar los servicios"
     echo "    stop          Parar los servicios"
@@ -41,7 +41,13 @@ sub_exec() {
 }
 
 sub_logs(){
-    docker logs -f --tail 150 andino $1;
+    container=andino
+    input=${1,,}
+    if ! [[ -z $input ]] && [[ $input != andino ]] ;
+    then
+        container=andino-$input
+    fi
+    docker logs -f --tail 150 $container;
 }
 
 sub_serve(){
