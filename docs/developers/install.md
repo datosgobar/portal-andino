@@ -107,7 +107,7 @@ DB_PASS=my_database_pass
 STORE_USER=my_data_user
 STORE_PASS=my_data_pass
 
-wget https://raw.github.com/datosgobar/portal-andino/master/install/install.py
+wget https://raw.github.com/datosgobar/portal-andino/master/install/{install,installation_manager}.py
 
 sudo python ./install.py \
     --error_email "$EMAIL" \
