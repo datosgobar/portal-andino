@@ -580,6 +580,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#debugear-andino" title="Debugear Andino" class="md-nav__link">
+    Debugear Andino
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -712,6 +719,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#debugear-andino" title="Debugear Andino" class="md-nav__link">
+    Debugear Andino
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -754,27 +768,12 @@
 <li><a href="#probar-modificaciones-y-nuevas-funcionalidades">Probar modificaciones y nuevas funcionalidades</a><ul>
 <li><a href="#instalando-andino">Instalando Andino</a></li>
 <li><a href="#actualizando-andino">Actualizando Andino</a></li>
+<li><a href="#debuguear-andino">Debugear Andino</a></li>
 </ul>
 </li>
 </ul>
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-<ul>
-<li><a href="#desarrollo">Desarrollo</a><ul>
-<li><a href="#instalar-un-nuevo-requerimiento-en-la-imagen-base">Instalar un nuevo requerimiento en la imagen base</a><ul>
-<li><a href="#instalar-nuevo-requerimiento">Instalar nuevo requerimiento</a></li>
-<li><a href="#configuracion">Configuración</a></li>
-<li><a href="#configuracion-propia">Configuración propia</a></li>
-<li><a href="#inicio-automatico">Inicio automático</a></li>
-<li><a href="#generacion-del-nuevo-contenedor">Generación del nuevo contenedor</a></li>
-</ul>
-</li>
-<li><a href="#probar-modificaciones-y-nuevas-funcionalidades">Probar modificaciones y nuevas funcionalidades</a></li>
-<li><a href="#instalando-andino">Instalando Andino</a></li>
-<li><a href="#actualizando-theme">Actualizando Andino</a></li>
-</ul>
-</li>
-</ul>
 <h2 id="instalar-un-nuevo-requerimiento-en-la-imagen-base">Instalar un nuevo requerimiento en la imagen base</h2>
 <p>Si necesitamos instalar y configurar un nuevo requerimiento para andino, lo recomendable es instalarlo
 en la imagen de datosgobar/portal-base. Esto permitirá mantener el build de datosgobar/portal-andino
@@ -918,6 +917,7 @@ portal-andino-theme, y/o portal-base.</p>
   -a <span class="p">|</span> --andino_branch           VALUE    nombre del branch de portal-andino <span class="o">(</span>default: master<span class="o">)</span>
   -t <span class="p">|</span> --theme_branch            VALUE    nombre del branch de portal-andino-theme <span class="o">(</span>default: master o el ya utilizado<span class="o">)</span>
   -b <span class="p">|</span> --base_branch             VALUE    nombre del branch de portal-base
+       --site_host               VALUE    nombre de dominio del portal <span class="o">(</span>default: localhost<span class="o">)</span>
        --nginx_host_port         VALUE    puerto a usar para HTTP
        --nginx_ssl                        activar la configuración de SSL
        --nginx_ssl_port          VALUE    puerto a usar para HTTPS
@@ -925,7 +925,7 @@ portal-andino-theme, y/o portal-base.</p>
        --ssl_crt_path            VALUE    path al certificado SSL
        --nginx-extended-cache             activar la configuración de caché extendida de Nginx
        --file_size_limit         VALUE    tamanio máximo en MB para archivos de recursos <span class="o">(</span>default: <span class="m">300</span>, máximo recomendado: <span class="m">1024</span><span class="o">)</span>
-       --site_host               VALUE    nombre de dominio del portal <span class="o">(</span>default: localhost<span class="o">)</span>
+       --theme_volume_src        VALUE    path del host donde se encuentra clonado portal-andino-theme para crear un volumen <span class="o">(</span>default: /dev/null para no usar un theme<span class="o">)</span>
 </pre></div>
 
 
@@ -948,6 +948,10 @@ ya levantada.</p>
 <p><em>Nota: si se desea mantener la configuración de SSL y/o de la caché extendida, es necesario especificarlo utilizando 
 los parámetros correspondientes. No ocurre lo mismo para los archivos del certificado, puesto que son persistidos al 
 instalar Andino.</em></p>
+<h3 id="debugear-andino">Debugear Andino</h3>
+<p>Para una instancia de Andino, se puede utilizar el comando <code>./dev.sh serve</code>, el cual utiliza un servidor de paster que 
+nos permite debuguear fácilmente, ya que apache no lo permite. Durante la ejecución de este comando, la aplicación 
+estará utilizando el <strong>puerto 5000</strong>.</p>
                 
                   
                 
