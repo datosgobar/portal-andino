@@ -185,28 +185,13 @@ class InstallationManager(object):
 
     def persist_ssl_certificates(self):
         nginx_ssl_config_directory = '/etc/nginx/ssl'
-        # self.copy_file_to_container(
-        #     self.cfg.ssl_key_path, "andino-nginx:{}/andino.key".format(nginx_ssl_config_directory))
-        # self.copy_file_to_container(
-        #     self.cfg.ssl_crt_path, "andino-nginx:{}/andino.crt".format(nginx_ssl_config_directory))
-        from urlparse import urlparse
         self.run_compose_command("exec nginx mkdir /etc/archive")
         self.run_compose_command("exec nginx mkdir /etc/archive/{}".format(
             urlparse(self.get_config_file_field('ckan.site_url')).hostname))
-        subprocess.check_call([
-            "docker",
-            "cp",
-            "-L",
-            self.cfg.ssl_key_path,
-            'andino-nginx:{0}/andino.key'.format(nginx_ssl_config_directory)
-        ])
-        subprocess.check_call([
-            "docker",
-            "cp",
-            "-L",
-            self.cfg.ssl_crt_path,
-            'andino-nginx:{0}/andino.crt'.format(nginx_ssl_config_directory)
-        ])
+        self.copy_file_to_container(
+            self.cfg.ssl_key_path, "andino-nginx:{}/andino.key".format(nginx_ssl_config_directory))
+        self.copy_file_to_container(
+            self.cfg.ssl_crt_path, "andino-nginx:{}/andino.crt".format(nginx_ssl_config_directory))
 
     def copy_file_to_container(self, src, dst):
         self.run_with_subprocess("docker cp -L {0} {1}".format(src, dst))
