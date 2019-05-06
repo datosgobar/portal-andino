@@ -185,7 +185,7 @@ class InstallationManager(object):
 
     def persist_ssl_certificates(self):
         nginx_ssl_config_directory = '/etc/nginx/ssl'
-        self.run_compose_command("exec nginx rm {}{{andino.key,andino.crt}}".format(nginx_ssl_config_directory))
+        self.run_compose_command("exec nginx rm {}/{{andino.key,andino.crt}}".format(nginx_ssl_config_directory))
         self.copy_file_to_container(
             self.cfg.ssl_key_path, "andino-nginx:{}/andino.key".format(nginx_ssl_config_directory))
         self.copy_file_to_container(
