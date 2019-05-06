@@ -581,6 +581,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#utilizar-una-imagen-custom-de-portal-base-o-portal-base-nginx" title="Utilizar una imagen custom de portal-base o portal-base-nginx" class="md-nav__link">
+    Utilizar una imagen custom de portal-base o portal-base-nginx
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#debugear-andino" title="Debugear Andino" class="md-nav__link">
     Debugear Andino
   </a>
@@ -720,6 +727,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#utilizar-una-imagen-custom-de-portal-base-o-portal-base-nginx" title="Utilizar una imagen custom de portal-base o portal-base-nginx" class="md-nav__link">
+    Utilizar una imagen custom de portal-base o portal-base-nginx
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#debugear-andino" title="Debugear Andino" class="md-nav__link">
     Debugear Andino
   </a>
@@ -768,6 +782,7 @@
 <li><a href="#probar-modificaciones-y-nuevas-funcionalidades">Probar modificaciones y nuevas funcionalidades</a><ul>
 <li><a href="#instalando-andino">Instalando Andino</a></li>
 <li><a href="#actualizando-andino">Actualizando Andino</a></li>
+<li><a href="#utilizar-una-imagen-custom-de-portal-base-o-portal-base-nginx">Utilizar una imagen custom de portal-base o portal-base-nginx</a></li>
 <li><a href="#debuguear-andino">Debugear Andino</a></li>
 </ul>
 </li>
@@ -908,8 +923,20 @@ a su estado anterior (deshaciendo el cambio en el <code>FROM</code>).
 Luego, debemos sacar una nueva imagen del <strong>portal-base</strong> y, finalmente, una nueva de <strong>portal-andino</strong>
 que se base en la anterior.</p>
 <h2 id="probar-modificaciones-y-nuevas-funcionalidades">Probar modificaciones y nuevas funcionalidades</h2>
+<p>Para una mayor facilidad a la hora de desarrollar existe un archivo <code>dev.sh</code>, el cual contiene los siguientes comandos:</p>
+<div class="codehilite"><pre><span></span>    install       Instalar una instancia de Andino usando configuraciones específicas <span class="o">(</span>usar <span class="s1">&#39;-h&#39;</span> para ver cuáles existen y para qué sirven<span class="o">)</span>
+    update        Actualizar una instancia de Andino usando configuraciones específicas <span class="o">(</span>idem install<span class="o">)</span>
+    <span class="nb">exec</span>          Ejecutar el comando especificado en el contenedor de Andino
+    logs          Mostrar y seguir log del contenedor especificado <span class="o">(</span>default: Andino<span class="o">)</span>
+    serve         Usar un servidor de paster para debuguear fácilmente la aplicación en el puerto <span class="m">5000</span>
+    up            Levantar los servicios
+    stop          Parar los servicios
+    down          Borrar los contenedores, sus volúmenes, y el directorio de instalación
+</pre></div>
+
+
 <h3 id="instalando-andino">Instalando Andino</h3>
-<p>Se utilizará el archivo <code>dev.sh</code> de portal-andino ejecutando la función <code>complete_up</code>, la cual permite levantar una 
+<p>Se utilizará el archivo <code>dev.sh</code> de portal-andino ejecutando la función <code>install</code>, la cual permite levantar una 
 instancia en base a los parámetros recibidos. Dicha función puede ser usada para testear cambios en portal-andino, 
 portal-andino-theme, y/o portal-base.</p>
 <p>Los parámetros a utilizar son:</p>
@@ -942,12 +969,17 @@ necesario asegurarse de que la IP y el hostname de la que queremos escribir sean
   * Escribir una línea nueva <code>127.0.X.1 nuevo_hostname</code>, reemplazando la 'X' por algún número que no esté en una de las 
   IPs de arriba, y 'nuevo_hostname' por el que se quiera utilizar_</p>
 <h3 id="actualizando-andino">Actualizando Andino</h3>
-<p>Para el mismo archivo, también existe una función <code>update</code>, cuyo objetivo es actualizar una instancia
+<p>Para el mismo archivo, también existe una función <code>update</code>, cuyo objetivo es actualizar una instancia 
 ya levantada.</p>
 <p>Los parámetros que recibe son exactamente los mismos que para la función de instalación.</p>
 <p><em>Nota: si se desea mantener la configuración de SSL y/o de la caché extendida, es necesario especificarlo utilizando 
 los parámetros correspondientes. No ocurre lo mismo para los archivos del certificado, puesto que son persistidos al 
 instalar Andino.</em></p>
+<h3 id="utilizar-una-imagen-custom-de-portal-base-o-portal-base-nginx">Utilizar una imagen custom de portal-base o portal-base-nginx</h3>
+<p>Si se quiere utilizar una imagen local en lugar de las existentes en https://hub.docker.com/r/datosgobar/portal-base, 
+se debe correr este comando en el directorio donde se encuentra portal-base:</p>
+<p><code>docker build base_portal -t {nombre que se le quiera dar a la imagen}</code></p>
+<p>Lo mismo aplica para Nginx: recordar que su Dockerfile está en <code>nginx/</code>, por lo que el comando se debe correr ahí.</p>
 <h3 id="debugear-andino">Debugear Andino</h3>
 <p>Para una instancia de Andino, se puede utilizar el comando <code>./dev.sh serve</code>, el cual utiliza un servidor de paster que 
 nos permite debuguear fácilmente, ya que apache no lo permite. Durante la ejecución de este comando, la aplicación 
