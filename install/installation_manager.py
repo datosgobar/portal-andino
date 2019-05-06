@@ -189,6 +189,9 @@ class InstallationManager(object):
         #     self.cfg.ssl_key_path, "andino-nginx:{}/andino.key".format(nginx_ssl_config_directory))
         # self.copy_file_to_container(
         #     self.cfg.ssl_crt_path, "andino-nginx:{}/andino.crt".format(nginx_ssl_config_directory))
+        from urlparse import urlparse
+        self.run_compose_command("exec nginx mkdir /etc/archive")
+        self.run_compose_command("exec nginx mkdir /etc/archive/{}".format(urlparse(self.site_url).hostname))
         subprocess.check_call([
             "docker",
             "cp",
