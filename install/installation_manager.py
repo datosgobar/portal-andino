@@ -191,7 +191,7 @@ class InstallationManager(object):
             self.cfg.ssl_crt_path, "andino-nginx:{}/andino.crt".format(nginx_ssl_config_directory))
 
     def copy_file_to_container(self, src, dst):
-        self.run_with_subprocess("docker cp {0} {1}".format(src, dst))
+        self.run_with_subprocess("docker cp -L {0} {1}".format(src, dst))
 
     def update_configuration_file(self):
         self.logger.info("Actualizando archivo de configuración...")
