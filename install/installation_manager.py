@@ -191,7 +191,8 @@ class InstallationManager(object):
         #     self.cfg.ssl_crt_path, "andino-nginx:{}/andino.crt".format(nginx_ssl_config_directory))
         from urlparse import urlparse
         self.run_compose_command("exec nginx mkdir /etc/archive")
-        self.run_compose_command("exec nginx mkdir /etc/archive/{}".format(urlparse(self.site_url).hostname))
+        self.run_compose_command("exec nginx mkdir /etc/archive/{}".format(
+            urlparse(self.get_config_file_field('ckan.site_url')).hostname))
         subprocess.check_call([
             "docker",
             "cp",
@@ -226,10 +227,7 @@ class InstallationManager(object):
         nginx_config_file = "NGINX_CONFIG_FILE"
 
         # Se modifica el campo "ckan.site_url" modificando el protocolo para que quede HTTP o HTTPS según corresponda
-        cmd = 'exec -T portal grep -E "^ckan.site_url[[:space:]]*=[[:space:]]*" ' \
-              '/etc/ckan/default/production.ini | tr -d [[:space:]]'
-        current_url = self.run_compose_command(cmd)
-        current_url = current_url.replace('ckan.site_url', '')[1:]  # guardamos sólo la url, ignoramos el símbolo '='
+        current_url = self.get_config_file_field('ckan.site_url')
         host_name = envconf.pop(site_host, urlparse(current_url).hostname)
         config_file_in_use = envconf.pop(nginx_config_file)
 
@@ -244,6 +242,12 @@ class InstallationManager(object):
             self.logger.info("Actualizando site_url...")
             self.run_compose_command("exec -T portal /etc/ckan_init.d/change_site_url.sh {}".format(new_url))
         self.site_url = new_url
+
+    def get_config_file_field(self, name):
+        cmd = 'exec -T portal grep -E "^{}[[:space:]]*=[[:space:]]*" ' \
+              '/etc/ckan/default/production.ini | tr -d [[:space:]]'.format(name)
+        current_url = self.run_compose_command(cmd)
+        return current_url.replace(name, '')[1:]  # guardamos sólo la url, ignoramos el símbolo '='
 
     def restart_apps(self):
         self.logger.info("Reiniciando la aplicación...")
