@@ -186,7 +186,7 @@ class InstallationManager(object):
     def persist_ssl_certificates(self):
         nginx_ssl_config_directory = '/etc/nginx/ssl'
         try:
-            self.run_compose_command("exec nginx rm {}/{{andino.key,andino.crt}}".format(nginx_ssl_config_directory))
+            self.run_compose_command("exec nginx rm {}/*.{{key,crt}}".format(nginx_ssl_config_directory))
         except subprocess.CalledProcessError:
             pass  # Se intentó borrar archivos inexistentes
         self.copy_file_to_container(
