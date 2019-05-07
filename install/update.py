@@ -61,7 +61,10 @@ class Updater(InstallationManager):
         if self.cfg.site_host:
             envconf[site_host] = self.cfg.site_host
         elif not envconf.get(site_host, ''):
-            envconf[site_host] = "andino_nginx"
+            entered_site_host = ""
+            while not entered_site_host:
+                entered_site_host = self.ask("Por favor, ingrese un nombre de dominio (e.g.: myportal.com.ar):").strip()
+            envconf[site_host] = entered_site_host
 
         if self.cfg.nginx_port:
             envconf[nginx_var] = self.cfg.nginx_port
