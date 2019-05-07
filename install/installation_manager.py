@@ -185,11 +185,6 @@ class InstallationManager(object):
 
     def persist_ssl_certificates(self):
         nginx_ssl_config_directory = '/etc/nginx/ssl'
-        try:
-            self.run_compose_command("exec nginx rm {}/*.{{key,crt}}".format(nginx_ssl_config_directory))
-        except subprocess.CalledProcessError:
-            logging.error("Problema borrando los certificados de SSL")
-            pass  # Se intentó borrar archivos inexistentes
         self.copy_file_to_container(
             self.cfg.ssl_key_path, "andino-nginx:{}/andino.key".format(nginx_ssl_config_directory))
         self.copy_file_to_container(
