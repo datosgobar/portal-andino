@@ -262,7 +262,7 @@ instalar Andino._
 Si se quiere utilizar una imagen local en lugar de las existentes en https://hub.docker.com/r/datosgobar/portal-base, 
 se debe correr este comando en el directorio donde se encuentra portal-base:
 
-`docker build base_portal -t {nombre que se le quiera dar a la imagen}`
+`docker build base_portal -t datosgobar/portal-base:{nombre que se le quiera dar a la imagen}`
 
 Lo mismo aplica para Nginx: recordar que su Dockerfile está en `nginx/`, por lo que el comando se debe correr ahí.
 
