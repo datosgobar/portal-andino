@@ -47,8 +47,9 @@
     - [Realizar un backup de la configuración](#realizar-un-backup-de-la-configuracion)
 - [Comandos de DataPusher](#comandos-de-datapusher)
     - [Subir todos los recursos al Datastore](#subir-todos-los-recursos-al-datastore)
-- [Recomendaciones de Seguridad y Optimizaciones](#recomendaciones-de-seguridad-y-optimizaciones)
+- [Seguridad](#seguridad)
     - [HTTPS](#https)
+    - [Plugin ckanext-security](#plugin-ckanext-security)
     - [Sistema y librerías](#sistema-y-librerias)
     - [Firewall](#firewall)
     - [SSH](#ssh)
@@ -715,7 +716,7 @@ Es posible que existan recursos que no hayan sido subidos al Datastore. Para bus
 Se preguntará si se desea proceder. Al escribir que sí (`y`), iniciar la subida de recursos. Para cada uno de ellos, se escribirá su id y luego el status: si subió correctamente, aparecerá "_OK_"; en caso contrario, "_FAIL_".
 
 
-## Recomendaciones de Seguridad y Optimizaciones
+## Seguridad
 
 Mantener seguro un servidor web puede ser una tarea ardua, pero sobre todo es _constante_, ya que _constantemente_ 
 se detectan nuevas vulnerabilidades en los distintos softwares.
@@ -733,6 +734,16 @@ Es altamente recomendable usar HTTPS, para mantener la privacidad de los usuario
 El portal de documentación para desarrolladores de Google provee buena información sobre esto:
 https://developers.google.com/web/fundamentals/security/encrypt-in-transit/why-https
 
+### Plugin ckanext-security
+
+Para las versiones 2.5.7 en adelante, existe un plugin para mejorar la seguridad de CKAN que se puede encontrar 
+[en github](https://github.com/data-govt-nz/ckanext-security). Para su utilización, es necesario el uso de 
+certificados SSL, ya sea en Andino mismo (teniendo _https_ en el campo `site_url` de la configuración del portal) o 
+mediante un reverse proxy.
+
+Para este plugin existen dos scripts, los cuales se pueden encontrar en el directorio `/etc/ckan_init.d/security` 
+dentro del contenedor de Andino; uno para activarlo (`enable_ckanext_security.sh`) y otro para desactivarlo 
+(`disable_ckanext_security.sh`). Sólo se necesita ejecutar el que se necesite y reiniciar apache.
 
 ### Sistema y librerías
 
@@ -751,7 +762,6 @@ si la máquina es accedida remotamente mediante un servidor SSH, deberíamos abr
 pero con un límite de acceso.
 La solución es fácilmente implementable con el programa [`ufw`](https://help.ubuntu.com/community/UFW).
 
-
 ### SSH
 
 Los servidores ssh permiten el acceso al servidor remotamente. 
@@ -759,6 +769,7 @@ Los servidores ssh permiten el acceso al servidor remotamente.
 Sólo debe permitirse el acceso mediante clave publica.
 DigitalOcean tiene una buena guía de cómo configurar las claves públicas 
 [Ver](https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys--2).
+
 
 ## Optimización de logging
 

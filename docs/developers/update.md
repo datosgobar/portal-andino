@@ -85,6 +85,13 @@ Los pasos adicionales que deberás seguir si tenés plugins _ad-hoc_ son:
 1. Editar el archivo `/etc/ckan/default/production.ini` del contenedor `portal` y agregar a la lista de `ckan.plugins` los plugins _ad-hoc_.
 1. Reiniciar Andino.
 
+### Versiones 2.5.7 en adelante
+
+* Se especificó en el archivo de configuración (`production.ini`) un nuevo path donde ahora se encuentra un JSON que 
+contiene las unidades que utiliza Andino; `/var/lib/ckan/theme_config/units.json`. Se deberá tener en cuenta al 
+actualizar si el campo _units_url_ dentro del archivo de configuración había sido modificado manualmente, ya 
+que se correrá una migración para utilizar el path correspondiente al JSON nombrado.
+
 ### Versiones 2.5.6 en adelante
 
 * Se especificó en el archivo de configuración (`production.ini`) un nuevo path donde ahora se encuentra un JSON que 
