@@ -8,6 +8,7 @@
     - [Actualización simple](#actualizacion-simple)
     - [Actualización avanzada](#actualizacion-avanzada)
     - [Andino con plugins ad-hoc](#andino-con-plugins-ad-hoc)
+    - [Versiones 2.5.7 en adelante](#versiones-257-en-adelante)
     - [Versiones 2.5.6 en adelante](#versiones-256-en-adelante)
     - [Versiones 2.5.5 en adelante](#versiones-255-en-adelante)
     - [Versiones 2.5.0 y 2.5.1](#versiones-250-y-251)
