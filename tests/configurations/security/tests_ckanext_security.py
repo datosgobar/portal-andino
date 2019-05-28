@@ -17,7 +17,7 @@ class TestCkanextSecurity(TestPortalAndino.TestPortalAndino):
             "docker exec -it andino {0}./{1}".format(security_path, enablement_script), shell=True)
         cmd = "grep '## ckanext-security' /etc/ckan/default/production.ini"
         search_result = subprocess.check_output("docker exec -it andino {}".format(cmd), shell=True).strip()
-        nt.assert_equal("## ckanext-security", search_result)
+        nt.assert_equal("## ckanext-securityasdsadsadsad", search_result)
 
         # Disable
         subprocess.check_call(
