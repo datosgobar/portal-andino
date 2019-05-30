@@ -45,6 +45,7 @@ before_script:
 - STORE_PASS=ckan_store
 
 script:
+- set -e
 - sudo python ./install.py --error_email "$EMAIL" --site_host="$HOST" --database_user="$DB_USER" --database_password="$DB_PASS" --datastore_user="$STORE_USER" --datastore_password="$STORE_PASS" --andino_version=$BRANCH_TO_USE --branch=$BRANCH_TO_USE
 - cd -
 - cd tests/
