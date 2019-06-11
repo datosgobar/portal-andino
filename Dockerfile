@@ -1,5 +1,5 @@
 # Si se lleva a cabo un docker build de portal-andino sin el parámetro "--build-arg IMAGE_VERSION={versión de portal-base}, se usa el ARG IMAGE_VERSION por default
-ARG IMAGE_VERSION=release-0.10.28
+ARG IMAGE_VERSION=release-0.10.29
 FROM datosgobar/portal-base:$IMAGE_VERSION
 MAINTAINER Leandro Gomez<lgomez@devartis.com>
 
@@ -11,7 +11,7 @@ ENV CKAN_DEFAULT /etc/ckan/default
 WORKDIR /portal
 
 # portal-andino-theme
-RUN $CKAN_HOME/bin/pip install -e git+https://github.com/datosgobar/portal-andino-theme.git@754466c5fb7b91f5009f60639ef410406f17e77e#egg=ckanext-gobar_theme && \
+RUN $CKAN_HOME/bin/pip install -e git+https://github.com/datosgobar/portal-andino-theme.git@aaab0a02ade7b8eed1a05c1c0e1ec854dc12c73b#egg=ckanext-gobar_theme && \
     $CKAN_HOME/bin/pip install -r $CKAN_HOME/src/ckanext-gobar-theme/requirements.txt && \
     /etc/ckan_init.d/build-combined-ckan-mo.sh $CKAN_HOME/src/ckanext-gobar-theme/ckanext/gobar_theme/i18n/es/LC_MESSAGES/ckan.po
 
