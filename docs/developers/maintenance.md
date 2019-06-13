@@ -593,7 +593,10 @@ Datapusher, no será posible utilizar el xloader.
 Xloader provee un comando de paster para subir recursos al Datastore desde consola:
 `/usr/lib/ckan/default/bin/paster --plugin=ckanext-xloader xloader submit X -c /etc/ckan/default/production.ini`, donde 
 se debe reemplazar la X para especificar un id o nombre de dataset en particular o "all" para subir los recursos de 
-todos los datasets del portal.  
+todos los datasets del portal.
+
+Las tareas croneadas para la subida automática de recursos al Datastore que existan en el contenedor serán modificadas 
+para utilizar el comando específico del plugin que haya sido activado.
 
 En caso de querer reestablecer Datapusher como el servicio a utilizar, se debe ejecutar el script 
 `/etc/ckan_init.d/datastore_loaders/enable_datapusher.sh`.
