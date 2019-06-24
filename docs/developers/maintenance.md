@@ -550,8 +550,12 @@ Para poder navegar tu Andino usando como URL una que no es la canónica de tu in
 
 Luego reiniciá los contenedores `portal` y `nginx`: `docker-compose -f latest.yml restart nginx portal`.
 
-Si deseás habilitar **todas** las URLs para CORS (no recomendado), en el paso 1 debés pasar el valor `true` para 
-el atributo de configuración `ckan.cors.origin_allow_all`.
+Tené en cuenta que el script va a reemplazar las URLs existentes en el campo por lo que le pases por parámetro. Si hay 
+URLs que querés mantener en la configuración, buscalas con el siguiente comando y especificalas junto a las nuevas: 
+`docker-compose -f latest.yml exec portal bash -c 'grep "ckan.cors.origin_whitelist" /etc/ckan/default/production.ini'`.
+
+Si deseás habilitar **todas** las URLs para CORS (no recomendado por cuestiones de seguridad), en el paso 1 debés pasar 
+el valor `true` para el atributo de configuración `ckan.cors.origin_allow_all` e ignorar el paso 2.
 
 Para ver más acerca del funcionamiento de CORS en CKAN ver la 
 [documentación oficial de CKAN (en inglés)](http://docs.ckan.org/en/ckan-2.7.3/maintaining/configuration.html#cors-settings).
