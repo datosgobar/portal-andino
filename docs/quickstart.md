@@ -272,6 +272,15 @@ Ingresá a tu cuenta y andá a Página principal > Crear dataset. Una vez que co
 
 Al igual que con los datasets, siempre podrás editar los recursos que hayas creado. Para eso, ingresá a tu cuenta > Página principal > Datasets > Editar dataset > Editar recursos. 
 
+#### ¿En qué consiste embeberlos?
+
+Significa poder utilizar el preview de un recurso perteneciente a otro portal. Para hacerlo, se debe hacer click en el 
+botón "Embeber", lo cual mostrará una ventana con el código HTML de un iframe que podés usar en alguna parte de tu 
+portal, junto con los valores configurables del ancho y la altura que querés que tenga el preview.
+
+Tené en cuenta que, para que se puedan embeber los recursos de tu portal, necesitás [agregar la URL de tu portal al 
+whitelist para CORS en el archivo de configuración](/docs/developers/maintenance.md#configuracion-de-cors).
+
 ***
 
 ### Campos de un recurso
