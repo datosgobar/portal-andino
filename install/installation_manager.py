@@ -220,6 +220,7 @@ class InstallationManager(object):
         elif config_file_in_use == 'nginx.conf' and envconf.get(nginx_var) != '80':
             port = ':{}'.format(envconf.pop(nginx_var, ''))
         new_url = "http{0}://{1}{2}".format('s' if config_file_in_use == 'nginx_ssl.conf' else '', host_name, port)
+        logging.info("Se utilizará como site_url: {}".format(new_url))
         self.site_url = new_url
 
     def get_config_file_field(self, name):
