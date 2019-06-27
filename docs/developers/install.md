@@ -90,12 +90,13 @@ Para los demás, usaremos los valores por defecto:
 + Usuario del datastore: `STORE_USER=<my datastore user>`
 + Password del datastore: `STORE_PASS=<my datastore password>`
 
-NOTA: Si usamos una IP para la variable `HOST`, el envio de mails no funcionará.
+_Nota_: Si usamos una IP para la variable `HOST`, el envío de mails no funcionará.
 Postfix require un "fully-qualified domain name (FQDN)". 
 Ver [la documentación de Postfix](http://www.postfix.org/postconf.5.html#myhostname) para más detalles.
 
-NOTA 2: Si utilizamos el nombre 'localhost' para la variable `HOST`, es posible que ocurra un error al intentar subir un 
-archivo perteneciente a un recurso al Datastore: `Error: Proceso completo pero no se pudo enviar a result_url.`
+_Nota 2_: Si se utiliza el nombre 'localhost' para la variable `site_host`, es posible que ocurra un error al intentar 
+subir un archivo perteneciente a un recurso al Datastore. Para evitar este problema, se debe utilizar un hostname 
+diferente.
 
 ```bash
 # Primero especificamos los valores necesarios
