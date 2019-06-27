@@ -247,6 +247,8 @@ class InstallationManager(object):
             if time.time() > timeout:
                 self.logger.warning("No fue posible reiniciar el contenedor de Nginx. "
                                     "Es posible que haya problemas de configuración.")
+                log_output = self.run_compose_command("logs --tail=30 portal")
+                logging.error(log_output)
                 break
             time.sleep(10 if site_status_code != "200" else 0)  # Si falla, esperamos 10 segundos para reintentarlo
 
