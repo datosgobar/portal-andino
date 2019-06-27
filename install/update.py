@@ -134,11 +134,11 @@ class Updater(InstallationManager):
         try:
             self.run_compose_command("exec -T portal bash /etc/ckan_init.d/run_updates.sh")
         except subprocess.CalledProcessError as e:
-            self.logger.exception("Error al correr el script 'run_updates.sh'")
+            self.logger.exception("Error al correr el script 'run_updates.sh'.\n{}".format(e))
         try:
             self.run_compose_command("exec -T portal bash /etc/ckan_init.d/update_data_json_and_catalog_xlsx.sh")
         except subprocess.CalledProcessError as e:
-            self.logger.exception("Error al correr el script 'update_data_json_and_catalog_xlsx.sh'")
+            self.logger.exception("Error al correr el script 'update_data_json_and_catalog_xlsx.sh'.\n{}".format(e))
         try:
             self.run_compose_command("exec -T portal /etc/ckan_init.d/upgrade_db.sh")
         finally:
