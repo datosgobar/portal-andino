@@ -66,6 +66,10 @@ Para esta actualización de ejemplo, usaremos los valores por defecto:
 
 De esta forma, el script asumirá que instalamos la aplicación en `/etc/portal`.
 
+_Nota_: Si se utiliza el nombre 'localhost' para la variable `site_host`, es posible que ocurra un error al intentar 
+subir un archivo perteneciente a un recurso al Datastore. Para evitar este problema, se debe utilizar un hostname 
+diferente.
+
 ### Actualización avanzada
 
 Si instalamos la aplicación en otro directorio distinto de `/etc/portal`, necesitamos correr el script de una manera diferente.
