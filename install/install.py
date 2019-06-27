@@ -40,6 +40,7 @@ class Installer(InstallationManager):
                 env_f.write("NGINX_CACHE_INACTIVE=%s\n" % self.cfg.nginx_cache_inactive)
             env_f.write("TZ=%s\n" % self.cfg.timezone)
             env_f.write("THEME_VOLUME_SRC=%s\n" % self.cfg.theme_volume_src)
+        self.build_whole_site_url()
 
     def run_configuration_scripts(self):
         self.logger.info("Corriendo la inicialización...")

@@ -27,8 +27,6 @@ class Updater(InstallationManager):
             raise Exception("[ ERROR ] No se encontró una instalación.")
 
     def configure_env_file(self):
-        env_file = ".env"
-        env_file_path = path.join(self.get_install_directory(), env_file)
         site_host = "SITE_HOST"
         nginx_config_file = "NGINX_CONFIG_FILE"
         nginx_extended_cache = "NGINX_EXTENDED_CACHE"
@@ -42,9 +40,11 @@ class Updater(InstallationManager):
         maildomain = "maildomain"
 
         # Get current variables
-        envconf = self.read_env_file_data(env_file_path)
+        envconf = self.read_env_file_data()
 
         # Backup current config
+        env_file = ".env"
+        env_file_path = path.join(self.get_install_directory(), env_file)
         self.generate_env_file_backup(env_file_path)
 
         # Write new config
@@ -103,6 +103,7 @@ class Updater(InstallationManager):
         with open(env_file_path, "w") as env_f:
             for key in envconf.keys():
                 env_f.write("%s=%s\n" % (key, envconf[key]))
+        self.build_whole_site_url()
 
     def check_nginx_ssl_files_exist(self):
         if super(Updater, self).check_nginx_ssl_files_exist():
@@ -199,6 +200,8 @@ class Updater(InstallationManager):
         self.prepare_application()
         crontab_content = self.find_cron_jobs()
         self.configure_nginx()
+        self.restart_apps()
+        self.ping_nginx_until_200_response_or_timeout()
         self.run_configuration_scripts()
         self.configure_theme_volume()
         if crontab_content:

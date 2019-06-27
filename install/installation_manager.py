@@ -62,9 +62,11 @@ class InstallationManager(object):
     def check_compose(self):
         self.run_with_subprocess("docker-compose --version")
 
-    def read_env_file_data(self, path):
+    def read_env_file_data(self):
+        env_file = ".env"
+        env_file_path = path.join(self.get_install_directory(), env_file)
         envconf = {}
-        with open(path, "r") as env_f:
+        with open(env_file_path, "r") as env_f:
             for line in env_f.readlines():
                 try:
                     key, value = line.split("=", 1)
@@ -144,7 +146,6 @@ class InstallationManager(object):
 
     def load_application(self):
         self.run_compose_command("up -d nginx")
-        self.ping_nginx_until_200_response_or_timeout()
 
     @abstractmethod
     def prepare_application(self):
@@ -198,12 +199,10 @@ class InstallationManager(object):
         self.logger.info("Actualizando archivo de configuración...")
         if self.cfg.file_size_limit:
             self.update_config_file_value("ckan.max_resource_size = {}".format(self.cfg.file_size_limit))
-        self.update_site_url_in_configuration_file()
+        self.run_compose_command("exec -T portal /etc/ckan_init.d/change_site_url.sh {}".format(self.site_url))
 
-    def update_site_url_in_configuration_file(self):
-        env_file = ".env"
-        env_file_path = path.join(self.get_install_directory(), env_file)
-        envconf = self.read_env_file_data(env_file_path)
+    def build_whole_site_url(self):
+        envconf = self.read_env_file_data()
         site_host = "SITE_HOST"
         nginx_var = "NGINX_HOST_PORT"
         nginx_ssl_var = "NGINX_HOST_SSL_PORT"
@@ -220,10 +219,7 @@ class InstallationManager(object):
         elif config_file_in_use == 'nginx.conf' and envconf.get(nginx_var) != '80':
             port = ':{}'.format(envconf.pop(nginx_var, ''))
         new_url = "http{0}://{1}{2}".format('s' if config_file_in_use == 'nginx_ssl.conf' else '', host_name, port)
-
-        if current_url != new_url:
-            self.logger.info("Actualizando site_url...")
-            self.run_compose_command("exec -T portal /etc/ckan_init.d/change_site_url.sh {}".format(new_url))
+        logging.info("Se utilizará como site_url: {}".format(new_url))
         self.site_url = new_url
 
     def get_config_file_field(self, name):
@@ -250,6 +246,10 @@ class InstallationManager(object):
             if time.time() > timeout:
                 self.logger.warning("No fue posible reiniciar el contenedor de Nginx. "
                                     "Es posible que haya problemas de configuración.")
+                if site_status_code != "000":
+                    logging.error("Mostrando las últimas 50 líneas del log:")
+                    log_output = self.run_compose_command("logs --tail=50 portal")
+                    logging.error(log_output)
                 break
             time.sleep(10 if site_status_code != "200" else 0)  # Si falla, esperamos 10 segundos para reintentarlo
 
