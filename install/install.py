@@ -24,6 +24,7 @@ class Installer(InstallationManager):
         andino_version = self.get_andino_version()
         with open(env_file_path, "w") as env_f:
             env_f.write("SITE_HOST=%s\n" % self.cfg.site_host)
+            self.site_url = self.cfg.site_host
             env_f.write("POSTGRES_USER=%s\n" % self.cfg.database_user)
             env_f.write("ANDINO_TAG=%s\n" % andino_version)
             env_f.write("POSTGRES_PASSWORD=%s\n" % self.cfg.database_password)
