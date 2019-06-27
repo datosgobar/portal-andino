@@ -65,7 +65,6 @@ class Updater(InstallationManager):
             while not entered_site_host:
                 entered_site_host = self.ask("Por favor, ingrese un nombre de dominio (e.g.: myportal.com.ar):").strip()
             envconf[site_host] = entered_site_host
-        self.site_url = envconf[site_host]
 
         if self.cfg.nginx_port:
             envconf[nginx_var] = self.cfg.nginx_port
@@ -104,6 +103,7 @@ class Updater(InstallationManager):
         with open(env_file_path, "w") as env_f:
             for key in envconf.keys():
                 env_f.write("%s=%s\n" % (key, envconf[key]))
+        self.build_whole_site_url()
 
     def check_nginx_ssl_files_exist(self):
         if super(Updater, self).check_nginx_ssl_files_exist():

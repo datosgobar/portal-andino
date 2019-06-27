@@ -200,9 +200,9 @@ class InstallationManager(object):
         self.logger.info("Actualizando archivo de configuración...")
         if self.cfg.file_size_limit:
             self.update_config_file_value("ckan.max_resource_size = {}".format(self.cfg.file_size_limit))
-        self.update_site_url_in_configuration_file()
+        self.run_compose_command("exec -T portal /etc/ckan_init.d/change_site_url.sh {}".format(self.site_url))
 
-    def update_site_url_in_configuration_file(self):
+    def build_whole_site_url(self):
         envconf = self.read_env_file_data()
         site_host = "SITE_HOST"
         nginx_var = "NGINX_HOST_PORT"
@@ -220,10 +220,6 @@ class InstallationManager(object):
         elif config_file_in_use == 'nginx.conf' and envconf.get(nginx_var) != '80':
             port = ':{}'.format(envconf.pop(nginx_var, ''))
         new_url = "http{0}://{1}{2}".format('s' if config_file_in_use == 'nginx_ssl.conf' else '', host_name, port)
-
-        if current_url != new_url:
-            self.logger.info("Actualizando site_url...")
-            self.run_compose_command("exec -T portal /etc/ckan_init.d/change_site_url.sh {}".format(new_url))
         self.site_url = new_url
 
     def get_config_file_field(self, name):

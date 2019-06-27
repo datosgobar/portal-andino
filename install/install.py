@@ -24,7 +24,6 @@ class Installer(InstallationManager):
         andino_version = self.get_andino_version()
         with open(env_file_path, "w") as env_f:
             env_f.write("SITE_HOST=%s\n" % self.cfg.site_host)
-            self.site_url = self.cfg.site_host
             env_f.write("POSTGRES_USER=%s\n" % self.cfg.database_user)
             env_f.write("ANDINO_TAG=%s\n" % andino_version)
             env_f.write("POSTGRES_PASSWORD=%s\n" % self.cfg.database_password)
@@ -41,6 +40,7 @@ class Installer(InstallationManager):
                 env_f.write("NGINX_CACHE_INACTIVE=%s\n" % self.cfg.nginx_cache_inactive)
             env_f.write("TZ=%s\n" % self.cfg.timezone)
             env_f.write("THEME_VOLUME_SRC=%s\n" % self.cfg.theme_volume_src)
+        self.build_whole_site_url()
 
     def run_configuration_scripts(self):
         self.logger.info("Corriendo la inicialización...")
