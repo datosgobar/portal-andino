@@ -144,6 +144,7 @@ class InstallationManager(object):
 
     def load_application(self):
         self.run_compose_command("up -d nginx")
+        self.ping_nginx_until_200_response_or_timeout()
 
     @abstractmethod
     def prepare_application(self):
