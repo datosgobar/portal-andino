@@ -62,9 +62,11 @@ class InstallationManager(object):
     def check_compose(self):
         self.run_with_subprocess("docker-compose --version")
 
-    def read_env_file_data(self, path):
+    def read_env_file_data(self):
+        env_file = ".env"
+        env_file_path = path.join(self.get_install_directory(), env_file)
         envconf = {}
-        with open(path, "r") as env_f:
+        with open(env_file_path, "r") as env_f:
             for line in env_f.readlines():
                 try:
                     key, value = line.split("=", 1)
@@ -201,9 +203,7 @@ class InstallationManager(object):
         self.update_site_url_in_configuration_file()
 
     def update_site_url_in_configuration_file(self):
-        env_file = ".env"
-        env_file_path = path.join(self.get_install_directory(), env_file)
-        envconf = self.read_env_file_data(env_file_path)
+        envconf = self.read_env_file_data()
         site_host = "SITE_HOST"
         nginx_var = "NGINX_HOST_PORT"
         nginx_ssl_var = "NGINX_HOST_SSL_PORT"

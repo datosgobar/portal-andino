@@ -27,8 +27,6 @@ class Updater(InstallationManager):
             raise Exception("[ ERROR ] No se encontró una instalación.")
 
     def configure_env_file(self):
-        env_file = ".env"
-        env_file_path = path.join(self.get_install_directory(), env_file)
         site_host = "SITE_HOST"
         nginx_config_file = "NGINX_CONFIG_FILE"
         nginx_extended_cache = "NGINX_EXTENDED_CACHE"
@@ -42,9 +40,11 @@ class Updater(InstallationManager):
         maildomain = "maildomain"
 
         # Get current variables
-        envconf = self.read_env_file_data(env_file_path)
+        envconf = self.read_env_file_data()
 
         # Backup current config
+        env_file = ".env"
+        env_file_path = path.join(self.get_install_directory(), env_file)
         self.generate_env_file_backup(env_file_path)
 
         # Write new config
@@ -65,6 +65,7 @@ class Updater(InstallationManager):
             while not entered_site_host:
                 entered_site_host = self.ask("Por favor, ingrese un nombre de dominio (e.g.: myportal.com.ar):").strip()
             envconf[site_host] = entered_site_host
+        self.site_url = envconf[site_host]
 
         if self.cfg.nginx_port:
             envconf[nginx_var] = self.cfg.nginx_port
