@@ -200,8 +200,8 @@ class Updater(InstallationManager):
         self.prepare_application()
         crontab_content = self.find_cron_jobs()
         self.configure_nginx()
-        # self.restart_apps()
-        # self.ping_nginx_until_200_response_or_timeout()
+        self.restart_apps()
+        self.ping_nginx_until_200_response_or_timeout()
         self.run_configuration_scripts()
         self.configure_theme_volume()
         if crontab_content:
