@@ -56,6 +56,8 @@ sub_serve(){
 }
 
 sub_install(){
+    sudo echo "Forzando el pedido de contraseña"
+
     # Parámetros
     SHORTOPTS="a:t:b:h"
     LONGOPTS="andino_branch:,theme_branch:,base_branch:,site_host:,nginx_ssl,nginx_host_port:,nginx_ssl_port:,nginx-extended-cache,ssl_key_path:,ssl_crt_path:,file_size_limit:,theme_volume_src:,help"
@@ -147,6 +149,8 @@ sub_install(){
 }
 
 sub_update(){
+    sudo echo "Forzando el pedido de contraseña"
+    
     # Parámetros
     SHORTOPTS="a:t:b:h"
     LONGOPTS="andino_branch:,theme_branch:,base_branch:,site_host:,nginx_ssl,nginx_host_port:,nginx_ssl_port:,nginx-extended-cache,ssl_key_path:,ssl_crt_path:,file_size_limit:,theme_volume_src:,help"
