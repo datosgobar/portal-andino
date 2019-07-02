@@ -23,6 +23,19 @@ Lo único que un administrador de Andino necesita para habilitar SSL es contar c
 
 Cómo obtener estos archivos está fuera del "scope" de esta documentación.
 
+Si además de un `.crt` se posee un bundle, se debe incluir el contenido del certificado en dicho bundle (tiene que 
+estar al principio, antes del texto ya existente).
+
+Es recomendable asegurarse de que la key y el certificado sean compatibles. Esto se puede lograr de la siguiente manera:
+1. Ejecutar `openssl rsa -noout -text -in {path_de_la_key}`
+2. Ejecutar `openssl x509 -noout -text -in {path_del_crt}`
+3. Asegurarse de que no haya habido ningún error durante los pasos anteriores
+4. 1. Buscar el contenido de _modulus_ en el resultado del paso 1
+   2. Buscar el contenido de _Certificate -> Signature Algorithm -> Subject Public Key Info -> Public Key Algorithm -> 
+      Modulus_ en el resultado del paso 2
+5. Comparar los contenidos encontrados
+Si los contenidos encontrados son idénticos, entonces la key y el certificado son compatibles.
+
 ## Configuración de SSL
 
 Tanto la instalación como la actualización de un Andino emplean el uso de un parámetro llamado `nginx_ssl`, el cual 
