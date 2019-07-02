@@ -231,10 +231,10 @@ class InstallationManager(object):
     def restart_apps(self):
         self.logger.info("Reiniciando la aplicación...")
         self.run_compose_command("restart")
-        self.logger.info("Esperando a que Nginx inicie...")
-        self.ping_nginx_until_200_response_or_timeout()
-        self.run_compose_command("exec portal supervisorctl restart all")
         self.logger.info("Listo.")
+
+    def restart_workers(self):
+        self.run_compose_command("exec portal supervisorctl restart all")
 
     def ping_nginx_until_200_response_or_timeout(self):
         timeout = time.time() + 60 * 5  # límite de 5 minutos
@@ -252,6 +252,9 @@ class InstallationManager(object):
                     logging.error(log_output)
                 break
             time.sleep(10 if site_status_code != "200" else 0)  # Si falla, esperamos 10 segundos para reintentarlo
+
+    def correct_ckan_public_files_permissions(self):
+        self.run_compose_command('exec portal bash -c "chmod 777 -R /usr/lib/ckan/default/src/ckan/ckan/public"')
 
     @abstractmethod
     def run(self):

@@ -94,7 +94,10 @@ class Installer(InstallationManager):
         self.run_configuration_scripts()
         self.configure_theme_volume()
         self.update_configuration_file()
+        self.correct_ckan_public_files_permissions()
         self.restart_apps()
+        self.ping_nginx_until_200_response_or_timeout()
+        self.restart_workers()
 
 
 if __name__ == "__main__":
