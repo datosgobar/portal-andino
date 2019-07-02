@@ -198,6 +198,7 @@ class Updater(InstallationManager):
         self.checkup()
         self.prepare_necessary_files()
         self.prepare_application()
+        self.correct_ckan_public_files_permissions()
         crontab_content = self.find_cron_jobs()
         self.configure_nginx()
         self.restart_apps()
@@ -207,7 +208,6 @@ class Updater(InstallationManager):
         if crontab_content:
             self.restore_cron_jobs(crontab_content)
         self.update_configuration_file()
-        self.correct_ckan_public_files_permissions()
         self.restart_apps()
         self.ping_nginx_until_200_response_or_timeout()
         self.restart_workers()
