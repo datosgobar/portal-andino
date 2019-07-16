@@ -38,7 +38,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.1.1">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.0">
     
     
       
@@ -47,7 +47,7 @@
     
     
 	
-      <link rel="stylesheet" href="../../assets/stylesheets/application.3020aac5.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/application.0284f74d.css">
       
       
     
@@ -55,14 +55,14 @@
 
     
     
-      <script src="../../assets/javascripts/modernizr.01ccdecf.js"></script>
+      <script src="../../assets/javascripts/modernizr.74668098.js"></script>
     
     <script src="../../js/extra.js"></script>
 
     
       
         <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono&display=fallback">
         <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
       
     
@@ -158,7 +158,9 @@
               Portal Andino
             </span>
             <span class="md-header-nav__topic">
-              Configuración HTTPS
+              
+                Configuración HTTPS
+              
             </span>
           
         </div>
@@ -719,6 +721,17 @@
 <p>Andino cuenta con soporte <em>builtin</em> de certificados SSL. Es posible instalar Andino con SSL, actualizar una versión de Andino sin SSL y agregarle el soporte para SSL, e inclusive deshabilitar SSL a una instancia con SSL.</p>
 <p>Lo único que un administrador de Andino necesita para habilitar SSL es contar con los certificados <code>.key</code> y <code>.crt</code> para nuestra aplicación y la elección de un puerto libre del host para usar SSL.</p>
 <p>Cómo obtener estos archivos está fuera del "scope" de esta documentación.</p>
+<p>Si además de un <code>.crt</code> se posee un bundle, se debe incluir el contenido del certificado en dicho bundle (tiene que 
+estar al principio, antes del texto ya existente).</p>
+<p>Es recomendable asegurarse de que la key y el certificado sean compatibles. Esto se puede lograr de la siguiente manera:
+1. Ejecutar <code>openssl rsa -noout -text -in {path_de_la_key}</code>
+2. Ejecutar <code>openssl x509 -noout -text -in {path_del_crt}</code>
+3. Asegurarse de que no haya habido ningún error durante los pasos anteriores
+4. 1. Buscar el contenido de <em>modulus</em> en el resultado del paso 1
+   2. Buscar el contenido de <em>Certificate -&gt; Signature Algorithm -&gt; Subject Public Key Info -&gt; Public Key Algorithm -&gt; 
+      Modulus</em> en el resultado del paso 2
+5. Comparar los contenidos encontrados
+Si los contenidos encontrados son idénticos, entonces la key y el certificado son compatibles.</p>
 <h2 id="configuracion-de-ssl">Configuración de SSL</h2>
 <p>Tanto la instalación como la actualización de un Andino emplean el uso de un parámetro llamado <code>nginx_ssl</code>, el cual 
 puede ser utilizado para especificar que se desea utilizar SSL.</p>
@@ -730,7 +743,7 @@ asegurarse de que el path de cada archivo sea válido (exista en el host), y que
 instalación/actualización.</p>
 <p>Un navegador web <em>no debería</em> mostrarnos ninguna advertencia si los certificados son correctos.</p>
 <p>Un ejemplo de uso dentro del comando de instalación de Andino para los parámetros mencionados:</p>
-<div class="codehilite"><pre><span></span>--nginx_ssl --ssl_key_path=&quot;/home/miusuario/Desktop/mi_archivo_key.key&quot; --ssl_crt_path=&quot;/home/miusuario/Desktop/mi_archivo_crt.crt&quot;
+<div class="codehilite"><pre><span></span><span class="c1">--nginx_ssl --ssl_key_path=&quot;/home/miusuario/Desktop/mi_archivo_key.key&quot; --ssl_crt_path=&quot;/home/miusuario/Desktop/mi_archivo_crt.crt&quot;</span>
 </pre></div>
 
 
@@ -739,7 +752,7 @@ instalación/actualización.</p>
 <p>Para la instalación de Andino, el puerto a ser utilizado por default es el 443, pero éste puede ser cambiado mediante 
 el parámetro <code>nginx_ssl_port</code> y un valor a elección.</p>
 <p>Ejemplo:</p>
-<div class="codehilite"><pre><span></span>--nginx_ssl_port=8443
+<div class="codehilite"><pre><span></span><span class="c1">--nginx_ssl_port=8443</span>
 </pre></div>
 
 
@@ -762,8 +775,8 @@ redirigir cualquier llamada HTTP a HTTPS.</p>
 <p>El proceso de deshabilitación de SSL se puede lograr mediante la ejecución del proceso de actualización de Andino <code>update.py</code> especificando el parámetro <code>--andino_version</code> a una versión igual a la del portal a configurar (es decir, se mantendrá la misma versión), pero no especificando el parámetro <code>--nginx_ssl</code>.</p>
 <p>De esta manera el script de actualización usará la configuración de Andino que no habilita HTTPS y se habilitará el acceso por el puerto 80.</p>
 <p>Ejemplo de uso:</p>
-<div class="codehilite"><pre><span></span>sudo wget https://raw.github.com/datosgobar/portal-andino/master/install/update.py
-sudo python update.py --andino_version=&lt;versión del andino del portal&gt;
+<div class="codehilite"><pre><span></span><span class="n">sudo</span> <span class="n">wget</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">raw</span><span class="p">.</span><span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">datosgobar</span><span class="o">/</span><span class="n">portal</span><span class="o">-</span><span class="n">andino</span><span class="o">/</span><span class="n">master</span><span class="o">/</span><span class="n">install</span><span class="o">/</span><span class="k">update</span><span class="p">.</span><span class="n">py</span>
+<span class="n">sudo</span> <span class="n">python</span> <span class="k">update</span><span class="p">.</span><span class="n">py</span> <span class="c1">--andino_version=&lt;versión del andino del portal&gt;</span>
 </pre></div>
                 
                   
@@ -834,7 +847,7 @@ sudo python update.py --andino_version=&lt;versión del andino del portal&gt;
       
     </div>
     
-      <script src="../../assets/javascripts/application.dc02f8ce.js"></script>
+      <script src="../../assets/javascripts/application.245445c6.js"></script>
       
         
         

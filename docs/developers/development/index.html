@@ -38,7 +38,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.1.1">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.0">
     
     
       
@@ -47,7 +47,7 @@
     
     
 	
-      <link rel="stylesheet" href="../../assets/stylesheets/application.3020aac5.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/application.0284f74d.css">
       
       
     
@@ -55,14 +55,14 @@
 
     
     
-      <script src="../../assets/javascripts/modernizr.01ccdecf.js"></script>
+      <script src="../../assets/javascripts/modernizr.74668098.js"></script>
     
     <script src="../../js/extra.js"></script>
 
     
       
         <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono&display=fallback">
         <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
       
     
@@ -158,7 +158,9 @@
               Portal Andino
             </span>
             <span class="md-header-nav__topic">
-              Desarrollo
+              
+                Desarrollo
+              
             </span>
           
         </div>
@@ -853,23 +855,23 @@ Luego, cambiamos la tarea de ansible para que copie nuestro archivo:</p>
 debemos correr <code>service supervisor restart</code> mientras esta se levanta, en "runtime". El mejor lugar para esto
 es el script que se corre por defecto: <code>start_ckan.sh.j2</code>.</p>
 <p>En este script, agregamos los comandos que queremos <em>antes</em> de que la aplicación sea iniciada:</p>
-<div class="codehilite"><pre><span></span><span class="x"># otros comandos ...</span>
+<div class="codehilite"><pre><span></span># <span class="nv">otros</span> <span class="nv">comandos</span> ...
 
-<span class="x">echo &quot;Iniciando Supervisor&quot;</span>
-<span class="x">service supervisor restart</span>
+<span class="nv">echo</span> <span class="s2">&quot;</span><span class="s">Iniciando Supervisor</span><span class="s2">&quot;</span>
+<span class="nv">service</span> <span class="nv">supervisor</span> <span class="nv">restart</span>
 
-<span class="x">service apache2 stop</span>
-<span class="x">exec </span><span class="cp">{{</span> <span class="nv">CKAN_INIT</span> <span class="cp">}}</span><span class="x">/run_andino.sh</span>
+<span class="nv">service</span> <span class="nv">apache2</span> <span class="nv">stop</span>
+<span class="k">exec</span> {{ <span class="nv">CKAN_INIT</span> }}<span class="o">/</span><span class="nv">run_andino</span>.<span class="nv">sh</span>
 </pre></div>
 
 
 <h3 id="generacion-del-nuevo-contenedor">Generación del nuevo contenedor</h3>
 <p>Ahora, para probar estos cambios, generamos una nueva imagen de <code>datosgobar/portal-base</code>:</p>
-<div class="codehilite"><pre><span></span>base_image=&quot;datosgobar/portal-base:test&quot;
+<div class="codehilite"><pre><span></span><span class="n">base_image</span><span class="o">=</span><span class="ss">&quot;datosgobar/portal-base:test&quot;</span>
 
-cd portal-base/;
+<span class="n">cd</span> <span class="n">portal</span><span class="o">-</span><span class="n">base</span><span class="o">/</span><span class="p">;</span>
 
-docker build base_portal -t &quot;$base_image&quot;;
+<span class="n">docker</span> <span class="n">build</span> <span class="n">base_portal</span> <span class="o">-</span><span class="n">t</span> <span class="ss">&quot;$base_image&quot;</span><span class="p">;</span>
 </pre></div>
 
 
@@ -878,9 +880,9 @@ docker build base_portal -t &quot;$base_image&quot;;
 <p><code>docker run --rm -it datosgobar/portal-base:test supervisord -n</code></p>
 <p>Este comando iniciará un contenedor con supervisor corriendo. Deberíamos ver en consola los
 siguiente mensajes (podemos salir del contenedor usando <code>Ctrl+c</code>):</p>
-<div class="codehilite"><pre><span></span>2018-06-22 18:55:46,593 CRIT Supervisor running as root (no user in config file)
-2018-06-22 18:55:46,593 WARN Included extra file &quot;/etc/supervisor/conf.d/supervisor-ckan-worker.conf&quot; during parsing
-2018-06-22 18:55:46,615 INFO RPC interface &#39;supervisor&#39; initialized
+<div class="codehilite"><pre><span></span><span class="mi">2018</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">22</span> <span class="mi">18</span><span class="p">:</span><span class="mi">55</span><span class="p">:</span><span class="mi">46</span><span class="p">,</span><span class="mi">593</span> <span class="n">CRIT</span> <span class="n">Supervisor</span> <span class="n">running</span> <span class="k">as</span> <span class="n">root</span> <span class="p">(</span><span class="k">no</span> <span class="k">user</span> <span class="k">in</span> <span class="n">config</span> <span class="n">file</span><span class="p">)</span>
+<span class="mi">2018</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">22</span> <span class="mi">18</span><span class="p">:</span><span class="mi">55</span><span class="p">:</span><span class="mi">46</span><span class="p">,</span><span class="mi">593</span> <span class="n">WARN</span> <span class="n">Included</span> <span class="n">extra</span> <span class="n">file</span> <span class="ss">&quot;/etc/supervisor/conf.d/supervisor-ckan-worker.conf&quot;</span> <span class="n">during</span> <span class="n">parsing</span>
+<span class="mi">2018</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">22</span> <span class="mi">18</span><span class="p">:</span><span class="mi">55</span><span class="p">:</span><span class="mi">46</span><span class="p">,</span><span class="mi">615</span> <span class="n">INFO</span> <span class="n">RPC</span> <span class="n">interface</span> <span class="s1">&#39;supervisor&#39;</span> <span class="n">initialized</span>
 </pre></div>
 
 
@@ -888,32 +890,32 @@ siguiente mensajes (podemos salir del contenedor usando <code>Ctrl+c</code>):</p
 <strong>generar una nueva imagen del contenedor en base a la imagen del portal base</strong>.
 Para esto, en el archivo <code>Dockerfile</code> del portal, cambiamos el <code>FROM</code>, utilizando la
 imagen temporal que acabamos de crear:</p>
-<div class="codehilite"><pre><span></span>FROM datosgobar/portal-base:test
+<div class="codehilite"><pre><span></span><span class="k">FROM</span> <span class="n">datosgobar</span><span class="o">/</span><span class="n">portal</span><span class="o">-</span><span class="n">base</span><span class="p">:</span><span class="n">test</span>
 
-# ... otros comandos
+<span class="o">#</span> <span class="p">...</span> <span class="n">otros</span> <span class="n">comandos</span>
 </pre></div>
 
 
 <p>Ahora, generamos la nueva imagen:</p>
-<div class="codehilite"><pre><span></span>cd portal-andino/
+<div class="codehilite"><pre><span></span><span class="n">cd</span> <span class="n">portal</span><span class="o">-</span><span class="n">andino</span><span class="o">/</span>
 
-docker build -t portal-andino:test .
+<span class="n">docker</span> <span class="n">build</span> <span class="o">-</span><span class="n">t</span> <span class="n">portal</span><span class="o">-</span><span class="n">andino</span><span class="p">:</span><span class="n">test</span> <span class="p">.</span>
 </pre></div>
 
 
 <p>Luego, iniciamos la aplicación en modo desarrollo:</p>
-<div class="codehilite"><pre><span></span>cd portal-andino/
+<div class="codehilite"><pre><span></span><span class="n">cd</span> <span class="n">portal</span><span class="o">-</span><span class="n">andino</span><span class="o">/</span>
 
-./dev.sh setup;
+<span class="p">.</span><span class="o">/</span><span class="n">dev</span><span class="p">.</span><span class="n">sh</span> <span class="n">setup</span><span class="p">;</span>
 </pre></div>
 
 
 <p>Una vez iniciada la aplicación, entramos al contenedor y verificamos que supervisor esté corriendo:</p>
-<div class="codehilite"><pre><span></span>cd portal-andino/
-./dev.sh console
+<div class="codehilite"><pre><span></span><span class="n">cd</span> <span class="n">portal</span><span class="o">-</span><span class="n">andino</span><span class="o">/</span>
+<span class="p">.</span><span class="o">/</span><span class="n">dev</span><span class="p">.</span><span class="n">sh</span> <span class="n">console</span>
 
-# Una vez en el contenedor
-supervisorctl
+<span class="o">#</span> <span class="n">Una</span> <span class="n">vez</span> <span class="n">en</span> <span class="n">el</span> <span class="n">contenedor</span>
+<span class="n">supervisorctl</span>
 </pre></div>
 
 
@@ -978,7 +980,7 @@ instalar Andino.</em></p>
 <h3 id="utilizar-una-imagen-custom-de-portal-base-o-portal-base-nginx">Utilizar una imagen custom de portal-base o portal-base-nginx</h3>
 <p>Si se quiere utilizar una imagen local en lugar de las existentes en https://hub.docker.com/r/datosgobar/portal-base, 
 se debe correr este comando en el directorio donde se encuentra portal-base:</p>
-<p><code>docker build base_portal -t {nombre que se le quiera dar a la imagen}</code></p>
+<p><code>docker build base_portal -t datosgobar/portal-base:{nombre que se le quiera dar a la imagen}</code></p>
 <p>Lo mismo aplica para Nginx: recordar que su Dockerfile está en <code>nginx/</code>, por lo que el comando se debe correr ahí.</p>
 <h3 id="debugear-andino">Debugear Andino</h3>
 <p>Para una instancia de Andino, se puede utilizar el comando <code>./dev.sh serve</code>, el cual utiliza un servidor de paster que 
@@ -1053,7 +1055,7 @@ estará utilizando el <strong>puerto 5000</strong>.</p>
       
     </div>
     
-      <script src="../../assets/javascripts/application.dc02f8ce.js"></script>
+      <script src="../../assets/javascripts/application.245445c6.js"></script>
       
         
         

@@ -38,7 +38,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.1.1">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.0">
     
     
       
@@ -47,7 +47,7 @@
     
     
 	
-      <link rel="stylesheet" href="../../assets/stylesheets/application.3020aac5.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/application.0284f74d.css">
       
       
     
@@ -55,14 +55,14 @@
 
     
     
-      <script src="../../assets/javascripts/modernizr.01ccdecf.js"></script>
+      <script src="../../assets/javascripts/modernizr.74668098.js"></script>
     
     <script src="../../js/extra.js"></script>
 
     
       
         <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono&display=fallback">
         <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
       
     
@@ -158,7 +158,9 @@
               Portal Andino
             </span>
             <span class="md-header-nav__topic">
-              Generación de imágenes Docker
+              
+                Generación de imágenes Docker
+              
             </span>
           
         </div>
@@ -569,7 +571,7 @@
 
 <p>Si es la primera vez que se corre este comando, puede llegar a tardar bastante en descargar las imágenes.
 Una vez terminado, dejar en el puerto <code>localhost:80</code> la aplicacion ejecutándose, pero antes se debe correr un comando para inicializar el desarrollo:</p>
-<div class="codehilite"><pre><span></span>$ docker <span class="nb">exec</span> -it andino /etc/ckan_init.d/init_dev.sh
+<div class="codehilite"><pre><span></span>$ <span class="nv">docker</span> <span class="k">exec</span> <span class="o">-</span><span class="nv">it</span> <span class="nv">andino</span> <span class="o">/</span><span class="nv">etc</span><span class="o">/</span><span class="nv">ckan_init</span>.<span class="nv">d</span><span class="o">/</span><span class="nv">init_dev</span>.<span class="nv">sh</span>
 </pre></div>
 
 
@@ -588,7 +590,7 @@ Una vez terminado, dejar en el puerto <code>localhost:80</code> la aplicacion ej
 <p><code>$ docker-compose -f dev.yml up -d --no-deps nginx</code></p>
 <p>Eso levantará la aplicación con el directorio actual (<code>$PWD</code>) disponible dentro del directorio <code>/dev-app</code> del container.</p>
 <p>Para acceder a la aplicación, hacer modificaciones en <code>runtime</code>, basta con correr el comando:</p>
-<div class="codehilite"><pre><span></span>$ docker-compose -f dev.yml <span class="nb">exec</span> andino /bin/bash
+<div class="codehilite"><pre><span></span>$ <span class="nv">docker</span><span class="o">-</span><span class="nv">compose</span> <span class="o">-</span><span class="nv">f</span> <span class="nv">dev</span>.<span class="nv">yml</span> <span class="k">exec</span> <span class="nv">andino</span> <span class="o">/</span><span class="nv">bin</span><span class="o">/</span><span class="nv">bash</span>
 </pre></div>
                 
                   
@@ -659,7 +661,7 @@ Una vez terminado, dejar en el puerto <code>localhost:80</code> la aplicacion ej
       
     </div>
     
-      <script src="../../assets/javascripts/application.dc02f8ce.js"></script>
+      <script src="../../assets/javascripts/application.245445c6.js"></script>
       
         
         

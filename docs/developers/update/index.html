@@ -38,7 +38,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.1.1">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.0">
     
     
       
@@ -47,7 +47,7 @@
     
     
 	
-      <link rel="stylesheet" href="../../assets/stylesheets/application.3020aac5.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/application.0284f74d.css">
       
       
     
@@ -55,14 +55,14 @@
 
     
     
-      <script src="../../assets/javascripts/modernizr.01ccdecf.js"></script>
+      <script src="../../assets/javascripts/modernizr.74668098.js"></script>
     
     <script src="../../js/extra.js"></script>
 
     
       
         <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono&display=fallback">
         <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
       
     
@@ -158,7 +158,9 @@
               Portal Andino
             </span>
             <span class="md-header-nav__topic">
-              Actualización
+              
+                Actualización
+              
             </span>
           
         </div>
@@ -456,6 +458,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#versiones-257-en-adelante" title="Versiones 2.5.7 en adelante" class="md-nav__link">
+    Versiones 2.5.7 en adelante
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#versiones-256-en-adelante" title="Versiones 2.5.6 en adelante" class="md-nav__link">
     Versiones 2.5.6 en adelante
   </a>
@@ -673,6 +682,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#versiones-257-en-adelante" title="Versiones 2.5.7 en adelante" class="md-nav__link">
+    Versiones 2.5.7 en adelante
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#versiones-256-en-adelante" title="Versiones 2.5.6 en adelante" class="md-nav__link">
     Versiones 2.5.6 en adelante
   </a>
@@ -749,6 +765,7 @@
 <li><a href="#actualizacion-simple">Actualización simple</a></li>
 <li><a href="#actualizacion-avanzada">Actualización avanzada</a></li>
 <li><a href="#andino-con-plugins-ad-hoc">Andino con plugins ad-hoc</a></li>
+<li><a href="#versiones-257-en-adelante">Versiones 2.5.7 en adelante</a></li>
 <li><a href="#versiones-256-en-adelante">Versiones 2.5.6 en adelante</a></li>
 <li><a href="#versiones-255-en-adelante">Versiones 2.5.5 en adelante</a></li>
 <li><a href="#versiones-250-y-251">Versiones 2.5.0 y 2.5.1</a></li>
@@ -798,17 +815,20 @@ el mismo no requerirá parámetros, pero contiene algunos opcionales:</p>
 
 
 <p>Para esta actualización de ejemplo, usaremos los valores por defecto:</p>
-<div class="codehilite"><pre><span></span>sudo wget https://raw.github.com/datosgobar/portal-andino/master/install/{install,installation_manager}.py
-sudo python update.py
+<div class="codehilite"><pre><span></span><span class="n">sudo</span> <span class="n">wget</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">raw</span><span class="p">.</span><span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">datosgobar</span><span class="o">/</span><span class="n">portal</span><span class="o">-</span><span class="n">andino</span><span class="o">/</span><span class="n">master</span><span class="o">/</span><span class="n">install</span><span class="o">/</span><span class="err">{</span><span class="k">update</span><span class="p">,</span><span class="n">installation_manager</span><span class="err">}</span><span class="p">.</span><span class="n">py</span>
+<span class="n">sudo</span> <span class="n">python</span> <span class="k">update</span><span class="p">.</span><span class="n">py</span>
 </pre></div>
 
 
 <p>De esta forma, el script asumirá que instalamos la aplicación en <code>/etc/portal</code>.</p>
+<p><em>Nota</em>: Si se utiliza el nombre 'localhost' para la variable <code>site_host</code>, es posible que ocurra un error al intentar 
+subir un archivo perteneciente a un recurso al Datastore. Para evitar este problema, se debe utilizar un hostname 
+diferente.</p>
 <h3 id="actualizacion-avanzada">Actualización avanzada</h3>
 <p>Si instalamos la aplicación en otro directorio distinto de <code>/etc/portal</code>, necesitamos correr el script de una manera diferente.
 Suponiendo que instalamos la aplicación en <code>/home/user/app/</code>, debemos correr los siguientes pasos:</p>
-<div class="codehilite"><pre><span></span>wget https://raw.github.com/datosgobar/portal-andino/master/install/{install,installation_manager}.py
-sudo python update.py --install_directory=&quot;/home/user/app/&quot;
+<div class="codehilite"><pre><span></span><span class="n">wget</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">raw</span><span class="p">.</span><span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">datosgobar</span><span class="o">/</span><span class="n">portal</span><span class="o">-</span><span class="n">andino</span><span class="o">/</span><span class="n">master</span><span class="o">/</span><span class="n">install</span><span class="o">/</span><span class="err">{</span><span class="k">update</span><span class="p">,</span><span class="n">installation_manager</span><span class="err">}</span><span class="p">.</span><span class="n">py</span>
+<span class="n">sudo</span> <span class="n">python</span> <span class="k">update</span><span class="p">.</span><span class="n">py</span> <span class="c1">--install_directory=&quot;/home/user/app/&quot;</span>
 </pre></div>
 
 
@@ -822,6 +842,13 @@ sudo python update.py --install_directory=&quot;/home/user/app/&quot;
 <li>Editar el archivo <code>/etc/ckan/default/production.ini</code> del contenedor <code>portal</code> y agregar a la lista de <code>ckan.plugins</code> los plugins <em>ad-hoc</em>.</li>
 <li>Reiniciar Andino.</li>
 </ol>
+<h3 id="versiones-257-en-adelante">Versiones 2.5.7 en adelante</h3>
+<ul>
+<li>Se especificó en el archivo de configuración (<code>production.ini</code>) un nuevo path donde ahora se encuentra un JSON que 
+contiene las unidades que utiliza Andino; <code>/var/lib/ckan/theme_config/units.json</code>. Se deberá tener en cuenta al 
+actualizar si el campo <em>units_url</em> dentro del archivo de configuración había sido modificado manualmente, ya 
+que se correrá una migración para utilizar el path correspondiente al JSON nombrado.</li>
+</ul>
 <h3 id="versiones-256-en-adelante">Versiones 2.5.6 en adelante</h3>
 <ul>
 <li>Se especificó en el archivo de configuración (<code>production.ini</code>) un nuevo path donde ahora se encuentra un JSON que 
@@ -985,7 +1012,7 @@ a57e4006-9e15-4bc7-b46a-25bf3580e538 t5t4rp09-156s-xzq2-36vl-2d5e8fghn98q --conf
       
     </div>
     
-      <script src="../../assets/javascripts/application.dc02f8ce.js"></script>
+      <script src="../../assets/javascripts/application.245445c6.js"></script>
       
         
         

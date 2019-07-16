@@ -38,7 +38,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.1.1">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.0">
     
     
       
@@ -47,7 +47,7 @@
     
     
 	
-      <link rel="stylesheet" href="../../assets/stylesheets/application.3020aac5.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/application.0284f74d.css">
       
       
     
@@ -55,14 +55,14 @@
 
     
     
-      <script src="../../assets/javascripts/modernizr.01ccdecf.js"></script>
+      <script src="../../assets/javascripts/modernizr.74668098.js"></script>
     
     <script src="../../js/extra.js"></script>
 
     
       
         <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono&display=fallback">
         <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
       
     
@@ -158,7 +158,9 @@
               Portal Andino
             </span>
             <span class="md-header-nav__topic">
-              Tests
+              
+                Tests
+              
             </span>
           
         </div>
@@ -672,10 +674,10 @@
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 <h2 id="tests-de-ckan">Tests de Ckan</h2>
-<div class="codehilite"><pre><span></span>$ docker-compose -f dev.yml up --build -d portal
-$ docker <span class="nb">exec</span> andino bash /etc/ckan_init.d/tests/install_solr4.sh    
-$ docker <span class="nb">exec</span> andino bash /etc/ckan_init.d/tests/install_nodejs.sh    
-$ docker <span class="nb">exec</span> andino bash -c <span class="s1">&#39;su -c &quot;bash /etc/ckan_init.d/tests/run_all_tests.sh&quot; -l $USER&#39;</span>
+<div class="codehilite"><pre><span></span>$ <span class="nv">docker</span><span class="o">-</span><span class="nv">compose</span> <span class="o">-</span><span class="nv">f</span> <span class="nv">dev</span>.<span class="nv">yml</span> <span class="nv">up</span> <span class="o">--</span><span class="nv">build</span> <span class="o">-</span><span class="nv">d</span> <span class="nv">portal</span>
+$ <span class="nv">docker</span> <span class="k">exec</span> <span class="nv">andino</span> <span class="nv">bash</span> <span class="o">/</span><span class="nv">etc</span><span class="o">/</span><span class="nv">ckan_init</span>.<span class="nv">d</span><span class="o">/</span><span class="nv">tests</span><span class="o">/</span><span class="nv">install_solr4</span>.<span class="nv">sh</span>    
+$ <span class="nv">docker</span> <span class="k">exec</span> <span class="nv">andino</span> <span class="nv">bash</span> <span class="o">/</span><span class="nv">etc</span><span class="o">/</span><span class="nv">ckan_init</span>.<span class="nv">d</span><span class="o">/</span><span class="nv">tests</span><span class="o">/</span><span class="nv">install_nodejs</span>.<span class="nv">sh</span>    
+$ <span class="nv">docker</span> <span class="k">exec</span> <span class="nv">andino</span> <span class="nv">bash</span> <span class="o">-</span><span class="nv">c</span> <span class="s1">&#39;</span><span class="s">su -c &quot;bash /etc/ckan_init.d/tests/run_all_tests.sh&quot; -l $USER</span><span class="s1">&#39;</span>
 </pre></div>
 
 
@@ -692,7 +694,7 @@ Para eso, modificamos el <code>Vagrantfile</code> cambiando las líneas:</p>
 
 <p>Y luego levantar la VM con <code>vagrant up</code>.</p>
 <p>Luego entramos a la aplicación y corremos el siguiente comando:</p>
-<div class="codehilite"><pre><span></span>sudo -E python ./install.py --error_email admin@example.com --site_host 192.168.23.10 --database_user db_user --database_password db_pass --datastore_user data_db_user --datastore_password data_db_pass --nginx_port 127.0.0.1:8000
+<div class="codehilite"><pre><span></span><span class="n">sudo</span><span class="w"> </span><span class="o">-</span><span class="n">E</span><span class="w"> </span><span class="n">python</span><span class="w"> </span><span class="p">.</span><span class="o">/</span><span class="n">install</span><span class="p">.</span><span class="n">py</span><span class="w"> </span><span class="c1">--error_email admin@example.com --site_host 192.168.23.10 --database_user db_user --database_password db_pass --datastore_user data_db_user --datastore_password data_db_pass --nginx_port 127.0.0.1:8000</span>
 </pre></div>
 
 
@@ -700,60 +702,60 @@ Para eso, modificamos el <code>Vagrantfile</code> cambiando las líneas:</p>
 <h3 id="instalar-y-configurar-nginx">Instalar y configurar nginx</h3>
 <p>Luego, instalamos <code>nginx</code> en el host <code>sudo apt install nginx</code>.</p>
 <p>Generamos los certificados locales:</p>
-<div class="codehilite"><pre><span></span>sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/nginx/ssl/andino.key -out /etc/nginx/ssl/andino.crt
+<div class="codehilite"><pre><span></span><span class="n">sudo</span> <span class="n">openssl</span> <span class="n">req</span> <span class="o">-</span><span class="n">x509</span> <span class="o">-</span><span class="n">nodes</span> <span class="o">-</span><span class="n">days</span> <span class="mi">365</span> <span class="o">-</span><span class="n">newkey</span> <span class="n">rsa</span><span class="p">:</span><span class="mi">2048</span> <span class="o">-</span><span class="n">keyout</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">nginx</span><span class="o">/</span><span class="n">ssl</span><span class="o">/</span><span class="n">andino</span><span class="p">.</span><span class="k">key</span> <span class="o">-</span><span class="k">out</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">nginx</span><span class="o">/</span><span class="n">ssl</span><span class="o">/</span><span class="n">andino</span><span class="p">.</span><span class="n">crt</span>
 </pre></div>
 
 
 <p>Creamos la configuracion de nginx <em>(no apta para producción)</em> en <code>/etc/nginx/sites-available/001-andino.conf</code>:</p>
-<div class="codehilite"><pre><span></span><span class="nt">upstream</span> <span class="nt">wsgi_andino</span> <span class="p">{</span>
-  <span class="err">#</span> <span class="err">fail_timeout=0</span> <span class="err">means</span> <span class="err">we</span> <span class="err">always</span> <span class="err">retry</span> <span class="err">an</span> <span class="err">upstream</span> <span class="err">even</span> <span class="err">if</span> <span class="err">it</span> <span class="err">failed</span>
-  <span class="err">#</span> <span class="err">to</span> <span class="err">return</span> <span class="err">a</span> <span class="err">good</span> <span class="err">HTTP</span> <span class="err">response</span> <span class="err">(in</span> <span class="err">case</span> <span class="err">the</span> <span class="err">gunicorn</span> <span class="err">master</span> <span class="err">nukes</span> <span class="err">a</span>
-  <span class="err">#</span> <span class="err">single</span> <span class="err">worker</span> <span class="err">for</span> <span class="err">timing</span> <span class="err">out).</span>
+<div class="codehilite"><pre><span></span><span class="nv">upstream</span> <span class="nv">wsgi_andino</span> {
+  # <span class="nv">fail_timeout</span><span class="o">=</span><span class="mi">0</span> <span class="nv">means</span> <span class="nv">we</span> <span class="nv">always</span> <span class="nv">retry</span> <span class="nv">an</span> <span class="nv">upstream</span> <span class="nv">even</span> <span class="k">if</span> <span class="nv">it</span> <span class="nv">failed</span>
+  # <span class="nv">to</span> <span class="k">return</span> <span class="nv">a</span> <span class="nv">good</span> <span class="nv">HTTP</span> <span class="nv">response</span> <span class="ss">(</span><span class="nv">in</span> <span class="nv">case</span> <span class="nv">the</span> <span class="nv">gunicorn</span> <span class="nv">master</span> <span class="nv">nukes</span> <span class="nv">a</span>
+  # <span class="nv">single</span> <span class="nv">worker</span> <span class="k">for</span> <span class="nv">timing</span> <span class="nv">out</span><span class="ss">)</span>.
 
-  <span class="err">server</span> <span class="err">127.0.0.1:8000</span> <span class="err">fail_timeout=0</span><span class="p">;</span>
-<span class="p">}</span>
+  <span class="nv">server</span> <span class="mi">127</span>.<span class="mi">0</span>.<span class="mi">0</span>.<span class="mi">1</span>:<span class="mi">8000</span> <span class="nv">fail_timeout</span><span class="o">=</span><span class="mi">0</span><span class="c1">;</span>
+}
 
-<span class="nt">server</span> <span class="p">{</span>
-    <span class="err">listen</span> <span class="err">80</span><span class="p">;</span>
-    <span class="err">#</span><span class="n">example</span><span class="p">:</span> <span class="n">server_name</span> <span class="n">www</span><span class="o">.</span><span class="n">datos</span><span class="o">.</span><span class="n">gob</span><span class="o">.</span><span class="n">ar</span> <span class="n">datos</span><span class="o">.</span><span class="n">gob</span><span class="o">.</span><span class="n">ar</span><span class="p">;</span>
-    <span class="err">server_name</span> <span class="err">dev.andino.gob.ar</span> <span class="err">dev.andino.gob.ar</span><span class="p">;</span>
-    <span class="err">return</span> <span class="err">301</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="err">$</span><span class="n">host</span><span class="err">$</span><span class="n">request_uri</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="nt">server</span> <span class="p">{</span>
-    <span class="err">listen</span>   <span class="err">443</span><span class="p">;</span>
-    <span class="err">server_name</span> <span class="err">dev.andino.gob.ar</span><span class="p">;</span>
+<span class="nv">server</span> {
+    <span class="nv">listen</span> <span class="mi">80</span><span class="c1">;</span>
+    #<span class="nv">example</span>: <span class="nv">server_name</span> <span class="nv">www</span>.<span class="nv">datos</span>.<span class="nv">gob</span>.<span class="nv">ar</span> <span class="nv">datos</span>.<span class="nv">gob</span>.<span class="nv">ar</span><span class="c1">;</span>
+    <span class="nv">server_name</span> <span class="nv">dev</span>.<span class="nv">andino</span>.<span class="nv">gob</span>.<span class="nv">ar</span> <span class="nv">dev</span>.<span class="nv">andino</span>.<span class="nv">gob</span>.<span class="nv">ar</span><span class="c1">;</span>
+    <span class="k">return</span> <span class="mi">301</span> <span class="nv">https</span>:<span class="o">//</span>$<span class="nv">host</span>$<span class="nv">request_uri</span><span class="c1">;</span>
+}
+<span class="nv">server</span> {
+    <span class="nv">listen</span>   <span class="mi">443</span><span class="c1">;</span>
+    <span class="nv">server_name</span> <span class="nv">dev</span>.<span class="nv">andino</span>.<span class="nv">gob</span>.<span class="nv">ar</span><span class="c1">;</span>
 
-    <span class="err">ssl</span>    <span class="err">on</span><span class="p">;</span>
-    <span class="err">ssl_certificate</span>   <span class="err">/etc/nginx/ssl/andino.crt</span><span class="p">;</span>
-    <span class="err">ssl_certificate_key</span>    <span class="err">/etc/nginx/ssl/andino.key</span><span class="p">;</span>
+    <span class="nv">ssl</span>    <span class="nv">on</span><span class="c1">;</span>
+    <span class="nv">ssl_certificate</span>   <span class="o">/</span><span class="nv">etc</span><span class="o">/</span><span class="nv">nginx</span><span class="o">/</span><span class="nv">ssl</span><span class="o">/</span><span class="nv">andino</span>.<span class="nv">crt</span><span class="c1">;</span>
+    <span class="nv">ssl_certificate_key</span>    <span class="o">/</span><span class="nv">etc</span><span class="o">/</span><span class="nv">nginx</span><span class="o">/</span><span class="nv">ssl</span><span class="o">/</span><span class="nv">andino</span>.<span class="nv">key</span><span class="c1">;</span>
 
-    <span class="err">client_max_body_size</span> <span class="err">4G</span><span class="p">;</span>
-    <span class="err">keepalive_timeout</span> <span class="err">5</span><span class="p">;</span>
-    <span class="err">location</span> <span class="err">/</span> <span class="err">{</span>
-        <span class="err">proxy_set_header</span> <span class="err">X-Forwarded-For</span> <span class="err">$proxy_add_x_forwarded_for</span><span class="p">;</span>
-        <span class="err">proxy_set_header</span> <span class="err">Host</span> <span class="err">$http_host</span><span class="p">;</span>
-        <span class="err">proxy_set_header</span> <span class="err">X-Forwarded-Protocol</span> <span class="err">https</span><span class="p">;</span>
-        <span class="err">proxy_redirect</span> <span class="err">off</span><span class="p">;</span>
+    <span class="nv">client_max_body_size</span> <span class="mi">4</span><span class="nv">G</span><span class="c1">;</span>
+    <span class="nv">keepalive_timeout</span> <span class="mi">5</span><span class="c1">;</span>
+    <span class="nv">location</span> <span class="o">/</span> {
+        <span class="nv">proxy_set_header</span> <span class="nv">X</span><span class="o">-</span><span class="nv">Forwarded</span><span class="o">-</span><span class="k">For</span> $<span class="nv">proxy_add_x_forwarded_for</span><span class="c1">;</span>
+        <span class="nv">proxy_set_header</span> <span class="nv">Host</span> $<span class="nv">http_host</span><span class="c1">;</span>
+        <span class="nv">proxy_set_header</span> <span class="nv">X</span><span class="o">-</span><span class="nv">Forwarded</span><span class="o">-</span><span class="nv">Protocol</span> <span class="nv">https</span><span class="c1">;</span>
+        <span class="nv">proxy_redirect</span> <span class="nv">off</span><span class="c1">;</span>
 
-        <span class="err">if</span> <span class="err">(!-f</span> <span class="err">$request_filename)</span> <span class="err">{</span>
-            <span class="err">proxy_pass</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">wsgi_andino</span><span class="p">;</span>
-            <span class="err">break</span><span class="p">;</span>
-        <span class="p">}</span>
-    <span class="err">}</span>
-    <span class="nt">gzip</span> <span class="nt">on</span><span class="o">;</span>
-    <span class="nt">gzip_disable</span> <span class="s2">&quot;msie6&quot;</span><span class="o">;</span>
-    <span class="nt">gzip_comp_level</span> <span class="nt">6</span><span class="o">;</span>
-    <span class="nt">gzip_types</span> <span class="nt">text</span><span class="o">/</span><span class="nt">plain</span> <span class="nt">text</span><span class="o">/</span><span class="nt">css</span> <span class="nt">application</span><span class="o">/</span><span class="nt">json</span> <span class="nt">application</span><span class="o">/</span><span class="nt">x-javascript</span> <span class="nt">text</span><span class="o">/</span><span class="nt">xml</span> <span class="nt">application</span><span class="o">/</span><span class="nt">xml</span> <span class="nt">application</span><span class="o">/</span><span class="nt">xml</span><span class="o">+</span><span class="nt">rss</span> <span class="nt">text</span><span class="o">/</span><span class="nt">javascript</span><span class="o">;</span>
+        <span class="k">if</span> <span class="ss">(</span><span class="o">!-</span><span class="nv">f</span> $<span class="nv">request_filename</span><span class="ss">)</span> {
+            <span class="nv">proxy_pass</span> <span class="nv">http</span>:<span class="o">//</span><span class="nv">wsgi_andino</span><span class="c1">;</span>
+            <span class="k">break</span><span class="c1">;</span>
+        }
+    }
+    <span class="nv">gzip</span> <span class="nv">on</span><span class="c1">;</span>
+    <span class="nv">gzip_disable</span> <span class="s2">&quot;</span><span class="s">msie6</span><span class="s2">&quot;</span><span class="c1">;</span>
+    <span class="nv">gzip_comp_level</span> <span class="mi">6</span><span class="c1">;</span>
+    <span class="nv">gzip_types</span> <span class="nv">text</span><span class="o">/</span><span class="nv">plain</span> <span class="nv">text</span><span class="o">/</span><span class="nv">css</span> <span class="nv">application</span><span class="o">/</span><span class="nv">json</span> <span class="nv">application</span><span class="o">/</span><span class="nv">x</span><span class="o">-</span><span class="nv">javascript</span> <span class="nv">text</span><span class="o">/</span><span class="nv">xml</span> <span class="nv">application</span><span class="o">/</span><span class="nv">xml</span> <span class="nv">application</span><span class="o">/</span><span class="nv">xml</span><span class="o">+</span><span class="nv">rss</span> <span class="nv">text</span><span class="o">/</span><span class="nv">javascript</span><span class="c1">;</span>
 
-<span class="err">}</span>
+}
 </pre></div>
 
 
 <p>Activamos el sitio:</p>
-<div class="codehilite"><pre><span></span>sudo rm /etc/nginx/sites-enabled/default -rf
-sudo ln -s /etc/nginx/sites-available/001-andino.conf /etc/nginx/sites-enabled/001-andino.conf
+<div class="codehilite"><pre><span></span><span class="n">sudo</span> <span class="n">rm</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">nginx</span><span class="o">/</span><span class="n">sites</span><span class="o">-</span><span class="n">enabled</span><span class="o">/</span><span class="k">default</span> <span class="o">-</span><span class="n">rf</span>
+<span class="n">sudo</span> <span class="n">ln</span> <span class="o">-</span><span class="n">s</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">nginx</span><span class="o">/</span><span class="n">sites</span><span class="o">-</span><span class="n">available</span><span class="o">/</span><span class="mi">001</span><span class="o">-</span><span class="n">andino</span><span class="p">.</span><span class="n">conf</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">nginx</span><span class="o">/</span><span class="n">sites</span><span class="o">-</span><span class="n">enabled</span><span class="o">/</span><span class="mi">001</span><span class="o">-</span><span class="n">andino</span><span class="p">.</span><span class="n">conf</span>
 
-sudo systemctl restart nginx
+<span class="n">sudo</span> <span class="n">systemctl</span> <span class="k">restart</span> <span class="n">nginx</span>
 </pre></div>
 
 
@@ -814,7 +816,7 @@ El explorador nos mostrará una advertencia sobre el sitio, ya que no podrá val
       
     </div>
     
-      <script src="../../assets/javascripts/application.dc02f8ce.js"></script>
+      <script src="../../assets/javascripts/application.245445c6.js"></script>
       
         
         

@@ -38,7 +38,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.1.1">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.0">
     
     
       
@@ -47,7 +47,7 @@
     
     
 	
-      <link rel="stylesheet" href="../../assets/stylesheets/application.3020aac5.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/application.0284f74d.css">
       
       
     
@@ -55,14 +55,14 @@
 
     
     
-      <script src="../../assets/javascripts/modernizr.01ccdecf.js"></script>
+      <script src="../../assets/javascripts/modernizr.74668098.js"></script>
     
     <script src="../../js/extra.js"></script>
 
     
       
         <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono&display=fallback">
         <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
       
     
@@ -158,7 +158,9 @@
               Portal Andino
             </span>
             <span class="md-header-nav__topic">
-              Migracion
+              
+                Migracion
+              
             </span>
           
         </div>
@@ -771,25 +773,25 @@
 Ciertas variables de entorno y tener instalado <code>docker</code> y <code>docker-compose</code>.
 Debe ser ejecutado con <code>sudo</code> o <code>root</code>.</p>
 <p>Ejemplo:</p>
-<div class="codehilite"><pre><span></span>export EMAIL=admin@example.com
-export HOST=andino.midomionio.com.ar
-export DB_USER=usuario
-export DB_PASS=password
-export STORE_USER=dsuser
-export STORE_PASS=dspass
-sudo -E ./migrate.sh
+<div class="codehilite"><pre><span></span><span class="n">export</span><span class="w"> </span><span class="n">EMAIL</span><span class="o">=</span><span class="k">admin</span><span class="nv">@example</span><span class="p">.</span><span class="n">com</span><span class="w"></span>
+<span class="n">export</span><span class="w"> </span><span class="k">HOST</span><span class="o">=</span><span class="n">andino</span><span class="p">.</span><span class="n">midomionio</span><span class="p">.</span><span class="n">com</span><span class="p">.</span><span class="n">ar</span><span class="w"></span>
+<span class="n">export</span><span class="w"> </span><span class="n">DB_USER</span><span class="o">=</span><span class="n">usuario</span><span class="w"></span>
+<span class="n">export</span><span class="w"> </span><span class="n">DB_PASS</span><span class="o">=</span><span class="n">password</span><span class="w"></span>
+<span class="n">export</span><span class="w"> </span><span class="n">STORE_USER</span><span class="o">=</span><span class="n">dsuser</span><span class="w"></span>
+<span class="n">export</span><span class="w"> </span><span class="n">STORE_PASS</span><span class="o">=</span><span class="n">dspass</span><span class="w"></span>
+<span class="n">sudo</span><span class="w"> </span><span class="o">-</span><span class="n">E</span><span class="w"> </span><span class="p">.</span><span class="o">/</span><span class="n">migrate</span><span class="p">.</span><span class="n">sh</span><span class="w"></span>
 </pre></div>
 
 
 <h2 id="3-migracion-manual">3. Migración manual</h2>
 <p>Para realizar la migración manual, debemos conocer las variables con las que se inicializó el portal.
 En este caso, serán las siguientes:</p>
-<div class="codehilite"><pre><span></span>export EMAIL=admin@example.com
-export HOST=andino.midomionio.com.ar
-export DB_USER=usuario
-export DB_PASS=password
-export STORE_USER=dsuser
-export STORE_PASS=dspass
+<div class="codehilite"><pre><span></span><span class="n">export</span><span class="w"> </span><span class="n">EMAIL</span><span class="o">=</span><span class="k">admin</span><span class="nv">@example</span><span class="p">.</span><span class="n">com</span><span class="w"></span>
+<span class="n">export</span><span class="w"> </span><span class="k">HOST</span><span class="o">=</span><span class="n">andino</span><span class="p">.</span><span class="n">midomionio</span><span class="p">.</span><span class="n">com</span><span class="p">.</span><span class="n">ar</span><span class="w"></span>
+<span class="n">export</span><span class="w"> </span><span class="n">DB_USER</span><span class="o">=</span><span class="n">usuario</span><span class="w"></span>
+<span class="n">export</span><span class="w"> </span><span class="n">DB_PASS</span><span class="o">=</span><span class="n">password</span><span class="w"></span>
+<span class="n">export</span><span class="w"> </span><span class="n">STORE_USER</span><span class="o">=</span><span class="n">dsuser</span><span class="w"></span>
+<span class="n">export</span><span class="w"> </span><span class="n">STORE_PASS</span><span class="o">=</span><span class="n">dspass</span><span class="w"></span>
 </pre></div>
 
 
@@ -860,13 +862,13 @@ tar -C <span class="s2">&quot;</span><span class="nv">$appbackupdir</span><span 
 
 <p>Este script dejará un archivo backup.tar.gz en el directorio actual. 
 El mismo, una vez descomprimido, contendrá la siguiente estructura (por ejemplo):</p>
-<div class="codehilite"><pre><span></span>- application/
-    ├── 61ee6cc7dc974476fe3300cc4325d913ed2f949494419b11a5c7c897fa919106
-    │   ├── backup_2017-05-19.10:56:09.tar.gz
-    │   └── destination.txt
-    └── b1bf820976c3220e54136e4db229a67a9d9292896ad8d91623030e3b7171f210
-        ├── backup_2017-05-19.10:56:09.tar.gz
-        └── destination.txt
+<div class="codehilite"><pre><span></span><span class="o">-</span> <span class="n">application</span><span class="o">/</span>
+    <span class="err">├──</span> <span class="mi">61</span><span class="n">ee6cc7dc974476fe3300cc4325d913ed2f949494419b11a5c7c897fa919106</span>
+    <span class="err">│</span>   <span class="err">├──</span> <span class="n">backup_2017</span><span class="o">-</span><span class="mi">05</span><span class="o">-</span><span class="mi">19</span><span class="p">.</span><span class="mi">10</span><span class="p">:</span><span class="mi">56</span><span class="p">:</span><span class="mi">09</span><span class="p">.</span><span class="n">tar</span><span class="p">.</span><span class="n">gz</span>
+    <span class="err">│</span>   <span class="err">└──</span> <span class="n">destination</span><span class="p">.</span><span class="n">txt</span>
+    <span class="err">└──</span> <span class="n">b1bf820976c3220e54136e4db229a67a9d9292896ad8d91623030e3b7171f210</span>
+        <span class="err">├──</span> <span class="n">backup_2017</span><span class="o">-</span><span class="mi">05</span><span class="o">-</span><span class="mi">19</span><span class="p">.</span><span class="mi">10</span><span class="p">:</span><span class="mi">56</span><span class="p">:</span><span class="mi">09</span><span class="p">.</span><span class="n">tar</span><span class="p">.</span><span class="n">gz</span>
+        <span class="err">└──</span> <span class="n">destination</span><span class="p">.</span><span class="n">txt</span>
 </pre></div>
 
 
@@ -890,29 +892,29 @@ Con el siguiete comando, podremos saber qué volúmenes hay montados en el nuevo
 los archivos dentro del <code>backup_*.tar.gz</code></p>
 <p>Correr <code>docker inspect andino -f '{{ json .Mounts }}' | jq</code>:</p>
 <p>El comando mostrará, por ejemplo, lo siquiente:</p>
-<div class="codehilite"><pre><span></span>[
-{
-    &quot;Type&quot;: &quot;volume&quot;,
-    &quot;Name&quot;: &quot;a1d87160a04e270302582849c9ce5c6dbb44719a94b702158aeaf23835f7862f&quot;,
-    &quot;Source&quot;: &quot;/var/lib/docker/volumes/a1d87160a04e270302582849c9ce5c6dbb44719a94b702158aeaf23835f7862f/_data&quot;,
-    &quot;Destination&quot;: &quot;/etc/ckan/default&quot;,
-    &quot;Driver&quot;: &quot;local&quot;,
-    &quot;Mode&quot;: &quot;&quot;,
-    &quot;RW&quot;: true,
-    &quot;Propagation&quot;: &quot;&quot;
-},
-{
-    &quot;Type&quot;: &quot;volume&quot;,
-    &quot;Name&quot;: &quot;7ab721966628bf692a3d451567c9a01b419ba5189b88ef05484de315c73f6275&quot;,
-    &quot;Source&quot;: &quot;/var/lib/docker/volumes/7ab721966628bf692a3d451567c9a01b419ba5189b88ef05484de315c73f6275/_data&quot;,
-    &quot;Destination&quot;: &quot;/usr/lib/ckan/default/src/ckanext-gobar-theme/ckanext/gobar_theme/public/user_images&quot;,
-    &quot;Driver&quot;: &quot;local&quot;,
-    &quot;Mode&quot;: &quot;&quot;,
-    &quot;RW&quot;: true,
-    &quot;Propagation&quot;: &quot;&quot;
-},
+<div class="codehilite"><pre><span></span><span class="p">[</span>
+<span class="err">{</span>
+    <span class="ss">&quot;Type&quot;</span><span class="p">:</span> <span class="ss">&quot;volume&quot;</span><span class="p">,</span>
+    <span class="ss">&quot;Name&quot;</span><span class="p">:</span> <span class="ss">&quot;a1d87160a04e270302582849c9ce5c6dbb44719a94b702158aeaf23835f7862f&quot;</span><span class="p">,</span>
+    <span class="ss">&quot;Source&quot;</span><span class="p">:</span> <span class="ss">&quot;/var/lib/docker/volumes/a1d87160a04e270302582849c9ce5c6dbb44719a94b702158aeaf23835f7862f/_data&quot;</span><span class="p">,</span>
+    <span class="ss">&quot;Destination&quot;</span><span class="p">:</span> <span class="ss">&quot;/etc/ckan/default&quot;</span><span class="p">,</span>
+    <span class="ss">&quot;Driver&quot;</span><span class="p">:</span> <span class="ss">&quot;local&quot;</span><span class="p">,</span>
+    <span class="ss">&quot;Mode&quot;</span><span class="p">:</span> <span class="ss">&quot;&quot;</span><span class="p">,</span>
+    <span class="ss">&quot;RW&quot;</span><span class="p">:</span> <span class="k">true</span><span class="p">,</span>
+    <span class="ss">&quot;Propagation&quot;</span><span class="p">:</span> <span class="ss">&quot;&quot;</span>
+<span class="err">}</span><span class="p">,</span>
+<span class="err">{</span>
+    <span class="ss">&quot;Type&quot;</span><span class="p">:</span> <span class="ss">&quot;volume&quot;</span><span class="p">,</span>
+    <span class="ss">&quot;Name&quot;</span><span class="p">:</span> <span class="ss">&quot;7ab721966628bf692a3d451567c9a01b419ba5189b88ef05484de315c73f6275&quot;</span><span class="p">,</span>
+    <span class="ss">&quot;Source&quot;</span><span class="p">:</span> <span class="ss">&quot;/var/lib/docker/volumes/7ab721966628bf692a3d451567c9a01b419ba5189b88ef05484de315c73f6275/_data&quot;</span><span class="p">,</span>
+    <span class="ss">&quot;Destination&quot;</span><span class="p">:</span> <span class="ss">&quot;/usr/lib/ckan/default/src/ckanext-gobar-theme/ckanext/gobar_theme/public/user_images&quot;</span><span class="p">,</span>
+    <span class="ss">&quot;Driver&quot;</span><span class="p">:</span> <span class="ss">&quot;local&quot;</span><span class="p">,</span>
+    <span class="ss">&quot;Mode&quot;</span><span class="p">:</span> <span class="ss">&quot;&quot;</span><span class="p">,</span>
+    <span class="ss">&quot;RW&quot;</span><span class="p">:</span> <span class="k">true</span><span class="p">,</span>
+    <span class="ss">&quot;Propagation&quot;</span><span class="p">:</span> <span class="ss">&quot;&quot;</span>
+<span class="err">}</span><span class="p">,</span>
 
-...
+<span class="p">...</span>
 </pre></div>
 
 
@@ -1000,7 +1002,7 @@ docker-compose -f latest.yml restart<span class="p">;</span>
 
 <h3 id="53-regenerar-el-indice-de-busquedas">5.3. Regenerar el índice de búsquedas</h3>
 <p>Para regenerar el índice de búsquedas, debemos ir al directorio donde se instaló la aplicación y correr el siguiente comando:</p>
-<div class="codehilite"><pre><span></span>docker-compose -f latest.yml exec portal /etc/ckan_init.d/run_rebuild_search.sh
+<div class="codehilite"><pre><span></span><span class="nv">docker</span><span class="o">-</span><span class="nv">compose</span> <span class="o">-</span><span class="nv">f</span> <span class="nv">latest</span>.<span class="nv">yml</span> <span class="k">exec</span> <span class="nv">portal</span> <span class="o">/</span><span class="nv">etc</span><span class="o">/</span><span class="nv">ckan_init</span>.<span class="nv">d</span><span class="o">/</span><span class="nv">run_rebuild_search</span>.<span class="nv">sh</span>
 </pre></div>
                 
                   
@@ -1071,7 +1073,7 @@ docker-compose -f latest.yml restart<span class="p">;</span>
       
     </div>
     
-      <script src="../../assets/javascripts/application.dc02f8ce.js"></script>
+      <script src="../../assets/javascripts/application.245445c6.js"></script>
       
         
         

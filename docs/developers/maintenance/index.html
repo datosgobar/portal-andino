@@ -38,7 +38,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.1.1">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.0">
     
     
       
@@ -47,7 +47,7 @@
     
     
 	
-      <link rel="stylesheet" href="../../assets/stylesheets/application.3020aac5.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/application.0284f74d.css">
       
       
     
@@ -55,14 +55,14 @@
 
     
     
-      <script src="../../assets/javascripts/modernizr.01ccdecf.js"></script>
+      <script src="../../assets/javascripts/modernizr.74668098.js"></script>
     
     <script src="../../js/extra.js"></script>
 
     
       
         <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono&display=fallback">
         <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
       
     
@@ -158,7 +158,9 @@
               Portal Andino
             </span>
             <span class="md-header-nav__topic">
-              Mantenimiento
+              
+                Mantenimiento
+              
             </span>
           
         </div>
@@ -813,8 +815,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#recomendaciones-de-seguridad-y-optimizaciones" title="Recomendaciones de Seguridad y Optimizaciones" class="md-nav__link">
-    Recomendaciones de Seguridad y Optimizaciones
+  <a href="#seguridad" title="Seguridad" class="md-nav__link">
+    Seguridad
   </a>
   
     <nav class="md-nav">
@@ -823,6 +825,13 @@
           <li class="md-nav__item">
   <a href="#https" title="HTTPS" class="md-nav__link">
     HTTPS
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plugin-ckanext-security" title="Plugin ckanext-security" class="md-nav__link">
+    Plugin ckanext-security
   </a>
   
 </li>
@@ -1343,8 +1352,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#recomendaciones-de-seguridad-y-optimizaciones" title="Recomendaciones de Seguridad y Optimizaciones" class="md-nav__link">
-    Recomendaciones de Seguridad y Optimizaciones
+  <a href="#seguridad" title="Seguridad" class="md-nav__link">
+    Seguridad
   </a>
   
     <nav class="md-nav">
@@ -1353,6 +1362,13 @@
           <li class="md-nav__item">
   <a href="#https" title="HTTPS" class="md-nav__link">
     HTTPS
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plugin-ckanext-security" title="Plugin ckanext-security" class="md-nav__link">
+    Plugin ckanext-security
   </a>
   
 </li>
@@ -1499,8 +1515,9 @@
 <li><a href="#subir-todos-los-recursos-al-datastore">Subir todos los recursos al Datastore</a></li>
 </ul>
 </li>
-<li><a href="#recomendaciones-de-seguridad-y-optimizaciones">Recomendaciones de Seguridad y Optimizaciones</a><ul>
+<li><a href="#seguridad">Seguridad</a><ul>
 <li><a href="#https">HTTPS</a></li>
+<li><a href="#plugin-ckanext-security">Plugin ckanext-security</a></li>
 <li><a href="#sistema-y-librerias">Sistema y librerías</a></li>
 <li><a href="#firewall">Firewall</a></li>
 <li><a href="#ssh">SSH</a></li>
@@ -1518,15 +1535,15 @@
 <h2 id="exploracion-de-la-instancia-de-andino">Exploración de la instancia de andino</h2>
 <h3 id="que-esta-corriendo-docker">¿Qué está corriendo docker?</h3>
 <p>Para obtener una lista de lo que está corriendo actualmente Docker, podemos usar el siguiente comando:</p>
-<div class="codehilite"><pre><span></span>docker ps # Tabla de ejecucion actual
-docker ps -q # Listado de IDs de cada contenedor
-docker ps -aq # Listado de IDs de todos los contenedores disponibles.
+<div class="codehilite"><pre><span></span><span class="n">docker</span> <span class="n">ps</span> <span class="o">#</span> <span class="n">Tabla</span> <span class="n">de</span> <span class="n">ejecucion</span> <span class="n">actual</span>
+<span class="n">docker</span> <span class="n">ps</span> <span class="o">-</span><span class="n">q</span> <span class="o">#</span> <span class="n">Listado</span> <span class="n">de</span> <span class="n">IDs</span> <span class="n">de</span> <span class="n">cada</span> <span class="n">contenedor</span>
+<span class="n">docker</span> <span class="n">ps</span> <span class="o">-</span><span class="n">aq</span> <span class="o">#</span> <span class="n">Listado</span> <span class="n">de</span> <span class="n">IDs</span> <span class="n">de</span> <span class="n">todos</span> <span class="n">los</span> <span class="n">contenedores</span> <span class="n">disponibles</span><span class="p">.</span>
 </pre></div>
 
 
 <h3 id="utilizacion-del-archivo-latestyml-en-los-comandos-de-docker-compose">Utilización del archivo latest.yml en los comandos de docker-compose</h3>
 <p>En múltiples secciones de esta documentación se emplea el uso de comandos que comienzan de la siguiente manera:</p>
-<div class="codehilite"><pre><span></span>docker-compose -f latest.yml
+<div class="codehilite"><pre><span></span><span class="n">docker</span><span class="o">-</span><span class="n">compose</span> <span class="o">-</span><span class="n">f</span> <span class="n">latest</span><span class="p">.</span><span class="n">yml</span>
 </pre></div>
 
 
@@ -1536,57 +1553,57 @@ contiene las variables de entorno (<code>.env</code>) ya que es el directorio de
 <h3 id="ingresar-al-contendor-principal-de-andino">Ingresar al contendor principal de andino</h3>
 <p>El contenedor principal de andino, donde se ejecuta la aplicación CKAN, es denominado <code>portal</code>. 
 Para ingresar en una sesión de consola en el contenedor, ejecutar:</p>
-<div class="codehilite"><pre><span></span>docker-compose -f latest.yml exec portal /bin/bash
+<div class="codehilite"><pre><span></span><span class="nv">docker</span><span class="o">-</span><span class="nv">compose</span> <span class="o">-</span><span class="nv">f</span> <span class="nv">latest</span>.<span class="nv">yml</span> <span class="k">exec</span> <span class="nv">portal</span> <span class="o">/</span><span class="nv">bin</span><span class="o">/</span><span class="nv">bash</span>
 </pre></div>
 
 
 <p>Ver <a href="#utilizacion-del-archivo-latest.yml-en-los-comandos-de-docker-compose">la sección sobre la utilización del archivo latest.yml en los comandos de docker-compose</a>.</p>
 <h3 id="listar-todas-las-propiedades-de-cada-contenedor">Listar todas las <code>Propiedades</code> de cada contenedor</h3>
-<div class="codehilite"><pre><span></span>docker-compose -f latest.yml ps -q portal solr db | xargs -n 1 | while read container; do docker inspect $container; done
+<div class="codehilite"><pre><span></span><span class="nv">docker</span><span class="o">-</span><span class="nv">compose</span> <span class="o">-</span><span class="nv">f</span> <span class="nv">latest</span>.<span class="nv">yml</span> <span class="nv">ps</span> <span class="o">-</span><span class="nv">q</span> <span class="nv">portal</span> <span class="nv">solr</span> <span class="nv">db</span> <span class="o">|</span> <span class="nv">xargs</span> <span class="o">-</span><span class="nv">n</span> <span class="mi">1</span> <span class="o">|</span> <span class="k">while</span> <span class="nv">read</span> <span class="nv">container</span><span class="c1">; do docker inspect $container; done</span>
 </pre></div>
 
 
 <p>Ver <a href="#utilizacion-del-archivo-latest.yml-en-los-comandos-de-docker-compose">la sección sobre la utilización del archivo latest.yml en los comandos de docker-compose</a>.</p>
 <h2 id="administracion-de-usuarios">Administración de usuarios</h2>
 <h3 id="crear-un-usuario-admin">Crear un usuario ADMIN</h3>
-<div class="codehilite"><pre><span></span>docker-compose -f latest.yml exec portal /etc/ckan_init.d/add_admin.sh mi_nuevo_usuario_admin email_del_usuario_admin
+<div class="codehilite"><pre><span></span><span class="nv">docker</span><span class="o">-</span><span class="nv">compose</span> <span class="o">-</span><span class="nv">f</span> <span class="nv">latest</span>.<span class="nv">yml</span> <span class="k">exec</span> <span class="nv">portal</span> <span class="o">/</span><span class="nv">etc</span><span class="o">/</span><span class="nv">ckan_init</span>.<span class="nv">d</span><span class="o">/</span><span class="nv">add_admin</span>.<span class="nv">sh</span> <span class="nv">mi_nuevo_usuario_admin</span> <span class="nv">email_del_usuario_admin</span>
 </pre></div>
 
 
 <p>Ver <a href="#utilizacion-del-archivo-latest.yml-en-los-comandos-de-docker-compose">la sección sobre la utilización del archivo latest.yml en los comandos de docker-compose</a>.</p>
 <p>El comando solicitará la contraseña del usuario administrador.</p>
 <h3 id="listar-mis-usuarios">Listar mis usuarios</h3>
-<div class="codehilite"><pre><span></span>docker-compose -f latest.yml exec portal /etc/ckan_init.d/paster.sh --plugin=ckan user list
+<div class="codehilite"><pre><span></span><span class="nv">docker</span><span class="o">-</span><span class="nv">compose</span> <span class="o">-</span><span class="nv">f</span> <span class="nv">latest</span>.<span class="nv">yml</span> <span class="k">exec</span> <span class="nv">portal</span> <span class="o">/</span><span class="nv">etc</span><span class="o">/</span><span class="nv">ckan_init</span>.<span class="nv">d</span><span class="o">/</span><span class="nv">paster</span>.<span class="nv">sh</span> <span class="o">--</span><span class="nv">plugin</span><span class="o">=</span><span class="nv">ckan</span> <span class="nv">user</span> <span class="nv">list</span>
 </pre></div>
 
 
 <p>Ver <a href="#utilizacion-del-archivo-latest.yml-en-los-comandos-de-docker-compose">la sección sobre la utilización del archivo latest.yml en los comandos de docker-compose</a>.</p>
 <h3 id="ver-los-datos-de-un-usuario">Ver los datos de un usuario</h3>
-<div class="codehilite"><pre><span></span>docker-compose -f latest.yml exec portal /etc/ckan_init.d/paster.sh --plugin=ckan user nombre-de-usuario
+<div class="codehilite"><pre><span></span><span class="nv">docker</span><span class="o">-</span><span class="nv">compose</span> <span class="o">-</span><span class="nv">f</span> <span class="nv">latest</span>.<span class="nv">yml</span> <span class="k">exec</span> <span class="nv">portal</span> <span class="o">/</span><span class="nv">etc</span><span class="o">/</span><span class="nv">ckan_init</span>.<span class="nv">d</span><span class="o">/</span><span class="nv">paster</span>.<span class="nv">sh</span> <span class="o">--</span><span class="nv">plugin</span><span class="o">=</span><span class="nv">ckan</span> <span class="nv">user</span> <span class="nv">nombre</span><span class="o">-</span><span class="nv">de</span><span class="o">-</span><span class="nv">usuario</span>
 </pre></div>
 
 
 <p>Ver <a href="#utilizacion-del-archivo-latest.yml-en-los-comandos-de-docker-compose">la sección sobre la utilización del archivo latest.yml en los comandos de docker-compose</a>.</p>
 <h3 id="crear-un-nuevo-usuario">Crear un nuevo usuario</h3>
-<div class="codehilite"><pre><span></span>docker-compose -f latest.yml exec portal /etc/ckan_init.d/paster.sh --plugin=ckan user add nombre-de-usuario
+<div class="codehilite"><pre><span></span><span class="nv">docker</span><span class="o">-</span><span class="nv">compose</span> <span class="o">-</span><span class="nv">f</span> <span class="nv">latest</span>.<span class="nv">yml</span> <span class="k">exec</span> <span class="nv">portal</span> <span class="o">/</span><span class="nv">etc</span><span class="o">/</span><span class="nv">ckan_init</span>.<span class="nv">d</span><span class="o">/</span><span class="nv">paster</span>.<span class="nv">sh</span> <span class="o">--</span><span class="nv">plugin</span><span class="o">=</span><span class="nv">ckan</span> <span class="nv">user</span> <span class="nv">add</span> <span class="nv">nombre</span><span class="o">-</span><span class="nv">de</span><span class="o">-</span><span class="nv">usuario</span>
 </pre></div>
 
 
 <p>Ver <a href="#utilizacion-del-archivo-latest.yml-en-los-comandos-de-docker-compose">la sección sobre la utilización del archivo latest.yml en los comandos de docker-compose</a>.</p>
 <h3 id="crear-un-nuevo-usuario-extendido">Crear un nuevo usuario extendido</h3>
-<div class="codehilite"><pre><span></span>docker-compose -f latest.yml exec portal /etc/ckan_init.d/paster.sh --plugin=ckan user add nomber [email=mi-usuario@host.com password=mi-contraseña-rara apikey=unsecretomisticonoleible]
+<div class="codehilite"><pre><span></span><span class="nv">docker</span><span class="o">-</span><span class="nv">compose</span> <span class="o">-</span><span class="nv">f</span> <span class="nv">latest</span>.<span class="nv">yml</span> <span class="k">exec</span> <span class="nv">portal</span> <span class="o">/</span><span class="nv">etc</span><span class="o">/</span><span class="nv">ckan_init</span>.<span class="nv">d</span><span class="o">/</span><span class="nv">paster</span>.<span class="nv">sh</span> <span class="o">--</span><span class="nv">plugin</span><span class="o">=</span><span class="nv">ckan</span> <span class="nv">user</span> <span class="nv">add</span> <span class="nv">nomber</span> [<span class="nv">email</span><span class="o">=</span><span class="nv">mi</span><span class="o">-</span><span class="nv">usuario</span>@<span class="nv">host</span>.<span class="nv">com</span> <span class="nv">password</span><span class="o">=</span><span class="nv">mi</span><span class="o">-</span><span class="nv">contrase</span>ñ<span class="nv">a</span><span class="o">-</span><span class="nv">rara</span> <span class="nv">apikey</span><span class="o">=</span><span class="nv">unsecretomisticonoleible</span>]
 </pre></div>
 
 
 <p>Ver <a href="#utilizacion-del-archivo-latest.yml-en-los-comandos-de-docker-compose">la sección sobre la utilización del archivo latest.yml en los comandos de docker-compose</a>.</p>
 <h3 id="eliminar-un-usuario">Eliminar un usuario</h3>
-<div class="codehilite"><pre><span></span>docker-compose -f latest.yml exec portal /etc/ckan_init.d/paster.sh --plugin=ckan user remove nombre-de-usuario
+<div class="codehilite"><pre><span></span><span class="nv">docker</span><span class="o">-</span><span class="nv">compose</span> <span class="o">-</span><span class="nv">f</span> <span class="nv">latest</span>.<span class="nv">yml</span> <span class="k">exec</span> <span class="nv">portal</span> <span class="o">/</span><span class="nv">etc</span><span class="o">/</span><span class="nv">ckan_init</span>.<span class="nv">d</span><span class="o">/</span><span class="nv">paster</span>.<span class="nv">sh</span> <span class="o">--</span><span class="nv">plugin</span><span class="o">=</span><span class="nv">ckan</span> <span class="nv">user</span> <span class="nv">remove</span> <span class="nv">nombre</span><span class="o">-</span><span class="nv">de</span><span class="o">-</span><span class="nv">usuario</span>
 </pre></div>
 
 
 <p>Ver <a href="#utilizacion-del-archivo-latest.yml-en-los-comandos-de-docker-compose">la sección sobre la utilización del archivo latest.yml en los comandos de docker-compose</a>.</p>
 <h3 id="cambiar-password-de-un-usuario">Cambiar password de un usuario</h3>
-<div class="codehilite"><pre><span></span>docker-compose -f latest.yml exec portal /etc/ckan_init.d/paster.sh --plugin=ckan user setpass nombre-de-usuario
+<div class="codehilite"><pre><span></span><span class="nv">docker</span><span class="o">-</span><span class="nv">compose</span> <span class="o">-</span><span class="nv">f</span> <span class="nv">latest</span>.<span class="nv">yml</span> <span class="k">exec</span> <span class="nv">portal</span> <span class="o">/</span><span class="nv">etc</span><span class="o">/</span><span class="nv">ckan_init</span>.<span class="nv">d</span><span class="o">/</span><span class="nv">paster</span>.<span class="nv">sh</span> <span class="o">--</span><span class="nv">plugin</span><span class="o">=</span><span class="nv">ckan</span> <span class="nv">user</span> <span class="nv">setpass</span> <span class="nv">nombre</span><span class="o">-</span><span class="nv">de</span><span class="o">-</span><span class="nv">usuario</span>
 </pre></div>
 
 
@@ -1622,14 +1639,14 @@ Para lograrlo, podemos hacerlo de dos formas:</p>
 <p>1 ) Ingresando al contenedor.</p>
 <p>Debemos buscar y editar en el archivo <code>production.ini</code> la configuración
 de email que luce como:</p>
-<div class="codehilite"><pre><span></span>## Email settings
+<div class="codehilite"><pre><span></span><span class="err">##</span><span class="w"> </span><span class="n">Email</span><span class="w"> </span><span class="n">settings</span><span class="w"></span>
 
-error_email_from=admin@example.com
-smtp.server = postfix
-#smtp.starttls = False
-smtp.user = portal
-smtp.password = portal
-smtp.mail_from = administrador
+<span class="n">error_email_from</span><span class="o">=</span><span class="k">admin</span><span class="nv">@example</span><span class="p">.</span><span class="n">com</span><span class="w"></span>
+<span class="n">smtp</span><span class="p">.</span><span class="n">server</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">postfix</span><span class="w"></span>
+<span class="n">#smtp</span><span class="p">.</span><span class="n">starttls</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">False</span><span class="w"></span>
+<span class="n">smtp</span><span class="p">.</span><span class="k">user</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">portal</span><span class="w"></span>
+<span class="n">smtp</span><span class="p">.</span><span class="n">password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">portal</span><span class="w"></span>
+<span class="n">smtp</span><span class="p">.</span><span class="n">mail_from</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">administrador</span><span class="w"></span>
 </pre></div>
 
 
@@ -1638,14 +1655,14 @@ smtp.mail_from = administrador
 <p>2 ) Ejecutando comandos paster</p>
 <p>Suponiendo que nuestro servidor SMTP está en smtp.gmail.com, la dirección de correo del usuario es <code>smtp_user_mail@gmail.com</code>, 
 la contraseña de esa dirección de correo <code>mi_pass</code> y queremos usar "tls", podemos ejecutar los siguientes comandos:</p>
-<div class="codehilite"><pre><span></span><span class="nt">docker-compose</span> <span class="nt">-f</span> <span class="nt">latest</span><span class="p">.</span><span class="nc">yml</span> <span class="nt">exec</span> <span class="nt">portal</span> <span class="o">/</span><span class="nt">etc</span><span class="o">/</span><span class="nt">ckan_init</span><span class="p">.</span><span class="nc">d</span><span class="o">/</span><span class="nt">update_conf</span><span class="p">.</span><span class="nc">sh</span> <span class="s2">&quot;smtp.server=smtp.gmail.com:587&quot;</span><span class="o">;</span>
-<span class="nt">docker-compose</span> <span class="nt">-f</span> <span class="nt">latest</span><span class="p">.</span><span class="nc">yml</span> <span class="nt">exec</span> <span class="nt">portal</span> <span class="o">/</span><span class="nt">etc</span><span class="o">/</span><span class="nt">ckan_init</span><span class="p">.</span><span class="nc">d</span><span class="o">/</span><span class="nt">update_conf</span><span class="p">.</span><span class="nc">sh</span> <span class="s2">&quot;smtp.user=smtp_user_mail@gmail.com&quot;</span><span class="o">;</span>
-<span class="nt">docker-compose</span> <span class="nt">-f</span> <span class="nt">latest</span><span class="p">.</span><span class="nc">yml</span> <span class="nt">exec</span> <span class="nt">portal</span> <span class="o">/</span><span class="nt">etc</span><span class="o">/</span><span class="nt">ckan_init</span><span class="p">.</span><span class="nc">d</span><span class="o">/</span><span class="nt">update_conf</span><span class="p">.</span><span class="nc">sh</span> <span class="s2">&quot;smtp.password=mi_pass&quot;</span><span class="o">;</span>
-<span class="nt">docker-compose</span> <span class="nt">-f</span> <span class="nt">latest</span><span class="p">.</span><span class="nc">yml</span> <span class="nt">exec</span> <span class="nt">portal</span> <span class="o">/</span><span class="nt">etc</span><span class="o">/</span><span class="nt">ckan_init</span><span class="p">.</span><span class="nc">d</span><span class="o">/</span><span class="nt">update_conf</span><span class="p">.</span><span class="nc">sh</span> <span class="s2">&quot;smtp.starttls=True&quot;</span><span class="o">;</span>
-<span class="nt">docker-compose</span> <span class="nt">-f</span> <span class="nt">latest</span><span class="p">.</span><span class="nc">yml</span> <span class="nt">exec</span> <span class="nt">portal</span> <span class="o">/</span><span class="nt">etc</span><span class="o">/</span><span class="nt">ckan_init</span><span class="p">.</span><span class="nc">d</span><span class="o">/</span><span class="nt">update_conf</span><span class="p">.</span><span class="nc">sh</span> <span class="s2">&quot;smtp.mail_from=smtp_user_mail@gmail.com&quot;</span><span class="o">;</span>
+<div class="codehilite"><pre><span></span><span class="nv">docker</span><span class="o">-</span><span class="nv">compose</span> <span class="o">-</span><span class="nv">f</span> <span class="nv">latest</span>.<span class="nv">yml</span> <span class="k">exec</span> <span class="nv">portal</span> <span class="o">/</span><span class="nv">etc</span><span class="o">/</span><span class="nv">ckan_init</span>.<span class="nv">d</span><span class="o">/</span><span class="nv">update_conf</span>.<span class="nv">sh</span> <span class="s2">&quot;</span><span class="s">smtp.server=smtp.gmail.com:587</span><span class="s2">&quot;</span><span class="c1">;</span>
+<span class="nv">docker</span><span class="o">-</span><span class="nv">compose</span> <span class="o">-</span><span class="nv">f</span> <span class="nv">latest</span>.<span class="nv">yml</span> <span class="k">exec</span> <span class="nv">portal</span> <span class="o">/</span><span class="nv">etc</span><span class="o">/</span><span class="nv">ckan_init</span>.<span class="nv">d</span><span class="o">/</span><span class="nv">update_conf</span>.<span class="nv">sh</span> <span class="s2">&quot;</span><span class="s">smtp.user=smtp_user_mail@gmail.com</span><span class="s2">&quot;</span><span class="c1">;</span>
+<span class="nv">docker</span><span class="o">-</span><span class="nv">compose</span> <span class="o">-</span><span class="nv">f</span> <span class="nv">latest</span>.<span class="nv">yml</span> <span class="k">exec</span> <span class="nv">portal</span> <span class="o">/</span><span class="nv">etc</span><span class="o">/</span><span class="nv">ckan_init</span>.<span class="nv">d</span><span class="o">/</span><span class="nv">update_conf</span>.<span class="nv">sh</span> <span class="s2">&quot;</span><span class="s">smtp.password=mi_pass</span><span class="s2">&quot;</span><span class="c1">;</span>
+<span class="nv">docker</span><span class="o">-</span><span class="nv">compose</span> <span class="o">-</span><span class="nv">f</span> <span class="nv">latest</span>.<span class="nv">yml</span> <span class="k">exec</span> <span class="nv">portal</span> <span class="o">/</span><span class="nv">etc</span><span class="o">/</span><span class="nv">ckan_init</span>.<span class="nv">d</span><span class="o">/</span><span class="nv">update_conf</span>.<span class="nv">sh</span> <span class="s2">&quot;</span><span class="s">smtp.starttls=True</span><span class="s2">&quot;</span><span class="c1">;</span>
+<span class="nv">docker</span><span class="o">-</span><span class="nv">compose</span> <span class="o">-</span><span class="nv">f</span> <span class="nv">latest</span>.<span class="nv">yml</span> <span class="k">exec</span> <span class="nv">portal</span> <span class="o">/</span><span class="nv">etc</span><span class="o">/</span><span class="nv">ckan_init</span>.<span class="nv">d</span><span class="o">/</span><span class="nv">update_conf</span>.<span class="nv">sh</span> <span class="s2">&quot;</span><span class="s">smtp.mail_from=smtp_user_mail@gmail.com</span><span class="s2">&quot;</span><span class="c1">;</span>
 
-<span class="err">#</span> <span class="nt">Finalmente</span> <span class="nt">reiniciamos</span> <span class="nt">el</span> <span class="nt">contenedor</span>
-<span class="nt">docker-compose</span> <span class="nt">-f</span> <span class="nt">latest</span><span class="p">.</span><span class="nc">yml</span> <span class="nt">restart</span> <span class="nt">portal</span> <span class="nt">nginx</span>
+# <span class="nv">Finalmente</span> <span class="nv">reiniciamos</span> <span class="nv">el</span> <span class="nv">contenedor</span>
+<span class="nv">docker</span><span class="o">-</span><span class="nv">compose</span> <span class="o">-</span><span class="nv">f</span> <span class="nv">latest</span>.<span class="nv">yml</span> <span class="nv">restart</span> <span class="nv">portal</span> <span class="nv">nginx</span>
 </pre></div>
 
 
@@ -1667,10 +1684,10 @@ pero modificando el atributo de configuración <code>smtp.mail_from</code>.</p>
 <p><code>ckan.google_tag_manager.gtm_container_id = { id que necesitás guardar }</code></p>
 <h3 id="google-tag-manager">Google Tag Manager</h3>
 <p>Para configurar el código se seguimiento de Google Tag Manager ejecutar el siguiente comando:</p>
-<div class="codehilite"><pre><span></span>docker-compose -f latest.yml exec portal /etc/ckan_init.d/update_conf.sh &quot;ckan.google_tag_manager.gtm_container_id=&lt;tu código de seguimiento GTM&gt;&quot;;
+<div class="codehilite"><pre><span></span><span class="nv">docker</span><span class="o">-</span><span class="nv">compose</span> <span class="o">-</span><span class="nv">f</span> <span class="nv">latest</span>.<span class="nv">yml</span> <span class="k">exec</span> <span class="nv">portal</span> <span class="o">/</span><span class="nv">etc</span><span class="o">/</span><span class="nv">ckan_init</span>.<span class="nv">d</span><span class="o">/</span><span class="nv">update_conf</span>.<span class="nv">sh</span> <span class="s2">&quot;</span><span class="s">ckan.google_tag_manager.gtm_container_id=&lt;tu código de seguimiento GTM&gt;</span><span class="s2">&quot;</span><span class="c1">;</span>
 
-# Finalmente reiniciamos el contenedor
-docker-compose -f latest.yml restart portal nginx
+# <span class="nv">Finalmente</span> <span class="nv">reiniciamos</span> <span class="nv">el</span> <span class="nv">contenedor</span>
+<span class="nv">docker</span><span class="o">-</span><span class="nv">compose</span> <span class="o">-</span><span class="nv">f</span> <span class="nv">latest</span>.<span class="nv">yml</span> <span class="nv">restart</span> <span class="nv">portal</span> <span class="nv">nginx</span>
 </pre></div>
 
 
@@ -1679,10 +1696,10 @@ docker-compose -f latest.yml restart portal nginx
 <p>Para saber cómo hacerlo, leer la sección que explica 
 <a href="#modificar-el-archivo-de-configuracion">cómo modificar el archivo de configuración</a>.</p>
 <p>La sección a buscar luce de esta manera:</p>
-<div class="codehilite"><pre><span></span>## Google Analytics
-googleanalytics.id = { un id }
-googleanalytics_resource_prefix = { un prefix }
-googleanalytics.domain = { un dominio }
+<div class="codehilite"><pre><span></span><span class="o">##</span> <span class="n">Google</span> <span class="n">Analytics</span>
+<span class="n">googleanalytics</span><span class="p">.</span><span class="n">id</span> <span class="o">=</span> <span class="err">{</span> <span class="n">un</span> <span class="n">id</span> <span class="err">}</span>
+<span class="n">googleanalytics_resource_prefix</span> <span class="o">=</span> <span class="err">{</span> <span class="n">un</span> <span class="k">prefix</span> <span class="err">}</span>
+<span class="n">googleanalytics</span><span class="p">.</span><span class="k">domain</span> <span class="o">=</span> <span class="err">{</span> <span class="n">un</span> <span class="n">dominio</span> <span class="err">}</span>
 </pre></div>
 
 
@@ -1694,7 +1711,7 @@ Para el mejor entendimiento de la herramienta, recomendamos que entres a https:/
 <em>Configuración</em> -&gt; <em>Configuración avanzada</em> -&gt; <em>Google Dataset Search</em> -&gt; Clickear el checkbox y guardar el cambio.</p>
 <h3 id="deshabilitar-la-url-catalogxlsx">Deshabilitar la URL <code>/catalog.xlsx</code></h3>
 <p>En caso de desear deshabilitar la URL <code>/catalog.xlsx</code>, se puede ejecutar el siguiente comando:</p>
-<div class="codehilite"><pre><span></span>docker-compose -f latest.yml exec portal /etc/ckan_init.d/update_conf.sh &quot;andino.disable_catalog_xlsx_url=True&quot;;
+<div class="codehilite"><pre><span></span><span class="nv">docker</span><span class="o">-</span><span class="nv">compose</span> <span class="o">-</span><span class="nv">f</span> <span class="nv">latest</span>.<span class="nv">yml</span> <span class="k">exec</span> <span class="nv">portal</span> <span class="o">/</span><span class="nv">etc</span><span class="o">/</span><span class="nv">ckan_init</span>.<span class="nv">d</span><span class="o">/</span><span class="nv">update_conf</span>.<span class="nv">sh</span> <span class="s2">&quot;</span><span class="s">andino.disable_catalog_xlsx_url=True</span><span class="s2">&quot;</span><span class="c1">;</span>
 </pre></div>
 
 
@@ -1731,109 +1748,109 @@ se puede cambiar editando el campo <code>andino.cache_clean_hook_method</code> d
 Para esto, en el servidor que servirá de caché, necesitamos instalar <a href="https://openresty.org/en/installation.html">openresty</a>.
 Esta plataforma web nos permite correr <strong>nginx</strong> y modificar su comportamiento usando <a href="https://www.lua.org/">lua</a>.</p>
 <p>Luego de instalar <strong>openresty</strong>, debemos activarlo para que empiece cada vez que se prenda el servidor:</p>
-<div class="codehilite"><pre><span></span>systemctl enable openresty
-systemctl restart openresty
+<div class="codehilite"><pre><span></span><span class="n">systemctl</span> <span class="n">enable</span> <span class="n">openresty</span>
+<span class="n">systemctl</span> <span class="k">restart</span> <span class="n">openresty</span>
 </pre></div>
 
 
 <p>Luego de instalar <code>operesty</code>, debemos agregar los archivos de configuración.
 Primero borramos la configuración de nginx que viene por defecto en <code>/etc/openresty/nginx.conf</code> y agregamos la nuestra:</p>
-<div class="codehilite"><pre><span></span>#user  nobody;
-worker_processes  1;
+<div class="codehilite"><pre><span></span>#<span class="nv">user</span>  <span class="nv">nobody</span><span class="c1">;</span>
+<span class="nv">worker_processes</span>  <span class="mi">1</span><span class="c1">;</span>
 
-#error_log  logs/error.log;
-#error_log  logs/error.log  notice;
-#error_log  logs/error.log  info;
+#<span class="nv">error_log</span>  <span class="nv">logs</span><span class="o">/</span><span class="nv">error</span>.<span class="nv">log</span><span class="c1">;</span>
+#<span class="nv">error_log</span>  <span class="nv">logs</span><span class="o">/</span><span class="nv">error</span>.<span class="nv">log</span>  <span class="nv">notice</span><span class="c1">;</span>
+#<span class="nv">error_log</span>  <span class="nv">logs</span><span class="o">/</span><span class="nv">error</span>.<span class="nv">log</span>  <span class="nv">info</span><span class="c1">;</span>
 
-#pid        logs/nginx.pid;
+#<span class="nv">pid</span>        <span class="nv">logs</span><span class="o">/</span><span class="nv">nginx</span>.<span class="nv">pid</span><span class="c1">;</span>
 
 
-events {
-    worker_connections  1024;
+<span class="nv">events</span> {
+    <span class="nv">worker_connections</span>  <span class="mi">1024</span><span class="c1">;</span>
 }
 
 
-http {
-    include       mime.types;
-    default_type  application/octet-stream;
+<span class="nv">http</span> {
+    <span class="k">include</span>       <span class="nv">mime</span>.<span class="nv">types</span><span class="c1">;</span>
+    <span class="nv">default_type</span>  <span class="nv">application</span><span class="o">/</span><span class="nv">octet</span><span class="o">-</span><span class="nv">stream</span><span class="c1">;</span>
 
-    #log_format  main  &#39;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &#39;
-    #                  &#39;$status $body_bytes_sent &quot;$http_referer&quot; &#39;
-    #                  &#39;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&#39;;
+    #<span class="nv">log_format</span>  <span class="nv">main</span>  <span class="s1">&#39;</span><span class="s">$remote_addr - $remote_user [$time_local] &quot;$request&quot; </span><span class="s1">&#39;</span>
+    #                  <span class="s1">&#39;</span><span class="s">$status $body_bytes_sent &quot;$http_referer&quot; </span><span class="s1">&#39;</span>
+    #                  <span class="s1">&#39;</span><span class="s">&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;</span><span class="s1">&#39;</span><span class="c1">;</span>
 
-    #access_log  logs/access.log  main;
+    #<span class="nv">access_log</span>  <span class="nv">logs</span><span class="o">/</span><span class="nv">access</span>.<span class="nv">log</span>  <span class="nv">main</span><span class="c1">;</span>
 
-    sendfile        on;
-    #tcp_nopush     on;
+    <span class="k">sendfile</span>        <span class="nv">on</span><span class="c1">;</span>
+    #<span class="nv">tcp_nopush</span>     <span class="nv">on</span><span class="c1">;</span>
 
-    #keepalive_timeout  0;
-    keepalive_timeout  65;
+    #<span class="nv">keepalive_timeout</span>  <span class="mi">0</span><span class="c1">;</span>
+    <span class="nv">keepalive_timeout</span>  <span class="mi">65</span><span class="c1">;</span>
 
-    #gzip  on;
+    #<span class="nv">gzip</span>  <span class="nv">on</span><span class="c1">;</span>
 
-    include /etc/nginx/conf.d/*.conf;
+    <span class="k">include</span> <span class="o">/</span><span class="nv">etc</span><span class="o">/</span><span class="nv">nginx</span><span class="o">/</span><span class="nv">conf</span>.<span class="nv">d</span><span class="cm">/*.conf;</span>
 
-}
+<span class="cm">}</span>
 </pre></div>
 
 
 <p>Luego, creamos el directorio donde pondremos la configuración de nuestra caché y creamos el archivo.</p>
-<div class="codehilite"><pre><span></span>mkdir -p /etc/nginx/conf.d/
-touch /etc/nginx/conf.d/000-andino-cache.conf
+<div class="codehilite"><pre><span></span><span class="n">mkdir</span> <span class="o">-</span><span class="n">p</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">nginx</span><span class="o">/</span><span class="n">conf</span><span class="p">.</span><span class="n">d</span><span class="o">/</span>
+<span class="n">touch</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">nginx</span><span class="o">/</span><span class="n">conf</span><span class="p">.</span><span class="n">d</span><span class="o">/</span><span class="mi">000</span><span class="o">-</span><span class="n">andino</span><span class="o">-</span><span class="k">cache</span><span class="p">.</span><span class="n">conf</span>
 </pre></div>
 
 
 <p>El archivo <code>000-andino-cache.conf</code> contendrá lo siguiente.
 Es necesario cambiar la palabre <code>IP_A_ANDINO</code> por la IP donde está andino.</p>
-<div class="codehilite"><pre><span></span><span class="nt">proxy_cache_path</span> <span class="o">/</span><span class="nt">tmp</span><span class="o">/</span><span class="nt">nginx_cache</span><span class="o">/</span> <span class="nt">levels</span><span class="o">=</span><span class="nt">1</span><span class="p">:</span><span class="nd">2</span> <span class="nt">keys_zone</span><span class="o">=</span><span class="nt">cache</span><span class="p">:</span><span class="nd">30m</span> <span class="nt">max_size</span><span class="o">=</span><span class="nt">250m</span><span class="o">;</span>
-<span class="nt">proxy_temp_path</span> <span class="o">/</span><span class="nt">tmp</span><span class="o">/</span><span class="nt">nginx_proxy</span> <span class="nt">1</span> <span class="nt">2</span><span class="o">;</span>
+<div class="codehilite"><pre><span></span><span class="nv">proxy_cache_path</span> <span class="o">/</span><span class="nv">tmp</span><span class="o">/</span><span class="nv">nginx_cache</span><span class="o">/</span> <span class="nv">levels</span><span class="o">=</span><span class="mi">1</span>:<span class="mi">2</span> <span class="nv">keys_zone</span><span class="o">=</span><span class="nv">cache</span>:<span class="mi">30</span><span class="nv">m</span> <span class="nv">max_size</span><span class="o">=</span><span class="mi">250</span><span class="nv">m</span><span class="c1">;</span>
+<span class="nv">proxy_temp_path</span> <span class="o">/</span><span class="nv">tmp</span><span class="o">/</span><span class="nv">nginx_proxy</span> <span class="mi">1</span> <span class="mi">2</span><span class="c1">;</span>
 
-<span class="nt">server_tokens</span> <span class="nt">off</span><span class="o">;</span>
+<span class="nv">server_tokens</span> <span class="nv">off</span><span class="c1">;</span>
 
-<span class="nt">server</span> <span class="p">{</span>
-    <span class="err">client_max_body_size</span> <span class="err">300M</span><span class="p">;</span>
-    <span class="err">location</span> <span class="err">/</span> <span class="err">{</span>
-        <span class="err">proxy_pass</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">IP_A_ANDINO</span><span class="o">:</span><span class="mi">80</span><span class="o">/</span><span class="p">;</span>
-        <span class="err">proxy_set_header</span> <span class="err">X-Forwarded-For</span> <span class="err">$remote_addr</span><span class="p">;</span>
-        <span class="err">proxy_set_header</span> <span class="err">Host</span> <span class="err">$host</span><span class="p">;</span>
-        <span class="err">proxy_cache</span> <span class="err">cache</span><span class="p">;</span>
+<span class="nv">server</span> {
+    <span class="nv">client_max_body_size</span> <span class="mi">300</span><span class="nv">M</span><span class="c1">;</span>
+    <span class="nv">location</span> <span class="o">/</span> {
+        <span class="nv">proxy_pass</span> <span class="nv">http</span>:<span class="o">//</span><span class="nv">IP_A_ANDINO</span>:<span class="mi">80</span><span class="o">/</span><span class="c1">;</span>
+        <span class="nv">proxy_set_header</span> <span class="nv">X</span><span class="o">-</span><span class="nv">Forwarded</span><span class="o">-</span><span class="k">For</span> $<span class="nv">remote_addr</span><span class="c1">;</span>
+        <span class="nv">proxy_set_header</span> <span class="nv">Host</span> $<span class="nv">host</span><span class="c1">;</span>
+        <span class="nv">proxy_cache</span> <span class="nv">cache</span><span class="c1">;</span>
 
-        <span class="err">#</span> <span class="err">Disable</span> <span class="err">cache</span> <span class="err">for</span> <span class="err">logged-in</span> <span class="err">users</span>
-        <span class="err">proxy_cache_bypass</span> <span class="err">$cookie_auth_tkt</span><span class="p">;</span>
-        <span class="err">proxy_no_cache</span> <span class="err">$cookie_auth_tkt</span><span class="p">;</span>
-        <span class="err">proxy_cache_valid</span> <span class="err">30m</span><span class="p">;</span>
-        <span class="err">proxy_cache_key</span> <span class="err">$host$scheme$proxy_host$request_uri</span><span class="p">;</span>
+        # <span class="nv">Disable</span> <span class="nv">cache</span> <span class="k">for</span> <span class="nv">logged</span><span class="o">-</span><span class="nv">in</span> <span class="nv">users</span>
+        <span class="nv">proxy_cache_bypass</span> <span class="mh">$c</span><span class="nv">ookie_auth_tkt</span><span class="c1">;</span>
+        <span class="nv">proxy_no_cache</span> <span class="mh">$c</span><span class="nv">ookie_auth_tkt</span><span class="c1">;</span>
+        <span class="nv">proxy_cache_valid</span> <span class="mi">30</span><span class="nv">m</span><span class="c1">;</span>
+        <span class="nv">proxy_cache_key</span> $<span class="nv">host</span>$<span class="nv">scheme</span>$<span class="nv">proxy_host</span>$<span class="nv">request_uri</span><span class="c1">;</span>
 
-        <span class="err">#</span> <span class="err">Ignore</span> <span class="err">apache</span> <span class="err">&quot;Cache-Control&quot;</span> <span class="err">header</span>
-        <span class="err">#</span> <span class="err">See</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">lists</span><span class="o">.</span><span class="n">okfn</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">pipermail</span><span class="o">/</span><span class="n">ckan-dev</span><span class="o">/</span><span class="mi">2016</span><span class="o">-</span><span class="n">March</span><span class="o">/</span><span class="mi">009864</span><span class="o">.</span><span class="n">html</span>
-        <span class="n">proxy_ignore_headers</span> <span class="n">Cache-Control</span><span class="p">;</span>
-        <span class="err">#</span> <span class="err">In</span> <span class="err">emergency</span> <span class="err">comment</span> <span class="err">out</span> <span class="err">line</span> <span class="err">to</span> <span class="err">force</span> <span class="err">caching</span>
-        <span class="err">#</span> <span class="err">proxy_ignore_headers</span> <span class="err">X-Accel-Expires</span> <span class="err">Expires</span><span class="p">;</span>
+        # <span class="nv">Ignore</span> <span class="nv">apache</span> <span class="s2">&quot;</span><span class="s">Cache-Control</span><span class="s2">&quot;</span> <span class="nv">header</span>
+        # <span class="nv">See</span> <span class="nv">https</span>:<span class="o">//</span><span class="nv">lists</span>.<span class="nv">okfn</span>.<span class="nv">org</span><span class="o">/</span><span class="nv">pipermail</span><span class="o">/</span><span class="nv">ckan</span><span class="o">-</span><span class="nv">dev</span><span class="o">/</span><span class="mi">2016</span><span class="o">-</span><span class="nv">March</span><span class="o">/</span><span class="mi">009864</span>.<span class="nv">html</span>
+        <span class="nv">proxy_ignore_headers</span> <span class="nv">Cache</span><span class="o">-</span><span class="nv">Control</span><span class="c1">;</span>
+        # <span class="nv">In</span> <span class="nv">emergency</span> <span class="nv">comment</span> <span class="nv">out</span> <span class="nv">line</span> <span class="nv">to</span> <span class="nv">force</span> <span class="nv">caching</span>
+        # <span class="nv">proxy_ignore_headers</span> <span class="nv">X</span><span class="o">-</span><span class="nv">Accel</span><span class="o">-</span><span class="nv">Expires</span> <span class="nv">Expires</span><span class="c1">;</span>
 
-        <span class="err">#</span> <span class="err">Show</span> <span class="err">cache</span> <span class="err">status</span>
-        <span class="err">add_header</span> <span class="err">X-Cache-Status</span> <span class="err">$upstream_cache_status</span><span class="p">;</span>
-    <span class="p">}</span>
+        # <span class="k">Show</span> <span class="nv">cache</span> <span class="nv">status</span>
+        <span class="nv">add_header</span> <span class="nv">X</span><span class="o">-</span><span class="nv">Cache</span><span class="o">-</span><span class="nv">Status</span> $<span class="nv">upstream_cache_status</span><span class="c1">;</span>
+    }
 
-    <span class="nt">location</span> <span class="o">/</span><span class="nt">meta</span><span class="o">/</span><span class="nt">cache</span><span class="o">/</span><span class="nt">purge</span> <span class="p">{</span>
-        <span class="err">allow</span>  <span class="err">192.168.0.0/16</span><span class="p">;</span>
-        <span class="err">allow</span>  <span class="err">172.16.0.0/12</span><span class="p">;</span>
-        <span class="err">allow</span>  <span class="err">10.0.0.0/8</span><span class="p">;</span>
-        <span class="err">allow</span>  <span class="err">127.0.0.1</span><span class="p">;</span>
-        <span class="err">deny</span>   <span class="err">all</span><span class="p">;</span>
-        <span class="err">if</span> <span class="err">($request_method</span> <span class="err">=</span> <span class="err">PURGE</span> <span class="err">)</span> <span class="err">{</span>
-            <span class="err">content_by_lua_block</span> <span class="err">{</span>
-                <span class="err">filename</span> <span class="err">=</span> <span class="err">&quot;/tmp/nginx_cache/&quot;</span>
-                <span class="err">local</span> <span class="err">f</span> <span class="err">=</span> <span class="err">io.open(filename,</span> <span class="err">&quot;r&quot;)</span>
-                <span class="err">if</span> <span class="err">(f~=nil)</span> <span class="err">then</span>
-                    <span class="err">io.close(f)</span>
-                    <span class="err">os.execute(&#39;rm</span> <span class="err">-rf</span> <span class="err">&quot;&#39;..filename..&#39;&quot;&#39;)</span>
-                <span class="err">end</span>
-                <span class="err">ngx.say(&quot;OK&quot;)</span>
-                <span class="err">ngx.exit(ngx.OK)</span>
-            <span class="p">}</span>
-        <span class="err">}</span>
-    <span class="err">}</span>
-<span class="err">}</span>
+    <span class="nv">location</span> <span class="o">/</span><span class="nv">meta</span><span class="o">/</span><span class="nv">cache</span><span class="o">/</span><span class="nv">purge</span> {
+        <span class="nv">allow</span>  <span class="mi">192</span>.<span class="mi">168</span>.<span class="mi">0</span>.<span class="mi">0</span><span class="o">/</span><span class="mi">16</span><span class="c1">;</span>
+        <span class="nv">allow</span>  <span class="mi">172</span>.<span class="mi">16</span>.<span class="mi">0</span>.<span class="mi">0</span><span class="o">/</span><span class="mi">12</span><span class="c1">;</span>
+        <span class="nv">allow</span>  <span class="mi">10</span>.<span class="mi">0</span>.<span class="mi">0</span>.<span class="mi">0</span><span class="o">/</span><span class="mi">8</span><span class="c1">;</span>
+        <span class="nv">allow</span>  <span class="mi">127</span>.<span class="mi">0</span>.<span class="mi">0</span>.<span class="mi">1</span><span class="c1">;</span>
+        <span class="nv">deny</span>   <span class="nv">all</span><span class="c1">;</span>
+        <span class="k">if</span> <span class="ss">(</span>$<span class="nv">request_method</span> <span class="o">=</span> <span class="nv">PURGE</span> <span class="ss">)</span> {
+            <span class="nv">content_by_lua_block</span> {
+                <span class="nv">filename</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="s">/tmp/nginx_cache/</span><span class="s2">&quot;</span>
+                <span class="nv">local</span> <span class="nv">f</span> <span class="o">=</span> <span class="nv">io</span>.<span class="nv">open</span><span class="ss">(</span><span class="nv">filename</span>, <span class="s2">&quot;</span><span class="s">r</span><span class="s2">&quot;</span><span class="ss">)</span>
+                <span class="k">if</span> <span class="ss">(</span><span class="nv">f</span><span class="o">~=</span><span class="nv">nil</span><span class="ss">)</span> <span class="k">then</span>
+                    <span class="nv">io</span>.<span class="nv">close</span><span class="ss">(</span><span class="nv">f</span><span class="ss">)</span>
+                    <span class="nv">os</span>.<span class="nv">execute</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">rm -rf &quot;</span><span class="s1">&#39;</span>..<span class="nv">filename</span>..<span class="s1">&#39;</span><span class="s">&quot;</span><span class="s1">&#39;</span><span class="ss">)</span>
+                <span class="k">end</span>
+                <span class="nv">ngx</span>.<span class="nv">say</span><span class="ss">(</span><span class="s2">&quot;</span><span class="s">OK</span><span class="s2">&quot;</span><span class="ss">)</span>
+                <span class="nv">ngx</span>.<span class="k">exit</span><span class="ss">(</span><span class="nv">ngx</span>.<span class="nv">OK</span><span class="ss">)</span>
+            }
+        }
+    }
+}
 </pre></div>
 
 
@@ -1897,10 +1914,10 @@ docker-compose -f latest.yml restart portal nginx
 
 
 <p>Si queremos probar la integración, podemos entrar al contenedor de andino y probar invalidar la caché:</p>
-<div class="codehilite"><pre><span></span><span class="nt">IP_INTERNA_CACHE</span><span class="o">=&lt;</span><span class="nt">ip</span> <span class="nt">interna</span> <span class="nt">del</span> <span class="nt">servidor</span> <span class="nt">de</span> <span class="nt">caché</span><span class="o">&gt;</span>
-<span class="nt">cd</span> <span class="o">/</span><span class="nt">etc</span><span class="o">/</span><span class="nt">portal</span>
-<span class="nt">docker-compose</span> <span class="nt">-f</span> <span class="nt">latest</span><span class="p">.</span><span class="nc">yml</span> <span class="nt">exec</span> <span class="nt">portal</span> <span class="nt">curl</span> <span class="nt">-X</span> <span class="nt">PURGE</span> <span class="s2">&quot;http://$IP_INTERNA_CACHE/meta/cache/purge&quot;</span><span class="o">;</span>
-<span class="err">#</span> <span class="o">=&gt;</span>  <span class="nt">OK</span>
+<div class="codehilite"><pre><span></span><span class="nv">IP_INTERNA_CACHE</span><span class="o">=&lt;</span><span class="nv">ip</span> <span class="nv">interna</span> <span class="nv">del</span> <span class="nv">servidor</span> <span class="nv">de</span> <span class="nv">cach</span>é<span class="o">&gt;</span>
+<span class="nv">cd</span> <span class="o">/</span><span class="nv">etc</span><span class="o">/</span><span class="nv">portal</span>
+<span class="nv">docker</span><span class="o">-</span><span class="nv">compose</span> <span class="o">-</span><span class="nv">f</span> <span class="nv">latest</span>.<span class="nv">yml</span> <span class="k">exec</span> <span class="nv">portal</span> <span class="nv">curl</span> <span class="o">-</span><span class="nv">X</span> <span class="nv">PURGE</span> <span class="s2">&quot;</span><span class="s">http://$IP_INTERNA_CACHE/meta/cache/purge</span><span class="s2">&quot;</span><span class="c1">;</span>
+# <span class="o">=&gt;</span>  <span class="nv">OK</span>
 </pre></div>
 
 
@@ -1936,8 +1953,11 @@ las demás URLs utilizadas deben estar en el <em>whitelist</em> de CORS de Andin
 <li>Agregar las URLs al <em>whitelist</em>: <code>docker-compose -f latest.yml exec portal /etc/ckan_init.d/update_conf.sh "ckan.cors.origin_whitelist=http://localhost:8080 http://127.0.0.1 http://127.0.0.1:8080"</code> (en el ejemplo se habilitan las URLs <code>http://localhost:8080</code>, <code>http://127.0.0.1</code> y <code>http://127.0.0.1:8080</code>).</li>
 </ol>
 <p>Luego reiniciá los contenedores <code>portal</code> y <code>nginx</code>: <code>docker-compose -f latest.yml restart nginx portal</code>.</p>
-<p>Si deseás habilitar <strong>todas</strong> las URLs para CORS (no recomendado), en el paso 1 debés pasar el valor <code>true</code> para 
-el atributo de configuración <code>ckan.cors.origin_allow_all</code>.</p>
+<p>Tené en cuenta que el script va a reemplazar las URLs existentes en el campo por lo que le pases por parámetro. Si hay 
+URLs que querés mantener en la configuración, buscalas con el siguiente comando y especificalas junto a las nuevas: 
+<code>docker-compose -f latest.yml exec portal bash -c 'grep "ckan.cors.origin_whitelist" /etc/ckan/default/production.ini'</code>.</p>
+<p>Si deseás habilitar <strong>todas</strong> las URLs para CORS (no recomendado por cuestiones de seguridad), en el paso 1 debés pasar 
+el valor <code>true</code> para el atributo de configuración <code>ckan.cors.origin_allow_all</code> e ignorar el paso 2.</p>
 <p>Para ver más acerca del funcionamiento de CORS en CKAN ver la 
 <a href="http://docs.ckan.org/en/ckan-2.7.3/maintaining/configuration.html#cors-settings">documentación oficial de CKAN (en inglés)</a>.</p>
 <h3 id="configuracion-del-explorador-de-series-de-tiempo">Configuración del explorador de series de tiempo</h3>
@@ -1946,11 +1966,11 @@ pero no se encuentra presente entre los plugins activos.
 Para activarlo, debemos entrar al contenedor de andino, editar el archivo <code>/etc/ckan/default/production.ini</code> y agregar
 el <code>seriestiempoarexplorer</code> a la lista de plugins.
 Luego de agregarlo, debemos reinicar el servidor.</p>
-<div class="codehilite"><pre><span></span>cd /etc/portal
-docker-compose -f latest.yml exec portal bash;
-vim /etc/ckan/default/production.ini
+<div class="codehilite"><pre><span></span><span class="nv">cd</span> <span class="o">/</span><span class="nv">etc</span><span class="o">/</span><span class="nv">portal</span>
+<span class="nv">docker</span><span class="o">-</span><span class="nv">compose</span> <span class="o">-</span><span class="nv">f</span> <span class="nv">latest</span>.<span class="nv">yml</span> <span class="k">exec</span> <span class="nv">portal</span> <span class="nv">bash</span><span class="c1">;</span>
+<span class="nv">vim</span> <span class="o">/</span><span class="nv">etc</span><span class="o">/</span><span class="nv">ckan</span><span class="o">/</span><span class="nv">default</span><span class="o">/</span><span class="nv">production</span>.<span class="nv">ini</span>
 # ...
-apachectl restart
+<span class="nv">apachectl</span> <span class="nv">restart</span>
 </pre></div>
 
 
@@ -1958,26 +1978,26 @@ apachectl restart
  "Otras secciones del portal".</p>
 <h2 id="acceso-a-los-datos-de-andino">Acceso a los datos de andino</h2>
 <h3 id="encontrar-los-volumenes-de-mi-andino-dentro-del-filesystem-del-host">Encontrar los volúmenes de mi andino dentro del filesystem del host</h3>
-<div class="codehilite"><pre><span></span><span class="x">docker-compose -f latest.yml ps -q andino solr db | xargs -n 1 | while read container; do docker inspect -f &#39; </span><span class="cp">{{</span><span class="nv">.Name</span><span class="cp">}}</span><span class="x">: </span><span class="cp">{{</span><span class="nv">range</span> <span class="nv">.Mounts</span><span class="cp">}}{{</span><span class="nv">.Source</span><span class="cp">}}</span><span class="x">: </span><span class="cp">{{</span><span class="nv">.Destination</span><span class="cp">}}</span><span class="x">  </span><span class="cp">{{</span><span class="nv">end</span><span class="cp">}}</span><span class="x"> &#39; $container; done</span>
+<div class="codehilite"><pre><span></span><span class="nv">docker</span><span class="o">-</span><span class="nv">compose</span> <span class="o">-</span><span class="nv">f</span> <span class="nv">latest</span>.<span class="nv">yml</span> <span class="nv">ps</span> <span class="o">-</span><span class="nv">q</span> <span class="nv">andino</span> <span class="nv">solr</span> <span class="nv">db</span> <span class="o">|</span> <span class="nv">xargs</span> <span class="o">-</span><span class="nv">n</span> <span class="mi">1</span> <span class="o">|</span> <span class="k">while</span> <span class="nv">read</span> <span class="nv">container</span><span class="c1">; do docker inspect -f &#39; {{.Name}}: {{range .Mounts}}{{.Source}}: {{.Destination}}  {{end}} &#39; $container; done</span>
 </pre></div>
 
 
 <p>Ver <a href="#utilizacion-del-archivo-latest.yml-en-los-comandos-de-docker-compose">la sección sobre la utilización del archivo latest.yml en los comandos de docker-compose</a>.</p>
 <h3 id="ver-las-direcciones-ip-de-mis-contenedores">Ver las direcciones IP de mis contenedores</h3>
-<div class="codehilite"><pre><span></span><span class="x">docker-compose -f latest.yml ps -q andino solr db | xargs -n 1 | while read container; do docker inspect -f &#39;</span><span class="cp">{{</span><span class="nv">.Name</span><span class="cp">}}</span><span class="x">: </span><span class="cp">{{</span><span class="nv">range</span> <span class="nv">.NetworkSettings.Networks</span><span class="cp">}}{{</span><span class="nv">.IPAddress</span><span class="cp">}}{{</span><span class="nv">end</span><span class="cp">}}</span><span class="x">&#39; $container; done</span>
+<div class="codehilite"><pre><span></span><span class="nv">docker</span><span class="o">-</span><span class="nv">compose</span> <span class="o">-</span><span class="nv">f</span> <span class="nv">latest</span>.<span class="nv">yml</span> <span class="nv">ps</span> <span class="o">-</span><span class="nv">q</span> <span class="nv">andino</span> <span class="nv">solr</span> <span class="nv">db</span> <span class="o">|</span> <span class="nv">xargs</span> <span class="o">-</span><span class="nv">n</span> <span class="mi">1</span> <span class="o">|</span> <span class="k">while</span> <span class="nv">read</span> <span class="nv">container</span><span class="c1">; do docker inspect -f &#39;{{.Name}}: {{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}&#39; $container; done</span>
 </pre></div>
 
 
 <h3 id="ver-las-variables-de-entorno-que-tienen-mis-contenedores">Ver las variables de entorno que tienen mis contenedores</h3>
-<div class="codehilite"><pre><span></span><span class="x">docker-compose -f latest.yml ps -q andino solr db | xargs -n 1 | while read container; do docker inspect -f &#39;</span><span class="cp">{{</span><span class="nv">range</span> <span class="err">$</span><span class="nv">index</span><span class="o">,</span> <span class="err">$</span><span class="nv">value</span> <span class="o">:=</span> <span class="nv">.Config.Env</span><span class="cp">}}</span><span class="x">export </span><span class="cp">{{</span><span class="err">$</span><span class="nv">value</span><span class="cp">}}{{</span><span class="nv">println</span><span class="cp">}}{{</span><span class="nv">end</span><span class="cp">}}</span><span class="x">&#39; $container; done</span>
+<div class="codehilite"><pre><span></span><span class="nv">docker</span><span class="o">-</span><span class="nv">compose</span> <span class="o">-</span><span class="nv">f</span> <span class="nv">latest</span>.<span class="nv">yml</span> <span class="nv">ps</span> <span class="o">-</span><span class="nv">q</span> <span class="nv">andino</span> <span class="nv">solr</span> <span class="nv">db</span> <span class="o">|</span> <span class="nv">xargs</span> <span class="o">-</span><span class="nv">n</span> <span class="mi">1</span> <span class="o">|</span> <span class="k">while</span> <span class="nv">read</span> <span class="nv">container</span><span class="c1">; do docker inspect -f &#39;{{range $index, $value := .Config.Env}}export {{$value}}{{println}}{{end}}&#39; $container; done</span>
 </pre></div>
 
 
 <p>Ver <a href="#utilizacion-del-archivo-latest.yml-en-los-comandos-de-docker-compose">la sección sobre la utilización del archivo latest.yml en los comandos de docker-compose</a>.</p>
 <h3 id="acceder-con-un-cliente-de-postgresql-a-las-bases-de-datos">Acceder con un cliente de PostgreSQL a las bases de datos</h3>
-<div class="codehilite"><pre><span></span>docker-compose -f dev.yml exec db psql -U postgres
-# psql \c ckan db default CKAN
-# psql \c datastore_default db datastore CKAN
+<div class="codehilite"><pre><span></span><span class="nv">docker</span><span class="o">-</span><span class="nv">compose</span> <span class="o">-</span><span class="nv">f</span> <span class="nv">dev</span>.<span class="nv">yml</span> <span class="k">exec</span> <span class="nv">db</span> <span class="nv">psql</span> <span class="o">-</span><span class="nv">U</span> <span class="nv">postgres</span>
+# <span class="nv">psql</span> \<span class="nv">c</span> <span class="nv">ckan</span> <span class="nv">db</span> <span class="nv">default</span> <span class="nv">CKAN</span>
+# <span class="nv">psql</span> \<span class="nv">c</span> <span class="nv">datastore_default</span> <span class="nv">db</span> <span class="nv">datastore</span> <span class="nv">CKAN</span>
 </pre></div>
 
 
@@ -1985,17 +2005,17 @@ apachectl restart
 <p>Es bien sabido que, dentro de CKAN, cada vez que borranmos algun elemento, en verdad no se borra, sino que pasa a estar 
 inactivo; por lo tanto, tener alguna forma de eliminar elementos de manera definitiva resulta altamente necesario.</p>
 <h3 id="purgar-organizaciones-borradas">Purgar Organizaciones Borradas</h3>
-<div class="codehilite"><pre><span></span>curl -X POST http://tu-host/api/3/action/organization_purge -H &quot;Authorization:tu-api-key&quot; -F id=id-o-nombre-que-se-desea-borrar
+<div class="codehilite"><pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">X</span> <span class="n">POST</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">tu</span><span class="o">-</span><span class="k">host</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="mi">3</span><span class="o">/</span><span class="n">action</span><span class="o">/</span><span class="n">organization_purge</span> <span class="o">-</span><span class="n">H</span> <span class="ss">&quot;Authorization:tu-api-key&quot;</span> <span class="o">-</span><span class="n">F</span> <span class="n">id</span><span class="o">=</span><span class="n">id</span><span class="o">-</span><span class="n">o</span><span class="o">-</span><span class="n">nombre</span><span class="o">-</span><span class="n">que</span><span class="o">-</span><span class="n">se</span><span class="o">-</span><span class="n">desea</span><span class="o">-</span><span class="n">borrar</span>
 </pre></div>
 
 
 <h3 id="purgar-grupos-borrados">Purgar Grupos Borrados</h3>
-<div class="codehilite"><pre><span></span>curl -X POST http://tu-host/api/3/action/group_purge -H &quot;Authorization:tu-api-key&quot; -F id=id-o-nombre-que-se-desea-borrar
+<div class="codehilite"><pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">X</span> <span class="n">POST</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">tu</span><span class="o">-</span><span class="k">host</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="mi">3</span><span class="o">/</span><span class="n">action</span><span class="o">/</span><span class="n">group_purge</span> <span class="o">-</span><span class="n">H</span> <span class="ss">&quot;Authorization:tu-api-key&quot;</span> <span class="o">-</span><span class="n">F</span> <span class="n">id</span><span class="o">=</span><span class="n">id</span><span class="o">-</span><span class="n">o</span><span class="o">-</span><span class="n">nombre</span><span class="o">-</span><span class="n">que</span><span class="o">-</span><span class="n">se</span><span class="o">-</span><span class="n">desea</span><span class="o">-</span><span class="n">borrar</span>
 </pre></div>
 
 
 <h3 id="purgar-datasets-borrados">Purgar Datasets Borrados</h3>
-<div class="codehilite"><pre><span></span>curl -X POST http://tu-host/api/3/action/dataset_purge -H &quot;Authorization:tu-api-key&quot; -F id=id-o-nombre-que-se-desea-borrar
+<div class="codehilite"><pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">X</span> <span class="n">POST</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">tu</span><span class="o">-</span><span class="k">host</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="mi">3</span><span class="o">/</span><span class="n">action</span><span class="o">/</span><span class="n">dataset_purge</span> <span class="o">-</span><span class="n">H</span> <span class="ss">&quot;Authorization:tu-api-key&quot;</span> <span class="o">-</span><span class="n">F</span> <span class="n">id</span><span class="o">=</span><span class="n">id</span><span class="o">-</span><span class="n">o</span><span class="o">-</span><span class="n">nombre</span><span class="o">-</span><span class="n">que</span><span class="o">-</span><span class="n">se</span><span class="o">-</span><span class="n">desea</span><span class="o">-</span><span class="n">borrar</span>
 </pre></div>
 
 
@@ -2010,44 +2030,44 @@ inactivo; por lo tanto, tener alguna forma de eliminar elementos de manera defin
 archivos de configuración y subidos por los usuarios.</p>
 <h3 id="backup-de-la-base-de-datos">Backup de la base de datos</h3>
 <p>Un ejemplo fácil de hacer un backup de la base de datos sería:</p>
-<div class="codehilite"><pre><span></span>container=$(docker-compose -f latest.yml ps -q db)
-today=`date +%Y-%m-%d.%H:%M:%S`
-filename=&quot;backup-$today.gz&quot;
+<div class="codehilite"><pre><span></span><span class="nv">container</span><span class="o">=</span>$<span class="ss">(</span><span class="nv">docker</span><span class="o">-</span><span class="nv">compose</span> <span class="o">-</span><span class="nv">f</span> <span class="nv">latest</span>.<span class="nv">yml</span> <span class="nv">ps</span> <span class="o">-</span><span class="nv">q</span> <span class="nv">db</span><span class="ss">)</span>
+<span class="nv">today</span><span class="o">=</span>`<span class="nv">date</span> <span class="o">+%</span><span class="nv">Y</span><span class="o">-%</span><span class="nv">m</span><span class="o">-%</span><span class="nv">d</span>.<span class="o">%</span><span class="nv">H</span>:<span class="o">%</span><span class="nv">M</span>:<span class="o">%</span><span class="nv">S</span>`
+<span class="nv">filename</span><span class="o">=</span><span class="s2">&quot;</span><span class="s">backup-$today.gz</span><span class="s2">&quot;</span>
 
-# Creo un directorio temporal y defino dónde generaré el backup
-backupdir=$(mktemp -d)
-backupfile=&quot;$backupdir/$filename&quot;
+# <span class="nv">Creo</span> <span class="nv">un</span> <span class="nv">directorio</span> <span class="nv">temporal</span> <span class="nv">y</span> <span class="nv">defino</span> <span class="nv">d</span>ó<span class="nv">nde</span> <span class="nv">generar</span>é <span class="nv">el</span> <span class="nv">backup</span>
+<span class="nv">backupdir</span><span class="o">=</span>$<span class="ss">(</span><span class="nv">mktemp</span> <span class="o">-</span><span class="nv">d</span><span class="ss">)</span>
+<span class="nv">backupfile</span><span class="o">=</span><span class="s2">&quot;</span><span class="s">$backupdir/$filename</span><span class="s2">&quot;</span>
 
-# Exporto la base de datos
-docker exec $container pg_dumpall -c -U postgres | gzip &gt; &quot;$backupfile&quot;
+# <span class="nv">Exporto</span> <span class="nv">la</span> <span class="nv">base</span> <span class="nv">de</span> <span class="nv">datos</span>
+<span class="nv">docker</span> <span class="k">exec</span> <span class="mh">$c</span><span class="nv">ontainer</span> <span class="nv">pg_dumpall</span> <span class="o">-</span><span class="nv">c</span> <span class="o">-</span><span class="nv">U</span> <span class="nv">postgres</span> <span class="o">|</span> <span class="nv">gzip</span> <span class="o">&gt;</span> <span class="s2">&quot;</span><span class="s">$backupfile</span><span class="s2">&quot;</span>
 
-# Copio el archivo al directorio actual y borro el original
-# Podría reemplazar $PWD con mi directorio de backups, como /etc/portal/backups
-mv &quot;$backupfile&quot; $PWD
+# <span class="nv">Copio</span> <span class="nv">el</span> <span class="nv">archivo</span> <span class="nv">al</span> <span class="nv">directorio</span> <span class="nv">actual</span> <span class="nv">y</span> <span class="nv">borro</span> <span class="nv">el</span> <span class="nv">original</span>
+# <span class="nv">Podr</span>í<span class="nv">a</span> <span class="nv">reemplazar</span> $<span class="nv">PWD</span> <span class="nv">con</span> <span class="nv">mi</span> <span class="nv">directorio</span> <span class="nv">de</span> <span class="nv">backups</span>, <span class="nv">como</span> <span class="o">/</span><span class="nv">etc</span><span class="o">/</span><span class="nv">portal</span><span class="o">/</span><span class="nv">backups</span>
+<span class="nv">mv</span> <span class="s2">&quot;</span><span class="s">$backupfile</span><span class="s2">&quot;</span> $<span class="nv">PWD</span>
 </pre></div>
 
 
 <p>Y para los demás archivos de la aplicación (requiere <a href="https://stedolan.github.io/jq/"><code>jq</code></a>):</p>
-<div class="codehilite"><pre><span></span><span class="x">backupdir=$(mktemp -d)</span>
-<span class="x">today=`date +%Y-%m-%d.%H:%M:%S`</span>
-<span class="x">appbackupdir=&quot;$backupdir/application/&quot;</span>
-<span class="x">mkdir $appbackupdir</span>
-<span class="x">container=$(docker-compose -f latest.yml ps -q portal)</span>
+<div class="codehilite"><pre><span></span><span class="nv">backupdir</span><span class="o">=</span>$<span class="ss">(</span><span class="nv">mktemp</span> <span class="o">-</span><span class="nv">d</span><span class="ss">)</span>
+<span class="nv">today</span><span class="o">=</span>`<span class="nv">date</span> <span class="o">+%</span><span class="nv">Y</span><span class="o">-%</span><span class="nv">m</span><span class="o">-%</span><span class="nv">d</span>.<span class="o">%</span><span class="nv">H</span>:<span class="o">%</span><span class="nv">M</span>:<span class="o">%</span><span class="nv">S</span>`
+<span class="nv">appbackupdir</span><span class="o">=</span><span class="s2">&quot;</span><span class="s">$backupdir/application/</span><span class="s2">&quot;</span>
+<span class="nv">mkdir</span> <span class="mh">$a</span><span class="nv">ppbackupdir</span>
+<span class="nv">container</span><span class="o">=</span>$<span class="ss">(</span><span class="nv">docker</span><span class="o">-</span><span class="nv">compose</span> <span class="o">-</span><span class="nv">f</span> <span class="nv">latest</span>.<span class="nv">yml</span> <span class="nv">ps</span> <span class="o">-</span><span class="nv">q</span> <span class="nv">portal</span><span class="ss">)</span>
 
-<span class="x">docker inspect --format &#39;</span><span class="cp">{{</span><span class="nv">json</span> <span class="nv">.Mounts</span><span class="cp">}}</span><span class="x">&#39; $container  | jq -r &#39;.[]|[.Name, .Source, .Destination] | @tsv&#39; |</span>
-<span class="x">while IFS=$&#39;\t&#39; read -r name source destination; do</span>
+<span class="nv">docker</span> <span class="nv">inspect</span> <span class="o">--</span><span class="nv">format</span> <span class="s1">&#39;</span><span class="s">{{json .Mounts}}</span><span class="s1">&#39;</span> <span class="mh">$c</span><span class="nv">ontainer</span>  <span class="o">|</span> <span class="nv">jq</span> <span class="o">-</span><span class="nv">r</span> <span class="s1">&#39;</span><span class="s">.[]|[.Name, .Source, .Destination] | @tsv</span><span class="s1">&#39;</span> <span class="o">|</span>
+<span class="k">while</span> <span class="nv">IFS</span><span class="o">=</span>$<span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span> <span class="nv">read</span> <span class="o">-</span><span class="nv">r</span> <span class="nv">name</span> <span class="nv">source</span> <span class="nv">destination</span><span class="c1">; do</span>
 
-<span class="x">    if ls $source/* 1&gt; /dev/null 2&gt;&amp;1; then</span>
-<span class="x">        dest=&quot;$appbackupdir$name&quot;</span>
-<span class="x">        mkdir -p $dest</span>
+    <span class="k">if</span> <span class="nv">ls</span> $<span class="nv">source</span><span class="cm">/* 1&gt; /dev/null 2&gt;&amp;1; then</span>
+<span class="cm">        dest=&quot;$appbackupdir$name&quot;</span>
+<span class="cm">        mkdir -p $dest</span>
 
-<span class="x">        tar -C &quot;$source&quot; -zcvf &quot;$dest/backup_$today.tar.gz&quot; $(ls $source)</span>
-<span class="x">    else</span>
-<span class="x">        echo &quot;No file at $source&quot;</span>
-<span class="x">    fi</span>
-<span class="x">done</span>
+<span class="cm">        tar -C &quot;$source&quot; -zcvf &quot;$dest/backup_$today.tar.gz&quot; $(ls $source)</span>
+<span class="cm">    else</span>
+<span class="cm">        echo &quot;No file at $source&quot;</span>
+<span class="cm">    fi</span>
+<span class="cm">done</span>
 
-<span class="x">tar -C &quot;$appbackupdir../&quot; -zcvf backup.tar.gz &quot;application/&quot;</span>
+<span class="cm">tar -C &quot;$appbackupdir../&quot; -zcvf backup.tar.gz &quot;application/&quot;</span>
 </pre></div>
 
 
@@ -2056,25 +2076,25 @@ mv &quot;$backupfile&quot; $PWD
 <p>Para correr el script cada domingo, podríamos usar la configuración <code>0 0 * * 0</code> 
 (ver <a href="https://help.ubuntu.com/community/CronHowto">cron</a> para más información), 
 correr el comando <code>crontab -e</code> y agregar la línea:</p>
-<div class="codehilite"><pre><span></span>0 0 * * 0 cd /etc/portal/ &amp;&amp; bash /etc/portal/backup.sh
+<div class="codehilite"><pre><span></span><span class="mi">0</span> <span class="mi">0</span> <span class="o">*</span> <span class="o">*</span> <span class="mi">0</span> <span class="n">cd</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">portal</span><span class="o">/</span> <span class="o">&amp;&amp;</span> <span class="n">bash</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">portal</span><span class="o">/</span><span class="n">backup</span><span class="p">.</span><span class="n">sh</span>
 </pre></div>
 
 
 <h3 id="realizar-un-backup-del-file-system">Realizar un backup del file system</h3>
-<div class="codehilite"><pre><span></span><span class="x"># Exporto el path al almacenamiento del volumen</span>
-<span class="x">export CKAN_FS_STORAGE=$(docker inspect --format &#39;</span><span class="cp">{{</span> <span class="nv">range</span> <span class="nv">.Mounts</span> <span class="cp">}}{{</span> <span class="k">if</span> <span class="nv">eq</span> <span class="nv">.Destination</span> <span class="s2">&quot;/var/lib/ckan&quot;</span> <span class="cp">}}{{</span> <span class="nv">.Source</span> <span class="cp">}}{{</span> <span class="nv">end</span> <span class="cp">}}{{</span> <span class="nv">end</span> <span class="cp">}}</span><span class="x">&#39; andino)</span>
+<div class="codehilite"><pre><span></span># <span class="nv">Exporto</span> <span class="nv">el</span> <span class="nv">path</span> <span class="nv">al</span> <span class="nv">almacenamiento</span> <span class="nv">del</span> <span class="nv">volumen</span>
+<span class="nv">export</span> <span class="nv">CKAN_FS_STORAGE</span><span class="o">=</span>$<span class="ss">(</span><span class="nv">docker</span> <span class="nv">inspect</span> <span class="o">--</span><span class="nv">format</span> <span class="s1">&#39;</span><span class="s">{{ range .Mounts }}{{ if eq .Destination &quot;/var/lib/ckan&quot; }}{{ .Source }}{{ end }}{{ end }}</span><span class="s1">&#39;</span> <span class="nv">andino</span><span class="ss">)</span>
 
-<span class="x"># Creo un tar.gz con la info.</span>
-<span class="x">tar -C &quot;$(dirname &quot;$CKAN_FS_STORAGE&quot;)&quot; -zcvf /ruta/para/guardar/mis/bkps/mi_andino.fs-data_$(date +%F).tar.gz &quot;$(basename &quot;$CKAN_FS_STORAGE&quot;)&quot;</span>
+# <span class="nv">Creo</span> <span class="nv">un</span> <span class="nv">tar</span>.<span class="nv">gz</span> <span class="nv">con</span> <span class="nv">la</span> <span class="nv">info</span>.
+<span class="nv">tar</span> <span class="o">-</span><span class="nv">C</span> <span class="s2">&quot;</span><span class="s">$(dirname </span><span class="s2">&quot;</span><span class="mh">$C</span><span class="nv">KAN_FS_STORAGE</span><span class="s2">&quot;</span><span class="s">)</span><span class="s2">&quot;</span> <span class="o">-</span><span class="nv">zcvf</span> <span class="o">/</span><span class="nv">ruta</span><span class="o">/</span><span class="nv">para</span><span class="o">/</span><span class="nv">guardar</span><span class="o">/</span><span class="nv">mis</span><span class="o">/</span><span class="nv">bkps</span><span class="o">/</span><span class="nv">mi_andino</span>.<span class="nv">fs</span><span class="o">-</span><span class="nv">data_</span>$<span class="ss">(</span><span class="nv">date</span> <span class="o">+%</span><span class="nv">F</span><span class="ss">)</span>.<span class="nv">tar</span>.<span class="nv">gz</span> <span class="s2">&quot;</span><span class="s">$(basename </span><span class="s2">&quot;</span><span class="mh">$C</span><span class="nv">KAN_FS_STORAGE</span><span class="s2">&quot;</span><span class="s">)</span><span class="s2">&quot;</span>
 </pre></div>
 
 
 <h3 id="realizar-un-backup-de-la-configuracion">Realizar un backup de la configuración</h3>
-<div class="codehilite"><pre><span></span><span class="x"># Exporto el path al almacenamiento del volumen</span>
-<span class="x">export ANDINO_CONFIG=$(docker inspect --format &#39;</span><span class="cp">{{</span> <span class="nv">range</span> <span class="nv">.Mounts</span> <span class="cp">}}{{</span> <span class="k">if</span> <span class="nv">eq</span> <span class="nv">.Destination</span> <span class="s2">&quot;/etc/ckan/default&quot;</span> <span class="cp">}}{{</span> <span class="nv">.Source</span> <span class="cp">}}{{</span> <span class="nv">end</span> <span class="cp">}}{{</span> <span class="nv">end</span> <span class="cp">}}</span><span class="x">&#39; andino)</span>
+<div class="codehilite"><pre><span></span># <span class="nv">Exporto</span> <span class="nv">el</span> <span class="nv">path</span> <span class="nv">al</span> <span class="nv">almacenamiento</span> <span class="nv">del</span> <span class="nv">volumen</span>
+<span class="nv">export</span> <span class="nv">ANDINO_CONFIG</span><span class="o">=</span>$<span class="ss">(</span><span class="nv">docker</span> <span class="nv">inspect</span> <span class="o">--</span><span class="nv">format</span> <span class="s1">&#39;</span><span class="s">{{ range .Mounts }}{{ if eq .Destination &quot;/etc/ckan/default&quot; }}{{ .Source }}{{ end }}{{ end }}</span><span class="s1">&#39;</span> <span class="nv">andino</span><span class="ss">)</span>
 
-<span class="x"># Creo un tar.gz con la info.</span>
-<span class="x">tar -C &quot;$(dirname &quot;$ANDINO_CONFIG&quot;)&quot; -zcvf /ruta/para/guardar/mis/bkps/mi_andino.config-data_$(date +%F).tar.gz &quot;$(basename &quot;$ANDINO_CONFIG&quot;)&quot;</span>
+# <span class="nv">Creo</span> <span class="nv">un</span> <span class="nv">tar</span>.<span class="nv">gz</span> <span class="nv">con</span> <span class="nv">la</span> <span class="nv">info</span>.
+<span class="nv">tar</span> <span class="o">-</span><span class="nv">C</span> <span class="s2">&quot;</span><span class="s">$(dirname </span><span class="s2">&quot;</span><span class="mh">$A</span><span class="nv">NDINO_CONFIG</span><span class="s2">&quot;</span><span class="s">)</span><span class="s2">&quot;</span> <span class="o">-</span><span class="nv">zcvf</span> <span class="o">/</span><span class="nv">ruta</span><span class="o">/</span><span class="nv">para</span><span class="o">/</span><span class="nv">guardar</span><span class="o">/</span><span class="nv">mis</span><span class="o">/</span><span class="nv">bkps</span><span class="o">/</span><span class="nv">mi_andino</span>.<span class="nv">config</span><span class="o">-</span><span class="nv">data_</span>$<span class="ss">(</span><span class="nv">date</span> <span class="o">+%</span><span class="nv">F</span><span class="ss">)</span>.<span class="nv">tar</span>.<span class="nv">gz</span> <span class="s2">&quot;</span><span class="s">$(basename </span><span class="s2">&quot;</span><span class="mh">$A</span><span class="nv">NDINO_CONFIG</span><span class="s2">&quot;</span><span class="s">)</span><span class="s2">&quot;</span>
 </pre></div>
 
 
@@ -2082,12 +2102,12 @@ correr el comando <code>crontab -e</code> y agregar la línea:</p>
 <p>Deben ser corridos en el directorio de instalación de Andino.</p>
 <h3 id="subir-todos-los-recursos-al-datastore">Subir todos los recursos al Datastore</h3>
 <p>Es posible que existan recursos que no hayan sido subidos al Datastore. Para buscar e intentar subir dichos recursos, ejecutar:</p>
-<div class="codehilite"><pre><span></span>docker-compose -f latest.yml exec portal /usr/lib/ckan/default/bin/paster --plugin=ckan datapusher submit_all -c /etc/ckan/default/production.ini
+<div class="codehilite"><pre><span></span><span class="nv">docker</span><span class="o">-</span><span class="nv">compose</span> <span class="o">-</span><span class="nv">f</span> <span class="nv">latest</span>.<span class="nv">yml</span> <span class="k">exec</span> <span class="nv">portal</span> <span class="o">/</span><span class="nv">usr</span><span class="o">/</span><span class="nv">lib</span><span class="o">/</span><span class="nv">ckan</span><span class="o">/</span><span class="nv">default</span><span class="o">/</span><span class="nv">bin</span><span class="o">/</span><span class="nv">paster</span> <span class="o">--</span><span class="nv">plugin</span><span class="o">=</span><span class="nv">ckan</span> <span class="nv">datapusher</span> <span class="nv">submit_all</span> <span class="o">-</span><span class="nv">c</span> <span class="o">/</span><span class="nv">etc</span><span class="o">/</span><span class="nv">ckan</span><span class="o">/</span><span class="nv">default</span><span class="o">/</span><span class="nv">production</span>.<span class="nv">ini</span>
 </pre></div>
 
 
 <p>Se preguntará si se desea proceder. Al escribir que sí (<code>y</code>), iniciar la subida de recursos. Para cada uno de ellos, se escribirá su id y luego el status: si subió correctamente, aparecerá "<em>OK</em>"; en caso contrario, "<em>FAIL</em>".</p>
-<h2 id="recomendaciones-de-seguridad-y-optimizaciones">Recomendaciones de Seguridad y Optimizaciones</h2>
+<h2 id="seguridad">Seguridad</h2>
 <p>Mantener seguro un servidor web puede ser una tarea ardua, pero sobre todo es <em>constante</em>, ya que <em>constantemente</em> 
 se detectan nuevas vulnerabilidades en los distintos softwares.
 Y un servidor web no es la excepción!
@@ -2100,6 +2120,14 @@ recomendado (a la fecha), para correr la aplicación.</p>
 Es altamente recomendable usar HTTPS, para mantener la privacidad de los usuarios.
 El portal de documentación para desarrolladores de Google provee buena información sobre esto:
 https://developers.google.com/web/fundamentals/security/encrypt-in-transit/why-https</p>
+<h3 id="plugin-ckanext-security">Plugin ckanext-security</h3>
+<p>Para las versiones 2.5.7 en adelante, existe un plugin para mejorar la seguridad de CKAN que se puede encontrar 
+<a href="https://github.com/data-govt-nz/ckanext-security">en github</a>. Para su utilización, es necesario el uso de 
+certificados SSL, ya sea en Andino mismo (teniendo <em>https</em> en el campo <code>site_url</code> de la configuración del portal) o 
+mediante un reverse proxy.</p>
+<p>Para este plugin existen dos scripts, los cuales se pueden encontrar en el directorio <code>/etc/ckan_init.d/security</code> 
+dentro del contenedor de Andino; uno para activarlo (<code>enable_ckanext_security.sh</code>) y otro para desactivarlo 
+(<code>disable_ckanext_security.sh</code>). Sólo se necesita ejecutar el que se necesite y reiniciar apache.</p>
 <h3 id="sistema-y-librerias">Sistema y librerías</h3>
 <p>Es <em>altamente recomendable</em> mantener el sistema operativo y las aplicaciones que usemos actualizadas. 
 Constantemente se están subiendo <em>fixes</em> de seguridad y posibles intrusos podrían aprovechar que las aplicaciones 
@@ -2130,12 +2158,12 @@ La recomendacion es usar <code>journald</code> y configurarlo para que los logs 
 <p>Dentro del normal funcionamiento de la plataforma, se genera una gran cantidad de logs, los cuales, ante un incidencia, 
 son sumamente útiles. Pero, luego de un tiempo, y sabiendo que los mismos se almacenan internamente en Andino, podría 
 ser necesario eliminarlos.</p>
-<div class="codehilite"><pre><span></span>sudo su -c &quot;ls  /var/lib/docker/containers/ | xargs -n1 | while read docker_id; do truncate -s 0 /var/lib/docker/containers/<span class="cp">${</span><span class="n">docker_id</span><span class="o">%/*</span><span class="cp">}</span>/<span class="cp">${</span><span class="n">docker_id</span><span class="o">%/*</span><span class="cp">}</span>-json.log; done&quot;
+<div class="codehilite"><pre><span></span><span class="nv">sudo</span> <span class="nv">su</span> <span class="o">-</span><span class="nv">c</span> <span class="s2">&quot;</span><span class="s">ls  /var/lib/docker/containers/ | xargs -n1 | while read docker_id; do truncate -s 0 /var/lib/docker/containers/${docker_id%/*}/${docker_id%/*}-json.log; done</span><span class="s2">&quot;</span>
 </pre></div>
 
 
 <h3 id="eliminar-logs-dentro-de-andino">Eliminar logs dentro de Andino</h3>
-<div class="codehilite"><pre><span></span>docker-compose -f latest.yml exec portal truncate -s 0 /var/log/apache2/*.log
+<div class="codehilite"><pre><span></span><span class="nv">docker</span><span class="o">-</span><span class="nv">compose</span> <span class="o">-</span><span class="nv">f</span> <span class="nv">latest</span>.<span class="nv">yml</span> <span class="k">exec</span> <span class="nv">portal</span> <span class="nv">truncate</span> <span class="o">-</span><span class="nv">s</span> <span class="mi">0</span> <span class="o">/</span><span class="nv">var</span><span class="o">/</span><span class="nv">log</span><span class="o">/</span><span class="nv">apache2</span><span class="cm">/*.log</span>
 </pre></div>
 
 
@@ -2209,7 +2237,7 @@ ser necesario eliminarlos.</p>
       
     </div>
     
-      <script src="../../assets/javascripts/application.dc02f8ce.js"></script>
+      <script src="../../assets/javascripts/application.245445c6.js"></script>
       
         
         

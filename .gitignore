@@ -97,3 +97,11 @@ ENV/
 .vagrant/
 .rbenv-gemset
 wrks/*
+
+docs/assets/\.DS_Store
+
+docs/assets/images/\.DS_Store
+
+docs/partials/\.DS_Store
+
+docs/partials/language/\.DS_Store
