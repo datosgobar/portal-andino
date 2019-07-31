@@ -79,15 +79,15 @@ También podés [ver el repositorio del tema visual](https://github.com/datosgob
 
 ## Instalación
 
-Ver documentación de [instalación](http://portal-andino.readthedocs.io/es/stable/developers/install/)
+Ver documentación de [instalación](https://datosgobar.github.io/portal-andino/developers/install/)
 
 ## Migración
 
-Ver documentación de [migración](http://portal-andino.readthedocs.io/es/stable/developers/migration/)
+Ver documentación de [migración](https://datosgobar.github.io/portal-andino/developers/migration/)
 
 ## Uso
 
-Ver la documentacion de [uso](http://portal-andino.readthedocs.io/es/stable/developers/maintenance/)
+Ver la documentacion de [uso](https://datosgobar.github.io/portal-andino/developers/maintenance/)
 
 
 ## Créditos
