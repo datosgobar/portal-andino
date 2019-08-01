@@ -208,6 +208,7 @@ class Updater(InstallationManager):
         if crontab_content:
             self.restore_cron_jobs(crontab_content)
         self.update_configuration_file()
+        self.apply_additional_configurations()
         self.restart_apps()
         self.ping_nginx_until_200_response_or_timeout()
         self.restart_workers()
