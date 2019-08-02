@@ -95,6 +95,7 @@ class Installer(InstallationManager):
         self.configure_theme_volume()
         self.update_configuration_file()
         self.correct_ckan_public_files_permissions()
+        self.apply_additional_configurations()
         self.restart_apps()
         self.ping_nginx_until_200_response_or_timeout()
         self.restart_workers()
