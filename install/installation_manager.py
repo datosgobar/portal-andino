@@ -229,9 +229,11 @@ class InstallationManager(object):
         return current_url.replace(name, '')[1:]  # guardamos sólo la url, ignoramos el símbolo '='
 
     def apply_additional_configurations(self):
+        self.logger.info("Aplicando configuraciones adicionales...")
         self.customize_ckanext_security_configurations()
 
     def customize_ckanext_security_configurations(self):
+        self.logger.info("Realizando modificaciones a ckanext-security...")
         SECURITY_SCRIPTS_PATH = "/etc/ckan_init.d/security/"
         SECURITY_CONFIG_PATH = "/usr/lib/ckan/default/src/ckanext-security/ckanext/security/templates/security/emails/"
         new_lockout_mail_file_src = "{}new_lockout_mail.txt".format(SECURITY_SCRIPTS_PATH)
