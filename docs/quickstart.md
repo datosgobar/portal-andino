@@ -395,6 +395,6 @@ Te invitamos a crear issues o enviarnos sugerencias en caso de que encuentren al
 
 ## Otros contenidos útiles
 
-* <a href="http://paquete-apertura-datos.readthedocs.io/es/stable/guia_metadatos.html" target="_blank">Guía para el uso y la publicación de metadatos</a>
-* <a href="http://paquete-apertura-datos.readthedocs.io/es/stable/guia_interoperables.html" target="_blank">Guía para la identificación y uso de entidades interoperables</a>
-* <a href="http://paquete-apertura-datos.readthedocs.io/es/stable/guia_abiertos.html" target="_blank">Guía para la publicación de datos en formatos abiertos</a>
+* <a href="https://datosgobar.github.io/paquete-apertura-datos/guia-metadatos/" target="_blank">Guía para el uso y la publicación de metadatos</a>
+* <a href="https://datosgobar.github.io/paquete-apertura-datos/guia-interoperables/" target="_blank">Guía para la identificación y uso de entidades interoperables</a>
+* <a href="https://datosgobar.github.io/paquete-apertura-datos/guia-abiertos/" target="_blank">Guía para la publicación de datos en formatos abiertos</a>
