@@ -22,20 +22,13 @@ esta implementación, te sugiero que revises la **[instalacion avanzada de Andin
 
 ## Dependencias
 
++ Ubuntu|Debian|RHEL|CentOS:
+
 - DOCKER: [Guía de instalación](https://docs.docker.com/engine/installation).
   - Versión mínima _testeada_: `1.13.1`
 - Docker Compose: [Guía de instalación](https://docs.docker.com/compose/install/).
   - Versión mínima _testeada_: `1.12.0`
-
-## Instalación simplificada de andino
-
-La idea detrás de esta implementación de CKAN es **que sólo te encargues de tus datos**, nada más. 
-Por eso, si "copiás y pegás" el comando de consola, en sólo unos momentos, tendrás un Andino listo para usar.
-Esta clase de instalación no requiere que clones el repositorio, ya que usamos contenedores alojados en 
-[DockerHub](https://hub.docker.com/r/datosgobar)
-
-+ Ubuntu|Debian|RHEL|CentOS:
-+ Instalación:
+  
 
 Para la instalación, usamos un script de python llamado 
 [`install.py`](https://github.com/datosgobar/portal-andino/blob/master/install/install.py).
@@ -80,8 +73,14 @@ El mismo requiere algunos parámetros específicos, y existen otros que son opci
 
 ```
 
-Para esta instalación de ejemplo, usaremos estos parámetros para la aplicación.
-Para los demás, usaremos los valores por defecto:
+## Instalación simplificada de andino
+
+La idea detrás de esta implementación de CKAN es **que sólo te encargues de tus datos**, nada más. 
+Por eso, si "copiás y pegás" el comando de consola, en sólo unos momentos tendrás un Andino listo para usar.
+Esta clase de instalación no requiere que clones el repositorio, ya que usamos contenedores alojados en 
+[DockerHub](https://hub.docker.com/r/datosgobar).
+
+Para esta instalación de ejemplo, usaremos los siguientes parámetros para la aplicación:
 
 + Email donde se mandarán los errores. `EMAIL=admin@example.com`
 + Dominio o IP de la aplicación _sin el protocolo_: `HOST=datos.gob.ar`
@@ -89,6 +88,8 @@ Para los demás, usaremos los valores por defecto:
 + Password de la base de datos: `DB_PASS=<my db pass>`
 + Usuario del datastore: `STORE_USER=<my datastore user>`
 + Password del datastore: `STORE_PASS=<my datastore password>`
+
+Para los demás, usaremos los valores por defecto.
 
 _Nota_: Si usamos una IP para la variable `HOST`, el envío de mails no funcionará.
 Postfix require un "fully-qualified domain name (FQDN)". 
@@ -121,7 +122,7 @@ sudo python ./install.py \
 
 ## Instalación avanzada de andino
 
-La instalación avanzada está pensada para usuarios que quieren ver cómo funciona internamente `Andino`
+La instalación avanzada está pensada para usuarios que quieren ver cómo funciona internamente `Andino`.
 
 Para instalar y ejecutar Andino, seguiremos estos pasos:
 
@@ -139,7 +140,6 @@ NOTA: Debemos usar un dominio válido para la variable `DOMINIO`, de otra forma 
 Postfix require un "fully-qualified domain name (FQDN)". 
 Ver [la documentación de Postfix](http://www.postfix.org/postconf.5.html#myhostname) para más detalles.
 
-
 ```bash
 DB_USER=<my user>
 DB_PASS=<my pass>
@@ -153,9 +153,10 @@ sudo su -c "echo maildomain=$DOMINIO >> .env"
 sudo su -c "echo ANDINO_TAG=$ANDINO_VERSION >> .env"
 ```
 
++ Paso 3: Construir y lanzar los contenedor de servicios usando el archivo **latest.yml**: `docker-compose -f latest.yml up -d db postfix redis solr`.
 
-+ Paso 3: Construir y lanzar los contenedor de servicios usando el archivo **latest.yml**: `docker-compose -f latest.yml up -d db postfix redis solr`
-+ Paso 4: Construir y lanzar el contenedor de **andino** usando el archivo **latest.yml**: `docker-compose -f latest.yml up -d portal`
++ Paso 4: Construir y lanzar el contenedor de **andino** usando el archivo **latest.yml**: `docker-compose -f latest.yml up -d portal`.
+
 + Paso 5: Inicializar la base de datos y la configuración de la aplicación:
 
 ```bash
@@ -170,8 +171,7 @@ docker-compose -f latest.yml exec portal /etc/ckan_init.d/init.sh -e "$EMAIL" -h
         -d "$STORE_USER" -D "$STORE_PASS"
 ```
 
-
-+ Paso 8: Construir el contenedor de **nginx** usando el archivo **latest.yml**: `docker-compose -f latest.yml up -d nginx
++ Paso 6: Construir el contenedor de **nginx** usando el archivo **latest.yml**: `docker-compose -f latest.yml up -d nginx
 
 ## Desinstalar andino
 
