@@ -153,6 +153,18 @@ funciones que corren de fondo (por ejemplo, la actualización de la caché del d
 usuario **siempre** esté disponible ya que, en caso de no estarlo, provocaría un funcionamiento incorrecto en el 
 portal; por lo tanto, se recomienda muy fuertemente no intentar eliminarlo ni desactivarlo.
 
+En caso de eliminar este usuario, es posible restaurarlo mediante una llamada a la api de ckan. Por medio de `curl`
+ejecutamos:
+
+`curl -X POST -d '{"id": "default", "email": "default@email.com", "state": "active"}' -H "Content-Type: application/json"  -H "Authorization: <apikey>" -H "X-CKAN-API-Key: <apikey>" <url del portal>/api/action/user_update`
+
+Donde `<apikey>` corresponde a la apikey de un sysadmin con permisos para crear y editar usuarios. Para efectivizar los
+cambios en los workers de rq, es necesario reiniciarlos. En el directorio de instalación se ejecuta:
+
+`docker-compose -f latest.yml exec portal service supervisor restart`
+
+Eso debería impactar los cambios en los workers que generan la metadata del portal.
+
 ## Configuraciones de andino
 
 ### Modificar el archivo de configuración
