@@ -200,6 +200,7 @@ class Updater(InstallationManager):
         self.prepare_application()
         self.correct_ckan_public_files_permissions()
         crontab_content = self.find_cron_jobs()
+        self.build_whole_site_url()
         self.configure_nginx()
         self.restart_apps()
         self.ping_nginx_until_200_response_or_timeout()
