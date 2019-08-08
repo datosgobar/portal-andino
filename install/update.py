@@ -130,8 +130,9 @@ class Updater(InstallationManager):
 
     def run_configuration_scripts(self):
         self.logger.info("Corriendo comandos post-instalación...")
-        current_plugins = "stats text_view image_view recline_view hierarchy_display hierarchy_form dcat " \
-                          "structured_data gobar_theme datastore datapusher seriestiempoarexplorer googleanalytics"
+        current_plugins = self.get_config_file_field("ckan.plugins")
+        plugins_to_remove = "datajson_harvest datajson harvest ckan_harvester "
+        current_plugins = current_plugins.replace(plugins_to_remove, '')
         try:
             self.run_compose_command("exec -T portal bash /etc/ckan_init.d/run_updates.sh")
         except subprocess.CalledProcessError as e:
