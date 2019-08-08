@@ -222,11 +222,9 @@ class InstallationManager(object):
         logging.info("Se utilizará como site_url: {}".format(new_url))
         self.site_url = new_url
 
-    def get_config_file_field(self, name):
-        cmd = 'exec -T portal grep -E "^{}[[:space:]]*=[[:space:]]*" ' \
-              '/etc/ckan/default/production.ini | tr -d [[:space:]]'.format(name)
-        current_url = self.run_compose_command(cmd)
-        return current_url.replace(name, '')[1:]  # guardamos sólo la url, ignoramos el símbolo '='
+    def get_config_file_field(self, field_name):
+        cmd = 'exec -T portal bash -c "sed -n s/^{}[[:space:]]=[[:space:]]//p /etc/ckan/default/production.ini"'.format(field_name)
+        return self.run_compose_command(cmd)
 
     def apply_additional_configurations(self):
         self.logger.info("Aplicando configuraciones adicionales...")

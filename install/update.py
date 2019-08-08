@@ -130,7 +130,7 @@ class Updater(InstallationManager):
 
     def run_configuration_scripts(self):
         self.logger.info("Corriendo comandos post-instalación...")
-        current_plugins = self.run_with_subprocess('exec portal bash -c "grep -E ^ckan.plugins.* /etc/ckan/default/production.ini"')
+        current_plugins = self.get_config_file_field("ckan.plugins")
         plugins_to_remove = "datajson_harvest datajson harvest ckan_harvester "
         current_plugins = current_plugins.replace(plugins_to_remove, '')
         try:
