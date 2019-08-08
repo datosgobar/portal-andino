@@ -25,9 +25,9 @@ esta implementación, te sugiero que revises la **[instalacion avanzada de Andin
 + Ubuntu|Debian|RHEL|CentOS:
 
 - DOCKER: [Guía de instalación](https://docs.docker.com/engine/installation).
-  - Versión mínima _testeada_: `1.13.1`
+  - Versión mínima _testeada_: `17.05.0-ce (2017-05-04)`
 - Docker Compose: [Guía de instalación](https://docs.docker.com/compose/install/).
-  - Versión mínima _testeada_: `1.12.0`
+  - Versión mínima _testeada_: `1.21.0`
   
 
 Para la instalación, usamos un script de python llamado 
