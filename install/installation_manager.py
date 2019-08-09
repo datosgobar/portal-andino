@@ -228,7 +228,8 @@ class InstallationManager(object):
 
     def apply_additional_configurations(self):
         self.logger.info("Aplicando configuraciones adicionales...")
-        self.customize_ckanext_security_configurations()
+        if os.path.exists("/etc/ckan_init.d/security/"):
+            self.customize_ckanext_security_configurations()
 
     def customize_ckanext_security_configurations(self):
         self.logger.info("Realizando modificaciones a ckanext-security...")
