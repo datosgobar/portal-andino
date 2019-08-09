@@ -97,7 +97,7 @@ class Installer(InstallationManager):
         self.correct_ckan_public_files_permissions()
         self.apply_additional_configurations()
         self.restart_apps()
-        self.ping_nginx_until_200_response_or_timeout()
+        self.ping_nginx_until_app_responds_or_timeout()
         self.restart_workers()
 
 

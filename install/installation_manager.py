@@ -228,7 +228,7 @@ class InstallationManager(object):
 
     def apply_additional_configurations(self):
         self.logger.info("Aplicando configuraciones adicionales...")
-        if os.path.exists("/etc/ckan_init.d/security/"):
+        if "exists" == self.run_compose_command('exec portal [ -d "/etc/ckan_init.d/security/" ] && echo "exists"'):
             self.customize_ckanext_security_configurations()
 
     def customize_ckanext_security_configurations(self):
@@ -252,18 +252,20 @@ class InstallationManager(object):
     def restart_workers(self):
         self.run_compose_command("exec portal supervisorctl restart all")
 
-    def ping_nginx_until_200_response_or_timeout(self):
-        timeout = time.time() + 60 * 5  # límite de 5 minutos
-        site_status_code = 0
+    def ping_nginx_until_app_responds_or_timeout(self):
+        timeout = time.time() + 60 * 3  # límite de 3 minutos
+        site_status_code = "000"
         while site_status_code != "200":
             site_status_code = self.run_with_subprocess(
                 'echo $(curl -k -s -o /dev/null -w "%{{http_code}}" {})'.format(self.site_url))
             print("Intentando comunicarse con: {0} - Código de respuesta: {1}".format(self.site_url, site_status_code))
             if time.time() > timeout:
-                self.logger.warning("No fue posible reiniciar el contenedor de Nginx. "
-                                    "Es posible que haya problemas de configuración.")
-                if site_status_code != "000":
-                    logging.error("Mostrando las últimas 50 líneas del log:")
+                if site_status_code == '000':
+                    self.logger.warning("No fue posible reiniciar el contenedor de Nginx. "
+                                        "Es posible que haya problemas de configuración.")
+                elif site_status_code != "200":
+                    self.logger.warning("La aplicación presentó errores intentando levantarse.")
+                    self.logger.warning("Mostrando las últimas 50 líneas del log:")
                     log_output = self.run_compose_command("logs --tail=50 portal")
                     logging.error(log_output)
                 break

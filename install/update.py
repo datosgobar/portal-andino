@@ -203,7 +203,7 @@ class Updater(InstallationManager):
         self.build_whole_site_url()
         self.configure_nginx()
         self.restart_apps()
-        self.ping_nginx_until_200_response_or_timeout()
+        self.ping_nginx_until_app_responds_or_timeout()
         self.run_configuration_scripts()
         self.configure_theme_volume()
         if crontab_content:
@@ -211,7 +211,7 @@ class Updater(InstallationManager):
         self.update_configuration_file()
         self.apply_additional_configurations()
         self.restart_apps()
-        self.ping_nginx_until_200_response_or_timeout()
+        self.ping_nginx_until_app_responds_or_timeout()
         self.restart_workers()
 
 
