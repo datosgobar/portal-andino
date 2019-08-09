@@ -233,6 +233,10 @@ class InstallationManager(object):
 
     def customize_ckanext_security_configurations(self):
         self.logger.info("Realizando modificaciones a ckanext-security...")
+        cmd = "cd /usr/lib/ckan/default/src/ckan " \
+              "&& git remote add -f data-govt-nz https://github.com/data-govt-nz/ckan.git 2> /dev/null " \
+              "&& git cherry-pick 74f78865b8825c91d1dfe6b189228f4b975610a3 2> /dev/null"
+        self.run_compose_command(cmd)
         SECURITY_SCRIPTS_PATH = "/etc/ckan_init.d/security/"
         SECURITY_CONFIG_PATH = "/usr/lib/ckan/default/src/ckanext-security/ckanext/security/templates/security/emails/"
         new_lockout_mail_file_src = "{}new_lockout_mail.txt".format(SECURITY_SCRIPTS_PATH)
