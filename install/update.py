@@ -103,7 +103,6 @@ class Updater(InstallationManager):
         with open(env_file_path, "w") as env_f:
             for key in envconf.keys():
                 env_f.write("%s=%s\n" % (key, envconf[key]))
-        self.build_whole_site_url()
 
     def check_nginx_ssl_files_exist(self):
         if super(Updater, self).check_nginx_ssl_files_exist():
