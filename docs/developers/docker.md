@@ -21,30 +21,30 @@ Actualmente, el repositorio contiene 1 archivo `Dockerfile` y 2 archivos `docker
 
 Para levantar toda la aplicacion, se puede correr:
 
-    $ docker-compose -f dev.yml up -d nginx
+    $ sudo docker-compose -f dev.yml up -d nginx
     
 Si es la primera vez que se corre este comando, puede llegar a tardar bastante en descargar las imágenes.
 Una vez terminado, dejar en el puerto `localhost:80` la aplicacion ejecutándose, pero antes se debe correr un comando para inicializar el desarrollo:
 
-    $ docker exec -it andino /etc/ckan_init.d/init_dev.sh
+    $ sudo docker exec -it andino /etc/ckan_init.d/init_dev.sh
 
 
 También se pueden levantar los servicios por separado de la aplicación:
 
 * Los `servicios`:
 
-```$ docker-compose -f dev.yml up --build --abort-on-container-exit db sol redis postfix```
+```$ sudo docker-compose -f dev.yml up --build --abort-on-container-exit db sol redis postfix```
 
-* La aplicación andino que tendrá el puerto `8080` y en el `8800` el datapusher.
+* La aplicación Andino que tendrá el puerto `8080` y en el `8800` el datapusher.
     
-```$ docker-compose -f dev.yml up --abort-on-container-exit --build --no-deps portal```
+```$ sudo docker-compose -f dev.yml up --abort-on-container-exit --build --no-deps portal```
 
 * Nginx que estará en el puerto `80`:
     
-```$ docker-compose -f dev.yml up -d --no-deps nginx```
+```$ sudo docker-compose -f dev.yml up -d --no-deps nginx```
 
 Eso levantará la aplicación con el directorio actual (`$PWD`) disponible dentro del directorio `/dev-app` del container.
 
 Para acceder a la aplicación, hacer modificaciones en `runtime`, basta con correr el comando:
 
-    $ docker-compose -f dev.yml exec andino /bin/bash
+    $ sudo docker-compose -f dev.yml exec andino /bin/bash

@@ -19,10 +19,12 @@ También podés [ver el repositorio del tema visual](https://github.com/datosgob
 
 ## Qué contiene el paquete de Andino
 
-+ [CKAN 2.7.4](http://docs.ckan.org/en/ckan-2.7.4/)
++ [CKAN 2.7.5](https://docs.ckan.org/en/2.7/changelog.html#v2-7-5-2018-12-12)
 + [Datastore](http://docs.ckan.org/en/latest/maintaining/datastore.html)
 + [FileStore](http://docs.ckan.org/en/latest/maintaining/filestore.html)
 + [Datapusher](https://github.com/ckan/datapusher)
++ [Xloader](https://github.com/ckan/ckanext-xloader)
++ [Security](https://github.com/data-govt-nz/ckanext-security)
 + [Hierarchy](https://github.com/datagovuk/ckanext-hierarchy)
 + [datajsonAR](https://github.com/datosgobar/ckanext-datajsonAR)
 + [Harvest](https://github.com/ckan/ckanext-harvest)
@@ -41,8 +43,16 @@ También podés [ver el repositorio del tema visual](https://github.com/datosgob
   + Packages | Service:
     + Imagen base: ubuntu xenial 14.04
     + Apache 2 | WSGI MOD
-    + CKAN 2.5.3
+    + CKAN 2.7.5
   + Plugins:
+    + stats 
+    + text_view 
+    + image_view 
+    + recline_view
+    + dcat
+    + structured_data 
+    + Explorer de series de tiempo
+    + Google Analytics
     + DataStore
     + FileStore
     + Datapusher

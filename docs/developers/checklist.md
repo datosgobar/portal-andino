@@ -24,7 +24,7 @@ Una vez que tengas definido el nombre de dominio (ej: `datos.ministerio.gob.ar`)
 
 Para saber si tu instancia de Andino tiene el nombre de dominio correctamente configurado seguí los siguientes pasos, ejecutando el comando en el directorio de instalación de Andino (ej: `/etc/portal`):
 
-    docker-compose -f latest.yml exec portal grep ckan\.site_url /etc/ckan/default/production.ini
+    sudo docker-compose -f latest.yml exec portal grep ckan\.site_url /etc/ckan/default/production.ini
 
 Si tu sitio está bien configurado, el valor del parámetro de configuración `ckan.site_url` deberá coincidir con el nombre de dominio de tu Andino (incluyendo el _schema_, `http` o `https`):
 
@@ -36,7 +36,7 @@ Si éste no coincide, deberás modificar el valor del parámetro en la configura
 
 Para actualizar el nombre de dominio que tiene tu andino (por ejemplo `datos.ministerio.gob.ar`) debés ejecutar el siguiente comando:
 
-    docker-compose -f latest.yml exec portal /etc/ckan_init.d/update_conf.sh "ckan.site_url=http://datos.ministerio.gob.ar/";
+    sudo docker-compose -f latest.yml exec portal /etc/ckan_init.d/update_conf.sh "ckan.site_url=http://datos.ministerio.gob.ar/";
 
 
 ## Verificá que el contenedor portal pueda resolver el nombre de dominio asignado a la instancia

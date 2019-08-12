@@ -155,7 +155,7 @@ sudo su -c "echo ANDINO_TAG=$ANDINO_VERSION >> .env"
 
 + Paso 3: Construir y lanzar los contenedor de servicios usando el archivo **latest.yml**: `docker-compose -f latest.yml up -d db postfix redis solr`.
 
-+ Paso 4: Construir y lanzar el contenedor de **andino** usando el archivo **latest.yml**: `docker-compose -f latest.yml up -d portal`.
++ Paso 4: Construir y lanzar el contenedor de **Andino** usando el archivo **latest.yml**: `docker-compose -f latest.yml up -d portal`.
 
 + Paso 5: Inicializar la base de datos y la configuración de la aplicación:
 
@@ -166,16 +166,16 @@ DB_USER=<my db user>
 DB_PASS=<my db pass>
 STORE_USER=<my datastore user>
 STORE_PASS=<my datastore password>
-docker-compose -f latest.yml exec portal /etc/ckan_init.d/init.sh -e "$EMAIL" -h "$HOST" \
+sudo docker-compose -f latest.yml exec portal /etc/ckan_init.d/init.sh -e "$EMAIL" -h "$HOST" \
         -p "$DB_USER" -P "$DB_PASS" \
         -d "$STORE_USER" -D "$STORE_PASS"
 ```
 
-+ Paso 6: Construir el contenedor de **nginx** usando el archivo **latest.yml**: `docker-compose -f latest.yml up -d nginx
++ Paso 6: Construir el contenedor de **nginx** usando el archivo **latest.yml**: `sudo docker-compose -f latest.yml up -d nginx`
 
 ## Desinstalar andino
 
-Esta secuencia de comandos va a ELIMINAR TODOS LOS CONTENEDORES, IMÁGENES y VOLUMENES de la aplicación de la vm donde 
+Esta secuencia de comandos va a **ELIMINAR TODOS LOS CONTENEDORES, IMÁGENES y VOLUMENES** de la aplicación de la vm donde 
 está instalada la plataforma.
 
 Esta operación no es reversible. **Perderás todos tus datos si realizas esta operación**.
