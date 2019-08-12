@@ -21,7 +21,7 @@
 
 ## Instalar un nuevo requerimiento en la imagen base
 
-Si necesitamos instalar y configurar un nuevo requerimiento para andino, lo recomendable es instalarlo
+Si necesitamos instalar y configurar un nuevo requerimiento para Andino, lo recomendable es instalarlo
 en la imagen de datosgobar/portal-base. Esto permitirá mantener el build de datosgobar/portal-andino
 más pequeño y rápido.
 
@@ -158,7 +158,7 @@ Ahora, generamos la nueva imagen:
 ```
 cd portal-andino/
 
-docker build -t portal-andino:test .
+sudo docker build -t portal-andino:test .
 ```
 
 
@@ -239,7 +239,7 @@ nuevo:
 * Ejecutar `vi /etc/hosts` en el host
 * Puede existir la línea `127.0.0.1       localhost`, y también otras parecidas; hay que escribir una nueva (es 
 necesario asegurarse de que la IP y el hostname de la que queremos escribir sean distintos a todos los anteriores).
-  * Escribir una línea nueva `127.0.X.1 nuevo_hostname`, reemplazando la 'X' por algún número que no esté en una de las 
+* Escribir una línea nueva `127.0.X.1 nuevo_hostname`, reemplazando la 'X' por algún número que no esté en una de las 
   IPs de arriba, y 'nuevo_hostname' por el que se quiera utilizar_
 
 
@@ -262,7 +262,7 @@ instalar Andino._
 Si se quiere utilizar una imagen local en lugar de las existentes en https://hub.docker.com/r/datosgobar/portal-base, 
 se debe correr este comando en el directorio donde se encuentra portal-base:
 
-`docker build base_portal -t datosgobar/portal-base:{nombre que se le quiera dar a la imagen}`
+`sudo docker build base_portal -t datosgobar/portal-base:{nombre que se le quiera dar a la imagen}`
 
 Lo mismo aplica para Nginx: recordar que su Dockerfile está en `nginx/`, por lo que el comando se debe correr ahí.
 
