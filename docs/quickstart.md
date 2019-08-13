@@ -6,6 +6,7 @@
 
 - [Primeros pasos](#primeros-pasos)
 - [Entrar y salir de tu portal](#entrar-y-salir-de-tu-portal)
+- [Versiones compatibles de navegadores](#versiones-compatibles-de-navegadores)
 - [Permisos de usuario](#permisos-de-usuario)
 - [Elementos de tu portal](#elementos-de-tu-portal)
     - [Organizaciones](#organizaciones)
@@ -46,6 +47,17 @@ Esta guía te ayudará a:
 **Cada vez que quieras entrar al portal, podrás hacerlo desde http://*tu-url.com*/ingresar**.
 
 <center>![alt text](assets/portal-andino-login.png "login")</center>
+
+***
+
+## Versiones compatibles de navegadores
+
+Las versiones compatibles con Andino son las siguientes:
+
++ Internet Explorer: 11 y superior
++ Chrome: 65 y superior
++ Firefox: 57 y superior
++ Safari: 11.1 y superior
 
 ***
 
