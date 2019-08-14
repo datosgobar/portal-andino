@@ -163,6 +163,11 @@ class Updater(InstallationManager):
             pass
 
     def prepare_application(self):
+        self.logger.info("Revisando estado de los servicios...")
+        state = self.run_with_subprocess("docker ps")
+        self.logger.info(state)
+        state = self.run_compose_command("ps")
+        self.logger.info(state)
         self.logger.info("Guardando base de datos...")
         self.backup_database()
         self.logger.info("Actualizando la aplicación...")
