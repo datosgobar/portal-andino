@@ -583,8 +583,8 @@ Este plugin fue desarrollado para cumplir con el mismo fin que Datapusher (subir
 manera más eficiente, mantenible y robusta. Para más información, se puede leer 
 [la documentación del plugin](https://github.com/ckan/ckanext-xloader).
 
-Si se desea realizar el reemplazo, se debe ejecutar el script que lo lleva a cabo y se encuentra en el path 
-`/etc/ckan_init.d/datastore_loaders/enable_ckanext_xloader.sh`. Su ejecución incluye la deshabilitación del Datapusher.
+Si se desea realizar el reemplazo, se debe ejecutar el script que lo lleva a cabo: 
+`/etc/ckan_init.d/datastore_loaders/enable_ckanext_xloader.sh {nombre del usuario de la base de datos} {contraseña del usuario de la base de datos}`, pasándole los parámetros especificados (sin las llaves); los valores requeridos se encuentran en el `.env` dentro del directorio de instalación (`POSTGRES_USER` y `POSTGRES_PASSWORD`). Su ejecución incluye la deshabilitación del Datapusher.
 
 Es muy importante aclarar que **no se puede tener activados ambos servicios al mismo tiempo**, sino que se debe elegir 
 entre uno u otro. Por esa razón, si se implementó alguna funcionalidad extra a Andino que requiere la presencia de 
