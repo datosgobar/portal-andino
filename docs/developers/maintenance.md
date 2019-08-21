@@ -633,50 +633,81 @@ Ver [la sección sobre la utilización del archivo latest.yml en los comandos de
 ## Backups
 
 Es altamente recomendable hacer copias de seguridad de los datos de la aplicación, tanto la base de datos como los 
-archivos de configuración y subidos por los usuarios.
+archivos de configuración y subidos por los usuarios. Los scripts a continuación pueden correrse en el directorio de instalación para realizar backups del estado de la instancia.
 
 ### Backup de la base de datos
 
-Un ejemplo fácil de hacer un backup de la base de datos sería:
+El siguiente script toma como parámetros el usuario y contraseña de la base de datos y retorna un backup comprimido en
+un gzip: 
 
-    container=$(docker-compose -f latest.yml ps -q db)
-    today=`date +%Y-%m-%d.%H:%M:%S`
-    filename="backup-$today.gz"
-
-    # Creo un directorio temporal y defino dónde generaré el backup
+    #!/usr/bin/env bash
+    set -e;
+    
+    if [ -z "$1" ] || [ -z "$2" ]; then
+        echo "No se especificó el nombre de usuario de la base de datos y/o password" 
+        exit 1;
+    fi
+    
+    install_dir="/etc/portal"
+    old_db="andino-db"
+    database_backup="backup.gz"
+    postgres_user=$1;
+    postgres_pass=$2;
+    
+    
+    source $(echo $install_dir)/.env
+    
+    echo "Creando backup de la base de datos."
+    
     backupdir=$(mktemp -d)
-    backupfile="$backupdir/$filename"
-
-    # Exporto la base de datos
-    docker exec $container pg_dumpall -c -U postgres | gzip > "$backupfile"
-
-    # Copio el archivo al directorio actual y borro el original
-    # Podría reemplazar $PWD con mi directorio de backups, como /etc/portal/backups
-    mv "$backupfile" $PWD
-
+    
+    backupfile="$backupdir/$database_backup"
+    echo "Iniciando backup de $old_db"
+    echo "Usando directorio temporal: $backupdir"
+    docker exec -e PGPASSWORD=$postgres_pass $old_db pg_dumpall -c -U $postgres_user | gzip > "$backupfile"
+    
+    echo "Copiando backup a $PWD"
+    cp "$backupfile" $PWD
+    echo "Backup listo."
 
 Y para los demás archivos de la aplicación (requiere [`jq`](https://stedolan.github.io/jq/)):
 
+    #!/usr/bin/env bash
+    set -e;
+    
+    old_andino="andino"
+    app_backup="backup.tar.gz"
+    install_dir="/etc/portal"
+    
+    source $(echo $install_dir)/.env
+    
+    echo "Creando backup de los archivos de configuración."
     backupdir=$(mktemp -d)
     today=`date +%Y-%m-%d.%H:%M:%S`
     appbackupdir="$backupdir/application/"
     mkdir $appbackupdir
-    container=$(docker-compose -f latest.yml ps -q portal)
-
-    docker inspect --format '{{json .Mounts}}' $container  | jq -r '.[]|[.Name, .Source, .Destination] | @tsv' |
+    echo "Iniciando backup de los volúmenes en $old_andino"
+    echo "Usando directorio temporal: $backupdir"
+    docker inspect --format '{{json .Mounts}}' $old_andino  | jq -r '.[]|[.Name, .Source, .Destination] | @tsv' |
     while IFS=$'\t' read -r name source destination; do
-
+        echo "Guardando archivos de $destination"
         if ls $source/* 1> /dev/null 2>&1; then
+            echo "Nombre del volumen: $name."
+            echo "Directorio en el Host: $source"
+            echo "Destino: $destination"
             dest="$appbackupdir$name"
             mkdir -p $dest
-
+            echo "$destination" > "$dest/destination.txt"
+    
             tar -C "$source" -zcvf "$dest/backup_$today.tar.gz" $(ls $source)
+            echo "List backup de $destination"
         else
-            echo "No file at $source"
+            echo "Ningún archivo para $destination";
         fi
     done
-
-    tar -C "$appbackupdir../" -zcvf backup.tar.gz "application/"
+    echo "Generando backup en $app_backup"
+    tar -C "$appbackupdir../" -zcvf $app_backup "application/"
+    echo "Backup listo."
 
 Podria colocarse esos scripts en el directorio donde se instaló la aplicación 
 (ejemplo : `/etc/portal/backup.sh`) y luego agregar un `cron`:
@@ -690,22 +721,148 @@ correr el comando `crontab -e` y agregar la línea:
 
 ### Realizar un backup del file system
 
-    # Exporto el path al almacenamiento del volumen
-    export CKAN_FS_STORAGE=$(docker inspect --format '{{ range .Mounts }}{{ if eq .Destination "/var/lib/ckan" }}{{ .Source }}{{ end }}{{ end }}' andino)
+    #!/usr/bin/env bash
+    set -e;
+    
+    old_andino="andino"
+    app_backup="backup.tar.gz"
+    install_dir="/etc/portal"
+    
+    source $(echo $install_dir)/.env
+    
+    echo "Creando backup de los archivos de configuración."
+    backupdir=$(mktemp -d)
+    today=`date +%Y-%m-%d.%H:%M:%S`
+    appbackupdir="$backupdir/application/"
+    mkdir $appbackupdir
+    echo "Iniciando backup de los volúmenes en $old_andino"
+    echo "Usando directorio temporal: $backupdir"
+    docker inspect --format '{{json .Mounts}}' $old_andino  | jq -r '.[]|[.Name, .Source, .Destination] | @tsv' |
+    while IFS=$'\t' read -r name source destination; do
+        echo "Guardando archivos de $destination"
+        if ls $source/* 1> /dev/null 2>&1; then
+            echo "Nombre del volumen: $name."
+            echo "Directorio en el Host: $source"
+            echo "Destino: $destination"
+            dest="$appbackupdir$name"
+            mkdir -p $dest
+            echo "$destination" > "$dest/destination.txt"
+    
+            tar -C "$source" -zcvf "$dest/backup_$today.tar.gz" $(ls $source)
+            echo "List backup de $destination"
+        else
+            echo "Ningún archivo para $destination";
+        fi
+    done
+    echo "Generando backup en $app_backup"
+    tar -C "$appbackupdir../" -zcvf $app_backup "application/"
+    echo "Backup listo."
 
-    # Creo un tar.gz con la info.
-    tar -C "$(dirname "$CKAN_FS_STORAGE")" -zcvf /ruta/para/guardar/mis/bkps/mi_andino.fs-data_$(date +%F).tar.gz "$(basename "$CKAN_FS_STORAGE")"
 
+## Restore 
 
-### Realizar un backup de la configuración
+Con los backups generados por los scripts de la sección anterior, se pueden restaurar las instancias al estado previo
+corriendo los siguientes scripts.
 
+### Restore de la base de datos
 
-    # Exporto el path al almacenamiento del volumen
-    export ANDINO_CONFIG=$(docker inspect --format '{{ range .Mounts }}{{ if eq .Destination "/etc/ckan/default" }}{{ .Source }}{{ end }}{{ end }}' andino)
+El siguiente script toma como parámetros el usuario y contraseña de la base de datos y la restaura a su estado anterior:
 
-    # Creo un tar.gz con la info.
-    tar -C "$(dirname "$ANDINO_CONFIG")" -zcvf /ruta/para/guardar/mis/bkps/mi_andino.config-data_$(date +%F).tar.gz "$(basename "$ANDINO_CONFIG")"
+    #!/usr/bin/env bash
+    set -e;
+    
+    if [ -z "$1" ] || [ -z "$2" ]; then
+        echo "No se especificó el nombre de usuario de la base de datos y/o password" 
+        exit 1;
+    fi
+    
+    install_dir="/etc/portal/";
+    database_backup="backup.gz";
+    db_container="andino-db";
+    postgres_user=$1;
+    postgres_pass=$2;
+    
+    source $(echo $install_dir).env
+    
+    echo "Iniciando restauración de la base de datos."
+    containers=$(docker ps -q)
+    
+    if [ -z "$containers" ]; then
+        echo "No se encontró ningun contenedor corriendo."
+    else
+        docker stop $containers
+    fi
+    docker restart $db_container
+    sleep 10;
+    
+    restoredir=$(mktemp -d);
+    echo "Usando directorio temporal $restoredir"
+    
+    restorefile="$restoredir/dump.sql";
+    
+    gzip -dc < $database_backup > "$restorefile";
+    echo "Borrando base de datos actual."
+    docker exec -e PGPASSWORD=$postgres_pass $db_container psql -h db -d postgres -U $postgres_user -c "DROP DATABASE IF EXISTS ckan;"
+    docker exec -e PGPASSWORD=$postgres_pass $db_container psql -h db -d postgres -U $postgres_user -c "DROP DATABASE IF EXISTS datastore_default;"
+    echo "Restaurando la base de datos desde: $restorefile"
+    cat $restorefile | docker exec -e PGPASSWORD=$postgres_pass -i $db_container psql -h db -d postgres -U $postgres_user
+    
+    echo "Restauración lista."
+    echo "Reiniciando servicios."
+    cd $install_dir
+    docker-compose -f latest.yml restart;
+    
+    docker exec andino bash -c "curl https://raw.githubusercontent.com/ckan/ckanext-xloader/master/full_text_function.sql >> /tmp/full_text_function.sql"
+    docker exec -e PGPASSWORD=$postgres_pass $db_container bash -c "psql -h db -d postgres -U $postgres_user -c \"CREATE ROLE ckan_default;\" || true"
+    docker exec andino bash -c "PGPASSWORD=$postgres_pass psql -h db -U $postgres_user datastore_default -f /tmp/full_text_function.sql"
+    docker exec andino bash -c "PGPASSWORD=$postgres_pass createdb -h db -U $postgres_user -O ckan_default xloader_jobs -E utf-8 || true"
+    
+    docker-compose -f latest.yml exec portal /etc/ckan_init.d/run_rebuild_search.sh
+    cd -;
 
+## Restore del file system
+
+    #!/usr/bin/env bash
+    set -e;
+    
+    echo "Iniciando recuperación de Archivos."
+    install_dir="/etc/portal";
+    container="andino"
+    app_backup="backup.tar.gz"
+    
+    source $(echo $install_dir)/.env
+    
+    containers=$(docker ps -q)
+    if [ -z "$containers" ]; then
+        echo "No se encontró ningun contenedor corriendo."
+    else
+        docker stop $containers
+    fi
+    
+    restoredir=$(mktemp -d)
+    echo "Usando directorio temporal $restoredir"
+    tar zxvf $app_backup -C $restoredir
+    
+    docker inspect --format '{{json .Mounts}}' $container  | jq -r '.[]|[.Name, .Source, .Destination] | @tsv' |
+    while IFS=$'\t' read -r name source destination; do
+        for directory in $restoredir/application/*; do
+            dest=$(cat "$directory/destination.txt")
+            if [ "$dest" == "$destination" ]; then
+                echo "Recuperando archivos para $destination"
+                tar zxvf "$directory/$(ls "$directory" | grep backup)" -C "$source"
+            fi
+        done
+    done
+    
+    echo "Restauración lista."
+    echo "Reiniciando servicios."
+    cd $install_dir
+    docker-compose -f latest.yml restart;
+    
+    docker exec andino-redis redis-cli DEL andino-config
+    
+    cd -;
+    echo "Listo."
 
 ## Comandos de DataPusher
 
