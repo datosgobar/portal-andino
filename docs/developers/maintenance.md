@@ -633,8 +633,7 @@ Ver [la sección sobre la utilización del archivo latest.yml en los comandos de
 ## Backups
 
 Es altamente recomendable hacer copias de seguridad de los datos de la aplicación, tanto la base de datos como los 
-archivos de configuración y subidos por los usuarios. Los scripts a continuación pueden correrse en el directorio de
-para instalación realizar backups del estado de la instancia.
+archivos de configuración y subidos por los usuarios. Los scripts a continuación pueden correrse en el directorio de instalación para realizar backups del estado de la instancia.
 
 ### Backup de la base de datos
 
