@@ -248,10 +248,12 @@ class InstallationManager(object):
             pass
         SECURITY_SCRIPTS_PATH = "/etc/ckan_init.d/security/"
         SECURITY_CONFIG_PATH = "/usr/lib/ckan/default/src/ckanext-security/ckanext/security/templates/security/emails/"
-        new_lockout_mail_file_src = "{}new_lockout_mail.txt".format(SECURITY_SCRIPTS_PATH)
-        new_lockout_mail_file_dest = "{}lockout_mail.txt".format(SECURITY_CONFIG_PATH)
-        cmd = 'exec portal bash -c "cp {0} {1}"'.format(new_lockout_mail_file_src, new_lockout_mail_file_dest)
-        self.run_compose_command(cmd)
+        src = "{}new_lockout_mail.txt".format(SECURITY_SCRIPTS_PATH)
+        dest = "{}lockout_mail.txt".format(SECURITY_CONFIG_PATH)
+        self.run_compose_command('exec portal bash -c "cp {0} {1}"'.format(src, dest))
+        src = src.replace("lockout_mail.txt", "lockout_subject.txt")
+        dest = dest.replace("lockout_mail.txt", "lockout_subject.txt")
+        self.run_compose_command('exec portal bash -c "cp {0} {1}"'.format(src, dest))
 
     def restart_apps(self):
         self.logger.info("Reiniciando la aplicación...")
