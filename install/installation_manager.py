@@ -266,21 +266,22 @@ class InstallationManager(object):
     def ping_nginx_until_app_responds_or_timeout(self):
         timeout = time.time() + 60 * 3  # límite de 3 minutos
         site_status_code = "000"
-        while site_status_code != "200":
+        while site_status_code == "000":
             site_status_code = self.run_with_subprocess(
                 'echo $(curl -k -s -o /dev/null -w "%{{http_code}}" {})'.format(self.site_url))
             print("Intentando comunicarse con: {0} - Código de respuesta: {1}".format(self.site_url, site_status_code))
             if time.time() > timeout:
-                if site_status_code == '000':
-                    self.logger.warning("No fue posible reiniciar el contenedor de Nginx. "
-                                        "Es posible que haya problemas de configuración.")
-                elif site_status_code != "200":
-                    self.logger.warning("La aplicación presentó errores intentando levantarse.")
-                    self.logger.warning("Mostrando las últimas 50 líneas del log:")
-                    log_output = self.run_compose_command("logs --tail=50 portal")
-                    logging.error(log_output)
                 break
-            time.sleep(10 if site_status_code != "200" else 0)  # Si falla, esperamos 10 segundos para reintentarlo
+            time.sleep(10 if site_status_code == "000" else 0)  # Si falla, esperamos 10 segundos para reintentarlo
+
+        if site_status_code == "000":
+            self.logger.warning("No fue posible reiniciar el contenedor de Nginx. "
+                                "Es posible que haya problemas de configuración.")
+        elif site_status_code != "200":
+            self.logger.warning("La aplicación presentó errores intentando levantarse.")
+            self.logger.warning("Mostrando las últimas 50 líneas del log:")
+            log_output = self.run_compose_command("logs --tail=50 portal")
+            logging.error(log_output)
 
     def correct_ckan_public_files_permissions(self):
         self.run_compose_command('exec portal bash -c "chmod 777 -R /usr/lib/ckan/default/src/ckan/ckan/public"')
