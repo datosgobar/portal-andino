@@ -31,6 +31,7 @@
     - [Especificar las licencias a utilizar](#especificar-las-licencias-a-utilizar)
     - [Configuración de CORS](#configuracion-de-cors)
     - [Configuración del explorador de series de tiempo](#configuracion-del-explorador-de-series-de-tiempo)
+    - [Reemplazar Datapusher por el plugin ckanext-xloader](#reemplazar-datapusher-por-el-plugin-ckanext-xloader)
 - [Acceso a los datos de andino](#acceso-a-los-datos-de-andino)
     - [Encontrar los volúmenes de mi andino dentro del filesystem del host](#encontrar-los-volumenes-de-mi-andino-dentro-del-filesystem-del-host)
     - [Ver las direcciones IP de mis contenedores](#ver-las-direcciones-ip-de-mis-contenedores)
@@ -579,6 +580,30 @@ apachectl restart
 
 Luego, si vamos a la configuración del sitio, podremos apreciar que se agrego una nueva sección "Series" en el apartado
  "Otras secciones del portal".
+
+### Reemplazar Datapusher por el plugin ckanext-xloader
+
+Este plugin fue desarrollado para cumplir con el mismo fin que Datapusher (subir ciertos archivos al Datastore) de una 
+manera más eficiente, mantenible y robusta. Para más información, se puede leer 
+[la documentación del plugin](https://github.com/ckan/ckanext-xloader).
+
+Si se desea realizar el reemplazo, se debe ejecutar el script que lo lleva a cabo: 
+`/etc/ckan_init.d/datastore_loaders/enable_ckanext_xloader.sh {nombre del usuario de la base de datos} {contraseña del usuario de la base de datos}`, pasándole los parámetros especificados (sin las llaves); los valores requeridos se encuentran en el `.env` dentro del directorio de instalación (`POSTGRES_USER` y `POSTGRES_PASSWORD`). Su ejecución incluye la deshabilitación del Datapusher.
+
+Es muy importante aclarar que **no se puede tener activados ambos servicios al mismo tiempo**, sino que se debe elegir 
+entre uno u otro. Por esa razón, si se implementó alguna funcionalidad extra a Andino que requiere la presencia de 
+Datapusher, no será posible utilizar el xloader.
+
+Xloader provee un comando de paster para subir recursos al Datastore desde consola:
+`/usr/lib/ckan/default/bin/paster --plugin=ckanext-xloader xloader submit X -c /etc/ckan/default/production.ini`, donde 
+se debe reemplazar la X para especificar un id o nombre de dataset en particular o "all" para subir los recursos de 
+todos los datasets del portal.
+
+Las tareas croneadas para la subida automática de recursos al Datastore que existan en el contenedor serán modificadas 
+para utilizar el comando específico del plugin que haya sido activado.
+
+En caso de querer reestablecer Datapusher como el servicio a utilizar, se debe ejecutar el script 
+`/etc/ckan_init.d/datastore_loaders/enable_datapusher.sh`.
 
 ## Acceso a los datos de andino
 
