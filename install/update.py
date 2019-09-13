@@ -136,14 +136,13 @@ class Updater(InstallationManager):
             self.run_compose_command("exec -T portal bash /etc/ckan_init.d/run_updates.sh")
         except subprocess.CalledProcessError as e:
             self.logger.exception("Error al correr el script 'run_updates.sh'.\n{}".format(e))
+        self.update_config_file_value("ckan.plugins = {}".format(current_plugins))
+        self.restart_apache()
         try:
             self.run_compose_command("exec -T portal bash /etc/ckan_init.d/update_data_json_and_catalog_xlsx.sh")
         except subprocess.CalledProcessError as e:
             self.logger.exception("Error al correr el script 'update_data_json_and_catalog_xlsx.sh'.\n{}".format(e))
-        try:
-            self.run_compose_command("exec -T portal /etc/ckan_init.d/upgrade_db.sh")
-        finally:
-            self.update_config_file_value("ckan.plugins = {}".format(current_plugins))
+        self.run_compose_command("exec -T portal /etc/ckan_init.d/upgrade_db.sh")
         self.run_compose_command("exec -T portal /etc/ckan_init.d/run_rebuild_search.sh")
 
     def find_cron_jobs(self):
