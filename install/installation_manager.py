@@ -286,6 +286,10 @@ class InstallationManager(object):
     def correct_ckan_public_files_permissions(self):
         self.run_compose_command('exec portal bash -c "chmod 777 -R /usr/lib/ckan/default/src/ckan/ckan/public"')
 
+    def restart_apache(self):
+        self.run_compose_command("exec -T portal apachectl restart")
+        time.sleep(8)  # Esperamos a que apache termine de restartear
+
     @abstractmethod
     def run(self):
         pass
