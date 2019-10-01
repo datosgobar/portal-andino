@@ -25,7 +25,7 @@ Los encabezados de estilo Atx usan 1-6 caracteres hash al comienzo de la línea,
     
     ###### This is an H6
     
-Opcionalmente, puede "cerrar" los encabezados de estilo atx. Esto es puramente cosmético; puede usarlo si cree que se ve mejor. Los hashes de cierre ni siquiera necesitan coincidir con el número de hashes utilizados para abrir el encabezado. (El número de hashes de apertura determina el nivel del encabezado):
+Opcionalmente, se puede "cerrar" los encabezados de estilo atx. Esto es puramente cosmético; podés usarlo si crees que se ve mejor. Los hashes de cierre ni siquiera necesitan coincidir con el número de hashes utilizados para abrir el encabezado. (El número de hashes de apertura determina el nivel del encabezado):
 
     # This is an H1 #
     
@@ -35,7 +35,7 @@ Opcionalmente, puede "cerrar" los encabezados de estilo atx. Esto es puramente c
 
 ### CITAS EN BLOQUE
 
-Markdown utiliza caracteres de estilo de correo electrónico > para comillas en bloque. Si está familiarizado con citar pasajes de texto en un mensaje de correo electrónico, entonces sabe cómo crear una cita en bloque en Markdown. Se ve mejor si ajusta firmemente el texto y pone un > antes de cada línea:
+Markdown utiliza caracteres de estilo de correo electrónico > para comillas en bloque. Si estás familiarizado con citar pasajes de texto en un mensaje de correo electrónico, entonces sabés cómo crear una cita en bloque en Markdown. Se ve mejor si ajustás firmemente el texto y ponés un > antes de cada línea:
 
 
     > This is a blockquote with two paragraphs. Lorem ipsum dolor sit amet,
@@ -96,13 +96,13 @@ y:
     -   Green
     -   Blue
 
-Las listas ordenads usan numeros seguidas de puntos:
+Las listas ordenadas usan numeros seguidas de puntos:
 
     1.  Bird
     2.  McHale
     3.  Parish
 
-Es importante tener en cuenta que los números que usas para marcar la lista no tienen efecto en la salida HTML que Markdown produce. El HTML Markdown que produce la lista anterior es:
+Es importante tener en cuenta que los números que usás para marcar la lista no tienen efecto en la salida HTML que Markdown produce. El HTML Markdown que produce la lista anterior es:
 
     <ol>
     <li>Bird</li>
@@ -122,12 +122,12 @@ o incluso:
     1. McHale
     8. Parish
 
-obtendrías exactamente la misma salida HTML. El punto es que, si lo deseas, puedes usar números ordinales en sus listas de Markdown ordenadas, para que los números en su fuente coincidan con los números en su HTML publicado. Pero si quieres ser flojo, no tienes que hacerlo.
+obtendrías exactamente la misma salida HTML. El punto es que, si querés, podés usar números ordinales en sus listas de Markdown ordenadas, para que los números en su fuente coincidan con los números en su HTML publicado. Pero si querés ser flojo, no tenés que hacerlo.
 
-Sin embargo, si utilizas la numeración de la lista diferida, aún debes comenzar la lista con el número 1. En algún momento en el futuro, Markdown puede admitir el inicio de listas ordenadas en un número arbitrario.
+Sin embargo, si utilizás la numeración de la lista diferida, aún tenés que comenzar la lista con el número 1. En algún momento en el futuro, Markdown puede admitir el inicio de listas ordenadas en un número arbitrario.
 
 Los marcadores de lista generalmente comienzan en el margen izquierdo, pero pueden estar indentados por hasta tres espacios. Los marcadores de lista deben ir seguidos de uno o más espacios o una pestaña.
-To make lists look nice, you can wrap items with hanging indents:
+Para que las listas se vean bien, puede envolver elementos con indentación colgantes:
 
     *   Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
         Aliquam hendrerit mi posuere lectus. Vestibulum enim wisi,
@@ -135,7 +135,7 @@ To make lists look nice, you can wrap items with hanging indents:
     *   Donec sit amet nisl. Aliquam semper ipsum sit amet velit.
         Suspendisse id sem consectetuer libero luctus adipiscing.
 
-Pero si quieres ser flojo, no tienes que:
+Pero si querés ser flojo, no tenés que hacerlo:
 
     *   Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
     Aliquam hendrerit mi posuere lectus. Vestibulum enim wisi,
@@ -180,7 +180,7 @@ Los elementos de la lista pueden consistir en múltiples párrafos. Cada párraf
     
     2.  Suspendisse id sem consectetuer libero luctus adipiscing.
 
-Se ve bien si indentas cada línea de los párrafos posteriores, pero aquí nuevamente, Markdown te permitirá ser perezoso:
+Se ve bien si indentás cada línea de los párrafos posteriores, pero aquí nuevamente, Markdown te permitirá ser flojo:
 
     *   This is a list item with two paragraphs.
     
@@ -213,7 +213,7 @@ Vale la pena señalar que es posible activar una lista ordenada por accidente, e
 
 Los bloques de código formateados previamente se utilizan para escribir sobre código fuente de programación o marcado. En lugar de formar párrafos normales, las líneas de un bloque de código se interpretan literalmente. Markdown envuelve un bloque de código en las etiquetas `<pre>` y `<code>`.
 
-Para producir un bloque de código en Markdown, simplemente sangra cada línea del bloque por al menos 4 espacios o 1 pestaña. Por ejemplo, dada esta entrada:
+Para producir un bloque de código en Markdown, simplemente indentá cada línea del bloque por al menos 4 espacios o 1 tabulación. Por ejemplo, dada esta entrada:
 
     This is a normal paragraph:
     
@@ -226,7 +226,7 @@ Markdown generará:
     <pre><code>This is a code block.
     </code></pre>
 
-Se elimina un nivel de sangría, 4 espacios o 1 pestaña, de cada línea del bloque de código. Por ejemplo, esto:
+Se elimina un nivel de sangría, 4 espacios o 1 tabulación, de cada línea del bloque de código. Por ejemplo, esto:
 
     Here is an example of AppleScript:
     
@@ -243,9 +243,9 @@ Se convertirá en:
     end tell
     </code></pre>
 
-Un bloque de código continúa hasta que alcanza una línea que no está sangrada (o al final del artículo).
+Un bloque de código continúa hasta que alcanza una línea que no está indentada (o al final del artículo).
 
-Dentro de un bloque de código, los símbolos (&) y los corchetes angulares (<y>) se convierten automáticamente en entidades HTML. Esto hace que sea muy fácil incluir un código fuente HTML de ejemplo usando Markdown: simplemente péguelo e indentifíquelo, y Markdown se encargará de la molestia de codificar los símbolos y los corchetes angulares. Por ejemplo, esto:
+Dentro de un bloque de código, los símbolos (&) y los corchetes angulares (<y>) se convierten automáticamente en entidades HTML. Esto hace que sea muy fácil incluir un código fuente HTML de ejemplo usando Markdown: simplemente pegalos e indentificalos, y Markdown se encargará de la molestia de codificar los símbolos y los corchetes angulares. Por ejemplo, esto:
 
     <div class="footer">
         &copy; 2004 Foo Corporation
@@ -262,7 +262,7 @@ La sintaxis de Markdown normal no se procesa dentro de los bloques de código. P
 
 ### REGLAS HORIZONTALES
 
-Puede producir una etiqueta de regla horizontal `(<hr />)` colocando tres o más guiones, asteriscos o guiones bajos en una línea por sí mismos. Si lo desea, puede usar espacios entre los guiones o asteriscos. Cada una de las siguientes líneas producirá una regla horizontal:
+Podés producir una etiqueta de regla horizontal `(<hr />)` colocando tres o más guiones, asteriscos o guiones bajos en una línea por sí mismos. Si lo desea, puede usar espacios entre los guiones o asteriscos. Cada una de las siguientes líneas producirá una regla horizontal:
 
     * * *
     
@@ -282,13 +282,13 @@ Markdown admite dos estilos de enlaces: en línea y de referencia.
 
 En ambos estilos, el texto del enlace está delimitado por [corchetes].
 
-Para crear un enlace en línea, use un conjunto de paréntesis regulares inmediatamente después del corchete de cierre del texto del enlace. Dentro de los paréntesis, coloque la URL donde desea que apunte el enlace, junto con un título opcional para el enlace, entre comillas. Por ejemplo:
+Para crear un enlace en línea, usá un conjunto de paréntesis regulares inmediatamente después del corchete de cierre del texto del enlace. Dentro de los paréntesis, colocá la URL donde desea que apunte el enlace, junto con un título opcional para el enlace, entre comillas. Por ejemplo:
 
     This is [an example](http://example.com/ "Title") inline link.
     
     [This link](http://example.net/) has no title attribute.
 
-Producirá:
+producirá:
 
     <p>This is <a href="http://example.com/" title="Title">
     an example</a> inline link.</p>
@@ -296,7 +296,7 @@ Producirá:
     <p><a href="http://example.net/">This link</a> has no
     title attribute.</p>
 
-Si se refiere a un recurso local en el mismo servidor, puede usar rutas relativas:
+Si se refiere a un recurso local en el mismo servidor, podés usar direcciones relativas:
 
     See my [About](/about/) page for details.   
 
@@ -304,11 +304,11 @@ Los enlaces de estilo de referencia usan un segundo conjunto de corchetes, dentr
 
     This is [an example][id] reference-style link.
 
-Opcionalmente, puede usar un espacio para separar los conjuntos de corchetes:
+Opcionalmente, podés usar un espacio para separar los conjuntos de corchetes:
 
     This is [an example] [id] reference-style link.
 
-Luego, en cualquier parte del documento, define su etiqueta de enlace de esta manera, en una línea por sí misma:
+Luego, en cualquier parte del documento, definís su etiqueta de enlace de esta manera, en una línea por sí misma:
 
     [id]: http://example.com/  "Optional Title Here"
 
@@ -332,7 +332,7 @@ La URL del enlace puede, opcionalmente, estar entre corchetes angulares:
 
     [id]: <http://example.com/>  "Optional Title Here"
 
-Puede colocar el atributo de título en la siguiente línea y usar espacios o pestañas adicionales para el relleno, que tiende a verse mejor con URL más largas:
+Podés colocar el atributo de título en la siguiente línea y usar espacios o pestañas adicionales para el relleno, que tiende a verse mejor con URL más largas:
 
     [id]: http://example.com/longish/path/to/resource/here
         "Optional Title Here"
@@ -346,11 +346,11 @@ Los nombres de definición de enlace pueden consistir en letras, números, espac
 
 son equivalentes
 
-El acceso directo implícito al nombre del enlace le permite omitir el nombre del enlace, en cuyo caso el texto del enlace se usa como nombre. Simplemente use un conjunto vacío de corchetes; por ejemplo, para vincular la palabra "Google" al sitio web google.com, simplemente puede escribir:
+El acceso directo implícito al nombre del enlace le permite omitir el nombre del enlace, en cuyo caso el texto del enlace se usa como nombre. Simplemente usá un conjunto vacío de corchetes; por ejemplo, para vincular la palabra "Google" al sitio web google.com, simplemente escribí:
 
     [Google][]
 
-Y luego defina el enlace:
+Y luego definí el enlace:
 
     [Google]: http://google.com/
 
@@ -358,11 +358,11 @@ Como los nombres de los enlaces pueden contener espacios, este acceso directo in
 
     Visit [Daring Fireball][] for more information.
 
-Y entonces, define el link:
+Y entonces, definí el link:
 
     [Daring Fireball]: http://daringfireball.net/
 
-Las definiciones de enlace se pueden colocar en cualquier parte de su documento Markdown. Se tiende a ponerlos inmediatamente después de cada párrafo en el que se usan, pero si lo desea, puede ponerlos todos al final de su documento, como notas a pie de página.
+Las definiciones de enlace se pueden colocar en cualquier parte de su documento Markdown. Se tiende a ponerlos inmediatamente después de cada párrafo en el que se usan, pero si querés, podés ponerlos todos al final de su documento, como notas a pie de página.
 
 Aquí hay un ejemplo de enlaces de referencia en acción:
 
@@ -373,7 +373,7 @@ Aquí hay un ejemplo de enlaces de referencia en acción:
       [2]: http://search.yahoo.com/  "Yahoo Search"
       [3]: http://search.msn.com/    "MSN Search"
 
-Usando el acceso directo de nombre de enlace implícito, en su lugar podría escribir:
+Usando el acceso directo de nombre de enlace implícito, en su lugar podrías escribir:
 
     I get 10 times more traffic from [Google][] than from
     [Yahoo][] or [MSN][].
@@ -395,9 +395,9 @@ A modo de comparación, aquí está el mismo párrafo escrito con el estilo de e
     than from [Yahoo](http://search.yahoo.com/ "Yahoo Search") or
     [MSN](http://search.msn.com/ "MSN Search").
 
-El punto de los enlaces de estilo de referencia no es que sean más fáciles de escribir. El punto es que con los enlaces de estilo de referencia, la fuente de su documento es mucho más legible. Compare los ejemplos anteriores: usando enlaces de estilo de referencia, el párrafo en sí solo tiene 81 caracteres de longitud; con enlaces de estilo en línea, tiene 176 caracteres; y como HTML sin procesar, tiene 234 caracteres. En el HTML sin formato, hay más marcado que texto.
+El punto de los enlaces de estilo de referencia no es que sean más fáciles de escribir. El punto es que con los enlaces de estilo de referencia, la fuente del documento es mucho más legible. Compará los ejemplos anteriores: usando enlaces de estilo de referencia, el párrafo en sí solo tiene 81 caracteres de longitud; con enlaces de estilo en línea, tiene 176 caracteres; y como HTML sin procesar, tiene 234 caracteres. En el HTML sin formato, hay más marcado que texto.
 
-Con los enlaces de estilo de referencia de Markdown, un documento fuente se parece mucho más a la salida final, tal como se representa en un navegador. Al permitirle mover los metadatos relacionados con el marcado fuera del párrafo, puede agregar enlaces sin interrumpir el flujo narrativo de su prosa.
+Con los enlaces de estilo de referencia de Markdown, un documento fuente se parece mucho más a la salida final, tal como se representa en un navegador. Al permitirté mover los metadatos relacionados con el marcado fuera del párrafo, podés agregar enlaces sin interrumpir el flujo narrativo de su prosa.
 
 ### ÉNFASIS
 
@@ -421,19 +421,19 @@ producirá:
     
     <strong>double underscores</strong>
 
-Puedes usar el estilo que prefieras; La única restricción es que se debe usar el mismo carácter para abrir y cerrar un intervalo de énfasis.
+Podés usar el estilo que prefieras; La única restricción es que se debe usar el mismo carácter para abrir y cerrar un intervalo de énfasis.
 
 El énfasis se puede usar en medio de una palabra:
 
     un*frigging*believable
 
-Pero si rodea un * o _ con espacios, se tratará como un asterisco literal o guión bajo.
+Pero si rodeás un * o _ con espacios, se lo tratará como un asterisco literal o guión bajo.
 
-Para producir un asterisco literal o un guión bajo en una posición donde de otro modo se usaría como un delimitador de énfasis, puede hacer una barra invertida para escapar de él:
+Para producir un asterisco literal o un guión bajo en una posición donde de otro modo se usaría como un delimitador de énfasis, podés usar una barra invertida para escaparlo:
 
     \*this text is surrounded by literal asterisks\*
 
-Para indicar un intervalo de código, envuélvalo con comillas de retroceso (`). A diferencia de un bloque de código preformateado, un intervalo de código indica código dentro de un párrafo normal. Por ejemplo:
+Para escribír un bloque de código, envolvelo con comillas de retroceso (`). A diferencia de un bloque de código preformateado, un intervalo de código indica código dentro de un párrafo normal. Por ejemplo:
 
     Use the `printf()` function.
 
@@ -441,7 +441,7 @@ producirá:
 
     <p>Use the <code>printf()</code> function.</p>
 
-Para incluir un carácter de retroceso literal dentro de un intervalo de código, puede usar múltiples retrocesos como delimitadores de apertura y cierre:
+Para incluir un carácter de retroceso literal dentro de un intervalo de código, podés usar múltiples retrocesos como delimitadores de apertura y cierre:
 
     ``There is a literal backtick (`) here.``
 
@@ -449,7 +449,7 @@ que producirá esto:
 
     <p><code>There is a literal backtick (`) here.</code></p>
 
-Los delimitadores de retroceso que rodean un tramo de código pueden incluir espacios, uno después de la apertura, uno antes del cierre. Esto le permite colocar caracteres de retroceso literal al principio o al final de un intervalo de código:
+Los delimitadores de retroceso que rodean un tramo de código pueden incluir espacios, uno después de la apertura, uno antes del cierre. Esto te permite colocar caracteres de retroceso literal al principio o al final de un intervalo de código:
 
     A single backtick in a code span: `` ` ``
     
@@ -469,7 +469,7 @@ en:
 
     <p>Please don't use any <code>&lt;blink&gt;</code> tags.</p>
 
-Puedes escribir esto:
+Podés escribir esto:
 
     `&#8212;` is the decimal-encoded equivalent of `&mdash;`.
 
@@ -504,12 +504,12 @@ Donde "id" es el nombre de una referencia de imagen definida. Las referencias de
 
     [id]: url/to/image  "Optional title attribute"
 
-Al escribir estas líneas, Markdown no tiene sintaxis para especificar las dimensiones de una imagen; Si esto es importante para usted, simplemente puede usar etiquetas HTML normales `<img>`.
+Al escribir estas líneas, Markdown no tiene sintaxis para especificar las dimensiones de una imagen; Si esto es importante para vos, simplemente podés usar etiquetas HTML normales `<img>`.
 
 ## MISCELÁNEO
 ### LINKS AUTOMÁTICOS
 
-Markdown admite un estilo de acceso directo para crear enlaces "automáticos" para URL y direcciones de correo electrónico: simplemente rodee la URL o la dirección de correo electrónico con corchetes angulares. Lo que esto significa es que si desea mostrar el texto real de una URL o dirección de correo electrónico, y también hacer que sea un enlace en el que se pueda hacer clic, puede hacer esto:
+Markdown admite un estilo de acceso directo para crear enlaces "automáticos" para URL y direcciones de correo electrónico: simplemente rodeá la URL o la dirección de correo electrónico con corchetes angulares. Lo que esto significa es que si querés mostrar el texto real de una URL o dirección de correo electrónico, y también hacer que sea un enlace en el que se pueda hacer clic, podés hacer esto:
 
     <http://example.com/>
 
@@ -528,13 +528,13 @@ en algo como esto:
     &#109;">&#x61;&#x64;&#x64;&#x72;&#x65;&#115;&#115;&#64;&#101;&#120;&#x61;
     &#109;&#x70;&#x6C;e&#x2E;&#99;&#111;&#109;</a>
 
-que se mostrará en un navegador como un enlace en el que se puede hacer clic en "dirección@ejemplo.com".
+que se mostrará en un navegador como un enlace en el que se puede hacer clic "dirección@ejemplo.com".
 
 (Este tipo de truco de codificación de entidades realmente engañará a muchos, si no a la mayoría, a los robots de recolección de direcciones, pero definitivamente no los engañará a todos. Es mejor que nada, pero una dirección publicada de esta manera probablemente comenzará a recibir correo no deseado.)
 
 ### ESCAPE DE BARRA INVERTIDA
 
-Markdown le permite usar escapes de barra invertida para generar caracteres literales que de otro modo tendrían un significado especial en la sintaxis de formato de Markdown. Por ejemplo, si desea rodear una palabra con asteriscos literales (en lugar de una etiqueta HTML `<em>`), puede usar barras invertidas antes de los asteriscos, de esta manera:
+Markdown te permite usar escapes con barra invertida para generar caracteres literales que de otro modo tendrían un significado especial en la sintaxis de formato de Markdown. Por ejemplo, si querés rodear una palabra con asteriscos literales (en lugar de una etiqueta HTML `<em>`), podés usar barras invertidas antes de los asteriscos, de esta manera:
 
     \*literal asterisks\*
 
