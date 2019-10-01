@@ -1,6 +1,6 @@
 # GUÍA DE MARKDOWN
 
-Nota: esta guia esta totalmente basada y traducida de la guía de [DaringFireball](https://daringfireball.net/projects/markdown/syntax)
+Nota: esta guía está totalmente basada en la guía de [DaringFireball](https://daringfireball.net/projects/markdown/syntax). y traducida al español.
 
 ## ELEMENTOS EN BLOQUE
 
@@ -155,7 +155,7 @@ Se convertirá en:
     <li>Magic</li>
     </ul>
 
-Pero ésto:
+Pero esto:
 
     *   Bird
     
@@ -362,7 +362,7 @@ Y entonces, define el link:
 
     [Daring Fireball]: http://daringfireball.net/
 
-Las definiciones de enlace se pueden colocar en cualquier parte de su documento de Markdown. Tiendo a ponerlos inmediatamente después de cada párrafo en el que se usan, pero si lo desea, puede ponerlos todos al final de su documento, como notas a pie de página.
+Las definiciones de enlace se pueden colocar en cualquier parte de su documento Markdown. Se tiende a ponerlos inmediatamente después de cada párrafo en el que se usan, pero si lo desea, puede ponerlos todos al final de su documento, como notas a pie de página.
 
 Aquí hay un ejemplo de enlaces de referencia en acción:
 
