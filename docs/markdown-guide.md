@@ -52,7 +52,8 @@ Markdown utiliza caracteres de estilo de correo electrónico > para comillas en 
     
     > Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse
     id sem consectetuer libero luctus adipiscing.
-    Blockquotes can be nested (i.e. a blockquote-in-a-blockquote) by adding additional levels of >:
+
+Las citas en bloque se pueden anidar (es decir, una cita en bloque en una cita en bloque) agregando niveles adicionales de >:
     
     > This is the first level of quoting.
     >
