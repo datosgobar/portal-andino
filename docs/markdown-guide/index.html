@@ -42,7 +42,7 @@
     
     
       
-        <title>Markdown guide - Portal Andino</title>
+        <title>Guía de Markdown - Portal Andino</title>
       
     
     
@@ -133,7 +133,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#elementos-en-bloque" tabindex="1" class="md-skip">
+      <a href="#guia-de-markdown" tabindex="1" class="md-skip">
         Saltar a contenido
       </a>
     
@@ -159,7 +159,7 @@
             </span>
             <span class="md-header-nav__topic">
               
-                Markdown guide
+                Guía de Markdown
               
             </span>
           
@@ -311,10 +311,12 @@
             
             
 
+  
 
-  <li class="md-nav__item md-nav__item--nested">
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" checked>
     
     <label class="md-nav__link" for="nav-2">
       Usuarios
@@ -347,6 +349,158 @@
     <a href="../time-series/" title="Publicar series de tiempo" class="md-nav__link">
       Publicar series de tiempo
     </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Guía de Markdown
+      </label>
+    
+    <a href="./" title="Guía de Markdown" class="md-nav__link md-nav__link--active">
+      Guía de Markdown
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Contenidos de la sección</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#elementos-en-bloque" class="md-nav__link">
+    ELEMENTOS EN BLOQUE
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#encabezados" class="md-nav__link">
+    ENCABEZADOS
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#citas-en-bloque" class="md-nav__link">
+    CITAS EN BLOQUE
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lists" class="md-nav__link">
+    LISTS
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#code-blocks" class="md-nav__link">
+    CODE BLOCKS
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reglas-horizontales" class="md-nav__link">
+    REGLAS HORIZONTALES
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#elementos-span" class="md-nav__link">
+    ELEMENTOS SPAN
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#links" class="md-nav__link">
+    LINKS
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enfasis" class="md-nav__link">
+    ÉNFASIS
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#imagenes" class="md-nav__link">
+    IMÁGENES
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#miscelaneo" class="md-nav__link">
+    MISCELÁNEO
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#links-automaticos" class="md-nav__link">
+    LINKS AUTOMÁTICOS
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#escape-de-barra-invertida" class="md-nav__link">
+    ESCAPE DE BARRA INVERTIDA
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
   </li>
 
         
@@ -516,6 +670,8 @@
 <nav class="md-nav md-nav--secondary">
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">Contenidos de la sección</label>
     <ul class="md-nav__list" data-md-scrollfix>
@@ -604,7 +760,7 @@
       
         <li class="md-nav__item">
   <a href="#miscelaneo" class="md-nav__link">
-    MISCELÄNEO
+    MISCELÁNEO
   </a>
   
     <nav class="md-nav">
@@ -612,7 +768,7 @@
         
           <li class="md-nav__item">
   <a href="#links-automaticos" class="md-nav__link">
-    LINKS AUTOMÄTICOS
+    LINKS AUTOMÁTICOS
   </a>
   
 </li>
@@ -648,19 +804,17 @@
                   <a href="https://github.com/datosgobar/portal-andino/edit/master/docs/markdown-guide.md" title="Editar esta página" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
-                  <h1>Markdown guide</h1>
-                
-                <h2 id="elementos-en-bloque">ELEMENTOS EN BLOQUE</h2>
+                <h1 id="guia-de-markdown">GUÍA DE MARKDOWN</h1>
+<p>Nota: esta guía está totalmente basada en la guía de <a href="https://daringfireball.net/projects/markdown/syntax">DaringFireball</a>. y traducida al español.</p>
+<h2 id="elementos-en-bloque">ELEMENTOS EN BLOQUE</h2>
 <h3 id="encabezados">ENCABEZADOS</h3>
 <p>Markdown admite dos estilos de encabezados, Setext y atx.</p>
 <p>Los encabezados de estilo de texto están "subrayados" usando signos de igual (para encabezados de primer nivel) y guiones (para encabezados de segundo nivel). Por ejemplo:</p>
-<div class="codehilite"><pre><span></span><span class="n">This</span> <span class="k">is</span> <span class="n">an</span> <span class="n">H1</span>    
-<span class="o">=============</span>
-</pre></div>
+<div class="codehilite"><pre><span></span><span class="gh">This is an H1</span>
+<span class="gh">=============</span>
 
-
-<div class="codehilite"><pre><span></span><span class="n">This</span> <span class="k">is</span> <span class="n">an</span> <span class="n">H2</span>
-<span class="c1">-------------</span>
+<span class="gh">This is an H2</span>
+<span class="gh">-------------</span>
 </pre></div>
 
 
@@ -699,9 +853,11 @@
 
 <span class="o">&gt;</span> <span class="n">Donec</span> <span class="n">sit</span> <span class="n">amet</span> <span class="n">nisl</span><span class="p">.</span> <span class="n">Aliquam</span> <span class="n">semper</span> <span class="n">ipsum</span> <span class="n">sit</span> <span class="n">amet</span> <span class="n">velit</span><span class="p">.</span> <span class="n">Suspendisse</span>
 <span class="n">id</span> <span class="n">sem</span> <span class="n">consectetuer</span> <span class="n">libero</span> <span class="n">luctus</span> <span class="n">adipiscing</span><span class="p">.</span>
-<span class="n">Blockquotes</span> <span class="n">can</span> <span class="n">be</span> <span class="n">nested</span> <span class="p">(</span><span class="n">i</span><span class="p">.</span><span class="n">e</span><span class="p">.</span> <span class="n">a</span> <span class="n">blockquote</span><span class="o">-</span><span class="k">in</span><span class="o">-</span><span class="n">a</span><span class="o">-</span><span class="n">blockquote</span><span class="p">)</span> <span class="k">by</span> <span class="n">adding</span> <span class="n">additional</span> <span class="n">levels</span> <span class="k">of</span> <span class="o">&gt;</span><span class="p">:</span>
+</pre></div>
 
-<span class="o">&gt;</span> <span class="n">This</span> <span class="k">is</span> <span class="n">the</span> <span class="k">first</span> <span class="k">level</span> <span class="k">of</span> <span class="n">quoting</span><span class="p">.</span>
+
+<p>Las citas en bloque se pueden anidar (es decir, una cita en bloque en una cita en bloque) agregando niveles adicionales de &gt;:</p>
+<div class="codehilite"><pre><span></span><span class="o">&gt;</span> <span class="n">This</span> <span class="k">is</span> <span class="n">the</span> <span class="k">first</span> <span class="k">level</span> <span class="k">of</span> <span class="n">quoting</span><span class="p">.</span>
 <span class="o">&gt;</span>
 <span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">This</span> <span class="k">is</span> <span class="n">nested</span> <span class="n">blockquote</span><span class="p">.</span>
 <span class="o">&gt;</span>
@@ -796,7 +952,7 @@ To make lists look nice, you can wrap items with hanging indents:</p>
 </pre></div>
 
 
-<p>Si los elementos de la lista están separados por líneas en blanco, Markdown ajustará los elementos en etiquetas <p> en la salida HTML. Por ejemplo, esta entrada:</p>
+<p>Si los elementos de la lista están separados por líneas en blanco, Markdown ajustará los elementos en etiquetas <code>&lt;p&gt;</code> en la salida HTML. Por ejemplo, esta entrada:</p>
 <div class="codehilite"><pre><span></span><span class="o">*</span>   <span class="n">Bird</span>
 <span class="o">*</span>   <span class="n">Magic</span>
 </pre></div>
@@ -810,7 +966,7 @@ To make lists look nice, you can wrap items with hanging indents:</p>
 </pre></div>
 
 
-<p>Pero ésto:</p>
+<p>Pero esto:</p>
 <div class="codehilite"><pre><span></span><span class="o">*</span>   <span class="n">Bird</span>
 
 <span class="o">*</span>   <span class="n">Magic</span>
@@ -908,16 +1064,16 @@ To make lists look nice, you can wrap items with hanging indents:</p>
 
 <p>Un bloque de código continúa hasta que alcanza una línea que no está sangrada (o al final del artículo).</p>
 <p>Dentro de un bloque de código, los símbolos (&amp;) y los corchetes angulares (<y>) se convierten automáticamente en entidades HTML. Esto hace que sea muy fácil incluir un código fuente HTML de ejemplo usando Markdown: simplemente péguelo e indentifíquelo, y Markdown se encargará de la molestia de codificar los símbolos y los corchetes angulares. Por ejemplo, esto:</p>
-<div class="codehilite"><pre><span></span>    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;footer&quot;</span><span class="nt">&gt;</span>
-        <span class="ni">&amp;copy;</span> 2004 Foo Corporation
-    <span class="nt">&lt;/div&gt;</span>
+<div class="codehilite"><pre><span></span><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;footer&quot;</span><span class="nt">&gt;</span>
+    <span class="ni">&amp;copy;</span> 2004 Foo Corporation
+<span class="nt">&lt;/div&gt;</span>
 </pre></div>
 
 
 <p>Se convertirá en:</p>
-<div class="codehilite"><pre><span></span><span class="nt">&lt;pre&gt;&lt;code&gt;</span><span class="ni">&amp;lt;</span>div class=&quot;footer&quot;<span class="ni">&amp;gt;</span>
+<div class="codehilite"><pre><span></span><span class="nt">&lt;pre&gt;&lt;code&gt;&lt;div</span> <span class="na">class=</span><span class="s">&quot;footer&quot;</span><span class="nt">&gt;</span>
     <span class="ni">&amp;amp;</span>copy; 2004 Foo Corporation
-<span class="ni">&amp;lt;</span>/div<span class="ni">&amp;gt;</span>
+<span class="nt">&lt;/div&gt;</span>
 <span class="nt">&lt;/code&gt;&lt;/pre&gt;</span>
 </pre></div>
 
@@ -958,7 +1114,7 @@ title attribute.<span class="nt">&lt;/p&gt;</span>
 
 
 <p>Si se refiere a un recurso local en el mismo servidor, puede usar rutas relativas:</p>
-<div class="codehilite"><pre><span></span><span class="nv">See</span> <span class="nv">my</span> [<span class="nv">About</span>]<span class="ss">(</span><span class="o">/</span><span class="nv">about</span><span class="o">/</span><span class="ss">)</span> <span class="nv">page</span> <span class="k">for</span> <span class="nv">details</span>.   
+<div class="codehilite"><pre><span></span><span class="nv">See</span> <span class="nv">my</span> [<span class="nv">About</span>]<span class="ss">(</span><span class="o">/</span><span class="nv">about</span><span class="o">/</span><span class="ss">)</span> <span class="nv">page</span> <span class="k">for</span> <span class="nv">details</span>.
 </pre></div>
 
 
@@ -1032,7 +1188,7 @@ title attribute.<span class="nt">&lt;/p&gt;</span>
 </pre></div>
 
 
-<p>Las definiciones de enlace se pueden colocar en cualquier parte de su documento de Markdown. Tiendo a ponerlos inmediatamente después de cada párrafo en el que se usan, pero si lo desea, puede ponerlos todos al final de su documento, como notas a pie de página.</p>
+<p>Las definiciones de enlace se pueden colocar en cualquier parte de su documento Markdown. Se tiende a ponerlos inmediatamente después de cada párrafo en el que se usan, pero si lo desea, puede ponerlos todos al final de su documento, como notas a pie de página.</p>
 <p>Aquí hay un ejemplo de enlaces de referencia en acción:</p>
 <div class="codehilite"><pre><span></span><span class="n">I</span><span class="w"> </span><span class="k">get</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="n">times</span><span class="w"> </span><span class="n">more</span><span class="w"> </span><span class="n">traffic</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="o">[</span><span class="n">Google</span><span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="n">1</span><span class="o">]</span><span class="w"> </span><span class="k">than</span><span class="w"> </span><span class="k">from</span><span class="w"></span>
 <span class="o">[</span><span class="n">Yahoo</span><span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="n">2</span><span class="o">]</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="o">[</span><span class="n">MSN</span><span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="n">3</span><span class="o">]</span><span class="p">.</span><span class="w"></span>
@@ -1071,7 +1227,7 @@ or <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&q
 <p>El punto de los enlaces de estilo de referencia no es que sean más fáciles de escribir. El punto es que con los enlaces de estilo de referencia, la fuente de su documento es mucho más legible. Compare los ejemplos anteriores: usando enlaces de estilo de referencia, el párrafo en sí solo tiene 81 caracteres de longitud; con enlaces de estilo en línea, tiene 176 caracteres; y como HTML sin procesar, tiene 234 caracteres. En el HTML sin formato, hay más marcado que texto.</p>
 <p>Con los enlaces de estilo de referencia de Markdown, un documento fuente se parece mucho más a la salida final, tal como se representa en un navegador. Al permitirle mover los metadatos relacionados con el marcado fuera del párrafo, puede agregar enlaces sin interrumpir el flujo narrativo de su prosa.</p>
 <h3 id="enfasis">ÉNFASIS</h3>
-<p>Markdown trata los asteriscos (*) y los guiones bajos (<em>) como indicadores de énfasis. El texto envuelto con uno * o _ se envolverá con una etiqueta HTML <em>; los dobles * ’o </em>’s se envolverán con una etiqueta HTML <strong>. Por ejemplo, esta entrada:</p>
+<p>Markdown trata los asteriscos (*) y los guiones bajos (<em>) como indicadores de énfasis. El texto envuelto con uno * o _ se envolverá con una etiqueta HTML <code>&lt;em&gt;</code>; los dobles * ’o </em>’s se envolverán con una etiqueta HTML <code>&lt;strong&gt;</code>. Por ejemplo, esta entrada:</p>
 <div class="codehilite"><pre><span></span><span class="o">*</span><span class="n">single</span> <span class="n">asterisks</span><span class="o">*</span>
 
 <span class="n">_single</span> <span class="n">underscores_</span>
@@ -1145,7 +1301,7 @@ or <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&q
 
 
 <p>en:</p>
-<div class="codehilite"><pre><span></span><span class="nt">&lt;p&gt;</span>Please don&#39;t use any <span class="nt">&lt;code&gt;</span><span class="ni">&amp;lt;</span>blink<span class="ni">&amp;gt;</span><span class="nt">&lt;/code&gt;</span> tags.<span class="nt">&lt;/p&gt;</span>
+<div class="codehilite"><pre><span></span><span class="nt">&lt;p&gt;</span>Please don&#39;t use any <span class="nt">&lt;code&gt;&lt;blink&gt;&lt;/code&gt;</span> tags.<span class="nt">&lt;/p&gt;</span>
 </pre></div>
 
 
@@ -1186,9 +1342,9 @@ equivalent of <span class="nt">&lt;code&gt;</span><span class="ni">&amp;amp;</sp
 </pre></div>
 
 
-<p>Al escribir estas líneas, Markdown no tiene sintaxis para especificar las dimensiones de una imagen; Si esto es importante para usted, simplemente puede usar etiquetas HTML normales <img>.</p>
-<h2 id="miscelaneo">MISCELÄNEO</h2>
-<h3 id="links-automaticos">LINKS AUTOMÄTICOS</h3>
+<p>Al escribir estas líneas, Markdown no tiene sintaxis para especificar las dimensiones de una imagen; Si esto es importante para usted, simplemente puede usar etiquetas HTML normales <code>&lt;img&gt;</code>.</p>
+<h2 id="miscelaneo">MISCELÁNEO</h2>
+<h3 id="links-automaticos">LINKS AUTOMÁTICOS</h3>
 <p>Markdown admite un estilo de acceso directo para crear enlaces "automáticos" para URL y direcciones de correo electrónico: simplemente rodee la URL o la dirección de correo electrónico con corchetes angulares. Lo que esto significa es que si desea mostrar el texto real de una URL o dirección de correo electrónico, y también hacer que sea un enlace en el que se pueda hacer clic, puede hacer esto:</p>
 <div class="codehilite"><pre><span></span><span class="o">&lt;</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">example</span><span class="p">.</span><span class="n">com</span><span class="o">/&gt;</span>
 </pre></div>
@@ -1215,7 +1371,7 @@ equivalent of <span class="nt">&lt;code&gt;</span><span class="ni">&amp;amp;</sp
 <p>que se mostrará en un navegador como un enlace en el que se puede hacer clic en "dirección@ejemplo.com".</p>
 <p>(Este tipo de truco de codificación de entidades realmente engañará a muchos, si no a la mayoría, a los robots de recolección de direcciones, pero definitivamente no los engañará a todos. Es mejor que nada, pero una dirección publicada de esta manera probablemente comenzará a recibir correo no deseado.)</p>
 <h3 id="escape-de-barra-invertida">ESCAPE DE BARRA INVERTIDA</h3>
-<p>Markdown le permite usar escapes de barra invertida para generar caracteres literales que de otro modo tendrían un significado especial en la sintaxis de formato de Markdown. Por ejemplo, si desea rodear una palabra con asteriscos literales (en lugar de una etiqueta HTML <em>), puede usar barras invertidas antes de los asteriscos, de esta manera:</p>
+<p>Markdown le permite usar escapes de barra invertida para generar caracteres literales que de otro modo tendrían un significado especial en la sintaxis de formato de Markdown. Por ejemplo, si desea rodear una palabra con asteriscos literales (en lugar de una etiqueta HTML <code>&lt;em&gt;</code>), puede usar barras invertidas antes de los asteriscos, de esta manera:</p>
 <div class="codehilite"><pre><span></span><span class="err">\</span><span class="o">*</span><span class="n">literal</span> <span class="n">asterisks</span><span class="err">\</span><span class="o">*</span>
 </pre></div>
 
@@ -1228,7 +1384,7 @@ equivalent of <span class="nt">&lt;code&gt;</span><span class="ni">&amp;amp;</sp
 <span class="err">{}</span>  <span class="n">llaves</span>
 <span class="p">[]</span>  <span class="n">corchetes</span>
 <span class="p">()</span>  <span class="n">paréntesis</span>
-<span class="o">#</span>   <span class="n">símbolo</span> <span class="n">de</span> <span class="n">almohadilla</span>
+<span class="o">#</span>   <span class="n">símbolo</span> <span class="n">de</span> <span class="n">hash</span>
 <span class="o">+</span>   <span class="n">signo</span> <span class="n">más</span>
 <span class="o">-</span>   <span class="n">signo</span> <span class="n">menos</span> <span class="p">(</span><span class="n">guión</span><span class="p">)</span>
 <span class="p">.</span>   <span class="n">punto</span>
@@ -1250,6 +1406,41 @@ equivalent of <span class="nt">&lt;code&gt;</span><span class="ni">&amp;amp;</sp
       
         
 <footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../time-series/" title="Publicar series de tiempo" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Anterior
+                </span>
+                Publicar series de tiempo
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../developers/install/" title="Instalación" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Siguiente
+                </span>
+                Instalación
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
