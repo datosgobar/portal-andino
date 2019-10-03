@@ -96,7 +96,7 @@ y:
     -   Green
     -   Blue
 
-Las listas ordenadas usan numeros seguidas de puntos:
+Las listas ordenadas usan números seguidos de puntos:
 
     1.  Bird
     2.  McHale
@@ -110,7 +110,7 @@ Es importante tener en cuenta que los números que usás para marcar la lista no
     <li>Parish</li>
     </ol>
 
-Si en cambio escribiste la lista en Markdown así:
+Si, en cambio, escribiste la lista en Markdown así:
 
     1.  Bird
     1.  McHale
@@ -180,7 +180,7 @@ Los elementos de la lista pueden consistir en múltiples párrafos. Cada párraf
     
     2.  Suspendisse id sem consectetuer libero luctus adipiscing.
 
-Se ve bien si indentás cada línea de los párrafos posteriores, pero aquí nuevamente, Markdown te permitirá ser flojo:
+Se ve bien si indentás cada línea de los párrafos posteriores. Pero, nuevamente, Markdown te permitirá ser flojo:
 
     *   This is a list item with two paragraphs.
     
@@ -314,7 +314,7 @@ Luego, en cualquier parte del documento, definís su etiqueta de enlace de esta 
 
 Es decir:
 
-- Corchetes que contienen el identificador de enlace (opcionalmente sangrado del margen izquierdo usando hasta tres espacios);
+- corchetes que contienen el identificador de enlace (opcionalmente sangrado del margen izquierdo usando hasta tres espacios);
 - seguido de dos puntos;
 - seguido de uno o más espacios (o pestañas);
 - seguido de la URL del enlace;
@@ -344,7 +344,7 @@ Los nombres de definición de enlace pueden consistir en letras, números, espac
     [link text][a]
     [link text][A]
 
-son equivalentes
+son equivalentes.
 
 El acceso directo implícito al nombre del enlace le permite omitir el nombre del enlace, en cuyo caso el texto del enlace se usa como nombre. Simplemente usá un conjunto vacío de corchetes; por ejemplo, para vincular la palabra "Google" al sitio web google.com, simplemente escribí:
 
@@ -397,7 +397,7 @@ A modo de comparación, aquí está el mismo párrafo escrito con el estilo de e
 
 El punto de los enlaces de estilo de referencia no es que sean más fáciles de escribir. El punto es que con los enlaces de estilo de referencia, la fuente del documento es mucho más legible. Compará los ejemplos anteriores: usando enlaces de estilo de referencia, el párrafo en sí solo tiene 81 caracteres de longitud; con enlaces de estilo en línea, tiene 176 caracteres; y como HTML sin procesar, tiene 234 caracteres. En el HTML sin formato, hay más marcado que texto.
 
-Con los enlaces de estilo de referencia de Markdown, un documento fuente se parece mucho más a la salida final, tal como se representa en un navegador. Al permitirté mover los metadatos relacionados con el marcado fuera del párrafo, podés agregar enlaces sin interrumpir el flujo narrativo de su prosa.
+Con los enlaces de estilo de referencia de Markdown, un documento fuente se parece mucho más a la salida final, tal como se representa en un navegador. Al permitirte mover los metadatos relacionados con el marcado fuera del párrafo, podés agregar enlaces sin interrumpir el flujo narrativo de su prosa.
 
 ### ÉNFASIS
 
@@ -433,7 +433,7 @@ Para producir un asterisco literal o un guión bajo en una posición donde de ot
 
     \*this text is surrounded by literal asterisks\*
 
-Para escribír un bloque de código, envolvelo con comillas de retroceso (`). A diferencia de un bloque de código preformateado, un intervalo de código indica código dentro de un párrafo normal. Por ejemplo:
+Para escribir un bloque de código, envolvelo con comillas de retroceso (\`). A diferencia de un bloque de código preformateado, un intervalo de código indica código dentro de un párrafo normal. Por ejemplo:
 
     Use the `printf()` function.
 
@@ -504,12 +504,12 @@ Donde "id" es el nombre de una referencia de imagen definida. Las referencias de
 
     [id]: url/to/image  "Optional title attribute"
 
-Al escribir estas líneas, Markdown no tiene sintaxis para especificar las dimensiones de una imagen; Si esto es importante para vos, simplemente podés usar etiquetas HTML normales `<img>`.
+Al escribir estas líneas, Markdown no tiene sintaxis para especificar las dimensiones de una imagen; si esto es importante para vos, simplemente podés usar etiquetas HTML normales `<img>`.
 
 ## MISCELÁNEO
 ### LINKS AUTOMÁTICOS
 
-Markdown admite un estilo de acceso directo para crear enlaces "automáticos" para URL y direcciones de correo electrónico: simplemente rodeá la URL o la dirección de correo electrónico con corchetes angulares. Lo que esto significa es que si querés mostrar el texto real de una URL o dirección de correo electrónico, y también hacer que sea un enlace en el que se pueda hacer clic, podés hacer esto:
+Markdown admite un estilo de acceso directo para crear enlaces "automáticos" para URL y direcciones de correo electrónico: simplemente rodeá la URL o la dirección de correo electrónico con corchetes angulares. Lo que esto significa es que, si querés mostrar el texto real de una URL o dirección de correo electrónico, y también hacer que sea un enlace en el que se pueda hacer clic, podés hacer esto:
 
     <http://example.com/>
 
@@ -530,7 +530,7 @@ en algo como esto:
 
 que se mostrará en un navegador como un enlace en el que se puede hacer clic "dirección@ejemplo.com".
 
-(Este tipo de truco de codificación de entidades realmente engañará a muchos, si no a la mayoría, a los robots de recolección de direcciones, pero definitivamente no los engañará a todos. Es mejor que nada, pero una dirección publicada de esta manera probablemente comenzará a recibir correo no deseado.)
+(Este tipo de truco de codificación de entidades realmente engañará a muchos, si no a la mayoría, de los robots de recolección de direcciones, pero definitivamente no los engañará a todos. Es mejor que nada, pero una dirección publicada de esta manera probablemente comenzará a recibir correo no deseado.)
 
 ### ESCAPE DE BARRA INVERTIDA
 
