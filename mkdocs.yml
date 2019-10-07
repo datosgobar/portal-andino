@@ -9,6 +9,7 @@ nav:
   - Usuarios:
     - Comenzar a usar Andino: 'quickstart.md'
     - Publicar series de tiempo: 'time-series.md'
+    - Guía de Markdown: 'markdown-guide.md'
   # - Manual de uso: 'usage.md'
   - Desarrolladores:
     - Instalación: 'developers/install.md'

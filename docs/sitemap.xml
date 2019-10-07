@@ -2,67 +2,72 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
      <loc>https://datosgobar.github.io/portal-andino/</loc>
-     <lastmod>2019-07-16</lastmod>
+     <lastmod>2019-10-01</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://datosgobar.github.io/portal-andino/quickstart/</loc>
-     <lastmod>2019-07-16</lastmod>
+     <lastmod>2019-10-01</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://datosgobar.github.io/portal-andino/time-series/</loc>
-     <lastmod>2019-07-16</lastmod>
+     <lastmod>2019-10-01</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>https://datosgobar.github.io/portal-andino/markdown-guide/</loc>
+     <lastmod>2019-10-01</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://datosgobar.github.io/portal-andino/developers/install/</loc>
-     <lastmod>2019-07-16</lastmod>
+     <lastmod>2019-10-01</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://datosgobar.github.io/portal-andino/developers/update/</loc>
-     <lastmod>2019-07-16</lastmod>
+     <lastmod>2019-10-01</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://datosgobar.github.io/portal-andino/developers/checklist/</loc>
-     <lastmod>2019-07-16</lastmod>
+     <lastmod>2019-10-01</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://datosgobar.github.io/portal-andino/developers/migration/</loc>
-     <lastmod>2019-07-16</lastmod>
+     <lastmod>2019-10-01</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://datosgobar.github.io/portal-andino/developers/maintenance/</loc>
-     <lastmod>2019-07-16</lastmod>
+     <lastmod>2019-10-01</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://datosgobar.github.io/portal-andino/developers/https/</loc>
-     <lastmod>2019-07-16</lastmod>
+     <lastmod>2019-10-01</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://datosgobar.github.io/portal-andino/developers/dns/</loc>
-     <lastmod>2019-07-16</lastmod>
+     <lastmod>2019-10-01</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://datosgobar.github.io/portal-andino/developers/docker/</loc>
-     <lastmod>2019-07-16</lastmod>
+     <lastmod>2019-10-01</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://datosgobar.github.io/portal-andino/developers/development/</loc>
-     <lastmod>2019-07-16</lastmod>
+     <lastmod>2019-10-01</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://datosgobar.github.io/portal-andino/developers/tests/</loc>
-     <lastmod>2019-07-16</lastmod>
+     <lastmod>2019-10-01</lastmod>
      <changefreq>daily</changefreq>
     </url>
 </urlset>

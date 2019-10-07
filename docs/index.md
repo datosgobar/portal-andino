@@ -11,6 +11,7 @@
 - Usuarios
     - [Comienzo rápido](quickstart.md)
     - [Publicar series de tiempo](time-series.md)
+    - [Guía de Markdown](markdown-guide.md)
 - Desarrolladores
     - [Instalación](developers/install.md)
     - [Actualización](developers/update.md)
