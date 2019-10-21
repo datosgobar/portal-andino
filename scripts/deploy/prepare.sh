@@ -73,7 +73,9 @@ if [ -n "$USE_VPN" ]; then
     echo "Esperando..."
     sleep 10
     echo "Verificando VPN..."
+    echo "Mostrando todas las interfaces de redes..."
     ifconfig -a | sed 's/[ \t].*//;/^$/d'
+    echo "Mostrando todas las interfaces tun0..."
     ifconfig | grep -oh tun0
 fi
 
