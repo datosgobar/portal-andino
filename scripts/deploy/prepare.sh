@@ -76,7 +76,7 @@ if [ -n "$USE_VPN" ]; then
     echo "Mostrando todas las interfaces de redes..."
     ifconfig -a | sed 's/[ \t].*//;/^$/d'
     echo "Mostrando todas las interfaces tun0..."
-    ifconfig | grep  tun0
+    netstat -i | grep -oh tun0
 fi
 
 echo "Seteo valor de mtu"
