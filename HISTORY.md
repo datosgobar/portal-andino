@@ -2,6 +2,7 @@
 
 ## Indice
 
+- [2.6.0](#260---2019-09-03)
 - [2.5.6](#256---2019-04-09)
 - [2.5.5](#255---2019-02-20)
 - [2.5](#25---actual)
@@ -10,6 +11,19 @@
 - [2.2](#22---2018-01-09)
 - [2.1](#21---2017-07-13)
 - [2.0](#20---2017-07-03)
+
+
+## 2.6.0 - 2019-09-03
+
+* Generación automática de un id default para series de tiempo en el formulario de recursos.
+* Implementación de un JSON con los valores a utilizar en el campo _Unidades de medida_.
+* Modificación al script de actualización para obligar al usuario a que haya un sitehost definido.
+* Se agregó "blog" como red social.
+* Actualización del funcionamiento de la búsqueda de datasets destacados.
+* Actualización del diseño de la pantalla de login.
+* Fix del funcionamiento del botón "VOLVER" en el formulario de creación de recursos.
+* Implementación del [plugin ckanext-security](https://github.com/data-govt-nz/ckanext-security).
+* Implementación del [plugin ckanext-xloader](https://github.com/ckan/ckanext-xloader).
 
 
 ## 2.5.6 - 2019-04-09
