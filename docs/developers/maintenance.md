@@ -178,8 +178,10 @@ docker-compose -f latest.yml restart portal nginx
 
 ### Cambiar la configuración del SMTP
 
-Por defecto, andino usará un servidor postfix integrado para el envío de emails.
-Para usar un servidor SMTP propio, debemos cambiar la configuración del archivo `production.ini`.
+Por defecto, Andino usará un servidor postfix integrado para el envío de emails.
+Se recomienda fuertemente utilizar, en su lugar, un servidor SMTP propio. Si se desea hacerlo, se 
+debe cambiar la configuración del archivo `production.ini`.
+
 Para lograrlo, podemos hacerlo de dos formas:
 
 1 ) Ingresando al contenedor.
