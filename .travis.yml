@@ -61,7 +61,7 @@ script:
 #- cd tests/
 #- sudo nosetests configurations/ globals/
 #- cd -
-- docker kill $(docker ps -q)
+#- docker kill $(docker ps -q)
 - env PORTAL_VERSION="${TRAVIS_TAG:-$TRAVIS_COMMIT}" docker-compose -f dev.yml up -d --build portal
 
 deploy:
