@@ -15,6 +15,7 @@
 
 ## 2.6.0 - 2019-09-03
 
+* Actualización a CKAN 2.7.4
 * Generación automática de un id default para series de tiempo en el formulario de recursos.
 * Implementación de un JSON con los valores a utilizar en el campo _Unidades de medida_.
 * Modificación al script de actualización para obligar al usuario a que haya un sitehost definido.
