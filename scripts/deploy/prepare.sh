@@ -72,14 +72,6 @@ if [ -n "$USE_VPN" ]; then
     sudo service openvpn restart
     echo "Esperando..."
     sleep 10
-
-
-    echo "Curl a https://186.33.215.125/:"
-    echo $(curl  https://186.33.215.125/)
-    echo "Curl de ifconfig.me:"
-    echo $(curl ifconfig.me)
-
-
     echo "Verificando VPN..."
     echo "Revisando las interfaces de redes..."
     ifconfig -a | sed 's/[ \t].*//;/^$/d'
