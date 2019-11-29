@@ -120,7 +120,7 @@ class Updater(InstallationManager):
         shutil.move(env_file_path, backup_env_file_path)
 
     def backup_database(self):
-        output = self.run_compose_command("exec db bash -lc env PGPASSWORD=$POSTGRES_PASSWORD pg_dump "
+        output = self.run_compose_command("exec -T db bash -lc env PGPASSWORD=$POSTGRES_PASSWORD pg_dump "
                                           "--format=custom -U $POSTGRES_USER $POSTGRES_DB")
         dump_name = "%s-ckan.dump" % time.strftime("%d:%m:%Y:%H:%M:%S")
         dump = path.join(self.get_install_directory(), dump_name)
