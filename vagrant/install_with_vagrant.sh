@@ -29,9 +29,9 @@ case $DISTRO in
     ;;
 esac
 
-#cd $DISTRO
+cd $DISTRO
 vagrant up
 echo "Mostrando status de vagrant"
-echo $(vagrant status)
+echo "$(vagrant status)"
 echo "Corriendo los tests post-actualización"
-vagrant ssh -c "sudo nosetests portal-andino/tests/configurations/ portal-andino/tests/globals/" andino_ubuntu
+vagrant ssh -c "sudo nosetests portal-andino/tests/configurations/ portal-andino/tests/globals/" andino_${DISTRO}
