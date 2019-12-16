@@ -35,3 +35,4 @@ echo "Mostrando status de vagrant"
 echo "$(vagrant status)"
 echo "Corriendo los tests post-actualización"
 vagrant ssh -c "sudo nosetests portal-andino/tests/configurations/ portal-andino/tests/globals/" andino_${DISTRO}
+echo "Los tests corrieron exitosamente!"

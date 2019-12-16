@@ -3,31 +3,20 @@
 
 VAGRANTFILE_API_VERSION = "2"
 
-BRANCH = ENV['BRANCH'] || 'master'
+BRANCH = ENV['BRANCH'] || '288-testear-contra-sistemas-operativos-a-soportar'
 ANDINO_VERSION = ENV['ANDINO_VERSION'] || 'latest'
 
-
-VERSION_MATRIX = {
-    "min" => {
-        "docker.io" => "1.13.1-0ubuntu1~16.04.2",
-        "docker-ce" => "17.06.2~ce-0~ubuntu",
-    },
-    "max" => {
-        "docker.io" => "1.13.1-0ubuntu1~16.04.2",
-        "docker-ce": "17.12.0~ce-0~ubuntu",
-    }
-}
-
-
-VERSION = "min"
-DOCKER_PKG = "docker-ce"
-
-DOCKER_VERSION = VERSION_MATRIX[VERSION][DOCKER_PKG]
-
-IP = "192.168.23.10"
 CACHE_IP = "192.168.23.11"
 
 LC_ALL="C"
+
+VERSION_MATRIX = {
+  "min" => "17.12.0~ce-0~debian",
+  "max" => "17.12.1~ce-0~debian",
+}
+VERSION = "min"
+DOCKER_VERSION = VERSION_MATRIX[VERSION]
+COMPOSE_VERSION = "1.21.0"
 
 $install_dependencies = <<SCRIPT
 sudo apt-get autoremove ckan
@@ -36,27 +25,22 @@ sudo apt-get install -y \
     apt-transport-https \
     ca-certificates \
     curl \
+    git \
+    gnupg2 \
+    python-pip \
+    openssl \
     software-properties-common
 
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-sudo add-apt-repository \
-   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
-   $(lsb_release -cs) \
-   stable"
-
+curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable"
 sudo apt-get update
-sudo apt-get install -y #{DOCKER_PKG}=#{DOCKER_VERSION}
+sudo apt-get install -y docker-ce=#{DOCKER_VERSION}
 
-COMPOSE_VERSION = "1.21.0"
 sudo su -c "curl -L https://github.com/docker/compose/releases/download/#{COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose"
 sudo chmod +x /usr/local/bin/docker-compose
 
-sudo apt-get install python-pip openssl --yes
-
 sudo mkdir -p /tmp/ssl
 sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -subj '/CN=localhost/O=My Company Name LTD./C=AR' -keyout /tmp/ssl/andino.key -out /tmp/ssl/andino.crt
-
-
 SCRIPT
 
 $export_locale = <<SCRIPT
@@ -101,19 +85,20 @@ sudo nosetests portal-andino/tests/tests_portal_with_base_config.py
 SCRIPT
 
 $branch_checkout = <<SCRIPT
-cd portal-andino && git checkout #{BRANCH} && cd -
+cd portal-andino && sudo git checkout #{BRANCH} && cd -
 SCRIPT
+
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.ssh.forward_agent = true
   config.ssh.insert_key = false
 
-  config.vm.box = "bento/ubuntu-16.04"
+  config.vm.box = "debian/buster64"
   config.vm.define "cache" do |cache|
     cache.vm.network "private_network", ip: CACHE_IP
   end
-  config.vm.define "andino_ubuntu" do |web|
+  config.vm.define "andino_debian" do |web|
     web.vm.network "forwarded_port", guest:80, host:8880
     web.vm.network "forwarded_port", guest:7777, host:7777
     web.ssh.forward_agent = true
@@ -122,9 +107,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.vm.provision "file", source: "../../install/update.py", destination: "update.py"
     config.vm.provision "file", source: "../../install/installation_manager.py", destination: "installation_manager.py"
 
+    config.vm.provision "shell", inline: $install_dependencies
     config.vm.provision "shell", inline: $clone
     config.vm.provision "shell", inline: $export_locale
-    config.vm.provision "shell", inline: $install_dependencies
     config.vm.provision "shell", inline: $pip_installs
 
     config.vm.provision "shell", inline: $branch_checkout
