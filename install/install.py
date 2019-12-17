@@ -49,12 +49,22 @@ class Installer(InstallationManager):
         self.run_compose_command(cmd)
 
     def prepare_application(self):
+        POSTGRES_USER_KEY_NAME = 'POSTGRES_USER'
+
         self.logger.info("Obteniendo imágenes de Docker...")
         self.pull_application()
         self.logger.info("Iniciando la aplicación...")
         self.load_application()
         self.logger.info("Esperando a que la base de datos este disponible...")
-        time.sleep(10)
+        postgres_user = self.read_env_file_data()[POSTGRES_USER_KEY_NAME]
+        while True:
+            time.sleep(2)
+            try:
+                self.run_compose_command("exec -T db bash -c 'psql -U {} -d ckan -c \"select 1\"'".format(postgres_user))
+                break
+            except Exception:
+                # La base de datos no está disponible aún; psql tiró error tratando de ejecutar el select
+                pass
 
     def parse_args(self):
         parser = argparse.ArgumentParser(description='Instalar andino con docker.')

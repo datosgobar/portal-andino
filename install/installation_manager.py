@@ -266,14 +266,20 @@ class InstallationManager(object):
 
     def ping_nginx_until_app_responds_or_timeout(self):
         timeout = time.time() + 60 * 3  # límite de 3 minutos
+        database_starting_up_error_text = "FATAL:  the database system is starting up"
+        log_output = ""
         site_status_code = "000"
-        while site_status_code == "000":
+        wait_for_response = "site_status_code == '000' or " \
+                            "(site_status_code == '500' and database_starting_up_error_text in log_output)"
+        while eval(wait_for_response):
             site_status_code = self.run_with_subprocess(
                 'echo $(curl -k -s -o /dev/null -w "%{{http_code}}" {})'.format(self.site_url))
             print("Intentando comunicarse con: {0} - Código de respuesta: {1}".format(self.site_url, site_status_code))
+            log_output = self.run_compose_command("logs --tail=50 portal")
             if time.time() > timeout:
                 break
-            time.sleep(10 if site_status_code == "000" else 0)  # Si falla, esperamos 10 segundos para reintentarlo
+            if eval(wait_for_response):
+                time.sleep(10)  # Si falla, esperamos 10 segundos para reintentarlo
 
         if site_status_code == "000":
             self.logger.warning("No fue posible reiniciar el contenedor de Nginx. "
@@ -281,7 +287,6 @@ class InstallationManager(object):
         elif site_status_code != "200":
             self.logger.warning("La aplicación presentó errores intentando levantarse.")
             self.logger.warning("Mostrando las últimas 50 líneas del log:")
-            log_output = self.run_compose_command("logs --tail=50 portal")
             logging.error(log_output)
 
     def correct_ckan_public_files_permissions(self):

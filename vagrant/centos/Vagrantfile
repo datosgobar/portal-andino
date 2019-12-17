@@ -3,7 +3,7 @@
 
 VAGRANTFILE_API_VERSION = "2"
 
-BRANCH = ENV['BRANCH'] || 'master'
+BRANCH = ENV['BRANCH'] || '288-testear-contra-sistemas-operativos-a-soportar'
 ANDINO_VERSION = ENV['ANDINO_VERSION'] || 'latest'
 
 CACHE_IP = "192.168.23.11"
