@@ -95,9 +95,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.ssh.insert_key = false
 
   config.vm.box = "debian/buster64"
-  config.vm.define "cache" do |cache|
-    cache.vm.network "private_network", ip: CACHE_IP
-  end
   config.vm.define "andino_debian" do |web|
     web.vm.network "forwarded_port", guest:80, host:8880
     web.vm.network "forwarded_port", guest:7777, host:7777
