@@ -10,41 +10,36 @@ CACHE_IP = "192.168.23.11"
 
 LC_ALL="C"
 
-VERSION_MATRIX = {
-  "min" => "17.12.0~ce-0~debian",
-  "max" => "17.12.1~ce-0~debian",
-}
-VERSION = "min"
-DOCKER_VERSION = VERSION_MATRIX[VERSION]
+DOCKER_VERSION = "17.12.1.ce-1.el7.centos"
 COMPOSE_VERSION = "1.21.0"
 
-$install_dependencies = <<SCRIPT
-sudo apt-get autoremove ckan
-sudo apt-get update
-sudo apt-get install -y \
-    apt-transport-https \
-    ca-certificates \
-    curl \
-    git \
-    gnupg2 \
-    python-pip \
-    openssl \
-    software-properties-common
 
-curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
-sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable"
-sudo apt-get update
-sudo apt-get install -y docker-ce=#{DOCKER_VERSION}
+$install_dependencies = <<SCRIPT
+yum -y update
+sudo yum -y install \
+    git \
+    yum-utils \
+    device-mapper-persistent-data \
+    lvm2 \
+    epel-release
+sudo yum -y install python-pip
+
+sudo yum install -y yum-utils device-mapper-persistent-data lvm2
+sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+sudo yum install -y docker-ce-#{DOCKER_VERSION} docker-ce-cli-#{DOCKER_VERSION} containerd.io
+sudo systemctl enable docker && sudo systemctl start docker
 
 sudo su -c "curl -L https://github.com/docker/compose/releases/download/#{COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose"
+sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose || true
 sudo chmod +x /usr/local/bin/docker-compose
 
 sudo mkdir -p /tmp/ssl
 sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -subj '/CN=localhost/O=My Company Name LTD./C=AR' -keyout /tmp/ssl/andino.key -out /tmp/ssl/andino.crt
 SCRIPT
 
-$export_locale = <<SCRIPT
-export LC_ALL=C
+$clear_port_25 = <<SCRIPT
+master_pid=$(echo $(ps -ef | awk '/[m]aster/{print $2}'))
+sudo kill -9 $master_pid
 SCRIPT
 
 $pip_installs = <<SCRIPT
@@ -58,8 +53,8 @@ sudo -E python ./install.py --error_email admin@example.com \
             --database_password db_pass \
             --datastore_user data_db_user \
             --datastore_password data_db_pass \
-            --branch #{BRANCH} \
-            --andino_version #{ANDINO_VERSION} \
+            --branch 288-testear-contra-sistemas-operativos-a-soportar \
+            --andino_version latest \
             --nginx-cache-max-size 2g \
             --nginx-cache-inactive 120m \
             --timezone America/Argentina/Cordoba
@@ -94,11 +89,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.ssh.forward_agent = true
   config.ssh.insert_key = false
 
-  config.vm.box = "debian/buster64"
+  config.vm.box = "centos/7"
   config.vm.define "cache" do |cache|
     cache.vm.network "private_network", ip: CACHE_IP
   end
-  config.vm.define "andino_debian" do |web|
+  config.vm.define "andino_centos" do |web|
     web.vm.network "forwarded_port", guest:80, host:8880
     web.vm.network "forwarded_port", guest:7777, host:7777
     web.ssh.forward_agent = true
@@ -108,8 +103,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.vm.provision "file", source: "../../install/installation_manager.py", destination: "installation_manager.py"
 
     config.vm.provision "shell", inline: $install_dependencies
+    config.vm.provision "shell", inline: $clear_port_25
     config.vm.provision "shell", inline: $clone
-    config.vm.provision "shell", inline: $export_locale
     config.vm.provision "shell", inline: $pip_installs
 
     config.vm.provision "shell", inline: $branch_checkout
