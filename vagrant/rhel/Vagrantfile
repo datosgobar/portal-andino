@@ -23,10 +23,9 @@ sudo yum -y install \
     lvm2 \
     epel-release
 sudo yum -y install python-pip
-
 sudo yum install -y yum-utils device-mapper-persistent-data lvm2
-sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
 yum-config-manager --enable rhel-7-server-extras-rpms
+sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
 sudo yum install -y docker-ce-#{DOCKER_VERSION} docker-ce-cli-#{DOCKER_VERSION} containerd.io
 sudo systemctl enable docker && sudo systemctl start docker
 
@@ -84,14 +83,34 @@ $branch_checkout = <<SCRIPT
 cd portal-andino && sudo git checkout #{BRANCH} && cd -
 SCRIPT
 
+$subscribe = <<SCRIPT
+source .env
+sudo subscription-manager register --username=$user --password=$password --auto-attach
+SCRIPT
+
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.ssh.forward_agent = true
   config.ssh.insert_key = false
 
-  config.vm.box = "centos/7"
-  config.vm.define "andino_centos" do |web|
+  config.vm.box = "generic/rhel7"
+
+  config.vm.provision "shell", run: "once" do |s|
+    config.vm.provision "file", source: ".env", destination: ".env"
+    s.inline = "echo 'Suscribiéndose con el usuario proveído...'"
+    config.vm.provision "shell", inline: $subscribe
+  end
+
+  config.trigger.before :destroy do
+    begin
+      run_remote "sudo subscription-manager unregister"
+    rescue
+      puts "No se removió la suscripción."
+    end
+  end
+
+  config.vm.define "andino_rhel" do |web|
     web.vm.network "forwarded_port", guest:80, host:8880
     web.vm.network "forwarded_port", guest:7777, host:7777
     web.ssh.forward_agent = true

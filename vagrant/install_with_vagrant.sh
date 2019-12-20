@@ -17,6 +17,25 @@ case $DISTRO in
 
   "rhel" | "Rhel" | "RHEL")
     DISTRO=rhel
+    if ! [ -s rhel/.env ] ;
+    then
+        echo "Se requiere un archivo \".env\" en el directorio \"rhel/\" donde se especifiquen las" \
+        "credenciales de un usuario de RHEL de la siguiente manera:"
+        echo "user=un_nombre_de_usuario"
+        echo "password=una_contraseña"
+        exit 1
+    else
+        echo "Leyendo las credenciales del usuario de RHEL..."
+    fi
+
+    source ./rhel/.env
+    if [ -z $user ] || [ -z $password ];
+    then
+        echo "Usuario y contraseña mal seteados."
+        exit 1
+    else
+        echo "Datos encontrados."
+    fi
     ;;
 
   "centos" | "CentOS" | "CENTOS")
