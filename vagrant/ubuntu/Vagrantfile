@@ -21,8 +21,8 @@ VERSION_MATRIX = {
 
 VERSION = "min"
 DOCKER_PKG = "docker-ce"
-
 DOCKER_VERSION = VERSION_MATRIX[VERSION][DOCKER_PKG]
+COMPOSE_VERSION = "1.21.0"
 
 IP = "192.168.23.10"
 CACHE_IP = "192.168.23.11"
@@ -47,7 +47,6 @@ sudo add-apt-repository \
 sudo apt-get update
 sudo apt-get install -y #{DOCKER_PKG}=#{DOCKER_VERSION}
 
-COMPOSE_VERSION = "1.21.0"
 sudo su -c "curl -L https://github.com/docker/compose/releases/download/#{COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose"
 sudo chmod +x /usr/local/bin/docker-compose
 
