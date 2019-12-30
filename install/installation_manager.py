@@ -37,7 +37,8 @@ class InstallationManager(object):
 
     def run_compose_command(self, cmd):
         chdir(self.get_install_directory())
-        output = self.run_with_subprocess("docker-compose {0} {1}".format(self.convert_compose_files_to_flags(), cmd))
+        output = self.run_with_subprocess(
+            "sudo docker-compose {0} {1}".format(self.convert_compose_files_to_flags(), cmd))
         chdir(getcwd())
         return output
 
@@ -180,10 +181,10 @@ class InstallationManager(object):
 
     def update_config_file_value(self, value):
         if value:
-            self.run_compose_command("exec portal /etc/ckan_init.d/update_conf.sh '{}'".format(value))
+            self.run_compose_command("exec -T portal /etc/ckan_init.d/update_conf.sh '{}'".format(value))
 
     def include_necessary_nginx_configuration(self, filename):
-        self.run_compose_command("exec nginx /etc/nginx/scripts/{}".format(filename))
+        self.run_compose_command("exec -T nginx /etc/nginx/scripts/{}".format(filename))
 
     def persist_ssl_certificates(self):
         nginx_ssl_config_directory = '/etc/nginx/ssl'
@@ -261,18 +262,24 @@ class InstallationManager(object):
         self.logger.info("Listo.")
 
     def restart_workers(self):
-        self.run_compose_command("exec portal supervisorctl restart all")
+        self.run_compose_command("exec -T portal supervisorctl restart all")
 
     def ping_nginx_until_app_responds_or_timeout(self):
         timeout = time.time() + 60 * 3  # límite de 3 minutos
+        database_starting_up_error_text = "FATAL:  the database system is starting up"
+        log_output = ""
         site_status_code = "000"
-        while site_status_code == "000":
+        wait_for_response = "site_status_code == '000' or " \
+                            "(site_status_code == '500' and database_starting_up_error_text in log_output)"
+        while eval(wait_for_response):
             site_status_code = self.run_with_subprocess(
                 'echo $(curl -k -s -o /dev/null -w "%{{http_code}}" {})'.format(self.site_url))
             print("Intentando comunicarse con: {0} - Código de respuesta: {1}".format(self.site_url, site_status_code))
+            log_output = self.run_compose_command("logs --tail=50 portal")
             if time.time() > timeout:
                 break
-            time.sleep(10 if site_status_code == "000" else 0)  # Si falla, esperamos 10 segundos para reintentarlo
+            if eval(wait_for_response):
+                time.sleep(10)  # Si falla, esperamos 10 segundos para reintentarlo
 
         if site_status_code == "000":
             self.logger.warning("No fue posible reiniciar el contenedor de Nginx. "
@@ -280,11 +287,10 @@ class InstallationManager(object):
         elif site_status_code != "200":
             self.logger.warning("La aplicación presentó errores intentando levantarse.")
             self.logger.warning("Mostrando las últimas 50 líneas del log:")
-            log_output = self.run_compose_command("logs --tail=50 portal")
             logging.error(log_output)
 
     def correct_ckan_public_files_permissions(self):
-        self.run_compose_command('exec portal bash -c "chmod 777 -R /usr/lib/ckan/default/src/ckan/ckan/public"')
+        self.run_compose_command('exec -T portal bash -c "chmod 777 -R /usr/lib/ckan/default/src/ckan/ckan/public"')
 
     def restart_apache(self):
         self.run_compose_command("exec -T portal apachectl restart")

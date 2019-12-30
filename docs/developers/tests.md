@@ -7,6 +7,8 @@ Para correr los tests de la aplicación, se deben levantar todos los servicios, 
 ## Indice
 
 - [Tests de Ckan](#tests-de-ckan)
+- [Levantar instancias de prueba de Andino en los distros soportados con vagrant](#levantar-instancias-de-prueba-de-andino-en-los-distros-soportados-con-vagrant)
+    - [RHEL](#rhel)
 - [Probar la instalación con SSL en Vagrant (Instalando nginx)](#probar-la-instalacion-con-ssl-en-vagrant-instalando-nginx)
     - [Instalación de andino](#instalacion-de-andino)
     - [Instalar y configurar nginx](#instalar-y-configurar-nginx)
@@ -19,6 +21,27 @@ Para correr los tests de la aplicación, se deben levantar todos los servicios, 
     $ docker exec andino bash /etc/ckan_init.d/tests/install_solr4.sh    
     $ docker exec andino bash /etc/ckan_init.d/tests/install_nodejs.sh    
     $ docker exec andino bash -c 'su -c "bash /etc/ckan_init.d/tests/run_all_tests.sh" -l $USER'
+    
+    
+## Levantar instancias de prueba de Andino en los distros soportados con vagrant
+
+Existe un archivo de bash en el directorio `vagrant/`, `install_with_vagrant.sh`, el cual se puede ejecutar para instalar 
+Andino en una de las cuatro distros soportadas (Ubuntu, Debian, RHEL y CentOS). Al ejecutarlo, el script solicitará cuál 
+distro deberá utilizar y, luego de recibirla, realizará la instalación de Andino junto con una posterior actualización, 
+ejecutando todos los tests existentes.
+
+### RHEL
+
+Para poder levantar correctamente la instancia en RHEL, es necesario proveer en un `.env` dentro del directorio 
+`vagrant/rhel/` las credenciales de un 
+[usuario desarrollador registrado de RHEL](https://developers.redhat.com/products/rhel/download) de la siguiente forma:
+```
+user=nombre_del_usuario
+password=contraseña
+```
+Creando el usuario, no es necesario descargar la iso de RHEL.
+
+El usuario desarrollador es necesario debido a que se lo necesita para utilizar el subscription manager. 
 
 
 ## Probar la instalación con SSL en Vagrant (Instalando nginx)

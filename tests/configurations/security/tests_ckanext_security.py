@@ -14,14 +14,14 @@ class TestCkanextSecurity(TestPortalAndino.TestPortalAndino):
 
         # Enable
         subprocess.check_call(
-            "docker exec -it andino {0}./{1}".format(security_path, enablement_script), shell=True)
+            "sudo docker exec -it andino {0}./{1}".format(security_path, enablement_script), shell=True)
         cmd = "grep '## ckanext-security' /etc/ckan/default/production.ini"
         search_result = subprocess.check_output("docker exec -it andino {}".format(cmd), shell=True).strip()
         nt.assert_equal("## ckanext-security", search_result)
 
         # Disable
         subprocess.check_call(
-            "docker exec -it andino {0}./{1}".format(security_path, disablement_script), shell=True)
+            "sudo docker exec -it andino {0}./{1}".format(security_path, disablement_script), shell=True)
         cmd = "{} || true".format(cmd)
         search_result = subprocess.check_output("docker exec -it andino {}".format(cmd), shell=True).strip()
         nt.assert_equal("", search_result)
