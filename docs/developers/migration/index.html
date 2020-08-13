@@ -1,0 +1,1109 @@
+
+
+
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="Documentación de Portal Andino, la distribución de CKAN desarrollada por la República Argentina dockerizada, fácil de instalar y compatible con el Perfil Nacional de Metadatos de la Política de Apertura de Datos.">
+      
+      
+        <link rel="canonical" href="https://datosgobar.github.io/portal-andino/developers/migration/">
+      
+      
+        <meta name="author" content="Datos Argentina">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copiar al portapapeles">
+      
+        <meta name="lang:clipboard.copied" content="Copiado al portapapeles">
+      
+        <meta name="lang:search.language" content="es">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No se encontraron documentos">
+      
+        <meta name="lang:search.result.one" content="1 documento encontrado">
+      
+        <meta name="lang:search.result.other" content="# documentos encontrados">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.2">
+    
+    
+      
+        <title>Migracion - Portal Andino</title>
+      
+    
+    
+	
+      <link rel="stylesheet" href="../../assets/stylesheets/application.30686662.css">
+      
+      
+    
+	<link rel="stylesheet" href="../../css/extra.css">
+
+    
+    
+      <script src="../../assets/javascripts/modernizr.74668098.js"></script>
+    
+    <script src="../../js/extra.js"></script>
+
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../assets/fonts/material-icons.css">
+    
+    
+      <link rel="stylesheet" href="../../css/extra_rtd.css">
+    
+    
+      
+        
+<script>
+  window.ga = window.ga || function() {
+    (ga.q = ga.q || []).push(arguments)
+  }
+  ga.l = +new Date
+  /* Setup integration and send page view */
+  ga("create", "UA-91435482-1", "https://datosgobar.github.io/portal-andino/")
+  ga("set", "anonymizeIp", true)
+  ga("send", "pageview")
+  /* Register handler to log search on blur */
+  document.addEventListener("DOMContentLoaded", () => {
+    if (document.forms.search) {
+      var query = document.forms.search.query
+      query.addEventListener("blur", function() {
+        if (this.value) {
+          var path = document.location.pathname;
+          ga("send", "pageview", path + "?q=" + this.value)
+        }
+      })
+    }
+  })
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+      
+    
+    
+  </head>
+  
+    <body dir="ltr">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="__github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#migracion" tabindex="1" class="md-skip">
+        Saltar a contenido
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="https://datosgobar.github.io/portal-andino" title="Portal Andino" class="md-header-nav__button md-logo">
+          
+            <img src="../../images/logo.svg" width="24" height="24">
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              Portal Andino
+            </span>
+            <span class="md-header-nav__topic">
+              
+                Migracion
+              
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Escriba para comenzar la búsqueda
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+<a href="https://github.com/datosgobar/portal-andino/" title="Ir al repositorio" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main" role="main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <!--
+  Copyright (c) 2016-2018 Martin Donath <martin.donath@squidfunk.com>
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to
+  deal in the Software without restriction, including without limitation the
+  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+  sell copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+  IN THE SOFTWARE.
+-->
+
+<!-- Main navigation -->
+<nav class="md-nav md-nav--primary" data-md-level="0">
+
+        <!-- Site title -->
+        <label class="md-nav__title md-nav__title--site" for="__drawer">
+          <a href="https://datosgobar.github.io/portal-andino"
+              title="Portal Andino" class="md-nav__button md-logo">
+            
+              <img src="../../images/logo.svg" width="48" height="48" />
+            
+          </a>
+          Portal Andino
+        </label>
+      
+        <!-- Repository containing source -->
+        
+          <div class="md-nav__source">
+            
+
+
+  
+
+<a href="https://github.com/datosgobar/portal-andino/" title="Ir al repositorio" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+          </div>
+        
+      
+        <!-- Render item list -->
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+            
+            
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="Inicio" class="md-nav__link">
+      Inicio
+    </a>
+  </li>
+
+            <hr/>
+          
+            
+            
+            
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      Usuarios
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        Usuarios
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../quickstart/" title="Comenzar a usar Andino" class="md-nav__link">
+      Comenzar a usar Andino
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../time-series/" title="Publicar series de tiempo" class="md-nav__link">
+      Publicar series de tiempo
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../markdown-guide/" title="Guía de Markdown" class="md-nav__link">
+      Guía de Markdown
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+            <hr/>
+          
+            
+            
+            
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+    
+    <label class="md-nav__link" for="nav-3">
+      Desarrolladores
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        Desarrolladores
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../install/" title="Instalación" class="md-nav__link">
+      Instalación
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../update/" title="Actualización" class="md-nav__link">
+      Actualización
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../checklist/" title="Recomendaciones para salir a producción" class="md-nav__link">
+      Recomendaciones para salir a producción
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Migracion
+      </label>
+    
+    <a href="./" title="Migracion" class="md-nav__link md-nav__link--active">
+      Migracion
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Contenidos de la sección</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#indice" class="md-nav__link">
+    Indice
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-requisitos" class="md-nav__link">
+    1. Requisitos
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-script-de-migracion-automatico" class="md-nav__link">
+    2. Script de migración automático.
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-migracion-manual" class="md-nav__link">
+    3. Migración manual
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-backup-de-la-base-de-datos" class="md-nav__link">
+    3.1. Backup de la base de datos
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-backup-de-los-archivos-de-la-aplicacion" class="md-nav__link">
+    3.2. Backup de los archivos de la aplicación
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-instalacion" class="md-nav__link">
+    4. Instalación
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-detener-la-aplicacion" class="md-nav__link">
+    4.1. Detener la aplicación
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-instalar-la-aplicacion" class="md-nav__link">
+    4.2. Instalar la aplicación
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../maintenance/" title="Mantenimiento" class="md-nav__link">
+      Mantenimiento
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../https/" title="Configuración HTTPS" class="md-nav__link">
+      Configuración HTTPS
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../dns/" title="Configuración de DNS" class="md-nav__link">
+      Configuración de DNS
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../docker/" title="Generación de imágenes Docker" class="md-nav__link">
+      Generación de imágenes Docker
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../development/" title="Desarrollo" class="md-nav__link">
+      Desarrollo
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../tests/" title="Tests" class="md-nav__link">
+      Tests
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+            <hr/>
+          
+        </ul>
+      </nav>
+      
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Contenidos de la sección</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#indice" class="md-nav__link">
+    Indice
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-requisitos" class="md-nav__link">
+    1. Requisitos
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-script-de-migracion-automatico" class="md-nav__link">
+    2. Script de migración automático.
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-migracion-manual" class="md-nav__link">
+    3. Migración manual
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-backup-de-la-base-de-datos" class="md-nav__link">
+    3.1. Backup de la base de datos
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-backup-de-los-archivos-de-la-aplicacion" class="md-nav__link">
+    3.2. Backup de los archivos de la aplicación
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-instalacion" class="md-nav__link">
+    4. Instalación
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-detener-la-aplicacion" class="md-nav__link">
+    4.1. Detener la aplicación
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-instalar-la-aplicacion" class="md-nav__link">
+    4.2. Instalar la aplicación
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/datosgobar/portal-andino/edit/master/docs/developers/migration.md" title="Editar esta página" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <h1 id="migracion">Migracion</h1>
+<p>En el presente documento, se pretende explicar cómo llevar a cabo una migración de la versión 1.0 de andino a la versión 2.0 de andino.</p>
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+<h2 id="indice">Indice</h2>
+<ul>
+<li><a href="#1-requisitos">1. Requisitos</a></li>
+<li><a href="#2-script-de-migracion-automatico">2. Script de migración automático.</a></li>
+<li><a href="#3-migracion-manual">3. Migración manual</a><ul>
+<li><a href="#31-backup-de-la-base-de-datos">3.1. Backup de la base de datos</a></li>
+<li><a href="#32-backup-de-los-archivos-de-la-aplicacion">3.2. Backup de los archivos de la aplicación</a></li>
+</ul>
+</li>
+<li><a href="#4-instalacion">4. Instalación</a><ul>
+<li><a href="#41-detener-la-aplicacion">4.1. Detener la aplicación</a></li>
+<li><a href="#42-instalar-la-aplicacion">4.2. Instalar la aplicación</a></li>
+</ul>
+</li>
+<li><a href="#5-restores">5. Restores</a><ul>
+<li><a href="#51-restaurar-los-archivos">5.1. Restaurar los archivos</a></li>
+<li><a href="#52-restaurar-la-base-de-datos">5.2. Restaurar la base de datos</a></li>
+<li><a href="#53-regenerar-el-indice-de-busquedas">5.3. Regenerar el índice de búsquedas</a></li>
+</ul>
+</li>
+</ul>
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+<h2 id="1-requisitos">1. Requisitos</h2>
+<p>Se requiere tener instalado:</p>
+<ul>
+<li><a href="https://stedolan.github.io/jq/download/">jq</a> &gt;= 1.5</li>
+<li>docker</li>
+<li>docker-compose</li>
+</ul>
+<p>Se asume que, en el servidor, hay 3 containers de docker corriendo:</p>
+<ul>
+<li><code>app-ckan</code></li>
+<li><code>pg-ckan</code></li>
+<li><code>solr-ckan</code></li>
+</ul>
+<p>Además, se debe conocer los <code>usuarios</code> y <code>passwords</code> de la base de datos (tanto de la usada por <code>ckan</code> como por el <code>datastore</code>).</p>
+<h2 id="2-script-de-migracion-automatico">2. Script de migración automático.</h2>
+<p>El repositorio cuenta con un script para correr la migración automáticamente. (el mismo se puede encontrar en 
+<a href="https://github.com/datosgobar/portal-andino/blob/master/install/migrate.sh"><code>install/migrate.sh</code></a>, dentro del repositorio).
+Ciertas variables de entorno y tener instalado <code>docker</code> y <code>docker-compose</code>.
+Debe ser ejecutado con <code>sudo</code> o <code>root</code>.</p>
+<p>Ejemplo:</p>
+<div class="codehilite"><pre><span></span><span class="n">export</span><span class="w"> </span><span class="n">EMAIL</span><span class="o">=</span><span class="k">admin</span><span class="nv">@example</span><span class="p">.</span><span class="n">com</span><span class="w"></span>
+<span class="n">export</span><span class="w"> </span><span class="k">HOST</span><span class="o">=</span><span class="n">andino</span><span class="p">.</span><span class="n">midomionio</span><span class="p">.</span><span class="n">com</span><span class="p">.</span><span class="n">ar</span><span class="w"></span>
+<span class="n">export</span><span class="w"> </span><span class="n">DB_USER</span><span class="o">=</span><span class="n">usuario</span><span class="w"></span>
+<span class="n">export</span><span class="w"> </span><span class="n">DB_PASS</span><span class="o">=</span><span class="n">password</span><span class="w"></span>
+<span class="n">export</span><span class="w"> </span><span class="n">STORE_USER</span><span class="o">=</span><span class="n">dsuser</span><span class="w"></span>
+<span class="n">export</span><span class="w"> </span><span class="n">STORE_PASS</span><span class="o">=</span><span class="n">dspass</span><span class="w"></span>
+<span class="n">sudo</span><span class="w"> </span><span class="o">-</span><span class="n">E</span><span class="w"> </span><span class="p">.</span><span class="o">/</span><span class="n">migrate</span><span class="p">.</span><span class="n">sh</span><span class="w"></span>
+</pre></div>
+
+
+<h2 id="3-migracion-manual">3. Migración manual</h2>
+<p>Para realizar la migración manual, debemos conocer las variables con las que se inicializó el portal.
+En este caso, serán las siguientes:</p>
+<div class="codehilite"><pre><span></span><span class="n">export</span><span class="w"> </span><span class="n">EMAIL</span><span class="o">=</span><span class="k">admin</span><span class="nv">@example</span><span class="p">.</span><span class="n">com</span><span class="w"></span>
+<span class="n">export</span><span class="w"> </span><span class="k">HOST</span><span class="o">=</span><span class="n">andino</span><span class="p">.</span><span class="n">midomionio</span><span class="p">.</span><span class="n">com</span><span class="p">.</span><span class="n">ar</span><span class="w"></span>
+<span class="n">export</span><span class="w"> </span><span class="n">DB_USER</span><span class="o">=</span><span class="n">usuario</span><span class="w"></span>
+<span class="n">export</span><span class="w"> </span><span class="n">DB_PASS</span><span class="o">=</span><span class="n">password</span><span class="w"></span>
+<span class="n">export</span><span class="w"> </span><span class="n">STORE_USER</span><span class="o">=</span><span class="n">dsuser</span><span class="w"></span>
+<span class="n">export</span><span class="w"> </span><span class="n">STORE_PASS</span><span class="o">=</span><span class="n">dspass</span><span class="w"></span>
+</pre></div>
+
+
+<h3 id="31-backup-de-la-base-de-datos">3.1. Backup de la base de datos</h3>
+<p>Es necesario hacer un backup de la base de datos antes de empezar con la migración. La misma puede llevarse a cabo 
+con el siguiente script:</p>
+<div class="codehilite"><pre><span></span><span class="ch">#!/usr/bin/env bash</span>
+<span class="nb">set</span> -e<span class="p">;</span>
+
+<span class="nv">old_db</span><span class="o">=</span><span class="s2">&quot;pg-ckan&quot;</span>
+<span class="nv">database_backup</span><span class="o">=</span><span class="s2">&quot;backup.gz&quot;</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;Creando backup de la base de datos.&quot;</span>
+
+<span class="nv">backupdir</span><span class="o">=</span><span class="k">$(</span>mktemp -d<span class="k">)</span>
+
+<span class="nv">backupfile</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$backupdir</span><span class="s2">/</span><span class="nv">$database_backup</span><span class="s2">&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;Iniciando backup de </span><span class="nv">$old_db</span><span class="s2">&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;Usando directorio temporal: </span><span class="nv">$backupdir</span><span class="s2">&quot;</span>
+docker <span class="nb">exec</span> <span class="nv">$old_db</span> pg_dumpall -c -U postgres <span class="p">|</span> gzip &gt; <span class="s2">&quot;</span><span class="nv">$backupfile</span><span class="s2">&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;Copiando backup a </span><span class="nv">$PWD</span><span class="s2">&quot;</span>
+
+cp <span class="s2">&quot;</span><span class="nv">$backupfile</span><span class="s2">&quot;</span> <span class="nv">$PWD</span>
+<span class="nb">echo</span> <span class="s2">&quot;Backup listo.&quot;</span>
+</pre></div>
+
+
+<p>Este script dejará un archivo <code>backup.gz</code> en el directorio actual.</p>
+<h3 id="32-backup-de-los-archivos-de-la-aplicacion">3.2. Backup de los archivos de la aplicación</h3>
+<p>Es necesario hacer un backup de los archivos de la aplicación: configuración y archivos subidos. 
+El mismo puede llevarse a cabo con el siguiente script:</p>
+<p><strong>Nota:</strong> Requiere <a href="https://stedolan.github.io/jq/">jq</a> &gt;= 1.5</p>
+<div class="codehilite"><pre><span></span><span class="ch">#!/usr/bin/env bash</span>
+<span class="nb">set</span> -e<span class="p">;</span>
+
+<span class="nv">old_andino</span><span class="o">=</span><span class="s2">&quot;app-ckan&quot;</span>
+<span class="nv">app_backup</span><span class="o">=</span><span class="s2">&quot;backup.tar.gz&quot;</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;Creando backup de los archivos de configuración.&quot;</span>
+<span class="nv">backupdir</span><span class="o">=</span><span class="k">$(</span>mktemp -d<span class="k">)</span>
+<span class="nv">today</span><span class="o">=</span><span class="sb">`</span>date +%Y-%m-%d.%H:%M:%S<span class="sb">`</span>
+<span class="nv">appbackupdir</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$backupdir</span><span class="s2">/application/&quot;</span>
+mkdir <span class="nv">$appbackupdir</span>
+<span class="nb">echo</span> <span class="s2">&quot;Iniciando backup de los volumenes en </span><span class="nv">$old_andino</span><span class="s2">&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;Usando directorio temporal: </span><span class="nv">$backupdir</span><span class="s2">&quot;</span>
+docker inspect --format <span class="s1">&#39;{{json .Mounts}}&#39;</span> <span class="nv">$old_andino</span>  <span class="p">|</span> jq -r <span class="s1">&#39;.[]|[.Name, .Source, .Destination] | @tsv&#39;</span> <span class="p">|</span>
+<span class="k">while</span> <span class="nv">IFS</span><span class="o">=</span><span class="s1">$&#39;\t&#39;</span> <span class="nb">read</span> -r name <span class="nb">source</span> destination<span class="p">;</span> <span class="k">do</span>
+    <span class="nb">echo</span> <span class="s2">&quot;Guardando archivos de </span><span class="nv">$destination</span><span class="s2">&quot;</span>
+    <span class="k">if</span> ls <span class="nv">$source</span>/* <span class="m">1</span>&gt; /dev/null <span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="p">;</span> <span class="k">then</span>
+        <span class="nb">echo</span> <span class="s2">&quot;Nombre del volumen: </span><span class="nv">$name</span><span class="s2">.&quot;</span>
+        <span class="nb">echo</span> <span class="s2">&quot;Directorio en el Host: </span><span class="nv">$source</span><span class="s2">&quot;</span>
+        <span class="nb">echo</span> <span class="s2">&quot;Destino: </span><span class="nv">$destination</span><span class="s2">&quot;</span>
+        <span class="nv">dest</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$appbackupdir$name</span><span class="s2">&quot;</span>
+        mkdir -p <span class="nv">$dest</span>
+        <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$destination</span><span class="s2">&quot;</span> &gt; <span class="s2">&quot;</span><span class="nv">$dest</span><span class="s2">/destination.txt&quot;</span>
+
+        tar -C <span class="s2">&quot;</span><span class="nv">$source</span><span class="s2">&quot;</span> -zcvf <span class="s2">&quot;</span><span class="nv">$dest</span><span class="s2">/backup_</span><span class="nv">$today</span><span class="s2">.tar.gz&quot;</span> <span class="k">$(</span>ls <span class="nv">$source</span><span class="k">)</span>
+        <span class="nb">echo</span> <span class="s2">&quot;List backup de </span><span class="nv">$destination</span><span class="s2">&quot;</span>
+    <span class="k">else</span>
+        <span class="nb">echo</span> <span class="s2">&quot;Ningún archivo para </span><span class="nv">$destination</span><span class="s2">&quot;</span><span class="p">;</span>
+    <span class="k">fi</span>
+<span class="k">done</span>
+<span class="nb">echo</span> <span class="s2">&quot;Generando backup en </span><span class="nv">$app_backup</span><span class="s2">&quot;</span>
+tar -C <span class="s2">&quot;</span><span class="nv">$appbackupdir</span><span class="s2">../&quot;</span> -zcvf <span class="nv">$app_backup</span> <span class="s2">&quot;application/&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;Backup listo.&quot;</span>
+</pre></div>
+
+
+<p>Este script dejará un archivo backup.tar.gz en el directorio actual. 
+El mismo, una vez descomprimido, contendrá la siguiente estructura (por ejemplo):</p>
+<div class="codehilite"><pre><span></span><span class="o">-</span> <span class="n">application</span><span class="o">/</span>
+    <span class="err">├──</span> <span class="mi">61</span><span class="n">ee6cc7dc974476fe3300cc4325d913ed2f949494419b11a5c7c897fa919106</span>
+    <span class="err">│</span>   <span class="err">├──</span> <span class="n">backup_2017</span><span class="o">-</span><span class="mi">05</span><span class="o">-</span><span class="mi">19</span><span class="p">.</span><span class="mi">10</span><span class="p">:</span><span class="mi">56</span><span class="p">:</span><span class="mi">09</span><span class="p">.</span><span class="n">tar</span><span class="p">.</span><span class="n">gz</span>
+    <span class="err">│</span>   <span class="err">└──</span> <span class="n">destination</span><span class="p">.</span><span class="n">txt</span>
+    <span class="err">└──</span> <span class="n">b1bf820976c3220e54136e4db229a67a9d9292896ad8d91623030e3b7171f210</span>
+        <span class="err">├──</span> <span class="n">backup_2017</span><span class="o">-</span><span class="mi">05</span><span class="o">-</span><span class="mi">19</span><span class="p">.</span><span class="mi">10</span><span class="p">:</span><span class="mi">56</span><span class="p">:</span><span class="mi">09</span><span class="p">.</span><span class="n">tar</span><span class="p">.</span><span class="n">gz</span>
+        <span class="err">└──</span> <span class="n">destination</span><span class="p">.</span><span class="n">txt</span>
+</pre></div>
+
+
+<p>Cada sub-directorio contiene el ID del volumen en docker usado; los números varian de volumen en volumen. 
+Dentro de cada sub-directorio se encuentra un archivo <em>.tar.gz junto con un archivo destination.txt. 
+* El archivo destination.txt indica dónde corresponde la información dentro del container.
+* El archivo </em>.tar.gz contiene una carpeta _data con los archivos.</p>
+<h2 id="4-instalacion">4. Instalación</h2>
+<h3 id="41-detener-la-aplicacion">4.1. Detener la aplicación</h3>
+<p>Debemos detener la aplicación para lograr que se liberen los puertos usados. Por ejemplo, el puerto 80.</p>
+<p>docker stop solr-ckan pg-ckan app-ckan</p>
+<h3 id="42-instalar-la-aplicacion">4.2. Instalar la aplicación</h3>
+<p>Ver la documentación <a href="../install/">Aquí</a></p>
+<p><strong>Nota:</strong> Actualizar la versión de docker y docker-compose de ser necesario.</p>
+<p>Ahora, es necesario restaurar tanto la base de datos como los archivos de la aplicación.</p>
+<h1 id="5-restores">5. Restores</h1>
+<h3 id="51-restaurar-los-archivos">5.1. Restaurar los archivos</h3>
+<p>Descomprimir el archivo <code>backup.tar.gz</code>. En cada subdirectorio encontraremos el archivo destination.txt; 
+el contenido de este archivo nos ayudará a saber donde debemos copiar los archivos. 
+Con el siguiete comando, podremos saber qué volúmenes hay montados en el nuevo esquema y dónde debemos copiar 
+los archivos dentro del <code>backup_*.tar.gz</code></p>
+<p>Correr <code>docker inspect andino -f '{{ json .Mounts }}' | jq</code>:</p>
+<p>El comando mostrará, por ejemplo, lo siquiente:</p>
+<div class="codehilite"><pre><span></span><span class="p">[</span>
+<span class="err">{</span>
+    <span class="ss">&quot;Type&quot;</span><span class="p">:</span> <span class="ss">&quot;volume&quot;</span><span class="p">,</span>
+    <span class="ss">&quot;Name&quot;</span><span class="p">:</span> <span class="ss">&quot;a1d87160a04e270302582849c9ce5c6dbb44719a94b702158aeaf23835f7862f&quot;</span><span class="p">,</span>
+    <span class="ss">&quot;Source&quot;</span><span class="p">:</span> <span class="ss">&quot;/var/lib/docker/volumes/a1d87160a04e270302582849c9ce5c6dbb44719a94b702158aeaf23835f7862f/_data&quot;</span><span class="p">,</span>
+    <span class="ss">&quot;Destination&quot;</span><span class="p">:</span> <span class="ss">&quot;/etc/ckan/default&quot;</span><span class="p">,</span>
+    <span class="ss">&quot;Driver&quot;</span><span class="p">:</span> <span class="ss">&quot;local&quot;</span><span class="p">,</span>
+    <span class="ss">&quot;Mode&quot;</span><span class="p">:</span> <span class="ss">&quot;&quot;</span><span class="p">,</span>
+    <span class="ss">&quot;RW&quot;</span><span class="p">:</span> <span class="k">true</span><span class="p">,</span>
+    <span class="ss">&quot;Propagation&quot;</span><span class="p">:</span> <span class="ss">&quot;&quot;</span>
+<span class="err">}</span><span class="p">,</span>
+<span class="err">{</span>
+    <span class="ss">&quot;Type&quot;</span><span class="p">:</span> <span class="ss">&quot;volume&quot;</span><span class="p">,</span>
+    <span class="ss">&quot;Name&quot;</span><span class="p">:</span> <span class="ss">&quot;7ab721966628bf692a3d451567c9a01b419ba5189b88ef05484de315c73f6275&quot;</span><span class="p">,</span>
+    <span class="ss">&quot;Source&quot;</span><span class="p">:</span> <span class="ss">&quot;/var/lib/docker/volumes/7ab721966628bf692a3d451567c9a01b419ba5189b88ef05484de315c73f6275/_data&quot;</span><span class="p">,</span>
+    <span class="ss">&quot;Destination&quot;</span><span class="p">:</span> <span class="ss">&quot;/usr/lib/ckan/default/src/ckanext-gobar-theme/ckanext/gobar_theme/public/user_images&quot;</span><span class="p">,</span>
+    <span class="ss">&quot;Driver&quot;</span><span class="p">:</span> <span class="ss">&quot;local&quot;</span><span class="p">,</span>
+    <span class="ss">&quot;Mode&quot;</span><span class="p">:</span> <span class="ss">&quot;&quot;</span><span class="p">,</span>
+    <span class="ss">&quot;RW&quot;</span><span class="p">:</span> <span class="k">true</span><span class="p">,</span>
+    <span class="ss">&quot;Propagation&quot;</span><span class="p">:</span> <span class="ss">&quot;&quot;</span>
+<span class="err">}</span><span class="p">,</span>
+
+<span class="p">...</span>
+</pre></div>
+
+
+<p>Como podemos ver, hay una entrada "Destination" que coincidirá con el contenido del archivo destination.txt en cada directorio. Debemos asegurarnos de no copiar el archivo production.ini, ya que el mismo cambio bastante de versión en versión.</p>
+<p>El restore puede ser llevado a cabo con el siguiente script:</p>
+<div class="codehilite"><pre><span></span><span class="ch">#!/usr/bin/env bash</span>
+<span class="nb">set</span> -e<span class="p">;</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;Iniciando recuperación de Archivos.&quot;</span>
+<span class="nv">install_dir</span><span class="o">=</span><span class="s2">&quot;/etc/portal&quot;</span><span class="p">;</span>
+<span class="nv">container</span><span class="o">=</span><span class="s2">&quot;andino&quot;</span>
+<span class="nv">app_backup</span><span class="o">=</span><span class="s2">&quot;backup.tar.gz&quot;</span>
+
+<span class="nv">containers</span><span class="o">=</span><span class="k">$(</span>docker ps -q<span class="k">)</span>
+<span class="k">if</span> <span class="o">[</span> -z <span class="s2">&quot;</span><span class="nv">$containers</span><span class="s2">&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+    <span class="nb">echo</span> <span class="s2">&quot;No se encontró ningun contenedor corriendo.&quot;</span>
+<span class="k">else</span>
+    docker stop <span class="nv">$containers</span>
+<span class="k">fi</span>
+
+<span class="nv">restoredir</span><span class="o">=</span><span class="k">$(</span>mktemp -d<span class="k">)</span>
+<span class="nb">echo</span> <span class="s2">&quot;Usando directorio temporal </span><span class="nv">$restoredir</span><span class="s2">&quot;</span>
+tar zxvf <span class="nv">$app_backup</span> -C <span class="nv">$restoredir</span>
+
+docker inspect --format <span class="s1">&#39;{{json .Mounts}}&#39;</span> <span class="nv">$container</span>  <span class="p">|</span> jq -r <span class="s1">&#39;.[]|[.Name, .Source, .Destination] | @tsv&#39;</span> <span class="p">|</span>
+<span class="k">while</span> <span class="nv">IFS</span><span class="o">=</span><span class="s1">$&#39;\t&#39;</span> <span class="nb">read</span> -r name <span class="nb">source</span> destination<span class="p">;</span> <span class="k">do</span>
+    <span class="k">for</span> directory in <span class="nv">$restoredir</span>/application/*<span class="p">;</span> <span class="k">do</span>
+        <span class="nv">dest</span><span class="o">=</span><span class="k">$(</span>cat <span class="s2">&quot;</span><span class="nv">$directory</span><span class="s2">/destination.txt&quot;</span><span class="k">)</span>
+        <span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$dest</span><span class="s2">&quot;</span> <span class="o">==</span> <span class="s2">&quot;</span><span class="nv">$destination</span><span class="s2">&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+            <span class="nb">echo</span> <span class="s2">&quot;Recuperando archivos para </span><span class="nv">$destination</span><span class="s2">&quot;</span>
+            tar zxvf <span class="s2">&quot;</span><span class="nv">$directory</span><span class="s2">/</span><span class="k">$(</span>ls <span class="s2">&quot;</span><span class="nv">$directory</span><span class="s2">&quot;</span> <span class="p">|</span> grep backup<span class="k">)</span><span class="s2">&quot;</span> -C <span class="s2">&quot;</span><span class="nv">$source</span><span class="s2">&quot;</span>
+        <span class="k">fi</span>
+    <span class="k">done</span>
+<span class="k">done</span>
+<span class="nb">echo</span> <span class="s2">&quot;Restauración lista.&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;Reiniciando servicios.&quot;</span>
+<span class="nb">cd</span> <span class="nv">$install_dir</span><span class="p">;</span>
+docker-compose -f latest.yml restart<span class="p">;</span>
+<span class="nb">cd</span> -<span class="p">;</span>
+</pre></div>
+
+
+<h3 id="52-restaurar-la-base-de-datos">5.2. Restaurar la base de datos</h3>
+<p>Para restaurar la base de datos, se puede usar el siguiente script contra el archivo previamente generado (backup.gz):</p>
+<div class="codehilite"><pre><span></span><span class="ch">#!/usr/bin/env bash</span>
+<span class="nb">set</span> -e<span class="p">;</span>
+
+<span class="nv">install_dir</span><span class="o">=</span><span class="s2">&quot;/etc/portal&quot;</span><span class="p">;</span>
+<span class="nv">database_backup</span><span class="o">=</span><span class="s2">&quot;backup.gz&quot;</span>
+<span class="nv">container</span><span class="o">=</span><span class="s2">&quot;andino-db&quot;</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;Iniciando restauración de la base de datos.&quot;</span>
+<span class="nv">containers</span><span class="o">=</span><span class="k">$(</span>docker ps -q<span class="k">)</span>
+
+<span class="k">if</span> <span class="o">[</span> -z <span class="s2">&quot;</span><span class="nv">$containers</span><span class="s2">&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+    <span class="nb">echo</span> <span class="s2">&quot;No se encontró ningun contenedor corriendo.&quot;</span>
+<span class="k">else</span>
+    docker stop <span class="nv">$containers</span>
+<span class="k">fi</span>
+docker restart <span class="nv">$container</span>
+sleep <span class="m">10</span><span class="p">;</span>
+
+<span class="nv">restoredir</span><span class="o">=</span><span class="k">$(</span>mktemp -d<span class="k">)</span><span class="p">;</span>
+<span class="nb">echo</span> <span class="s2">&quot;Usando directorio temporal </span><span class="nv">$restoredir</span><span class="s2">&quot;</span>
+
+<span class="nv">restorefile</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$restoredir</span><span class="s2">/dump.sql&quot;</span><span class="p">;</span>
+
+gzip -dkc &lt; <span class="nv">$database_backup</span> &gt; <span class="s2">&quot;</span><span class="nv">$restorefile</span><span class="s2">&quot;</span><span class="p">;</span>
+<span class="nb">echo</span> <span class="s2">&quot;Borrando base de datos actual.&quot;</span>
+docker <span class="nb">exec</span> <span class="nv">$container</span> psql -U postgres -c <span class="s2">&quot;DROP DATABASE IF EXISTS ckan;&quot;</span>
+docker <span class="nb">exec</span> <span class="nv">$container</span> psql -U postgres -c <span class="s2">&quot;DROP DATABASE IF EXISTS datastore_default;&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;Restaurando la base de datos desde: </span><span class="nv">$restorefile</span><span class="s2">&quot;</span>
+cat <span class="s2">&quot;</span><span class="nv">$restorefile</span><span class="s2">&quot;</span> <span class="p">|</span> docker <span class="nb">exec</span> -i <span class="nv">$container</span> psql -U postgres
+<span class="nb">echo</span> <span class="s2">&quot;Recuperando credenciales de los usuarios&quot;</span>
+docker <span class="nb">exec</span>  <span class="nv">$container</span> psql -U postgres -c <span class="s2">&quot;ALTER USER </span><span class="nv">$DB_USER</span><span class="s2"> WITH PASSWORD &#39;</span><span class="nv">$DB_PASS</span><span class="s2">&#39;;&quot;</span>
+docker <span class="nb">exec</span>  <span class="nv">$container</span> psql -U postgres -c <span class="s2">&quot;ALTER USER </span><span class="nv">$STORE_USER</span><span class="s2"> WITH PASSWORD &#39;</span><span class="nv">$STORE_PASS</span><span class="s2">&#39;;&quot;</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;Restauración lista.&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;Reiniciando servicios.&quot;</span>
+<span class="nb">cd</span> <span class="nv">$install_dir</span><span class="p">;</span>
+docker-compose -f latest.yml restart<span class="p">;</span>
+<span class="nb">cd</span> -<span class="p">;</span>
+</pre></div>
+
+
+<h3 id="53-regenerar-el-indice-de-busquedas">5.3. Regenerar el índice de búsquedas</h3>
+<p>Para regenerar el índice de búsquedas, debemos ir al directorio donde se instaló la aplicación y correr el siguiente comando:</p>
+<div class="codehilite"><pre><span></span><span class="nv">docker</span><span class="o">-</span><span class="nv">compose</span> <span class="o">-</span><span class="nv">f</span> <span class="nv">latest</span>.<span class="nv">yml</span> <span class="k">exec</span> <span class="nv">portal</span> <span class="o">/</span><span class="nv">etc</span><span class="o">/</span><span class="nv">ckan_init</span>.<span class="nv">d</span><span class="o">/</span><span class="nv">run_rebuild_search</span>.<span class="nv">sh</span>
+</pre></div>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../checklist/" title="Recomendaciones para salir a producción" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Anterior
+                </span>
+                Recomendaciones para salir a producción
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../maintenance/" title="Mantenimiento" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Siguiente
+                </span>
+                Mantenimiento
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/application.c648116f.js"></script>
+      
+        
+        
+          
+          <script src="../../assets/javascripts/lunr/lunr.stemmer.support.js"></script>
+          
+            
+              
+              
+                <script src="../../assets/javascripts/lunr/lunr.es.js"></script>
+              
+            
+          
+          
+        
+      
+      <script>app.initialize({version:"1.0.4",url:{base:"../.."}})</script>
+      
+    
+  </body>
+</html>

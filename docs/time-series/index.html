@@ -1,0 +1,1275 @@
+
+
+
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="Documentación de Portal Andino, la distribución de CKAN desarrollada por la República Argentina dockerizada, fácil de instalar y compatible con el Perfil Nacional de Metadatos de la Política de Apertura de Datos.">
+      
+      
+        <link rel="canonical" href="https://datosgobar.github.io/portal-andino/time-series/">
+      
+      
+        <meta name="author" content="Datos Argentina">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copiar al portapapeles">
+      
+        <meta name="lang:clipboard.copied" content="Copiado al portapapeles">
+      
+        <meta name="lang:search.language" content="es">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No se encontraron documentos">
+      
+        <meta name="lang:search.result.one" content="1 documento encontrado">
+      
+        <meta name="lang:search.result.other" content="# documentos encontrados">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.2">
+    
+    
+      
+        <title>Publicar series de tiempo - Portal Andino</title>
+      
+    
+    
+	
+      <link rel="stylesheet" href="../assets/stylesheets/application.30686662.css">
+      
+      
+    
+	<link rel="stylesheet" href="../css/extra.css">
+
+    
+    
+      <script src="../assets/javascripts/modernizr.74668098.js"></script>
+    
+    <script src="../js/extra.js"></script>
+
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../assets/fonts/material-icons.css">
+    
+    
+      <link rel="stylesheet" href="../css/extra_rtd.css">
+    
+    
+      
+        
+<script>
+  window.ga = window.ga || function() {
+    (ga.q = ga.q || []).push(arguments)
+  }
+  ga.l = +new Date
+  /* Setup integration and send page view */
+  ga("create", "UA-91435482-1", "https://datosgobar.github.io/portal-andino/")
+  ga("set", "anonymizeIp", true)
+  ga("send", "pageview")
+  /* Register handler to log search on blur */
+  document.addEventListener("DOMContentLoaded", () => {
+    if (document.forms.search) {
+      var query = document.forms.search.query
+      query.addEventListener("blur", function() {
+        if (this.value) {
+          var path = document.location.pathname;
+          ga("send", "pageview", path + "?q=" + this.value)
+        }
+      })
+    }
+  })
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+      
+    
+    
+  </head>
+  
+    <body dir="ltr">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="__github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#publicar-series-de-tiempo" tabindex="1" class="md-skip">
+        Saltar a contenido
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="https://datosgobar.github.io/portal-andino" title="Portal Andino" class="md-header-nav__button md-logo">
+          
+            <img src="../images/logo.svg" width="24" height="24">
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              Portal Andino
+            </span>
+            <span class="md-header-nav__topic">
+              
+                Publicar series de tiempo
+              
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Escriba para comenzar la búsqueda
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+<a href="https://github.com/datosgobar/portal-andino/" title="Ir al repositorio" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main" role="main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <!--
+  Copyright (c) 2016-2018 Martin Donath <martin.donath@squidfunk.com>
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to
+  deal in the Software without restriction, including without limitation the
+  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+  sell copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+  IN THE SOFTWARE.
+-->
+
+<!-- Main navigation -->
+<nav class="md-nav md-nav--primary" data-md-level="0">
+
+        <!-- Site title -->
+        <label class="md-nav__title md-nav__title--site" for="__drawer">
+          <a href="https://datosgobar.github.io/portal-andino"
+              title="Portal Andino" class="md-nav__button md-logo">
+            
+              <img src="../images/logo.svg" width="48" height="48" />
+            
+          </a>
+          Portal Andino
+        </label>
+      
+        <!-- Repository containing source -->
+        
+          <div class="md-nav__source">
+            
+
+
+  
+
+<a href="https://github.com/datosgobar/portal-andino/" title="Ir al repositorio" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+          </div>
+        
+      
+        <!-- Render item list -->
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+            
+            
+
+
+  <li class="md-nav__item">
+    <a href=".." title="Inicio" class="md-nav__link">
+      Inicio
+    </a>
+  </li>
+
+            <hr/>
+          
+            
+            
+            
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" checked>
+    
+    <label class="md-nav__link" for="nav-2">
+      Usuarios
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        Usuarios
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../quickstart/" title="Comenzar a usar Andino" class="md-nav__link">
+      Comenzar a usar Andino
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Publicar series de tiempo
+      </label>
+    
+    <a href="./" title="Publicar series de tiempo" class="md-nav__link md-nav__link--active">
+      Publicar series de tiempo
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Contenidos de la sección</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#indice" class="md-nav__link">
+    Indice
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-crear-una-distribucion-de-series-de-tiempo" class="md-nav__link">
+    1. Crear una distribución de series de tiempo
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fechas-en-formato-yyyy-mm-dd" class="md-nav__link">
+    Fechas en formato  YYYY-MM-DD
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fecha-mas-antigua-primero-a-la-mas-reciente-al-final" class="md-nav__link">
+    Fecha más antigua primero a la más reciente al final
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fechas-continuas" class="md-nav__link">
+    Fechas continuas
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fecha-inicial-del-periodo" class="md-nav__link">
+    Fecha inicial del período
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usar-como-separador-de-columnas" class="md-nav__link">
+    Usar "," como separador de columnas
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usar-como-separador-decimal" class="md-nav__link">
+    Usar "." como separador decimal
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#no-usar-separador-de-miles" class="md-nav__link">
+    No usar separador de miles
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-documentar-la-distribucion-en-andino" class="md-nav__link">
+    2. Documentar la distribución en Andino
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-crear-o-editar-el-dataset-que-contendra-al-recurso" class="md-nav__link">
+    A. Crear o editar el dataset que contendrá al recurso
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-agregar-un-nuevo-recurso-y-documentar-sus-metadatos-usuales" class="md-nav__link">
+    B. Agregar un nuevo recurso y documentar sus metadatos usuales
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-documentar-el-indice-de-tiempo" class="md-nav__link">
+    C. Documentar el índice de tiempo
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d-documentar-las-series-de-tiempo" class="md-nav__link">
+    D. Documentar las series de tiempo
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-dar-aviso-a-datos-argentina" class="md-nav__link">
+    3. Dar aviso a Datos Argentina
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-activar-el-explorador-de-series-en-tu-andino" class="md-nav__link">
+    4. Activar el explorador de series en tu Andino
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../markdown-guide/" title="Guía de Markdown" class="md-nav__link">
+      Guía de Markdown
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+            <hr/>
+          
+            
+            
+            
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      Desarrolladores
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        Desarrolladores
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../developers/install/" title="Instalación" class="md-nav__link">
+      Instalación
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../developers/update/" title="Actualización" class="md-nav__link">
+      Actualización
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../developers/checklist/" title="Recomendaciones para salir a producción" class="md-nav__link">
+      Recomendaciones para salir a producción
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../developers/migration/" title="Migracion" class="md-nav__link">
+      Migracion
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../developers/maintenance/" title="Mantenimiento" class="md-nav__link">
+      Mantenimiento
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../developers/https/" title="Configuración HTTPS" class="md-nav__link">
+      Configuración HTTPS
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../developers/dns/" title="Configuración de DNS" class="md-nav__link">
+      Configuración de DNS
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../developers/docker/" title="Generación de imágenes Docker" class="md-nav__link">
+      Generación de imágenes Docker
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../developers/development/" title="Desarrollo" class="md-nav__link">
+      Desarrollo
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../developers/tests/" title="Tests" class="md-nav__link">
+      Tests
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+            <hr/>
+          
+        </ul>
+      </nav>
+      
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Contenidos de la sección</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#indice" class="md-nav__link">
+    Indice
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-crear-una-distribucion-de-series-de-tiempo" class="md-nav__link">
+    1. Crear una distribución de series de tiempo
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fechas-en-formato-yyyy-mm-dd" class="md-nav__link">
+    Fechas en formato  YYYY-MM-DD
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fecha-mas-antigua-primero-a-la-mas-reciente-al-final" class="md-nav__link">
+    Fecha más antigua primero a la más reciente al final
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fechas-continuas" class="md-nav__link">
+    Fechas continuas
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fecha-inicial-del-periodo" class="md-nav__link">
+    Fecha inicial del período
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usar-como-separador-de-columnas" class="md-nav__link">
+    Usar "," como separador de columnas
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usar-como-separador-decimal" class="md-nav__link">
+    Usar "." como separador decimal
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#no-usar-separador-de-miles" class="md-nav__link">
+    No usar separador de miles
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-documentar-la-distribucion-en-andino" class="md-nav__link">
+    2. Documentar la distribución en Andino
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-crear-o-editar-el-dataset-que-contendra-al-recurso" class="md-nav__link">
+    A. Crear o editar el dataset que contendrá al recurso
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-agregar-un-nuevo-recurso-y-documentar-sus-metadatos-usuales" class="md-nav__link">
+    B. Agregar un nuevo recurso y documentar sus metadatos usuales
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-documentar-el-indice-de-tiempo" class="md-nav__link">
+    C. Documentar el índice de tiempo
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d-documentar-las-series-de-tiempo" class="md-nav__link">
+    D. Documentar las series de tiempo
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-dar-aviso-a-datos-argentina" class="md-nav__link">
+    3. Dar aviso a Datos Argentina
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-activar-el-explorador-de-series-en-tu-andino" class="md-nav__link">
+    4. Activar el explorador de series en tu Andino
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/datosgobar/portal-andino/edit/master/docs/time-series.md" title="Editar esta página" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <h1 id="publicar-series-de-tiempo">Publicar series de tiempo</h1>
+<p>Andino permite documentar archivos CSV como series de tiempo (indicadores con evolución temporal) para que aparezcan en la <a href="https://apis.datos.gob.ar/series">API de Series de Tiempo</a> y en el <a href="https://datos.gob.ar/series">Explorador de Series de Tiempo</a>.</p>
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+<h2 id="indice">Indice</h2>
+<ul>
+<li><a href="#1-crear-una-distribucion-de-series-de-tiempo">1. Crear una distribución de series de tiempo</a><ul>
+<li><a href="#fechas-en-formato-yyyy-mm-dd">Fechas en formato  <code>YYYY-MM-DD</code></a></li>
+<li><a href="#fecha-mas-antigua-primero-a-la-m%C3%A1s-reciente-al-final">Fecha más antigua primero a la más reciente al final</a></li>
+<li><a href="#fechas-continuas">Fechas continuas</a></li>
+<li><a href="#fecha-inicial-del-periodo">Fecha inicial del período</a></li>
+<li><a href="#usar-como-separador-de-columnas">Usar "," como separador de columnas</a></li>
+<li><a href="#usar-como-separador-decimal">Usar "." como separador decimal</a></li>
+<li><a href="#no-usar-separador-de-miles">No usar separador de miles</a></li>
+</ul>
+</li>
+<li><a href="#2-documentar-la-distribucion-en-andino">2. Documentar la distribución en Andino</a><ul>
+<li><a href="#a-crear-o-editar-el-dataset-que-contendra-al-recurso">A. Crear o editar el dataset que contendrá al recurso</a></li>
+<li><a href="#b-agregar-un-nuevo-recurso-y-documentar-sus-metadatos-usuales">B. Agregar un nuevo recurso y documentar sus metadatos usuales</a></li>
+<li><a href="#c-documentar-el-indice-de-tiempo">C. Documentar el índice de tiempo</a></li>
+<li><a href="#d-documentar-las-series-de-tiempo">D. Documentar las series de tiempo</a></li>
+</ul>
+</li>
+<li><a href="#3-dar-aviso-a-datos-argentina">3. Dar aviso a Datos Argentina</a></li>
+<li><a href="#4-activar-el-explorador-de-series-en-tu-andino">4. Activar el explorador de series en tu Andino</a></li>
+</ul>
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+<h2 id="1-crear-una-distribucion-de-series-de-tiempo">1. Crear una distribución de series de tiempo</h2>
+<p>Una distribución de series de tiempo es un archivo CSV donde la primer columna contiene las fechas y cada una de las otras columnas es una serie de tiempo.</p>
+<p>Así se ve una tabla de series de tiempo en una planilla de cálculo como Excel, Libre Office o Google Spreadsheet:</p>
+<table>
+  <tr>
+    <th>indice_tiempo</th>
+    <th>oferta_global_pib</th>
+    <th>oferta_global_importacion</th>
+    <th>demanda_global_exportacion</th>
+    <th>demanda_global_ibif</th>
+    <th>demanda_global_consumo_priv</th>
+  </tr>
+  <tr>
+    <td>1993-01-01</td>
+    <td>236520.0336</td>
+    <td>22027.59999</td>
+    <td>16340.95975</td>
+    <td>45069.41348</td>
+    <td>31952.717</td>
+  </tr>
+  <tr>
+    <td>1994-01-01</td>
+    <td>250307.886</td>
+    <td>26682.25975</td>
+    <td>18840.403</td>
+    <td>51231.4255</td>
+    <td>32094.804</td>
+  </tr>
+  <tr>
+    <td>1995-01-01</td>
+    <td>243186.1018</td>
+    <td>24065.62925</td>
+    <td>23084.79625</td>
+    <td>44528.27725</td>
+    <td>32338.89925</td>
+  </tr>
+  <tr>
+    <td>1996-01-01</td>
+    <td>256626.244</td>
+    <td>28284.11475</td>
+    <td>24850.043</td>
+    <td>48483.8615</td>
+    <td>33040.55475</td>
+  </tr>
+  <tr>
+    <td>1997-01-01</td>
+    <td>277441.3173</td>
+    <td>35884.496</td>
+    <td>27876.14225</td>
+    <td>57047.5</td>
+    <td>34104.32325</td>
+  </tr>
+  <tr>
+    <td>1998-01-01</td>
+    <td>288123.3068</td>
+    <td>38903.79175</td>
+    <td>30837.53425</td>
+    <td>60780.6695</td>
+    <td>35249.1645</td>
+  </tr>
+  <tr>
+    <td>1999-01-01</td>
+    <td>278369.0138</td>
+    <td>34520.59125</td>
+    <td>30448.89575</td>
+    <td>53116.3155</td>
+    <td>36173.34075</td>
+  </tr>
+</table>
+
+<p>La tabla puede ser generada con un software de planilla de cálculo, una rutina programada o incluso a mano con un editor de texto! Pero en cualquier caso tenés que guardarla como un archivo CSV:</p>
+<div class="codehilite"><pre><span></span><span class="n">indice_tiempo</span><span class="p">,</span><span class="n">oferta_global_pib</span><span class="p">,</span><span class="n">oferta_global_importacion</span><span class="p">,</span><span class="n">demanda_global_exportacion</span><span class="p">,</span><span class="n">demanda_global_ibif</span><span class="p">,</span><span class="n">demanda_global_consumo_priv</span>
+<span class="mi">1993</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">01</span><span class="p">,</span><span class="mi">236520</span><span class="p">.</span><span class="mi">033577</span><span class="p">,</span><span class="mi">22027</span><span class="p">.</span><span class="mi">5999938</span><span class="p">,</span><span class="mi">16340</span><span class="p">.</span><span class="mi">9597519</span><span class="p">,</span><span class="mi">45069</span><span class="p">.</span><span class="mi">4134803</span><span class="p">,</span><span class="mi">31952</span><span class="p">.</span><span class="mi">717001</span>
+<span class="mi">1994</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">01</span><span class="p">,</span><span class="mi">250307</span><span class="p">.</span><span class="mi">886</span><span class="p">,</span><span class="mi">26682</span><span class="p">.</span><span class="mi">25975</span><span class="p">,</span><span class="mi">18840</span><span class="p">.</span><span class="mi">403</span><span class="p">,</span><span class="mi">51231</span><span class="p">.</span><span class="mi">4255</span><span class="p">,</span><span class="mi">32094</span><span class="p">.</span><span class="mi">804</span>
+<span class="mi">1995</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">01</span><span class="p">,</span><span class="mi">243186</span><span class="p">.</span><span class="mi">10175</span><span class="p">,</span><span class="mi">24065</span><span class="p">.</span><span class="mi">62925</span><span class="p">,</span><span class="mi">23084</span><span class="p">.</span><span class="mi">79625</span><span class="p">,</span><span class="mi">44528</span><span class="p">.</span><span class="mi">27725</span><span class="p">,</span><span class="mi">32338</span><span class="p">.</span><span class="mi">89925</span>
+<span class="mi">1996</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">01</span><span class="p">,</span><span class="mi">256626</span><span class="p">.</span><span class="mi">244</span><span class="p">,</span><span class="mi">28284</span><span class="p">.</span><span class="mi">11475</span><span class="p">,</span><span class="mi">24850</span><span class="p">.</span><span class="mi">043</span><span class="p">,</span><span class="mi">48483</span><span class="p">.</span><span class="mi">8615</span><span class="p">,</span><span class="mi">33040</span><span class="p">.</span><span class="mi">55475</span>
+<span class="mi">1997</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">01</span><span class="p">,</span><span class="mi">277441</span><span class="p">.</span><span class="mi">31725</span><span class="p">,</span><span class="mi">35884</span><span class="p">.</span><span class="mi">496</span><span class="p">,</span><span class="mi">27876</span><span class="p">.</span><span class="mi">14225</span><span class="p">,</span><span class="mi">57047</span><span class="p">.</span><span class="mi">5</span><span class="p">,</span><span class="mi">34104</span><span class="p">.</span><span class="mi">32325</span>
+<span class="mi">1998</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">01</span><span class="p">,</span><span class="mi">288123</span><span class="p">.</span><span class="mi">30675</span><span class="p">,</span><span class="mi">38903</span><span class="p">.</span><span class="mi">79175</span><span class="p">,</span><span class="mi">30837</span><span class="p">.</span><span class="mi">53425</span><span class="p">,</span><span class="mi">60780</span><span class="p">.</span><span class="mi">6695</span><span class="p">,</span><span class="mi">35249</span><span class="p">.</span><span class="mi">1645</span>
+<span class="mi">1999</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">01</span><span class="p">,</span><span class="mi">278369</span><span class="p">.</span><span class="mi">01375</span><span class="p">,</span><span class="mi">34520</span><span class="p">.</span><span class="mi">59125</span><span class="p">,</span><span class="mi">30448</span><span class="p">.</span><span class="mi">89575</span><span class="p">,</span><span class="mi">53116</span><span class="p">.</span><span class="mi">3155</span><span class="p">,</span><span class="mi">36173</span><span class="p">.</span><span class="mi">34075</span>
+</pre></div>
+
+
+<p><strong>Es muy importante que el archivo CSV cumpla con estas condiciones:</strong></p>
+<h3 id="fechas-en-formato-yyyy-mm-dd">Fechas en formato  <code>YYYY-MM-DD</code></h3>
+<p>El índice de tiempo debe tener las fechas en formato  <code>YYYY-MM-DD</code>. Este es el estándar ISO 8601.</p>
+<p>Por ejemplo: 12/03/2001 no está soportado, debe escribirse 2001-03-12.</p>
+<div class="admonition note">
+<p class="admonition-title">Fechas estandarizadas en planillas de cálculo</p>
+<p>Las planillas de cálculo suelen leer de distintas maneras las fechas y a veces es difícil controlar en qué formato se guardan cuando "exportás a CSV" o "guardás como CSV". El mejor consejo: seleccioná la columna completa que va a ser el índice de tiempo, asignale un formato de "Texto" y escribí las fechas después, como cadenas de texto (así evitás que la planilla de cálculo las lea como fechas).</p>
+</div>
+<h3 id="fecha-mas-antigua-primero-a-la-mas-reciente-al-final">Fecha más antigua primero a la más reciente al final</h3>
+<p>El indice de tiempo debe comenzar por la fecha más antigua y terminar por la más reciente. Menor a mayor, orden ascendente.</p>
+<table>
+  <tr>
+    <th style="background-color: green">indice_tiempo_correcto</th>
+    <th style="background-color: red">indice_tiempo_incorrecto</th>
+  </tr>
+  <tr>
+    <td>1993-01-01</td>
+    <td>1999-01-01</td>
+  </tr>
+  <tr>
+    <td>1994-01-01</td>
+    <td>1998-01-01</td>
+  </tr>
+  <tr>
+    <td>1995-01-01</td>
+    <td>1997-01-01</td>
+  </tr>
+  <tr>
+    <td>1996-01-01</td>
+    <td>1996-01-01</td>
+  </tr>
+  <tr>
+    <td>1997-01-01</td>
+    <td>1995-01-01</td>
+  </tr>
+</table>
+
+<h3 id="fechas-continuas">Fechas continuas</h3>
+<p>Al índice de tiempo no le pueden faltar valores intermedios. Si no hay datos de una serie para determinado período, debe estar la celda en blanco.</p>
+<table>
+  <tr>
+    <th style="background-color: green">indice_tiempo_correcto</th>
+    <th style="background-color: red">indice_tiempo_incorrecto</th>
+  </tr>
+  <tr>
+    <td>1993-01-01</td>
+    <td>1993-01-01</td>
+  </tr>
+  <tr>
+    <td>1994-01-01</td>
+    <td>1994-01-01</td>
+  </tr>
+  <tr>
+    <td>1995-01-01</td>
+    <td>1997-01-01</td>
+  </tr>
+  <tr>
+    <td>1996-01-01</td>
+    <td>1998-01-01</td>
+  </tr>
+  <tr>
+    <td>1997-01-01</td>
+    <td>1999-01-01</td>
+  </tr>
+</table>
+
+<h3 id="fecha-inicial-del-periodo">Fecha inicial del período</h3>
+<p>Para representar períodos más largos que una fecha (el caso de todas las frecuencias de tiempo más bajas que la diaria) debe usarse siempre la <strong>fecha completa del comienzo del período</strong>.</p>
+<p><strong>Mensual</strong></p>
+<table>
+  <tr>
+    <th style="background-color: green">indice_tiempo_correcto</th>
+    <th style="background-color: red">indice_tiempo_incorrecto</th>
+  </tr>
+  <tr>
+    <td>1980-01-01</td>
+    <td>1980-01-31</td>
+  </tr>
+  <tr>
+    <td>1980-02-01</td>
+    <td>1980-02-28</td>
+  </tr>
+  <tr>
+    <td>1980-03-01</td>
+    <td>1980-03-31</td>
+  </tr>
+</table>
+
+<p><strong>Trimestral</strong></p>
+<table>
+  <tr>
+    <th style="background-color: green">indice_tiempo_correcto</th>
+    <th style="background-color: red">indice_tiempo_incorrecto</th>
+  </tr>
+  <tr>
+    <td>1980-01-01</td>
+    <td>1980-02-01</td>
+  </tr>
+  <tr>
+    <td>1980-04-01</td>
+    <td>1980-05-01</td>
+  </tr>
+  <tr>
+    <td>1980-07-01</td>
+    <td>1980-08-01</td>
+  </tr>
+  <tr>
+    <td>1980-10-01</td>
+    <td>1980-11-01</td>
+  </tr>
+</table>
+
+<p><strong>Semestral</strong></p>
+<table>
+  <tr>
+    <th style="background-color: green">indice_tiempo_correcto</th>
+    <th style="background-color: red">indice_tiempo_incorrecto</th>
+    <th style="background-color: red">indice_tiempo_incorrecto</th>
+  </tr>
+  <tr>
+    <td>1980-01-01</td>
+    <td>1980-01-01</td>
+    <td>1980-01-31</td>
+  </tr>
+  <tr>
+    <td>1980-07-01</td>
+    <td>1980-08-01</td>
+    <td>1980-07-31</td>
+  </tr>
+  <tr>
+    <td>1981-01-01</td>
+    <td>1981-01-01</td>
+    <td>1981-01-31</td>
+  </tr>
+</table>
+
+<h3 id="usar-como-separador-de-columnas">Usar "," como separador de columnas</h3>
+<p>Las columnas del CSV deben estar separadas con ",". No con ";", "|" ni ningún otro caracter.</p>
+<p><span class="recomendado"><strong>Correcto</strong></span></p>
+<div class="codehilite"><pre><span></span><span class="n">indice_tiempo</span><span class="p">,</span><span class="n">oferta_global_pib</span><span class="p">,</span><span class="n">oferta_global_importacion</span><span class="p">,</span><span class="n">demanda_global_exportacion</span><span class="p">,</span><span class="n">demanda_global_ibif</span><span class="p">,</span><span class="n">demanda_global_consumo_priv</span>
+<span class="mi">1993</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">01</span><span class="p">,</span><span class="mi">236520</span><span class="p">.</span><span class="mi">033577</span><span class="p">,</span><span class="mi">22027</span><span class="p">.</span><span class="mi">5999938</span><span class="p">,</span><span class="mi">16340</span><span class="p">.</span><span class="mi">9597519</span><span class="p">,</span><span class="mi">45069</span><span class="p">.</span><span class="mi">4134803</span><span class="p">,</span><span class="mi">31952</span><span class="p">.</span><span class="mi">717001</span>
+<span class="mi">1994</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">01</span><span class="p">,</span><span class="mi">250307</span><span class="p">.</span><span class="mi">886</span><span class="p">,</span><span class="mi">26682</span><span class="p">.</span><span class="mi">25975</span><span class="p">,</span><span class="mi">18840</span><span class="p">.</span><span class="mi">403</span><span class="p">,</span><span class="mi">51231</span><span class="p">.</span><span class="mi">4255</span><span class="p">,</span><span class="mi">32094</span><span class="p">.</span><span class="mi">804</span>
+<span class="mi">1995</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">01</span><span class="p">,</span><span class="mi">243186</span><span class="p">.</span><span class="mi">10175</span><span class="p">,</span><span class="mi">24065</span><span class="p">.</span><span class="mi">62925</span><span class="p">,</span><span class="mi">23084</span><span class="p">.</span><span class="mi">79625</span><span class="p">,</span><span class="mi">44528</span><span class="p">.</span><span class="mi">27725</span><span class="p">,</span><span class="mi">32338</span><span class="p">.</span><span class="mi">89925</span>
+</pre></div>
+
+
+<p><span class="no-recomendado"><strong>Incorrecto</strong></span></p>
+<div class="codehilite"><pre><span></span><span class="n">indice_tiempo</span><span class="p">;</span><span class="n">oferta_global_pib</span><span class="p">;</span><span class="n">oferta_global_importacion</span><span class="p">;</span><span class="n">demanda_global_exportacion</span><span class="p">;</span><span class="n">demanda_global_ibif</span><span class="p">;</span><span class="n">demanda_global_consumo_priv</span>
+<span class="mi">1993</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">01</span><span class="p">;</span><span class="mi">236520</span><span class="p">.</span><span class="mi">033577</span><span class="p">;</span><span class="mi">22027</span><span class="p">.</span><span class="mi">5999938</span><span class="p">;</span><span class="mi">16340</span><span class="p">.</span><span class="mi">9597519</span><span class="p">;</span><span class="mi">45069</span><span class="p">.</span><span class="mi">4134803</span><span class="p">;</span><span class="mi">31952</span><span class="p">.</span><span class="mi">717001</span>
+<span class="mi">1994</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">01</span><span class="p">;</span><span class="mi">250307</span><span class="p">.</span><span class="mi">886</span><span class="p">;</span><span class="mi">26682</span><span class="p">.</span><span class="mi">25975</span><span class="p">;</span><span class="mi">18840</span><span class="p">.</span><span class="mi">403</span><span class="p">;</span><span class="mi">51231</span><span class="p">.</span><span class="mi">4255</span><span class="p">;</span><span class="mi">32094</span><span class="p">.</span><span class="mi">804</span>
+<span class="mi">1995</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">01</span><span class="p">;</span><span class="mi">243186</span><span class="p">.</span><span class="mi">10175</span><span class="p">;</span><span class="mi">24065</span><span class="p">.</span><span class="mi">62925</span><span class="p">;</span><span class="mi">23084</span><span class="p">.</span><span class="mi">79625</span><span class="p">;</span><span class="mi">44528</span><span class="p">.</span><span class="mi">27725</span><span class="p">;</span><span class="mi">32338</span><span class="p">.</span><span class="mi">89925</span>
+</pre></div>
+
+
+<h3 id="usar-como-separador-decimal">Usar "." como separador decimal</h3>
+<p>Los números decimales deben usar "." como separador decimal. No usar ",".</p>
+<p><span class="recomendado"><strong>Correcto</strong></span></p>
+<div class="codehilite"><pre><span></span><span class="n">indice_tiempo</span><span class="p">,</span><span class="n">oferta_global_pib</span><span class="p">,</span><span class="n">oferta_global_importacion</span><span class="p">,</span><span class="n">demanda_global_exportacion</span><span class="p">,</span><span class="n">demanda_global_ibif</span><span class="p">,</span><span class="n">demanda_global_consumo_priv</span>
+<span class="mi">1993</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">01</span><span class="p">,</span><span class="mi">236520</span><span class="p">.</span><span class="mi">033577</span><span class="p">,</span><span class="mi">22027</span><span class="p">.</span><span class="mi">5999938</span><span class="p">,</span><span class="mi">16340</span><span class="p">.</span><span class="mi">9597519</span><span class="p">,</span><span class="mi">45069</span><span class="p">.</span><span class="mi">4134803</span><span class="p">,</span><span class="mi">31952</span><span class="p">.</span><span class="mi">717001</span>
+<span class="mi">1994</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">01</span><span class="p">,</span><span class="mi">250307</span><span class="p">.</span><span class="mi">886</span><span class="p">,</span><span class="mi">26682</span><span class="p">.</span><span class="mi">25975</span><span class="p">,</span><span class="mi">18840</span><span class="p">.</span><span class="mi">403</span><span class="p">,</span><span class="mi">51231</span><span class="p">.</span><span class="mi">4255</span><span class="p">,</span><span class="mi">32094</span><span class="p">.</span><span class="mi">804</span>
+<span class="mi">1995</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">01</span><span class="p">,</span><span class="mi">243186</span><span class="p">.</span><span class="mi">10175</span><span class="p">,</span><span class="mi">24065</span><span class="p">.</span><span class="mi">62925</span><span class="p">,</span><span class="mi">23084</span><span class="p">.</span><span class="mi">79625</span><span class="p">,</span><span class="mi">44528</span><span class="p">.</span><span class="mi">27725</span><span class="p">,</span><span class="mi">32338</span><span class="p">.</span><span class="mi">89925</span>
+</pre></div>
+
+
+<p><span class="no-recomendado"><strong>Incorrecto</strong></span></p>
+<div class="codehilite"><pre><span></span><span class="n">indice_tiempo</span><span class="p">,</span><span class="n">oferta_global_pib</span><span class="p">,</span><span class="n">oferta_global_importacion</span><span class="p">,</span><span class="n">demanda_global_exportacion</span><span class="p">,</span><span class="n">demanda_global_ibif</span><span class="p">,</span><span class="n">demanda_global_consumo_priv</span>
+<span class="mi">1993</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">01</span><span class="p">,</span><span class="ss">&quot;236520,033577&quot;</span><span class="p">,</span><span class="ss">&quot;22027,5999938&quot;</span><span class="p">,</span><span class="ss">&quot;16340,9597519&quot;</span><span class="p">,</span><span class="ss">&quot;45069,4134803&quot;</span><span class="p">,</span><span class="ss">&quot;31952,717001&quot;</span>
+<span class="mi">1994</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">01</span><span class="p">,</span><span class="ss">&quot;250307,886&quot;</span><span class="p">,</span><span class="ss">&quot;26682,25975&quot;</span><span class="p">,</span><span class="ss">&quot;18840,403&quot;</span><span class="p">,</span><span class="ss">&quot;51231,4255&quot;</span><span class="p">,</span><span class="ss">&quot;32094,804&quot;</span>
+<span class="mi">1995</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">01</span><span class="p">,</span><span class="ss">&quot;243186,10175&quot;</span><span class="p">,</span><span class="ss">&quot;24065,62925&quot;</span><span class="p">,</span><span class="ss">&quot;23084,79625&quot;</span><span class="p">,</span><span class="ss">&quot;44528,27725&quot;</span><span class="p">,</span><span class="ss">&quot;32338,89925&quot;</span>
+</pre></div>
+
+
+<h3 id="no-usar-separador-de-miles">No usar separador de miles</h3>
+<p>Los números decimales no deben usar separador de miles.</p>
+<p><span class="recomendado"><strong>Correcto</strong></span></p>
+<div class="codehilite"><pre><span></span><span class="n">indice_tiempo</span><span class="p">,</span><span class="n">oferta_global_pib</span><span class="p">,</span><span class="n">oferta_global_importacion</span><span class="p">,</span><span class="n">demanda_global_exportacion</span><span class="p">,</span><span class="n">demanda_global_ibif</span><span class="p">,</span><span class="n">demanda_global_consumo_priv</span>
+<span class="mi">1993</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">01</span><span class="p">,</span><span class="mi">236520</span><span class="p">.</span><span class="mi">033577</span><span class="p">,</span><span class="mi">22027</span><span class="p">.</span><span class="mi">5999938</span><span class="p">,</span><span class="mi">16340</span><span class="p">.</span><span class="mi">9597519</span><span class="p">,</span><span class="mi">45069</span><span class="p">.</span><span class="mi">4134803</span><span class="p">,</span><span class="mi">31952</span><span class="p">.</span><span class="mi">717001</span>
+<span class="mi">1994</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">01</span><span class="p">,</span><span class="mi">250307</span><span class="p">.</span><span class="mi">886</span><span class="p">,</span><span class="mi">26682</span><span class="p">.</span><span class="mi">25975</span><span class="p">,</span><span class="mi">18840</span><span class="p">.</span><span class="mi">403</span><span class="p">,</span><span class="mi">51231</span><span class="p">.</span><span class="mi">4255</span><span class="p">,</span><span class="mi">32094</span><span class="p">.</span><span class="mi">804</span>
+<span class="mi">1995</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">01</span><span class="p">,</span><span class="mi">243186</span><span class="p">.</span><span class="mi">10175</span><span class="p">,</span><span class="mi">24065</span><span class="p">.</span><span class="mi">62925</span><span class="p">,</span><span class="mi">23084</span><span class="p">.</span><span class="mi">79625</span><span class="p">,</span><span class="mi">44528</span><span class="p">.</span><span class="mi">27725</span><span class="p">,</span><span class="mi">32338</span><span class="p">.</span><span class="mi">89925</span>
+</pre></div>
+
+
+<p><span class="no-recomendado"><strong>Incorrecto</strong></span></p>
+<div class="codehilite"><pre><span></span><span class="n">indice_tiempo</span><span class="p">,</span><span class="n">oferta_global_pib</span><span class="p">,</span><span class="n">oferta_global_importacion</span><span class="p">,</span><span class="n">demanda_global_exportacion</span><span class="p">,</span><span class="n">demanda_global_ibif</span><span class="p">,</span><span class="n">demanda_global_consumo_priv</span>
+<span class="mi">1993</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">01</span><span class="p">,</span><span class="ss">&quot;236,520.033577&quot;</span><span class="p">,</span><span class="ss">&quot;22,027.5999938&quot;</span><span class="p">,</span><span class="ss">&quot;16,340.9597519&quot;</span><span class="p">,</span><span class="ss">&quot;45,069.4134803&quot;</span><span class="p">,</span><span class="ss">&quot;31,952.717001&quot;</span>
+<span class="mi">1994</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">01</span><span class="p">,</span><span class="ss">&quot;250,307.886&quot;</span><span class="p">,</span><span class="ss">&quot;26,682.25975&quot;</span><span class="p">,</span><span class="ss">&quot;18,840.403&quot;</span><span class="p">,</span><span class="ss">&quot;51,231.4255&quot;</span><span class="p">,</span><span class="ss">&quot;32,094.804&quot;</span>
+<span class="mi">1995</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">01</span><span class="p">,</span><span class="ss">&quot;243,186.10175&quot;</span><span class="p">,</span><span class="ss">&quot;24,065.62925&quot;</span><span class="p">,</span><span class="ss">&quot;23,084.79625&quot;</span><span class="p">,</span><span class="ss">&quot;44,528.27725&quot;</span><span class="p">,</span><span class="ss">&quot;32,338.89925&quot;</span>
+</pre></div>
+
+
+<div class="admonition note">
+<p class="admonition-title">Separador de miles al exportar planilla de cálculo a CSV</p>
+<p>Algunas planillas de cálculo (como Excel en algunas versiones) exportan a CSV agregando el separador de miles si el usuario eligió un formato de visualización de número que lo incluye. Para evitarlo, seleccionar las columnas que contienen las series y <strong>elegir un formato de visualización de número sin separador de miles</strong>.</p>
+</div>
+<h2 id="2-documentar-la-distribucion-en-andino">2. Documentar la distribución en Andino</h2>
+<p>Una vez que creaste el CSV, es hora de cargarlo y documentarlo en Andino.</p>
+<h3 id="a-crear-o-editar-el-dataset-que-contendra-al-recurso">A. Crear o editar el dataset que contendrá al recurso</h3>
+<p>Si no creaste el Dataset que contendrá el nuevo recurso/distribución de series de tiempo, tenés que crear un nuevo Dataset. Si el Dataset ya existe, sólo tenés que agregar un nuevo recurso.</p>
+<h3 id="b-agregar-un-nuevo-recurso-y-documentar-sus-metadatos-usuales">B. Agregar un nuevo recurso y documentar sus metadatos usuales</h3>
+<p>Documentar un recurso de series de tiempo es igual que documentar cualquier otro recurso, hasta que llegues a la sección "<strong>Documentación de los campos del recurso</strong>".</p>
+<div class="admonition note">
+<p class="admonition-title">Subir archivo, o copiar URL de descarga</p>
+<p>Recordá que podés <strong>cargar el archivo directamente en Andino</strong> o podés cargarlo en cualquier otro sistema, y <strong>cargar la URL de descarga en Andino</strong>.</p>
+<p><img alt="" src="../assets/portal-andino-upload-link-file.png" /></p>
+<p>Esto puede ser útil si el CSV se genera automáticamente en otro sistema y se publica en línea. También podés <a href="https://docs.ckan.org/en/2.7/maintaining/filestore.html">cargar el archivo a Andino por API</a>.</p>
+</div>
+<h3 id="c-documentar-el-indice-de-tiempo">C. Documentar el índice de tiempo</h3>
+<p>Una vez que llegás a la sección "<strong>Documentación de los campos del recurso</strong>", tenés que documentar la primer columna del CSV: el <strong>índice de tiempo</strong>.</p>
+<p><img alt="" src="../assets/portal-andino-time-index.png" /></p>
+<ul>
+<li><strong>Título de la columna</strong>: debe ser exactamente el mismo título que tiene en el CSV. Ej.: <em>indice_tiempo</em>.</li>
+<li><strong>Tipo de dato</strong>: debe ser <em>"Fecha ISO-8601 (date)"</em>. Indica a la aplicación que los valores del campo son fechas estandarizadas.</li>
+<li><strong>Tipo de dato especial</strong>: debe elegirse <em>"Índice de tiempo"</em> en el selector. Indica a la aplicación que el campo cumple con todas las propiedades de un índice de tiempo, tal como se explicó en la sección anterior.</li>
+<li><strong>Detalle del tipo de datos especial</strong>: debe seleccionarse la frecuencia del índice de tiempo.</li>
+</ul>
+<h3 id="d-documentar-las-series-de-tiempo">D. Documentar las series de tiempo</h3>
+<p>El resto de las columnas a documentar son las series de tiempo.</p>
+<p><img alt="" src="../assets/portal-andino-series.png" /></p>
+<ul>
+<li><strong>Título de la columna</strong>: debe ser exactamente el mismo título que tiene en el CSV. Ej.: <em>pib_precios_corrientes</em>. <strong>No puede superar los 60 caracteres</strong> en ningún caso.</li>
+<li><strong>Tipo de dato</strong>: puede ser <em>"Número decimal (number)"</em> o <em>"Número entero (integer)"</em>. Las series sólo pueden tener números enteros o decimales como valores.</li>
+<li><strong>Descripción de la columna</strong>: es el metadato más importante por el cual los usuarios van a buscar esa serie. La descripción no debe dejar lugar a dudas de qué serie se trata y conviene que siga una estructura común. Ej.: <em>"Indice de Precios al Consumidor. Nivel General Nacional. Base diciembre 2016."</em></li>
+<li><strong>Unidad</strong>: es la unidad de medida en que están expresados los valores numéricos de la serie. Ej.: <em>"Millones de pesos de 2004"</em>, <em>"Kilogramos"</em> o <em>"Millones de USD corrientes"</em></li>
+<li><strong>Identificador</strong>: es el código que identifica unívocamente a la serie dentro de toda la base de series de tiempo de la Administración Pública Nacional. Debe pensarse de forma que no sea muy largo pero no pueda pisarse con otras series: <em>"ipc"</em> es un mal código, mientras que <em>"ipc_0001"</em> es mejor. Conviene decidir una estructura o convención para generar los códigos de las series del organismo y ceñirse a ella.</li>
+</ul>
+<h2 id="3-dar-aviso-a-datos-argentina">3. Dar aviso a Datos Argentina</h2>
+<p>Una vez que documentaste un nuevo recurso de series de tiempo, escribinos a <a href="mailto:datos@modernizacion.gob.ar">datos@modernizacion.gob.ar</a> para que lo federemos en la API y te ayudemos a resolver cualquier problema!</p>
+<p>A partir de que se federa por primera vez, la API revisará automáticamente 4 veces por día el archivo CSV y los metadatos para reflejar cualquier cambio que hagas.</p>
+<h2 id="4-activar-el-explorador-de-series-en-tu-andino">4. Activar el explorador de series en tu Andino</h2>
+<p>Las series federadas en la API también se pueden ver en tu Andino, activando el explorador de series.</p>
+<p><img alt="" src="../assets/portal-andino-explorador-series.png" /></p>
+<ul>
+<li>Tildar el casillero <em>¿Querés que esta sección se vea en tu portal?</em></li>
+<li>Elegir series destacadas en <em>¿Querés destacar algunas series?</em> escribiendo los identificadores de las series separados por comas ",".</li>
+</ul>
+<p>Si sos un organismo de la Administración Pública Nacional de Argentina, el campo <em>URI de la API de Series</em> no debe modificarse! Si desplegaste una instancia propia de la <a href="https://github.com/datosgobar/series-tiempo-ar-api">aplicación de la API</a> podés cambiar la URL a donde apunta Andino.</p>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../quickstart/" title="Comenzar a usar Andino" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Anterior
+                </span>
+                Comenzar a usar Andino
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../markdown-guide/" title="Guía de Markdown" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Siguiente
+                </span>
+                Guía de Markdown
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/application.c648116f.js"></script>
+      
+        
+        
+          
+          <script src="../assets/javascripts/lunr/lunr.stemmer.support.js"></script>
+          
+            
+              
+              
+                <script src="../assets/javascripts/lunr/lunr.es.js"></script>
+              
+            
+          
+          
+        
+      
+      <script>app.initialize({version:"1.0.4",url:{base:".."}})</script>
+      
+    
+  </body>
+</html>

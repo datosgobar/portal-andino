@@ -77,6 +77,10 @@ celerybeat-schedule
 
 # dotenv
 .env
+.gems/
+.ruby-version
+.rbenv-gemsets
+
 
 # virtualenv
 venv/
@@ -87,3 +91,17 @@ ENV/
 
 # Rope project settings
 .ropeproject
+
+.vscode/
+.idea/
+.vagrant/
+.rbenv-gemset
+wrks/*
+
+docs/assets/\.DS_Store
+
+docs/assets/images/\.DS_Store
+
+docs/partials/\.DS_Store
+
+docs/partials/language/\.DS_Store
