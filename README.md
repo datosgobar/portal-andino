@@ -1,3 +1,8 @@
+## Índice
+
+Esta versión incluye el stack db-ext.yml para implementar Andino en un DBMS fuera del stack, ya sea otro stack docker o un server dedicado.
+La implementación requirió adapatar algunos script para inicializar la DB externa o para reindexar las colecciones de Solr
+
 # Portal Andino
 
 [![Build Status](https://travis-ci.org/datosgobar/portal-andino.svg?branch=master)](https://travis-ci.org/datosgobar/portal-andino)
@@ -90,6 +95,10 @@ También podés [ver el repositorio del tema visual](https://github.com/datosgob
 ## Instalación
 
 Ver documentación de [instalación](https://datosgobar.github.io/portal-andino/developers/install/)
+
+## Instalación en una DB externa
+
+Ver documentación de [instalación](https://github.com/datosgcba/portal-andino/tree/desarrollo/install/db-ext)
 
 ## Migración
 
