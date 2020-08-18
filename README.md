@@ -1,4 +1,4 @@
-## Índice
+## Modificaciones
 
 Esta versión incluye el stack db-ext.yml para implementar Andino en un DBMS fuera del stack, ya sea otro stack docker o un server dedicado.
 La implementación requirió adapatar algunos script para inicializar la DB externa o para reindexar las colecciones de Solr
