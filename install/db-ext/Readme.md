@@ -30,6 +30,8 @@ docker-compose -f db-ext.yml up -d postfix redis solr
 
 ## Inicializar la DB
 
+EMAIL=<email>
+
 DB_HOST=<ip_db>
 
 DB_PORT=<puerto_db>
@@ -44,12 +46,10 @@ STORE_USER=<usuario_nuevo>
 
 STORE_PASS=<password_nuevo>
 
-docker-compose -f db-ext.yml run  -e EMAIL=$EMAIL -e HOST=$HOST -e DB_HOST=$DB_HOST -e DB_PORT=$DB_PORT -e DB_USER=$DB_USER -e DB_PASS=$DB_PASS -e STORE_USER=$STORE_USER -e STORE_PASS=$STORE_PASS  portal /bin/bash
+docker-compose -f db-ext.yml run  -e EMAIL="$EMAIL" -e HOST="$HOST" -e DB_HOST="$DB_HOST" -e DB_PORT="$DB_PORT" -e DB_USER="$DB_USER" -e DB_PASS="$DB_PASS" -e STORE_USER="$STORE_USER" -e STORE_PASS="$STORE_PASS"  portal /bin/bash
 
 
-/etc/ckan_init.d/init.sh -e $EMAIL -h $HOST \
-        -H $DB_HOST -J $DB_PORT -p $DB_USER -P $DB_PASS \
-        -d $STORE_USER -D $STORE_PASS 
+/etc/ckan_init.d/init.sh -e "$EMAIL" -h "$HOST" -H "$DB_HOST" -J "$DB_PORT" -p "$DB_USER" -P "$DB_PASS" -d "$STORE_USER" -D "$STORE_PASS" 
 
 exit
 
