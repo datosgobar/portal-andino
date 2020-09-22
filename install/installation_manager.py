@@ -9,7 +9,7 @@ import sys
 import time
 from abc import ABCMeta, abstractmethod
 from os import chdir, getcwd, geteuid, path
-from urlparse import urlparse
+from urllib.parse import urlparse
 
 
 class InstallationManager(object):
@@ -100,7 +100,7 @@ class InstallationManager(object):
         self.run_with_subprocess("curl {0} --fail --output {1}".format(download_url, file_path))
 
     def set_compose_files(self):
-        parent_directory = os.path.abspath(os.path.join(self.run_with_subprocess('pwd'), os.pardir))
+        parent_directory = os.path.abspath(os.path.join(str(self.run_with_subprocess('pwd')), os.pardir))
         for file in self.compose_files:
             local_compose_file_path = path.join(parent_directory, file)
             dest_compose_file_path = path.join(self.get_install_directory(), file)
@@ -116,7 +116,7 @@ class InstallationManager(object):
         else:
             self.logger.info("Configurando versión estable de andino...")
             self.download_stable_version_file()
-            with file(self.stable_version_path, "r") as f:
+            with open(self.stable_version_path, "r") as f:
                 content = f.read()
             andino_version = content.strip()
         self.logger.info("Usando versión '%s' de andino" % andino_version)
@@ -229,7 +229,7 @@ class InstallationManager(object):
 
     def apply_additional_configurations(self):
         self.logger.info("Aplicando configuraciones adicionales...")
-        if "security" in self.get_config_file_field('ckan.plugins') \
+        if "security" in str(self.get_config_file_field('ckan.plugins')) \
                 and "exists" == self.run_compose_command('exec portal [ -d "/etc/ckan_init.d/security/" ] && echo "exists"'):
             self.customize_ckanext_security_configurations()
 
