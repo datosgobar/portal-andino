@@ -1,0 +1,2273 @@
+
+
+
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="Documentación de Portal Andino, la distribución de CKAN desarrollada por la República Argentina dockerizada, fácil de instalar y compatible con el Perfil Nacional de Metadatos de la Política de Apertura de Datos.">
+      
+      
+        <link rel="canonical" href="https://datosgobar.github.io/portal-andino/developers/maintenance/">
+      
+      
+        <meta name="author" content="Datos Argentina">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copiar al portapapeles">
+      
+        <meta name="lang:clipboard.copied" content="Copiado al portapapeles">
+      
+        <meta name="lang:search.language" content="es">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No se encontraron documentos">
+      
+        <meta name="lang:search.result.one" content="1 documento encontrado">
+      
+        <meta name="lang:search.result.other" content="# documentos encontrados">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.2">
+    
+    
+      
+        <title>Mantenimiento - Portal Andino</title>
+      
+    
+    
+	
+      <link rel="stylesheet" href="../../assets/stylesheets/application.30686662.css">
+      
+      
+    
+	<link rel="stylesheet" href="../../css/extra.css">
+
+    
+    
+      <script src="../../assets/javascripts/modernizr.74668098.js"></script>
+    
+    <script src="../../js/extra.js"></script>
+
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../assets/fonts/material-icons.css">
+    
+    
+      <link rel="stylesheet" href="../../css/extra_rtd.css">
+    
+    
+      
+        
+<script>
+  window.ga = window.ga || function() {
+    (ga.q = ga.q || []).push(arguments)
+  }
+  ga.l = +new Date
+  /* Setup integration and send page view */
+  ga("create", "UA-91435482-1", "https://datosgobar.github.io/portal-andino/")
+  ga("set", "anonymizeIp", true)
+  ga("send", "pageview")
+  /* Register handler to log search on blur */
+  document.addEventListener("DOMContentLoaded", () => {
+    if (document.forms.search) {
+      var query = document.forms.search.query
+      query.addEventListener("blur", function() {
+        if (this.value) {
+          var path = document.location.pathname;
+          ga("send", "pageview", path + "?q=" + this.value)
+        }
+      })
+    }
+  })
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+      
+    
+    
+  </head>
+  
+    <body dir="ltr">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="__github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#mantenimiento" tabindex="1" class="md-skip">
+        Saltar a contenido
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="https://datosgobar.github.io/portal-andino" title="Portal Andino" class="md-header-nav__button md-logo">
+          
+            <img src="../../images/logo.svg" width="24" height="24">
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              Portal Andino
+            </span>
+            <span class="md-header-nav__topic">
+              
+                Mantenimiento
+              
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Escriba para comenzar la búsqueda
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+<a href="https://github.com/datosgobar/portal-andino/" title="Ir al repositorio" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main" role="main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <!--
+  Copyright (c) 2016-2018 Martin Donath <martin.donath@squidfunk.com>
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to
+  deal in the Software without restriction, including without limitation the
+  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+  sell copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+  IN THE SOFTWARE.
+-->
+
+<!-- Main navigation -->
+<nav class="md-nav md-nav--primary" data-md-level="0">
+
+        <!-- Site title -->
+        <label class="md-nav__title md-nav__title--site" for="__drawer">
+          <a href="https://datosgobar.github.io/portal-andino"
+              title="Portal Andino" class="md-nav__button md-logo">
+            
+              <img src="../../images/logo.svg" width="48" height="48" />
+            
+          </a>
+          Portal Andino
+        </label>
+      
+        <!-- Repository containing source -->
+        
+          <div class="md-nav__source">
+            
+
+
+  
+
+<a href="https://github.com/datosgobar/portal-andino/" title="Ir al repositorio" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+          </div>
+        
+      
+        <!-- Render item list -->
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+            
+            
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="Inicio" class="md-nav__link">
+      Inicio
+    </a>
+  </li>
+
+            <hr/>
+          
+            
+            
+            
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      Usuarios
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        Usuarios
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../quickstart/" title="Comenzar a usar Andino" class="md-nav__link">
+      Comenzar a usar Andino
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../time-series/" title="Publicar series de tiempo" class="md-nav__link">
+      Publicar series de tiempo
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../markdown-guide/" title="Guía de Markdown" class="md-nav__link">
+      Guía de Markdown
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+            <hr/>
+          
+            
+            
+            
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+    
+    <label class="md-nav__link" for="nav-3">
+      Desarrolladores
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        Desarrolladores
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../install/" title="Instalación" class="md-nav__link">
+      Instalación
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../update/" title="Actualización" class="md-nav__link">
+      Actualización
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../checklist/" title="Recomendaciones para salir a producción" class="md-nav__link">
+      Recomendaciones para salir a producción
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../migration/" title="Migracion" class="md-nav__link">
+      Migracion
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Mantenimiento
+      </label>
+    
+    <a href="./" title="Mantenimiento" class="md-nav__link md-nav__link--active">
+      Mantenimiento
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Contenidos de la sección</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#indice" class="md-nav__link">
+    Indice
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exploracion-de-la-instancia-de-andino" class="md-nav__link">
+    Exploración de la instancia de andino
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#que-esta-corriendo-docker" class="md-nav__link">
+    ¿Qué está corriendo docker?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#utilizacion-del-archivo-latestyml-en-los-comandos-de-docker-compose" class="md-nav__link">
+    Utilización del archivo latest.yml en los comandos de docker-compose
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ingresar-al-contendor-principal-de-andino" class="md-nav__link">
+    Ingresar al contendor principal de andino
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#listar-todas-las-propiedades-de-cada-contenedor" class="md-nav__link">
+    Listar todas las Propiedades de cada contenedor
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#administracion-de-usuarios" class="md-nav__link">
+    Administración de usuarios
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#crear-un-usuario-admin" class="md-nav__link">
+    Crear un usuario ADMIN
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#listar-mis-usuarios" class="md-nav__link">
+    Listar mis usuarios
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ver-los-datos-de-un-usuario" class="md-nav__link">
+    Ver los datos de un usuario
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#crear-un-nuevo-usuario" class="md-nav__link">
+    Crear un nuevo usuario
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#crear-un-nuevo-usuario-extendido" class="md-nav__link">
+    Crear un nuevo usuario extendido
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#eliminar-un-usuario" class="md-nav__link">
+    Eliminar un usuario
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cambiar-password-de-un-usuario" class="md-nav__link">
+    Cambiar password de un usuario
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usuario-administrador-de-ckan" class="md-nav__link">
+    Usuario administrador de CKAN
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuraciones-de-andino" class="md-nav__link">
+    Configuraciones de andino
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#modificar-el-archivo-de-configuracion" class="md-nav__link">
+    Modificar el archivo de configuración
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cambiar-la-configuracion-del-smtp" class="md-nav__link">
+    Cambiar la configuración del SMTP
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cambiar-el-remitente-de-los-correos-electronicos-que-envia-andino" class="md-nav__link">
+    Cambiar el remitente de los correos electrónicos que envía Andino
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cambiar-el-id-del-container-de-google-tag-manager" class="md-nav__link">
+    Cambiar el id del container de Google Tag Manager
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#google-tag-manager" class="md-nav__link">
+    Google Tag Manager
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cambiar-el-id-del-tag-de-google-analytics" class="md-nav__link">
+    Cambiar el id del tag de Google Analytics
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#indexar-datasets-con-google-dataset-search" class="md-nav__link">
+    Indexar datasets con Google Dataset Search
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deshabilitar-la-url-catalogxlsx" class="md-nav__link">
+    Deshabilitar la URL /catalog.xlsx
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuracion-de-la-llamada-de-invalidacion-de-cache" class="md-nav__link">
+    Configuración de la llamada de invalidación de caché
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cache-externa" class="md-nav__link">
+    Caché externa
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#especificar-las-licencias-a-utilizar" class="md-nav__link">
+    Especificar las licencias a utilizar
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuracion-de-cors" class="md-nav__link">
+    Configuración de CORS
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuracion-del-explorador-de-series-de-tiempo" class="md-nav__link">
+    Configuración del explorador de series de tiempo
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#acceso-a-los-datos-de-andino" class="md-nav__link">
+    Acceso a los datos de andino
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#encontrar-los-volumenes-de-mi-andino-dentro-del-filesystem-del-host" class="md-nav__link">
+    Encontrar los volúmenes de mi andino dentro del filesystem del host
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ver-las-direcciones-ip-de-mis-contenedores" class="md-nav__link">
+    Ver las direcciones IP de mis contenedores
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ver-las-variables-de-entorno-que-tienen-mis-contenedores" class="md-nav__link">
+    Ver las variables de entorno que tienen mis contenedores
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#acceder-con-un-cliente-de-postgresql-a-las-bases-de-datos" class="md-nav__link">
+    Acceder con un cliente de PostgreSQL a las bases de datos
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#eliminar-objetos-definitivamente" class="md-nav__link">
+    Eliminar objetos definitivamente
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#purgar-organizaciones-borradas" class="md-nav__link">
+    Purgar Organizaciones Borradas
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#purgar-grupos-borrados" class="md-nav__link">
+    Purgar Grupos Borrados
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#purgar-datasets-borrados" class="md-nav__link">
+    Purgar Datasets Borrados
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#listar-nombres-de-los-datasets-contenidos-en-andino" class="md-nav__link">
+    Listar nombres de los datasets contenidos en Andino
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#backups" class="md-nav__link">
+    Backups
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#backup-de-la-base-de-datos" class="md-nav__link">
+    Backup de la base de datos
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#realizar-un-backup-del-file-system" class="md-nav__link">
+    Realizar un backup del file system
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#realizar-un-backup-de-la-configuracion" class="md-nav__link">
+    Realizar un backup de la configuración
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comandos-de-datapusher" class="md-nav__link">
+    Comandos de DataPusher
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#subir-todos-los-recursos-al-datastore" class="md-nav__link">
+    Subir todos los recursos al Datastore
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#seguridad" class="md-nav__link">
+    Seguridad
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#https" class="md-nav__link">
+    HTTPS
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plugin-ckanext-security" class="md-nav__link">
+    Plugin ckanext-security
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sistema-y-librerias" class="md-nav__link">
+    Sistema y librerías
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#firewall" class="md-nav__link">
+    Firewall
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ssh" class="md-nav__link">
+    SSH
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optimizacion-de-logging" class="md-nav__link">
+    Optimización de logging
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configurar-otro-logging-driver" class="md-nav__link">
+    Configurar otro logging driver
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#eliminar-logs-antiguos-de-docker" class="md-nav__link">
+    Eliminar logs antiguos de Docker
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#eliminar-logs-dentro-de-andino" class="md-nav__link">
+    Eliminar logs dentro de Andino
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../https/" title="Configuración HTTPS" class="md-nav__link">
+      Configuración HTTPS
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../dns/" title="Configuración de DNS" class="md-nav__link">
+      Configuración de DNS
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../docker/" title="Generación de imágenes Docker" class="md-nav__link">
+      Generación de imágenes Docker
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../development/" title="Desarrollo" class="md-nav__link">
+      Desarrollo
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../tests/" title="Tests" class="md-nav__link">
+      Tests
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+            <hr/>
+          
+        </ul>
+      </nav>
+      
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Contenidos de la sección</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#indice" class="md-nav__link">
+    Indice
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exploracion-de-la-instancia-de-andino" class="md-nav__link">
+    Exploración de la instancia de andino
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#que-esta-corriendo-docker" class="md-nav__link">
+    ¿Qué está corriendo docker?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#utilizacion-del-archivo-latestyml-en-los-comandos-de-docker-compose" class="md-nav__link">
+    Utilización del archivo latest.yml en los comandos de docker-compose
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ingresar-al-contendor-principal-de-andino" class="md-nav__link">
+    Ingresar al contendor principal de andino
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#listar-todas-las-propiedades-de-cada-contenedor" class="md-nav__link">
+    Listar todas las Propiedades de cada contenedor
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#administracion-de-usuarios" class="md-nav__link">
+    Administración de usuarios
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#crear-un-usuario-admin" class="md-nav__link">
+    Crear un usuario ADMIN
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#listar-mis-usuarios" class="md-nav__link">
+    Listar mis usuarios
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ver-los-datos-de-un-usuario" class="md-nav__link">
+    Ver los datos de un usuario
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#crear-un-nuevo-usuario" class="md-nav__link">
+    Crear un nuevo usuario
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#crear-un-nuevo-usuario-extendido" class="md-nav__link">
+    Crear un nuevo usuario extendido
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#eliminar-un-usuario" class="md-nav__link">
+    Eliminar un usuario
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cambiar-password-de-un-usuario" class="md-nav__link">
+    Cambiar password de un usuario
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usuario-administrador-de-ckan" class="md-nav__link">
+    Usuario administrador de CKAN
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuraciones-de-andino" class="md-nav__link">
+    Configuraciones de andino
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#modificar-el-archivo-de-configuracion" class="md-nav__link">
+    Modificar el archivo de configuración
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cambiar-la-configuracion-del-smtp" class="md-nav__link">
+    Cambiar la configuración del SMTP
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cambiar-el-remitente-de-los-correos-electronicos-que-envia-andino" class="md-nav__link">
+    Cambiar el remitente de los correos electrónicos que envía Andino
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cambiar-el-id-del-container-de-google-tag-manager" class="md-nav__link">
+    Cambiar el id del container de Google Tag Manager
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#google-tag-manager" class="md-nav__link">
+    Google Tag Manager
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cambiar-el-id-del-tag-de-google-analytics" class="md-nav__link">
+    Cambiar el id del tag de Google Analytics
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#indexar-datasets-con-google-dataset-search" class="md-nav__link">
+    Indexar datasets con Google Dataset Search
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deshabilitar-la-url-catalogxlsx" class="md-nav__link">
+    Deshabilitar la URL /catalog.xlsx
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuracion-de-la-llamada-de-invalidacion-de-cache" class="md-nav__link">
+    Configuración de la llamada de invalidación de caché
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cache-externa" class="md-nav__link">
+    Caché externa
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#especificar-las-licencias-a-utilizar" class="md-nav__link">
+    Especificar las licencias a utilizar
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuracion-de-cors" class="md-nav__link">
+    Configuración de CORS
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuracion-del-explorador-de-series-de-tiempo" class="md-nav__link">
+    Configuración del explorador de series de tiempo
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#acceso-a-los-datos-de-andino" class="md-nav__link">
+    Acceso a los datos de andino
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#encontrar-los-volumenes-de-mi-andino-dentro-del-filesystem-del-host" class="md-nav__link">
+    Encontrar los volúmenes de mi andino dentro del filesystem del host
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ver-las-direcciones-ip-de-mis-contenedores" class="md-nav__link">
+    Ver las direcciones IP de mis contenedores
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ver-las-variables-de-entorno-que-tienen-mis-contenedores" class="md-nav__link">
+    Ver las variables de entorno que tienen mis contenedores
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#acceder-con-un-cliente-de-postgresql-a-las-bases-de-datos" class="md-nav__link">
+    Acceder con un cliente de PostgreSQL a las bases de datos
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#eliminar-objetos-definitivamente" class="md-nav__link">
+    Eliminar objetos definitivamente
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#purgar-organizaciones-borradas" class="md-nav__link">
+    Purgar Organizaciones Borradas
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#purgar-grupos-borrados" class="md-nav__link">
+    Purgar Grupos Borrados
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#purgar-datasets-borrados" class="md-nav__link">
+    Purgar Datasets Borrados
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#listar-nombres-de-los-datasets-contenidos-en-andino" class="md-nav__link">
+    Listar nombres de los datasets contenidos en Andino
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#backups" class="md-nav__link">
+    Backups
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#backup-de-la-base-de-datos" class="md-nav__link">
+    Backup de la base de datos
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#realizar-un-backup-del-file-system" class="md-nav__link">
+    Realizar un backup del file system
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#realizar-un-backup-de-la-configuracion" class="md-nav__link">
+    Realizar un backup de la configuración
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comandos-de-datapusher" class="md-nav__link">
+    Comandos de DataPusher
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#subir-todos-los-recursos-al-datastore" class="md-nav__link">
+    Subir todos los recursos al Datastore
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#seguridad" class="md-nav__link">
+    Seguridad
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#https" class="md-nav__link">
+    HTTPS
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plugin-ckanext-security" class="md-nav__link">
+    Plugin ckanext-security
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sistema-y-librerias" class="md-nav__link">
+    Sistema y librerías
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#firewall" class="md-nav__link">
+    Firewall
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ssh" class="md-nav__link">
+    SSH
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optimizacion-de-logging" class="md-nav__link">
+    Optimización de logging
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configurar-otro-logging-driver" class="md-nav__link">
+    Configurar otro logging driver
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#eliminar-logs-antiguos-de-docker" class="md-nav__link">
+    Eliminar logs antiguos de Docker
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#eliminar-logs-dentro-de-andino" class="md-nav__link">
+    Eliminar logs dentro de Andino
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/datosgobar/portal-andino/edit/master/docs/developers/maintenance.md" title="Editar esta página" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <h1 id="mantenimiento">Mantenimiento</h1>
+<p><!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE --></p>
+<h2 id="indice">Indice</h2>
+<ul>
+<li><a href="#exploracion-de-la-instancia-de-andino">Exploración de la instancia de andino</a><ul>
+<li><a href="#que-esta-corriendo-docker">¿Qué está corriendo docker?</a></li>
+<li><a href="#utilizacion-del-archivo-latestyml-en-los-comandos-de-docker-compose">Utilización del archivo latest.yml en los comandos de docker-compose</a></li>
+<li><a href="#ingresar-al-contendor-principal-de-andino">Ingresar al contendor principal de andino</a></li>
+<li><a href="#listar-todas-las-propiedades-de-cada-contenedor">Listar todas las <code>Propiedades</code> de cada contenedor</a></li>
+</ul>
+</li>
+<li><a href="#administracion-de-usuarios">Administración de usuarios</a><ul>
+<li><a href="#crear-un-usuario-admin">Crear un usuario ADMIN</a></li>
+<li><a href="#listar-mis-usuarios">Listar mis usuarios</a></li>
+<li><a href="#ver-los-datos-de-un-usuario">Ver los datos de un usuario</a></li>
+<li><a href="#crear-un-nuevo-usuario">Crear un nuevo usuario</a></li>
+<li><a href="#crear-un-nuevo-usuario-extendido">Crear un nuevo usuario extendido</a></li>
+<li><a href="#eliminar-un-usuario">Eliminar un usuario</a></li>
+<li><a href="#cambiar-password-de-un-usuario">Cambiar password de un usuario</a></li>
+<li><a href="#usuario-administrador-de-ckan">Usuario administrador de CKAN</a></li>
+</ul>
+</li>
+<li><a href="#configuraciones-de-andino">Configuraciones de andino</a><ul>
+<li><a href="#modificar-el-archivo-de-configuracion">Modificar el archivo de configuración</a></li>
+<li><a href="#cambiar-la-configuracion-del-smtp">Cambiar la configuración del SMTP</a></li>
+<li><a href="#cambiar-el-remitente-de-los-correos-electronicos-que-envia-andino">Cambiar el remitente de los correos electrónicos que envía Andino</a></li>
+<li><a href="#cambiar-el-id-del-container-de-google-tag-manager">Cambiar el id del container de Google Tag Manager</a></li>
+<li><a href="#google-tag-manager">Google Tag Manager</a></li>
+<li><a href="#cambiar-el-id-del-tag-de-google-analytics">Cambiar el id del tag de Google Analytics</a></li>
+<li><a href="#indexar-datasets-con-google-dataset-search">Indexar datasets con Google Dataset Search</a></li>
+<li><a href="#deshabilitar-la-url-catalogxlsx">Deshabilitar la URL <code>/catalog.xlsx</code></a></li>
+<li><a href="#configuracion-de-la-llamada-de-invalidaci%C3%B3n-de-cache">Configuración de la llamada de invalidación de caché</a></li>
+<li><a href="#cache-externa">Caché externa</a></li>
+<li><a href="#especificar-las-licencias-a-utilizar">Especificar las licencias a utilizar</a></li>
+<li><a href="#configuracion-de-cors">Configuración de CORS</a></li>
+<li><a href="#configuracion-del-explorador-de-series-de-tiempo">Configuración del explorador de series de tiempo</a></li>
+</ul>
+</li>
+<li><a href="#acceso-a-los-datos-de-andino">Acceso a los datos de andino</a><ul>
+<li><a href="#encontrar-los-volumenes-de-mi-andino-dentro-del-filesystem-del-host">Encontrar los volúmenes de mi andino dentro del filesystem del host</a></li>
+<li><a href="#ver-las-direcciones-ip-de-mis-contenedores">Ver las direcciones IP de mis contenedores</a></li>
+<li><a href="#ver-las-variables-de-entorno-que-tienen-mis-contenedores">Ver las variables de entorno que tienen mis contenedores</a></li>
+<li><a href="#acceder-con-un-cliente-de-postgresql-a-las-bases-de-datos">Acceder con un cliente de PostgreSQL a las bases de datos</a></li>
+</ul>
+</li>
+<li><a href="#eliminar-objetos-definitivamente">Eliminar objetos definitivamente</a><ul>
+<li><a href="#purgar-organizaciones-borradas">Purgar Organizaciones Borradas</a></li>
+<li><a href="#purgar-grupos-borrados">Purgar Grupos Borrados</a></li>
+<li><a href="#purgar-datasets-borrados">Purgar Datasets Borrados</a></li>
+<li><a href="#listar-nombres-de-los-datasets-contenidos-en-andino">Listar nombres de los datasets contenidos en Andino</a></li>
+</ul>
+</li>
+<li><a href="#backups">Backups</a><ul>
+<li><a href="#backup-de-la-base-de-datos">Backup de la base de datos</a></li>
+<li><a href="#realizar-un-backup-del-file-system">Realizar un backup del file system</a></li>
+<li><a href="#realizar-un-backup-de-la-configuracion">Realizar un backup de la configuración</a></li>
+</ul>
+</li>
+<li><a href="#comandos-de-datapusher">Comandos de DataPusher</a><ul>
+<li><a href="#subir-todos-los-recursos-al-datastore">Subir todos los recursos al Datastore</a></li>
+</ul>
+</li>
+<li><a href="#seguridad">Seguridad</a><ul>
+<li><a href="#https">HTTPS</a></li>
+<li><a href="#plugin-ckanext-security">Plugin ckanext-security</a></li>
+<li><a href="#sistema-y-librerias">Sistema y librerías</a></li>
+<li><a href="#firewall">Firewall</a></li>
+<li><a href="#ssh">SSH</a></li>
+</ul>
+</li>
+<li><a href="#optimizacion-de-logging">Optimización de logging</a><ul>
+<li><a href="#configurar-otro-logging-driver">Configurar otro <code>logging driver</code></a></li>
+<li><a href="#eliminar-logs-antiguos-de-docker">Eliminar <code>logs</code> antiguos de <code>Docker</code></a></li>
+<li><a href="#eliminar-logs-dentro-de-andino">Eliminar logs dentro de Andino</a></li>
+</ul>
+</li>
+</ul>
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+<h2 id="exploracion-de-la-instancia-de-andino">Exploración de la instancia de andino</h2>
+<h3 id="que-esta-corriendo-docker">¿Qué está corriendo docker?</h3>
+<p>Para obtener una lista de lo que está corriendo actualmente Docker, podemos usar el siguiente comando:</p>
+<div class="codehilite"><pre><span></span><span class="n">docker</span> <span class="n">ps</span> <span class="o">#</span> <span class="n">Tabla</span> <span class="n">de</span> <span class="n">ejecucion</span> <span class="n">actual</span>
+<span class="n">docker</span> <span class="n">ps</span> <span class="o">-</span><span class="n">q</span> <span class="o">#</span> <span class="n">Listado</span> <span class="n">de</span> <span class="n">IDs</span> <span class="n">de</span> <span class="n">cada</span> <span class="n">contenedor</span>
+<span class="n">docker</span> <span class="n">ps</span> <span class="o">-</span><span class="n">aq</span> <span class="o">#</span> <span class="n">Listado</span> <span class="n">de</span> <span class="n">IDs</span> <span class="n">de</span> <span class="n">todos</span> <span class="n">los</span> <span class="n">contenedores</span> <span class="n">disponibles</span><span class="p">.</span>
+</pre></div>
+
+
+<h3 id="utilizacion-del-archivo-latestyml-en-los-comandos-de-docker-compose">Utilización del archivo latest.yml en los comandos de docker-compose</h3>
+<p>En múltiples secciones de esta documentación se emplea el uso de comandos que comienzan de la siguiente manera:</p>
+<div class="codehilite"><pre><span></span><span class="n">docker</span><span class="o">-</span><span class="n">compose</span> <span class="o">-</span><span class="n">f</span> <span class="n">latest</span><span class="p">.</span><span class="n">yml</span>
+</pre></div>
+
+
+<p>Es importante recordar que no alcanzaría con especificar el directorio absoluto del archivo <code>latest.yml</code>; es necesario 
+ejecutar estos comandos <em>exactamente en ese mismo directorio</em>, debido a que ahí también se encuentra el archivo que 
+contiene las variables de entorno (<code>.env</code>) ya que es el directorio de instalación de Andino.  </p>
+<h3 id="ingresar-al-contendor-principal-de-andino">Ingresar al contendor principal de andino</h3>
+<p>El contenedor principal de andino, donde se ejecuta la aplicación CKAN, es denominado <code>portal</code>. 
+Para ingresar en una sesión de consola en el contenedor, ejecutar:</p>
+<div class="codehilite"><pre><span></span><span class="nv">docker</span><span class="o">-</span><span class="nv">compose</span> <span class="o">-</span><span class="nv">f</span> <span class="nv">latest</span>.<span class="nv">yml</span> <span class="k">exec</span> <span class="nv">portal</span> <span class="o">/</span><span class="nv">bin</span><span class="o">/</span><span class="nv">bash</span>
+</pre></div>
+
+
+<p>Ver <a href="#utilizacion-del-archivo-latest.yml-en-los-comandos-de-docker-compose">la sección sobre la utilización del archivo latest.yml en los comandos de docker-compose</a>.</p>
+<h3 id="listar-todas-las-propiedades-de-cada-contenedor">Listar todas las <code>Propiedades</code> de cada contenedor</h3>
+<div class="codehilite"><pre><span></span><span class="nv">docker</span><span class="o">-</span><span class="nv">compose</span> <span class="o">-</span><span class="nv">f</span> <span class="nv">latest</span>.<span class="nv">yml</span> <span class="nv">ps</span> <span class="o">-</span><span class="nv">q</span> <span class="nv">portal</span> <span class="nv">solr</span> <span class="nv">db</span> <span class="o">|</span> <span class="nv">xargs</span> <span class="o">-</span><span class="nv">n</span> <span class="mi">1</span> <span class="o">|</span> <span class="k">while</span> <span class="nv">read</span> <span class="nv">container</span><span class="c1">; do docker inspect $container; done</span>
+</pre></div>
+
+
+<p>Ver <a href="#utilizacion-del-archivo-latest.yml-en-los-comandos-de-docker-compose">la sección sobre la utilización del archivo latest.yml en los comandos de docker-compose</a>.</p>
+<h2 id="administracion-de-usuarios">Administración de usuarios</h2>
+<h3 id="crear-un-usuario-admin">Crear un usuario ADMIN</h3>
+<div class="codehilite"><pre><span></span><span class="nv">docker</span><span class="o">-</span><span class="nv">compose</span> <span class="o">-</span><span class="nv">f</span> <span class="nv">latest</span>.<span class="nv">yml</span> <span class="k">exec</span> <span class="nv">portal</span> <span class="o">/</span><span class="nv">etc</span><span class="o">/</span><span class="nv">ckan_init</span>.<span class="nv">d</span><span class="o">/</span><span class="nv">add_admin</span>.<span class="nv">sh</span> <span class="nv">mi_nuevo_usuario_admin</span> <span class="nv">email_del_usuario_admin</span>
+</pre></div>
+
+
+<p>Ver <a href="#utilizacion-del-archivo-latest.yml-en-los-comandos-de-docker-compose">la sección sobre la utilización del archivo latest.yml en los comandos de docker-compose</a>.</p>
+<p>El comando solicitará la contraseña del usuario administrador.</p>
+<h3 id="listar-mis-usuarios">Listar mis usuarios</h3>
+<div class="codehilite"><pre><span></span><span class="nv">docker</span><span class="o">-</span><span class="nv">compose</span> <span class="o">-</span><span class="nv">f</span> <span class="nv">latest</span>.<span class="nv">yml</span> <span class="k">exec</span> <span class="nv">portal</span> <span class="o">/</span><span class="nv">etc</span><span class="o">/</span><span class="nv">ckan_init</span>.<span class="nv">d</span><span class="o">/</span><span class="nv">paster</span>.<span class="nv">sh</span> <span class="o">--</span><span class="nv">plugin</span><span class="o">=</span><span class="nv">ckan</span> <span class="nv">user</span> <span class="nv">list</span>
+</pre></div>
+
+
+<p>Ver <a href="#utilizacion-del-archivo-latest.yml-en-los-comandos-de-docker-compose">la sección sobre la utilización del archivo latest.yml en los comandos de docker-compose</a>.</p>
+<h3 id="ver-los-datos-de-un-usuario">Ver los datos de un usuario</h3>
+<div class="codehilite"><pre><span></span><span class="nv">docker</span><span class="o">-</span><span class="nv">compose</span> <span class="o">-</span><span class="nv">f</span> <span class="nv">latest</span>.<span class="nv">yml</span> <span class="k">exec</span> <span class="nv">portal</span> <span class="o">/</span><span class="nv">etc</span><span class="o">/</span><span class="nv">ckan_init</span>.<span class="nv">d</span><span class="o">/</span><span class="nv">paster</span>.<span class="nv">sh</span> <span class="o">--</span><span class="nv">plugin</span><span class="o">=</span><span class="nv">ckan</span> <span class="nv">user</span> <span class="nv">nombre</span><span class="o">-</span><span class="nv">de</span><span class="o">-</span><span class="nv">usuario</span>
+</pre></div>
+
+
+<p>Ver <a href="#utilizacion-del-archivo-latest.yml-en-los-comandos-de-docker-compose">la sección sobre la utilización del archivo latest.yml en los comandos de docker-compose</a>.</p>
+<h3 id="crear-un-nuevo-usuario">Crear un nuevo usuario</h3>
+<div class="codehilite"><pre><span></span><span class="nv">docker</span><span class="o">-</span><span class="nv">compose</span> <span class="o">-</span><span class="nv">f</span> <span class="nv">latest</span>.<span class="nv">yml</span> <span class="k">exec</span> <span class="nv">portal</span> <span class="o">/</span><span class="nv">etc</span><span class="o">/</span><span class="nv">ckan_init</span>.<span class="nv">d</span><span class="o">/</span><span class="nv">paster</span>.<span class="nv">sh</span> <span class="o">--</span><span class="nv">plugin</span><span class="o">=</span><span class="nv">ckan</span> <span class="nv">user</span> <span class="nv">add</span> <span class="nv">nombre</span><span class="o">-</span><span class="nv">de</span><span class="o">-</span><span class="nv">usuario</span>
+</pre></div>
+
+
+<p>Ver <a href="#utilizacion-del-archivo-latest.yml-en-los-comandos-de-docker-compose">la sección sobre la utilización del archivo latest.yml en los comandos de docker-compose</a>.</p>
+<h3 id="crear-un-nuevo-usuario-extendido">Crear un nuevo usuario extendido</h3>
+<div class="codehilite"><pre><span></span><span class="nv">docker</span><span class="o">-</span><span class="nv">compose</span> <span class="o">-</span><span class="nv">f</span> <span class="nv">latest</span>.<span class="nv">yml</span> <span class="k">exec</span> <span class="nv">portal</span> <span class="o">/</span><span class="nv">etc</span><span class="o">/</span><span class="nv">ckan_init</span>.<span class="nv">d</span><span class="o">/</span><span class="nv">paster</span>.<span class="nv">sh</span> <span class="o">--</span><span class="nv">plugin</span><span class="o">=</span><span class="nv">ckan</span> <span class="nv">user</span> <span class="nv">add</span> <span class="nv">nomber</span> [<span class="nv">email</span><span class="o">=</span><span class="nv">mi</span><span class="o">-</span><span class="nv">usuario</span>@<span class="nv">host</span>.<span class="nv">com</span> <span class="nv">password</span><span class="o">=</span><span class="nv">mi</span><span class="o">-</span><span class="nv">contrase</span>ñ<span class="nv">a</span><span class="o">-</span><span class="nv">rara</span> <span class="nv">apikey</span><span class="o">=</span><span class="nv">unsecretomisticonoleible</span>]
+</pre></div>
+
+
+<p>Ver <a href="#utilizacion-del-archivo-latest.yml-en-los-comandos-de-docker-compose">la sección sobre la utilización del archivo latest.yml en los comandos de docker-compose</a>.</p>
+<h3 id="eliminar-un-usuario">Eliminar un usuario</h3>
+<div class="codehilite"><pre><span></span><span class="nv">docker</span><span class="o">-</span><span class="nv">compose</span> <span class="o">-</span><span class="nv">f</span> <span class="nv">latest</span>.<span class="nv">yml</span> <span class="k">exec</span> <span class="nv">portal</span> <span class="o">/</span><span class="nv">etc</span><span class="o">/</span><span class="nv">ckan_init</span>.<span class="nv">d</span><span class="o">/</span><span class="nv">paster</span>.<span class="nv">sh</span> <span class="o">--</span><span class="nv">plugin</span><span class="o">=</span><span class="nv">ckan</span> <span class="nv">user</span> <span class="nv">remove</span> <span class="nv">nombre</span><span class="o">-</span><span class="nv">de</span><span class="o">-</span><span class="nv">usuario</span>
+</pre></div>
+
+
+<p>Ver <a href="#utilizacion-del-archivo-latest.yml-en-los-comandos-de-docker-compose">la sección sobre la utilización del archivo latest.yml en los comandos de docker-compose</a>.</p>
+<h3 id="cambiar-password-de-un-usuario">Cambiar password de un usuario</h3>
+<div class="codehilite"><pre><span></span><span class="nv">docker</span><span class="o">-</span><span class="nv">compose</span> <span class="o">-</span><span class="nv">f</span> <span class="nv">latest</span>.<span class="nv">yml</span> <span class="k">exec</span> <span class="nv">portal</span> <span class="o">/</span><span class="nv">etc</span><span class="o">/</span><span class="nv">ckan_init</span>.<span class="nv">d</span><span class="o">/</span><span class="nv">paster</span>.<span class="nv">sh</span> <span class="o">--</span><span class="nv">plugin</span><span class="o">=</span><span class="nv">ckan</span> <span class="nv">user</span> <span class="nv">setpass</span> <span class="nv">nombre</span><span class="o">-</span><span class="nv">de</span><span class="o">-</span><span class="nv">usuario</span>
+</pre></div>
+
+
+<p>Ver <a href="#utilizacion-del-archivo-latest.yml-en-los-comandos-de-docker-compose">la sección sobre la utilización del archivo latest.yml en los comandos de docker-compose</a>.</p>
+<h3 id="usuario-administrador-de-ckan">Usuario administrador de CKAN</h3>
+<p>Existe un usuario administrador llamado <em>default</em>, el cual es utilizado por la aplicación para la ejecución de ciertas 
+funciones que corren de fondo (por ejemplo, la actualización de la caché del data.json). Es muy importante que dicho 
+usuario <strong>siempre</strong> esté disponible ya que, en caso de no estarlo, provocaría un funcionamiento incorrecto en el 
+portal; por lo tanto, se recomienda muy fuertemente no intentar eliminarlo ni desactivarlo.</p>
+<h2 id="configuraciones-de-andino">Configuraciones de andino</h2>
+<h3 id="modificar-el-archivo-de-configuracion">Modificar el archivo de configuración</h3>
+<p>El archivo de configuración de andino se llama <code>production.ini</code>, y se lo puede encontrar y modificar 
+de la siguiente manera:</p>
+<div class="codehilite"><pre><span></span><span class="c1"># Ingresar al contenedor</span>
+
+<span class="nb">cd</span> /etc/portal
+docker-compose -f latest.yml <span class="nb">exec</span> portal /bin/bash
+
+<span class="c1"># Una vez adentro, abrimos el archivo production.ini, y buscamos la sección que necesita ser modificada</span>
+
+vim /etc/ckan/default/production.ini
+
+<span class="c1"># Editamos y, luego de salir del contenedor, lo reiniciamos</span>
+
+docker-compose -f latest.yml restart portal nginx
+</pre></div>
+
+
+<h3 id="cambiar-la-configuracion-del-smtp">Cambiar la configuración del SMTP</h3>
+<p>Por defecto, andino usará un servidor postfix integrado para el envío de emails.
+Para usar un servidor SMTP propio, debemos cambiar la configuración del archivo <code>production.ini</code>.
+Para lograrlo, podemos hacerlo de dos formas:</p>
+<p>1 ) Ingresando al contenedor.</p>
+<p>Debemos buscar y editar en el archivo <code>production.ini</code> la configuración
+de email que luce como:</p>
+<div class="codehilite"><pre><span></span><span class="err">##</span><span class="w"> </span><span class="n">Email</span><span class="w"> </span><span class="n">settings</span><span class="w"></span>
+
+<span class="n">error_email_from</span><span class="o">=</span><span class="k">admin</span><span class="nv">@example</span><span class="p">.</span><span class="n">com</span><span class="w"></span>
+<span class="n">smtp</span><span class="p">.</span><span class="n">server</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">postfix</span><span class="w"></span>
+<span class="n">#smtp</span><span class="p">.</span><span class="n">starttls</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">False</span><span class="w"></span>
+<span class="n">smtp</span><span class="p">.</span><span class="k">user</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">portal</span><span class="w"></span>
+<span class="n">smtp</span><span class="p">.</span><span class="n">password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">portal</span><span class="w"></span>
+<span class="n">smtp</span><span class="p">.</span><span class="n">mail_from</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">administrador</span><span class="w"></span>
+</pre></div>
+
+
+<p>Para saber cómo hacerlo, leer la sección que explica 
+<a href="#modificar-el-archivo-de-configuracion">cómo modificar el archivo de configuración</a></p>
+<p>2 ) Ejecutando comandos paster</p>
+<p>Suponiendo que nuestro servidor SMTP está en smtp.gmail.com, la dirección de correo del usuario es <code>smtp_user_mail@gmail.com</code>, 
+la contraseña de esa dirección de correo <code>mi_pass</code> y queremos usar "tls", podemos ejecutar los siguientes comandos:</p>
+<div class="codehilite"><pre><span></span><span class="nv">docker</span><span class="o">-</span><span class="nv">compose</span> <span class="o">-</span><span class="nv">f</span> <span class="nv">latest</span>.<span class="nv">yml</span> <span class="k">exec</span> <span class="nv">portal</span> <span class="o">/</span><span class="nv">etc</span><span class="o">/</span><span class="nv">ckan_init</span>.<span class="nv">d</span><span class="o">/</span><span class="nv">update_conf</span>.<span class="nv">sh</span> <span class="s2">&quot;</span><span class="s">smtp.server=smtp.gmail.com:587</span><span class="s2">&quot;</span><span class="c1">;</span>
+<span class="nv">docker</span><span class="o">-</span><span class="nv">compose</span> <span class="o">-</span><span class="nv">f</span> <span class="nv">latest</span>.<span class="nv">yml</span> <span class="k">exec</span> <span class="nv">portal</span> <span class="o">/</span><span class="nv">etc</span><span class="o">/</span><span class="nv">ckan_init</span>.<span class="nv">d</span><span class="o">/</span><span class="nv">update_conf</span>.<span class="nv">sh</span> <span class="s2">&quot;</span><span class="s">smtp.user=smtp_user_mail@gmail.com</span><span class="s2">&quot;</span><span class="c1">;</span>
+<span class="nv">docker</span><span class="o">-</span><span class="nv">compose</span> <span class="o">-</span><span class="nv">f</span> <span class="nv">latest</span>.<span class="nv">yml</span> <span class="k">exec</span> <span class="nv">portal</span> <span class="o">/</span><span class="nv">etc</span><span class="o">/</span><span class="nv">ckan_init</span>.<span class="nv">d</span><span class="o">/</span><span class="nv">update_conf</span>.<span class="nv">sh</span> <span class="s2">&quot;</span><span class="s">smtp.password=mi_pass</span><span class="s2">&quot;</span><span class="c1">;</span>
+<span class="nv">docker</span><span class="o">-</span><span class="nv">compose</span> <span class="o">-</span><span class="nv">f</span> <span class="nv">latest</span>.<span class="nv">yml</span> <span class="k">exec</span> <span class="nv">portal</span> <span class="o">/</span><span class="nv">etc</span><span class="o">/</span><span class="nv">ckan_init</span>.<span class="nv">d</span><span class="o">/</span><span class="nv">update_conf</span>.<span class="nv">sh</span> <span class="s2">&quot;</span><span class="s">smtp.starttls=True</span><span class="s2">&quot;</span><span class="c1">;</span>
+<span class="nv">docker</span><span class="o">-</span><span class="nv">compose</span> <span class="o">-</span><span class="nv">f</span> <span class="nv">latest</span>.<span class="nv">yml</span> <span class="k">exec</span> <span class="nv">portal</span> <span class="o">/</span><span class="nv">etc</span><span class="o">/</span><span class="nv">ckan_init</span>.<span class="nv">d</span><span class="o">/</span><span class="nv">update_conf</span>.<span class="nv">sh</span> <span class="s2">&quot;</span><span class="s">smtp.mail_from=smtp_user_mail@gmail.com</span><span class="s2">&quot;</span><span class="c1">;</span>
+
+# <span class="nv">Finalmente</span> <span class="nv">reiniciamos</span> <span class="nv">el</span> <span class="nv">contenedor</span>
+<span class="nv">docker</span><span class="o">-</span><span class="nv">compose</span> <span class="o">-</span><span class="nv">f</span> <span class="nv">latest</span>.<span class="nv">yml</span> <span class="nv">restart</span> <span class="nv">portal</span> <span class="nv">nginx</span>
+</pre></div>
+
+
+<p>Tener en cuenta que si se utiliza un servidor SMTP, se debe setear la configuración con <strong>un correo electrónico 
+de @gmail.com</strong>, y que <strong>starttls debe estar en True</strong>.</p>
+<h3 id="cambiar-el-remitente-de-los-correos-electronicos-que-envia-andino">Cambiar el remitente de los correos electrónicos que envía Andino</h3>
+<p>Para modificar el remitente de los correos electrónicos que el sistema envía 
+(por ejemplo los de creación de usuarios nuevos o los de olvido de contraseña), 
+se deben seguir los pasos de la sección <a href="#cambiar-la-configuracion-del-smtp">Cambiar la configuración del SMTP</a> 
+pero modificando el atributo de configuración <code>smtp.mail_from</code>.</p>
+<h3 id="cambiar-el-id-del-container-de-google-tag-manager">Cambiar el id del container de Google Tag Manager</h3>
+<p>Será necesario modificar la configuración en el archivo <code>production.ini</code>.</p>
+<p>Para saber cómo hacerlo, leer la sección que explica 
+<a href="#modificar-el-archivo-de-configuracion">cómo modificar el archivo de configuración</a>.</p>
+<p>Esta vez, buscaremos la configuración debajo de la sección [app:main] 
+(vas a encontrar campos como "superThemeTaxonomy" y "ckan.site.title").</p>
+<p>El campo que estamos buscando es <code>ckan.google_tag_manager.gtm_container_id</code>.</p>
+<p>En caso de no encontrar el campo mencionado, lo podemos agregar:</p>
+<p><code>ckan.google_tag_manager.gtm_container_id = { id que necesitás guardar }</code></p>
+<h3 id="google-tag-manager">Google Tag Manager</h3>
+<p>Para configurar el código se seguimiento de Google Tag Manager ejecutar el siguiente comando:</p>
+<div class="codehilite"><pre><span></span><span class="nv">docker</span><span class="o">-</span><span class="nv">compose</span> <span class="o">-</span><span class="nv">f</span> <span class="nv">latest</span>.<span class="nv">yml</span> <span class="k">exec</span> <span class="nv">portal</span> <span class="o">/</span><span class="nv">etc</span><span class="o">/</span><span class="nv">ckan_init</span>.<span class="nv">d</span><span class="o">/</span><span class="nv">update_conf</span>.<span class="nv">sh</span> <span class="s2">&quot;</span><span class="s">ckan.google_tag_manager.gtm_container_id=&lt;tu código de seguimiento GTM&gt;</span><span class="s2">&quot;</span><span class="c1">;</span>
+
+# <span class="nv">Finalmente</span> <span class="nv">reiniciamos</span> <span class="nv">el</span> <span class="nv">contenedor</span>
+<span class="nv">docker</span><span class="o">-</span><span class="nv">compose</span> <span class="o">-</span><span class="nv">f</span> <span class="nv">latest</span>.<span class="nv">yml</span> <span class="nv">restart</span> <span class="nv">portal</span> <span class="nv">nginx</span>
+</pre></div>
+
+
+<h3 id="cambiar-el-id-del-tag-de-google-analytics">Cambiar el id del tag de Google Analytics</h3>
+<p>Será necesario modificar el archivo de configuración <code>production.ini</code>.</p>
+<p>Para saber cómo hacerlo, leer la sección que explica 
+<a href="#modificar-el-archivo-de-configuracion">cómo modificar el archivo de configuración</a>.</p>
+<p>La sección a buscar luce de esta manera:</p>
+<div class="codehilite"><pre><span></span><span class="o">##</span> <span class="n">Google</span> <span class="n">Analytics</span>
+<span class="n">googleanalytics</span><span class="p">.</span><span class="n">id</span> <span class="o">=</span> <span class="err">{</span> <span class="n">un</span> <span class="n">id</span> <span class="err">}</span>
+<span class="n">googleanalytics_resource_prefix</span> <span class="o">=</span> <span class="err">{</span> <span class="n">un</span> <span class="k">prefix</span> <span class="err">}</span>
+<span class="n">googleanalytics</span><span class="p">.</span><span class="k">domain</span> <span class="o">=</span> <span class="err">{</span> <span class="n">un</span> <span class="n">dominio</span> <span class="err">}</span>
+</pre></div>
+
+
+<p>Lo que se debe modificar es el campo <code>googleanalytics.id</code>.</p>
+<h3 id="indexar-datasets-con-google-dataset-search">Indexar datasets con Google Dataset Search</h3>
+<p>Andino cuenta con la posibilidad de utilizar Google Dataset Search para que éste indexe tus datasets.
+Para el mejor entendimiento de la herramienta, recomendamos que entres a https://search.google.com/search-console/about.</p>
+<p>Por default, esta configuración se encuentra desactivada. Para activarla, podés ir a 
+<em>Configuración</em> -&gt; <em>Configuración avanzada</em> -&gt; <em>Google Dataset Search</em> -&gt; Clickear el checkbox y guardar el cambio.</p>
+<h3 id="deshabilitar-la-url-catalogxlsx">Deshabilitar la URL <code>/catalog.xlsx</code></h3>
+<p>En caso de desear deshabilitar la URL <code>/catalog.xlsx</code>, se puede ejecutar el siguiente comando:</p>
+<div class="codehilite"><pre><span></span><span class="nv">docker</span><span class="o">-</span><span class="nv">compose</span> <span class="o">-</span><span class="nv">f</span> <span class="nv">latest</span>.<span class="nv">yml</span> <span class="k">exec</span> <span class="nv">portal</span> <span class="o">/</span><span class="nv">etc</span><span class="o">/</span><span class="nv">ckan_init</span>.<span class="nv">d</span><span class="o">/</span><span class="nv">update_conf</span>.<span class="nv">sh</span> <span class="s2">&quot;</span><span class="s">andino.disable_catalog_xlsx_url=True</span><span class="s2">&quot;</span><span class="c1">;</span>
+</pre></div>
+
+
+<p>En caso de querer restaurarlo, se debe configurar el atributo <code>andino.disable_catalog_xlsx_url</code> con el valor <code>False</code>.</p>
+<h3 id="configuracion-de-la-llamada-de-invalidacion-de-cache">Configuración de la llamada de invalidación de caché</h3>
+<p>La aplicación puede ser configurada para hacer una llamada HTTP ante cada cambio en los metadatos del portal.
+Esta llamada (A.K.A. "hook") puede configurarse para ser a cualquier URL, y usando cualquier método HTTP.
+Se deberá utilizar un campo llamado <code>andino.cache_clean_hook</code>, que tendrá asignada la URL a la cual
+queremos enviarle requests HTTP que lograrán ese efecto.</p>
+<p>Además, el paquete "Andino" provee una configuración de <em>nginx</em> que permite recibir esta llamada e invalidar la caché.</p>
+<p>Para configurar internamente nginx y andino, sólo es necesario parar la opción <code>--nginx-extended-cache</code> al momento de
+usar el script de instalación.</p>
+<p>Si nuestra aplicación ya está instalada, podemos seguir los siguientes pasos:</p>
+<ol>
+<li>Actualizar a la ultima versión de la aplicación, con el script de actualización.</li>
+<li>Ir al directorio de instalación <code>cd /etc/portal</code></li>
+<li>Editar el archivo <code>.env</code></li>
+<li>Agregar una línea nueva que sea: <code>NGINX_CONFIG_FILE=nginx_extended.conf</code></li>
+<li>Reiniciar el contenedor de nginx <code>docker-compose -f latest.yml up -d nginx</code></li>
+</ol>
+<p>Luego configuramos el hook de invalidación:</p>
+<ol>
+<li>Entramos al contenedor del portal: <code>docker-compose -f latest.yml exec portal bash</code></li>
+<li>Configuramos el hook: <code>/etc/ckan_init.d/update_conf.sh andino.cache_clean_hook=http://nginx/meta/cache/purge</code></li>
+<li>Salimos <code>exit</code></li>
+<li>Reiniciamos el portal: <code>docker-compose -f latest.yml restart portal nginx</code></li>
+</ol>
+<p><em>Nota: tener en cuenta que, por defecto, se emplea el método PURGE para disparar el hook, lo cual
+se puede cambiar editando el campo <code>andino.cache_clean_hook_method</code> dentro del archivo de configuración <code>production.ini</code>.</em>
+<em>Para saber cómo hacerlo, leer la sección que explica 
+<a href="#modificar-el-archivo-de-configuracion">cómo modificar el archivo de configuración</a>.</em> </p>
+<h3 id="cache-externa">Caché externa</h3>
+<p>Es posible implementar la caché externa por fuera del paquete andino.
+Para esto, en el servidor que servirá de caché, necesitamos instalar <a href="https://openresty.org/en/installation.html">openresty</a>.
+Esta plataforma web nos permite correr <strong>nginx</strong> y modificar su comportamiento usando <a href="https://www.lua.org/">lua</a>.</p>
+<p>Luego de instalar <strong>openresty</strong>, debemos activarlo para que empiece cada vez que se prenda el servidor:</p>
+<div class="codehilite"><pre><span></span><span class="n">systemctl</span> <span class="n">enable</span> <span class="n">openresty</span>
+<span class="n">systemctl</span> <span class="k">restart</span> <span class="n">openresty</span>
+</pre></div>
+
+
+<p>Luego de instalar <code>operesty</code>, debemos agregar los archivos de configuración.
+Primero borramos la configuración de nginx que viene por defecto en <code>/etc/openresty/nginx.conf</code> y agregamos la nuestra:</p>
+<div class="codehilite"><pre><span></span>#<span class="nv">user</span>  <span class="nv">nobody</span><span class="c1">;</span>
+<span class="nv">worker_processes</span>  <span class="mi">1</span><span class="c1">;</span>
+
+#<span class="nv">error_log</span>  <span class="nv">logs</span><span class="o">/</span><span class="nv">error</span>.<span class="nv">log</span><span class="c1">;</span>
+#<span class="nv">error_log</span>  <span class="nv">logs</span><span class="o">/</span><span class="nv">error</span>.<span class="nv">log</span>  <span class="nv">notice</span><span class="c1">;</span>
+#<span class="nv">error_log</span>  <span class="nv">logs</span><span class="o">/</span><span class="nv">error</span>.<span class="nv">log</span>  <span class="nv">info</span><span class="c1">;</span>
+
+#<span class="nv">pid</span>        <span class="nv">logs</span><span class="o">/</span><span class="nv">nginx</span>.<span class="nv">pid</span><span class="c1">;</span>
+
+
+<span class="nv">events</span> {
+    <span class="nv">worker_connections</span>  <span class="mi">1024</span><span class="c1">;</span>
+}
+
+
+<span class="nv">http</span> {
+    <span class="k">include</span>       <span class="nv">mime</span>.<span class="nv">types</span><span class="c1">;</span>
+    <span class="nv">default_type</span>  <span class="nv">application</span><span class="o">/</span><span class="nv">octet</span><span class="o">-</span><span class="nv">stream</span><span class="c1">;</span>
+
+    #<span class="nv">log_format</span>  <span class="nv">main</span>  <span class="s1">&#39;</span><span class="s">$remote_addr - $remote_user [$time_local] &quot;$request&quot; </span><span class="s1">&#39;</span>
+    #                  <span class="s1">&#39;</span><span class="s">$status $body_bytes_sent &quot;$http_referer&quot; </span><span class="s1">&#39;</span>
+    #                  <span class="s1">&#39;</span><span class="s">&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;</span><span class="s1">&#39;</span><span class="c1">;</span>
+
+    #<span class="nv">access_log</span>  <span class="nv">logs</span><span class="o">/</span><span class="nv">access</span>.<span class="nv">log</span>  <span class="nv">main</span><span class="c1">;</span>
+
+    <span class="k">sendfile</span>        <span class="nv">on</span><span class="c1">;</span>
+    #<span class="nv">tcp_nopush</span>     <span class="nv">on</span><span class="c1">;</span>
+
+    #<span class="nv">keepalive_timeout</span>  <span class="mi">0</span><span class="c1">;</span>
+    <span class="nv">keepalive_timeout</span>  <span class="mi">65</span><span class="c1">;</span>
+
+    #<span class="nv">gzip</span>  <span class="nv">on</span><span class="c1">;</span>
+
+    <span class="k">include</span> <span class="o">/</span><span class="nv">etc</span><span class="o">/</span><span class="nv">nginx</span><span class="o">/</span><span class="nv">conf</span>.<span class="nv">d</span><span class="cm">/*.conf;</span>
+
+<span class="cm">}</span>
+</pre></div>
+
+
+<p>Luego, creamos el directorio donde pondremos la configuración de nuestra caché y creamos el archivo.</p>
+<div class="codehilite"><pre><span></span><span class="n">mkdir</span> <span class="o">-</span><span class="n">p</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">nginx</span><span class="o">/</span><span class="n">conf</span><span class="p">.</span><span class="n">d</span><span class="o">/</span>
+<span class="n">touch</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">nginx</span><span class="o">/</span><span class="n">conf</span><span class="p">.</span><span class="n">d</span><span class="o">/</span><span class="mi">000</span><span class="o">-</span><span class="n">andino</span><span class="o">-</span><span class="k">cache</span><span class="p">.</span><span class="n">conf</span>
+</pre></div>
+
+
+<p>El archivo <code>000-andino-cache.conf</code> contendrá lo siguiente.
+Es necesario cambiar la palabre <code>IP_A_ANDINO</code> por la IP donde está andino.</p>
+<div class="codehilite"><pre><span></span><span class="nv">proxy_cache_path</span> <span class="o">/</span><span class="nv">tmp</span><span class="o">/</span><span class="nv">nginx_cache</span><span class="o">/</span> <span class="nv">levels</span><span class="o">=</span><span class="mi">1</span>:<span class="mi">2</span> <span class="nv">keys_zone</span><span class="o">=</span><span class="nv">cache</span>:<span class="mi">30</span><span class="nv">m</span> <span class="nv">max_size</span><span class="o">=</span><span class="mi">250</span><span class="nv">m</span><span class="c1">;</span>
+<span class="nv">proxy_temp_path</span> <span class="o">/</span><span class="nv">tmp</span><span class="o">/</span><span class="nv">nginx_proxy</span> <span class="mi">1</span> <span class="mi">2</span><span class="c1">;</span>
+
+<span class="nv">server_tokens</span> <span class="nv">off</span><span class="c1">;</span>
+
+<span class="nv">server</span> {
+    <span class="nv">client_max_body_size</span> <span class="mi">300</span><span class="nv">M</span><span class="c1">;</span>
+    <span class="nv">location</span> <span class="o">/</span> {
+        <span class="nv">proxy_pass</span> <span class="nv">http</span>:<span class="o">//</span><span class="nv">IP_A_ANDINO</span>:<span class="mi">80</span><span class="o">/</span><span class="c1">;</span>
+        <span class="nv">proxy_set_header</span> <span class="nv">X</span><span class="o">-</span><span class="nv">Forwarded</span><span class="o">-</span><span class="k">For</span> $<span class="nv">remote_addr</span><span class="c1">;</span>
+        <span class="nv">proxy_set_header</span> <span class="nv">Host</span> $<span class="nv">host</span><span class="c1">;</span>
+        <span class="nv">proxy_cache</span> <span class="nv">cache</span><span class="c1">;</span>
+
+        # <span class="nv">Disable</span> <span class="nv">cache</span> <span class="k">for</span> <span class="nv">logged</span><span class="o">-</span><span class="nv">in</span> <span class="nv">users</span>
+        <span class="nv">proxy_cache_bypass</span> <span class="mh">$c</span><span class="nv">ookie_auth_tkt</span><span class="c1">;</span>
+        <span class="nv">proxy_no_cache</span> <span class="mh">$c</span><span class="nv">ookie_auth_tkt</span><span class="c1">;</span>
+        <span class="nv">proxy_cache_valid</span> <span class="mi">30</span><span class="nv">m</span><span class="c1">;</span>
+        <span class="nv">proxy_cache_key</span> $<span class="nv">host</span>$<span class="nv">scheme</span>$<span class="nv">proxy_host</span>$<span class="nv">request_uri</span><span class="c1">;</span>
+
+        # <span class="nv">Ignore</span> <span class="nv">apache</span> <span class="s2">&quot;</span><span class="s">Cache-Control</span><span class="s2">&quot;</span> <span class="nv">header</span>
+        # <span class="nv">See</span> <span class="nv">https</span>:<span class="o">//</span><span class="nv">lists</span>.<span class="nv">okfn</span>.<span class="nv">org</span><span class="o">/</span><span class="nv">pipermail</span><span class="o">/</span><span class="nv">ckan</span><span class="o">-</span><span class="nv">dev</span><span class="o">/</span><span class="mi">2016</span><span class="o">-</span><span class="nv">March</span><span class="o">/</span><span class="mi">009864</span>.<span class="nv">html</span>
+        <span class="nv">proxy_ignore_headers</span> <span class="nv">Cache</span><span class="o">-</span><span class="nv">Control</span><span class="c1">;</span>
+        # <span class="nv">In</span> <span class="nv">emergency</span> <span class="nv">comment</span> <span class="nv">out</span> <span class="nv">line</span> <span class="nv">to</span> <span class="nv">force</span> <span class="nv">caching</span>
+        # <span class="nv">proxy_ignore_headers</span> <span class="nv">X</span><span class="o">-</span><span class="nv">Accel</span><span class="o">-</span><span class="nv">Expires</span> <span class="nv">Expires</span><span class="c1">;</span>
+
+        # <span class="k">Show</span> <span class="nv">cache</span> <span class="nv">status</span>
+        <span class="nv">add_header</span> <span class="nv">X</span><span class="o">-</span><span class="nv">Cache</span><span class="o">-</span><span class="nv">Status</span> $<span class="nv">upstream_cache_status</span><span class="c1">;</span>
+    }
+
+    <span class="nv">location</span> <span class="o">/</span><span class="nv">meta</span><span class="o">/</span><span class="nv">cache</span><span class="o">/</span><span class="nv">purge</span> {
+        <span class="nv">allow</span>  <span class="mi">192</span>.<span class="mi">168</span>.<span class="mi">0</span>.<span class="mi">0</span><span class="o">/</span><span class="mi">16</span><span class="c1">;</span>
+        <span class="nv">allow</span>  <span class="mi">172</span>.<span class="mi">16</span>.<span class="mi">0</span>.<span class="mi">0</span><span class="o">/</span><span class="mi">12</span><span class="c1">;</span>
+        <span class="nv">allow</span>  <span class="mi">10</span>.<span class="mi">0</span>.<span class="mi">0</span>.<span class="mi">0</span><span class="o">/</span><span class="mi">8</span><span class="c1">;</span>
+        <span class="nv">allow</span>  <span class="mi">127</span>.<span class="mi">0</span>.<span class="mi">0</span>.<span class="mi">1</span><span class="c1">;</span>
+        <span class="nv">deny</span>   <span class="nv">all</span><span class="c1">;</span>
+        <span class="k">if</span> <span class="ss">(</span>$<span class="nv">request_method</span> <span class="o">=</span> <span class="nv">PURGE</span> <span class="ss">)</span> {
+            <span class="nv">content_by_lua_block</span> {
+                <span class="nv">filename</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="s">/tmp/nginx_cache/</span><span class="s2">&quot;</span>
+                <span class="nv">local</span> <span class="nv">f</span> <span class="o">=</span> <span class="nv">io</span>.<span class="nv">open</span><span class="ss">(</span><span class="nv">filename</span>, <span class="s2">&quot;</span><span class="s">r</span><span class="s2">&quot;</span><span class="ss">)</span>
+                <span class="k">if</span> <span class="ss">(</span><span class="nv">f</span><span class="o">~=</span><span class="nv">nil</span><span class="ss">)</span> <span class="k">then</span>
+                    <span class="nv">io</span>.<span class="nv">close</span><span class="ss">(</span><span class="nv">f</span><span class="ss">)</span>
+                    <span class="nv">os</span>.<span class="nv">execute</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">rm -rf &quot;</span><span class="s1">&#39;</span>..<span class="nv">filename</span>..<span class="s1">&#39;</span><span class="s">&quot;</span><span class="s1">&#39;</span><span class="ss">)</span>
+                <span class="k">end</span>
+                <span class="nv">ngx</span>.<span class="nv">say</span><span class="ss">(</span><span class="s2">&quot;</span><span class="s">OK</span><span class="s2">&quot;</span><span class="ss">)</span>
+                <span class="nv">ngx</span>.<span class="k">exit</span><span class="ss">(</span><span class="nv">ngx</span>.<span class="nv">OK</span><span class="ss">)</span>
+            }
+        }
+    }
+}
+</pre></div>
+
+
+<p>Si se está utilizando la configuración SSL, agregar al final del archivo la siguiente sección, reemplazando _[el texto que aparezca entre corchetes (y éstos) por el valor adecuado]:</p>
+<div class="codehilite"><pre><span></span><span class="n">server</span> <span class="p">{</span>
+  <span class="n">client_max_body_size</span> <span class="mi">300</span><span class="n">M</span><span class="p">;</span>
+  <span class="n">listen</span> <span class="mi">443</span> <span class="n">ssl</span> <span class="n">http2</span><span class="p">;</span>
+  <span class="n">listen</span> <span class="p">[</span><span class="o">::</span><span class="p">]</span><span class="o">:</span><span class="mi">443</span> <span class="n">ssl</span> <span class="n">http2</span><span class="p">;</span>
+  <span class="n">server_name</span> <span class="p">[</span><span class="n">Tu</span> <span class="n">nombre</span> <span class="n">de</span> <span class="n">dominio</span><span class="p">];</span>
+
+  <span class="n">ssl_certificate</span> <span class="p">[</span><span class="n">Path</span> <span class="n">al</span> <span class="n">certificado</span><span class="p">];</span>
+  <span class="n">ssl_certificate_key</span> <span class="p">[</span><span class="n">Path</span> <span class="n">a</span> <span class="n">la</span> <span class="n">llave</span> <span class="n">del</span> <span class="n">certificado</span><span class="p">];</span>
+
+  <span class="n">ssl_session_cache</span> <span class="nl">shared</span><span class="p">:</span><span class="nl">SSL</span><span class="p">:</span><span class="mi">50</span><span class="n">m</span><span class="p">;</span>
+  <span class="n">ssl_session_timeout</span> <span class="mi">1</span><span class="n">d</span><span class="p">;</span>
+  <span class="n">ssl_session_tickets</span> <span class="n">off</span><span class="p">;</span>
+
+  <span class="n">ssl_prefer_server_ciphers</span> <span class="n">on</span><span class="p">;</span>
+  <span class="n">ssl_protocols</span> <span class="n">TLSv1</span> <span class="n">TLSv1</span><span class="mf">.1</span> <span class="n">TLSv1</span><span class="mf">.2</span><span class="p">;</span>
+  <span class="n">ssl_ciphers</span> <span class="err">&#39;</span><span class="n">ECDHE</span><span class="o">-</span><span class="n">ECDSA</span><span class="o">-</span><span class="n">CHACHA20</span><span class="o">-</span><span class="nl">POLY1305</span><span class="p">:</span><span class="n">ECDHE</span><span class="o">-</span><span class="n">RSA</span><span class="o">-</span><span class="n">CHACHA20</span><span class="o">-</span><span class="nl">POLY1305</span><span class="p">:</span><span class="n">ECDHE</span><span class="o">-</span><span class="n">ECDSA</span><span class="o">-</span><span class="n">AES128</span><span class="o">-</span><span class="n">GCM</span><span class="o">-</span><span class="nl">SHA256</span><span class="p">:</span><span class="n">ECDHE</span><span class="o">-</span><span class="n">RSA</span><span class="o">-</span><span class="n">AES128</span><span class="o">-</span><span class="n">GCM</span><span class="o">-</span><span class="nl">SHA256</span><span class="p">:</span><span class="n">ECDHE</span><span class="o">-</span><span class="n">ECDSA</span><span class="o">-</span><span class="n">AES256</span><span class="o">-</span><span class="n">GCM</span><span class="o">-</span><span class="nl">SHA384</span><span class="p">:</span><span class="n">ECDHE</span><span class="o">-</span><span class="n">RSA</span><span class="o">-</span><span class="n">AES256</span><span class="o">-</span><span class="n">GCM</span><span class="o">-</span><span class="nl">SHA384</span><span class="p">:</span><span class="n">DHE</span><span class="o">-</span><span class="n">RSA</span><span class="o">-</span><span class="n">AES128</span><span class="o">-</span><span class="n">GCM</span><span class="o">-</span><span class="nl">SHA256</span><span class="p">:</span><span class="n">DHE</span><span class="o">-</span><span class="n">RSA</span><span class="o">-</span><span class="n">AES256</span><span class="o">-</span><span class="n">GCM</span><span class="o">-</span><span class="nl">SHA384</span><span class="p">:</span><span class="n">ECDHE</span><span class="o">-</span><span class="n">ECDSA</span><span class="o">-</span><span class="n">AES128</span><span class="o">-</span><span class="nl">SHA256</span><span class="p">:</span><span class="n">ECDHE</span><span class="o">-</span><span class="n">RSA</span><span class="o">-</span><span class="n">AES128</span><span class="o">-</span><span class="nl">SHA256</span><span class="p">:</span><span class="n">ECDHE</span><span class="o">-</span><span class="n">ECDSA</span><span class="o">-</span><span class="n">AES128</span><span class="o">-</span><span class="nl">SHA</span><span class="p">:</span><span class="n">ECDHE</span><span class="o">-</span><span class="n">RSA</span><span class="o">-</span><span class="n">AES256</span><span class="o">-</span><span class="nl">SHA384</span><span class="p">:</span><span class="n">ECDHE</span><span class="o">-</span><span class="n">RSA</span><span class="o">-</span><span class="n">AES128</span><span class="o">-</span><span class="nl">SHA</span><span class="p">:</span><span class="n">ECDHE</span><span class="o">-</span><span class="n">ECDSA</span><span class="o">-</span><span class="n">AES256</span><span class="o">-</span><span class="nl">SHA384</span><span class="p">:</span><span class="n">ECDHE</span><span class="o">-</span><span class="n">ECDSA</span><span class="o">-</span><span class="n">AES256</span><span class="o">-</span><span class="nl">SHA</span><span class="p">:</span><span class="n">ECDHE</span><span class="o">-</span><span class="n">RSA</span><span class="o">-</span><span class="n">AES256</span><span class="o">-</span><span class="nl">SHA</span><span class="p">:</span><span class="n">DHE</span><span class="o">-</span><span class="n">RSA</span><span class="o">-</span><span class="n">AES128</span><span class="o">-</span><span class="nl">SHA256</span><span class="p">:</span><span class="n">DHE</span><span class="o">-</span><span class="n">RSA</span><span class="o">-</span><span class="n">AES128</span><span class="o">-</span><span class="nl">SHA</span><span class="p">:</span><span class="n">DHE</span><span class="o">-</span><span class="n">RSA</span><span class="o">-</span><span class="n">AES256</span><span class="o">-</span><span class="nl">SHA256</span><span class="p">:</span><span class="n">DHE</span><span class="o">-</span><span class="n">RSA</span><span class="o">-</span><span class="n">AES256</span><span class="o">-</span><span class="nl">SHA</span><span class="p">:</span><span class="n">ECDHE</span><span class="o">-</span><span class="n">ECDSA</span><span class="o">-</span><span class="n">DES</span><span class="o">-</span><span class="n">CBC3</span><span class="o">-</span><span class="nl">SHA</span><span class="p">:</span><span class="n">ECDHE</span><span class="o">-</span><span class="n">RSA</span><span class="o">-</span><span class="n">DES</span><span class="o">-</span><span class="n">CBC3</span><span class="o">-</span><span class="nl">SHA</span><span class="p">:</span><span class="n">EDH</span><span class="o">-</span><span class="n">RSA</span><span class="o">-</span><span class="n">DES</span><span class="o">-</span><span class="n">CBC3</span><span class="o">-</span><span class="nl">SHA</span><span class="p">:</span><span class="n">AES128</span><span class="o">-</span><span class="n">GCM</span><span class="o">-</span><span class="nl">SHA256</span><span class="p">:</span><span class="n">AES256</span><span class="o">-</span><span class="n">GCM</span><span class="o">-</span><span class="nl">SHA384</span><span class="p">:</span><span class="n">AES128</span><span class="o">-</span><span class="nl">SHA256</span><span class="p">:</span><span class="n">AES256</span><span class="o">-</span><span class="nl">SHA256</span><span class="p">:</span><span class="n">AES128</span><span class="o">-</span><span class="nl">SHA</span><span class="p">:</span><span class="n">AES256</span><span class="o">-</span><span class="nl">SHA</span><span class="p">:</span><span class="n">DES</span><span class="o">-</span><span class="n">CBC3</span><span class="o">-</span><span class="nl">SHA</span><span class="p">:</span><span class="o">!</span><span class="n">DSS</span><span class="err">&#39;</span><span class="p">;</span>
+
+  <span class="n">resolver</span> <span class="mf">8.8.8.8</span> <span class="mf">8.8.4.4</span><span class="p">;</span>
+  <span class="n">ssl_stapling</span> <span class="n">on</span><span class="p">;</span>
+  <span class="n">ssl_stapling_verify</span> <span class="n">on</span><span class="p">;</span>
+  <span class="n">ssl_trusted_certificate</span> <span class="p">[</span><span class="n">Path</span> <span class="n">al</span> <span class="n">certificado</span><span class="p">];</span>
+
+  <span class="n">add_header</span> <span class="n">Strict</span><span class="o">-</span><span class="n">Transport</span><span class="o">-</span><span class="n">Security</span> <span class="s">&quot;max-age=31536000; includeSubdomains; preload&quot;</span><span class="p">;</span>
+  <span class="n">add_header</span> <span class="n">X</span><span class="o">-</span><span class="n">Xss</span><span class="o">-</span><span class="n">Protection</span> <span class="s">&quot;1; mode=block&quot;</span> <span class="n">always</span><span class="p">;</span>
+  <span class="n">add_header</span> <span class="n">X</span><span class="o">-</span><span class="n">Content</span><span class="o">-</span><span class="n">Type</span><span class="o">-</span><span class="n">Options</span> <span class="s">&quot;nosniff&quot;</span> <span class="n">always</span><span class="p">;</span>
+  <span class="n">add_header</span> <span class="n">X</span><span class="o">-</span><span class="n">Frame</span><span class="o">-</span><span class="n">Options</span> <span class="s">&quot;SAMEORIGIN&quot;</span> <span class="n">always</span><span class="p">;</span>
+  <span class="n">proxy_ignore_headers</span> <span class="n">Cache</span><span class="o">-</span><span class="n">Control</span><span class="p">;</span>
+
+  <span class="n">location</span> <span class="o">/</span> <span class="p">{</span>
+        <span class="n">proxy_set_header</span> <span class="n">X</span><span class="o">-</span><span class="n">Forwarded</span><span class="o">-</span><span class="n">For</span> <span class="err">$</span><span class="n">proxy_add_x_forwarded_for</span><span class="p">;</span>
+        <span class="n">proxy_set_header</span> <span class="n">Host</span> <span class="err">$</span><span class="n">http_host</span><span class="p">;</span>
+        <span class="n">proxy_set_header</span> <span class="n">X</span><span class="o">-</span><span class="n">Forwarded</span><span class="o">-</span><span class="n">Protocol</span> <span class="n">https</span><span class="p">;</span>
+    <span class="n">proxy_ignore_headers</span> <span class="n">Cache</span><span class="o">-</span><span class="n">Control</span><span class="p">;</span>
+        <span class="n">add_header</span> <span class="n">X</span><span class="o">-</span><span class="n">Xss</span><span class="o">-</span><span class="n">Protection</span> <span class="s">&quot;1; mode=block&quot;</span> <span class="n">always</span><span class="p">;</span>
+    <span class="n">add_header</span> <span class="n">X</span><span class="o">-</span><span class="n">Content</span><span class="o">-</span><span class="n">Type</span><span class="o">-</span><span class="n">Options</span> <span class="s">&quot;nosniff&quot;</span> <span class="n">always</span><span class="p">;</span>
+    <span class="n">add_header</span> <span class="n">X</span><span class="o">-</span><span class="n">Frame</span><span class="o">-</span><span class="n">Options</span> <span class="s">&quot;SAMEORIGIN&quot;</span> <span class="n">always</span><span class="p">;</span>
+        <span class="n">proxy_redirect</span> <span class="n">off</span><span class="p">;</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="o">!-</span><span class="n">f</span> <span class="err">$</span><span class="n">request_filename</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">proxy_pass</span> <span class="nl">https</span><span class="p">:</span><span class="c1">//[Tu URL]:443;</span>
+            <span class="k">break</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Finalmente, reiniciamos <strong>openresty</strong>: <code>systemctl restart openresty</code>.</p>
+<p>Ahora que tenemos la caché configurada, necesitamos configurar la llamada, o hook, de invalidación de caché.
+Para esto, entramos al servidor donde está corriendo andino y corremos:</p>
+<div class="codehilite"><pre><span></span><span class="nv">IP_INTERNA_CACHE</span><span class="o">=</span>&lt;ip interna del servidor de caché&gt;
+
+<span class="nb">cd</span> /etc/portal
+docker-compose -f latest.yml <span class="nb">exec</span> portal /etc/ckan_init.d/update_conf.sh <span class="s2">&quot;andino.cache_clean_hook=http://</span><span class="nv">$IP_INTERNA_CACHE</span><span class="s2">/meta/cache/purge&quot;</span><span class="p">;</span>
+docker-compose -f latest.yml restart portal nginx
+</pre></div>
+
+
+<p>Si queremos probar la integración, podemos entrar al contenedor de andino y probar invalidar la caché:</p>
+<div class="codehilite"><pre><span></span><span class="nv">IP_INTERNA_CACHE</span><span class="o">=&lt;</span><span class="nv">ip</span> <span class="nv">interna</span> <span class="nv">del</span> <span class="nv">servidor</span> <span class="nv">de</span> <span class="nv">cach</span>é<span class="o">&gt;</span>
+<span class="nv">cd</span> <span class="o">/</span><span class="nv">etc</span><span class="o">/</span><span class="nv">portal</span>
+<span class="nv">docker</span><span class="o">-</span><span class="nv">compose</span> <span class="o">-</span><span class="nv">f</span> <span class="nv">latest</span>.<span class="nv">yml</span> <span class="k">exec</span> <span class="nv">portal</span> <span class="nv">curl</span> <span class="o">-</span><span class="nv">X</span> <span class="nv">PURGE</span> <span class="s2">&quot;</span><span class="s">http://$IP_INTERNA_CACHE/meta/cache/purge</span><span class="s2">&quot;</span><span class="c1">;</span>
+# <span class="o">=&gt;</span>  <span class="nv">OK</span>
+</pre></div>
+
+
+<p><strong>NOTA:</strong> Si estamos usando nuestro andino con un IP y <em>no</em> con un dominio, tendremos que cambiar la
+configuración <code>ckan.site_url</code> para que use la IP del servidor donde se encuentra la caché externa.</p>
+<div class="codehilite"><pre><span></span><span class="nv">IP_PUBLICA_CACHE</span><span class="o">=</span>&lt;ip publica del servidor caché&gt;
+
+<span class="nb">cd</span> /etc/portal
+docker-compose -f latest.yml <span class="nb">exec</span> portal /etc/ckan_init.d/update_conf.sh <span class="s2">&quot;ckan.site_url=http://</span><span class="nv">$IP_PUBLICA_CACHE</span><span class="s2">&quot;</span><span class="p">;</span>
+docker-compose -f latest.yml restart portal nginx
+</pre></div>
+
+
+<h3 id="especificar-las-licencias-a-utilizar">Especificar las licencias a utilizar</h3>
+<p>Existe un JSON que contiene las licencias a utilizar en el portal, y cuyo path es 
+<code>/var/lib/ckan/theme_config/licenses.json</code>. Este archivo está especificado en el campo <em>licenses_group_url</em> del 
+archivo de configuración.</p>
+<p>Es posible cambiarlo para lograr utilizar un archivo distinto; para ello, hay que cambiar el path por el deseado, 
+teniendo en cuenta las siguientes indicaciones:
+* Para utilizar un path de un archivo existente en el container, el mismo debe comenzar con el texto <em>file://</em>, tal y 
+como ocurre con el path utilizado por default.
+* Para utilizar una URL, debe comenzar con <em>http://</em> o <em>https://</em>.</p>
+<h3 id="configuracion-de-cors">Configuración de CORS</h3>
+<p>Cuando es necesario acceder a Andino desde URLs distintas que apuntan a una misma instancia 
+(ej: accediendo a través de un gateway/caché o directamente a la instancia de Andino o usando la IP pública 
+del servidor <em>host</em>) es necesario, para el correcto funcionamiento de Andino, configurar parámetros para habilitar 
+CORS (<em>Cross-Origin Resource Sharing</em>). Esto se debe a que un Andino debe tener una URL canónica, por lo tanto, 
+las demás URLs utilizadas deben estar en el <em>whitelist</em> de CORS de Andino.</p>
+<p>Para poder navegar tu Andino usando como URL una que no es la canónica de tu instancia, tenés que realizar dos acciones 
+(los comandos deben ser ejecutados desde el directorio de instalación de Andino; por <em>default</em>, <code>/etc/portal</code>):</p>
+<ol>
+<li>Habilitar el comportamiento CORS: <code>docker-compose -f latest.yml exec portal /etc/ckan_init.d/update_conf.sh "ckan.cors.origin_allow_all = false"</code> (si bien el parámetro de configuración tiene el valor <code>false</code>, esto habilita el control de URLs contra el <em>whitelist</em>).</li>
+<li>Agregar las URLs al <em>whitelist</em>: <code>docker-compose -f latest.yml exec portal /etc/ckan_init.d/update_conf.sh "ckan.cors.origin_whitelist=http://localhost:8080 http://127.0.0.1 http://127.0.0.1:8080"</code> (en el ejemplo se habilitan las URLs <code>http://localhost:8080</code>, <code>http://127.0.0.1</code> y <code>http://127.0.0.1:8080</code>).</li>
+</ol>
+<p>Luego reiniciá los contenedores <code>portal</code> y <code>nginx</code>: <code>docker-compose -f latest.yml restart nginx portal</code>.</p>
+<p>Tené en cuenta que el script va a reemplazar las URLs existentes en el campo por lo que le pases por parámetro. Si hay 
+URLs que querés mantener en la configuración, buscalas con el siguiente comando y especificalas junto a las nuevas: 
+<code>docker-compose -f latest.yml exec portal bash -c 'grep "ckan.cors.origin_whitelist" /etc/ckan/default/production.ini'</code>.</p>
+<p>Si deseás habilitar <strong>todas</strong> las URLs para CORS (no recomendado por cuestiones de seguridad), en el paso 1 debés pasar 
+el valor <code>true</code> para el atributo de configuración <code>ckan.cors.origin_allow_all</code> e ignorar el paso 2.</p>
+<p>Para ver más acerca del funcionamiento de CORS en CKAN ver la 
+<a href="http://docs.ckan.org/en/ckan-2.7.3/maintaining/configuration.html#cors-settings">documentación oficial de CKAN (en inglés)</a>.</p>
+<h3 id="configuracion-del-explorador-de-series-de-tiempo">Configuración del explorador de series de tiempo</h3>
+<p>Andino tiene instalado el plugin <a href="https://github.com/datosgobar/ckanext-seriestiempoarexplorer">ckanext-seriestiempoarexplorer</a>, 
+pero no se encuentra presente entre los plugins activos.
+Para activarlo, debemos entrar al contenedor de andino, editar el archivo <code>/etc/ckan/default/production.ini</code> y agregar
+el <code>seriestiempoarexplorer</code> a la lista de plugins.
+Luego de agregarlo, debemos reinicar el servidor.</p>
+<div class="codehilite"><pre><span></span><span class="nv">cd</span> <span class="o">/</span><span class="nv">etc</span><span class="o">/</span><span class="nv">portal</span>
+<span class="nv">docker</span><span class="o">-</span><span class="nv">compose</span> <span class="o">-</span><span class="nv">f</span> <span class="nv">latest</span>.<span class="nv">yml</span> <span class="k">exec</span> <span class="nv">portal</span> <span class="nv">bash</span><span class="c1">;</span>
+<span class="nv">vim</span> <span class="o">/</span><span class="nv">etc</span><span class="o">/</span><span class="nv">ckan</span><span class="o">/</span><span class="nv">default</span><span class="o">/</span><span class="nv">production</span>.<span class="nv">ini</span>
+# ...
+<span class="nv">apachectl</span> <span class="nv">restart</span>
+</pre></div>
+
+
+<p>Luego, si vamos a la configuración del sitio, podremos apreciar que se agrego una nueva sección "Series" en el apartado
+ "Otras secciones del portal".</p>
+<h2 id="acceso-a-los-datos-de-andino">Acceso a los datos de andino</h2>
+<h3 id="encontrar-los-volumenes-de-mi-andino-dentro-del-filesystem-del-host">Encontrar los volúmenes de mi andino dentro del filesystem del host</h3>
+<div class="codehilite"><pre><span></span><span class="nv">docker</span><span class="o">-</span><span class="nv">compose</span> <span class="o">-</span><span class="nv">f</span> <span class="nv">latest</span>.<span class="nv">yml</span> <span class="nv">ps</span> <span class="o">-</span><span class="nv">q</span> <span class="nv">andino</span> <span class="nv">solr</span> <span class="nv">db</span> <span class="o">|</span> <span class="nv">xargs</span> <span class="o">-</span><span class="nv">n</span> <span class="mi">1</span> <span class="o">|</span> <span class="k">while</span> <span class="nv">read</span> <span class="nv">container</span><span class="c1">; do docker inspect -f &#39; {{.Name}}: {{range .Mounts}}{{.Source}}: {{.Destination}}  {{end}} &#39; $container; done</span>
+</pre></div>
+
+
+<p>Ver <a href="#utilizacion-del-archivo-latest.yml-en-los-comandos-de-docker-compose">la sección sobre la utilización del archivo latest.yml en los comandos de docker-compose</a>.</p>
+<h3 id="ver-las-direcciones-ip-de-mis-contenedores">Ver las direcciones IP de mis contenedores</h3>
+<div class="codehilite"><pre><span></span><span class="nv">docker</span><span class="o">-</span><span class="nv">compose</span> <span class="o">-</span><span class="nv">f</span> <span class="nv">latest</span>.<span class="nv">yml</span> <span class="nv">ps</span> <span class="o">-</span><span class="nv">q</span> <span class="nv">andino</span> <span class="nv">solr</span> <span class="nv">db</span> <span class="o">|</span> <span class="nv">xargs</span> <span class="o">-</span><span class="nv">n</span> <span class="mi">1</span> <span class="o">|</span> <span class="k">while</span> <span class="nv">read</span> <span class="nv">container</span><span class="c1">; do docker inspect -f &#39;{{.Name}}: {{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}&#39; $container; done</span>
+</pre></div>
+
+
+<h3 id="ver-las-variables-de-entorno-que-tienen-mis-contenedores">Ver las variables de entorno que tienen mis contenedores</h3>
+<div class="codehilite"><pre><span></span><span class="nv">docker</span><span class="o">-</span><span class="nv">compose</span> <span class="o">-</span><span class="nv">f</span> <span class="nv">latest</span>.<span class="nv">yml</span> <span class="nv">ps</span> <span class="o">-</span><span class="nv">q</span> <span class="nv">andino</span> <span class="nv">solr</span> <span class="nv">db</span> <span class="o">|</span> <span class="nv">xargs</span> <span class="o">-</span><span class="nv">n</span> <span class="mi">1</span> <span class="o">|</span> <span class="k">while</span> <span class="nv">read</span> <span class="nv">container</span><span class="c1">; do docker inspect -f &#39;{{range $index, $value := .Config.Env}}export {{$value}}{{println}}{{end}}&#39; $container; done</span>
+</pre></div>
+
+
+<p>Ver <a href="#utilizacion-del-archivo-latest.yml-en-los-comandos-de-docker-compose">la sección sobre la utilización del archivo latest.yml en los comandos de docker-compose</a>.</p>
+<h3 id="acceder-con-un-cliente-de-postgresql-a-las-bases-de-datos">Acceder con un cliente de PostgreSQL a las bases de datos</h3>
+<div class="codehilite"><pre><span></span><span class="nv">docker</span><span class="o">-</span><span class="nv">compose</span> <span class="o">-</span><span class="nv">f</span> <span class="nv">dev</span>.<span class="nv">yml</span> <span class="k">exec</span> <span class="nv">db</span> <span class="nv">psql</span> <span class="o">-</span><span class="nv">U</span> <span class="nv">postgres</span>
+# <span class="nv">psql</span> \<span class="nv">c</span> <span class="nv">ckan</span> <span class="nv">db</span> <span class="nv">default</span> <span class="nv">CKAN</span>
+# <span class="nv">psql</span> \<span class="nv">c</span> <span class="nv">datastore_default</span> <span class="nv">db</span> <span class="nv">datastore</span> <span class="nv">CKAN</span>
+</pre></div>
+
+
+<h2 id="eliminar-objetos-definitivamente">Eliminar objetos definitivamente</h2>
+<p>Es bien sabido que, dentro de CKAN, cada vez que borranmos algun elemento, en verdad no se borra, sino que pasa a estar 
+inactivo; por lo tanto, tener alguna forma de eliminar elementos de manera definitiva resulta altamente necesario.</p>
+<h3 id="purgar-organizaciones-borradas">Purgar Organizaciones Borradas</h3>
+<div class="codehilite"><pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">X</span> <span class="n">POST</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">tu</span><span class="o">-</span><span class="k">host</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="mi">3</span><span class="o">/</span><span class="n">action</span><span class="o">/</span><span class="n">organization_purge</span> <span class="o">-</span><span class="n">H</span> <span class="ss">&quot;Authorization:tu-api-key&quot;</span> <span class="o">-</span><span class="n">F</span> <span class="n">id</span><span class="o">=</span><span class="n">id</span><span class="o">-</span><span class="n">o</span><span class="o">-</span><span class="n">nombre</span><span class="o">-</span><span class="n">que</span><span class="o">-</span><span class="n">se</span><span class="o">-</span><span class="n">desea</span><span class="o">-</span><span class="n">borrar</span>
+</pre></div>
+
+
+<h3 id="purgar-grupos-borrados">Purgar Grupos Borrados</h3>
+<div class="codehilite"><pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">X</span> <span class="n">POST</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">tu</span><span class="o">-</span><span class="k">host</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="mi">3</span><span class="o">/</span><span class="n">action</span><span class="o">/</span><span class="n">group_purge</span> <span class="o">-</span><span class="n">H</span> <span class="ss">&quot;Authorization:tu-api-key&quot;</span> <span class="o">-</span><span class="n">F</span> <span class="n">id</span><span class="o">=</span><span class="n">id</span><span class="o">-</span><span class="n">o</span><span class="o">-</span><span class="n">nombre</span><span class="o">-</span><span class="n">que</span><span class="o">-</span><span class="n">se</span><span class="o">-</span><span class="n">desea</span><span class="o">-</span><span class="n">borrar</span>
+</pre></div>
+
+
+<h3 id="purgar-datasets-borrados">Purgar Datasets Borrados</h3>
+<div class="codehilite"><pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">X</span> <span class="n">POST</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">tu</span><span class="o">-</span><span class="k">host</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="mi">3</span><span class="o">/</span><span class="n">action</span><span class="o">/</span><span class="n">dataset_purge</span> <span class="o">-</span><span class="n">H</span> <span class="ss">&quot;Authorization:tu-api-key&quot;</span> <span class="o">-</span><span class="n">F</span> <span class="n">id</span><span class="o">=</span><span class="n">id</span><span class="o">-</span><span class="n">o</span><span class="o">-</span><span class="n">nombre</span><span class="o">-</span><span class="n">que</span><span class="o">-</span><span class="n">se</span><span class="o">-</span><span class="n">desea</span><span class="o">-</span><span class="n">borrar</span>
+</pre></div>
+
+
+<h3 id="listar-nombres-de-los-datasets-contenidos-en-andino">Listar nombres de los datasets contenidos en Andino</h3>
+<div class="codehilite"><pre><span></span>docker-compose -f latest.yml <span class="nb">exec</span> portal /etc/ckan_init.d/paster.sh  --plugin<span class="o">=</span>ckan dataset list <span class="p">|</span> grep -v DEBUG <span class="p">|</span> grep -v count  <span class="p">|</span> grep -v Datasets <span class="p">|</span> xargs -n2 <span class="p">|</span> <span class="k">while</span> <span class="nb">read</span> id name<span class="p">;</span> <span class="k">do</span> <span class="nb">echo</span> <span class="nv">$name</span><span class="p">;</span> <span class="k">done</span>
+</pre></div>
+
+
+<p>Ver <a href="#utilizacion-del-archivo-latest.yml-en-los-comandos-de-docker-compose">la sección sobre la utilización del archivo latest.yml en los comandos de docker-compose</a>.</p>
+<h2 id="backups">Backups</h2>
+<p>Es altamente recomendable hacer copias de seguridad de los datos de la aplicación, tanto la base de datos como los 
+archivos de configuración y subidos por los usuarios.</p>
+<h3 id="backup-de-la-base-de-datos">Backup de la base de datos</h3>
+<p>Un ejemplo fácil de hacer un backup de la base de datos sería:</p>
+<div class="codehilite"><pre><span></span><span class="nv">container</span><span class="o">=</span>$<span class="ss">(</span><span class="nv">docker</span><span class="o">-</span><span class="nv">compose</span> <span class="o">-</span><span class="nv">f</span> <span class="nv">latest</span>.<span class="nv">yml</span> <span class="nv">ps</span> <span class="o">-</span><span class="nv">q</span> <span class="nv">db</span><span class="ss">)</span>
+<span class="nv">today</span><span class="o">=</span>`<span class="nv">date</span> <span class="o">+%</span><span class="nv">Y</span><span class="o">-%</span><span class="nv">m</span><span class="o">-%</span><span class="nv">d</span>.<span class="o">%</span><span class="nv">H</span>:<span class="o">%</span><span class="nv">M</span>:<span class="o">%</span><span class="nv">S</span>`
+<span class="nv">filename</span><span class="o">=</span><span class="s2">&quot;</span><span class="s">backup-$today.gz</span><span class="s2">&quot;</span>
+
+# <span class="nv">Creo</span> <span class="nv">un</span> <span class="nv">directorio</span> <span class="nv">temporal</span> <span class="nv">y</span> <span class="nv">defino</span> <span class="nv">d</span>ó<span class="nv">nde</span> <span class="nv">generar</span>é <span class="nv">el</span> <span class="nv">backup</span>
+<span class="nv">backupdir</span><span class="o">=</span>$<span class="ss">(</span><span class="nv">mktemp</span> <span class="o">-</span><span class="nv">d</span><span class="ss">)</span>
+<span class="nv">backupfile</span><span class="o">=</span><span class="s2">&quot;</span><span class="s">$backupdir/$filename</span><span class="s2">&quot;</span>
+
+# <span class="nv">Exporto</span> <span class="nv">la</span> <span class="nv">base</span> <span class="nv">de</span> <span class="nv">datos</span>
+<span class="nv">docker</span> <span class="k">exec</span> <span class="mh">$c</span><span class="nv">ontainer</span> <span class="nv">pg_dumpall</span> <span class="o">-</span><span class="nv">c</span> <span class="o">-</span><span class="nv">U</span> <span class="nv">postgres</span> <span class="o">|</span> <span class="nv">gzip</span> <span class="o">&gt;</span> <span class="s2">&quot;</span><span class="s">$backupfile</span><span class="s2">&quot;</span>
+
+# <span class="nv">Copio</span> <span class="nv">el</span> <span class="nv">archivo</span> <span class="nv">al</span> <span class="nv">directorio</span> <span class="nv">actual</span> <span class="nv">y</span> <span class="nv">borro</span> <span class="nv">el</span> <span class="nv">original</span>
+# <span class="nv">Podr</span>í<span class="nv">a</span> <span class="nv">reemplazar</span> $<span class="nv">PWD</span> <span class="nv">con</span> <span class="nv">mi</span> <span class="nv">directorio</span> <span class="nv">de</span> <span class="nv">backups</span>, <span class="nv">como</span> <span class="o">/</span><span class="nv">etc</span><span class="o">/</span><span class="nv">portal</span><span class="o">/</span><span class="nv">backups</span>
+<span class="nv">mv</span> <span class="s2">&quot;</span><span class="s">$backupfile</span><span class="s2">&quot;</span> $<span class="nv">PWD</span>
+</pre></div>
+
+
+<p>Y para los demás archivos de la aplicación (requiere <a href="https://stedolan.github.io/jq/"><code>jq</code></a>):</p>
+<div class="codehilite"><pre><span></span><span class="nv">backupdir</span><span class="o">=</span>$<span class="ss">(</span><span class="nv">mktemp</span> <span class="o">-</span><span class="nv">d</span><span class="ss">)</span>
+<span class="nv">today</span><span class="o">=</span>`<span class="nv">date</span> <span class="o">+%</span><span class="nv">Y</span><span class="o">-%</span><span class="nv">m</span><span class="o">-%</span><span class="nv">d</span>.<span class="o">%</span><span class="nv">H</span>:<span class="o">%</span><span class="nv">M</span>:<span class="o">%</span><span class="nv">S</span>`
+<span class="nv">appbackupdir</span><span class="o">=</span><span class="s2">&quot;</span><span class="s">$backupdir/application/</span><span class="s2">&quot;</span>
+<span class="nv">mkdir</span> <span class="mh">$a</span><span class="nv">ppbackupdir</span>
+<span class="nv">container</span><span class="o">=</span>$<span class="ss">(</span><span class="nv">docker</span><span class="o">-</span><span class="nv">compose</span> <span class="o">-</span><span class="nv">f</span> <span class="nv">latest</span>.<span class="nv">yml</span> <span class="nv">ps</span> <span class="o">-</span><span class="nv">q</span> <span class="nv">portal</span><span class="ss">)</span>
+
+<span class="nv">docker</span> <span class="nv">inspect</span> <span class="o">--</span><span class="nv">format</span> <span class="s1">&#39;</span><span class="s">{{json .Mounts}}</span><span class="s1">&#39;</span> <span class="mh">$c</span><span class="nv">ontainer</span>  <span class="o">|</span> <span class="nv">jq</span> <span class="o">-</span><span class="nv">r</span> <span class="s1">&#39;</span><span class="s">.[]|[.Name, .Source, .Destination] | @tsv</span><span class="s1">&#39;</span> <span class="o">|</span>
+<span class="k">while</span> <span class="nv">IFS</span><span class="o">=</span>$<span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span> <span class="nv">read</span> <span class="o">-</span><span class="nv">r</span> <span class="nv">name</span> <span class="nv">source</span> <span class="nv">destination</span><span class="c1">; do</span>
+
+    <span class="k">if</span> <span class="nv">ls</span> $<span class="nv">source</span><span class="cm">/* 1&gt; /dev/null 2&gt;&amp;1; then</span>
+<span class="cm">        dest=&quot;$appbackupdir$name&quot;</span>
+<span class="cm">        mkdir -p $dest</span>
+
+<span class="cm">        tar -C &quot;$source&quot; -zcvf &quot;$dest/backup_$today.tar.gz&quot; $(ls $source)</span>
+<span class="cm">    else</span>
+<span class="cm">        echo &quot;No file at $source&quot;</span>
+<span class="cm">    fi</span>
+<span class="cm">done</span>
+
+<span class="cm">tar -C &quot;$appbackupdir../&quot; -zcvf backup.tar.gz &quot;application/&quot;</span>
+</pre></div>
+
+
+<p>Podria colocarse esos scripts en el directorio donde se instaló la aplicación 
+(ejemplo : <code>/etc/portal/backup.sh</code>) y luego agregar un <code>cron</code>:</p>
+<p>Para correr el script cada domingo, podríamos usar la configuración <code>0 0 * * 0</code> 
+(ver <a href="https://help.ubuntu.com/community/CronHowto">cron</a> para más información), 
+correr el comando <code>crontab -e</code> y agregar la línea:</p>
+<div class="codehilite"><pre><span></span><span class="mi">0</span> <span class="mi">0</span> <span class="o">*</span> <span class="o">*</span> <span class="mi">0</span> <span class="n">cd</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">portal</span><span class="o">/</span> <span class="o">&amp;&amp;</span> <span class="n">bash</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">portal</span><span class="o">/</span><span class="n">backup</span><span class="p">.</span><span class="n">sh</span>
+</pre></div>
+
+
+<h3 id="realizar-un-backup-del-file-system">Realizar un backup del file system</h3>
+<div class="codehilite"><pre><span></span># <span class="nv">Exporto</span> <span class="nv">el</span> <span class="nv">path</span> <span class="nv">al</span> <span class="nv">almacenamiento</span> <span class="nv">del</span> <span class="nv">volumen</span>
+<span class="nv">export</span> <span class="nv">CKAN_FS_STORAGE</span><span class="o">=</span>$<span class="ss">(</span><span class="nv">docker</span> <span class="nv">inspect</span> <span class="o">--</span><span class="nv">format</span> <span class="s1">&#39;</span><span class="s">{{ range .Mounts }}{{ if eq .Destination &quot;/var/lib/ckan&quot; }}{{ .Source }}{{ end }}{{ end }}</span><span class="s1">&#39;</span> <span class="nv">andino</span><span class="ss">)</span>
+
+# <span class="nv">Creo</span> <span class="nv">un</span> <span class="nv">tar</span>.<span class="nv">gz</span> <span class="nv">con</span> <span class="nv">la</span> <span class="nv">info</span>.
+<span class="nv">tar</span> <span class="o">-</span><span class="nv">C</span> <span class="s2">&quot;</span><span class="s">$(dirname </span><span class="s2">&quot;</span><span class="mh">$C</span><span class="nv">KAN_FS_STORAGE</span><span class="s2">&quot;</span><span class="s">)</span><span class="s2">&quot;</span> <span class="o">-</span><span class="nv">zcvf</span> <span class="o">/</span><span class="nv">ruta</span><span class="o">/</span><span class="nv">para</span><span class="o">/</span><span class="nv">guardar</span><span class="o">/</span><span class="nv">mis</span><span class="o">/</span><span class="nv">bkps</span><span class="o">/</span><span class="nv">mi_andino</span>.<span class="nv">fs</span><span class="o">-</span><span class="nv">data_</span>$<span class="ss">(</span><span class="nv">date</span> <span class="o">+%</span><span class="nv">F</span><span class="ss">)</span>.<span class="nv">tar</span>.<span class="nv">gz</span> <span class="s2">&quot;</span><span class="s">$(basename </span><span class="s2">&quot;</span><span class="mh">$C</span><span class="nv">KAN_FS_STORAGE</span><span class="s2">&quot;</span><span class="s">)</span><span class="s2">&quot;</span>
+</pre></div>
+
+
+<h3 id="realizar-un-backup-de-la-configuracion">Realizar un backup de la configuración</h3>
+<div class="codehilite"><pre><span></span># <span class="nv">Exporto</span> <span class="nv">el</span> <span class="nv">path</span> <span class="nv">al</span> <span class="nv">almacenamiento</span> <span class="nv">del</span> <span class="nv">volumen</span>
+<span class="nv">export</span> <span class="nv">ANDINO_CONFIG</span><span class="o">=</span>$<span class="ss">(</span><span class="nv">docker</span> <span class="nv">inspect</span> <span class="o">--</span><span class="nv">format</span> <span class="s1">&#39;</span><span class="s">{{ range .Mounts }}{{ if eq .Destination &quot;/etc/ckan/default&quot; }}{{ .Source }}{{ end }}{{ end }}</span><span class="s1">&#39;</span> <span class="nv">andino</span><span class="ss">)</span>
+
+# <span class="nv">Creo</span> <span class="nv">un</span> <span class="nv">tar</span>.<span class="nv">gz</span> <span class="nv">con</span> <span class="nv">la</span> <span class="nv">info</span>.
+<span class="nv">tar</span> <span class="o">-</span><span class="nv">C</span> <span class="s2">&quot;</span><span class="s">$(dirname </span><span class="s2">&quot;</span><span class="mh">$A</span><span class="nv">NDINO_CONFIG</span><span class="s2">&quot;</span><span class="s">)</span><span class="s2">&quot;</span> <span class="o">-</span><span class="nv">zcvf</span> <span class="o">/</span><span class="nv">ruta</span><span class="o">/</span><span class="nv">para</span><span class="o">/</span><span class="nv">guardar</span><span class="o">/</span><span class="nv">mis</span><span class="o">/</span><span class="nv">bkps</span><span class="o">/</span><span class="nv">mi_andino</span>.<span class="nv">config</span><span class="o">-</span><span class="nv">data_</span>$<span class="ss">(</span><span class="nv">date</span> <span class="o">+%</span><span class="nv">F</span><span class="ss">)</span>.<span class="nv">tar</span>.<span class="nv">gz</span> <span class="s2">&quot;</span><span class="s">$(basename </span><span class="s2">&quot;</span><span class="mh">$A</span><span class="nv">NDINO_CONFIG</span><span class="s2">&quot;</span><span class="s">)</span><span class="s2">&quot;</span>
+</pre></div>
+
+
+<h2 id="comandos-de-datapusher">Comandos de DataPusher</h2>
+<p>Deben ser corridos en el directorio de instalación de Andino.</p>
+<h3 id="subir-todos-los-recursos-al-datastore">Subir todos los recursos al Datastore</h3>
+<p>Es posible que existan recursos que no hayan sido subidos al Datastore. Para buscar e intentar subir dichos recursos, ejecutar:</p>
+<div class="codehilite"><pre><span></span><span class="nv">docker</span><span class="o">-</span><span class="nv">compose</span> <span class="o">-</span><span class="nv">f</span> <span class="nv">latest</span>.<span class="nv">yml</span> <span class="k">exec</span> <span class="nv">portal</span> <span class="o">/</span><span class="nv">usr</span><span class="o">/</span><span class="nv">lib</span><span class="o">/</span><span class="nv">ckan</span><span class="o">/</span><span class="nv">default</span><span class="o">/</span><span class="nv">bin</span><span class="o">/</span><span class="nv">paster</span> <span class="o">--</span><span class="nv">plugin</span><span class="o">=</span><span class="nv">ckan</span> <span class="nv">datapusher</span> <span class="nv">submit_all</span> <span class="o">-</span><span class="nv">c</span> <span class="o">/</span><span class="nv">etc</span><span class="o">/</span><span class="nv">ckan</span><span class="o">/</span><span class="nv">default</span><span class="o">/</span><span class="nv">production</span>.<span class="nv">ini</span>
+</pre></div>
+
+
+<p>Se preguntará si se desea proceder. Al escribir que sí (<code>y</code>), iniciar la subida de recursos. Para cada uno de ellos, se escribirá su id y luego el status: si subió correctamente, aparecerá "<em>OK</em>"; en caso contrario, "<em>FAIL</em>".</p>
+<h2 id="seguridad">Seguridad</h2>
+<p>Mantener seguro un servidor web puede ser una tarea ardua, pero sobre todo es <em>constante</em>, ya que <em>constantemente</em> 
+se detectan nuevas vulnerabilidades en los distintos softwares.
+Y un servidor web no es la excepción!
+En este breve apartado, se darán pequeñas recomendaciones para mantener seguro el servidor, 
+no solo antes posibles atacantes, sino tambien ante posibles fallos del sistema y como efectuar mitigaciones.</p>
+<p>Las siguientes recomendaciones puden ser implementadas fácilmente en un sistema Ubuntu 16.04, el cual es el 
+recomendado (a la fecha), para correr la aplicación.</p>
+<h3 id="https">HTTPS</h3>
+<p>HTTPS permite que la conexión entre el <em>browser</em> y el servidor sea encriptada y de esta manera segura.
+Es altamente recomendable usar HTTPS, para mantener la privacidad de los usuarios.
+El portal de documentación para desarrolladores de Google provee buena información sobre esto:
+https://developers.google.com/web/fundamentals/security/encrypt-in-transit/why-https</p>
+<h3 id="plugin-ckanext-security">Plugin ckanext-security</h3>
+<p>Para las versiones 2.5.7 en adelante, existe un plugin para mejorar la seguridad de CKAN que se puede encontrar 
+<a href="https://github.com/data-govt-nz/ckanext-security">en github</a>. Para su utilización, es necesario el uso de 
+certificados SSL, ya sea en Andino mismo (teniendo <em>https</em> en el campo <code>site_url</code> de la configuración del portal) o 
+mediante un reverse proxy.</p>
+<p>Para este plugin existen dos scripts, los cuales se pueden encontrar en el directorio <code>/etc/ckan_init.d/security</code> 
+dentro del contenedor de Andino; uno para activarlo (<code>enable_ckanext_security.sh</code>) y otro para desactivarlo 
+(<code>disable_ckanext_security.sh</code>). Sólo se necesita ejecutar el que se necesite y reiniciar apache.</p>
+<h3 id="sistema-y-librerias">Sistema y librerías</h3>
+<p>Es <em>altamente recomendable</em> mantener el sistema operativo y las aplicaciones que usemos actualizadas. 
+Constantemente se están subiendo <em>fixes</em> de seguridad y posibles intrusos podrían aprovechar que las aplicaciones 
+o el mismo sistema operativo estén desactualizados.
+Periódicamente, podríamos constatar las nuevas versiones de nuestro software y actualizar dentro de lo posible. 
+Como ejemplo, podemos ver que para Ubuntu 16.04 salió Ubuntu 16.04.2, con algunas correcciones de seguridad. 
+<a href="https://wiki.ubuntu.com/XenialXerus/ReleaseNotes/ChangeSummary/16.04.2">Ver</a>.</p>
+<h3 id="firewall">Firewall</h3>
+<p><strong>Todo servidor debe tener activado el firewall.</strong> El firewall permitirá denegar (o permitr) el acceso a la red. 
+En un servidor web, el puerto abierto al público deberían ser sólo el 80 (http) y el 443 (https). Además de ese puerto, 
+si la máquina es accedida remotamente mediante un servidor SSH, deberíamos abrir este puerto también, 
+pero con un límite de acceso.
+La solución es fácilmente implementable con el programa <a href="https://help.ubuntu.com/community/UFW"><code>ufw</code></a>.</p>
+<h3 id="ssh">SSH</h3>
+<p>Los servidores ssh permiten el acceso al servidor remotamente. 
+<strong>No debe permitirse el acceso por ssh mediante usuario y password</strong>. 
+Sólo debe permitirse el acceso mediante clave publica.
+DigitalOcean tiene una buena guía de cómo configurar las claves públicas 
+<a href="https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys--2">Ver</a>.</p>
+<h2 id="optimizacion-de-logging">Optimización de logging</h2>
+<h3 id="configurar-otro-logging-driver">Configurar otro <code>logging driver</code></h3>
+<p>Por default, docker escribe a un archivo con formato <code>json</code>, lo cual puede llevar a que se acumulen los logs de la 
+aplicación, y estos archivos crezcan indefinidamente.
+Para evitar esto, se puede configurar el <a href="https://docs.docker.com/engine/admin/logging/overview/"><code>logging driver</code></a> 
+de docker.
+La recomendacion es usar <code>journald</code> y configurarlo para que los logs sean persistentes. </p>
+<h3 id="eliminar-logs-antiguos-de-docker">Eliminar <code>logs</code> antiguos de <code>Docker</code></h3>
+<p>Dentro del normal funcionamiento de la plataforma, se genera una gran cantidad de logs, los cuales, ante un incidencia, 
+son sumamente útiles. Pero, luego de un tiempo, y sabiendo que los mismos se almacenan internamente en Andino, podría 
+ser necesario eliminarlos.</p>
+<div class="codehilite"><pre><span></span><span class="nv">sudo</span> <span class="nv">su</span> <span class="o">-</span><span class="nv">c</span> <span class="s2">&quot;</span><span class="s">ls  /var/lib/docker/containers/ | xargs -n1 | while read docker_id; do truncate -s 0 /var/lib/docker/containers/${docker_id%/*}/${docker_id%/*}-json.log; done</span><span class="s2">&quot;</span>
+</pre></div>
+
+
+<h3 id="eliminar-logs-dentro-de-andino">Eliminar logs dentro de Andino</h3>
+<div class="codehilite"><pre><span></span><span class="nv">docker</span><span class="o">-</span><span class="nv">compose</span> <span class="o">-</span><span class="nv">f</span> <span class="nv">latest</span>.<span class="nv">yml</span> <span class="k">exec</span> <span class="nv">portal</span> <span class="nv">truncate</span> <span class="o">-</span><span class="nv">s</span> <span class="mi">0</span> <span class="o">/</span><span class="nv">var</span><span class="o">/</span><span class="nv">log</span><span class="o">/</span><span class="nv">apache2</span><span class="cm">/*.log</span>
+</pre></div>
+
+
+<p>Ver <a href="#utilizacion-del-archivo-latest.yml-en-los-comandos-de-docker-compose">la sección sobre la utilización del archivo latest.yml en los comandos de docker-compose</a>.</p>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../migration/" title="Migracion" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Anterior
+                </span>
+                Migracion
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../https/" title="Configuración HTTPS" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Siguiente
+                </span>
+                Configuración HTTPS
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/application.c648116f.js"></script>
+      
+        
+        
+          
+          <script src="../../assets/javascripts/lunr/lunr.stemmer.support.js"></script>
+          
+            
+              
+              
+                <script src="../../assets/javascripts/lunr/lunr.es.js"></script>
+              
+            
+          
+          
+        
+      
+      <script>app.initialize({version:"1.0.4",url:{base:"../.."}})</script>
+      
+    
+  </body>
+</html>

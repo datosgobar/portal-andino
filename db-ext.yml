@@ -1,0 +1,70 @@
+version: '3.3'
+
+services:
+  nginx:
+    container_name: andino-nginx
+    image: datosgobar/portal-base-nginx:release-0.10.26
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - portal
+    networks:
+      portal-network:
+        aliases:
+          - "192.168.0.9"
+    environment:
+      - NGINX_CONFIG_FILE
+      - NGINX_EXTENDED_CACHE
+      - NGINX_CACHE_MAX_SIZE
+      - NGINX_CACHE_INACTIVE
+      - NGINX_HOST_SSL_PORT
+      - FILE_SIZE_LIMIT
+      - SITE_HOST=192.168.0.9
+  portal:
+    container_name: andino
+    image: "datosgcba/portal-badata:release-2.6.3-db-ext"
+    restart: always
+    ports:
+      - "8800:8800"
+    depends_on:
+      - solr
+      - redis
+      - postfix
+    networks:
+      - portal-network
+    environment:
+      - TZ
+    volumes:
+      - postfix_log:/var/log/shared/postfix
+  redis:
+    container_name: andino-redis
+    image: redis:3.2.7-alpine
+    restart: always
+    networks:
+      - portal-network
+  solr:
+    container_name: andino-solr
+    image: datosgobar/portal-base-solr:release-0.9.0
+    restart: always
+    networks:
+      - portal-network
+  postfix:
+    container_name: andino-postfix
+    image: catatnight/postfix
+    restart: always
+    environment:
+      - smtp_user=portal:portal
+      - maildomain
+    ports:
+      - "25:25"
+    networks:
+      - portal-network
+    volumes:
+      - postfix_log:/var/log
+volumes:
+  postfix_log:
+
+networks:
+  portal-network:

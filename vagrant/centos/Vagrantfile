@@ -1,0 +1,115 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+VAGRANTFILE_API_VERSION = "2"
+
+BRANCH = ENV['BRANCH'] || 'master'
+ANDINO_VERSION = ENV['ANDINO_VERSION'] || 'latest'
+
+CACHE_IP = "192.168.23.11"
+
+LC_ALL="C"
+
+DOCKER_VERSION = "17.12.1.ce-1.el7.centos"
+COMPOSE_VERSION = "1.21.0"
+
+
+$install_dependencies = <<SCRIPT
+sudo yum -y update
+sudo yum -y install \
+    git \
+    yum-utils \
+    device-mapper-persistent-data \
+    lvm2 \
+    epel-release
+sudo yum -y install python-pip
+
+sudo yum install -y yum-utils device-mapper-persistent-data lvm2
+sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+yum-config-manager --enable rhel-7-server-extras-rpms
+sudo yum install -y docker-ce-#{DOCKER_VERSION} docker-ce-cli-#{DOCKER_VERSION} containerd.io
+sudo systemctl enable docker && sudo systemctl start docker
+
+sudo su -c "curl -L https://github.com/docker/compose/releases/download/#{COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose"
+sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose || true
+sudo chmod +x /usr/local/bin/docker-compose
+
+sudo mkdir -p /tmp/ssl
+sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -subj '/CN=localhost/O=My Company Name LTD./C=AR' -keyout /tmp/ssl/andino.key -out /tmp/ssl/andino.crt
+SCRIPT
+
+$clear_port_25 = <<SCRIPT
+master_pid=$(echo $(ps -ef | awk '/[m]aster/{print $2}'))
+sudo kill -9 $master_pid
+SCRIPT
+
+$pip_installs = <<SCRIPT
+sudo pip install requests nose==1.3.7
+SCRIPT
+
+$install = <<SCRIPT
+sudo -E python ./install.py --error_email admin@example.com \
+            --site_host localhost \
+            --database_user db_user \
+            --database_password db_pass \
+            --datastore_user data_db_user \
+            --datastore_password data_db_pass \
+            --branch #{BRANCH} \
+            --andino_version #{ANDINO_VERSION} \
+            --nginx-cache-max-size 2g \
+            --nginx-cache-inactive 120m \
+            --timezone America/Argentina/Cordoba
+SCRIPT
+
+$update = <<SCRIPT
+sudo -E python ./update.py --branch #{BRANCH} \
+            --andino_version #{ANDINO_VERSION} \
+            --ssl_key_path="/tmp/ssl/andino.key" \
+            --ssl_crt_path="/tmp/ssl/andino.crt" \
+            --nginx_ssl \
+            --nginx_ssl_port="7777" \
+            --nginx-extended-cache \
+            --file_size_limit=1024
+SCRIPT
+
+$clone = <<SCRIPT
+sudo git clone https://github.com/datosgobar/portal-andino
+SCRIPT
+
+$run_tests_for_base_config = <<SCRIPT
+sudo nosetests portal-andino/tests/tests_portal_with_base_config.py
+SCRIPT
+
+$branch_checkout = <<SCRIPT
+cd portal-andino && sudo git checkout #{BRANCH} && cd -
+SCRIPT
+
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+
+  config.ssh.forward_agent = true
+  config.ssh.insert_key = false
+
+  config.vm.box = "centos/7"
+  config.vm.define "andino_centos" do |web|
+    web.vm.network "forwarded_port", guest:80, host:8880
+    web.vm.network "forwarded_port", guest:7777, host:7777
+    web.ssh.forward_agent = true
+    web.ssh.insert_key = false
+    config.vm.provision "file", source: "../../install/install.py", destination: "install.py"
+    config.vm.provision "file", source: "../../install/update.py", destination: "update.py"
+    config.vm.provision "file", source: "../../install/installation_manager.py", destination: "installation_manager.py"
+
+    config.vm.provision "shell", inline: $install_dependencies
+    config.vm.provision "shell", inline: $clear_port_25
+    config.vm.provision "shell", inline: $clone
+    config.vm.provision "shell", inline: $pip_installs
+
+    config.vm.provision "shell", inline: $branch_checkout
+    config.vm.provision "shell", inline: $install
+    config.vm.provision "shell", inline: $run_tests_for_base_config
+
+    config.vm.provision "shell", inline: $update
+  end
+
+end

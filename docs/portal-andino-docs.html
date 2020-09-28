@@ -1,0 +1,5656 @@
+
+        <link rel="stylesheet" href="pdf.css" type="text/css"/>
+        <h1 id="portal-andino">
+ Portal Andino
+</h1>
+<!-- [![Build Status](https://travis-ci.org/datosgobar/portal-andino.svg?branch=master)](https://travis-ci.org/datosgobar/portal-andino)
+[![Docs Status](https://datosgobar.github.io/portal-andino/)](https://datosgobar.github.io/portal-andino/)
+[![GitHub version](https://badge.fury.io/gh/datosgobar%2Fportal-andino.svg)](https://badge.fury.io/gh/datosgobar%2Fportal-andino)
+ -->
+<p>
+ <strong>
+  Versión
+ </strong>
+ : 2.5.4
+</p>
+<p>
+ <strong>
+  Portal Andino
+ </strong>
+ es un desarrollo de la Administración Pública Nacional basado en
+ <a href="https://ckan.org/">
+  CKAN
+ </a>
+ . Es la tecnología detrás del
+ <a href="https://datos.gob.ar/">
+  Portal Nacional de Datos Abiertos
+ </a>
+ y de otros portales de datos abiertos de organismos de la APN, provincias y municipios.
+</p>
+<ul>
+ <li>
+  <a href="#comienzo-rapido">
+   Comienzo rápido
+  </a>
+  <!-- - <a href="usage.md">Manual de uso</a> -->
+ </li>
+ <li>
+  Desarrolladores
+  <ul>
+   <li>
+    <a href="#instalacion">
+     Instalación
+    </a>
+   </li>
+   <li>
+    <a href="#actualizacion">
+     Actualización
+    </a>
+   </li>
+   <li>
+    <a href="#checklist-para-la-puesta-en-produccion">
+     Checklist para la puesta en producción
+    </a>
+   </li>
+   <li>
+    <a href="#migracion">
+     Migración
+    </a>
+   </li>
+   <li>
+    <a href="#mantenimiento">
+     Mantenimiento
+    </a>
+   </li>
+   <li>
+    <a href="#configuracion-https">
+     Configuración HTTPS
+    </a>
+   </li>
+   <li>
+    <a href="#configuracion-de-dns">
+     Configuración de DNS
+    </a>
+   </li>
+   <li>
+    <a href="#desarrollo">
+     Desarrollo
+    </a>
+   </li>
+   <li>
+    <a href="#tests">
+     Tests
+    </a>
+    <!-- - <a href="history.md">Historial de versiones</a> -->
+   </li>
+  </ul>
+ </li>
+</ul>
+<h1 id="comienzo-rapido">
+ Comienzo rápido
+</h1>
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+<h2 id="indice">
+ Indice
+</h2>
+<ul>
+ <li>
+  <a href="#primeros-pasos">
+   Primeros pasos
+  </a>
+ </li>
+ <li>
+  <a href="#entrar-y-salir-de-tu-portal">
+   Entrar y salir de tu portal
+  </a>
+ </li>
+ <li>
+  <a href="#permisos-de-usuario">
+   Permisos de usuario
+  </a>
+ </li>
+ <li>
+  <a href="#elementos-de-tu-portal">
+   Elementos de tu portal
+  </a>
+ </li>
+ <li>
+  <a href="#organizaciones">
+   Organizaciones
+  </a>
+ </li>
+ <li>
+  <a href="#seccion-organizaciones-con-datos">
+   Sección Organizaciones con datos
+  </a>
+ </li>
+ <li>
+  <a href="#seccion-acerca">
+   Sección Acerca
+  </a>
+  <ul>
+   <li>
+    <a href="#tipos-de-acerca">
+     Tipos de Acerca
+    </a>
+   </li>
+   <li>
+    <a href="#como-elijo-el-tipo-de-acerca">
+     ¿Cómo elijo el tipo de Acerca?
+    </a>
+   </li>
+   <li>
+    <a href="#como-puedo-escribir-y-mostrar-informaci%C3%B3n-basica">
+     ¿Cómo puedo escribir y mostrar información básica?
+    </a>
+   </li>
+   <li>
+    <a href="#como-puedo-crear-y-mostrar-mis-secciones-personalizadas">
+     ¿Cómo puedo crear y mostrar mis secciones personalizadas?
+    </a>
+   </li>
+   <li>
+    <a href="#donde-a%C3%B1ado-los-archivos-requeridos-para-las-secciones">
+     ¿Dónde añado los archivos requeridos para las secciones?
+    </a>
+   </li>
+   <li>
+    <a href="#donde-y-c%C3%B3mo-puedo-guardar-imagenes-para-mostrarlas-en-mis-secciones-%C2%BFc%C3%B3mo-las-muestro-en-mis-templates">
+     ¿Dónde y cómo puedo guardar imágenes para mostrarlas en mis secciones? ¿Cómo las muestro en mis templates?
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li>
+  <a href="#temas">
+   Temas
+  </a>
+ </li>
+ <li>
+  <a href="#datasets">
+   Datasets
+  </a>
+ </li>
+ <li>
+  <a href="#recursos">
+   Recursos
+  </a>
+  <ul>
+   <li>
+    <a href="#donde-los-veo-en-el-portal">
+     ¿Dónde los veo en el portal?
+    </a>
+   </li>
+   <li>
+    <a href="#buenas-practicas-al-crear-recursos">
+     Buenas prácticas al crear recursos
+    </a>
+   </li>
+   <li>
+    <a href="#como-los-creo">
+     ¿Cómo los creo?
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li>
+  <a href="#campos-de-un-recurso">
+   Campos de un recurso
+  </a>
+  <ul>
+   <li>
+    <a href="#donde-los-veo-en-el-portal-1">
+     ¿Dónde los veo en el portal?
+    </a>
+   </li>
+   <li>
+    <a href="#buenas-practicas-al-cargar-campos-de-un-recurso">
+     Buenas prácticas al cargar campos de un recurso
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li>
+  <a href="#series-de-tiempo">
+   Series de tiempo
+  </a>
+  <ul>
+   <li>
+    <a href="#como-documento-una-serie-de-tiempo">
+     ¿Cómo documento una serie de tiempo?
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li>
+  <a href="#etiquetas">
+   Etiquetas
+  </a>
+ </li>
+ <li>
+  <a href="#personalizar-el-portal">
+   Personalizar el portal
+  </a>
+ </li>
+ <li>
+  <a href="#integrar-andino-con-google-analytics">
+   Integrar Andino con Google Analytics
+  </a>
+ </li>
+ <li>
+  <a href="#consultas-sobre-andino">
+   Consultas sobre Andino
+  </a>
+ </li>
+ <li>
+  <a href="#otros-contenidos-utiles">
+   Otros contenidos útiles
+  </a>
+ </li>
+</ul>
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+<h2 id="primeros-pasos">
+ Primeros pasos
+</h2>
+<p>
+ <strong>
+  ¡Un aplauso, ya estás abriendo tus datos!
+ </strong>
+</p>
+<p>
+ Esta guía te ayudará a:
+</p>
+<ul>
+ <li>
+  Conocer los elementos del catálogo e identificar dónde se ven en el portal.
+ </li>
+ <li>
+  Personalizar el portal.
+ </li>
+ <li>
+  Crear datasets, recursos, organizaciones y temas.
+ </li>
+ <li>
+  Asignar permisos de usuarios.
+ </li>
+ <li>
+  Integrar con Google Analytics.
+ </li>
+</ul>
+<p align="center">
+ ¡Arranquemos!
+</p>
+<hr/>
+<h2 id="entrar-y-salir-de-tu-portal">
+ Entrar y salir de tu portal
+</h2>
+<p>
+ <strong>
+  Cada vez que quieras entrar al portal, podrás hacerlo desde http://
+  <em>
+   tu-url.com
+  </em>
+  /ingresar
+ </strong>
+ .
+</p>
+<p>
+ <center>
+  <img alt="alt text" src="assets/portal-andino-login.png" title="login"/>
+ </center>
+</p>
+<hr/>
+<h2 id="permisos-de-usuario">
+ Permisos de usuario
+</h2>
+<p>
+ Desde agosto de 2017, en Andino
+ <strong>
+  hay dos tipos de usuarios: los administradores y los colaboradores
+ </strong>
+ . El primer usuario administrador siempre es creado por el técnico en sistemas que instaló Andino.
+</p>
+<p>
+ <strong>
+  Los administradores de Andino pueden invitar a más personas a colaborar
+ </strong>
+ en la apertura de datos,
+ <strong>
+  eligiendo el tipo que quieren asignar
+ </strong>
+ :
+</p>
+<ul>
+ <li>
+  <strong>
+   Administrador
+  </strong>
+  : podrá crear usuarios, editar la configuración general del portal; crear, actualizar y borrar todos los datasets; y gestionar temas y organizaciones.
+ </li>
+ <li>
+  <strong>
+   Colaborador
+  </strong>
+  : podrá crear, actualizar y borrar datasets sólo de las organizaciones que tenga asignadas (por eso es importante que primero crees en tu Andino las organizaciones en las que necesitás colaboradores).
+ </li>
+</ul>
+<p>
+ <strong>
+  Asigná permisos desde Mi cuenta &gt; Crear usuarios
+ </strong>
+ .
+</p>
+<p>
+ <center>
+  <img alt="alt text" src="assets/portal-andino-user.png" title="user"/>
+ </center>
+</p>
+<hr/>
+<h2 id="elementos-de-tu-portal">
+ Elementos de tu portal
+</h2>
+<h3 id="organizaciones">
+ Organizaciones
+</h3>
+<p>
+ Son los organismos que abren o mantienen cada dataset.
+ <strong>
+  Es muy importante que crees las organizaciones antes de que generes un dataset
+ </strong>
+ que esté asociado a ella.
+</p>
+<h5 id="donde-lo-veo-en-el-portal">
+ ¿Dónde lo veo en el portal?
+</h5>
+<ul>
+ <li>
+  Como uno de los filtros de la vista de Datasets.
+ </li>
+ <li>
+  Como número agregado, en la Página principal de tu portal, en caso de que hayas elegido la vista que muestra el número de Organizaciones con datos.
+ </li>
+</ul>
+<p>
+ <center>
+  <img alt="alt text" src="assets/portal-andino-comoveo-org.png" title="comoveo-org"/>
+ </center>
+</p>
+<h5 id="buenas-practicas-al-crear-organizaciones-con-datos">
+ Buenas prácticas al crear Organizaciones con datos
+</h5>
+<p>
+ Tené en cuenta que
+ <strong>
+  siempre que borres una organización, todos los conjuntos de datos (y también los recursos), se borrarán
+ </strong>
+ definitivamente.
+</p>
+<h5 id="como-los-creo">
+ ¿Cómo los creo?
+</h5>
+<p>
+ Andá a
+ <strong>
+  Página principal &gt; Crear Organizaciones
+ </strong>
+ .
+</p>
+<p>
+ <center>
+  <img alt="alt text" src="assets/portal-andino-crear-org.png" title="crear-org"/>
+ </center>
+</p>
+<p>
+ En caso de que hayas elegido que tu portal tenga una sección de Organizaciones con datos, también se mostrarán allí.
+</p>
+<p>
+ <center>
+  <img alt="alt text" src="assets/portal-andino-sec-org.png" title="sec-org"/>
+ </center>
+</p>
+<hr/>
+<h3 id="seccion-organizaciones-con-datos">
+ Sección Organizaciones con datos
+</h3>
+<p>
+ <strong>
+  Esta sección es opcional
+ </strong>
+ . Te permite armar un árbol de jerarquías con las organizaciones que abrieron datos en tu portal. Los organismos que se muestran en esta parte de tu portal son los mismos que asignás a los datasets y que creás antes de generar estos últimos.
+</p>
+<h5 id="donde-lo-veo-en-el-portal">
+ ¿Dónde lo veo en el portal?
+</h5>
+<p>
+ En Página principal &gt;
+ <strong>
+  Organizaciones con datos
+ </strong>
+ .
+</p>
+<h5 id="buenas-practicas-al-crear-la-seccion-organizaciones-con-datos">
+ Buenas prácticas al crear la sección Organizaciones con datos
+</h5>
+<p>
+ Es importante que tengas bien en claro qué organizaciones dependenden de otras, para que el árbol de jerarquías represente bien las correspondencias.
+</p>
+<h5 id="como-las-creo">
+ ¿Cómo las creo?
+</h5>
+<p>
+ Como la sección Organizaciones con datos es opcional, podés elegir que se vea en tu portal. Para eso,
+ <strong>
+  andá a Configuraciones &gt; Organizaciones con datos
+ </strong>
+ y tildá la habilitación.
+</p>
+<p>
+ <center>
+  <img alt="alt text" src="assets/portal-andino-sec-org-02.png" title="sec-op-org"/>
+ </center>
+</p>
+<hr/>
+<h3 id="seccion-acerca">
+ Sección Acerca
+</h3>
+<p>
+ <strong>
+  Esta sección es opcional
+ </strong>
+ . Te permite darle la oportunidad a los usuarios que naveguen tu portal de leer información del mismo para un mejor entendimiento.
+</p>
+<h4 id="tipos-de-acerca">
+ Tipos de Acerca
+</h4>
+<p>
+ Existen tres tipos diferentes que vas a poder elegir:
+</p>
+<ul>
+ <li>
+  <strong>
+   Sin sección de acerca
+  </strong>
+  : para cuando se decida no mostrar información.
+ </li>
+ <li>
+  <strong>
+   Sección con información básica
+  </strong>
+  : existirá un botón que lleve al usuario a una página donde encontrará información básica sobre el portal (un título y una descripción). Estará ubicado en Página Principal &gt;
+  <strong>
+   Acerca
+  </strong>
+  .
+ </li>
+ <li>
+  <strong>
+   Secciones personalizadas
+  </strong>
+  : se crearán varias secciones personalizadas que vas a poder modificar a gusto. El botón Acerca ahora desplegará un menú que contendrá todas y cada una de las secciones que hayas añadido al portal. Para cada sección, se necesitará un archivo (de formato .html) con el contenido que quieras mostrar.
+ </li>
+</ul>
+<h4 id="como-elijo-el-tipo-de-acerca">
+ ¿Cómo elijo el tipo de Acerca?
+</h4>
+<p>
+ Andá a Página Principal &gt; Usuario &gt; Configuración &gt;
+ <strong>
+  Otras secciones del portal &gt; Acerca (opcional)
+ </strong>
+</p>
+<p>
+ <center>
+  <img alt="alt text" src="assets/portal-andino-sec-acerca.png" title="sec-acerca"/>
+ </center>
+</p>
+<p>
+ <center>
+  <img alt="alt text" src="assets/portal-andino-sec-acerca-02.png" title="sec-acerca-02"/>
+ </center>
+</p>
+<h4 id="como-puedo-escribir-y-mostrar-informacion-basica">
+ ¿Cómo puedo escribir y mostrar información básica?
+</h4>
+<p>
+ Habiendo elegido la
+ <strong>
+  segunda opción
+ </strong>
+ , podés modificar el título y la descripción.
+</p>
+<p>
+ <center>
+  <img alt="alt text" src="assets/portal-andino-sec-acerca-03.png" title="sec-acerca-03"/>
+ </center>
+</p>
+<h4 id="como-puedo-crear-y-mostrar-mis-secciones-personalizadas">
+ ¿Cómo puedo crear y mostrar mis secciones personalizadas?
+</h4>
+<p>
+ Habiendo elegido la
+ <strong>
+  tercera opción
+ </strong>
+ , podrás ir creando tus secciones escribiendo un título y un nombre de archivo. Recordá que, para cada sección, será necesario guardar un archivo (de formato .html) para que el portal pueda mostrar su contenido.
+</p>
+<p>
+ <center>
+  <img alt="alt text" src="assets/portal-andino-sec-acerca-04.png" title="sec-acerca-04"/>
+ </center>
+</p>
+<h4 id="donde-anado-los-archivos-requeridos-para-las-secciones">
+ ¿Dónde añado los archivos requeridos para las secciones?
+</h4>
+<p>
+ Dentro del container, dichos archivos deben ser guardados en el directorio
+ <strong>
+  /var/lib/ckan/theme_config/templates/
+ </strong>
+ .
+</p>
+<p>
+ De no existir la carpeta
+ <strong>
+  /templates
+ </strong>
+ , se deberá crearla utilizando dos comandos:
+</p>
+<ul>
+ <li>
+  mkdir /var/lib/ckan/theme_config/templates
+ </li>
+ <li>
+  chown www-data:www-data /var/lib/ckan/theme_config/templates/
+ </li>
+</ul>
+<p>
+ (www-data es el usuario con el que se corre el proceso apache en el sistema operativo
+ <strong>
+  Ubuntu
+ </strong>
+ )
+</p>
+<p>
+ Dentro de cada archivo deberá estar el contenido de su sección correspondiente. Por favor,
+ <strong>
+  no te olvides
+ </strong>
+ de que el nombre del archivo
+ <strong>
+  debe coincidir
+ </strong>
+ con lo escrito en el campo 'Nombre del archivo' de la sección.
+</p>
+<h4 id="donde-y-como-puedo-guardar-imagenes-para-mostrarlas-en-mis-secciones-como-las-muestro-en-mis-templates">
+ ¿Dónde y cómo puedo guardar imágenes para mostrarlas en mis secciones? ¿Cómo las muestro en mis templates?
+</h4>
+<p>
+ Dentro del container, las imágenes deben ser guardadas en una carpeta llamada "user_images".
+</p>
+<p>
+ Para poder copiar y pegar una imagen en dicha carpeta existe un comando que podés usar, pero primero tenés que hacer tres cosas:
+</p>
+<ul>
+ <li>
+  Dentro del contenedor, ejecutar este comando:
+ </li>
+</ul>
+<div class="codehilite">
+ <pre><span></span>chown www-data:www-data /usr/lib/ckan/default/src/ckanext-gobar-theme/ckanext/gobar_theme/public/user_images/
+</pre>
+</div>
+<ul>
+ <li>
+  En caso de que hayas cambiado manualmente el puerto del contenedor, saber cuál es (el default es 8080)
+ </li>
+ <li>
+  Tener preparado el nombre del contenedor (ya que queremos decirle al comando en qué lugar vamos a guardar la imagen)
+ </li>
+</ul>
+<p>
+ El nombre del contenedor se consigue escribiendo en una terminal dentro del host:
+</p>
+<div class="codehilite">
+ <pre><span></span>sudo docker-compose -f latest.yml ps |grep &lt;puerto del container&gt;
+</pre>
+</div>
+<p>
+ Sólo nos queda guardar la imagen:
+</p>
+<div class="codehilite">
+ <pre><span></span>docker cp &lt;nombre de la imagen&gt; &lt;nombre del contendor portal&gt;:/usr/lib/ckan/default/src/ckanext-gobar-theme/ckanext/gobar_theme/public/user_images/
+</pre>
+</div>
+<p>
+ Supongamos que guardaste una imagen llamada 'mi_imagen.png'; para poder utilizarla, podés escribir dentro de tu template esta línea (completa):
+</p>
+<div class="codehilite">
+ <pre><span></span>&lt;img src="/user_images/mi_imagen.png"&gt;
+</pre>
+</div>
+<hr/>
+<h3 id="temas">
+ Temas
+</h3>
+<p>
+ Son las categorías en las que se pueden clasificar todos los datasets de tu portal. Hay dos taxonomías de temas:
+</p>
+<ul>
+ <li>
+  <strong>
+   Temas globales
+  </strong>
+  , que ya vienen con Andino, y que necesitás elegir para cada dataset. Estos temas no se ven en tu portal, pero es necesario que lo elijas para que el portal nacional datos.gob.ar pueda republicar el dataset según esta clasificación. Por ejemplo: "Economía y finanzas".
+ </li>
+ <li>
+  <strong>
+   Temas específicos
+  </strong>
+  , que son opcionales, pero que te recomendamos con énfasis que agregues a todos tus conjuntos de datos porque son los temas que van a ver tus usuarios. Por ejemplo, si el tema global era "Economía y finanzas", un tema específico podría ser "Compras".
+ </li>
+</ul>
+<h5 id="donde-lo-veo-en-el-portal">
+ ¿Dónde lo veo en el portal?
+</h5>
+<ul>
+ <li>
+  En la Página principal de tu catálogo de datos.
+ </li>
+ <li>
+  También como detalle de cada dataset específico.
+ </li>
+</ul>
+<p>
+ <center>
+  <img alt="alt text" src="assets/portal-andino-sec-temas.png" title="sec-temas"/>
+ </center>
+</p>
+<h5 id="buenas-practicas-al-crear-temas-especificos">
+ Buenas prácticas al crear Temas específicos
+</h5>
+<ul>
+ <li>
+  Intentá crear los temas específicos a conciencia para poder reutilizarlos a futuro.
+ </li>
+ <li>
+  No crees un tema específico por cada dataset.
+ </li>
+ <li>
+  Asegurate de que cada tema específico sea un aparte más pequeña dentro de los Temas globales.
+ </li>
+</ul>
+<h5 id="como-los-creo">
+ ¿Cómo los creo?
+</h5>
+<p>
+ <strong>
+  Andá a Página principal &gt; Crear tema
+ </strong>
+ .
+</p>
+<p>
+ <center>
+  <img alt="alt text" src="assets/portal-andino-sec-temas-03.png" title="sec-temas-03"/>
+ </center>
+</p>
+<h5 id="como-los-asigno">
+ ¿Cómo los asigno?
+</h5>
+<p>
+ <strong>
+  Cada vez que generes un nuevo dataset
+ </strong>
+ , el formulario te pedirá que asignes temas. Recordá siempre reutilizar los que ya hayas creado y no repetirlos.
+</p>
+<p>
+ <center>
+  <img alt="alt text" src="assets/portal-andino-form-temas.png" title="form-temas"/>
+ </center>
+</p>
+<hr/>
+<h3 id="datasets">
+ Datasets
+</h3>
+<p>
+ También los llamamos "conjuntos de datos". Son la pieza principal de tu portal o catálogo de datos. Cada dataset está formado por uno o más recursos.
+</p>
+<h5 id="donde-los-veo-en-el-portal">
+ ¿Dónde los veo en el portal?
+</h5>
+<p>
+ Todos los datasets que subas al portal se verán
+ <strong>
+  en la sección Datasets
+ </strong>
+ . Además,
+ <strong>
+  podrás destacar
+ </strong>
+ los que creas más importantes en la Página principal.
+</p>
+<p>
+ <center>
+  <img alt="alt text" src="assets/portal-andino-sec-temas-02.png" title="sec-temas-2"/>
+ </center>
+</p>
+<h5 id="buenas-practicas-al-crear-datasets">
+ Buenas prácticas al crear datasets
+</h5>
+<ul>
+ <li>
+  <strong>
+   Títulos de los datasets
+  </strong>
+  : es el primer vistazo que los usuarios tendrán sobre su contenido. Por eso, intentá no superar los 100 caracteres. Prestá especial atención a las mayúsculas. Sólo los sustantivos propios las necesitan.
+ </li>
+ <li>
+  <strong>
+   Descripción de los datasets
+  </strong>
+  : es el detalle que le contás a los usuarios. Por esa razón, es importante que trates de dar una explicación general de los datos con los que se va a encontrar. Intentá no superar los 500 caracteres.
+ </li>
+</ul>
+<h5 id="como-los-creo">
+ ¿Cómo los creo?
+</h5>
+<p>
+ Ingresá a tu cuenta y andá a
+ <strong>
+  Página principal &gt; Crear dataset
+ </strong>
+ .
+</p>
+<p>
+ <center>
+  <img alt="alt text" src="assets/portal-andino-crear-dataset.png" title="crear-dat"/>
+ </center>
+</p>
+<p>
+ <strong>
+  Siempre podrás editar los dataset
+ </strong>
+ que hayas creado. Para eso, ingresá a tu cuenta &gt; Página principal &gt; Datasets &gt;
+ <strong>
+  Editar dataset
+ </strong>
+ .
+</p>
+<hr/>
+<h3 id="recursos">
+ Recursos
+</h3>
+<p>
+ Cada dataset está formado por, al menos, un recurso. Por eso decimos que los recursos son la pieza de información más pequeña del catálogo y los verdaderos activos de datos del portal.
+</p>
+<h4 id="donde-los-veo-en-el-portal">
+ ¿Dónde los veo en el portal?
+</h4>
+<p>
+ Página principal &gt; Datasets &gt; Clic en el recurso específico.
+</p>
+<h4 id="buenas-practicas-al-crear-recursos">
+ Buenas prácticas al crear recursos
+</h4>
+<p>
+ Seguí los mismos criterios de escritura que con los datasets.
+</p>
+<ul>
+ <li>
+  <strong>
+   Títulos de los recursos
+  </strong>
+  : intentá no superar los 150 caracteres.
+ </li>
+ <li>
+  <strong>
+   Descripción de los recursos
+  </strong>
+  : intentá no superar los 200 caracteres.
+ </li>
+</ul>
+<h4 id="como-los-creo">
+ ¿Cómo los creo?
+</h4>
+<p>
+ Ingresá a tu cuenta y andá a Página principal &gt; Crear dataset. Una vez que completes el dataset, podrás agregar recursos.
+</p>
+<p>
+ <center>
+  <img alt="alt text" src="assets/portal-andino-asig-recurso.png" title="crear-recurso"/>
+ </center>
+</p>
+<p>
+ Al igual que con los datasets, siempre podrás editar los recursos que hayas creado. Para eso, ingresá a tu cuenta &gt; Página principal &gt; Datasets &gt; Editar dataset &gt; Editar recursos.
+</p>
+<hr/>
+<h3 id="campos-de-un-recurso">
+ Campos de un recurso
+</h3>
+<p>
+ Los recursos pueden tener mucha información y ser difíciles de comprender. Para ayudar a los usuarios que ven nuestros recursos, Andino permite documentar qué contiene cada campo.
+</p>
+<h4 id="donde-los-veo-en-el-portal">
+ ¿Dónde los veo en el portal?
+</h4>
+<p>
+ Los recursos que tengan información sobre sus campos se visualizarán en la vista de un recurso.
+</p>
+<p>
+ <center>
+  <img alt="alt text" src="assets/portal-andino-metadatos.jpg" title="metadatos"/>
+ </center>
+</p>
+<h4 id="buenas-practicas-al-cargar-campos-de-un-recurso">
+ Buenas prácticas al cargar campos de un recurso
+</h4>
+<p>
+ Puede ser de mucha ayuda para los usuarios que siempre cargues al menos los siguientes campos:
+- Título de la columna
+- Tipo de dato
+- Descripción
+</p>
+<p>
+ También podés usar estos campos para documentar aspectos más avanzados de las columnas de un recurso:
+- Unidad de medida
+- Identificador
+- Tipo de dato especial
+- Detalle de tipo especial
+</p>
+<hr/>
+<h3 id="series-de-tiempo">
+ Series de tiempo
+</h3>
+<p>
+ Andino permite documentar recursos que publican
+ <strong>
+  series de tiempo
+ </strong>
+ . Un recurso con series de tiempo es un
+ <a href="https://datosgobar.github.io/paquete-apertura-datos/guia-metadatos/#series-de-tiempo">
+  archivo CSV de determinada estructura
+ </a>
+ .
+</p>
+<h4 id="como-documento-una-serie-de-tiempo">
+ ¿Cómo documento una serie de tiempo?
+</h4>
+<p>
+ En el formulario de carga de un recurso vas a encontrar campos avanzados y especiales que necesitás usar para documentar las columnas de una tabla que contiene series de tiempo.
+</p>
+<p>
+ Los campos
+ <strong>
+  Tipo de dato especial
+ </strong>
+ y
+ <strong>
+  Detalle de tipo especial
+ </strong>
+ te permiten marcar la columna del índice de tiempo y qué frecuencia tiene.
+</p>
+<ul>
+ <li>
+  <strong>
+   Tipo de dato especial
+  </strong>
+  : marcar la columna que tiene las fechas como "Indice de tiempo".
+ </li>
+ <li>
+  <strong>
+   Detalle de tipo de dato especial
+  </strong>
+  : especificar la frecuencia del índice (anual, diaria, mensual, etc).
+ </li>
+</ul>
+<p>
+ <center>
+  <img alt="alt text" src="assets/portal-andino-campos-especiales.jpg" title="campos-especiales"/>
+ </center>
+</p>
+<p>
+ Los campos
+ <strong>
+  Unidad de medida
+ </strong>
+ e
+ <strong>
+  Identificador
+ </strong>
+ te permiten documentar cada una de las columnas, que son tus series de tiempo.
+</p>
+<ul>
+ <li>
+  <strong>
+   Unidad de medida
+  </strong>
+  : es la unidad de medida en que está expresada la serie ("Millones de pesos corrientes", "Kilómetros", "Millones de dólares americanos")
+ </li>
+ <li>
+  <strong>
+   Identificador
+  </strong>
+  : es un identificador único de la serie para toda la APN. Debe ser inmutable en el tiempo para la serie, no muy largo (entre 6 y 20 caracteres aproximadamente) y no pisarse potencialmente con otras series de la Administración Pública Nacional.
+ </li>
+</ul>
+<p>
+ <center>
+  <img alt="alt text" src="assets/portal-andino-campos-avanzados.jpg" title="campos-avanzados"/>
+ </center>
+</p>
+<p>
+ Para conocer más sobre series de tiempo mirá la
+ <a href="https://datosgobar.github.io/paquete-apertura-datos/guia-metadatos/#series-de-tiempo">
+  documentación completa
+ </a>
+ en el perfil de metadatos.
+</p>
+<hr/>
+<h3 id="etiquetas">
+ Etiquetas
+</h3>
+<p>
+ Son las palabras que ayudan a los usuarios a filtrar y encontrar los datasets. Cuanto más amplia y uniforme sea la lista de Etiquetas, mayor es su poder de ayuda.
+</p>
+<h5 id="donde-las-veo-en-el-portal">
+ ¿Dónde las veo en el portal?
+</h5>
+<p>
+ En cada dataset específico.
+</p>
+<p>
+ <center>
+  <img alt="alt text" src="assets/portal-andino-dat-tags.png" title="dat-tags"/>
+ </center>
+</p>
+<h5 id="buenas-practicas-al-crear-etiquetas">
+ Buenas prácticas al crear etiquetas
+</h5>
+<ul>
+ <li>
+  Usá mayúsculas sólo donde corresponda.
+ </li>
+ <li>
+  Identificá palabras claves.
+ </li>
+ <li>
+  Respetá las etiquetas anteriores.
+ </li>
+ <li>
+  Agregá sinónimos y usá lenguaje natural.
+ </li>
+ <li>
+  Tratá de usar una sola palabra, siempre en plural.
+ </li>
+ <li>
+  Si la etiqueta tiene más de una palabra, separalas por un espacio. Por ejemplo: "declaraciones juradas".
+ </li>
+</ul>
+<p>
+ Éstas son algunas preguntas útiles a la hora de pensar las etiquetas:
+</p>
+<ul>
+ <li>
+  ¿Cuál es el tema?
+ </li>
+ <li>
+  ¿Qué aspectos serán de interés para los usuarios?
+ </li>
+ <li>
+  ¿De qué otro modo buscaría el usuario esta información?
+ </li>
+ <li>
+  ¿De qué tipo de información se trata?
+ </li>
+ <li>
+  ¿Qué área la provee?
+ </li>
+</ul>
+<h5 id="como-las-creo">
+ ¿Cómo las creo?
+</h5>
+<p>
+ Al igual que con los Temas, cada vez que generes un nuevo dataset, el formulario te pedirá que asignes un etiqueta. Recordá siempre reutilizar las que ya hayas creado y no repetirlas.
+</p>
+<p>
+ <center>
+  <img alt="alt text" src="assets/portal-andino-asig-tags.png" title="crear-etiquetas"/>
+ </center>
+</p>
+<hr/>
+<h3 id="personalizar-el-portal">
+ Personalizar el portal
+</h3>
+<p>
+ Hacer que tu portal represente tu organización es muy fácil. Por favor,
+ <strong>
+  andá a la Página principal &gt; Configuración
+ </strong>
+ . Llegarás a la sección que te permite cambiar cómo luce la portada de tu catálogo de datos y cada sección en particular.
+</p>
+<p>
+ <center>
+  <img alt="alt text" src="assets/portal-andino-sec-config.png" title="sec-config"/>
+ </center>
+</p>
+<hr/>
+<h2 id="integrar-andino-con-google-analytics">
+ Integrar Andino con Google Analytics
+</h2>
+<p>
+ Por favor,
+ <a href="mailto:datos@modernizacion.gob.ar">
+  escribinos
+ </a>
+ y contanos con qué casilla de e-mail querés tener permisos para ver las métricas de tu Andino.
+</p>
+<hr/>
+<h2 id="consultas-sobre-andino">
+ Consultas sobre Andino
+</h2>
+<p>
+ <strong>
+  Andino es un portal abierto en constante desarrollo
+ </strong>
+ para ser usado por toda la comunidad de datos. Por eso, cuando incorporamos una nueva mejora,
+ <strong>
+  cuidamos mucho su compatibilidad con la versión anterior
+ </strong>
+ .
+</p>
+<p>
+ Como la comunidad de datos es grande,
+ <strong>
+  por ahora no podemos dar soporte técnico frente a modificaciones particulares del código
+ </strong>
+ . Sin embargo,
+ <strong>
+  podés contactarnos para despejar dudas
+ </strong>
+ .
+</p>
+<p>
+ Te invitamos a crear issues o enviarnos sugerencias en caso de que encuentren algún
+ <em>
+  bug
+ </em>
+ o
+ <em>
+  tengas feedback
+ </em>
+ . También podés mandarnos tu comentario o consulta a datos@modernizacion.gob.ar
+</p>
+<hr/>
+<h2 id="otros-contenidos-utiles">
+ Otros contenidos útiles
+</h2>
+<ul>
+ <li>
+  <a href="https://datosgobar.github.io/paquete-apertura-datos/guia-metadatos/" target="_blank">
+   Guía para el uso y la publicación de metadatos
+  </a>
+ </li>
+ <li>
+  <a href="https://datosgobar.github.io/paquete-apertura-datos/guia-interoperables/" target="_blank">
+   Guía para la identificación y uso de entidades interoperables
+  </a>
+ </li>
+ <li>
+  <a href="https://datosgobar.github.io/paquete-apertura-datos/guia-abiertos/" target="_blank">
+   Guía para la publicación de datos en formatos abiertos
+  </a>
+ </li>
+</ul>
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+<h2 id="indice">
+ Indice
+</h2>
+<ul>
+ <li>
+  <a href="#instalacion">
+   Instalación
+  </a>
+ </li>
+ <li>
+  <a href="#dependencias">
+   Dependencias
+  </a>
+ </li>
+ <li>
+  <a href="#instalacion-simplificada-de-andino">
+   Instalación simplificada de andino
+  </a>
+ </li>
+ <li>
+  <a href="#instalacion-avanzada-de-andino">
+   Instalación avanzada de andino
+  </a>
+ </li>
+ <li>
+  <a href="#desinstalar-andino">
+   Desinstalar andino
+  </a>
+ </li>
+</ul>
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+<h1 id="instalacion">
+ Instalación
+</h1>
+<p>
+ Teniendo en cuenta la dificultad de implementación e incluso la cantidad de pasos para lograr un deploy existoso, 
+existen dos formas de instalar esta distribución de
+ <strong>
+  CKAN
+ </strong>
+ .
+</p>
+<ul>
+ <li>
+  Si no tenés muchos conocimientos de CKAN, Docker o de administracién de servidores en general, es recomendable 
+usar la instalación
+  <strong>
+   <a href="#instalacion-simplificada-de-andino">
+    simplificada  de Andino
+   </a>
+  </strong>
+  . 
+Está pensada para que, en la menor cantidad de pasos y de manera sencilla, tengas un portal de datos funcionando.
+ </li>
+ <li>
+  Si ya conocés la plataforma, tenés experiencia con Docker o, simplemente, querés entender cómo funciona 
+esta implementación, te sugiero que revises la
+  <strong>
+   <a href="#instalacion-avanzada-de-andino">
+    instalacion avanzada de Andino
+   </a>
+  </strong>
+ </li>
+</ul>
+<h2 id="dependencias">
+ Dependencias
+</h2>
+<ul>
+ <li>
+  DOCKER:
+  <a href="https://docs.docker.com/engine/installation">
+   Guía de instalación
+  </a>
+  .
+ </li>
+ <li>
+  Versión mínima
+  <em>
+   testeada
+  </em>
+  :
+  <code>
+   1.13.1
+  </code>
+ </li>
+ <li>
+  Docker Compose:
+  <a href="https://docs.docker.com/compose/install/">
+   Guía de instalación
+  </a>
+  .
+ </li>
+ <li>
+  Versión mínima
+  <em>
+   testeada
+  </em>
+  :
+  <code>
+   1.12.0
+  </code>
+ </li>
+</ul>
+<h2 id="instalacion-simplificada-de-andino">
+ Instalación simplificada de andino
+</h2>
+<p>
+ La idea detrás de esta implementación de CKAN es
+ <strong>
+  que sólo te encargues de tus datos
+ </strong>
+ , nada más. 
+Por eso, si "copiás y pegás" el comando de consola, en sólo unos momentos, tendrás un Andino listo para usar.
+Esta clase de instalación no requiere que clones el repositorio, ya que usamos contenedores alojados en
+ <a href="https://hub.docker.com/r/datosgobar">
+  DockerHub
+ </a>
+</p>
+<ul>
+ <li>
+  Ubuntu|Debian|RHEL|CentOS:
+ </li>
+ <li>
+  Instalación:
+ </li>
+</ul>
+<p>
+ Para la instalación, usamos un script de python llamado
+ <a href="https://github.com/datosgobar/portal-andino/blob/master/install/install.py">
+  <code>
+   install.py
+  </code>
+ </a>
+ .
+El mismo requiere algunos parámetros específicos, y existen otros que son opcionales:
+</p>
+<div class="codehilite">
+ <pre><span></span><span class="c1"># Parametros de install.py</span>
+    <span class="o">[</span>-h<span class="o">]</span>                    Mostrar la ayuda del script
+    --error_email           Email donde se mandaran los errores del portal de ser necesario
+    --site_host             Dominio o IP del la aplicación *sin el protocolo*
+    --database_user         Nombre del usuario de la base de datos a crear
+    --database_password     Contraseña de la base de datos a crear
+    --datastore_user        Nombre del usuario de la base de datos del datastore a crear
+    --datastore_password    Contraseña de la base de datos del datastore a crear
+    <span class="o">[</span>--nginx-extended-cache<span class="o">]</span>
+        Configura nginx con una configuración extendida y configura el hook de
+        invalidación de cache de Andino para notificar a nginx
+    <span class="o">[</span>--nginx_ssl<span class="o">]</span>
+        Aplica la configuración HTTPS en nginx. Requiere ambos archivos del certificado SSL para poder lograrlo<span class="p">;</span> en 
+        caso contrario, se utilizará la configuración default
+    <span class="o">[</span>--ssl_key_path SSL_KEY_PATH<span class="o">]</span>
+        Path dentro del host donde está ubicado el archivo .key para el certificado SSL<span class="p">;</span> será copiado al contenedor 
+        de nginx si tanto éste como el .crt pueden ser encontrados
+    <span class="o">[</span>--ssl_crt_path SSL_CRT_PATH<span class="o">]</span>
+        Path dentro del host donde está ubicado el archivo .crt para el certificado SSL<span class="p">;</span> será copiado al contenedor 
+        de nginx si tanto éste como el .key pueden ser encontrados
+    <span class="o">[</span>--nginx_port NGINX_PORT<span class="o">]</span>
+        Puerto del servidor <span class="s2">"Host"</span> que se desea que se tome para recibir llamadas HTTP.
+        Por defecto es el <span class="m">80</span>.
+    <span class="o">[</span>--nginx_ssl_port NGINX_SSL_PORT<span class="o">]</span>
+        Puerto del servidor <span class="s2">"Host"</span> que se desea que se tome para recibir llamadas HTTPS.
+        Por defecto es el <span class="m">443</span>.
+        Es importante para los administradores saber que Andino tomará el puerto especificado <span class="o">(</span>o el default<span class="o">)</span> ya sea que el portal use o no use HTTPS. En caso de no querer usar HTTPS y que el host tenga erl puerto <span class="m">443</span> tomado por un servidor web, es requisito especificar un puerto distinto <span class="o">(</span>ejemplo: <span class="m">8443</span><span class="o">)</span> que será reservado por Andino, pero no utilizado.
+    <span class="o">[</span>--datastore_port DATASTORE_PORT<span class="o">]</span>
+        Puerto del servidor <span class="s2">"Host"</span> que se desea que se tome para recibir llamadas HTTP al <span class="s2">"datastore"</span>.
+        Por defecto es el <span class="m">8800</span>.
+    <span class="o">[</span>--install_directory INSTALL_DIRECTORY<span class="o">]</span>
+        Directorio donde se desea instalar la aplicación.
+        Por defecto es <span class="sb">`</span>/etc/portal<span class="sb">`</span> <span class="o">(</span>recomendado<span class="o">)</span>
+</pre>
+</div>
+<p>
+ Para esta instalación de ejemplo, usaremos estos parámetros para la aplicación.
+Para los demás, usaremos los valores por defecto:
+</p>
+<ul>
+ <li>
+  Email donde se mandarán los errores.
+  <code>
+   EMAIL=admin@example.com
+  </code>
+ </li>
+ <li>
+  Dominio o IP de la aplicación
+  <em>
+   sin el protocolo
+  </em>
+  :
+  <code>
+   HOST=datos.gob.ar
+  </code>
+ </li>
+ <li>
+  Usuario de la base de datos:
+  <code>
+   DB_USER=&lt;my db user&gt;
+  </code>
+ </li>
+ <li>
+  Password de la base de datos:
+  <code>
+   DB_PASS=&lt;my db pass&gt;
+  </code>
+ </li>
+ <li>
+  Usuario del datastore:
+  <code>
+   STORE_USER=&lt;my datastore user&gt;
+  </code>
+ </li>
+ <li>
+  Password del datastore:
+  <code>
+   STORE_PASS=&lt;my datastore password&gt;
+  </code>
+ </li>
+</ul>
+<p>
+ NOTA: Si usamos una IP para la variable
+ <code>
+  HOST
+ </code>
+ , el envio de mails no funcionará.
+Postfix require un "fully-qualified domain name (FQDN)". 
+Ver
+ <a href="http://www.postfix.org/postconf.5.html#myhostname">
+  la documentación de Postfix
+ </a>
+ para más detalles.
+</p>
+<p>
+ NOTA 2: Si utilizamos el nombre 'localhost' para la variable
+ <code>
+  HOST
+ </code>
+ , es posible que ocurra un error al intentar subir un 
+archivo perteneciente a un recurso al Datastore:
+ <code>
+  Error: Proceso completo pero no se pudo enviar a result_url.
+ </code>
+</p>
+<div class="codehilite">
+ <pre><span></span><span class="c1"># Primero especificamos los valores necesarios</span>
+
+<span class="nv">EMAIL</span><span class="o">=</span>admin@example.com
+<span class="nv">HOST</span><span class="o">=</span>andino.midominio.com.ar
+<span class="nv">DB_USER</span><span class="o">=</span>my_database_user
+<span class="nv">DB_PASS</span><span class="o">=</span>my_database_pass
+<span class="nv">STORE_USER</span><span class="o">=</span>my_data_user
+<span class="nv">STORE_PASS</span><span class="o">=</span>my_data_pass
+
+wget https://raw.github.com/datosgobar/portal-andino/master/install/install.py
+
+sudo python ./install.py <span class="se">\</span>
+    --error_email <span class="s2">"</span><span class="nv">$EMAIL</span><span class="s2">"</span> <span class="se">\</span>
+    --site_host<span class="o">=</span><span class="s2">"</span><span class="nv">$HOST</span><span class="s2">"</span> <span class="se">\</span>
+    --database_user<span class="o">=</span><span class="s2">"</span><span class="nv">$DB_USER</span><span class="s2">"</span> <span class="se">\</span>
+    --database_password<span class="o">=</span><span class="s2">"</span><span class="nv">$DB_PASS</span><span class="s2">"</span> <span class="se">\</span>
+    --datastore_user<span class="o">=</span><span class="s2">"</span><span class="nv">$STORE_USER</span><span class="s2">"</span> <span class="se">\</span>
+    --datastore_password<span class="o">=</span><span class="s2">"</span><span class="nv">$STORE_PASS</span><span class="s2">"</span>
+</pre>
+</div>
+<h2 id="instalacion-avanzada-de-andino">
+ Instalación avanzada de andino
+</h2>
+<p>
+ La instalación avanzada está pensada para usuarios que quieren ver cómo funciona internamente
+ <code>
+  Andino
+ </code>
+</p>
+<p>
+ Para instalar y ejecutar Andino, seguiremos estos pasos:
+</p>
+<ul>
+ <li>
+  Paso 1: Clonar repositorio.
+ </li>
+</ul>
+<div class="codehilite">
+ <pre><span></span>sudo mkdir /etc/portal
+<span class="nb">cd</span> /etc/portal
+sudo git clone https://github.com/datosgobar/portal-andino.git .
+</pre>
+</div>
+<ul>
+ <li>
+  Paso 2: Especificar las variables de entorno para el contenedor de postgresql.
+ </li>
+</ul>
+<p>
+ NOTA: Debemos usar un dominio válido para la variable
+ <code>
+  DOMINIO
+ </code>
+ , de otra forma el envio de mails no funcionará.
+Postfix require un "fully-qualified domain name (FQDN)". 
+Ver
+ <a href="http://www.postfix.org/postconf.5.html#myhostname">
+  la documentación de Postfix
+ </a>
+ para más detalles.
+</p>
+<div class="codehilite">
+ <pre><span></span><span class="nv">DB_USER</span><span class="o">=</span>&lt;my user&gt;
+<span class="nv">DB_PASS</span><span class="o">=</span>&lt;my pass&gt;
+<span class="nv">DOMINIO</span><span class="o">=</span>andino.midominio.com.ar
+<span class="nv">ANDINO_VERSION</span><span class="o">=</span>&lt;version que deseamos instalar&gt;
+sudo su -c <span class="s2">"echo POSTGRES_USER=</span><span class="nv">$DB_USER</span><span class="s2"> &gt; .env"</span>
+sudo su -c <span class="s2">"echo POSTGRES_PASSWORD=</span><span class="nv">$DB_PASS</span><span class="s2"> &gt;&gt; .env"</span>
+sudo su -c <span class="s2">"echo NGINX_HOST_PORT=80 &gt;&gt; .env"</span>
+sudo su -c <span class="s2">"echo DATASTORE_HOST_PORT=8800 &gt;&gt; .env"</span>
+sudo su -c <span class="s2">"echo maildomain=</span><span class="nv">$DOMINIO</span><span class="s2"> &gt;&gt; .env"</span>
+sudo su -c <span class="s2">"echo ANDINO_TAG=</span><span class="nv">$ANDINO_VERSION</span><span class="s2"> &gt;&gt; .env"</span>
+</pre>
+</div>
+<ul>
+ <li>
+  Paso 3: Construir y lanzar los contenedor de servicios usando el archivo
+  <strong>
+   latest.yml
+  </strong>
+  :
+  <code>
+   docker-compose -f latest.yml up -d db postfix redis solr
+  </code>
+ </li>
+ <li>
+  Paso 4: Construir y lanzar el contenedor de
+  <strong>
+   andino
+  </strong>
+  usando el archivo
+  <strong>
+   latest.yml
+  </strong>
+  :
+  <code>
+   docker-compose -f latest.yml up -d portal
+  </code>
+ </li>
+ <li>
+  Paso 5: Inicializar la base de datos y la configuración de la aplicación:
+ </li>
+</ul>
+<div class="codehilite">
+ <pre><span></span><span class="nv">EMAIL</span><span class="o">=</span>admin@example.com
+<span class="nv">HOST</span><span class="o">=</span>datos.gob.ar
+<span class="nv">DB_USER</span><span class="o">=</span>&lt;my db user&gt;
+<span class="nv">DB_PASS</span><span class="o">=</span>&lt;my db pass&gt;
+<span class="nv">STORE_USER</span><span class="o">=</span>&lt;my datastore user&gt;
+<span class="nv">STORE_PASS</span><span class="o">=</span>&lt;my datastore password&gt;
+docker-compose -f latest.yml <span class="nb">exec</span> portal /etc/ckan_init.d/init.sh -e <span class="s2">"</span><span class="nv">$EMAIL</span><span class="s2">"</span> -h <span class="s2">"</span><span class="nv">$HOST</span><span class="s2">"</span> <span class="se">\</span>
+        -p <span class="s2">"</span><span class="nv">$DB_USER</span><span class="s2">"</span> -P <span class="s2">"</span><span class="nv">$DB_PASS</span><span class="s2">"</span> <span class="se">\</span>
+        -d <span class="s2">"</span><span class="nv">$STORE_USER</span><span class="s2">"</span> -D <span class="s2">"</span><span class="nv">$STORE_PASS</span><span class="s2">"</span>
+</pre>
+</div>
+<ul>
+ <li>
+  Paso 8: Construir el contenedor de
+  <strong>
+   nginx
+  </strong>
+  usando el archivo
+  <strong>
+   latest.yml
+  </strong>
+  : `docker-compose -f latest.yml up -d nginx
+ </li>
+</ul>
+<h2 id="desinstalar-andino">
+ Desinstalar andino
+</h2>
+<p>
+ Esta secuencia de comandos va a ELIMINAR TODOS LOS CONTENEDORES, IMÁGENES y VOLUMENES de la aplicación de la vm donde 
+está instalada la plataforma.
+</p>
+<p>
+ Esta operación no es reversible.
+ <strong>
+  Perderás todos tus datos si realizas esta operación
+ </strong>
+ .
+</p>
+<div class="codehilite">
+ <pre><span></span><span class="nv">app_dir</span><span class="o">=</span><span class="s2">"/etc/portal/"</span>
+<span class="nb">cd</span> <span class="nv">$app_dir</span>
+docker-compose -f latest.yml down -v
+<span class="nb">cd</span> ~/
+sudo rm <span class="nv">$app_dir</span> -r
+</pre>
+</div>
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+<h2 id="indice">
+ Indice
+</h2>
+<ul>
+ <li>
+  <a href="#actualizacion">
+   Actualización
+  </a>
+ </li>
+ <li>
+  <a href="#versiones-2x">
+   Versiones 2.x
+  </a>
+  <ul>
+   <li>
+    <a href="#actualizacion-simple">
+     Actualización simple
+    </a>
+   </li>
+   <li>
+    <a href="#actualizacion-avanzada">
+     Actualización avanzada
+    </a>
+   </li>
+   <li>
+    <a href="#andino-con-plugins-ad-hoc">
+     Andino con plugins ad-hoc
+    </a>
+   </li>
+   <li>
+    <a href="#versiones-255-en-adelante">
+     Versiones 2.5.5 en adelante
+    </a>
+   </li>
+   <li>
+    <a href="#versiones-250-y-251">
+     Versiones 2.5.0 y 2.5.1
+    </a>
+   </li>
+   <li>
+    <a href="#versiones-entre-240-y-253">
+     Versiones entre 2.4.0 y 2.5.3
+    </a>
+   </li>
+   <li>
+    <a href="#versiones-24x-a-25x">
+     Versiones 2.4.x a 2.5.x
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li>
+  <a href="#versiones-1x-a-2x">
+   Versiones 1.x a 2.x
+  </a>
+ </li>
+</ul>
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+<h1 id="actualizacion">
+ Actualización
+</h1>
+<h2 id="versiones-2x">
+ Versiones 2.x
+</h2>
+<p>
+ <strong>
+  Nota: si actualizás desde una versión 2.4.x a una versión 2.5.x ver
+  <a href="#versiones-24x-a-25x">
+   Versiones 2.4.x a 2.5.x
+  </a>
+  ANTES de proceder con la actualización
+ </strong>
+</p>
+<h3 id="actualizacion-simple">
+ Actualización simple
+</h3>
+<p>
+ Si instalamos la aplicación con la última versión del instalador 
+(
+ <a href="https://raw.github.com/datosgobar/portal-andino/master/install/install.py">
+  este
+ </a>
+ ), 
+el mismo no requerirá parámetros, pero contiene algunos opcionales:
+</p>
+<div class="codehilite">
+ <pre><span></span><span class="c1"># Parámetros de update.py</span>
+    <span class="o">[</span>-h<span class="o">]</span>                    Mostrar la ayuda del script
+    <span class="o">[</span>--install_directory INSTALL_DIRECTORY<span class="o">]</span>
+        Directorio donde está instalada la aplicación.
+        Por defecto es <span class="sb">`</span>/etc/portal<span class="sb">`</span>
+    <span class="o">[</span>--nginx-extended-cache<span class="o">]</span>
+        Configura nginx con una configuración extendida y configura el hook de
+        invalidación de cache de Andino para notificar a nginx
+    <span class="o">[</span>--nginx_ssl<span class="o">]</span>
+        Aplica la configuración HTTPS en nginx. Requiere ambos archivos del certificado SSL para poder lograrlo<span class="p">;</span> en 
+        caso contrario, se utilizará la configuración default
+    <span class="o">[</span>--ssl_key_path SSL_KEY_PATH<span class="o">]</span>
+        Path dentro del host donde está ubicado el archivo .key para el certificado SSL<span class="p">;</span> será copiado al contenedor 
+        de nginx si tanto éste como el .crt pueden ser encontrados
+    <span class="o">[</span>--ssl_crt_path SSL_CRT_PATH<span class="o">]</span>
+        Path dentro del host donde está ubicado el archivo .crt para el certificado SSL<span class="p">;</span> será copiado al contenedor 
+        de nginx si tanto éste como el .key pueden ser encontrados
+    <span class="o">[</span>--nginx_port NGINX_PORT<span class="o">]</span>
+        Puerto del servidor <span class="s2">"Host"</span> que se desea que se tome para recibir llamadas HTTP.
+        Por defecto es el <span class="m">80</span>.
+    <span class="o">[</span>--nginx_ssl_port NGINX_SSL_PORT<span class="o">]</span>
+        Puerto del servidor <span class="s2">"Host"</span> que se desea que se tome para recibir llamadas HTTPS.
+        Por defecto es el <span class="m">443</span>.
+        Es importante para los administradores saber que Andino tomará el puerto especificado <span class="o">(</span>o el default<span class="o">)</span> ya sea que el portal use o no use HTTPS. En caso de no querer usar HTTPS y que el host tenga erl puerto <span class="m">443</span> tomado por un servidor web, es requisito especificar un puerto distinto <span class="o">(</span>ejemplo: <span class="m">8443</span><span class="o">)</span> que será reservado por Andino, pero no utilizado.
+</pre>
+</div>
+<p>
+ Para esta actualización de ejemplo, usaremos los valores por defecto:
+</p>
+<div class="codehilite">
+ <pre><span></span>sudo wget https://raw.github.com/datosgobar/portal-andino/master/install/update.py
+sudo python update.py
+</pre>
+</div>
+<p>
+ De esta forma, el script asumirá que instalamos la aplicación en
+ <code>
+  /etc/portal
+ </code>
+ .
+</p>
+<h3 id="actualizacion-avanzada">
+ Actualización avanzada
+</h3>
+<p>
+ Si instalamos la aplicación en otro directorio distinto de
+ <code>
+  /etc/portal
+ </code>
+ , necesitamos correr el script de una manera diferente.
+Suponiendo que instalamos la aplicación en
+ <code>
+  /home/user/app/
+ </code>
+ , debemos correr los siguientes pasos:
+</p>
+<div class="codehilite">
+ <pre><span></span>wget https://raw.github.com/datosgobar/portal-andino/master/install/update.py
+sudo python update.py --install_directory="/home/user/app/"
+</pre>
+</div>
+<h3 id="andino-con-plugins-ad-hoc">
+ Andino con plugins ad-hoc
+</h3>
+<p>
+ Si configuraste tu instancia de Andino con algún plugin de CKAN que Andino no trae por defecto, es importante que antes de la instalación elimines los mismos de la opcioón de configuración
+ <code>
+  ckan.plugins
+ </code>
+ del archivo
+ <code>
+  /etc/ckan/default/production.ini
+ </code>
+ del contenedor
+ <code>
+  portal
+ </code>
+ . Esto es importante, ya que el proceso de actualización descarga imágenes de Docker nuevas que no contendrán los binarios de los plugins
+ <em>
+  ad-hoc
+ </em>
+ y si los mismos están en el archivo de configuración de CKAN, la actualización fallará.
+</p>
+<p>
+ Los pasos adicionales que deberás seguir si tenés plugins
+ <em>
+  ad-hoc
+ </em>
+ son:
+</p>
+<ol>
+ <li>
+  Editar el archivo
+  <code>
+   /etc/ckan/default/production.ini
+  </code>
+  del contenedor
+  <code>
+   portal
+  </code>
+  y quitar de la lista de
+  <code>
+   ckan.plugins
+  </code>
+  los plugins
+  <em>
+   ad-hoc
+  </em>
+  .
+ </li>
+ <li>
+  Actualizar Andino.
+ </li>
+ <li>
+  Instalar los plugins
+  <em>
+   ad-hoc
+  </em>
+  dentro del
+  <em>
+   virtualenv
+  </em>
+  <code>
+   /usr/lib/ckan/default
+  </code>
+  del contenedor
+  <code>
+   portal
+  </code>
+  .
+ </li>
+ <li>
+  Editar el archivo
+  <code>
+   /etc/ckan/default/production.ini
+  </code>
+  del contenedor
+  <code>
+   portal
+  </code>
+  y agregar a la lista de
+  <code>
+   ckan.plugins
+  </code>
+  los plugins
+  <em>
+   ad-hoc
+  </em>
+  .
+ </li>
+ <li>
+  Reiniciar Andino.
+ </li>
+</ol>
+<h3 id="versiones-255-en-adelante">
+ Versiones 2.5.5 en adelante
+</h3>
+<p>
+ Debido a la posibilidad de que ocasionen problemas durante la instalación, se removieron los plugin
+ <code>
+  harvest
+ </code>
+ y
+ <code>
+  datajson
+ </code>
+ del archivo de configuración, y se agregó una migración para eliminarlos al actualizar Andino para evitar 
+posibles problemas.
+</p>
+<p>
+ De ser necesaria la utilización de los plugins mencionados, deberán ser añadidos manualmente una vez finalizada la 
+actualización.
+</p>
+<h3 id="versiones-250-y-251">
+ Versiones 2.5.0 y 2.5.1
+</h3>
+<p>
+ Si actualizás de 2.5.0 o 2.5.1 a 2.5.2 o una versión más nueva, hay que modificar el archivo de configuración para que
+ <code>
+  googleanalytics
+ </code>
+ esté
+ <em>
+  sólo una vez y al final
+ </em>
+ en
+ <code>
+  ckan.plugins
+ </code>
+ .
+</p>
+<p>
+ Para ver cómo modificar el archivo de configuración, ir a
+ <a href="/docs/developers/maintenance.md#modificar-el-archivo-de-configuracion">
+  la documentación de mantenimiento
+ </a>
+ .
+</p>
+<p>
+ Ejemplo de cómo podría quedar:
+ <code>
+  ckan.plugins = datajson_harvest datajson harvest ckan_harvester stats text_view image_view recline_view hierarchy_display hierarchy_form dcat structured_data gobar_theme datastore datapusher seriestiempoarexplorer googleanalytics
+ </code>
+</p>
+<h3 id="versiones-entre-240-y-253">
+ Versiones entre 2.4.0 y 2.5.3
+</h3>
+<p>
+ Al actualizar un portal cuya versión se encuentra entre 2.4.0 y 2.5.3 a una versión más nueva, existe un comando que 
+se debe ejecutar debido a problemas con el guardado de archivos de recursos (no se puede descargar un archivo de 
+recurso si éste fue editado sin que se actualizara el archivo).
+</p>
+<p>
+ Este comando recuperará los archivos de recursos para los cuales se cumplan estas condiciones:
+- El recurso es local
+- El recurso posee el campo
+ <code>
+  downloadURL
+ </code>
+ en el data.json
+- El archivo del recurso existe en el Datastore (su extensión debe ser
+ <em>
+  csv
+ </em>
+ ,
+ <em>
+  xls
+ </em>
+ o
+ <em>
+  xlsx
+ </em>
+ ) y no está vacío
+</p>
+<p>
+ Existen 3 métodos para ejecutar la actualización de los recursos:
+</p>
+<ol>
+ <li>
+  Actualizar sólo aquellos recursos cuyos archivos
+  <strong>
+   no
+  </strong>
+  sean descargables y cumplan con las condiciones detalladas 
+más arriba
+ </li>
+ <li>
+  Actualizar todos los recursos que simplemente cumplan con las condiciones detalladas más arriba
+ </li>
+ <li>
+  Especificar uno o más IDs de los recursos que se quieran actualizar (en vez de modificar todos los posibles)
+ </li>
+</ol>
+<p>
+ <em>
+  Nota: Los métodos 2) y 3) son combinables.
+ </em>
+</p>
+<p>
+ Para poder implementar la solución una vez hecha la actualización del portal, se debe ejecutar los siguientes comandos:
+</p>
+<div class="codehilite">
+ <pre><span></span>docker-compose -f latest.yml <span class="nb">exec</span> portal bash
+<span class="nb">cd</span> /usr/lib/ckan/default/src/ckanext-gobar-theme
+/usr/lib/ckan/default/bin/paster --plugin<span class="o">=</span>ckan reupload-resources-files --config<span class="o">=</span>/etc/ckan/default/production.ini
+<span class="nb">exit</span>
+</pre>
+</div>
+<p>
+ Para cada método mencionado, la tercera línea a ejecutar (el comando de actualización de recursos) será distinta:
+</p>
+<ol>
+ <li>
+  Dejar el comando tal y como está, ya que es el comportamiento default
+ </li>
+ <li>
+  Escribir después del texto
+  <code>
+   reupload-resources-files
+  </code>
+  el flag
+  <code>
+   --force=true
+  </code>
+ </li>
+ <li>
+  Escribir después del texto
+  <code>
+   reupload-resources-files
+  </code>
+  (o del flag
+  <code>
+   --force=true
+  </code>
+  si se lo utilizó) todos los IDs de 
+los recursos a actualizar
+ </li>
+</ol>
+<p>
+ Ejemplo de cómo quedaría si se quiere utilizar los métodos 2) y 3) actualizando dos recursos distintos:
+</p>
+<p>
+ <code>
+  /usr/lib/ckan/default/bin/paster --plugin=ckan reupload-resources-files --force=true 
+a57e4006-9e15-4bc7-b46a-25bf3580e538 t5t4rp09-156s-xzq2-36vl-2d5e8fghn98q --config=/etc/ckan/default/production.ini
+ </code>
+</p>
+<h3 id="versiones-24x-a-25x">
+ Versiones 2.4.x a 2.5.x
+</h3>
+<p>
+ En el caso de actualizar un Andino de versión 2.4.x a 2.5.x existe un error conocido de CKAN 2.5.8 (Ver issue
+ <a href="https://github.com/ckan/ckan/issues/4168">
+  ckan/ckan#4168
+ </a>
+ ) que
+ <strong>
+  debe solucionarse ANTES de ejecutar la actualización
+ </strong>
+ .
+</p>
+<p>
+ En el procedimiento normal, ocurriría un error:
+ <code>
+  sqlalchemy.exc.ProgrammingError: (ProgrammingError) column package.metadata_created does not exist
+ </code>
+</p>
+<p>
+ Para poder solucionarlo, se debe correr el siguiente script
+ <strong>
+  antes de ejecutar el procedimiento normal de actualización
+ </strong>
+ :
+</p>
+<div class="codehilite">
+ <pre><span></span>docker-compose -f latest.yml <span class="nb">exec</span> -u postgres db psql -c <span class="s2">"</span>
+<span class="s2">do \$</span>$<span class="s2"></span>
+<span class="s2">begin</span>
+<span class="s2"> IF NOT EXISTS(SELECT * FROM information_schema.columns WHERE table_name='package' AND column_name='metadata_created') OR</span>
+<span class="s2">     NOT EXISTS(SELECT * FROM information_schema.columns WHERE table_name='package_revision' AND column_name='metadata_created') THEN</span>
+
+<span class="s2">        IF NOT EXISTS(SELECT * FROM information_schema.columns WHERE table_name='package_revision' AND column_name='metadata_created') THEN</span>
+<span class="s2">            ALTER TABLE package_revision ADD COLUMN metadata_created timestamp without time zone;</span>
+<span class="s2">        END IF;</span>
+
+<span class="s2">        IF NOT EXISTS(SELECT * FROM information_schema.columns WHERE table_name='package' AND column_name='metadata_created') THEN</span>
+<span class="s2">            ALTER TABLE package ADD COLUMN metadata_created timestamp without time zone;</span>
+<span class="s2">        END IF;</span>
+
+<span class="s2">        UPDATE package SET metadata_created=</span>
+<span class="s2">            (SELECT revision_timestamp</span>
+<span class="s2">             FROM package_revision</span>
+<span class="s2">             WHERE id=package.id</span>
+<span class="s2">             ORDER BY revision_timestamp ASC</span>
+<span class="s2">             LIMIT 1);</span>
+<span class="s2">    END IF;</span>
+<span class="s2">end \$</span>$<span class="s2"></span>
+<span class="s2">"</span> ckan
+</pre>
+</div>
+<h2 id="versiones-1x-a-2x">
+ Versiones 1.x a 2.x
+</h2>
+<p>
+ Ver documento de
+ <a href="migration.md">
+  migración
+ </a>
+</p>
+<h1 id="checklist-para-la-puesta-en-produccion">
+ Checklist para la puesta en producción
+</h1>
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+<h2 id="indice">
+ Indice
+</h2>
+<ul>
+ <li>
+  <a href="#recomendaciones-para-la-puesta-en-produccion-de-una-instancia-de-andino">
+   Recomendaciones para la puesta en producción de una instancia de Andino
+  </a>
+ </li>
+ <li>
+  <a href="#verifica-que-tu-instancia-de-andino-tenga-un-nombre-de-dominio-unico-y-bien-configurado">
+   Verificá que tu instancia de Andino tenga un nombre de dominio único y bien configurado
+  </a>
+  <ul>
+   <li>
+    <a href="#verificar-si-mi-andino-tiene-el-nombre-de-dominio-configurado-correctamente">
+     Verificar si mi Andino tiene el nombre de dominio configurado correctamente
+    </a>
+   </li>
+   <li>
+    <a href="#actualizando-el-nombre-de-dominio-asignado-a-andino">
+     Actualizando el nombre de dominio asignado a Andino
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li>
+  <a href="#verifica-que-el-contenedor-portal-pueda-resolver-el-nombre-de-dominio-asignado-a-la-instancia">
+   Verificá que el contenedor portal pueda resolver el nombre de dominio asignado a la instancia
+  </a>
+ </li>
+ <li>
+  <a href="#seguir-las-recomendaciones-de-seguridad">
+   Seguir las recomendaciones de seguridad
+  </a>
+ </li>
+</ul>
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+<h2 id="recomendaciones-para-la-puesta-en-produccion-de-una-instancia-de-andino">
+ Recomendaciones para la puesta en producción de una instancia de Andino
+</h2>
+<p>
+ Si estás por configurar tu instancia de Andino para un ambiente productivo, tenemos algunas recomendaciones para que sigas y verifiques si tu instancia está bien configurada.
+</p>
+<h3 id="verifica-que-tu-instancia-de-andino-tenga-un-nombre-de-dominio-unico-y-bien-configurado">
+ Verificá que tu instancia de Andino tenga un nombre de dominio único y bien configurado
+</h3>
+<p>
+ Para el correcto funcionamiento de tu instancia de Andino, es recomendable que la misma tenga un único nombre de dominio asignado.
+</p>
+<p>
+ Una vez que tengas definido el nombre de dominio (ej:
+ <code>
+  datos.ministerio.gob.ar
+ </code>
+ ) y el mismo se resuelva a la IP pública asignado al
+ <em>
+  host
+ </em>
+ de tu Andino (o al
+ <em>
+  load balancer
+ </em>
+ /
+ <em>
+  frontend server
+ </em>
+ que opcionalmente tengas) es importante que tu instancia de Andino conozca ese nombre de dominio y que esté configurado para responder al mismo.
+</p>
+<h4 id="verificar-si-mi-andino-tiene-el-nombre-de-dominio-configurado-correctamente">
+ Verificar si mi Andino tiene el nombre de dominio configurado correctamente
+</h4>
+<p>
+ Para saber si tu instancia de Andino tiene el nombre de dominio correctamente configurado seguí los siguientes pasos, ejecutando el comando en el directorio de instalación de Andino (ej:
+ <code>
+  /etc/portal
+ </code>
+ ):
+</p>
+<div class="codehilite">
+ <pre><span></span>docker-compose -f latest.yml exec portal grep ckan\.site_url /etc/ckan/default/production.ini
+</pre>
+</div>
+<p>
+ Si tu sitio está bien configurado, el valor del parámetro de configuración
+ <code>
+  ckan.site_url
+ </code>
+ deberá coincidir con el nombre de dominio de tu Andino (incluyendo el
+ <em>
+  schema
+ </em>
+ ,
+ <code>
+  http
+ </code>
+ o
+ <code>
+  https
+ </code>
+ ):
+</p>
+<div class="codehilite">
+ <pre><span></span>ckan.site_url=http://datos.ministerio.gob.ar/
+</pre>
+</div>
+<p>
+ Si éste no coincide, deberás modificar el valor del parámetro en la configuración de tu Andino.
+</p>
+<h4 id="actualizando-el-nombre-de-dominio-asignado-a-andino">
+ Actualizando el nombre de dominio asignado a Andino
+</h4>
+<p>
+ Para actualizar el nombre de dominio que tiene tu andino (por ejemplo
+ <code>
+  datos.ministerio.gob.ar
+ </code>
+ ) debés ejecutar el siguiente comando:
+</p>
+<div class="codehilite">
+ <pre><span></span><span class="nt">docker-compose</span> <span class="nt">-f</span> <span class="nt">latest</span><span class="p">.</span><span class="nc">yml</span> <span class="nt">exec</span> <span class="nt">portal</span> <span class="o">/</span><span class="nt">etc</span><span class="o">/</span><span class="nt">ckan_init</span><span class="p">.</span><span class="nc">d</span><span class="o">/</span><span class="nt">update_conf</span><span class="p">.</span><span class="nc">sh</span> <span class="s2">"ckan.site_url=http://datos.ministerio.gob.ar/"</span><span class="o">;</span>
+</pre>
+</div>
+<h3 id="verifica-que-el-contenedor-portal-pueda-resolver-el-nombre-de-dominio-asignado-a-la-instancia">
+ Verificá que el contenedor portal pueda resolver el nombre de dominio asignado a la instancia
+</h3>
+<p>
+ Para asegurar el correcto funcionamiento de algunos componentes de la arquitectura de Andino, es necesario que desde dentro de los contenedores Docker que forman parte de la solución, el nombre de dominio asignado a tu Andino pueda ser resuelto correctamente.
+</p>
+<p>
+ La verificación de tal condición está documentada en la sección
+ <a href="dns.md">
+  DNS
+ </a>
+ .
+</p>
+<h3 id="seguir-las-recomendaciones-de-seguridad">
+ Seguir las recomendaciones de seguridad
+</h3>
+<p>
+ La presente documentación contiene un apartado acerca de recomendaciones de seguridad. Por favor
+ <a href="maintenance.md#recomendaciones-de-seguridad-y-optimizaciones">
+  leelas y seguí las recomendaciones
+ </a>
+ .
+</p>
+<h1 id="migracion">
+ Migracion
+</h1>
+<p>
+ En el presente documento, se pretende explicar cómo llevar a cabo una migración de la versión 1.0 de andino a la 
+versión 2.0 de andino.
+</p>
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+<h2 id="indice">
+ Indice
+</h2>
+<ul>
+ <li>
+  <a href="#1-requisitos">
+   1) Requisitos
+  </a>
+ </li>
+ <li>
+  <a href="#2-script-de-migracion-automatico">
+   2) Script de migración automático.
+  </a>
+ </li>
+ <li>
+  <a href="#3-migracion-manual">
+   3) Migración manual
+  </a>
+  <ul>
+   <li>
+    <a href="#31-backup-de-la-base-de-datos">
+     3.1) Backup de la base de datos
+    </a>
+   </li>
+   <li>
+    <a href="#32-backup-de-los-archivos-de-la-aplicacion">
+     3.2) Backup de los archivos de la aplicación
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li>
+  <a href="#4-instalacion">
+   4) Instalación
+  </a>
+  <ul>
+   <li>
+    <a href="#41-detener-la-aplicacion">
+     4.1) Detener la aplicación
+    </a>
+   </li>
+   <li>
+    <a href="#42-instalar-la-aplicacion">
+     4.2) Instalar la aplicación
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li>
+  <a href="#5-restores">
+   5) Restores
+  </a>
+  <ul>
+   <li>
+    <a href="#51-restaurar-los-archivos">
+     5.1) Restaurar los archivos
+    </a>
+   </li>
+   <li>
+    <a href="#52-restaurar-la-base-de-datos">
+     5.2) Restaurar la base de datos
+    </a>
+   </li>
+   <li>
+    <a href="#53-regenerar-el-indice-de-busquedas">
+     5.3) Regenerar el índice de búsquedas
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+<h2 id="1-requisitos">
+ 1) Requisitos
+</h2>
+<p>
+ Se requiere tener instalado:
+</p>
+<ul>
+ <li>
+  <a href="https://stedolan.github.io/jq/download/">
+   jq
+  </a>
+  &gt;= 1.5
+ </li>
+ <li>
+  docker
+ </li>
+ <li>
+  docker-compose
+ </li>
+</ul>
+<p>
+ Se asume que, en el servidor, hay 3 containers de docker corriendo:
+</p>
+<ul>
+ <li>
+  <code>
+   app-ckan
+  </code>
+ </li>
+ <li>
+  <code>
+   pg-ckan
+  </code>
+ </li>
+ <li>
+  <code>
+   solr-ckan
+  </code>
+ </li>
+</ul>
+<p>
+ Además, se debe conocer los
+ <code>
+  usuarios
+ </code>
+ y
+ <code>
+  passwords
+ </code>
+ de la base de datos (tanto de la usada por
+ <code>
+  ckan
+ </code>
+ como por el
+ <code>
+  datastore
+ </code>
+ ).
+</p>
+<h2 id="2-script-de-migracion-automatico">
+ 2) Script de migración automático.
+</h2>
+<p>
+ El repositorio cuenta con un script para correr la migración automáticamente. (el mismo se puede encontrar en
+ <a href="https://github.com/datosgobar/portal-andino/blob/master/install/migrate.sh">
+  <code>
+   install/migrate.sh
+  </code>
+ </a>
+ , dentro del repositorio).
+Ciertas variables de entorno y tener instalado
+ <code>
+  docker
+ </code>
+ y
+ <code>
+  docker-compose
+ </code>
+ .
+Debe ser ejecutado con
+ <code>
+  sudo
+ </code>
+ o
+ <code>
+  root
+ </code>
+ .
+</p>
+<p>
+ Ejemplo:
+</p>
+<div class="codehilite">
+ <pre><span></span>export EMAIL=admin@example.com
+export HOST=andino.midomionio.com.ar
+export DB_USER=usuario
+export DB_PASS=password
+export STORE_USER=dsuser
+export STORE_PASS=dspass
+sudo -E ./migrate.sh
+</pre>
+</div>
+<h2 id="3-migracion-manual">
+ 3) Migración manual
+</h2>
+<p>
+ Para realizar la migración manual, debemos conocer las variables con las que se inicializó el portal.
+En este caso, serán las siguientes:
+</p>
+<div class="codehilite">
+ <pre><span></span>export EMAIL=admin@example.com
+export HOST=andino.midomionio.com.ar
+export DB_USER=usuario
+export DB_PASS=password
+export STORE_USER=dsuser
+export STORE_PASS=dspass
+</pre>
+</div>
+<h3 id="31-backup-de-la-base-de-datos">
+ 3.1) Backup de la base de datos
+</h3>
+<p>
+ Es necesario hacer un backup de la base de datos antes de empezar con la migración. La misma puede llevarse a cabo 
+con el siguiente script:
+</p>
+<div class="codehilite">
+ <pre><span></span><span class="ch">#!/usr/bin/env bash</span>
+<span class="nb">set</span> -e<span class="p">;</span>
+
+<span class="nv">old_db</span><span class="o">=</span><span class="s2">"pg-ckan"</span>
+<span class="nv">database_backup</span><span class="o">=</span><span class="s2">"backup.gz"</span>
+
+<span class="nb">echo</span> <span class="s2">"Creando backup de la base de datos."</span>
+
+<span class="nv">backupdir</span><span class="o">=</span><span class="k">$(</span>mktemp -d<span class="k">)</span>
+
+<span class="nv">backupfile</span><span class="o">=</span><span class="s2">"</span><span class="nv">$backupdir</span><span class="s2">/</span><span class="nv">$database_backup</span><span class="s2">"</span>
+<span class="nb">echo</span> <span class="s2">"Iniciando backup de </span><span class="nv">$old_db</span><span class="s2">"</span>
+<span class="nb">echo</span> <span class="s2">"Usando directorio temporal: </span><span class="nv">$backupdir</span><span class="s2">"</span>
+docker <span class="nb">exec</span> <span class="nv">$old_db</span> pg_dumpall -c -U postgres <span class="p">|</span> gzip &gt; <span class="s2">"</span><span class="nv">$backupfile</span><span class="s2">"</span>
+<span class="nb">echo</span> <span class="s2">"Copiando backup a </span><span class="nv">$PWD</span><span class="s2">"</span>
+
+cp <span class="s2">"</span><span class="nv">$backupfile</span><span class="s2">"</span> <span class="nv">$PWD</span>
+<span class="nb">echo</span> <span class="s2">"Backup listo."</span>
+</pre>
+</div>
+<p>
+ Este script dejará un archivo
+ <code>
+  backup.gz
+ </code>
+ en el directorio actual.
+</p>
+<h3 id="32-backup-de-los-archivos-de-la-aplicacion">
+ 3.2) Backup de los archivos de la aplicación
+</h3>
+<p>
+ Es necesario hacer un backup de los archivos de la aplicación: configuración y archivos subidos. 
+El mismo puede llevarse a cabo con el siguiente script:
+</p>
+<p>
+ <strong>
+  Nota:
+ </strong>
+ Requiere
+ <a href="https://stedolan.github.io/jq/">
+  jq
+ </a>
+ &gt;= 1.5
+</p>
+<div class="codehilite">
+ <pre><span></span><span class="ch">#!/usr/bin/env bash</span>
+<span class="nb">set</span> -e<span class="p">;</span>
+
+<span class="nv">old_andino</span><span class="o">=</span><span class="s2">"app-ckan"</span>
+<span class="nv">app_backup</span><span class="o">=</span><span class="s2">"backup.tar.gz"</span>
+
+<span class="nb">echo</span> <span class="s2">"Creando backup de los archivos de configuración."</span>
+<span class="nv">backupdir</span><span class="o">=</span><span class="k">$(</span>mktemp -d<span class="k">)</span>
+<span class="nv">today</span><span class="o">=</span><span class="sb">`</span>date +%Y-%m-%d.%H:%M:%S<span class="sb">`</span>
+<span class="nv">appbackupdir</span><span class="o">=</span><span class="s2">"</span><span class="nv">$backupdir</span><span class="s2">/application/"</span>
+mkdir <span class="nv">$appbackupdir</span>
+<span class="nb">echo</span> <span class="s2">"Iniciando backup de los volumenes en </span><span class="nv">$old_andino</span><span class="s2">"</span>
+<span class="nb">echo</span> <span class="s2">"Usando directorio temporal: </span><span class="nv">$backupdir</span><span class="s2">"</span>
+docker inspect --format <span class="s1">'{{json .Mounts}}'</span> <span class="nv">$old_andino</span>  <span class="p">|</span> jq -r <span class="s1">'.[]|[.Name, .Source, .Destination] | @tsv'</span> <span class="p">|</span>
+<span class="k">while</span> <span class="nv">IFS</span><span class="o">=</span><span class="s1">$'\t'</span> <span class="nb">read</span> -r name <span class="nb">source</span> destination<span class="p">;</span> <span class="k">do</span>
+    <span class="nb">echo</span> <span class="s2">"Guardando archivos de </span><span class="nv">$destination</span><span class="s2">"</span>
+    <span class="k">if</span> ls <span class="nv">$source</span>/* <span class="m">1</span>&gt; /dev/null <span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="p">;</span> <span class="k">then</span>
+        <span class="nb">echo</span> <span class="s2">"Nombre del volumen: </span><span class="nv">$name</span><span class="s2">."</span>
+        <span class="nb">echo</span> <span class="s2">"Directorio en el Host: </span><span class="nv">$source</span><span class="s2">"</span>
+        <span class="nb">echo</span> <span class="s2">"Destino: </span><span class="nv">$destination</span><span class="s2">"</span>
+        <span class="nv">dest</span><span class="o">=</span><span class="s2">"</span><span class="nv">$appbackupdir$name</span><span class="s2">"</span>
+        mkdir -p <span class="nv">$dest</span>
+        <span class="nb">echo</span> <span class="s2">"</span><span class="nv">$destination</span><span class="s2">"</span> &gt; <span class="s2">"</span><span class="nv">$dest</span><span class="s2">/destination.txt"</span>
+
+        tar -C <span class="s2">"</span><span class="nv">$source</span><span class="s2">"</span> -zcvf <span class="s2">"</span><span class="nv">$dest</span><span class="s2">/backup_</span><span class="nv">$today</span><span class="s2">.tar.gz"</span> <span class="k">$(</span>ls <span class="nv">$source</span><span class="k">)</span>
+        <span class="nb">echo</span> <span class="s2">"List backup de </span><span class="nv">$destination</span><span class="s2">"</span>
+    <span class="k">else</span>
+        <span class="nb">echo</span> <span class="s2">"Ningún archivo para </span><span class="nv">$destination</span><span class="s2">"</span><span class="p">;</span>
+    <span class="k">fi</span>
+<span class="k">done</span>
+<span class="nb">echo</span> <span class="s2">"Generando backup en </span><span class="nv">$app_backup</span><span class="s2">"</span>
+tar -C <span class="s2">"</span><span class="nv">$appbackupdir</span><span class="s2">../"</span> -zcvf <span class="nv">$app_backup</span> <span class="s2">"application/"</span>
+<span class="nb">echo</span> <span class="s2">"Backup listo."</span>
+</pre>
+</div>
+<p>
+ Este script dejará un archivo backup.tar.gz en el directorio actual. 
+El mismo, una vez descomprimido, contendrá la siguiente estructura (por ejemplo):
+</p>
+<div class="codehilite">
+ <pre><span></span>- application/
+    ├── 61ee6cc7dc974476fe3300cc4325d913ed2f949494419b11a5c7c897fa919106
+    │   ├── backup_2017-05-19.10:56:09.tar.gz
+    │   └── destination.txt
+    └── b1bf820976c3220e54136e4db229a67a9d9292896ad8d91623030e3b7171f210
+        ├── backup_2017-05-19.10:56:09.tar.gz
+        └── destination.txt
+</pre>
+</div>
+<p>
+ Cada sub-directorio contiene el ID del volumen en docker usado; los números varian de volumen en volumen. 
+Dentro de cada sub-directorio se encuentra un archivo
+ <em>
+  .tar.gz junto con un archivo destination.txt.
+ </em>
+ El archivo destination.txt indica dónde corresponde la información dentro del container.
+ <em>
+  El archivo
+ </em>
+ .tar.gz contiene una carpeta _data con los archivos.
+</p>
+<h2 id="4-instalacion">
+ 4) Instalación
+</h2>
+<h3 id="41-detener-la-aplicacion">
+ 4.1) Detener la aplicación
+</h3>
+<p>
+ Debemos detener la aplicación para lograr que se liberen los puertos usados. Por ejemplo, el puerto 80.
+</p>
+<p>
+ docker stop solr-ckan pg-ckan app-ckan
+</p>
+<h3 id="42-instalar-la-aplicacion">
+ 4.2) Instalar la aplicación
+</h3>
+<p>
+ Ver la documentación
+ <a href="install.md">
+  Aquí
+ </a>
+</p>
+<p>
+ <strong>
+  Nota:
+ </strong>
+ Actualizar la versión de docker y docker-compose de ser necesario.
+</p>
+<p>
+ Ahora, es necesario restaurar tanto la base de datos como los archivos de la aplicación.
+</p>
+<h1 id="5-restores">
+ 5) Restores
+</h1>
+<h3 id="51-restaurar-los-archivos">
+ 5.1) Restaurar los archivos
+</h3>
+<p>
+ Descomprimir el archivo
+ <code>
+  backup.tar.gz
+ </code>
+ . En cada subdirectorio encontraremos el archivo destination.txt; 
+el contenido de este archivo nos ayudará a saber donde debemos copiar los archivos. 
+Con el siguiete comando, podremos saber qué volúmenes hay montados en el nuevo esquema y dónde debemos copiar 
+los archivos dentro del
+ <code>
+  backup_*.tar.gz
+ </code>
+</p>
+<p>
+ Correr
+ <code>
+  docker inspect andino -f '{{ json .Mounts }}' | jq
+ </code>
+ :
+</p>
+<p>
+ El comando mostrará, por ejemplo, lo siquiente:
+</p>
+<div class="codehilite">
+ <pre><span></span>[
+{
+    "Type": "volume",
+    "Name": "a1d87160a04e270302582849c9ce5c6dbb44719a94b702158aeaf23835f7862f",
+    "Source": "/var/lib/docker/volumes/a1d87160a04e270302582849c9ce5c6dbb44719a94b702158aeaf23835f7862f/_data",
+    "Destination": "/etc/ckan/default",
+    "Driver": "local",
+    "Mode": "",
+    "RW": true,
+    "Propagation": ""
+},
+{
+    "Type": "volume",
+    "Name": "7ab721966628bf692a3d451567c9a01b419ba5189b88ef05484de315c73f6275",
+    "Source": "/var/lib/docker/volumes/7ab721966628bf692a3d451567c9a01b419ba5189b88ef05484de315c73f6275/_data",
+    "Destination": "/usr/lib/ckan/default/src/ckanext-gobar-theme/ckanext/gobar_theme/public/user_images",
+    "Driver": "local",
+    "Mode": "",
+    "RW": true,
+    "Propagation": ""
+},
+
+...
+</pre>
+</div>
+<p>
+ Como podemos ver, hay una entrada "Destination" que coincidirá con el contenido del archivo destination.txt en 
+cada directorio. Debemos asegurarnos de no copiar el archivo production.ini, ya que el mismo cambio bastante 
+de versión en versión.
+</p>
+<p>
+ El restore puede ser llevado a cabo con el siguiente script:
+</p>
+<div class="codehilite">
+ <pre><span></span><span class="ch">#!/usr/bin/env bash</span>
+<span class="nb">set</span> -e<span class="p">;</span>
+
+<span class="nb">echo</span> <span class="s2">"Iniciando recuperación de Archivos."</span>
+<span class="nv">install_dir</span><span class="o">=</span><span class="s2">"/etc/portal"</span><span class="p">;</span>
+<span class="nv">container</span><span class="o">=</span><span class="s2">"andino"</span>
+<span class="nv">app_backup</span><span class="o">=</span><span class="s2">"backup.tar.gz"</span>
+
+<span class="nv">containers</span><span class="o">=</span><span class="k">$(</span>docker ps -q<span class="k">)</span>
+<span class="k">if</span> <span class="o">[</span> -z <span class="s2">"</span><span class="nv">$containers</span><span class="s2">"</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+    <span class="nb">echo</span> <span class="s2">"No se encontró ningun contenedor corriendo."</span>
+<span class="k">else</span>
+    docker stop <span class="nv">$containers</span>
+<span class="k">fi</span>
+
+<span class="nv">restoredir</span><span class="o">=</span><span class="k">$(</span>mktemp -d<span class="k">)</span>
+<span class="nb">echo</span> <span class="s2">"Usando directorio temporal </span><span class="nv">$restoredir</span><span class="s2">"</span>
+tar zxvf <span class="nv">$app_backup</span> -C <span class="nv">$restoredir</span>
+
+docker inspect --format <span class="s1">'{{json .Mounts}}'</span> <span class="nv">$container</span>  <span class="p">|</span> jq -r <span class="s1">'.[]|[.Name, .Source, .Destination] | @tsv'</span> <span class="p">|</span>
+<span class="k">while</span> <span class="nv">IFS</span><span class="o">=</span><span class="s1">$'\t'</span> <span class="nb">read</span> -r name <span class="nb">source</span> destination<span class="p">;</span> <span class="k">do</span>
+    <span class="k">for</span> directory in <span class="nv">$restoredir</span>/application/*<span class="p">;</span> <span class="k">do</span>
+        <span class="nv">dest</span><span class="o">=</span><span class="k">$(</span>cat <span class="s2">"</span><span class="nv">$directory</span><span class="s2">/destination.txt"</span><span class="k">)</span>
+        <span class="k">if</span> <span class="o">[</span> <span class="s2">"</span><span class="nv">$dest</span><span class="s2">"</span> <span class="o">==</span> <span class="s2">"</span><span class="nv">$destination</span><span class="s2">"</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+            <span class="nb">echo</span> <span class="s2">"Recuperando archivos para </span><span class="nv">$destination</span><span class="s2">"</span>
+            tar zxvf <span class="s2">"</span><span class="nv">$directory</span><span class="s2">/</span><span class="k">$(</span>ls <span class="s2">"</span><span class="nv">$directory</span><span class="s2">"</span> <span class="p">|</span> grep backup<span class="k">)</span><span class="s2">"</span> -C <span class="s2">"</span><span class="nv">$source</span><span class="s2">"</span>
+        <span class="k">fi</span>
+    <span class="k">done</span>
+<span class="k">done</span>
+<span class="nb">echo</span> <span class="s2">"Restauración lista."</span>
+<span class="nb">echo</span> <span class="s2">"Reiniciando servicios."</span>
+<span class="nb">cd</span> <span class="nv">$install_dir</span><span class="p">;</span>
+docker-compose -f latest.yml restart<span class="p">;</span>
+<span class="nb">cd</span> -<span class="p">;</span>
+</pre>
+</div>
+<h3 id="52-restaurar-la-base-de-datos">
+ 5.2) Restaurar la base de datos
+</h3>
+<p>
+ Para restaurar la base de datos, se puede usar el siguiente script contra el archivo previamente generado (backup.gz):
+</p>
+<div class="codehilite">
+ <pre><span></span><span class="ch">#!/usr/bin/env bash</span>
+<span class="nb">set</span> -e<span class="p">;</span>
+
+<span class="nv">install_dir</span><span class="o">=</span><span class="s2">"/etc/portal"</span><span class="p">;</span>
+<span class="nv">database_backup</span><span class="o">=</span><span class="s2">"backup.gz"</span>
+<span class="nv">container</span><span class="o">=</span><span class="s2">"andino-db"</span>
+
+<span class="nb">echo</span> <span class="s2">"Iniciando restauración de la base de datos."</span>
+<span class="nv">containers</span><span class="o">=</span><span class="k">$(</span>docker ps -q<span class="k">)</span>
+
+<span class="k">if</span> <span class="o">[</span> -z <span class="s2">"</span><span class="nv">$containers</span><span class="s2">"</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+    <span class="nb">echo</span> <span class="s2">"No se encontró ningun contenedor corriendo."</span>
+<span class="k">else</span>
+    docker stop <span class="nv">$containers</span>
+<span class="k">fi</span>
+docker restart <span class="nv">$container</span>
+sleep <span class="m">10</span><span class="p">;</span>
+
+<span class="nv">restoredir</span><span class="o">=</span><span class="k">$(</span>mktemp -d<span class="k">)</span><span class="p">;</span>
+<span class="nb">echo</span> <span class="s2">"Usando directorio temporal </span><span class="nv">$restoredir</span><span class="s2">"</span>
+
+<span class="nv">restorefile</span><span class="o">=</span><span class="s2">"</span><span class="nv">$restoredir</span><span class="s2">/dump.sql"</span><span class="p">;</span>
+
+gzip -dkc &lt; <span class="nv">$database_backup</span> &gt; <span class="s2">"</span><span class="nv">$restorefile</span><span class="s2">"</span><span class="p">;</span>
+<span class="nb">echo</span> <span class="s2">"Borrando base de datos actual."</span>
+docker <span class="nb">exec</span> <span class="nv">$container</span> psql -U postgres -c <span class="s2">"DROP DATABASE IF EXISTS ckan;"</span>
+docker <span class="nb">exec</span> <span class="nv">$container</span> psql -U postgres -c <span class="s2">"DROP DATABASE IF EXISTS datastore_default;"</span>
+<span class="nb">echo</span> <span class="s2">"Restaurando la base de datos desde: </span><span class="nv">$restorefile</span><span class="s2">"</span>
+cat <span class="s2">"</span><span class="nv">$restorefile</span><span class="s2">"</span> <span class="p">|</span> docker <span class="nb">exec</span> -i <span class="nv">$container</span> psql -U postgres
+<span class="nb">echo</span> <span class="s2">"Recuperando credenciales de los usuarios"</span>
+docker <span class="nb">exec</span>  <span class="nv">$container</span> psql -U postgres -c <span class="s2">"ALTER USER </span><span class="nv">$DB_USER</span><span class="s2"> WITH PASSWORD '</span><span class="nv">$DB_PASS</span><span class="s2">';"</span>
+docker <span class="nb">exec</span>  <span class="nv">$container</span> psql -U postgres -c <span class="s2">"ALTER USER </span><span class="nv">$STORE_USER</span><span class="s2"> WITH PASSWORD '</span><span class="nv">$STORE_PASS</span><span class="s2">';"</span>
+
+<span class="nb">echo</span> <span class="s2">"Restauración lista."</span>
+<span class="nb">echo</span> <span class="s2">"Reiniciando servicios."</span>
+<span class="nb">cd</span> <span class="nv">$install_dir</span><span class="p">;</span>
+docker-compose -f latest.yml restart<span class="p">;</span>
+<span class="nb">cd</span> -<span class="p">;</span>
+</pre>
+</div>
+<h3 id="53-regenerar-el-indice-de-busquedas">
+ 5.3) Regenerar el índice de búsquedas
+</h3>
+<p>
+ Para regenerar el índice de búsquedas, debemos ir al directorio donde se instaló la aplicación y correr el siguiente comando:
+</p>
+<div class="codehilite">
+ <pre><span></span>docker-compose -f latest.yml exec portal /etc/ckan_init.d/run_rebuild_search.sh
+</pre>
+</div>
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+<h2 id="indice">
+ Indice
+</h2>
+<ul>
+ <li>
+  <a href="#mantenimiento">
+   Mantenimiento
+  </a>
+ </li>
+ <li>
+  <a href="#exploracion-de-la-instancia-de-andino">
+   Exploración de la instancia de andino
+  </a>
+  <ul>
+   <li>
+    <a href="#que-esta-corriendo-docker">
+     ¿Qué está corriendo docker?
+    </a>
+   </li>
+   <li>
+    <a href="#utilizacion-del-archivo-latestyml-en-los-comandos-de-docker-compose">
+     Utilización del archivo latest.yml en los comandos de docker-compose
+    </a>
+   </li>
+   <li>
+    <a href="#ingresar-al-contendor-principal-de-andino">
+     Ingresar al contendor principal de andino
+    </a>
+   </li>
+   <li>
+    <a href="#listar-todas-las-propiedades-de-cada-contenedor">
+     Listar todas las
+     <code>
+      Propiedades
+     </code>
+     de cada contenedor
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li>
+  <a href="#administracion-de-usuarios">
+   Administración de usuarios
+  </a>
+  <ul>
+   <li>
+    <a href="#crear-un-usuario-admin">
+     Crear un usuario ADMIN
+    </a>
+   </li>
+   <li>
+    <a href="#listar-mis-usuarios">
+     Listar mis usuarios
+    </a>
+   </li>
+   <li>
+    <a href="#ver-los-datos-de-un-usuario">
+     Ver los datos de un usuario
+    </a>
+   </li>
+   <li>
+    <a href="#crear-un-nuevo-usuario">
+     Crear un nuevo usuario
+    </a>
+   </li>
+   <li>
+    <a href="#crear-un-nuevo-usuario-extendido">
+     Crear un nuevo usuario extendido
+    </a>
+   </li>
+   <li>
+    <a href="#eliminar-un-usuario">
+     Eliminar un usuario
+    </a>
+   </li>
+   <li>
+    <a href="#cambiar-password-de-un-usuario">
+     Cambiar password de un usuario
+    </a>
+   </li>
+   <li>
+    <a href="#usuario-administrador-de-ckan">
+     Usuario administrador de CKAN
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li>
+  <a href="#configuraciones-de-andino">
+   Configuraciones de andino
+  </a>
+  <ul>
+   <li>
+    <a href="#modificar-el-archivo-de-configuracion">
+     Modificar el archivo de configuración
+    </a>
+   </li>
+   <li>
+    <a href="#cambiar-la-configuracion-del-smtp">
+     Cambiar la configuración del SMTP
+    </a>
+   </li>
+   <li>
+    <a href="#cambiar-el-remitente-de-los-correos-electronicos-que-envia-andino">
+     Cambiar el remitente de los correos electrónicos que envía Andino
+    </a>
+   </li>
+   <li>
+    <a href="#cambiar-el-id-del-container-de-google-tag-manager">
+     Cambiar el id del container de Google Tag Manager
+    </a>
+   </li>
+   <li>
+    <a href="#google-tag-manager">
+     Google Tag Manager
+    </a>
+   </li>
+   <li>
+    <a href="#cambiar-el-id-del-tag-de-google-analytics">
+     Cambiar el id del tag de Google Analytics
+    </a>
+   </li>
+   <li>
+    <a href="#indexar-datasets-con-google-dataset-search">
+     Indexar datasets con Google Dataset Search
+    </a>
+   </li>
+   <li>
+    <a href="#deshabilitar-la-url-catalogxlsx">
+     Deshabilitar la URL
+     <code>
+      /catalog.xlsx
+     </code>
+    </a>
+   </li>
+   <li>
+    <a href="#configuracion-de-la-llamada-de-invalidaci%C3%B3n-de-cache">
+     Configuración de la llamada de invalidación de caché
+    </a>
+   </li>
+   <li>
+    <a href="#cache-externa">
+     Caché externa
+    </a>
+   </li>
+   <li>
+    <a href="#configuracion-de-cors">
+     Configuración de CORS
+    </a>
+   </li>
+   <li>
+    <a href="#configuracion-del-explorador-de-series-de-tiempo">
+     Configuración del explorador de series de tiempo
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li>
+  <a href="#acceso-a-los-datos-de-andino">
+   Acceso a los datos de andino
+  </a>
+  <ul>
+   <li>
+    <a href="#encontrar-los-volumenes-de-mi-andino-dentro-del-filesystem-del-host">
+     Encontrar los volúmenes de mi andino dentro del filesystem del host
+    </a>
+   </li>
+   <li>
+    <a href="#ver-las-direcciones-ip-de-mis-contenedores">
+     Ver las direcciones IP de mis contenedores
+    </a>
+   </li>
+   <li>
+    <a href="#ver-las-variables-de-entorno-que-tienen-mis-contenedores">
+     Ver las variables de entorno que tienen mis contenedores
+    </a>
+   </li>
+   <li>
+    <a href="#acceder-con-un-cliente-de-postgresql-a-las-bases-de-datos">
+     Acceder con un cliente de PostgreSQL a las bases de datos
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li>
+  <a href="#eliminar-objetos-definitivamente">
+   Eliminar objetos definitivamente
+  </a>
+  <ul>
+   <li>
+    <a href="#purgar-organizaciones-borradas">
+     Purgar Organizaciones Borradas
+    </a>
+   </li>
+   <li>
+    <a href="#purgar-grupos-borrados">
+     Purgar Grupos Borrados
+    </a>
+   </li>
+   <li>
+    <a href="#purgar-datasets-borrados">
+     Purgar Datasets Borrados
+    </a>
+   </li>
+   <li>
+    <a href="#listar-nombres-de-los-datasets-contenidos-en-andino">
+     Listar nombres de los datasets contenidos en Andino
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li>
+  <a href="#backups">
+   Backups
+  </a>
+  <ul>
+   <li>
+    <a href="#backup-de-la-base-de-datos">
+     Backup de la base de datos
+    </a>
+   </li>
+   <li>
+    <a href="#realizar-un-backup-del-file-system">
+     Realizar un backup del file system
+    </a>
+   </li>
+   <li>
+    <a href="#realizar-un-backup-de-la-configuracion">
+     Realizar un backup de la configuración
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li>
+  <a href="#comandos-de-datapusher">
+   Comandos de DataPusher
+  </a>
+  <ul>
+   <li>
+    <a href="#subir-todos-los-recursos-al-datastore">
+     Subir todos los recursos al Datastore
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li>
+  <a href="#recomendaciones-de-seguridad-y-optimizaciones">
+   Recomendaciones de Seguridad y Optimizaciones
+  </a>
+  <ul>
+   <li>
+    <a href="#https">
+     HTTPS
+    </a>
+   </li>
+   <li>
+    <a href="#sistema-y-librerias">
+     Sistema y librerías
+    </a>
+   </li>
+   <li>
+    <a href="#firewall">
+     Firewall
+    </a>
+   </li>
+   <li>
+    <a href="#ssh">
+     SSH
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li>
+  <a href="#optimizacion-de-logging">
+   Optimización de logging
+  </a>
+  <ul>
+   <li>
+    <a href="#configurar-otro-logging-driver">
+     Configurar otro
+     <code>
+      logging driver
+     </code>
+    </a>
+   </li>
+   <li>
+    <a href="#eliminar-logs-antiguos-de-docker">
+     Eliminar
+     <code>
+      logs
+     </code>
+     antiguos de
+     <code>
+      Docker
+     </code>
+    </a>
+   </li>
+   <li>
+    <a href="#eliminar-logs-dentro-de-andino">
+     Eliminar logs dentro de Andino
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+<h1 id="mantenimiento">
+ Mantenimiento
+</h1>
+<h2 id="exploracion-de-la-instancia-de-andino">
+ Exploración de la instancia de andino
+</h2>
+<h3 id="que-esta-corriendo-docker">
+ ¿Qué está corriendo docker?
+</h3>
+<p>
+ Para obtener una lista de lo que está corriendo actualmente Docker, podemos usar el siguiente comando:
+</p>
+<div class="codehilite">
+ <pre><span></span>docker ps # Tabla de ejecucion actual
+docker ps -q # Listado de IDs de cada contenedor
+docker ps -aq # Listado de IDs de todos los contenedores disponibles.
+</pre>
+</div>
+<h3 id="utilizacion-del-archivo-latestyml-en-los-comandos-de-docker-compose">
+ Utilización del archivo latest.yml en los comandos de docker-compose
+</h3>
+<p>
+ En múltiples secciones de esta documentación se emplea el uso de comandos que comienzan de la siguiente manera:
+</p>
+<div class="codehilite">
+ <pre><span></span>docker-compose -f latest.yml
+</pre>
+</div>
+<p>
+ Es importante recordar que no alcanzaría con especificar el directorio absoluto del archivo
+ <code>
+  latest.yml
+ </code>
+ ; es necesario 
+ejecutar estos comandos
+ <em>
+  exactamente en ese mismo directorio
+ </em>
+ , debido a que ahí también se encuentra el archivo que 
+contiene las variables de entorno (
+ <code>
+  .env
+ </code>
+ ) ya que es el directorio de instalación de Andino.
+</p>
+<h3 id="ingresar-al-contendor-principal-de-andino">
+ Ingresar al contendor principal de andino
+</h3>
+<p>
+ El contenedor principal de andino, donde se ejecuta la aplicación CKAN, es denominado
+ <code>
+  portal
+ </code>
+ . 
+Para ingresar en una sesión de consola en el contenedor, ejecutar:
+</p>
+<div class="codehilite">
+ <pre><span></span>docker-compose -f latest.yml exec portal /bin/bash
+</pre>
+</div>
+<p>
+ Ver
+ <a href="#utilizacion-del-archivo-latest.yml-en-los-comandos-de-docker-compose">
+  la sección sobre la utilización del archivo latest.yml en los comandos de docker-compose
+ </a>
+ .
+</p>
+<h3 id="listar-todas-las-propiedades-de-cada-contenedor">
+ Listar todas las
+ <code>
+  Propiedades
+ </code>
+ de cada contenedor
+</h3>
+<div class="codehilite">
+ <pre><span></span>docker-compose -f latest.yml ps -q portal solr db | xargs -n 1 | while read container; do docker inspect $container; done
+</pre>
+</div>
+<p>
+ Ver
+ <a href="#utilizacion-del-archivo-latest.yml-en-los-comandos-de-docker-compose">
+  la sección sobre la utilización del archivo latest.yml en los comandos de docker-compose
+ </a>
+ .
+</p>
+<h2 id="administracion-de-usuarios">
+ Administración de usuarios
+</h2>
+<h3 id="crear-un-usuario-admin">
+ Crear un usuario ADMIN
+</h3>
+<div class="codehilite">
+ <pre><span></span>docker-compose -f latest.yml exec portal /etc/ckan_init.d/add_admin.sh mi_nuevo_usuario_admin email_del_usuario_admin
+</pre>
+</div>
+<p>
+ Ver
+ <a href="#utilizacion-del-archivo-latest.yml-en-los-comandos-de-docker-compose">
+  la sección sobre la utilización del archivo latest.yml en los comandos de docker-compose
+ </a>
+ .
+</p>
+<p>
+ El comando solicitará la contraseña del usuario administrador.
+</p>
+<h3 id="listar-mis-usuarios">
+ Listar mis usuarios
+</h3>
+<div class="codehilite">
+ <pre><span></span>docker-compose -f latest.yml exec portal /etc/ckan_init.d/paster.sh --plugin=ckan user list
+</pre>
+</div>
+<p>
+ Ver
+ <a href="#utilizacion-del-archivo-latest.yml-en-los-comandos-de-docker-compose">
+  la sección sobre la utilización del archivo latest.yml en los comandos de docker-compose
+ </a>
+ .
+</p>
+<h3 id="ver-los-datos-de-un-usuario">
+ Ver los datos de un usuario
+</h3>
+<div class="codehilite">
+ <pre><span></span>docker-compose -f latest.yml exec portal /etc/ckan_init.d/paster.sh --plugin=ckan user nombre-de-usuario
+</pre>
+</div>
+<p>
+ Ver
+ <a href="#utilizacion-del-archivo-latest.yml-en-los-comandos-de-docker-compose">
+  la sección sobre la utilización del archivo latest.yml en los comandos de docker-compose
+ </a>
+ .
+</p>
+<h3 id="crear-un-nuevo-usuario">
+ Crear un nuevo usuario
+</h3>
+<div class="codehilite">
+ <pre><span></span>docker-compose -f latest.yml exec portal /etc/ckan_init.d/paster.sh --plugin=ckan user add nombre-de-usuario
+</pre>
+</div>
+<p>
+ Ver
+ <a href="#utilizacion-del-archivo-latest.yml-en-los-comandos-de-docker-compose">
+  la sección sobre la utilización del archivo latest.yml en los comandos de docker-compose
+ </a>
+ .
+</p>
+<h3 id="crear-un-nuevo-usuario-extendido">
+ Crear un nuevo usuario extendido
+</h3>
+<div class="codehilite">
+ <pre><span></span>docker-compose -f latest.yml exec portal /etc/ckan_init.d/paster.sh --plugin=ckan user add nomber [email=mi-usuario@host.com password=mi-contraseña-rara apikey=unsecretomisticonoleible]
+</pre>
+</div>
+<p>
+ Ver
+ <a href="#utilizacion-del-archivo-latest.yml-en-los-comandos-de-docker-compose">
+  la sección sobre la utilización del archivo latest.yml en los comandos de docker-compose
+ </a>
+ .
+</p>
+<h3 id="eliminar-un-usuario">
+ Eliminar un usuario
+</h3>
+<div class="codehilite">
+ <pre><span></span>docker-compose -f latest.yml exec portal /etc/ckan_init.d/paster.sh --plugin=ckan user remove nombre-de-usuario
+</pre>
+</div>
+<p>
+ Ver
+ <a href="#utilizacion-del-archivo-latest.yml-en-los-comandos-de-docker-compose">
+  la sección sobre la utilización del archivo latest.yml en los comandos de docker-compose
+ </a>
+ .
+</p>
+<h3 id="cambiar-password-de-un-usuario">
+ Cambiar password de un usuario
+</h3>
+<div class="codehilite">
+ <pre><span></span>docker-compose -f latest.yml exec portal /etc/ckan_init.d/paster.sh --plugin=ckan user setpass nombre-de-usuario
+</pre>
+</div>
+<p>
+ Ver
+ <a href="#utilizacion-del-archivo-latest.yml-en-los-comandos-de-docker-compose">
+  la sección sobre la utilización del archivo latest.yml en los comandos de docker-compose
+ </a>
+ .
+</p>
+<h3 id="usuario-administrador-de-ckan">
+ Usuario administrador de CKAN
+</h3>
+<p>
+ Existe un usuario administrador llamado
+ <em>
+  default
+ </em>
+ , el cual es utilizado por la aplicación para la ejecución de ciertas 
+funciones que corren de fondo (por ejemplo, la actualización de la caché del data.json). Es muy importante que dicho 
+usuario
+ <strong>
+  siempre
+ </strong>
+ esté disponible ya que, en caso de no estarlo, provocaría un funcionamiento incorrecto en el 
+portal; por lo tanto, se recomienda muy fuertemente no intentar eliminarlo ni desactivarlo.
+</p>
+<h2 id="configuraciones-de-andino">
+ Configuraciones de andino
+</h2>
+<h3 id="modificar-el-archivo-de-configuracion">
+ Modificar el archivo de configuración
+</h3>
+<p>
+ El archivo de configuración de andino se llama
+ <code>
+  production.ini
+ </code>
+ , y se lo puede encontrar y modificar 
+de la siguiente manera:
+</p>
+<div class="codehilite">
+ <pre><span></span><span class="c1"># Ingresar al contenedor</span>
+
+<span class="nb">cd</span> /etc/portal
+docker-compose -f latest.yml <span class="nb">exec</span> portal /bin/bash
+
+<span class="c1"># Una vez adentro, abrimos el archivo production.ini, y buscamos la sección que necesita ser modificada</span>
+
+vim /etc/ckan/default/production.ini
+
+<span class="c1"># Editamos y, luego de salir del contenedor, lo reiniciamos</span>
+
+docker-compose -f latest.yml restart portal nginx
+</pre>
+</div>
+<h3 id="cambiar-la-configuracion-del-smtp">
+ Cambiar la configuración del SMTP
+</h3>
+<p>
+ Por defecto, andino usará un servidor postfix integrado para el envío de emails.
+Para usar un servidor SMTP propio, debemos cambiar la configuración del archivo
+ <code>
+  production.ini
+ </code>
+ .
+Para lograrlo, podemos hacerlo de dos formas:
+</p>
+<p>
+ 1 ) Ingresando al contenedor.
+</p>
+<p>
+ Debemos buscar y editar en el archivo
+ <code>
+  production.ini
+ </code>
+ la configuración
+de email que luce como:
+</p>
+<div class="codehilite">
+ <pre><span></span>## Email settings
+
+error_email_from=admin@example.com
+smtp.server = postfix
+#smtp.starttls = False
+smtp.user = portal
+smtp.password = portal
+smtp.mail_from = administrador
+</pre>
+</div>
+<p>
+ Para saber cómo hacerlo, leer la sección que explica
+ <a href="#modificar-el-archivo-de-configuracion">
+  cómo modificar el archivo de configuración
+ </a>
+</p>
+<p>
+ 2 ) Ejecutando comandos paster
+</p>
+<p>
+ Suponiendo que nuestro servidor SMTP está en smtp.gmail.com, la dirección de correo del usuario es
+ <code>
+  smtp_user_mail@gmail.com
+ </code>
+ , 
+la contraseña de esa dirección de correo
+ <code>
+  mi_pass
+ </code>
+ y queremos usar "tls", podemos ejecutar los siguientes comandos:
+</p>
+<div class="codehilite">
+ <pre><span></span><span class="nt">docker-compose</span> <span class="nt">-f</span> <span class="nt">latest</span><span class="p">.</span><span class="nc">yml</span> <span class="nt">exec</span> <span class="nt">portal</span> <span class="o">/</span><span class="nt">etc</span><span class="o">/</span><span class="nt">ckan_init</span><span class="p">.</span><span class="nc">d</span><span class="o">/</span><span class="nt">update_conf</span><span class="p">.</span><span class="nc">sh</span> <span class="s2">"smtp.server=smtp.gmail.com:587"</span><span class="o">;</span>
+<span class="nt">docker-compose</span> <span class="nt">-f</span> <span class="nt">latest</span><span class="p">.</span><span class="nc">yml</span> <span class="nt">exec</span> <span class="nt">portal</span> <span class="o">/</span><span class="nt">etc</span><span class="o">/</span><span class="nt">ckan_init</span><span class="p">.</span><span class="nc">d</span><span class="o">/</span><span class="nt">update_conf</span><span class="p">.</span><span class="nc">sh</span> <span class="s2">"smtp.user=smtp_user_mail@gmail.com"</span><span class="o">;</span>
+<span class="nt">docker-compose</span> <span class="nt">-f</span> <span class="nt">latest</span><span class="p">.</span><span class="nc">yml</span> <span class="nt">exec</span> <span class="nt">portal</span> <span class="o">/</span><span class="nt">etc</span><span class="o">/</span><span class="nt">ckan_init</span><span class="p">.</span><span class="nc">d</span><span class="o">/</span><span class="nt">update_conf</span><span class="p">.</span><span class="nc">sh</span> <span class="s2">"smtp.password=mi_pass"</span><span class="o">;</span>
+<span class="nt">docker-compose</span> <span class="nt">-f</span> <span class="nt">latest</span><span class="p">.</span><span class="nc">yml</span> <span class="nt">exec</span> <span class="nt">portal</span> <span class="o">/</span><span class="nt">etc</span><span class="o">/</span><span class="nt">ckan_init</span><span class="p">.</span><span class="nc">d</span><span class="o">/</span><span class="nt">update_conf</span><span class="p">.</span><span class="nc">sh</span> <span class="s2">"smtp.starttls=True"</span><span class="o">;</span>
+<span class="nt">docker-compose</span> <span class="nt">-f</span> <span class="nt">latest</span><span class="p">.</span><span class="nc">yml</span> <span class="nt">exec</span> <span class="nt">portal</span> <span class="o">/</span><span class="nt">etc</span><span class="o">/</span><span class="nt">ckan_init</span><span class="p">.</span><span class="nc">d</span><span class="o">/</span><span class="nt">update_conf</span><span class="p">.</span><span class="nc">sh</span> <span class="s2">"smtp.mail_from=smtp_user_mail@gmail.com"</span><span class="o">;</span>
+
+<span class="err">#</span> <span class="nt">Finalmente</span> <span class="nt">reiniciamos</span> <span class="nt">el</span> <span class="nt">contenedor</span>
+<span class="nt">docker-compose</span> <span class="nt">-f</span> <span class="nt">latest</span><span class="p">.</span><span class="nc">yml</span> <span class="nt">restart</span> <span class="nt">portal</span> <span class="nt">nginx</span>
+</pre>
+</div>
+<p>
+ Tener en cuenta que si se utiliza un servidor SMTP, se debe setear la configuración con
+ <strong>
+  un correo electrónico 
+de @gmail.com
+ </strong>
+ , y que
+ <strong>
+  starttls debe estar en True
+ </strong>
+ .
+</p>
+<h3 id="cambiar-el-remitente-de-los-correos-electronicos-que-envia-andino">
+ Cambiar el remitente de los correos electrónicos que envía Andino
+</h3>
+<p>
+ Para modificar el remitente de los correos electrónicos que el sistema envía 
+(por ejemplo los de creación de usuarios nuevos o los de olvido de contraseña), 
+se deben seguir los pasos de la sección
+ <a href="#cambiar-la-configuracion-del-smtp">
+  Cambiar la configuración del SMTP
+ </a>
+ pero modificando el atributo de configuración
+ <code>
+  smtp.mail_from
+ </code>
+ .
+</p>
+<h3 id="cambiar-el-id-del-container-de-google-tag-manager">
+ Cambiar el id del container de Google Tag Manager
+</h3>
+<p>
+ Será necesario modificar la configuración en el archivo
+ <code>
+  production.ini
+ </code>
+ .
+</p>
+<p>
+ Para saber cómo hacerlo, leer la sección que explica
+ <a href="#modificar-el-archivo-de-configuracion">
+  cómo modificar el archivo de configuración
+ </a>
+ .
+</p>
+<p>
+ Esta vez, buscaremos la configuración debajo de la sección [app:main] 
+(vas a encontrar campos como "superThemeTaxonomy" y "ckan.site.title").
+</p>
+<p>
+ El campo que estamos buscando es
+ <code>
+  ckan.google_tag_manager.gtm_container_id
+ </code>
+ .
+</p>
+<p>
+ En caso de no encontrar el campo mencionado, lo podemos agregar:
+</p>
+<p>
+ <code>
+  ckan.google_tag_manager.gtm_container_id = { id que necesitás guardar }
+ </code>
+</p>
+<h3 id="google-tag-manager">
+ Google Tag Manager
+</h3>
+<p>
+ Para configurar el código se seguimiento de Google Tag Manager ejecutar el siguiente comando:
+</p>
+<div class="codehilite">
+ <pre><span></span>docker-compose -f latest.yml exec portal /etc/ckan_init.d/update_conf.sh "ckan.google_tag_manager.gtm_container_id=&amp;lt;tu código de seguimiento GTM&amp;gt;";
+
+# Finalmente reiniciamos el contenedor
+docker-compose -f latest.yml restart portal nginx
+</pre>
+</div>
+<h3 id="cambiar-el-id-del-tag-de-google-analytics">
+ Cambiar el id del tag de Google Analytics
+</h3>
+<p>
+ Será necesario modificar el archivo de configuración
+ <code>
+  production.ini
+ </code>
+ .
+</p>
+<p>
+ Para saber cómo hacerlo, leer la sección que explica
+ <a href="#modificar-el-archivo-de-configuracion">
+  cómo modificar el archivo de configuración
+ </a>
+ .
+</p>
+<p>
+ La sección a buscar luce de esta manera:
+</p>
+<div class="codehilite">
+ <pre><span></span>## Google Analytics
+googleanalytics.id = { un id }
+googleanalytics_resource_prefix = { un prefix }
+googleanalytics.domain = { un dominio }
+</pre>
+</div>
+<p>
+ Lo que se debe modificar es el campo
+ <code>
+  googleanalytics.id
+ </code>
+ .
+</p>
+<h3 id="indexar-datasets-con-google-dataset-search">
+ Indexar datasets con Google Dataset Search
+</h3>
+<p>
+ Andino cuenta con la posibilidad de utilizar Google Dataset Search para que éste indexe tus datasets.
+Para el mejor entendimiento de la herramienta, recomendamos que entres a https://search.google.com/search-console/about.
+</p>
+<p>
+ Por default, esta configuración se encuentra desactivada. Para activarla, podés ir a
+ <em>
+  Configuración
+ </em>
+ -&gt;
+ <em>
+  Configuración avanzada
+ </em>
+ -&gt;
+ <em>
+  Google Dataset Search
+ </em>
+ -&gt; Clickear el checkbox y guardar el cambio.
+</p>
+<h3 id="deshabilitar-la-url-catalogxlsx">
+ Deshabilitar la URL
+ <code>
+  /catalog.xlsx
+ </code>
+</h3>
+<p>
+ En caso de desear deshabilitar la URL
+ <code>
+  /catalog.xlsx
+ </code>
+ , se puede ejecutar el siguiente comando:
+</p>
+<div class="codehilite">
+ <pre><span></span>docker-compose -f latest.yml exec portal /etc/ckan_init.d/update_conf.sh "andino.disable_catalog_xlsx_url=True";
+</pre>
+</div>
+<p>
+ En caso de querer restaurarlo, se debe configurar el atributo
+ <code>
+  andino.disable_catalog_xlsx_url
+ </code>
+ con el valor
+ <code>
+  False
+ </code>
+ .
+</p>
+<h3 id="configuracion-de-la-llamada-de-invalidacion-de-cache">
+ Configuración de la llamada de invalidación de caché
+</h3>
+<p>
+ La aplicación puede ser configurada para hacer una llamada HTTP ante cada cambio en los metadatos del portal.
+Esta llamada (A.K.A. "hook") puede configurarse para ser a cualquier URL, y usando cualquier método HTTP.
+Se deberá utilizar un campo llamado
+ <code>
+  andino.cache_clean_hook
+ </code>
+ , que tendrá asignada la URL a la cual
+queremos enviarle requests HTTP que lograrán ese efecto.
+</p>
+<p>
+ Además, el paquete "Andino" provee una configuración de
+ <em>
+  nginx
+ </em>
+ que permite recibir esta llamada e invalidar la caché.
+</p>
+<p>
+ Para configurar internamente nginx y andino, sólo es necesario parar la opción
+ <code>
+  --nginx-extended-cache
+ </code>
+ al momento de
+usar el script de instalación.
+</p>
+<p>
+ Si nuestra aplicación ya está instalada, podemos seguir los siguientes pasos:
+</p>
+<ol>
+ <li>
+  Actualizar a la ultima versión de la aplicación, con el script de actualización.
+ </li>
+ <li>
+  Ir al directorio de instalación
+  <code>
+   cd /etc/portal
+  </code>
+ </li>
+ <li>
+  Editar el archivo
+  <code>
+   .env
+  </code>
+ </li>
+ <li>
+  Agregar una línea nueva que sea:
+  <code>
+   NGINX_CONFIG_FILE=nginx_extended.conf
+  </code>
+ </li>
+ <li>
+  Reiniciar el contenedor de nginx
+  <code>
+   docker-compose -f latest.yml up -d nginx
+  </code>
+ </li>
+</ol>
+<p>
+ Luego configuramos el hook de invalidación:
+</p>
+<ol>
+ <li>
+  Entramos al contenedor del portal:
+  <code>
+   docker-compose -f latest.yml exec portal bash
+  </code>
+ </li>
+ <li>
+  Configuramos el hook:
+  <code>
+   /etc/ckan_init.d/update_conf.sh andino.cache_clean_hook=http://nginx/meta/cache/purge
+  </code>
+ </li>
+ <li>
+  Salimos
+  <code>
+   exit
+  </code>
+ </li>
+ <li>
+  Reiniciamos el portal:
+  <code>
+   docker-compose -f latest.yml restart portal nginx
+  </code>
+ </li>
+</ol>
+<p>
+ <em>
+  Nota: tener en cuenta que, por defecto, se emplea el método PURGE para disparar el hook, lo cual
+se puede cambiar editando el campo
+  <code>
+   andino.cache_clean_hook_method
+  </code>
+  dentro del archivo de configuración
+  <code>
+   production.ini
+  </code>
+  .
+ </em>
+ <em>
+  Para saber cómo hacerlo, leer la sección que explica
+  <a href="#modificar-el-archivo-de-configuracion">
+   cómo modificar el archivo de configuración
+  </a>
+  .
+ </em>
+</p>
+<h3 id="cache-externa">
+ Caché externa
+</h3>
+<p>
+ Es posible implementar la caché externa por fuera del paquete andino.
+Para esto, en el servidor que servirá de caché, necesitamos instalar
+ <a href="https://openresty.org/en/installation.html">
+  openresty
+ </a>
+ .
+Esta plataforma web nos permite correr
+ <strong>
+  nginx
+ </strong>
+ y modificar su comportamiento usando
+ <a href="https://www.lua.org/">
+  lua
+ </a>
+ .
+</p>
+<p>
+ Luego de instalar
+ <strong>
+  openresty
+ </strong>
+ , debemos activarlo para que empiece cada vez que se prenda el servidor:
+</p>
+<div class="codehilite">
+ <pre><span></span>systemctl enable openresty
+systemctl restart openresty
+</pre>
+</div>
+<p>
+ Luego de instalar
+ <code>
+  operesty
+ </code>
+ , debemos agregar los archivos de configuración.
+Primero borramos la configuración de nginx que viene por defecto en
+ <code>
+  /etc/openresty/nginx.conf
+ </code>
+ y agregamos la nuestra:
+</p>
+<div class="codehilite">
+ <pre><span></span>#user  nobody;
+worker_processes  1;
+
+#error_log  logs/error.log;
+#error_log  logs/error.log  notice;
+#error_log  logs/error.log  info;
+
+#pid        logs/nginx.pid;
+
+
+events {
+    worker_connections  1024;
+}
+
+
+http {
+    include       mime.types;
+    default_type  application/octet-stream;
+
+    #log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+    #                  '$status $body_bytes_sent "$http_referer" '
+    #                  '"$http_user_agent" "$http_x_forwarded_for"';
+
+    #access_log  logs/access.log  main;
+
+    sendfile        on;
+    #tcp_nopush     on;
+
+    #keepalive_timeout  0;
+    keepalive_timeout  65;
+
+    #gzip  on;
+
+    include /etc/nginx/conf.d/*.conf;
+
+}
+</pre>
+</div>
+<p>
+ Luego, creamos el directorio donde pondremos la configuración de nuestra caché y creamos el archivo.
+</p>
+<div class="codehilite">
+ <pre><span></span>mkdir -p /etc/nginx/conf.d/
+touch /etc/nginx/conf.d/000-andino-cache.conf
+</pre>
+</div>
+<p>
+ El archivo
+ <code>
+  000-andino-cache.conf
+ </code>
+ contendrá lo siguiente.
+Es necesario cambiar la palabre
+ <code>
+  IP_A_ANDINO
+ </code>
+ por la IP donde está andino.
+</p>
+<div class="codehilite">
+ <pre><span></span><span class="nt">proxy_cache_path</span> <span class="o">/</span><span class="nt">tmp</span><span class="o">/</span><span class="nt">nginx_cache</span><span class="o">/</span> <span class="nt">levels</span><span class="o">=</span><span class="nt">1</span><span class="p">:</span><span class="nd">2</span> <span class="nt">keys_zone</span><span class="o">=</span><span class="nt">cache</span><span class="p">:</span><span class="nd">30m</span> <span class="nt">max_size</span><span class="o">=</span><span class="nt">250m</span><span class="o">;</span>
+<span class="nt">proxy_temp_path</span> <span class="o">/</span><span class="nt">tmp</span><span class="o">/</span><span class="nt">nginx_proxy</span> <span class="nt">1</span> <span class="nt">2</span><span class="o">;</span>
+
+<span class="nt">server_tokens</span> <span class="nt">off</span><span class="o">;</span>
+
+<span class="nt">server</span> <span class="p">{</span>
+    <span class="err">client_max_body_size</span> <span class="err">100M</span><span class="p">;</span>
+    <span class="err">location</span> <span class="err">/</span> <span class="err">{</span>
+        <span class="err">proxy_pass</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">IP_A_ANDINO</span><span class="o">:</span><span class="mi">80</span><span class="o">/</span><span class="p">;</span>
+        <span class="err">proxy_set_header</span> <span class="err">X-Forwarded-For</span> <span class="err">$remote_addr</span><span class="p">;</span>
+        <span class="err">proxy_set_header</span> <span class="err">Host</span> <span class="err">$host</span><span class="p">;</span>
+        <span class="err">proxy_cache</span> <span class="err">cache</span><span class="p">;</span>
+
+        <span class="err">#</span> <span class="err">Disable</span> <span class="err">cache</span> <span class="err">for</span> <span class="err">logged-in</span> <span class="err">users</span>
+        <span class="err">proxy_cache_bypass</span> <span class="err">$cookie_auth_tkt</span><span class="p">;</span>
+        <span class="err">proxy_no_cache</span> <span class="err">$cookie_auth_tkt</span><span class="p">;</span>
+        <span class="err">proxy_cache_valid</span> <span class="err">30m</span><span class="p">;</span>
+        <span class="err">proxy_cache_key</span> <span class="err">$host$scheme$proxy_host$request_uri</span><span class="p">;</span>
+
+        <span class="err">#</span> <span class="err">Ignore</span> <span class="err">apache</span> <span class="err">"Cache-Control"</span> <span class="err">header</span>
+        <span class="err">#</span> <span class="err">See</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">lists</span><span class="o">.</span><span class="n">okfn</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">pipermail</span><span class="o">/</span><span class="n">ckan-dev</span><span class="o">/</span><span class="mi">2016</span><span class="o">-</span><span class="n">March</span><span class="o">/</span><span class="mi">009864</span><span class="o">.</span><span class="n">html</span>
+        <span class="n">proxy_ignore_headers</span> <span class="n">Cache-Control</span><span class="p">;</span>
+        <span class="err">#</span> <span class="err">In</span> <span class="err">emergency</span> <span class="err">comment</span> <span class="err">out</span> <span class="err">line</span> <span class="err">to</span> <span class="err">force</span> <span class="err">caching</span>
+        <span class="err">#</span> <span class="err">proxy_ignore_headers</span> <span class="err">X-Accel-Expires</span> <span class="err">Expires</span><span class="p">;</span>
+
+        <span class="err">#</span> <span class="err">Show</span> <span class="err">cache</span> <span class="err">status</span>
+        <span class="err">add_header</span> <span class="err">X-Cache-Status</span> <span class="err">$upstream_cache_status</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nt">location</span> <span class="o">/</span><span class="nt">meta</span><span class="o">/</span><span class="nt">cache</span><span class="o">/</span><span class="nt">purge</span> <span class="p">{</span>
+        <span class="err">allow</span>  <span class="err">192.168.0.0/16</span><span class="p">;</span>
+        <span class="err">allow</span>  <span class="err">172.16.0.0/12</span><span class="p">;</span>
+        <span class="err">allow</span>  <span class="err">10.0.0.0/8</span><span class="p">;</span>
+        <span class="err">allow</span>  <span class="err">127.0.0.1</span><span class="p">;</span>
+        <span class="err">deny</span>   <span class="err">all</span><span class="p">;</span>
+        <span class="err">if</span> <span class="err">($request_method</span> <span class="err">=</span> <span class="err">PURGE</span> <span class="err">)</span> <span class="err">{</span>
+            <span class="err">content_by_lua_block</span> <span class="err">{</span>
+                <span class="err">filename</span> <span class="err">=</span> <span class="err">"/tmp/nginx_cache/"</span>
+                <span class="err">local</span> <span class="err">f</span> <span class="err">=</span> <span class="err">io.open(filename,</span> <span class="err">"r")</span>
+                <span class="err">if</span> <span class="err">(f~=nil)</span> <span class="err">then</span>
+                    <span class="err">io.close(f)</span>
+                    <span class="err">os.execute('rm</span> <span class="err">-rf</span> <span class="err">"'..filename..'"')</span>
+                <span class="err">end</span>
+                <span class="err">ngx.say("OK")</span>
+                <span class="err">ngx.exit(ngx.OK)</span>
+            <span class="p">}</span>
+        <span class="err">}</span>
+    <span class="err">}</span>
+<span class="err">}</span>
+</pre>
+</div>
+<p>
+ Finalmente, reiniciamos
+ <strong>
+  openresty
+ </strong>
+ :
+ <code>
+  systemctl restart openresty
+ </code>
+ .
+</p>
+<p>
+ Ahora que tenemos la caché configurada, necesitamos configurar la llamada, o hook, de invalidación de caché.
+Para esto, entramos al servidor donde está corriendo andino y corremos:
+</p>
+<div class="codehilite">
+ <pre><span></span><span class="nv">IP_INTERNA_CACHE</span><span class="o">=</span>&lt;ip interna del servidor de caché&gt;
+
+<span class="nb">cd</span> /etc/portal
+docker-compose -f latest.yml <span class="nb">exec</span> portal /etc/ckan_init.d/update_conf.sh <span class="s2">"andino.cache_clean_hook=http://</span><span class="nv">$IP_INTERNA_CACHE</span><span class="s2">/meta/cache/purge"</span><span class="p">;</span>
+docker-compose -f latest.yml restart portal nginx
+</pre>
+</div>
+<p>
+ Si queremos probar la integración, podemos entrar al contenedor de andino y probar invalidar la caché:
+</p>
+<div class="codehilite">
+ <pre><span></span><span class="nt">IP_INTERNA_CACHE</span><span class="o">=&lt;</span><span class="nt">ip</span> <span class="nt">interna</span> <span class="nt">del</span> <span class="nt">servidor</span> <span class="nt">de</span> <span class="nt">caché</span><span class="o">&gt;</span>
+<span class="nt">cd</span> <span class="o">/</span><span class="nt">etc</span><span class="o">/</span><span class="nt">portal</span>
+<span class="nt">docker-compose</span> <span class="nt">-f</span> <span class="nt">latest</span><span class="p">.</span><span class="nc">yml</span> <span class="nt">exec</span> <span class="nt">portal</span> <span class="nt">curl</span> <span class="nt">-X</span> <span class="nt">PURGE</span> <span class="s2">"http://$IP_INTERNA_CACHE/meta/cache/purge"</span><span class="o">;</span>
+<span class="err">#</span> <span class="o">=&gt;</span>  <span class="nt">OK</span>
+</pre>
+</div>
+<p>
+ <strong>
+  NOTA:
+ </strong>
+ Si estamos usando nuestro andino con un IP y
+ <em>
+  no
+ </em>
+ con un dominio, tendremos que cambiar la
+configuración
+ <code>
+  ckan.site_url
+ </code>
+ para que use la IP del servidor donde se encuentra la caché externa.
+</p>
+<div class="codehilite">
+ <pre><span></span><span class="nv">IP_PUBLICA_CACHE</span><span class="o">=</span>&lt;ip publica del servidor caché&gt;
+
+<span class="nb">cd</span> /etc/portal
+docker-compose -f latest.yml <span class="nb">exec</span> portal /etc/ckan_init.d/update_conf.sh <span class="s2">"ckan.site_url=http://</span><span class="nv">$IP_PUBLICA_CACHE</span><span class="s2">"</span><span class="p">;</span>
+docker-compose -f latest.yml restart portal nginx
+</pre>
+</div>
+<h3 id="configuracion-de-cors">
+ Configuración de CORS
+</h3>
+<p>
+ Cuando es necesario acceder a Andino desde URLs distintas que apuntan a una misma instancia 
+(ej: accediendo a través de un gateway/caché o directamente a la instancia de Andino o usando la IP pública 
+del servidor
+ <em>
+  host
+ </em>
+ ) es necesario, para el correcto funcionamiento de Andino, configurar parámetros para habilitar 
+CORS (
+ <em>
+  Cross-Origin Resource Sharing
+ </em>
+ ). Esto se debe a que un Andino debe tener una URL canónica, por lo tanto, 
+las demás URLs utilizadas deben estar en el
+ <em>
+  whitelist
+ </em>
+ de CORS de Andino.
+</p>
+<p>
+ Para poder navegar tu Andino usando como URL una que no es la canónica de tu instancia, tenés que realizar dos acciones 
+(los comandos deben ser ejecutados desde el directorio de instalación de Andino; por
+ <em>
+  default
+ </em>
+ ,
+ <code>
+  /etc/portal
+ </code>
+ ):
+</p>
+<ol>
+ <li>
+  Habilitar el comportamiento CORS:
+  <code>
+   docker-compose -f latest.yml exec portal /etc/ckan_init.d/update_conf.sh "ckan.cors.origin_allow_all = false"
+  </code>
+  (si bien el parámetro de configuración tiene el valor
+  <code>
+   false
+  </code>
+  , esto habilita el control de URLs contra el
+  <em>
+   whitelist
+  </em>
+  ).
+ </li>
+ <li>
+  Agregar las URLs al
+  <em>
+   whitelist
+  </em>
+  :
+  <code>
+   docker-compose -f latest.yml exec portal /etc/ckan_init.d/update_conf.sh "ckan.cors.origin_whitelist=http://localhost:8080 http://127.0.0.1 http://127.0.0.1:8080"
+  </code>
+  (en el ejemplo se habilitan las URLs
+  <code>
+   http://localhost:8080
+  </code>
+  ,
+  <code>
+   http://127.0.0.1
+  </code>
+  y
+  <code>
+   http://127.0.0.1:8080
+  </code>
+  ).
+ </li>
+</ol>
+<p>
+ Luego reiniciá los contenedores
+ <code>
+  portal
+ </code>
+ y
+ <code>
+  nginx
+ </code>
+ :
+ <code>
+  docker-compose -f latest.yml restart nginx portal
+ </code>
+ .
+</p>
+<p>
+ Si deseás habilitar
+ <strong>
+  todas
+ </strong>
+ las URLs para CORS (no recomendado), en el paso 1 debés pasar el valor
+ <code>
+  true
+ </code>
+ para 
+el atributo de configuración
+ <code>
+  ckan.cors.origin_allow_all
+ </code>
+ .
+</p>
+<p>
+ Para ver más acerca del funcionamiento de CORS en CKAN ver la
+ <a href="http://docs.ckan.org/en/ckan-2.7.3/maintaining/configuration.html#cors-settings">
+  documentación oficial de CKAN (en inglés)
+ </a>
+ .
+</p>
+<h3 id="configuracion-del-explorador-de-series-de-tiempo">
+ Configuración del explorador de series de tiempo
+</h3>
+<p>
+ Andino tiene instalado el plugin
+ <a href="https://github.com/datosgobar/ckanext-seriestiempoarexplorer">
+  ckanext-seriestiempoarexplorer
+ </a>
+ , 
+pero no se encuentra presente entre los plugins activos.
+Para activarlo, debemos entrar al contenedor de andino, editar el archivo
+ <code>
+  /etc/ckan/default/production.ini
+ </code>
+ y agregar
+el
+ <code>
+  seriestiempoarexplorer
+ </code>
+ a la lista de plugins.
+Luego de agregarlo, debemos reinicar el servidor.
+</p>
+<div class="codehilite">
+ <pre><span></span>cd /etc/portal
+docker-compose -f latest.yml exec portal bash;
+vim /etc/ckan/default/production.ini
+# ...
+apachectl restart
+</pre>
+</div>
+<p>
+ Luego, si vamos a la configuración del sitio, podremos apreciar que se agrego una nueva sección "Series" en el apartado
+ "Otras secciones del portal".
+</p>
+<h2 id="acceso-a-los-datos-de-andino">
+ Acceso a los datos de andino
+</h2>
+<h3 id="encontrar-los-volumenes-de-mi-andino-dentro-del-filesystem-del-host">
+ Encontrar los volúmenes de mi andino dentro del filesystem del host
+</h3>
+<div class="codehilite">
+ <pre><span></span><span class="x">docker-compose -f latest.yml ps -q andino solr db | xargs -n 1 | while read container; do docker inspect -f ' </span><span class="cp">{{</span><span class="nv">.Name</span><span class="cp">}}</span><span class="x">: </span><span class="cp">{{</span><span class="nv">range</span> <span class="nv">.Mounts</span><span class="cp">}}{{</span><span class="nv">.Source</span><span class="cp">}}</span><span class="x">: </span><span class="cp">{{</span><span class="nv">.Destination</span><span class="cp">}}</span><span class="x">  </span><span class="cp">{{</span><span class="nv">end</span><span class="cp">}}</span><span class="x"> ' $container; done</span>
+</pre>
+</div>
+<p>
+ Ver
+ <a href="#utilizacion-del-archivo-latest.yml-en-los-comandos-de-docker-compose">
+  la sección sobre la utilización del archivo latest.yml en los comandos de docker-compose
+ </a>
+ .
+</p>
+<h3 id="ver-las-direcciones-ip-de-mis-contenedores">
+ Ver las direcciones IP de mis contenedores
+</h3>
+<div class="codehilite">
+ <pre><span></span><span class="x">docker-compose -f latest.yml ps -q andino solr db | xargs -n 1 | while read container; do docker inspect -f '</span><span class="cp">{{</span><span class="nv">.Name</span><span class="cp">}}</span><span class="x">: </span><span class="cp">{{</span><span class="nv">range</span> <span class="nv">.NetworkSettings.Networks</span><span class="cp">}}{{</span><span class="nv">.IPAddress</span><span class="cp">}}{{</span><span class="nv">end</span><span class="cp">}}</span><span class="x">' $container; done</span>
+</pre>
+</div>
+<h3 id="ver-las-variables-de-entorno-que-tienen-mis-contenedores">
+ Ver las variables de entorno que tienen mis contenedores
+</h3>
+<div class="codehilite">
+ <pre><span></span><span class="x">docker-compose -f latest.yml ps -q andino solr db | xargs -n 1 | while read container; do docker inspect -f '</span><span class="cp">{{</span><span class="nv">range</span> <span class="err">$</span><span class="nv">index</span><span class="o">,</span> <span class="err">$</span><span class="nv">value</span> <span class="o">:=</span> <span class="nv">.Config.Env</span><span class="cp">}}</span><span class="x">export </span><span class="cp">{{</span><span class="err">$</span><span class="nv">value</span><span class="cp">}}{{</span><span class="nv">println</span><span class="cp">}}{{</span><span class="nv">end</span><span class="cp">}}</span><span class="x">' $container; done</span>
+</pre>
+</div>
+<p>
+ Ver
+ <a href="#utilizacion-del-archivo-latest.yml-en-los-comandos-de-docker-compose">
+  la sección sobre la utilización del archivo latest.yml en los comandos de docker-compose
+ </a>
+ .
+</p>
+<h3 id="acceder-con-un-cliente-de-postgresql-a-las-bases-de-datos">
+ Acceder con un cliente de PostgreSQL a las bases de datos
+</h3>
+<div class="codehilite">
+ <pre><span></span>docker-compose -f dev.yml exec db psql -U postgres
+# psql \c ckan db default CKAN
+# psql \c datastore_default db datastore CKAN
+</pre>
+</div>
+<h2 id="eliminar-objetos-definitivamente">
+ Eliminar objetos definitivamente
+</h2>
+<p>
+ Es bien sabido que, dentro de CKAN, cada vez que borranmos algun elemento, en verdad no se borra, sino que pasa a estar 
+inactivo; por lo tanto, tener alguna forma de eliminar elementos de manera definitiva resulta altamente necesario.
+</p>
+<h3 id="purgar-organizaciones-borradas">
+ Purgar Organizaciones Borradas
+</h3>
+<div class="codehilite">
+ <pre><span></span>curl -X POST http://tu-host/api/3/action/organization_purge -H "Authorization:tu-api-key" -F id=id-o-nombre-que-se-desea-borrar
+</pre>
+</div>
+<h3 id="purgar-grupos-borrados">
+ Purgar Grupos Borrados
+</h3>
+<div class="codehilite">
+ <pre><span></span>curl -X POST http://tu-host/api/3/action/group_purge -H "Authorization:tu-api-key" -F id=id-o-nombre-que-se-desea-borrar
+</pre>
+</div>
+<h3 id="purgar-datasets-borrados">
+ Purgar Datasets Borrados
+</h3>
+<div class="codehilite">
+ <pre><span></span>curl -X POST http://tu-host/api/3/action/dataset_purge -H "Authorization:tu-api-key" -F id=id-o-nombre-que-se-desea-borrar
+</pre>
+</div>
+<h3 id="listar-nombres-de-los-datasets-contenidos-en-andino">
+ Listar nombres de los datasets contenidos en Andino
+</h3>
+<div class="codehilite">
+ <pre><span></span>docker-compose -f latest.yml <span class="nb">exec</span> portal /etc/ckan_init.d/paster.sh  --plugin<span class="o">=</span>ckan dataset list <span class="p">|</span> grep -v DEBUG <span class="p">|</span> grep -v count  <span class="p">|</span> grep -v Datasets <span class="p">|</span> xargs -n2 <span class="p">|</span> <span class="k">while</span> <span class="nb">read</span> id name<span class="p">;</span> <span class="k">do</span> <span class="nb">echo</span> <span class="nv">$name</span><span class="p">;</span> <span class="k">done</span>
+</pre>
+</div>
+<p>
+ Ver
+ <a href="#utilizacion-del-archivo-latest.yml-en-los-comandos-de-docker-compose">
+  la sección sobre la utilización del archivo latest.yml en los comandos de docker-compose
+ </a>
+ .
+</p>
+<h2 id="backups">
+ Backups
+</h2>
+<p>
+ Es altamente recomendable hacer copias de seguridad de los datos de la aplicación, tanto la base de datos como los 
+archivos de configuración y subidos por los usuarios.
+</p>
+<h3 id="backup-de-la-base-de-datos">
+ Backup de la base de datos
+</h3>
+<p>
+ Un ejemplo fácil de hacer un backup de la base de datos sería:
+</p>
+<div class="codehilite">
+ <pre><span></span>container=$(docker-compose -f latest.yml ps -q db)
+today=`date +%Y-%m-%d.%H:%M:%S`
+filename="backup-$today.gz"
+
+# Creo un directorio temporal y defino dónde generaré el backup
+backupdir=$(mktemp -d)
+backupfile="$backupdir/$filename"
+
+# Exporto la base de datos
+docker exec $container pg_dumpall -c -U postgres | gzip &amp;gt; "$backupfile"
+
+# Copio el archivo al directorio actual y borro el original
+# Podría reemplazar $PWD con mi directorio de backups, como /etc/portal/backups
+mv "$backupfile" $PWD
+</pre>
+</div>
+<p>
+ Y para los demás archivos de la aplicación (requiere
+ <a href="https://stedolan.github.io/jq/">
+  <code>
+   jq
+  </code>
+ </a>
+ ):
+</p>
+<div class="codehilite">
+ <pre><span></span><span class="x">backupdir=$(mktemp -d)</span>
+<span class="x">today=`date +%Y-%m-%d.%H:%M:%S`</span>
+<span class="x">appbackupdir="$backupdir/application/"</span>
+<span class="x">mkdir $appbackupdir</span>
+<span class="x">container=$(docker-compose -f latest.yml ps -q portal)</span>
+
+<span class="x">docker inspect --format '</span><span class="cp">{{</span><span class="nv">json</span> <span class="nv">.Mounts</span><span class="cp">}}</span><span class="x">' $container  | jq -r '.[]|[.Name, .Source, .Destination] | @tsv' |</span>
+<span class="x">while IFS=$'\t' read -r name source destination; do</span>
+
+<span class="x">    if ls $source/* 1&amp;gt; /dev/null 2&amp;gt;&amp;amp;1; then</span>
+<span class="x">        dest="$appbackupdir$name"</span>
+<span class="x">        mkdir -p $dest</span>
+
+<span class="x">        tar -C "$source" -zcvf "$dest/backup_$today.tar.gz" $(ls $source)</span>
+<span class="x">    else</span>
+<span class="x">        echo "No file at $source"</span>
+<span class="x">    fi</span>
+<span class="x">done</span>
+
+<span class="x">tar -C "$appbackupdir../" -zcvf backup.tar.gz "application/"</span>
+</pre>
+</div>
+<p>
+ Podria colocarse esos scripts en el directorio donde se instaló la aplicación 
+(ejemplo :
+ <code>
+  /etc/portal/backup.sh
+ </code>
+ ) y luego agregar un
+ <code>
+  cron
+ </code>
+ :
+</p>
+<p>
+ Para correr el script cada domingo, podríamos usar la configuración
+ <code>
+  0 0 * * 0
+ </code>
+ (ver
+ <a href="https://help.ubuntu.com/community/CronHowto">
+  cron
+ </a>
+ para más información), 
+correr el comando
+ <code>
+  crontab -e
+ </code>
+ y agregar la línea:
+</p>
+<div class="codehilite">
+ <pre><span></span>0 0 * * 0 cd /etc/portal/ &amp;amp;&amp;amp; bash /etc/portal/backup.sh
+</pre>
+</div>
+<h3 id="realizar-un-backup-del-file-system">
+ Realizar un backup del file system
+</h3>
+<div class="codehilite">
+ <pre><span></span><span class="x"># Exporto el path al almacenamiento del volumen</span>
+<span class="x">export CKAN_FS_STORAGE=$(docker inspect --format '</span><span class="cp">{{</span> <span class="nv">range</span> <span class="nv">.Mounts</span> <span class="cp">}}{{</span> <span class="k">if</span> <span class="nv">eq</span> <span class="nv">.Destination</span> <span class="s2">"/var/lib/ckan"</span> <span class="cp">}}{{</span> <span class="nv">.Source</span> <span class="cp">}}{{</span> <span class="nv">end</span> <span class="cp">}}{{</span> <span class="nv">end</span> <span class="cp">}}</span><span class="x">' andino)</span>
+
+<span class="x"># Creo un tar.gz con la info.</span>
+<span class="x">tar -C "$(dirname "$CKAN_FS_STORAGE")" -zcvf /ruta/para/guardar/mis/bkps/mi_andino.fs-data_$(date +%F).tar.gz "$(basename "$CKAN_FS_STORAGE")"</span>
+</pre>
+</div>
+<h3 id="realizar-un-backup-de-la-configuracion">
+ Realizar un backup de la configuración
+</h3>
+<div class="codehilite">
+ <pre><span></span><span class="x"># Exporto el path al almacenamiento del volumen</span>
+<span class="x">export ANDINO_CONFIG=$(docker inspect --format '</span><span class="cp">{{</span> <span class="nv">range</span> <span class="nv">.Mounts</span> <span class="cp">}}{{</span> <span class="k">if</span> <span class="nv">eq</span> <span class="nv">.Destination</span> <span class="s2">"/etc/ckan/default"</span> <span class="cp">}}{{</span> <span class="nv">.Source</span> <span class="cp">}}{{</span> <span class="nv">end</span> <span class="cp">}}{{</span> <span class="nv">end</span> <span class="cp">}}</span><span class="x">' andino)</span>
+
+<span class="x"># Creo un tar.gz con la info.</span>
+<span class="x">tar -C "$(dirname "$ANDINO_CONFIG")" -zcvf /ruta/para/guardar/mis/bkps/mi_andino.config-data_$(date +%F).tar.gz "$(basename "$ANDINO_CONFIG")"</span>
+</pre>
+</div>
+<h2 id="comandos-de-datapusher">
+ Comandos de DataPusher
+</h2>
+<p>
+ Deben ser corridos en el directorio de instalación de Andino.
+</p>
+<h3 id="subir-todos-los-recursos-al-datastore">
+ Subir todos los recursos al Datastore
+</h3>
+<p>
+ Es posible que existan recursos que no hayan sido subidos al Datastore. Para buscar e intentar subir dichos recursos, ejecutar:
+</p>
+<div class="codehilite">
+ <pre><span></span>docker-compose -f latest.yml exec portal /usr/lib/ckan/default/bin/paster --plugin=ckan datapusher submit_all -c /etc/ckan/default/production.ini
+</pre>
+</div>
+<p>
+ Se preguntará si se desea proceder. Al escribir que sí (
+ <code>
+  y
+ </code>
+ ), iniciar la subida de recursos. Para cada uno de ellos, se escribirá su id y luego el status: si subió correctamente, aparecerá "
+ <em>
+  OK
+ </em>
+ "; en caso contrario, "
+ <em>
+  FAIL
+ </em>
+ ".
+</p>
+<h2 id="recomendaciones-de-seguridad-y-optimizaciones">
+ Recomendaciones de Seguridad y Optimizaciones
+</h2>
+<p>
+ Mantener seguro un servidor web puede ser una tarea ardua, pero sobre todo es
+ <em>
+  constante
+ </em>
+ , ya que
+ <em>
+  constantemente
+ </em>
+ se detectan nuevas vulnerabilidades en los distintos softwares.
+Y un servidor web no es la excepción!
+En este breve apartado, se darán pequeñas recomendaciones para mantener seguro el servidor, 
+no solo antes posibles atacantes, sino tambien ante posibles fallos del sistema y como efectuar mitigaciones.
+</p>
+<p>
+ Las siguientes recomendaciones puden ser implementadas fácilmente en un sistema Ubuntu 16.04, el cual es el 
+recomendado (a la fecha), para correr la aplicación.
+</p>
+<h3 id="https">
+ HTTPS
+</h3>
+<p>
+ HTTPS permite que la conexión entre el
+ <em>
+  browser
+ </em>
+ y el servidor sea encriptada y de esta manera segura.
+Es altamente recomendable usar HTTPS, para mantener la privacidad de los usuarios.
+El portal de documentación para desarrolladores de Google provee buena información sobre esto:
+https://developers.google.com/web/fundamentals/security/encrypt-in-transit/why-https
+</p>
+<h3 id="sistema-y-librerias">
+ Sistema y librerías
+</h3>
+<p>
+ Es
+ <em>
+  altamente recomendable
+ </em>
+ mantener el sistema operativo y las aplicaciones que usemos actualizadas. 
+Constantemente se están subiendo
+ <em>
+  fixes
+ </em>
+ de seguridad y posibles intrusos podrían aprovechar que las aplicaciones 
+o el mismo sistema operativo estén desactualizados.
+Periódicamente, podríamos constatar las nuevas versiones de nuestro software y actualizar dentro de lo posible. 
+Como ejemplo, podemos ver que para Ubuntu 16.04 salió Ubuntu 16.04.2, con algunas correcciones de seguridad.
+ <a href="https://wiki.ubuntu.com/XenialXerus/ReleaseNotes/ChangeSummary/16.04.2">
+  Ver
+ </a>
+ .
+</p>
+<h3 id="firewall">
+ Firewall
+</h3>
+<p>
+ <strong>
+  Todo servidor debe tener activado el firewall.
+ </strong>
+ El firewall permitirá denegar (o permitr) el acceso a la red. 
+En un servidor web, el puerto abierto al público deberían ser sólo el 80 (http) y el 443 (https). Además de ese puerto, 
+si la máquina es accedida remotamente mediante un servidor SSH, deberíamos abrir este puerto también, 
+pero con un límite de acceso.
+La solución es fácilmente implementable con el programa
+ <a href="https://help.ubuntu.com/community/UFW">
+  <code>
+   ufw
+  </code>
+ </a>
+ .
+</p>
+<h3 id="ssh">
+ SSH
+</h3>
+<p>
+ Los servidores ssh permiten el acceso al servidor remotamente.
+ <strong>
+  No debe permitirse el acceso por ssh mediante usuario y password
+ </strong>
+ . 
+Sólo debe permitirse el acceso mediante clave publica.
+DigitalOcean tiene una buena guía de cómo configurar las claves públicas
+ <a href="https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys--2">
+  Ver
+ </a>
+ .
+</p>
+<h2 id="optimizacion-de-logging">
+ Optimización de logging
+</h2>
+<h3 id="configurar-otro-logging-driver">
+ Configurar otro
+ <code>
+  logging driver
+ </code>
+</h3>
+<p>
+ Por default, docker escribe a un archivo con formato
+ <code>
+  json
+ </code>
+ , lo cual puede llevar a que se acumulen los logs de la 
+aplicación, y estos archivos crezcan indefinidamente.
+Para evitar esto, se puede configurar el
+ <a href="https://docs.docker.com/engine/admin/logging/overview/">
+  <code>
+   logging driver
+  </code>
+ </a>
+ de docker.
+La recomendacion es usar
+ <code>
+  journald
+ </code>
+ y configurarlo para que los logs sean persistentes.
+</p>
+<h3 id="eliminar-logs-antiguos-de-docker">
+ Eliminar
+ <code>
+  logs
+ </code>
+ antiguos de
+ <code>
+  Docker
+ </code>
+</h3>
+<p>
+ Dentro del normal funcionamiento de la plataforma, se genera una gran cantidad de logs, los cuales, ante un incidencia, 
+son sumamente útiles. Pero, luego de un tiempo, y sabiendo que los mismos se almacenan internamente en Andino, podría 
+ser necesario eliminarlos.
+</p>
+<div class="codehilite">
+ <pre><span></span>sudo su -c "ls  /var/lib/docker/containers/ | xargs -n1 | while read docker_id; do truncate -s 0 /var/lib/docker/containers/<span class="cp">${</span><span class="n">docker_id</span><span class="o">%/*</span><span class="cp">}</span>/<span class="cp">${</span><span class="n">docker_id</span><span class="o">%/*</span><span class="cp">}</span>-json.log; done"
+</pre>
+</div>
+<h3 id="eliminar-logs-dentro-de-andino">
+ Eliminar logs dentro de Andino
+</h3>
+<div class="codehilite">
+ <pre><span></span>docker-compose -f latest.yml exec portal truncate -s 0 /var/log/apache2/*.log
+</pre>
+</div>
+<p>
+ Ver
+ <a href="#utilizacion-del-archivo-latest.yml-en-los-comandos-de-docker-compose">
+  la sección sobre la utilización del archivo latest.yml en los comandos de docker-compose
+ </a>
+ .
+</p>
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+<h2 id="indice">
+ Indice
+</h2>
+<ul>
+ <li>
+  <a href="#configuracion-https">
+   Configuración HTTPS
+  </a>
+ </li>
+ <li>
+  <a href="#certificado-ssl">
+   Certificado SSL
+  </a>
+ </li>
+ <li>
+  <a href="#configuracion-de-ssl">
+   Configuración de SSL
+  </a>
+  <ul>
+   <li>
+    <a href="#modificar-el-puerto">
+     Modificar el puerto
+    </a>
+   </li>
+   <li>
+    <a href="#realizar-cambios-en-un-andino-instalado">
+     Realizar cambios en un Andino instalado
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li>
+  <a href="#probar-la-configuracion">
+   Probar la configuración
+  </a>
+ </li>
+ <li>
+  <a href="#renovar-certificados-ssl">
+   Renovar certificados SSL
+  </a>
+ </li>
+ <li>
+  <a href="#deshabilitar-ssl">
+   Deshabilitar SSL
+  </a>
+ </li>
+</ul>
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+<h1 id="configuracion-https">
+ Configuración HTTPS
+</h1>
+<h2 id="certificado-ssl">
+ Certificado SSL
+</h2>
+<p>
+ Andino cuenta con soporte
+ <em>
+  builtin
+ </em>
+ de certificados SSL. Es posible instalar Andino con SSL, actualizar una versión de Andino sin SSL y agregarle el soporte para SSL, e inclusive deshabilitar SSL a una instancia con SSL.
+</p>
+<p>
+ Lo único que un administrador de Andino necesita para habilitar SSL es contar con los certificados
+ <code>
+  .key
+ </code>
+ y
+ <code>
+  .crt
+ </code>
+ para nuestra aplicación y la elección de un puerto libre del host para usar SSL.
+</p>
+<p>
+ Cómo obtener estos archivos está fuera del "scope" de esta documentación.
+</p>
+<h2 id="configuracion-de-ssl">
+ Configuración de SSL
+</h2>
+<p>
+ Tanto la instalación como la actualización de un Andino emplean el uso de un parámetro llamado
+ <code>
+  nginx_ssl
+ </code>
+ , el cual 
+puede ser utilizado para especificar que se desea utilizar SSL.
+</p>
+<p>
+ Para especificar el path de los archivos del certificado, se debe utilizar los parámetros
+ <code>
+  ssl_key_path
+ </code>
+ y
+ <code>
+  ssl_crt_path
+ </code>
+ . Los archivos dentro del contenedor
+ <code>
+  nginx
+ </code>
+ se llamarán
+ <em>
+  <code>
+   andino.key
+  </code>
+ </em>
+ y
+ <em>
+  <code>
+   andino.crt
+  </code>
+ </em>
+ respectivamente, y el proceso de instalación o actualización los copiará en el directorio
+ <em>
+  <code>
+   /etc/nginx/ssl
+  </code>
+ </em>
+ . En caso de que al menos uno de estos archivos no 
+esté,
+ <em>
+  no se podrá utilizar el archivo de configuración para SSL
+ </em>
+ y se elegirá el default en su lugar. Hay que 
+asegurarse de que el path de cada archivo sea válido (exista en el host), y que estén especificados en la 
+instalación/actualización.
+</p>
+<p>
+ Un navegador web
+ <em>
+  no debería
+ </em>
+ mostrarnos ninguna advertencia si los certificados son correctos.
+</p>
+<p>
+ Un ejemplo de uso dentro del comando de instalación de Andino para los parámetros mencionados:
+</p>
+<div class="codehilite">
+ <pre><span></span>--nginx_ssl --ssl_key_path="/home/miusuario/Desktop/mi_archivo_key.key" --ssl_crt_path="/home/miusuario/Desktop/mi_archivo_crt.crt"
+</pre>
+</div>
+<p>
+ Estos parámetros de configuración deben ser especificados en cada actualización de Andino, para mantener SSL habilitado.
+</p>
+<h3 id="modificar-el-puerto">
+ Modificar el puerto
+</h3>
+<p>
+ Para la instalación de Andino, el puerto a ser utilizado por default es el 443, pero éste puede ser cambiado mediante 
+el parámetro
+ <code>
+  nginx_ssl_port
+ </code>
+ y un valor a elección.
+</p>
+<p>
+ Ejemplo:
+</p>
+<div class="codehilite">
+ <pre><span></span>--nginx_ssl_port=8443
+</pre>
+</div>
+<p>
+ Es importante para los administradores saber que Andino tomará el puerto especificado (o el default) ya sea que el portal use o no use HTTPS. En caso de no querer usar HTTPS y que el host tenga erl puerto 443 tomado por un servidor web, es requisito especificar un puerto distinto (ejemplo: 8443) que será reservado por Andino, pero no utilizado.
+</p>
+<h3 id="realizar-cambios-en-un-andino-instalado">
+ Realizar cambios en un Andino instalado
+</h3>
+<p>
+ Para lograr que Andino implemente la configuración HTTPS, es necesario realizar una actualización de andino y especificar las opciones detalladas en la sección
+ <a href="#configuracion-de-ssl">
+  Configuración de SSL
+ </a>
+ .
+</p>
+<p>
+ Estas opciones solo son válidas a partir de Andino
+ <code>
+  release-2.5.2
+ </code>
+ .
+</p>
+<h2 id="probar-la-configuracion">
+ Probar la configuración
+</h2>
+<p>
+ Para asegurarse de que Nginx esté utilizando la configuración HTTPS, ejecutar el siguiente comando debería mostrar
+ <code>
+  nginx_ssl.conf
+ </code>
+ :
+</p>
+<p>
+ <code>
+  docker exec -it andino-nginx bash -c 'echo $NGINX_CONFIG_FILE'
+ </code>
+ .
+</p>
+<p>
+ Si se está implementando la configuración HTTPS y los certificados fueron creados correctamente, el explorador debería 
+redirigir cualquier llamada HTTP a HTTPS.
+</p>
+<p>
+ Si se especificó un puerto para SSL, el portal debería permitir el ingreso si el puerto es parte de la URL.
+</p>
+<p>
+ También deberías poder navegar el portal en el puerto SSL seleccionado.
+</p>
+<h2 id="renovar-certificados-ssl">
+ Renovar certificados SSL
+</h2>
+<p>
+ Para renovar los certificados SSL de tu instancia de Andino es tan sencillo como ejecutar una actualización de Andino. Para llevarlo a cabo es necesario que subas los dos archivos que componen el certificado (
+ <code>
+  .cer
+ </code>
+ y
+ <code>
+  .key
+ </code>
+ ) y que ejecutes el comando de actualización de Andino, especificando la opción
+ <code>
+  --nginx_ssl
+ </code>
+ y las opciones que permiten configurar los archivos del certificado como estaá especificado en la sección
+ <a href="#configuracion-de-ssl">
+  Configuración de SSL
+ </a>
+ .
+</p>
+<p>
+ Si deseás mantener la versión de Andino que tenés, debés especificar la opción
+ <code>
+  --andino_version
+ </code>
+ con la versión de tu instancia de Andino.
+</p>
+<h2 id="deshabilitar-ssl">
+ Deshabilitar SSL
+</h2>
+<p>
+ El proceso de deshabilitación de SSL se puede lograr mediante la ejecución del proceso de actualización de Andino
+ <code>
+  update.py
+ </code>
+ especificando el parámetro
+ <code>
+  --andino_version
+ </code>
+ a una versión igual a la del portal a configurar (es decir, se mantendrá la misma versión), pero no especificando el parámetro
+ <code>
+  --nginx_ssl
+ </code>
+ .
+</p>
+<p>
+ De esta manera el script de actualización usará la configuración de Andino que no habilita HTTPS y se habilitará el acceso por el puerto 80.
+</p>
+<p>
+ Ejemplo de uso:
+</p>
+<div class="codehilite">
+ <pre><span></span>sudo wget https://raw.github.com/datosgobar/portal-andino/master/install/update.py
+sudo python update.py --andino_version=&amp;lt;versión del andino del portal&amp;gt;
+</pre>
+</div>
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+<h2 id="indice">
+ Indice
+</h2>
+<ul>
+ <li>
+  <a href="#configuracion-de-dns">
+   Configuración de DNS
+  </a>
+ </li>
+ <li>
+  <a href="#introduccion">
+   Introducción
+  </a>
+ </li>
+ <li>
+  <a href="#como-diagnosticar-si-tu-andino-tiene-el-problema">
+   Cómo diagnosticar si tu andino tiene el problema
+  </a>
+ </li>
+ <li>
+  <a href="#como-resolver-el-problema">
+   Cómo resolver el problema
+  </a>
+  <ul>
+   <li>
+    <a href="#configuracion-de-dns-publicos">
+     Configuración de DNS públicos
+    </a>
+   </li>
+   <li>
+    <a href="#configurar-andino-con-el-nuevo-nombre-de-dominio">
+     Configurar andino con el nuevo nombre de dominio
+    </a>
+   </li>
+   <li>
+    <a href="#configurar-un-alias-en-la-red-de-docker-para-el-contenedor-nginx">
+     Configurar un alias en la red de Docker para el contenedor nginx
+    </a>
+   </li>
+   <li>
+    <a href="#verificando-que-el-problema-fue-resuelto">
+     Verificando que el problema fue resuelto
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+<h1 id="configuracion-de-dns">
+ Configuración de DNS
+</h1>
+<h2 id="introduccion">
+ Introducción
+</h2>
+<p>
+ Algunas funcionalidades del Portal Andino requieren que la aplicación web o procesos externos (ej: DataPusher) puedan navegar sin restricciones desde el proceso en el cual corre la aplicación Python a la URL donde está publicado el sitio (definida por el setting
+ <code>
+  ckan.site_url
+ </code>
+ ).
+</p>
+<p>
+ Esta URL debe poder ser accedida sin problemas de resolución de nombres o de ruteo de IPs desde el mismo contenedor
+ <em>
+  portal
+ </em>
+ para el correcto funcionamiento del sitio.
+</p>
+<p>
+ Algunas instancias de Andino han reportado problemas de funcionamiento debido a que la infraestructura donde están alojados no permite esta resolución de nombres de manera correcta. Este artículo describe cómo diagnosticar el problema y propone soluciones al mismo.
+</p>
+<p>
+ Recordá que
+ <em>
+  todos los comandos de este artículo deben ser ejecutados en el directorio donde instalaste andino, por ejemplo
+  <code>
+   /etc/portal
+  </code>
+  .
+ </em>
+</p>
+<h2 id="como-diagnosticar-si-tu-andino-tiene-el-problema">
+ Cómo diagnosticar si tu andino tiene el problema
+</h2>
+<p>
+ Para saber si es necesario realizar las configuraciones detalladas en este artículo, podés realizar los siguientes pasos detallados abajo.
+</p>
+<ol>
+ <li>
+  Obtener el valor de
+  <code>
+   ckan.site_url
+  </code>
+  : el valor se puede obtener ejecutando el siguiente comando:
+  <code>
+   docker-compose -f latest.yml exec portal grep ckan\.site_url /etc/ckan/default/production.ini
+  </code>
+  . Ese comando debería devolver
+  <code>
+   ckan.site_url = &lt;URL de tu Andino&gt;
+  </code>
+  .
+ </li>
+ <li>
+  Evaluar si tu andino puede navegar hasta la URL del sitio. Ejecutá el siguiente comando:
+  <code>
+   docker-compose -f latest.yml exec portal curl &lt;URL de tu Andino&gt;/data.json
+  </code>
+  .
+ </li>
+</ol>
+<p>
+ Si el segundo paso no devuelve una respuesta en formato
+ <em>
+  json
+ </em>
+ con la información del catálogo de tu instancia idéntica a la que obtendrías navegando desde tu navegador a
+ <code>
+  &lt;URL de tu Andino&gt;/data.json
+ </code>
+ (por ejemplo, luego de un rato obtenés
+ <code>
+  curl: (7) Failed to connect to &lt;URL de tu Andino&gt; port 80: Connection timed out
+ </code>
+ ), entonces
+ <em>
+  debés aplicar la configuración recomendada en este artículo
+ </em>
+ .
+</p>
+<h2 id="como-resolver-el-problema">
+ Cómo resolver el problema
+</h2>
+<p>
+ La solución del problema se basa en asegurar que dentro de la red de Docker el nombre de dominio de Andino pueda resolverse correctamente a la IP pública del host, a la IP privada dentro de la red en la que está o a la IP interna dentro de la red de Docker.
+</p>
+<p>
+ Para lograrlo, planteamos distintas alternativas.
+</p>
+<h3 id="configuracion-de-dns-publicos">
+ Configuración de DNS públicos
+</h3>
+<p>
+ Este paso no está cubierto por esta documentación, ya que puede ser resuelto mediante formas diversas, dependiendo de la infraestructura con la que contás.
+</p>
+<p>
+ Lo que debés hacer es contactarte con tu administrador de infraestructura y solicitar una IP pública fija y un nombre de dominio para la instancia de tu andino.
+</p>
+<p>
+ Probablemente ya tengas un nombre de dominio asignado a tu instancia de andino, con lo cual podés saltar este paso.
+</p>
+<h3 id="configurar-andino-con-el-nuevo-nombre-de-dominio">
+ Configurar andino con el nuevo nombre de dominio
+</h3>
+<p>
+ Si ya tenés un nombre de dominio asignado para acceder a tu andino, y cuando lo instalaste lo configuraste usando ese nombre de dominio, podés saltar este paso.
+</p>
+<p>
+ Para configurar el nuevo nombre de dominio es necesario actualizar el setting
+ <code>
+  ckan.site_url
+ </code>
+ de la instancia de Andino. Esto lo podés lograr con el siguiente comando:
+</p>
+<p>
+ <code>
+  docker-compose -f latest.yml exec portal /etc/ckan_init.d/update_conf.sh "ckan.site_url=http://&lt;tu nombre de dominio&gt;"
+ </code>
+ .
+</p>
+<p>
+ Podés verificar que haya quedado bien configurado ejecutando:
+</p>
+<p>
+ <code>
+  docker-compose -f latest.yml exec portal grep ckan\.site_url /etc/ckan/default/production.ini
+ </code>
+ .
+</p>
+<p>
+ Para reflejar los cambios, es neceario reiniciar la aplicación web del contenedor
+ <code>
+  portal
+ </code>
+ :
+</p>
+<p>
+ <code>
+  docker-compose -f latest.yml exec portal apachectl restart
+ </code>
+ .
+</p>
+<p>
+ Finalmente, si ya tenías datos cargados en tu andino, necesitás regenerar el índice de búsqueda, usando el siguiente comando:
+</p>
+<p>
+ <code>
+  docker-compose -f latest.yml exec portal /etc/ckan_init.d/run_rebuild_search.sh
+ </code>
+</p>
+<h3 id="configurar-un-alias-en-la-red-de-docker-para-el-contenedor-nginx">
+ Configurar un alias en la red de Docker para el contenedor nginx
+</h3>
+<p>
+ Si, aún teniendo un nombre de dominio asignado, tu portal no puede resolver el mismo a la IP pública del servidor, podés modificar la configuración de la red de Docker usada por Andino para mapear el nombre de dominio de tu instancia al contenedor
+ <code>
+  nginx
+ </code>
+ .
+</p>
+<p>
+ Acalaración: Esta configuración se realiza por defecto para todas las instancias de Andino desde la versión 2.5. Si tu instancia de Andino fue creada
+ <em>
+  antes de la versión 2.5
+ </em>
+ , seguramente quieras realizar estos pasos.
+</p>
+<p>
+ Para asegurarte de que la red interna de los contenedores de Docker que conforman Andino tienen la configuración necesaria para la correcta resolución de nombres, podés seguir los siguientes pasos (todos en el directorio de instalación de Andino, por ejemplo
+ <code>
+  /etc/portal
+ </code>
+ ):
+</p>
+<ol>
+ <li>
+  Editá el archivo
+  <code>
+   .env
+  </code>
+  y asegurate que el valor del atributo
+  <code>
+   SITE_HOST
+  </code>
+  tenga el valor del
+  <em>
+   hostname
+  </em>
+  de tu instancia de Andino, sin
+  <em>
+   http
+  </em>
+  . Si no encontrás una entrada para
+  <code>
+   SITE_HOST
+  </code>
+  en tu archivo
+  <code>
+   .env
+  </code>
+  , agregala al final. Por ejemplo debería ser
+  <code>
+   SITE_HOST=mi-andino.mi-ministerio.gob.ar
+  </code>
+  .
+ </li>
+ <li>
+  Descargá la última versión de
+  <code>
+   latest.yml
+  </code>
+  :
+  <code>
+   mv latest.yml latest.yml.bak &amp;&amp; wget https://raw.githubusercontent.com/datosgobar/portal-andino/master/latest.yml
+  </code>
+  . Probablemente ya tengas esta misma versión si actualizaste a Andino 2.5, pero para asegurarnos de que tengas los últimos cambios necesarios para esta configuración es necesario realizar este paso.
+ </li>
+ <li>
+  Recreá el contenedor
+  <code>
+   nginx
+  </code>
+  :
+  <code>
+   docker-compose -f latest.yml up -d nginx
+  </code>
+  . Recordá que este paso puede generar algo de
+  <em>
+   downtime
+  </em>
+  , por lo que quizás sea prudente realizarlo en algún horario con poco tráfico en Andino.
+ </li>
+</ol>
+<h3 id="verificando-que-el-problema-fue-resuelto">
+ Verificando que el problema fue resuelto
+</h3>
+<p>
+ Si el problema fue resuelto, ahora podrías realizar el procedimiento detallado en
+ <a href="#como-diagnosticar-si-tu-andino-tiene-el-problema">
+  Cómo diagnosticar si tu andino tiene el problema
+ </a>
+ y deberías obtener un
+ <em>
+  json
+ </em>
+ como respuesta.
+</p>
+<h1 id="generacion-de-imagenes-docker">
+ Generación de imágenes Docker
+</h1>
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+<ul>
+ <li>
+  <a href="#generacion-de-imagenes-docker">
+   Generación de imágenes Docker
+  </a>
+ </li>
+</ul>
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+<p>
+ Para generar las imágenes, ejecutar la aplicación y levantarla, previamente es necesario instalar
+ <code>
+  Docker
+ </code>
+ y
+ <code>
+  docker-compose
+ </code>
+ :
+</p>
+<ul>
+ <li>
+  Instalar
+  <a href="https://docs.docker.com/engine/installation/linux/ubuntu/">
+   Docker
+  </a>
+ </li>
+ <li>
+  Instalar
+  <a href="https://docs.docker.com/compose/install/">
+   docker-compose
+  </a>
+ </li>
+</ul>
+<p>
+ Actualmente, el repositorio contiene 1 arhivo
+ <code>
+  Dockerfile
+ </code>
+ y 2 archivos
+ <code>
+  docker-compose
+ </code>
+</p>
+<ul>
+ <li>
+  <code>
+   Dockerfile
+  </code>
+  : Se usa para generar la imagen de la aplicación
+ </li>
+ <li>
+  <code>
+   dev.yml
+  </code>
+  : Archivo de docker-compose para levantar los servicios necesarios y generar la imagen de la aplicación.
+ </li>
+ <li>
+  <code>
+   latest.yml
+  </code>
+  : Archivo de docker-compose para levantar la aplicación a su última version. (ver
+  <a href="install.md">
+   instalación
+  </a>
+  )
+ </li>
+</ul>
+<p>
+ Para levantar toda la aplicacion, se puede correr:
+</p>
+<div class="codehilite">
+ <pre><span></span>$ docker-compose -f dev.yml up -d nginx
+</pre>
+</div>
+<p>
+ Si es la primera vez que se corre este comando, puede llegar a tardar bastante en descargar las imágenes.
+Una vez terminado, dejar en el puerto
+ <code>
+  localhost:80
+ </code>
+ la aplicacion ejecutándose, pero antes se debe correr un comando para inicializar el desarrollo:
+</p>
+<div class="codehilite">
+ <pre><span></span>$ docker <span class="nb">exec</span> -it andino /etc/ckan_init.d/init_dev.sh
+</pre>
+</div>
+<p>
+ También se pueden levantar los servicios por separado de la aplicación:
+</p>
+<ul>
+ <li>
+  Los
+  <code>
+   servicios
+  </code>
+  :
+ </li>
+</ul>
+<p>
+ <code>
+  $ docker-compose -f dev.yml up --build --abort-on-container-exit db sol redis postfix
+ </code>
+</p>
+<ul>
+ <li>
+  La aplicación andino que tendrá el puerto
+  <code>
+   8080
+  </code>
+  y en el
+  <code>
+   8800
+  </code>
+  el datapusher.
+ </li>
+</ul>
+<p>
+ <code>
+  $ docker-compose -f dev.yml up --abort-on-container-exit --build --no-deps portal
+ </code>
+</p>
+<ul>
+ <li>
+  Nginx que estará en el puerto
+  <code>
+   80
+  </code>
+  :
+ </li>
+</ul>
+<p>
+ <code>
+  $ docker-compose -f dev.yml up -d --no-deps nginx
+ </code>
+</p>
+<p>
+ Eso levantará la aplicación con el directorio actual (
+ <code>
+  $PWD
+ </code>
+ ) disponible dentro del directorio
+ <code>
+  /dev-app
+ </code>
+ del container.
+</p>
+<p>
+ Para acceder a la aplicación, hacer modificaciones en
+ <code>
+  runtime
+ </code>
+ , basta con correr el comando:
+</p>
+<div class="codehilite">
+ <pre><span></span>$ docker-compose -f dev.yml <span class="nb">exec</span> andino /bin/bash
+</pre>
+</div>
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+<h2 id="indice">
+ Indice
+</h2>
+<ul>
+ <li>
+  <a href="#desarrollo">
+   Desarrollo
+  </a>
+ </li>
+ <li>
+  <a href="#instalar-un-nuevo-requerimiento-en-la-imagen-base">
+   Instalar un nuevo requerimiento en la imagen base
+  </a>
+  <ul>
+   <li>
+    <a href="#instalar-nuevo-requerimiento">
+     Instalar nuevo requerimiento
+    </a>
+   </li>
+   <li>
+    <a href="#configuracion">
+     Configuración
+    </a>
+   </li>
+   <li>
+    <a href="#configuracion-propia">
+     Configuración propia
+    </a>
+   </li>
+   <li>
+    <a href="#inicio-automatico">
+     Inicio automático
+    </a>
+   </li>
+   <li>
+    <a href="#generacion-del-nuevo-contenedor">
+     Generación del nuevo contenedor
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li>
+  <a href="#probar-modificaciones-y-nuevas-funcionalidades">
+   Probar modificaciones y nuevas funcionalidades
+  </a>
+  <ul>
+   <li>
+    <a href="#instalando-andino">
+     Instalando Andino
+    </a>
+   </li>
+   <li>
+    <a href="#actualizando-theme">
+     Actualizando Andino
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+<ul>
+ <li>
+  <a href="#desarrollo">
+   Desarrollo
+  </a>
+  <ul>
+   <li>
+    <a href="#instalar-un-nuevo-requerimiento-en-la-imagen-base">
+     Instalar un nuevo requerimiento en la imagen base
+    </a>
+    <ul>
+     <li>
+      <a href="#instalar-nuevo-requerimiento">
+       Instalar nuevo requerimiento
+      </a>
+     </li>
+     <li>
+      <a href="#configuracion">
+       Configuración
+      </a>
+     </li>
+     <li>
+      <a href="#configuracion-propia">
+       Configuración propia
+      </a>
+     </li>
+     <li>
+      <a href="#inicio-automatico">
+       Inicio automático
+      </a>
+     </li>
+     <li>
+      <a href="#generacion-del-nuevo-contenedor">
+       Generación del nuevo contenedor
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li>
+    <a href="#probar-modificaciones-y-nuevas-funcionalidades">
+     Probar modificaciones y nuevas funcionalidades
+    </a>
+   </li>
+   <li>
+    <a href="#instalando-andino">
+     Instalando Andino
+    </a>
+   </li>
+   <li>
+    <a href="#actualizando-theme">
+     Actualizando Andino
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<h1 id="desarrollo">
+ Desarrollo
+</h1>
+<h2 id="instalar-un-nuevo-requerimiento-en-la-imagen-base">
+ Instalar un nuevo requerimiento en la imagen base
+</h2>
+<p>
+ Si necesitamos instalar y configurar un nuevo requerimiento para andino, lo recomendable es instalarlo
+en la imagen de datosgobar/portal-base. Esto permitirá mantener el build de datosgobar/portal-andino
+más pequeño y rápido.
+</p>
+<p>
+ Para ejemplificar esto, supondremos que queremos levantar los workers de RQ usando supervisor.
+Esta implementación, presente en
+ <a href="http://docs.ckan.org/en/2.7/maintaining/background-tasks.html#background-job-queues">
+  ckan 2.7
+ </a>
+ ,
+require levantar
+ <a href="http://supervisord.org/">
+  supervisor
+ </a>
+ con una
+ <a href="https://github.com/ckan/ckan/blob/2.7/ckan/config/supervisor-ckan-worker.conf">
+  configuración especial
+ </a>
+ para levantar los workers.
+</p>
+<h3 id="instalar-nuevo-requerimiento">
+ Instalar nuevo requerimiento
+</h3>
+<p>
+ Para instalar
+ <code>
+  supervisor
+ </code>
+ en el portal base, podemos hacer uso de la tarea de
+ <code>
+  ansible
+ </code>
+ encargada de instalar los
+requerimientos para la aplicación. A la fecha, este código se encuentra en
+ <a href="https://github.com/datosgobar/portal-base/blob/c2dfe6613af1b56ae07e6e1303245f6c206a7066/base_portal/roles/portal/tasks/dependencies.yml#L18">
+  <code>
+   dependencies.yml
+  </code>
+ </a>
+</p>
+<p>
+ La parte que instala los requerimientos quedaría así:
+</p>
+<div class="codehilite">
+ <pre><span></span><span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Install dependencies</span>
+  <span class="l l-Scalar l-Scalar-Plain">apt</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="s">"{{</span><span class="nv"> </span><span class="s">item</span><span class="nv"> </span><span class="s">}}"</span>
+    <span class="l l-Scalar l-Scalar-Plain">state</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">present</span>
+  <span class="l l-Scalar l-Scalar-Plain">with_items</span><span class="p p-Indicator">:</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">libevent-dev</span>
+    <span class="c1"># Otras dependencias</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">gettext</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">supervisor</span>
+</pre>
+</div>
+<p>
+ Al agregar
+ <code>
+  supervisor
+ </code>
+ , éste será instalado cuando la generación de la imagen termine.
+Ahora, lo siguiente sólo sería agregar la configuración para levantar las colas de rq, 
+con la configuración que trae ckan.
+</p>
+<h3 id="configuracion">
+ Configuración
+</h3>
+<p>
+ El mejor punto para agregar esta configuración es en el archivo
+ <a href="https://github.com/datosgobar/portal-base/blob/c2dfe6613af1b56ae07e6e1303245f6c206a7066/base_portal/roles/portal/tasks/configure.yml">
+  <code>
+   configure.yml
+  </code>
+ </a>
+ .
+El mismo es utilizado
+ <em>
+  después
+ </em>
+ de que ckan es instalado, por lo que el archivo de configuración ya está 
+presente en el sistema.
+</p>
+<p>
+ Para eso, añadiremos una tarea más de ansible, usaremos el módulo
+ <a href="https://docs.ansible.com/ansible/2.4/copy_module.html">
+  <code>
+   copy
+  </code>
+ </a>
+ .
+Al final de
+ <code>
+  configure.yml
+ </code>
+ , agregaremos algo como:
+</p>
+<div class="codehilite">
+ <pre><span></span><span class="c1"># Otras tareas</span>
+
+<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Copy supervisor configuration</span>
+  <span class="l l-Scalar l-Scalar-Plain">copy</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">src</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/usr/lib/ckan/default/src/ckan/ckan/config/supervisor-ckan-worker.conf</span>
+    <span class="l l-Scalar l-Scalar-Plain">dest</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/etc/supervisor/conf.d/</span>
+    <span class="l l-Scalar l-Scalar-Plain">remote_src</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">yes</span>
+</pre>
+</div>
+<h3 id="configuracion-propia">
+ Configuración propia
+</h3>
+<p>
+ Algo que podríamos desear es tener nuestra propia configuración de supervisor, que se basa en la que nos
+provee ckan. Para esto, copiamos el archivo
+ <code>
+  supervisor-ckan-worker.conf
+ </code>
+ desde dentro del contenedor y
+lo colocamos al lado de
+ <code>
+  production.ini.j2
+ </code>
+ , dentro del directorio
+ <code>
+  templates/ckan
+ </code>
+ .
+Luego, cambiamos la tarea de ansible para que copie nuestro archivo:
+</p>
+<div class="codehilite">
+ <pre><span></span><span class="c1"># Otras tareas</span>
+
+<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Copy supervisor configuration</span>
+  <span class="l l-Scalar l-Scalar-Plain">copy</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">src</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">ckan/supervisor-ckan-worker.conf</span>
+    <span class="l l-Scalar l-Scalar-Plain">dest</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/etc/supervisor/conf.d/</span>
+</pre>
+</div>
+<h3 id="inicio-automatico">
+ Inicio automático
+</h3>
+<p>
+ Para lograr que supervisor se inicie automátiamente cada vez que se levante el portal,
+debemos correr
+ <code>
+  service supervisor restart
+ </code>
+ mientras esta se levanta, en "runtime". El mejor lugar para esto
+es el script que se corre por defecto:
+ <code>
+  start_ckan.sh.j2
+ </code>
+ .
+</p>
+<p>
+ En este script, agregamos los comandos que queremos
+ <em>
+  antes
+ </em>
+ de que la aplicación sea iniciada:
+</p>
+<div class="codehilite">
+ <pre><span></span><span class="x"># otros comandos ...</span>
+
+<span class="x">echo "Iniciando Supervisor"</span>
+<span class="x">service supervisor restart</span>
+
+<span class="x">service apache2 stop</span>
+<span class="x">exec </span><span class="cp">{{</span> <span class="nv">CKAN_INIT</span> <span class="cp">}}</span><span class="x">/run_andino.sh</span>
+</pre>
+</div>
+<h3 id="generacion-del-nuevo-contenedor">
+ Generación del nuevo contenedor
+</h3>
+<p>
+ Ahora, para probar estos cambios, generamos una nueva imagen de
+ <code>
+  datosgobar/portal-base
+ </code>
+ :
+</p>
+<div class="codehilite">
+ <pre><span></span>base_image="datosgobar/portal-base:test"
+
+cd portal-base/;
+
+docker build base_portal -t "$base_image";
+</pre>
+</div>
+<p>
+ Esto generará una imagen con el tag (o nombre) "datosgobar/portal-base:test".
+</p>
+<p>
+ Para hacer una prueba rápida, podemos correr:
+</p>
+<p>
+ <code>
+  docker run --rm -it datosgobar/portal-base:test supervisord -n
+ </code>
+</p>
+<p>
+ Este comando iniciará un contenedor con supervisor corriendo. Deberíamos ver en consola los
+siguiente mensajes (podemos salir del contenedor usando
+ <code>
+  Ctrl+c
+ </code>
+ ):
+</p>
+<div class="codehilite">
+ <pre><span></span>2018-06-22 18:55:46,593 CRIT Supervisor running as root (no user in config file)
+2018-06-22 18:55:46,593 WARN Included extra file "/etc/supervisor/conf.d/supervisor-ckan-worker.conf" during parsing
+2018-06-22 18:55:46,615 INFO RPC interface 'supervisor' initialized
+</pre>
+</div>
+<p>
+ Para probar esto directamente en el contenedor de
+ <code>
+  portl-andino
+ </code>
+ , debemos
+ <strong>
+  generar una nueva imagen del contenedor en base a la imagen del portal base
+ </strong>
+ .
+Para esto, en el archivo
+ <code>
+  Dockerfile
+ </code>
+ del portal, cambiamos el
+ <code>
+  FROM
+ </code>
+ , utilizando la
+imagen temporal que acabamos de crear:
+</p>
+<div class="codehilite">
+ <pre><span></span>FROM datosgobar/portal-base:test
+
+# ... otros comandos
+</pre>
+</div>
+<p>
+ Ahora, generamos la nueva imagen:
+</p>
+<div class="codehilite">
+ <pre><span></span>cd portal-andino/
+
+docker build -t portal-andino:test .
+</pre>
+</div>
+<p>
+ Luego, iniciamos la aplicación en modo desarrollo:
+</p>
+<div class="codehilite">
+ <pre><span></span>cd portal-andino/
+
+./dev.sh setup;
+</pre>
+</div>
+<p>
+ Una vez iniciada la aplicación, entramos al contenedor y verificamos que supervisor esté corriendo:
+</p>
+<div class="codehilite">
+ <pre><span></span>cd portal-andino/
+./dev.sh console
+
+# Una vez en el contenedor
+supervisorctl
+</pre>
+</div>
+<p>
+ En este momento, deberíamos ver el estado de supervisor. Para salir, usamos
+ <code>
+  Ctrl + C
+ </code>
+ .
+</p>
+<p>
+ Si comprobamos que el nuevo requerimiento está instalado y configurado, volvemos el
+ <code>
+  Dockerfile
+ </code>
+ a su estado anterior (deshaciendo el cambio en el
+ <code>
+  FROM
+ </code>
+ ).
+Luego, debemos sacar una nueva imagen del
+ <strong>
+  portal-base
+ </strong>
+ y, finalmente, una nueva de
+ <strong>
+  portal-andino
+ </strong>
+ que se base en la anterior.
+</p>
+<h2 id="probar-modificaciones-y-nuevas-funcionalidades">
+ Probar modificaciones y nuevas funcionalidades
+</h2>
+<h3 id="instalando-andino">
+ Instalando Andino
+</h3>
+<p>
+ Se utilizará el archivo
+ <code>
+  dev.sh
+ </code>
+ de portal-andino ejecutando la función
+ <code>
+  install
+ </code>
+ , la cual permite levantar una 
+instancia en base a los parámetros recibidos. Dicha función puede ser usada para testear cambios en portal-andino, 
+portal-andino-theme, y/o portal-base.
+</p>
+<p>
+ Los parámetros a utilizar son:
+</p>
+<div class="codehilite">
+ <pre><span></span>  -h <span class="p">|</span> --help                             mostrar ayuda
+  -a <span class="p">|</span> --andino_branch           VALUE    nombre del branch de portal-andino <span class="o">(</span>default: master<span class="o">)</span>
+  -t <span class="p">|</span> --theme_branch            VALUE    nombre del branch de portal-andino-theme <span class="o">(</span>default: master o el ya utilizado<span class="o">)</span>
+  -b <span class="p">|</span> --base_branch             VALUE    nombre del branch de portal-base
+       --nginx_ssl                        activar la configuración de SSL <span class="o">(</span>requiere los archivos del certificado SSL<span class="o">)</span>
+       --nginx_host_port         VALUE    puerto a usar para HTTP
+       --nginx_ssl_port          VALUE    puerto a usar para HTTPS
+       --nginx-extended-cache             activar la configuración de caché extendida de Nginx
+       --ssl_key_path            VALUE    path a la clave privada del certificado SSL
+       --ssl_crt_path            VALUE    path al certificado SSL
+</pre>
+</div>
+<p>
+ Todos los parámetros son opcionales. Para portal-andino y portal-andino-theme, el branch a utilizar, por default, 
+será master en ambos casos. Para portal-base, se defaulteará a la versión que figure en el Dockerfile de portal-andino.
+</p>
+<p>
+ <em>
+  Nota: Si se utiliza el nombre 'localhost' para la variable
+  <code>
+   site_host
+  </code>
+  , es posible que ocurra un error al intentar 
+subir un archivo perteneciente a un recurso al Datastore:
+  <code>
+   Error: Proceso completo pero no se pudo enviar a 
+result_url.
+  </code>
+  Para evitar este problema, se puede utilizar un hostname local diferente; seguir los siguientes pasos para utilizar uno 
+nuevo:
+  <em>
+   Ejecutar
+   <code>
+    vi /etc/hosts
+   </code>
+   en el host
+  </em>
+  Puede existir la línea
+  <code>
+   127.0.0.1       localhost
+  </code>
+  , y también otras parecidas; hay que escribir una nueva (es 
+necesario asegurarse de que la IP y el hostname de la que queremos escribir sean distintos a todos los anteriores).
+  * Escribir una línea nueva
+  <code>
+   127.0.X.1 nuevo_hostname
+  </code>
+  , reemplazando la 'X' por algún número que no esté en una de las 
+  IPs de arriba, y 'nuevo_hostname' por el que se quiera utilizar
+ </em>
+</p>
+<h3 id="actualizando-andino">
+ Actualizando Andino
+</h3>
+<p>
+ Para el mismo archivo, también existe una función
+ <code>
+  update
+ </code>
+ , cuyo objetivo es actualizar una instancia 
+ya levantada.
+</p>
+<p>
+ Los parámetros que recibe son exactamente los mismos que para la función de instalación.
+</p>
+<p>
+ <em>
+  Nota: si se desea mantener la configuración de SSL y/o de la caché extendida, es necesario especificarlo utilizando 
+los parámetros correspondientes. No ocurre lo mismo para los archivos del certificado, puesto que son persistidos al 
+instalar Andino.
+ </em>
+</p>
+<h1 id="tests">
+ Tests
+</h1>
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+<h2 id="indice">
+ Indice
+</h2>
+<ul>
+ <li>
+  <a href="#tests-de-ckan">
+   Tests de Ckan
+  </a>
+ </li>
+ <li>
+  <a href="#probar-la-instalacion-con-ssl-en-vagrant-instalando-nginx">
+   Probar la instalación con SSL en Vagrant (Instalando nginx)
+  </a>
+ </li>
+ <li>
+  <a href="#instalacion-de-andino">
+   Instalación de andino
+  </a>
+ </li>
+ <li>
+  <a href="#instalar-y-configurar-nginx">
+   Instalar y configurar nginx
+  </a>
+ </li>
+</ul>
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+<p>
+ Para correr los tests de la aplicación, se deben levantar todos los servicios, y luego inicializar la configuración de test.
+</p>
+<h2 id="tests-de-ckan">
+ Tests de Ckan
+</h2>
+<div class="codehilite">
+ <pre><span></span>$ docker-compose -f dev.yml up --build -d portal
+$ docker <span class="nb">exec</span> andino bash /etc/ckan_init.d/tests/install_solr4.sh    
+$ docker <span class="nb">exec</span> andino bash /etc/ckan_init.d/tests/install_nodejs.sh    
+$ docker <span class="nb">exec</span> andino bash -c <span class="s1">'su -c "bash /etc/ckan_init.d/tests/run_all_tests.sh" -l $USER'</span>
+</pre>
+</div>
+<h2 id="probar-la-instalacion-con-ssl-en-vagrant-instalando-nginx">
+ Probar la instalación con SSL en Vagrant (Instalando nginx)
+</h2>
+<h3 id="instalacion-de-andino">
+ Instalación de andino
+</h3>
+<p>
+ Primero, debemos evitar instalar la aplicación en vagrant, ya que pasaremos un parámetro mas.
+Para eso, modificamos el
+ <code>
+  Vagrantfile
+ </code>
+ cambiando las líneas:
+</p>
+<div class="codehilite">
+ <pre><span></span><span class="gd">-INSTALL_APP = true</span>
+<span class="gd">-UPDATE_APP = !INSTALL_APP</span>
+<span class="gi">+INSTALL_APP = false</span>
+<span class="gi">+UPDATE_APP = false</span>
+</pre>
+</div>
+<p>
+ Y luego levantar la VM con
+ <code>
+  vagrant up
+ </code>
+ .
+</p>
+<p>
+ Luego entramos a la aplicación y corremos el siguiente comando:
+</p>
+<div class="codehilite">
+ <pre><span></span>sudo -E python ./install.py --error_email admin@example.com --site_host 192.168.23.10 --database_user db_user --database_password db_pass --datastore_user data_db_user --datastore_password data_db_pass --nginx_port 127.0.0.1:8000
+</pre>
+</div>
+<p>
+ Esto instalará la aplicación, pero solo la hará accesible desde
+ <code>
+  localhost:8000
+ </code>
+ .
+</p>
+<h3 id="instalar-y-configurar-nginx">
+ Instalar y configurar nginx
+</h3>
+<p>
+ Luego, instalamos
+ <code>
+  nginx
+ </code>
+ en el host
+ <code>
+  sudo apt install nginx
+ </code>
+ .
+</p>
+<p>
+ Generamos los certificados locales:
+</p>
+<div class="codehilite">
+ <pre><span></span>sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/nginx/ssl/andino.key -out /etc/nginx/ssl/andino.crt
+</pre>
+</div>
+<p>
+ Creamos la configuracion de nginx
+ <em>
+  (no apta para producción)
+ </em>
+ en
+ <code>
+  /etc/nginx/sites-available/001-andino.conf
+ </code>
+ :
+</p>
+<div class="codehilite">
+ <pre><span></span><span class="nt">upstream</span> <span class="nt">wsgi_andino</span> <span class="p">{</span>
+  <span class="err">#</span> <span class="err">fail_timeout=0</span> <span class="err">means</span> <span class="err">we</span> <span class="err">always</span> <span class="err">retry</span> <span class="err">an</span> <span class="err">upstream</span> <span class="err">even</span> <span class="err">if</span> <span class="err">it</span> <span class="err">failed</span>
+  <span class="err">#</span> <span class="err">to</span> <span class="err">return</span> <span class="err">a</span> <span class="err">good</span> <span class="err">HTTP</span> <span class="err">response</span> <span class="err">(in</span> <span class="err">case</span> <span class="err">the</span> <span class="err">gunicorn</span> <span class="err">master</span> <span class="err">nukes</span> <span class="err">a</span>
+  <span class="err">#</span> <span class="err">single</span> <span class="err">worker</span> <span class="err">for</span> <span class="err">timing</span> <span class="err">out).</span>
+
+  <span class="err">server</span> <span class="err">127.0.0.1:8000</span> <span class="err">fail_timeout=0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">server</span> <span class="p">{</span>
+    <span class="err">listen</span> <span class="err">80</span><span class="p">;</span>
+    <span class="err">#</span><span class="n">example</span><span class="p">:</span> <span class="n">server_name</span> <span class="n">www</span><span class="o">.</span><span class="n">datos</span><span class="o">.</span><span class="n">gob</span><span class="o">.</span><span class="n">ar</span> <span class="n">datos</span><span class="o">.</span><span class="n">gob</span><span class="o">.</span><span class="n">ar</span><span class="p">;</span>
+    <span class="err">server_name</span> <span class="err">dev.andino.gob.ar</span> <span class="err">dev.andino.gob.ar</span><span class="p">;</span>
+    <span class="err">return</span> <span class="err">301</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="err">$</span><span class="n">host</span><span class="err">$</span><span class="n">request_uri</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">server</span> <span class="p">{</span>
+    <span class="err">listen</span>   <span class="err">443</span><span class="p">;</span>
+    <span class="err">server_name</span> <span class="err">dev.andino.gob.ar</span><span class="p">;</span>
+
+    <span class="err">ssl</span>    <span class="err">on</span><span class="p">;</span>
+    <span class="err">ssl_certificate</span>   <span class="err">/etc/nginx/ssl/andino.crt</span><span class="p">;</span>
+    <span class="err">ssl_certificate_key</span>    <span class="err">/etc/nginx/ssl/andino.key</span><span class="p">;</span>
+
+    <span class="err">client_max_body_size</span> <span class="err">4G</span><span class="p">;</span>
+    <span class="err">keepalive_timeout</span> <span class="err">5</span><span class="p">;</span>
+    <span class="err">location</span> <span class="err">/</span> <span class="err">{</span>
+        <span class="err">proxy_set_header</span> <span class="err">X-Forwarded-For</span> <span class="err">$proxy_add_x_forwarded_for</span><span class="p">;</span>
+        <span class="err">proxy_set_header</span> <span class="err">Host</span> <span class="err">$http_host</span><span class="p">;</span>
+        <span class="err">proxy_set_header</span> <span class="err">X-Forwarded-Protocol</span> <span class="err">https</span><span class="p">;</span>
+        <span class="err">proxy_redirect</span> <span class="err">off</span><span class="p">;</span>
+
+        <span class="err">if</span> <span class="err">(!-f</span> <span class="err">$request_filename)</span> <span class="err">{</span>
+            <span class="err">proxy_pass</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">wsgi_andino</span><span class="p">;</span>
+            <span class="err">break</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="err">}</span>
+    <span class="nt">gzip</span> <span class="nt">on</span><span class="o">;</span>
+    <span class="nt">gzip_disable</span> <span class="s2">"msie6"</span><span class="o">;</span>
+    <span class="nt">gzip_comp_level</span> <span class="nt">6</span><span class="o">;</span>
+    <span class="nt">gzip_types</span> <span class="nt">text</span><span class="o">/</span><span class="nt">plain</span> <span class="nt">text</span><span class="o">/</span><span class="nt">css</span> <span class="nt">application</span><span class="o">/</span><span class="nt">json</span> <span class="nt">application</span><span class="o">/</span><span class="nt">x-javascript</span> <span class="nt">text</span><span class="o">/</span><span class="nt">xml</span> <span class="nt">application</span><span class="o">/</span><span class="nt">xml</span> <span class="nt">application</span><span class="o">/</span><span class="nt">xml</span><span class="o">+</span><span class="nt">rss</span> <span class="nt">text</span><span class="o">/</span><span class="nt">javascript</span><span class="o">;</span>
+
+<span class="err">}</span>
+</pre>
+</div>
+<p>
+ Activamos el sitio:
+</p>
+<div class="codehilite">
+ <pre><span></span>sudo rm /etc/nginx/sites-enabled/default -rf
+sudo ln -s /etc/nginx/sites-available/001-andino.conf /etc/nginx/sites-enabled/001-andino.conf
+
+sudo systemctl restart nginx
+</pre>
+</div>
+<p>
+ Finalmente, accedemos al sitio en http://192.168.23.10:80, y el mismo nos debería redireccionar a la versión
+ <em>
+  https
+ </em>
+ .
+El explorador nos mostrará una advertencia sobre el sitio, ya que no podrá validar los certificados.
+</p>

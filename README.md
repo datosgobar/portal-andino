@@ -1,199 +1,130 @@
-# CKAN Docker
-_El mismo **CKAN** de siempre pero.. bellamente dockerizado...:heart_eyes:_
+## Modificaciones
 
----
-### Indice:
-+ [Que es CKAN?](#que-es-ckan)
-+ [Que es DOCKER?](#que-es-docker)
-+ [Porque CKAN en Docker?](#porque-ckan-en-docker)
-+ [Features](#features)
-+ [Prerequisitos](#prerequisitos)
-    + [DOCKER](#docker)
-    + [GIT TOOLs](#git-tools)
-+ [Instalacion y Ejecucion de CKAN](#instalacion-y-ejecucion-de-ckan)
-    + [Instalacion Simplificada de CKAN](#instalacion-simplificada-de-ckan)
-    + [Instalacion Avanzada de CKAN](#instalacion-avanzada-de-ckan)
-    	+ [Sin builder contenedores](#instalacion-de-ckan-con-contenedores-de-docker-ya-buildeados)
-    	+ [Buildeando contenedores](#instalacion-de-ckan-con-contenedores-de-docker-ya-buildeados)
-    	+ [Usando docker-compose](#instalacion-de-ckan-con-docker-compose)
+Esta versión incluye el stack db-ext.yml para implementar Andino en un DBMS fuera del stack, ya sea otro stack docker o un server dedicado.
+La implementación requirió adapatar algunos script para inicializar la DB externa o para reindexar las colecciones de Solr
 
----
+# Portal Andino
 
-## Que es CKAN?
-Comprehensive Knowledge Archive Network (CKAN) es una aplicación web de código abierto para el almacenamiento y la distribución de los datos, tales como hojas de cálculo y los contenidos de las bases de datos. Está inspirado en las capacidades de gestión de paquetes comunes para abrir sistemas operativos, como Linux, y está destinado a ser el "apt-get de Debian para los datos". _Fuente: [wikipedia](https://es.wikipedia.org/wiki/CKAN)_
+[![Build Status](https://travis-ci.org/datosgobar/portal-andino.svg?branch=master)](https://travis-ci.org/datosgobar/portal-andino)
+[![Docs Status](https://datosgobar.github.io/portal-andino/)](https://datosgobar.github.io/portal-andino/)
+[![GitHub version](https://badge.fury.io/gh/datosgobar%2Fportal-andino.svg)](https://badge.fury.io/gh/datosgobar%2Fportal-andino)
 
-_...Mas informacion sobre CKAN?... Obvio! [Documentacion Oficial de CKAN](http://docs.ckan.org/en/latest/)_
+Implementación de CKAN en Docker, desarrollada en el contexto del portal distribuible Andino.
 
-## Que es DOCKER?
-es un proyecto de código abierto que automatiza el despliegue de aplicaciones dentro de contenedores de software, proporcionando una capa adicional de abstracción y automatización de Virtualización a nivel de sistema operativo en Linux. _Fuente: [wikipedia](https://es.wikipedia.org/wiki/Docker_(software))_
+También podés [ver el repositorio del tema visual](https://github.com/datosgobar/portal-andino-theme).
 
-_...Deseas saber mas sobre docker? Genial! Docker posee una documentacion excelente y podes verla [aqui](https://docs.docker.com/)_
+## Índice
 
-## Porque CKAN en Docker?
++ [Qué contiene el paquete de Andino](#qué-contiene-el-paquete-de-andino)
++ [Instalación](#instalación)
++ [Migración](#migración)
++ [Uso](#uso)
++ [Créditos](#créditos)
++ [Contacto](#contacto)
 
-_Porque SI! :sunglasses:... Nah! esta en la TODO-LIST!_
+## Qué contiene el paquete de Andino
 
-## Con que cuenta esta version de CKAN?
-	
-Features:
-+ [CKAN 2.5.2](http://docs.ckan.org/en/ckan-2.5.2/)
++ [CKAN 2.7.5](https://docs.ckan.org/en/2.7/changelog.html#v2-7-5-2018-12-12)
 + [Datastore](http://docs.ckan.org/en/latest/maintaining/datastore.html)
 + [FileStore](http://docs.ckan.org/en/latest/maintaining/filestore.html)
 + [Datapusher](https://github.com/ckan/datapusher)
++ [Xloader](https://github.com/ckan/ckanext-xloader)
++ [Security](https://github.com/data-govt-nz/ckanext-security)
 + [Hierarchy](https://github.com/datagovuk/ckanext-hierarchy)
++ [datajsonAR](https://github.com/datosgobar/ckanext-datajsonAR)
 + [Harvest](https://github.com/ckan/ckanext-harvest)
-+ [dataJSON](github.com/GSA/ckanext-datajson)
-+ [GobAr-theme](https://github.com/gobabiertoAR/datos.gob.ar/blob/master/docs/03_instalacion_tema_visual.md) | [Demo](http://http://datos.gob.ar/) 
++ [Portal Andino theme](https://github.com/datosgobar/portal-andino-theme)
 + [Apache2 & NginX](http://docs.ckan.org/en/ckan-2.5.2/maintaining/installing/deployment.html#install-apache-modwsgi-modrpaf)
 
 
-## Prerequisitos:
+### Dependencias
 
-### DOCKER:
++ DOCKER: [Guía de instalación](https://docs.docker.com/engine/installation).
++ Docker Compose: [Guía de instalación](https://docs.docker.com/compose/install/)
 
-+ Docker para [OSX](https://docs.docker.com/docker-for-mac).
-+ Docker para [Ubuntu/Debian](https://github.com/JoseSalgado1024/ckan_in_docker/blob/master/aux-docs/docker_Ubuntu-Debian.md).
-+ Docker para [RHEL/CentOS](https://github.com/JoseSalgado1024/ckan_in_docker/blob/master/aux-docs/docker_rhel-centos.md).
-+ Docker para [Windows](https://docs.docker.com/engine/installation/windows).
+### ¿Qué contenedores vas a instalar?
 
-
-### GIT TOOLS
-_(...All you need is Git...)_:
-	
-+ Windows:
-_Descargar e Instalar desde:_
-
-		https://github.com/git-for-windows/git/releases/tag/v2.10.0.windows.1
-
-+ Ubuntu/Debian:
-
-		$ sudo su -c "apt-get -y install git-core"
-
-+ RHEL/CentOS:
-
-		$ yum update && yum install -y curl-devel expat-devel gettext-devel openssl-devel zlib-devel
-		$ yum install -y git-core
-
-+ OSX:
-
-	    $ sudo port install git-core +svn +doc +bash_completion +gitweb
-
-## Instalacion y Ejecucion de CKAN
-
-_En funcion a la probable dificultad de implementacion e incluso, la cantidad de pasos a realizar para lograr un deploy existoso, existen dos formas de instalar esta distribución de **CKAN**. Si no tenes muchos conocimientos de CKAN, Docker o de administracion de servidores en general, muy posiblemente, deberias utilizar la instalacion **[Simplificada  de CKAN](#instalacion-simplificada-de-ckan)**, la cual, esta pensada para que en la menor cantidad de pasos y de manera sencilla, tengas un Portal de Datos Funciona (Y muy bello :D). Ahora si por ejemplo, ya conoces la plataforma, tenes experiencia con Docker o simplemente, queres entender como es que funciona esta implementacion, te sugiero que revises la **[Instalacion Avanzada de CKAN](#instalacion-avanzada-de-ckan)**_
++ Andino:
+  + Packages | Service:
+    + Imagen base: ubuntu xenial 14.04
+    + Apache 2 | WSGI MOD
+    + CKAN 2.7.5
+  + Plugins:
+    + stats 
+    + text_view 
+    + image_view 
+    + recline_view
+    + dcat
+    + structured_data 
+    + Explorer de series de tiempo
+    + Google Analytics
+    + DataStore
+    + FileStore
+    + Datapusher
+    + DataJSONAR
+    + Andino Theme
+    + Harvest
+    + Hierarchy
++ Nginx:
+  + Package | Service:
+    + Imagen base: `nginx:1.11.9`
+    + Nginx 1.11
+  + Modificaciones:
+    + Configuración para caché de CKAN
++ Postfix:
+  + Package | Service:
+    + Imagen base: `ubuntu:trusty`
+    + Postfix
++ Redis:
+  + Package | Service:
+    + Imagen base: `alpine:3.5`
+    + Redis: 2.3.7
++ PostgreSQL:
+  + Packages | Service:
+    + Imagen base: `debian:jessie`
+    + PostgreSQL 9.5
++ Solr:
+  + Package | Service
+    + Imagen base: `solr:6.0`
+    + Solr 6.0
+  + Plugins:
+    + CKAN_Schema 2.2+(Hierarchy-Mig)
 
 ---
 
-### Instalacion Simplificada de CKAN:
+## Instalación
 
-_La idea detras de esta implementacion de CKAN, es que **SOLO** te encargues de tus datos, nada mas, por tanto, dependiendo de que OS usas, podes seleccionar un script de auto-deploy. La misma, te guiara casi de manera automatica por todo el proceso de instalacion realizando minimas preguntas e incluso "explicando" que se realiza que cada paso._
+Ver documentación de [instalación](https://datosgobar.github.io/portal-andino/developers/install/)
 
-+ Ubuntu|Debian:
+## Instalación en una DB externa
 
-		sudo su -c "cd /tmp && git clone https://github.com/datosgobar/ckan_in_a_box.git && cd /tmp/ckan_in_docker/auto-deploy/ && ./ubuntu-debian_auto-deploy.sh; rm -f -r /tmp/ckan_in_docker"
+Ver documentación de [instalación](https://github.com/datosgcba/portal-andino/tree/desarrollo/install/db-ext)
 
+## Migración
 
-+ RHEL|CentOS:
+Ver documentación de [migración](https://datosgobar.github.io/portal-andino/developers/migration/)
 
-		sudo su -c "cd /tmp && git clone https://github.com/datosgobar/ckan_in_a_box.git && cd /tmp/ckan_in_docker/auto-deploy/ && ./rhel-centos_auto-deploy.sh; rm -f -r /tmp/ckan_in_docker"
+## Uso
 
----
-
-### Instalacion Avanzada de CKAN
-#### Instalacion de CKAN con contenedores de Docker ya buildeados
-	
-_Para esta clase de instalacion, no es necesario clonar el repo, dado que usaremos contenedores alojados en [DockerHub](https://hub.docker.com/) y el proceso de instalacion se divide en tres pasos.
-
-+ Paso 1: Descargar contenedores:
-
-		$ docker pull datosgobar/pg-ckan:latest
-		$ docker pull datosgobar/solr:latest
-		$ docker pull datosgobar/ckan-distribuilble:latest
-
-+ Paso 2: Lanzamiento de Solr y PG
-
-		$ docker run -d --name solr datosgobar/solr:latest
-		$ docker run -d --name pg-ckan datosgobar/pg-ckan:latest 
-
-+ Paso 3:
-
-		$ docker run -d -p 80:80 -p 8800:8800 --link solr:solr --link pg-ckan:db --name ckan-distribuilble datosgobar/ckan-distribuilble:latest 
-
-+ Paso 4, Usuario Admin y Bind:
-
-		# Add USER ADMIN
-		$ docker exec -it ckan-distribuilble /bin/bash -c "$CKAN_HOME/bin/paster --plugin=ckan sysadmin add ckan_admin -c /etc/ckan/default/production.ini"
-		# BIND CKAN
-		$ docker exec -it ckan-distribuilble /bin/bash -c '$CKAN_HOME/bin/paster --plugin=ckan config-tool /etc/ckan/default/production.ini -e "ckan.site_url = http://tu_dominio.com.ar" "ckan.datapusher.url = http://tu_dominio.com.ar:8800"'
+Ver la documentacion de [uso](https://datosgobar.github.io/portal-andino/developers/maintenance/)
 
 
-_Nota: el paso 1 y 2 es redundante, bien podriamos solo hacer docker run ..., dado que si docker no cuenta con la imagen localmente, la descarga dentro de un <code>docker run <args> image_owner/image_name:tag</code>_
+## Créditos
 
-+ Instalacion de CKAN usando Dockerfiles
+Este trabajo está inspirado en el desarrollo hecho por:
 
-_Para instalar y ejecutar CKAN-Docker, debemos seguir los siguientes pasos:_
++ [CKAN.org](https://github.com/ckan/ckan/)
++ [Eccenca](https://github.com/eccenca/ckan-docker)
 
-+ Paso 1: Clonar Repositorio. 
-_Es recomendable clonar el repo dentro de /tmp (o C:\temp en **Windows X**), dado que al finalizar la instalacion, no usaremos mas el repositorio_.
-		
-		$ cd /tmp # en Linux, en Windows, usar cd C:\temp
-		$ git clone https://github.com/datosgobar/ckan_in_a_box.git
+## Consultas sobre Andino
 
-+ Paso 2: _construir y lanzar el contenedor de **PostgreSQL** usando el Dockerfile hubicado en **postgresql-img/**._ 
+**Andino es un portal abierto en constante desarrollo** para ser usado por toda la comunidad de datos. Por eso, cuando incorporamos una nueva mejora, **cuidamos mucho su compatibilidad con la versión anterior**.
 
-		$ cd /tmp/ckan_in_docker/postgresql-img/
-		$ docker build -t datosgobar/postgresql:latest . && docker run -d --name pg-ckan datosgobar/pg-ckan:latest
+Como la comunidad de datos es grande, **por ahora no podemos dar soporte técnico frente a modificaciones particulares del código**. Sin embargo, **podés contactarnos para despejar dudas**. 
 
+## Contacto
 
-+ Paso 3: _construir y lanzar el contenedor de **Solr** usando el Dockerfile hubicado en **solr-img/**._
+Te invitamos a [crearnos un issue](https://github.com/datosgobar/portal-andino-theme/issues/new?title=Encontre%20un%20bug%20en%20nombre-del-repo) en caso de que encuentres algún bug o tengas feedback de alguna parte de `portal-andino-theme`.
 
-		$ cd /tmp/ckan_in_docker/solr-img/ 
-		$ docker build -t datosgobar/solr:latest . && docker run -d  --name solr datosgobar/solr:latest
+Para todo lo demás, podés mandarnos tu comentario o consulta a [datos@modernizacion.gob.ar](mailto:datos@modernizacion.gob.ar).
 
-+ Paso 4: _construir el contenedor de **ckan** usando el Dockerfile hubicado en ckan-img/._
-
-		$ cd /tmp/ckan_in_a_box/ckan-img
-		$ docker build -t datosgobar/ckan-distribuilble:latest .
-
-+ Paso 5: _Correr contenedor  de **CKAN**_
-		
-		$ docker run -d --link pg-ckan:db --link solr:solr -p 80:80 -p 8800:8800 --name ckan-distribuilble datosgobar/ckan-distribuilble:latest
-
-+ Paso 6(Opcional): _Crear usuario administrador **ckan_admin**_
-		
-			# Add USER ADMIN
-			$ docker exec -it ckan-distribuilble /bin/bash -c "$CKAN_HOME/bin/paster --plugin=ckan sysadmin add ckan_admin -c /etc/ckan/default/production.ini"
-			# ---
-			# BIND CKAN
-			$ docker exec -it ckan-distribuilble /bin/bash -c "$CKAN_HOME/bin/paster --plugin=ckan config-tool /etc/ckan/default/production.ini -e 'ckan.site_url = http://tu_dominio.com.ar' 'ckan.datapusher.url = http://tu_dominio.com.ar:8800'"
-
-+ Instalacion de CKAN con **docker-compose.yml**
-
-+ Pre-Requisitos: Instalar docker-compose:
-
-            pip install docker-compose # Facil no? :D
-	    	# ...no tenes pip?.. no importa!	
-	    	# Instalar pip
-		    # sudo su -c "apt-get update && apt-get install python-pip" 
-
-+ Instalacion:
-	+ Paso 1, Clonar repositorio:
-
-            git clone https://github.com/datosgobar/ckan_in_a_box.git /tmp/ckan_in_a_box
-
-	+ Paso 2, Lanzar:
-
-			cd /tmp/ckan_in_a_box
-			docker-compose up -d
-
-	+ Paso 3, Final:
-
-			# Add USER ADMIN
-			$ docker exec -it ckan-distribuilble /bin/bash -c "$CKAN_HOME/bin/paster --plugin=ckan sysadmin add ckan_admin -c /etc/ckan/default/production.ini"
-			# BIND CKAN
-			$ docker exec -it ckan-distribuilble /bin/bash -c '$CKAN_HOME/bin/paster --plugin=ckan config-tool /etc/ckan/default/production.ini -e "ckan.site_url = http://tu_dominio.com.ar" "ckan.datapusher.url = http://tu_dominio.com.ar:8800"'
-
-
-...ahora... a tomarse un cafe!, te lo ganaste, tenes un portal hermoso :coffee::heart_eyes:
-
---- 
