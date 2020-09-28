@@ -62,6 +62,7 @@ export PGHOST="$database_host"
 export PGPORT="$database_port"
 export PGDATABASE=ckan
 export DATASTORE_DB=datastore_default
+export SITE_HOST=$site_host
 export PGUSER="$database_user"
 export PGPASSWORD="$database_password"
 
