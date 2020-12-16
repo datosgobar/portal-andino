@@ -2,6 +2,14 @@
 
 # Portal Andino
 
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/datosgobar/portal-andino?style=plastic)
+![GitHub](https://img.shields.io/github/license/datosgobar/portal-andino)
+![Docker Automated build](https://img.shields.io/docker/automated/datosgobar/portal-andino)
+![Docker Stars](https://img.shields.io/docker/stars/datosgobar/portal-andino)
+![GitHub language count](https://img.shields.io/github/languages/count/datosgobar/portal-andino)
+![GitHub last commit](https://img.shields.io/github/last-commit/datosgobar/portal-andino)
+![GitHub contributors](https://img.shields.io/github/contributors/datosgobar/portal-andino)
+
 ## Índice
 
 + [Que es andino](#qué-es-andino)
@@ -20,14 +28,6 @@ Andino es un portal redistribuible desarrollado por el equipo de Datos Argentina
 ## Para qué sirve Andino
 Andino es un portal diseñado para facilitar el proceso de publicación, navegación y descarga de los datos que abren los organismos. <br>
 Evoluciona junto con la política de apertura de datos y te facilita cumplir con el Perfil Nacional de Metadatos. Además, ¡es fácil de instalar!
-
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/datosgobar/portal-andino?style=plastic)
-![GitHub](https://img.shields.io/github/license/datosgobar/portal-andino)
-![Docker Automated build](https://img.shields.io/docker/automated/datosgobar/portal-andino)
-![Docker Stars](https://img.shields.io/docker/stars/datosgobar/portal-andino)
-![GitHub language count](https://img.shields.io/github/languages/count/datosgobar/portal-andino)
-![GitHub last commit](https://img.shields.io/github/last-commit/datosgobar/portal-andino)
-![GitHub contributors](https://img.shields.io/github/contributors/datosgobar/portal-andino)
 
 Implementación de CKAN en Docker, desarrollada en el contexto del portal distribuible Andino.
 
