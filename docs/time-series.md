@@ -369,7 +369,7 @@ El resto de las columnas a documentar son las series de tiempo.
 
 ## 3. Dar aviso a Datos Argentina
 
-Una vez que documentaste un nuevo recurso de series de tiempo, escribinos a [datos@modernizacion.gob.ar](mailto:datos@modernizacion.gob.ar) para que lo federemos en la API y te ayudemos a resolver cualquier problema!
+Una vez que documentaste un nuevo recurso de series de tiempo, escribinos a [datosargentina@jefatura.gob.ar](mailto:datosargentina@jefatura.gob.ar) para que lo federemos en la API y te ayudemos a resolver cualquier problema!
 
 A partir de que se federa por primera vez, la API revisará automáticamente 4 veces por día el archivo CSV y los metadatos para reflejar cualquier cambio que hagas.
 

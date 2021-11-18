@@ -391,7 +391,7 @@ Hacer que tu portal represente tu organización es muy fácil. Por favor, **and�
 
 ## Integrar Andino con Google Analytics
 
-Por favor, [escribinos](mailto:datos@modernizacion.gob.ar) y contanos con qué casilla de e-mail querés tener permisos para ver las métricas de tu Andino. 
+Por favor, [escribinos](mailto:datosargentina@jefatura.gob.ar) y contanos con qué casilla de e-mail querés tener permisos para ver las métricas de tu Andino. 
 
 ***
 
@@ -401,7 +401,7 @@ Por favor, [escribinos](mailto:datos@modernizacion.gob.ar) y contanos con qué c
 
 Como la comunidad de datos es grande, **por ahora no podemos dar soporte técnico frente a modificaciones particulares del código**. Sin embargo, **podés contactarnos para despejar dudas**. 
 
-Te invitamos a crear issues o enviarnos sugerencias en caso de que encuentren algún _bug_ o _tengas feedback_. También podés mandarnos tu comentario o consulta a datos@modernizacion.gob.ar
+Te invitamos a crear issues o enviarnos sugerencias en caso de que encuentren algún _bug_ o _tengas feedback_. También podés mandarnos tu comentario o consulta a datosargentina@jefatura.gob.ar
  
 ***
 
