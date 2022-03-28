@@ -801,6 +801,8 @@ sudo su -c <span class="s2">&quot;echo NGINX_HOST_PORT=80 &gt;&gt; .env&quot;</s
 sudo su -c <span class="s2">&quot;echo DATASTORE_HOST_PORT=8800 &gt;&gt; .env&quot;</span>
 sudo su -c <span class="s2">&quot;echo maildomain=</span><span class="nv">$DOMINIO</span><span class="s2"> &gt;&gt; .env&quot;</span>
 sudo su -c <span class="s2">&quot;echo ANDINO_TAG=</span><span class="nv">$ANDINO_VERSION</span><span class="s2"> &gt;&gt; .env&quot;</span>
+sudo su -c <span class="s2">&quot;echo NGINX_HOST_SSL_PORT=</span><span class="nv">443</span><span class="s2"> &gt;&gt; .env&quot;</span>
+sudo su -c <span class="s2">&quot;echo SITE_HOST=</span><span class="nv">$DOMINIO</span><span class="s2"> &gt;&gt; .env&quot;</span>
 </pre></div>
 
 
@@ -822,7 +824,7 @@ docker-compose -f latest.yml <span class="nb">exec</span> portal /etc/ckan_init.
 
 
 <ul>
-<li>Paso 8: Construir el contenedor de <strong>nginx</strong> usando el archivo <strong>latest.yml</strong>: `docker-compose -f latest.yml up -d nginx</li>
+<li>Paso 6: Construir el contenedor de <strong>nginx</strong> usando el archivo <strong>latest.yml</strong>: `docker-compose -f latest.yml up -d nginx</li>
 </ul>
 <h2 id="desinstalar-andino">Desinstalar andino</h2>
 <p>Esta secuencia de comandos va a ELIMINAR TODOS LOS CONTENEDORES, IMÁGENES y VOLUMENES de la aplicación de la vm donde 
