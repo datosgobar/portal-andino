@@ -29,7 +29,7 @@ También podés [ver el repositorio del tema visual](https://github.com/datosgob
 + [datajsonAR](https://github.com/datosgobar/ckanext-datajsonAR)
 + [Harvest](https://github.com/ckan/ckanext-harvest)
 + [Portal Andino theme](https://github.com/datosgobar/portal-andino-theme)
-+ [Apache2 & NginX](http://docs.ckan.org/en/ckan-2.5.2/maintaining/installing/deployment.html#install-apache-modwsgi-modrpaf)
++ [Apache2 & NginX](http://docs.ckan.org/en/2.5/maintaining/installing/deployment.html#install-apache-modwsgi-modrpaf)
 
 
 ### Dependencias
