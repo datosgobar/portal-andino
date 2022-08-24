@@ -129,7 +129,7 @@ class Updater(InstallationManager):
 
     def run_configuration_scripts(self):
         self.logger.info("Corriendo comandos post-instalación...")
-        current_plugins = self.get_config_file_field("ckan.plugins")
+        current_plugins = self.get_config_file_field("ckan.plugins").decode()
         plugins_to_remove = "datajson_harvest datajson harvest ckan_harvester "
         current_plugins = current_plugins.replace(plugins_to_remove, '')
         try:
