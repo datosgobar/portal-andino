@@ -685,6 +685,14 @@ esta implementación, te sugiero que revises la <strong><a href="#instalacion-av
 <li>Versión mínima <em>testeada</em>: <code>1.13.1</code></li>
 <li>Docker Compose: <a href="https://docs.docker.com/compose/install/">Guía de instalación</a>.</li>
 <li>Versión mínima <em>testeada</em>: <code>1.12.0</code></li>
+<li>En caso de contar únicamente con la version más moderna de Docker compose (Docker compose V2 integrada en  Docker Engine e invocable mediante el comando <code>$docker compose</code>
+    , es  decir sin el guión intermedio) es necesario  instalar la version standalone de docker compose siguiendo
+    las <a href="#adaptacion-composeV2">Instrucciones para adaptar scripts a Docker Compose V2</a>, que  son  un extracto de la documentación oficial de docker
+    (Ver apartado 'Compose standalone' en <a href="https://docs.docker.com/compose/install/compose-plugin/#install-the-plugin-manually">Install the plugin manually</a>).
+</li>
+<li>
+    Python: Es necesario tener instalada cualquier versión de Python 3 para poder utilizar los scripts de instalacion simplificada.
+</li>
 </ul>
 <h2 id="instalacion-simplificada-de-andino">Instalación simplificada de andino</h2>
 <p>La idea detrás de esta implementación de CKAN es <strong>que sólo te encargues de tus datos</strong>, nada más. 
@@ -771,7 +779,31 @@ sudo python ./install.py <span class="se">\</span>
     --datastore_user<span class="o">=</span><span class="s2">&quot;</span><span class="nv">$STORE_USER</span><span class="s2">&quot;</span> <span class="se">\</span>
     --datastore_password<span class="o">=</span><span class="s2">&quot;</span><span class="nv">$STORE_PASS</span><span class="s2">&quot;</span>
 </pre></div>
-
+                <h2 id="adaptacion-composeV2">Instrucciones para adaptar scripts a Docker Compose V2</h2>
+                <p>Los scripts de instalación  y actualización simplificada utilizan/invocan a Compose siguiendo la interfaz de  docker compose V1 , es decir utilizando la
+                    notación  <code>docker-compose ${COMMAND} ${OPTIONS}</code>.
+                </p>
+                <p>Si el sistema donde se instalará Andino sólo dispone de  compose  V2, se debe contar con un comando reconocible según la sintaxis correspondiente  a V1 (docker-compose)
+                    que apunte al binario de la versión de docker instalada. Esto se puede hacer siguiendo las instrucciones de instalación de la versión  standalone en la documentación de docker compose, que replicamos a continuación:
+                </p>
+                <div class="codehilite">
+  <pre><span></span>$curl -SL https://github.com/docker/compose/releases/download/v2.7.0/docker-compose-linux-x86_64 -o /usr/local/bin/docker-compose
+  </pre>
+    </div>
+    <p>A continuación debemos darle permisos de ejecución al archivo mediante</p>
+    <div class="codehilite">
+  <pre><span></span>sudo chmod 755 /usr/local/bin/docker-compose
+    </pre>
+    </div>
+    <p>Una vez hecho el paso anterior , se puede chequear el correcto funcionamiento  invocando el comando junto al flag de chequeo  de versión.
+        Debería verse algo parecido al siguiente snippet, por supuesto con el detalle de que la versión indicada será la correspondiente.
+    </p>
+    <div>
+    <pre><span></span>$ docker-compose --version
+      Docker Compose version v2.7.0
+    </pre>
+</div>
+<p>Para ver instrucciones sobre este mismo procedimiento en Windows Server u otras alternativas de instalacion consultar  apartado 'Compose standalone' en <a href="https://docs.docker.com/compose/install/compose-plugin/#install-the-plugin-manually">Install the plugin manually</a> </p>
 
 <h2 id="instalacion-avanzada-de-andino">Instalación avanzada de andino</h2>
 <p>La instalación avanzada está pensada para usuarios que quieren ver cómo funciona internamente <code>Andino</code></p>
