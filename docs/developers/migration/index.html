@@ -996,13 +996,13 @@ sleep <span class="m">10</span><span class="p">;</span>
 
 gzip -dkc &lt; <span class="nv">$database_backup</span> &gt; <span class="s2">&quot;</span><span class="nv">$restorefile</span><span class="s2">&quot;</span><span class="p">;</span>
 <span class="nb">echo</span> <span class="s2">&quot;Borrando base de datos actual.&quot;</span>
-docker <span class="nb">exec</span> <span class="nv">$container</span> psql -U postgres -c <span class="s2">&quot;DROP DATABASE IF EXISTS ckan;&quot;</span>
-docker <span class="nb">exec</span> <span class="nv">$container</span> psql -U postgres -c <span class="s2">&quot;DROP DATABASE IF EXISTS datastore_default;&quot;</span>
+docker <span class="nb">exec</span> <span class="nv">$container</span> psql -U </span><span class="nv">$DB_USER</span><span class="s2"> -d postgres -c <span class="s2">&quot;DROP DATABASE IF EXISTS ckan;&quot;</span>
+docker <span class="nb">exec</span> <span class="nv">$container</span> psql -U </span><span class="nv">$DB_USER</span><span class="s2"> -d postgres -c <span class="s2">&quot;DROP DATABASE IF EXISTS datastore_default;&quot;</span>
 <span class="nb">echo</span> <span class="s2">&quot;Restaurando la base de datos desde: </span><span class="nv">$restorefile</span><span class="s2">&quot;</span>
 cat <span class="s2">&quot;</span><span class="nv">$restorefile</span><span class="s2">&quot;</span> <span class="p">|</span> docker <span class="nb">exec</span> -i <span class="nv">$container</span> psql -U postgres
 <span class="nb">echo</span> <span class="s2">&quot;Recuperando credenciales de los usuarios&quot;</span>
-docker <span class="nb">exec</span>  <span class="nv">$container</span> psql -U postgres -c <span class="s2">&quot;ALTER USER </span><span class="nv">$DB_USER</span><span class="s2"> WITH PASSWORD &#39;</span><span class="nv">$DB_PASS</span><span class="s2">&#39;;&quot;</span>
-docker <span class="nb">exec</span>  <span class="nv">$container</span> psql -U postgres -c <span class="s2">&quot;ALTER USER </span><span class="nv">$STORE_USER</span><span class="s2"> WITH PASSWORD &#39;</span><span class="nv">$STORE_PASS</span><span class="s2">&#39;;&quot;</span>
+docker <span class="nb">exec</span>  <span class="nv">$container</span> psql -U </span><span class="nv">$DB_USER</span><span class="s2"> -d postgres -c <span class="s2">&quot;ALTER USER </span><span class="nv">$DB_USER</span><span class="s2"> WITH PASSWORD &#39;</span><span class="nv">$DB_PASS</span><span class="s2">&#39;;&quot;</span>
+docker <span class="nb">exec</span>  <span class="nv">$container</span> psql -U </span><span class="nv">$DB_USER</span><span class="s2"> -d postgres -c <span class="s2">&quot;ALTER USER </span><span class="nv">$STORE_USER</span><span class="s2"> WITH PASSWORD &#39;</span><span class="nv">$STORE_PASS</span><span class="s2">&#39;;&quot;</span>
 
 <span class="nb">echo</span> <span class="s2">&quot;Restauración lista.&quot;</span>
 <span class="nb">echo</span> <span class="s2">&quot;Reiniciando servicios.&quot;</span>
