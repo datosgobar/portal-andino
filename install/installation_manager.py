@@ -22,6 +22,7 @@ class InstallationManager(object):
         self.logger = self.build_logger()
         self.site_url = ''
         self.stable_version_path = path.join(self.get_install_directory(), "stable_version.yml")
+        self.compose_cmd = 'docker-compose'
 
     def build_logger(self):
         formatter = logging.Formatter('[ %(levelname)s ] %(message)s')
@@ -38,7 +39,7 @@ class InstallationManager(object):
     def run_compose_command(self, cmd):
         chdir(self.get_install_directory())
         output = self.run_with_subprocess(
-            "sudo docker-compose {0} {1}".format(self.convert_compose_files_to_flags(), cmd))
+            "sudo {0} {1} {2}".format(self.compose_cmd, self.convert_compose_files_to_flags(), cmd))
         chdir(getcwd())
         return output
 
@@ -61,7 +62,11 @@ class InstallationManager(object):
         self.run_with_subprocess("docker ps")
 
     def check_compose(self):
-        self.run_with_subprocess("docker-compose --version")
+        try:
+            self.run_with_subprocess("docker-compose --version")
+        except subprocess.CalledProcessError:
+            self.compose_cmd = 'docker compose'
+            self.run_with_subprocess("docker compose --version")
 
     def read_env_file_data(self):
         env_file = ".env"
@@ -100,7 +105,7 @@ class InstallationManager(object):
         self.run_with_subprocess("curl {0} --fail --output {1}".format(download_url, file_path))
 
     def set_compose_files(self):
-        parent_directory = os.path.abspath(os.path.join(str(self.run_with_subprocess('pwd')), os.pardir))
+        parent_directory = os.path.abspath(os.path.join(str(self.run_with_subprocess('pwd').decode('utf-8').strip()), os.pardir))
         for file in self.compose_files:
             local_compose_file_path = path.join(parent_directory, file)
             dest_compose_file_path = path.join(self.get_install_directory(), file)
