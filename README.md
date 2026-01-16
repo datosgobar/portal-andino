@@ -1,21 +1,42 @@
+![Andino](http://andino.datos.gob.ar/app/img/logo-andino.svg)
+
 # Portal Andino
 
-[![Build Status](https://travis-ci.org/datosgobar/portal-andino.svg?branch=master)](https://travis-ci.org/datosgobar/portal-andino)
-[![Docs Status](https://datosgobar.github.io/portal-andino/)](https://datosgobar.github.io/portal-andino/)
-[![GitHub version](https://badge.fury.io/gh/datosgobar%2Fportal-andino.svg)](https://badge.fury.io/gh/datosgobar%2Fportal-andino)
-
-Implementación de CKAN en Docker, desarrollada en el contexto del portal distribuible Andino.
-
-También podés [ver el repositorio del tema visual](https://github.com/datosgobar/portal-andino-theme).
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/datosgobar/portal-andino?style=plastic)
+![GitHub](https://img.shields.io/github/license/datosgobar/portal-andino)
+![Docker Automated build](https://img.shields.io/docker/automated/datosgobar/portal-andino)
+![Docker Stars](https://img.shields.io/docker/stars/datosgobar/portal-andino)
+![GitHub language count](https://img.shields.io/github/languages/count/datosgobar/portal-andino)
+![GitHub last commit](https://img.shields.io/github/last-commit/datosgobar/portal-andino)
+![GitHub contributors](https://img.shields.io/github/contributors/datosgobar/portal-andino)
 
 ## Índice
 
++ [Que es andino](#qué-es-andino)
++ [Para qué sirve Andino](#para-qué-sirve-andino)
 + [Qué contiene el paquete de Andino](#qué-contiene-el-paquete-de-andino)
 + [Instalación](#instalación)
 + [Migración](#migración)
 + [Uso](#uso)
 + [Créditos](#créditos)
 + [Contacto](#contacto)
+
+## Qué es Andino
+
+Andino es un portal redistribuible desarrollado por el equipo de Datos Argentina para ayudar a los organismos del Estado en el proceso de apertura de sus datos.
+
+## Para qué sirve Andino
+Andino es un portal diseñado para facilitar el proceso de publicación, navegación y descarga de los datos que abren los organismos. <br>
+Evoluciona junto con la política de apertura de datos y te facilita cumplir con el Perfil Nacional de Metadatos. Además, ¡es fácil de instalar!
+
+Implementación de CKAN en Docker, desarrollada en el contexto del portal distribuible Andino.
+
+También podés [ver el repositorio del tema visual](https://github.com/datosgobar/portal-andino-theme).
+
+
+![Andino](https://datosgobar.github.io/portal-andino/assets/portal-andino-sec-acerca.png)
+![Andino](https://datosgobar.github.io/portal-andino/assets/portal-andino-sec-acerca-02.png)
+
 
 ## Qué contiene el paquete de Andino
 
@@ -118,4 +139,10 @@ Como la comunidad de datos es grande, **por ahora no podemos dar soporte técnic
 Te invitamos a [crearnos un issue](https://github.com/datosgobar/portal-andino-theme/issues/new?title=Encontre%20un%20bug%20en%20nombre-del-repo) en caso de que encuentres algún bug o tengas feedback de alguna parte de `portal-andino-theme`.
 
 Para todo lo demás, podés mandarnos tu comentario o consulta a [datosargentina@jefatura.gob.ar](mailto:datosargentina@jefatura.gob.ar).
+
+## Licencia
+
+[MIT License](https://github.com/datosgobar/portal-andino/blob/master/LICENSE)
+
+Copyright (c) 2016 Dirección Nacional de Datos e Información Pública
 
